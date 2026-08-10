@@ -450,56 +450,45 @@ Wszystkie dokumenty koncepcyjne repozytorium są uporządkowane pod `docs/`:
 
 Ta struktura zastępuje wcześniejszy stan, w którym ponad 30 plików leżało luźno w katalogu głównym repozytorium (część z nich nawet bez rozszerzenia `.md`, np. `MASTER DIAGRAM TIMDR`, `N — Operatory matematyczne TIMDR`). Przy okazji porządkowania usunięto dwa martwe pliki (`constants.md` w katalogu głównym — dokładny duplikat `docs/constants.md`; pusty plik `models`) oraz scalono dwa przypadki zduplikowanej treści (`TIMDR-T-operator.md` miało dwie rozbieżne wersje — zachowano pełniejszą; `Diagram F` istniał jako urwany szkielet w jednym miejscu i pełna treść w drugim — zachowano pełną).
 
-## DIAGRAM TOPOLOGII SYGNAŁU
+---
 
-                         ┌──────────────────────────┐
-                         │      SYGNAŁ / DANE       │
-                         │   S(t), S'(t), punkty P   │
-                         └─────────────┬────────────┘
-                                       │
-                                       ▼
-                    ┌────────────────────────────────────┐
-                    │      WARSTWA TOPOLOGICZNA          │
-                    └────────────────────────────────────┘
-                                       │
-        ┌──────────────────────────────┼──────────────────────────────┐
-        ▼                              ▼                              ▼
-┌────────────────┐            ┌────────────────┐            ┌────────────────┐
-│  TIMDR          │            │  TRM           │            │  GIA           │
-│  ZMIANA         │            │  SPÓJNOŚĆ      │            │  KIERUNEK      │
-│────────────────│            │────────────────│            │────────────────│
-│ Skręt (T)       │            │ Sąsiedztwo x   │            │ PCA → v_max    │
-│ Defekt (D)      │            │ Sąsiedztwo t   │            │ Tor informacji │
-│ Rezonans (R)    │            │ Gęstość N(p)   │            │ Trajektoria    │
-│────────────────│            │────────────────│            │────────────────│
-│ Zmiana kształtu │            │ Struktura      │            │ Kierunek       │
-│ Topologia lokalna│           │ Topologia x–t  │            │ Topologia traj.│
-└────────────────┘            └────────────────┘            └────────────────┘
-                                       │
-                                       ▼
-                         ┌──────────────────────────┐
-                         │      GAITIMDR            │
-                         │      STABILNOŚĆ          │
-                         │──────────────────────────│
-                         │ Deformacja funkcji       │
-                         │ Punkty krytyczne         │
-                         │ Stabilność lokalna       │
-                         └──────────────────────────┘
-                                       │
-                                       ▼
-                         ┌──────────────────────────┐
-                         │   MODEL TOPOLOGICZNY     │
-                         │   (pełna struktura)      │
-                         └──────────────────────────┘
-                         
-🔥 Interpretacja diagramu — w jednym zdaniu na warstwę
-TIMDR — wykrywa gdzie sygnał zmienia topologię (skręt, defekt, rezonans).
+## 15. DIAGRAM TOPOLOGII SYGNAŁU
 
-TRM — wykrywa czy punkt należy do lokalnej struktury (spójność x–t).
+```
+SYGNAŁ / DANE
+(S(t), S'(t), punkty P)
+        │
+        ▼
+WARSTWA TOPOLOGICZNA
+        │
+        ├───────────────┬───────────────┐
+        ▼               ▼               ▼
+      TIMDR            TRM             GIA
+     (zmiana)        (spójność)      (kierunek)
+        │               │               │
+        └───────────────┼───────────────┘
+                         ▼
+                     GAITIMDR
+                   (stabilność)
+                         │
+                         ▼
+              MODEL TOPOLOGICZNY
+               (pełna struktura)
+```
 
-GIA — wykrywa w którą stronę płynie informacja (trajektoria).
+| Operator | Rola | Kluczowe wielkości | Co wykrywa | Typ topologii |
+|---|---|---|---|---|
+| **TIMDR** | zmiana | skręt (T), defekt (D), rezonans (R) | zmianę kształtu sygnału | lokalna, w czasie |
+| **TRM** | spójność | sąsiedztwo x, sąsiedztwo t, gęstość N(p) | strukturę / prawdziwe zdarzenia | przestrzenno-czasowa (x–t) |
+| **GIA** | kierunek | PCA → v_max, tor informacji | dominującą trajektorię | trajektorii |
 
-GAITIMDR — wykrywa jak stabilna jest funkcja i gdzie ma punkty krytyczne.
+**GAITIMDR** zbiera wyjścia tych trzech (deformacja funkcji, punkty krytyczne, stabilność lokalna) i podaje je dalej do pełnego modelu topologicznego.
 
-Razem tworzą pełny model topologiczny sygnału:
-zmiana → spójność → kierunek → stabilność.
+### Interpretacja diagramu — jedno zdanie na warstwę
+
+- **TIMDR** — wykrywa, gdzie sygnał zmienia topologię (skręt, defekt, rezonans).
+- **TRM** — wykrywa, czy punkt należy do lokalnej struktury (spójność x–t).
+- **GIA** — wykrywa, w którą stronę płynie informacja (trajektoria).
+- **GAITIMDR** — wykrywa, jak stabilna jest funkcja i gdzie ma punkty krytyczne.
+
+Razem tworzą pełny model topologiczny sygnału: **zmiana → spójność → kierunek → stabilność**.
