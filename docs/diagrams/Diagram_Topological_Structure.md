@@ -1,0 +1,216 @@
+# Diagram: Topological Structure (Torus + Möbius)
+
+        ┌───────────────────────────────┐
+        │           TORUS               │
+        │                               │
+        │        ┌───────────┐         │
+        │        │  CYCLE     │◄───────┼─── Informational circulation
+        │        └───────────┘         │
+        │                               │
+        └───────────────────────────────┘
+
+                 │
+                 │ Transition region
+                 ▼
+
+        ┌───────────────────────────────┐
+        │        MÖBIUS BAND            │
+        │                               │
+        │   ┌───────────────────────┐   │
+        │   │   Phase inversion     │   │
+        │   └───────────────────────┘   │
+        │                               │
+        └───────────────────────────────┘
+# Diagram: Information Flow
+
+   Gradient
+      │
+      ▼
+  ┌──────────┐
+  │  Change  │  ← Informational transition
+  └──────────┘
+      │
+      ▼
+  ┌──────────┐
+  │  Cycle   │  ← Stable informational loop
+  └──────────┘
+      │
+      ▼
+  ┌──────────┐
+  │  Flow    │  ← Propagation through topology
+  └──────────┘
+# Diagram: Modal Wave Characteristics
+
+   ┌───────────────┐
+   │  FREQUENCY     │  → periodicity
+   └───────────────┘
+            │
+            ▼
+   ┌───────────────┐
+   │    PHASE       │  → alignment
+   └───────────────┘
+            │
+            ▼
+   ┌───────────────┐
+   │   AMPLITUDE    │  → intensity
+   └───────────────┘
+# Diagram: Modal Interference
+
+   Wave A ────────────╮
+                       ╰───► Constructive pattern
+   Wave B ────────╮
+                   ╰──────► Destructive pattern
+
+Result:
+   ┌──────────────────────────────┐
+   │  Interference Pattern        │
+   │  - nodes                     │
+   │  - antinodes                 │
+   │  - stable regions            │
+   └──────────────────────────────┘
+# Diagram: Resonance Mechanism
+
+   Modalities:
+      f1, f2, f3 ...
+
+      │
+      ▼
+
+   Alignment condition:
+      f1 ≈ f2 ≈ f3
+
+      │
+      ▼
+
+   ┌──────────────────────────────┐
+   │        RESONANCE             │
+   │  - amplification             │
+   │  - stability                 │
+   │  - coherence                 │
+   └──────────────────────────────┘
+# Diagram: Emergence of Physical Properties
+
+Topology
+   │
+   ▼
+Information
+   │
+   ▼
+Modal Waves
+   │
+   ▼
+Interference
+   │
+   ▼
+Resonance
+   │
+   ▼
+┌──────────────────────────────┐
+│   EMERGENT PROPERTIES        │
+│   - fields                   │
+│   - stability                │
+│   - structure                │
+│   - energy distribution      │
+└──────────────────────────────┘
+# Diagram C1 — Structural Relation
+
+   ┌──────────────┐
+   │  TOPOLOGY     │
+   │  (Torus,      │
+   │   Möbius)     │
+   └───────┬────────┘
+           │ defines
+           ▼
+   ┌──────────────┐
+   │ INFORMATION   │
+   │ (gradients,   │
+   │  cycles)      │
+   └───────┬────────┘
+           │ generates
+           ▼
+   ┌──────────────┐
+   │ MODAL WAVES   │
+   │ (f, φ, A)     │
+   └──────────────┘
+# Diagram C2 — Modal Space
+
+          Amplitude (A)
+                 ▲
+                 │
+                 │
+                 │
+Phase (φ) ◄──────┼──────► Frequency (f)
+                 │
+                 │
+                 ▼
+           Modal Density
+# Diagram C3 — Modal Interference
+
+ Modalities:
+   M1 = (f1, φ1, A1)
+   M2 = (f2, φ2, A2)
+   M3 = (f3, φ3, A3)
+
+        │
+        ▼
+
+   ┌──────────────────────────────┐
+   │   INTERFERENCE FUNCTION      │
+   │   I(t) = Σ Ai * sin(fi t + φi)│
+   └──────────────────────────────┘
+
+        │
+        ▼
+
+   ┌──────────────────────────────┐
+   │   RESULTING PATTERN          │
+   │   - nodes                    │
+   │   - antinodes                │
+   │   - stable regions           │
+   └──────────────────────────────┘
+# Diagram C4 — Resonance Condition
+
+   f1 ≈ f2 ≈ f3
+   φ1 ≈ φ2 ≈ φ3
+
+        │
+        ▼
+
+   ┌──────────────────────────────┐
+   │        RESONANCE             │
+   │   R = Σ Ai (aligned modes)   │
+   └──────────────────────────────┘
+
+        │
+        ▼
+
+   ┌──────────────────────────────┐
+   │   STABLE STRUCTURE           │
+   │   - coherence                │
+   │   - persistence              │
+   │   - emergent properties      │
+   └──────────────────────────────┘
+# Diagram C5 — Full TIMDR Mathematical Flow
+
+   TOPOLOGY
+      (Torus, Möbius)
+            │
+            ▼
+   INFORMATION
+      (gradients, cycles)
+            │
+            ▼
+   MODAL SPACE
+      (f, φ, A)
+            │
+            ▼
+   INTERFERENCE
+      I(t) = Σ Ai sin(fi t + φi)
+            │
+            ▼
+   RESONANCE
+      (alignment of modes)
+            │
+            ▼
+   EMERGENCE
+      fields, stability, structure
