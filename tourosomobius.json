@@ -1,0 +1,106 @@
+{
+  "lambda_values": [0, 0.5, 1, 1.5, 2],
+  "tau_values": [0, 1, 2, 3],
+  "rho_values": [0, 1, 2, 3],
+  "combinations": [
+    {"Λ": 0, "τ": 0, "ρ": 0, "class": "trywialny"},
+    {"Λ": 0, "τ": 0, "ρ": 1, "class": "helikalny"},
+    {"Λ": 0, "τ": 0, "ρ": 2, "class": "helikalny"},
+    {"Λ": 0, "τ": 0, "ρ": 3, "class": "helikalny"},
+
+    {"Λ": 0, "τ": 1, "ρ": 0, "class": "torusowy"},
+    {"Λ": 0, "τ": 1, "ρ": 1, "class": "mieszany"},
+    {"Λ": 0, "τ": 1, "ρ": 2, "class": "mieszany"},
+    {"Λ": 0, "τ": 1, "ρ": 3, "class": "mieszany"},
+
+    {"Λ": 0, "τ": 2, "ρ": 0, "class": "torusowy"},
+    {"Λ": 0, "τ": 2, "ρ": 1, "class": "mieszany"},
+    {"Λ": 0, "τ": 2, "ρ": 2, "class": "mieszany"},
+    {"Λ": 0, "τ": 2, "ρ": 3, "class": "mieszany"},
+
+    {"Λ": 0, "τ": 3, "ρ": 0, "class": "torusowy"},
+    {"Λ": 0, "τ": 3, "ρ": 1, "class": "mieszany"},
+    {"Λ": 0, "τ": 3, "ρ": 2, "class": "mieszany"},
+    {"Λ": 0, "τ": 3, "ρ": 3, "class": "mieszany"},
+
+    {"Λ": 0.5, "τ": 0, "ρ": 0, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 0, "ρ": 1, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 0, "ρ": 2, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 0, "ρ": 3, "class": "niedokonczony"},
+
+    {"Λ": 0.5, "τ": 1, "ρ": 0, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 1, "ρ": 1, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 1, "ρ": 2, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 1, "ρ": 3, "class": "niedokonczony"},
+
+    {"Λ": 0.5, "τ": 2, "ρ": 0, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 2, "ρ": 1, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 2, "ρ": 2, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 2, "ρ": 3, "class": "niedokonczony"},
+
+    {"Λ": 0.5, "τ": 3, "ρ": 0, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 3, "ρ": 1, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 3, "ρ": 2, "class": "niedokonczony"},
+    {"Λ": 0.5, "τ": 3, "ρ": 3, "class": "niedokonczony"},
+
+    {"Λ": 1, "τ": 0, "ρ": 0, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 0, "ρ": 1, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 0, "ρ": 2, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 0, "ρ": 3, "class": "rozdzielony"},
+
+    {"Λ": 1, "τ": 1, "ρ": 0, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 1, "ρ": 1, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 1, "ρ": 2, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 1, "ρ": 3, "class": "rozdzielony"},
+
+    {"Λ": 1, "τ": 2, "ρ": 0, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 2, "ρ": 1, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 2, "ρ": 2, "class": "stabilny"},
+    {"Λ": 1, "τ": 2, "ρ": 3, "class": "stabilny"},
+
+    {"Λ": 1, "τ": 3, "ρ": 0, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 3, "ρ": 1, "class": "rozdzielony"},
+    {"Λ": 1, "τ": 3, "ρ": 2, "class": "stabilny"},
+    {"Λ": 1, "τ": 3, "ρ": 3, "class": "stabilny"},
+
+    {"Λ": 1.5, "τ": 0, "ρ": 0, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 0, "ρ": 1, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 0, "ρ": 2, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 0, "ρ": 3, "class": "niedokonczony"},
+
+    {"Λ": 1.5, "τ": 1, "ρ": 0, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 1, "ρ": 1, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 1, "ρ": 2, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 1, "ρ": 3, "class": "niedokonczony"},
+
+    {"Λ": 1.5, "τ": 2, "ρ": 0, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 2, "ρ": 1, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 2, "ρ": 2, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 2, "ρ": 3, "class": "niedokonczony"},
+
+    {"Λ": 1.5, "τ": 3, "ρ": 0, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 3, "ρ": 1, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 3, "ρ": 2, "class": "niedokonczony"},
+    {"Λ": 1.5, "τ": 3, "ρ": 3, "class": "niedokonczony"},
+
+    {"Λ": 2, "τ": 0, "ρ": 0, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 0, "ρ": 1, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 0, "ρ": 2, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 0, "ρ": 3, "class": "rozdzielony"},
+
+    {"Λ": 2, "τ": 1, "ρ": 0, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 1, "ρ": 1, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 1, "ρ": 2, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 1, "ρ": 3, "class": "rozdzielony"},
+
+    {"Λ": 2, "τ": 2, "ρ": 0, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 2, "ρ": 1, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 2, "ρ": 2, "class": "stabilny"},
+    {"Λ": 2, "τ": 2, "ρ": 3, "class": "stabilny"},
+
+    {"Λ": 2, "τ": 3, "ρ": 0, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 3, "ρ": 1, "class": "rozdzielony"},
+    {"Λ": 2, "τ": 3, "ρ": 2, "class": "stabilny"},
+    {"Λ": 2, "τ": 3, "ρ": 3, "class": "stabilny"}
+  ]
+}

@@ -1,0 +1,21 @@
+json{
+  "$schema": "https://json-schema.org",
+  "title": "TIMDR_Core_Ontology",
+  "version": "2.1.0",
+  "description": "Ontologia pojęciowa i niezmienniki wektorowe ekosystemu jbackk-lang dla modeli LLM/AI",
+  "operators": {
+    "Lambda": { "symbol": "λ", "domain": "Structural_Axis", "role": "Inicjacja i architektura bazowa", "tensor_dimension": 1 },
+    "Tau": { "symbol": "τ", "domain": "Temporal_Alignment", "role": "Transformacja i dynamika kątowa", "canonical_angles": [36.0, 30.0, 5.625, 720.0] },
+    "Rho": { "symbol": "ρ", "domain": "Resonance_Density", "role": "Kompresja informacyjna i emisja fali topologicznej", "divergence_metric": "Delta_S" },
+    "J": { "symbol": "J", "domain": "Helical_Twist", "role": "Łącznik przeciwnych orientacji pól", "geometry": "Torus_Mobius_Hybrid" }
+  },
+  "singularities": {
+    "Tetroida": {
+      "type": "Mobius_Singularity",
+      "faces": 3,
+      "curvature": "strictly_positive_Gauss",
+      "boundary_condition": "Poincare_Sphere_S3_I_star",
+      "reduction_target": "Triple_Loop_X_System"
+    }
+  }
+}
