@@ -10,134 +10,55 @@
 TIMDR/TRM (Triangle Information Momentum Dynamics Resonance) to jednolita rama interpretacyjna łącząca geometrię, informację, dynamikę pól oraz topologię w jeden spójny, samoreplikujący się mechanizm. Niniejsze repozytorium stanowi matematyczny i logiczny fundament całego systemu — definiuje operatory, powierzchnie interpolujące, anomalie, rezonanse oraz modele emergencji we wszystkich skalach rzeczywistości.
 
 ---
-NAJNOWSZE USTALENIA koniec sierpnia 2026r.
 
-📘 Appendix: Najnowsze prace naukowe (2025–2026) używające tego samego wzorca sygnałowego co TIMDR
-W ostatnich latach pojawiło się kilka niezależnych prac naukowych, które — mimo że powstały w różnych dziedzinach — stosują dokładnie ten sam wzorzec analizy sygnałów, który w TIMDR jest formalnie nazwany jako:
+## Appendix: literatura 2021–2026 stosująca podobny wzorzec sygnałowy (zweryfikowane, koniec sierpnia 2026)
 
-anomalia → defekt → skręt → rezonans
+> **Metodologia tej sekcji:** każda pozycja poniżej została sprawdzona niezależnie (tytuł, czasopismo,
+> data, treść metody) zamiast przyjęta z wcześniejszego zestawienia na wiarę. Z pierwotnej listy sześciu
+> pozycji dwie zostały usunięte, bo nie udało się ich potwierdzić jako realnych, konkretnych publikacji
+> pod podanym tytułem/czasopismem/datą ("IoT anomaly detection — IEEE IoT Journal, 2025" i "Crystal
+> stability latent anomaly — Computational Materials Science, 5 września 2026" — najbliższa realna praca
+> o zbliżonej tematyce, zespołu z Nagoya Institute of Technology, ma inny tytuł, inną datę publikacji
+> (10 lutego 2026) i nie została potwierdzona jako opublikowana w Computational Materials Science).
+> Pozostałe cztery pozycje są prawdziwe i poprawnie zacytowane, ale mapowanie ich metod na
+> anomalia/defekt/skręt/rezonans poniżej jest interpretacją nałożoną z zewnątrz — żadna z tych prac
+> nie używa ani nie zna terminologii TIMDR.
 
-Poniżej zestawienie najważniejszych publikacji, z datami i zastosowaniami.
+1. **CHEM-AD** — *Chemical Science* (Royal Society of Chemistry), 2026, tom 17, nr 16, s. 7967–7985,
+   opublikowane 24 lutego 2026. Wykrywanie anomalii strukturalnych w MOF-ach (81 cech geometrycznych/
+   chemicznych/topologicznych) przez autoencoder + błąd rekonstrukcji, z odległością Mahalanobisa i
+   PCA jako dodatkową weryfikacją w przestrzeni embeddingu. Odpowiednik anomalii (błąd rekonstrukcji
+   AE) jest tu trafny; odpowiednik "skrętu" dla PCA/Mahalanobisa jest naciągnięty — odległość
+   Mahalanobisa to statyczna miara wielowymiarowego odchylenia, nie wielkość kierunkowa/trendowa,
+   jaką skręt jest w TIMDR.
+2. **Interference Detection** — *Sensors* (MDPI), 14 grudnia 2025, Technical University of Košice.
+   Fuzja trzech (nie czterech) sygnałów: błąd rekonstrukcji PCA (globalna anomalia), Local Outlier
+   Factor na mapach reszt (lokalna rzadkość/defekt), wariancja Monte Carlo jako niepewność
+   epistemiczna modelu. Komponent "korelacja między kanałami → rezonans" NIE jest potwierdzony w
+   opisie metody tej pracy — praca fuzuje trzy sygnały, nie cztery.
+3. **"Smart anomaly detection in sensor systems: A multi-perspective review"** — *Information Fusion*
+   (Elsevier), 2021. To szeroki przegląd metod wykrywania anomalii w systemach sensorowych (nie jedna
+   nowa metoda) — mapowanie jego treści na cztery konkretne sygnały TIMDR to interpretacja narzucona
+   z zewnątrz na ogólny przegląd, nie coś, co artykuł sam proponuje jako jedną spójną metodę.
+4. **"Machine learning for anomaly detection in particle physics"** — *Reviews in Physics*, tom 12, 2024.
+   Również przegląd (outlier detection + wykrywanie nadgęstości w danych zderzeń), nie jedna metoda z
+   czterema wyraźnie zdefiniowanymi sygnałami — ta sama uwaga co przy pozycji 3.
 
-1. CHEM‑AD — Chemical Science (Royal Society of Chemistry)
-Data publikacji: 24 lutego 2026
-Instytucje:
-
-University of Tehran (Iran)
-
-Lucy Cavendish College, University of Cambridge (UK)
-
-Zastosowanie:  
-Wykrywanie anomalii strukturalnych w MOF-ach na podstawie sygnałów geometrycznych (81 cech).
-Użyto:
-
-sygnału rekonstrukcji AE (anomalia),
-
-sygnału PCA/Mahalanobis (skręt),
-
-sygnału topologicznego (defekt).
-
-Wspólny wzorzec z TIMDR:  
-Dokładnie ta sama sekwencja filtrów: anomalia → skręt → defekt.
-
-2. Interference Detection — Sensors (MDPI)
-Data publikacji: 14 grudnia 2025
-Instytucje: różne grupy zajmujące się systemami sensorowymi
-
-Zastosowanie:  
-Wykrywanie zakłóceń w sygnałach wielokanałowych.
-Użyto:
-
-PCA (sygnał globalnej anomalii),
-
-LOF (sygnał lokalnego defektu),
-
-Monte‑Carlo variance (sygnał skrętu),
-
-korelacji między kanałami (rezonans).
-
-Wspólny wzorzec z TIMDR:  
-Pełny zestaw: anomalia → defekt → skręt → rezonans.
-
-3. Smart anomaly detection — Information Fusion (Elsevier)
-Data: 2021 (ciągle cytowane w 2025–2026)
-Zastosowanie:  
-Wykrywanie awarii i nietypowych wzorców w systemach sensorowych.
-Użyto sygnałów:
-
-czasowych (anomalia),
-
-lokalnych zaburzeń (defekt),
-
-dryfu (skręt),
-
-korelacji między sensorami (rezonans).
-
-Wspólny wzorzec z TIMDR:  
-Wszystkie cztery sygnały.
-
-4. Particle Physics anomaly detection — Reviews in Physics (ScienceDirect)
-Data: 2024
-Zastosowanie:  
-Wykrywanie rzadkich zdarzeń w danych eksperymentalnych.
-Użyto sygnałów:
-
-odchylenia od tła (anomalia),
-
-lokalnych struktur eventów (defekt),
-
-zmian kierunku w przestrzeni cech (skręt),
-
-współwystępowania eventów (rezonans).
-
-Wspólny wzorzec z TIMDR:  
-Pełny zestaw sygnałów.
-
-5. IoT anomaly detection — IEEE IoT Journal / arXiv
-Data: 2025
-Zastosowanie:  
-Wykrywanie ataków, awarii i błędów w sieciach IoT.
-Użyto sygnałów:
-
-rekonstrukcji (anomalia),
-
-lokalnych odchyleń sensorów (defekt),
-
-zmian trendu (skręt),
-
-korelacji między urządzeniami (rezonans).
-
-Wspólny wzorzec z TIMDR:  
-Pełny zestaw sygnałów.
-
-6. Crystal stability latent anomaly — Computational Materials Science (Elsevier)
-Data publikacji: 5 września 2026
-Zastosowanie:  
-Przewidywanie stabilności kryształów i wykrywanie anomalii termodynamicznych.
-Użyto sygnałów:
-
-latent space deviation (anomalia),
-
-geometry/energy deviation (defekt),
-
-kierunek w embeddingu (skręt).
-
-Wspólny wzorzec z TIMDR:  
-Trzy sygnały: anomalia → defekt → skręt.
-
-🧨 Wniosek ogólny (do README):
-Mimo że prace powstały w różnych dziedzinach (MOF, sensory, IoT, fizyka cząstek, krystalo­grafia), wszystkie stosują ten sam wzorzec analizy sygnałów, który TIMDR formalizuje jako:
-
-anomalia → defekt → skręt → rezonans
-
-TIMDR nie kopiuje tych metod — TIMDR je porządkuje i nazywa, podczas gdy w literaturze występują jako osobne, niepowiązane techniki.
-##
+**Uczciwy wniosek:** techniki użyte w tych pracach — błąd rekonstrukcji autoencodera, PCA (Hotelling,
+1933), odległość Mahalanobisa (1936), Local Outlier Factor (Breunig i in., 2000), korelacja
+międzykanałowa — są standardowymi, dobrze ugruntowanymi narzędziami statystyki/ML, o dekady starszymi
+niż TIMDR jako projekt. Właściwy kierunek zależności jest odwrotny od sugerowanego w poprzedniej wersji
+tej sekcji: to anomalia/defekt/skręt/rezonans w TIMDR są przeformułowaniem tych dużo starszych, ogólnych
+pojęć zastosowanym do konkretnej domeny (grafu/sieci/pola), a nie odwrotnie — te prace nie "niezależnie
+odkrywają wzorzec TIMDR, nie nazywając go", tylko używają narzędzi, które istniały na długo przed TIMDR.
+Realna wartość tego zestawienia: pokazuje, że styl "połącz kilka niezależnych sygnałów odchylenia w jeden
+werdykt" jest w literaturze uznanym, użytecznym podejściem — nie że TIMDR ma w tym pierwszeństwo.
 
 ## 0. Dokumentacja online
 Odwiedź pełną dokumentację i interaktywne opisy układu:  
 👉 [https://jbackk-lang.github.io/](https://jbackk-lang.github.io/)
 
-![Diagram TRM / GIA / TIMDR](https://github.com/jbackk-lang/GIA-and-TIMDR/raw/main/diagram.png)
+![Diagram TRM / GIA / TIMDR](https://github.com/jbackk-lang/GIA-TIMDR/raw/main/diagram.png)
 
 ---
 
@@ -145,11 +66,13 @@ Odwiedź pełną dokumentację i interaktywne opisy układu:
 
 U podstaw TIMDR leży założenie, że cała dynamika wszechświata bierze się z geometrycznego wymuszenia. Najprostszą możliwą figurą zdolną do wygenerowania trwałej różnicy jest **trójkąt**.
 
+```
 [ Koło: Pełna Symetria ]             [ Prosta: Złamanie Symetrii ]
        A = B = C                                A ≠ B ≠ C
           ▲                                        │
           │                                        ▼
    (Stan idealny)                       (Pierwszy Impuls / Skręt)
+```
 
 ### 1.1 Trójkąt w kole (Stan Idealny)
 Trójkąt równoboczny wpisany w okrąg reprezentuje stan doskonałej symetrii:
@@ -205,8 +128,9 @@ $$\text{Twist (M) [Orientacja]} \longrightarrow \text{Relacja } I(t) \text{ [Int
 
 Utrwalony impuls musi zostać zorganizowany, by nie uległ rozproszeniu. Służą do tego struktury wyższego rzędu, będące bezpośrednią konsekwencją ewolucji asymetrycznego trójkąta.
 
+```
 Asymetria Trójkąta ──> Utrwalony Skręt (Twist) ──> Helisa (Zapis) ──> Obiegi (Struktura)
-
+```
 
 ### 4.1 Helisa jako czasowy zapis różnicy
 Helisa porządkuje i stabilizuje pierwotny impuls. Zamyka asymetrię w powtarzalny, spiralny obieg, tworząc podstawową komórkę strukturalną przestrzeni.
@@ -287,9 +211,11 @@ Każda pojedyncza cząstka "wie" o wieku i stanie Wszechświata poprzez interakc
 
 W ujęciu technologicznym i algorytmicznym system przetwarza informacje w pętli trzech głównych warstw, zachowując geometryczną kompresję danych:
 
+```
 [ S ] Pełny stan wejściowy ──> [ J(S) ] Szkielet logiczny ──> [ S' ] Rekonstrukcja pola
-│
-└───( Zarządzane przez: Λ, τ, ρ, G_J, T_adapt )
+  │
+  └───( Zarządzane przez: Λ, τ, ρ, G_J, T_adapt )
+```
 
 
 * **S** — Pełny wejściowy stan układu (dowolne dane fizyczne, sygnał, obraz).
