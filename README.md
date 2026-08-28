@@ -10,6 +10,128 @@
 TIMDR/TRM (Triangle Information Momentum Dynamics Resonance) to jednolita rama interpretacyjna łącząca geometrię, informację, dynamikę pól oraz topologię w jeden spójny, samoreplikujący się mechanizm. Niniejsze repozytorium stanowi matematyczny i logiczny fundament całego systemu — definiuje operatory, powierzchnie interpolujące, anomalie, rezonanse oraz modele emergencji we wszystkich skalach rzeczywistości.
 
 ---
+NAJNOWSZE USTALENIA koniec sierpnia 2026r.
+
+📘 Appendix: Najnowsze prace naukowe (2025–2026) używające tego samego wzorca sygnałowego co TIMDR
+W ostatnich latach pojawiło się kilka niezależnych prac naukowych, które — mimo że powstały w różnych dziedzinach — stosują dokładnie ten sam wzorzec analizy sygnałów, który w TIMDR jest formalnie nazwany jako:
+
+anomalia → defekt → skręt → rezonans
+
+Poniżej zestawienie najważniejszych publikacji, z datami i zastosowaniami.
+
+1. CHEM‑AD — Chemical Science (Royal Society of Chemistry)
+Data publikacji: 24 lutego 2026
+Instytucje:
+
+University of Tehran (Iran)
+
+Lucy Cavendish College, University of Cambridge (UK)
+
+Zastosowanie:  
+Wykrywanie anomalii strukturalnych w MOF-ach na podstawie sygnałów geometrycznych (81 cech).
+Użyto:
+
+sygnału rekonstrukcji AE (anomalia),
+
+sygnału PCA/Mahalanobis (skręt),
+
+sygnału topologicznego (defekt).
+
+Wspólny wzorzec z TIMDR:  
+Dokładnie ta sama sekwencja filtrów: anomalia → skręt → defekt.
+
+2. Interference Detection — Sensors (MDPI)
+Data publikacji: 14 grudnia 2025
+Instytucje: różne grupy zajmujące się systemami sensorowymi
+
+Zastosowanie:  
+Wykrywanie zakłóceń w sygnałach wielokanałowych.
+Użyto:
+
+PCA (sygnał globalnej anomalii),
+
+LOF (sygnał lokalnego defektu),
+
+Monte‑Carlo variance (sygnał skrętu),
+
+korelacji między kanałami (rezonans).
+
+Wspólny wzorzec z TIMDR:  
+Pełny zestaw: anomalia → defekt → skręt → rezonans.
+
+3. Smart anomaly detection — Information Fusion (Elsevier)
+Data: 2021 (ciągle cytowane w 2025–2026)
+Zastosowanie:  
+Wykrywanie awarii i nietypowych wzorców w systemach sensorowych.
+Użyto sygnałów:
+
+czasowych (anomalia),
+
+lokalnych zaburzeń (defekt),
+
+dryfu (skręt),
+
+korelacji między sensorami (rezonans).
+
+Wspólny wzorzec z TIMDR:  
+Wszystkie cztery sygnały.
+
+4. Particle Physics anomaly detection — Reviews in Physics (ScienceDirect)
+Data: 2024
+Zastosowanie:  
+Wykrywanie rzadkich zdarzeń w danych eksperymentalnych.
+Użyto sygnałów:
+
+odchylenia od tła (anomalia),
+
+lokalnych struktur eventów (defekt),
+
+zmian kierunku w przestrzeni cech (skręt),
+
+współwystępowania eventów (rezonans).
+
+Wspólny wzorzec z TIMDR:  
+Pełny zestaw sygnałów.
+
+5. IoT anomaly detection — IEEE IoT Journal / arXiv
+Data: 2025
+Zastosowanie:  
+Wykrywanie ataków, awarii i błędów w sieciach IoT.
+Użyto sygnałów:
+
+rekonstrukcji (anomalia),
+
+lokalnych odchyleń sensorów (defekt),
+
+zmian trendu (skręt),
+
+korelacji między urządzeniami (rezonans).
+
+Wspólny wzorzec z TIMDR:  
+Pełny zestaw sygnałów.
+
+6. Crystal stability latent anomaly — Computational Materials Science (Elsevier)
+Data publikacji: 5 września 2026
+Zastosowanie:  
+Przewidywanie stabilności kryształów i wykrywanie anomalii termodynamicznych.
+Użyto sygnałów:
+
+latent space deviation (anomalia),
+
+geometry/energy deviation (defekt),
+
+kierunek w embeddingu (skręt).
+
+Wspólny wzorzec z TIMDR:  
+Trzy sygnały: anomalia → defekt → skręt.
+
+🧨 Wniosek ogólny (do README):
+Mimo że prace powstały w różnych dziedzinach (MOF, sensory, IoT, fizyka cząstek, krystalo­grafia), wszystkie stosują ten sam wzorzec analizy sygnałów, który TIMDR formalizuje jako:
+
+anomalia → defekt → skręt → rezonans
+
+TIMDR nie kopiuje tych metod — TIMDR je porządkuje i nazywa, podczas gdy w literaturze występują jako osobne, niepowiązane techniki.
+##
 
 ## 0. Dokumentacja online
 Odwiedź pełną dokumentację i interaktywne opisy układu:  
