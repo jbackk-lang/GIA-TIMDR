@@ -94,6 +94,102 @@ Trójkąt w nowym układzie nie jest w stanie utrzymać swojej równoboczności.
 
 > **Trójkąt jest pierwszym i ostatecznym silnikiem różnicy we Wszechświecie.**
 
+### 1.5 Przykłady złamania symetrii w matematyce (analogie, nie dowód)
+
+> **Zastrzeżenie:** poniższe dwanaście przykładów to prawdziwe, ustalone od dawna wyniki matematyczne
+> (teoria mnogości, teoria miary, topologia, analiza funkcjonalna, teoria grafów, logika) — nie są to
+> instancje mechanizmu TIMDR ani nie zostały wyprowadzone z asymetrii trójkąta. Zestawiam je tu jako
+> **analogię ilustrującą wspólny kształt zjawiska**, o którym mówi Sekcja 1: intuicja słuszna w skali
+> skończonej/lokalnej często pęka dokładnie na jakiejś granicy (nieskończoności, braku zwartości, braku
+> mierzalności, granicy aksjomatów) — i za każdym razem to pęknięcie NIE jest chaosem, tylko punktem,
+> w którym trzeba było zbudować precyzyjniejsze pojęcie po drugiej stronie granicy.
+
+1. **Hotel Hilberta.** Symetria: "pełny hotel = brak miejsca". Pęka: hotel o ℵ₀ pokojach, wszystkie
+   zajęte, wciąż może przyjąć nowego gościa (przesunięcie n→n+1) albo nieskończenie wielu nowych gości
+   naraz (n→2n, zwalniając wszystkie nieparzyste pokoje). **Co z tego wynika:** dla zbiorów
+   nieskończonych "rozmiar" nie jest już mierzony przez inkluzję (A⊂B ⇒ A mniejsze), tylko przez
+   istnienie bijekcji — to zresztą definicja Dedekinda zbioru nieskończonego: zbiór jest nieskończony
+   wtedy i tylko wtedy, gdy istnieje bijekcja między nim a jego właściwym podzbiorem.
+2. **Paradoks Banacha–Tarskiego.** Symetria: kula 3D ma określoną objętość, zachowaną przez izometrie.
+   Pęka: kulę można rozciąć na (minimalnie 5) kawałków i złożyć z nich dwie identyczne kopie oryginału,
+   używając tylko obrotów i przesunięć. **Co z tego wynika:** to nie usterka geometrii, tylko cena
+   Aksjomatu Wyboru — kawałki są z konieczności niemierzalne, nie da się ich "zobaczyć" ani skonstruować
+   efektywnie. Wynik jest specyficzny dla wymiaru ≥3: na płaszczyźnie (2D) miara addytywna dla
+   WSZYSTKICH podzbiorów istnieje (Banach, 1923) — paradoks nie zachodzi w 2D.
+3. **Zbiory Vitaliego.** Symetria: "każdy podzbiór prostej ma miarę". Pęka: zbiór skonstruowany przez
+   wybór jednego reprezentanta z każdej klasy abstrakcji R/Q (liczby różniące się o wymierną) nie ma
+   miary Lebesgue'a — ani zerowej, ani dodatniej. **Co z tego wynika:** mierzalność nie jest
+   automatyczna, tylko realnym ograniczeniem, i — co ciekawe — jest to znowu konsekwencja Aksjomatu
+   Wyboru: w modelu Solovaya (ZF + DC, bez pełnego AC) WSZYSTKIE podzbiory R są mierzalne.
+4. **Zbiór Cantora.** Symetria: "ciągłość/gęstość = brak dziur". Pęka: zbiór Cantora ma miarę zero
+   (usuwa się z niego łącznie odcinek o długości 1), a mimo to ma moc continuum (tyle samo punktów co
+   cała prosta), jest doskonały (każdy punkt jest punktem skupienia) i nigdzie gęsty. **Co z tego
+   wynika:** "miara" (długość) i "moc" (liczność) to niezależne pojęcia rozmiaru — zbiór może być
+   jednocześnie "duży" (nieprzeliczalny) i "mały" (miary zero).
+5. **Paradoks Russella.** Symetria: "każda określona własność wyznacza zbiór". Pęka: zbiór wszystkich
+   zbiorów, które nie zawierają same siebie, prowadzi do sprzeczności (R∈R ⟺ R∉R). **Co z tego
+   wynika:** naiwna, nieograniczona abstrakcja zbioru jest sprzeczna — to odkrycie (1901) wymusiło
+   przejście na aksjomatyczną teorię mnogości (ZFC), gdzie schemat wyróżniania pozwala wydzielać
+   podzbiory tylko z już istniejących zbiorów, blokując samoodnoszące się konstrukcje typu R.
+6. **Twierdzenie Banacha o punkcie stałym.** Symetria: "odwzorowanie ciągłe ma punkt stały". Pęka:
+   kontrakcja (stała Lipschitza < 1) na przestrzeni zupełnej ma DOKŁADNIE JEDEN punkt stały,
+   osiągalny przez iterację z dowolnego punktu startowego — ale izometria (stała Lipschitza = 1,
+   dokładnie na granicy) może nie mieć punktu stałego wcale (np. przesunięcie na prostej). **Co z tego
+   wynika:** istnienie punktu stałego jest zjawiskiem progowym, nie stopniowym — granica "<1 vs =1"
+   jest jakościowa, nie tylko ilościowo słabsza.
+7. **Nieskończone drzewa regularne (grafy Cayleya).** Symetria: "lokalna jednorodność = brak
+   struktury globalnej". Pęka: nieskończone drzewo 3-regularne jest lokalnie identyczne w każdym
+   wierzchołku (ten sam stopień wszędzie), a mimo to nie ma żadnych cykli, rośnie eksponencjalnie i
+   ma brzeg w nieskończoności o mocy continuum. **Co z tego wynika:** jednorodność lokalna nie
+   implikuje trywialności globalnej — czysto lokalna, jednostajna reguła może generować bogatą,
+   nietrywialną strukturę globalną.
+8. **Paradoks Galileusza.** Symetria: "część zbioru jest mniejsza niż całość". Pęka: odwzorowanie
+   n↦n² jest bijekcją między liczbami naturalnymi a kwadratami — właściwym podzbiorem liczb
+   naturalnych. **Co z tego wynika:** to historycznie ten sam fakt co Hotel Hilberta (Galileusz
+   opisał go już w 1638 r., na długo przed Cantorem) — Galileusz uznał, że porównania
+   większy/mniejszy/równy po prostu "nie stosują się" do nieskończoności; Cantor (XIX w.) nie
+   poddał się w tym miejscu, tylko przedefiniował "tę samą liczność" przez istnienie bijekcji,
+   zamieniając paradoks w twierdzenie (ℵ₀=ℵ₀).
+9. **Miara Haara w przestrzeniach nieskończenie wymiarowych.** Symetria: "każda grupa topologiczna ma
+   naturalną miarę niezmienniczą na przesunięcia". Pęka: twierdzenie o istnieniu miary Haara wymaga
+   LOKALNEJ ZWARTOŚCI grupy — dla grup, które jej nie mają (np. nieskończenie wymiarowa przestrzeń
+   Hilberta jako grupa addytywna), miara niezmiennicza na przesunięcia, przypisująca kulom skończoną,
+   niezerową miarę, w ogóle nie istnieje. **Co z tego wynika:** "rozkład jednostajny" w nieskończonym
+   wymiarze nie jest spójnym pojęciem — dlatego prawdopodobieństwo na przestrzeniach nieskończenie
+   wymiarowych (np. miara Wienera) wymaga zupełnie innego aparatu niż "miara jednostajna".
+10. **L² kontra L^∞ (ograniczoność).** Symetria: "całkowalna w kwadracie = ograniczona". Pęka:
+    funkcja f(x)=x^(−1/4) na (0,1] jest nieograniczona (rozbiega do nieskończoności przy x→0), a mimo
+    to należy do L² — jej całka z kwadratu (∫₀¹x^(−1/2)dx=2) jest skończona. **Co z tego wynika:**
+    "rozmiar" funkcji mierzony całką (energia/norma L²) jest z gruntu innym pojęciem niż rozmiar
+    mierzony punktowym ograniczeniem (norma L^∞) — funkcja może być lokalnie bardzo duża, a mimo to
+    globalnie "mała" w sensie zagregowanym; to dlatego mechanika kwantowa używa L² (skończone
+    prawdopodobieństwo całkowite), nie ograniczoności funkcji falowej.
+11. **Niezależność hipotezy continuum.** Symetria: "każde pytanie matematyczne ma w danej aksjomatyce
+    rozstrzygalną odpowiedź tak/nie". Pęka: Gödel (1940) pokazał, że hipotezy continuum (CH) nie da
+    się OBALIĆ z aksjomatów ZFC, a Cohen (1963, metoda forsingu) pokazał, że nie da się jej też
+    UDOWODNIĆ — CH jest NIEZALEŻNA od ZFC: istnieją modele ZFC, w których CH zachodzi, i takie, w
+    których nie zachodzi. **Co z tego wynika:** nie każde sensowne pytanie matematyczne ma jednoznaczną
+    odpowiedź względem danego, skądinąd wystarczającego systemu aksjomatów — "ile jest liczb
+    rzeczywistych względem przeliczalnej nieskończoności" jest w ZFC realnie niedookreślone.
+12. **Bazy ortonormalne w przestrzeniach Hilberta.** Symetria: "wymiar to jedna liczba". Pęka: w
+    skończonym wymiarze każda baza ortonormalna ma tyle samo elementów (n), i to się uogólnia — każda
+    dana przestrzeń Hilberta ma wszystkie bazy ortonormalne tej samej mocy — ale RÓŻNE przestrzenie
+    Hilberta mogą mieć bazy różnej nieskończonej mocy: przestrzenie ośrodkowe (np. L²[0,1], ℓ²) mają
+    bazę przeliczalną, nieośrodkowe wymagają bazy nieprzeliczalnej. **Co z tego wynika:** wymiar
+    uogólnia się na nieskończoność jako niezmiennik kardynalny, ale przestaje być "jednym rodzajem
+    nieskończoności" — powstaje cała hierarchia możliwych rozmiarów bazy, i właśnie dlatego większość
+    praktycznej analizy (mechanika kwantowa, równania różniczkowe, analiza Fouriera) świadomie
+    ogranicza się do przypadku ośrodkowego, bo tylko tam baza przeliczalna pozwala pisać rzeczy jako
+    zbieżne szeregi.
+
+**Wspólny wątek (analogia, nie wniosek matematyczny):** we wszystkich dwunastu przypadkach złamanie
+symetrii nie kończy się chaosem — matematycy za każdym razem precyzyjnie zlokalizowali GDZIE i DLACZEGO
+intuicja pęka (nieskończoność, brak zwartości, Aksjomat Wyboru, granica aksjomatyki) i zbudowali
+dokładniejsze pojęcie po drugiej stronie tej granicy (moc zamiast inkluzji, miara zamiast "każdego
+zbioru", niezależność zamiast jednego rozstrzygnięcia). To jest jedyny sens, w jakim te przykłady
+"pasują" do Sekcji 1 — jako ilustracja wzorca "pęknięcie → nowa, precyzyjniejsza struktura", nie jako
+formalny dowód mechanizmu trójkąta.
+
 ---
 
 ## 2. OD ANOMALII DO INFORMACJI
