@@ -1,5 +1,53 @@
 Prime Position Filter — Structural XOR of √2 and √3
 
+## WERYFIKACJA (audyt, sesja 2026-08-29) — WYNIK: OBALONE
+
+Użytkownik zapytał wprost o rzetelny werdykt w sprawie tego twierdzenia.
+Zweryfikowano protokołem z `timdr-signal-framework` skill §18 (dokładna
+definicja obiektów i metryki PRZED liczeniem, model zerowy, jeden przebieg,
+uczciwy raport niezależnie od wyniku). Wynik: **twierdzenie o "rezonansie
+strukturalnym" na pozycjach pierwszych — w tym kluczowy przykład z
+bliźniaczymi liczbami pierwszymi 29/31 — jest fałszywe.**
+
+**1. Tabela cyfr w tym dokumencie zawiera błędy.** Policzono √2 i √3 z
+prawdziwą precyzją dowolną (`mpmath`, 20000+ cyfr) i porównano z tabelą
+powyżej: pozycje 2,3,5,7,11,13,17 się zgadzają, ale **pozycje 19, 23, 29,
+31, 37, 41, 43, 47 mają BŁĘDNE wartości cyfr**. To pasuje dokładnie do
+wzorca "policzono zwykłym `float` (podwójna precyzja ≈15-17 cyfr
+znaczących), nie arytmetyką dowolnej precyzji" — od pozycji ~17 w dół
+liczy się już nie prawdziwe cyfry √2/√3, tylko szum reprezentacji
+zmiennoprzecinkowej. To dokładnie ta pozycja, od której tabela zaczyna się
+rozjeżdżać.
+
+**2. Poprawione cyfry: pozycja 31 wcale się NIE zgadza.** Prawdziwe cyfry
+na pozycji 31: √2=6, √3=8 — RÓŻNE, nie takie same jak twierdzi dokument
+(8, 8). Czyli nawet w oryginalnej, 15-elementowej próbce, "obie bliźniacze
+liczby pierwsze 29 i 31 się zgadzają" jest nieprawdą — zgadza się tylko
+pozycja 29 (1 z 15, nie 2 z 15).
+
+**3. Test na pełną skalę (2262 pozycji pierwszych wśród 20004 prawdziwych
+cyfr):** wskaźnik zgodności na pozycjach pierwszych = 9,505% — statystycznie
+NIEODRÓŻNIALNE od oczekiwanych 10,000% dla niezależnych cyfr jednostajnych
+(test dwumianowy, p=0,46). Brak istotnej różnicy między pozycjami
+pierwszymi a wszystkimi pozycjami (test 2-proporcji, p=0,29). Brak istotnej
+różnicy między pozycjami należącymi do par bliźniaczych a pozostałymi
+pozycjami pierwszymi (p=0,65 — a kierunek jest odwrotny do twierdzonego:
+0,091 vs 0,097).
+
+**4. Gęstość cyfr {2,3,5,7} (sekcja "requires further verification"
+poniżej) też sfalsyfikowana** — patrz punkt 4 w audycie `al_filter_predictions.md`:
+√2, √3, q mają WSZYSTKIE ~39,6-39,7% (oczekiwane 40,0%), nie 36%/50%/48%
+jak twierdzono.
+
+**Wniosek:** brak jakiejkolwiek wykrywalnej struktury na pozycjach
+pierwszych w cyfrach √2/√3 — w pełni zgodne z tym, czego oczekuje się
+matematycznie dla cyfr algebraicznych niewymiernych bez znanej struktury
+("normalność" cyfr, tak samo jak testy losowości cyfr π). To NIE jest
+filtr strukturalny — to artefakt błędu precyzji zmiennoprzecinkowej
+zinterpretowany jako sygnał.
+
+---
+
 How the filter works
 
 The filter does not operate on digit values.

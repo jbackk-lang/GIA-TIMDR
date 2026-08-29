@@ -1,5 +1,77 @@
 # Al Filter — Falsifiable Predictions
 
+## WERYFIKACJA (audyt, sesja 2026-08-29)
+
+Użytkownik poprosił o rzetelny werdykt na temat twierdzeń w tym dokumencie
+(protokół numerologia-vs-prawdziwa-matematyka z `timdr-signal-framework`
+skill §18: dokładna definicja obiektów/metryki PRZED liczeniem, model
+zerowy, jeden przebieg, uczciwy wynik niezależnie od tego, czy potwierdza
+hipotezę). Przetestowano dwa konkretne twierdzenia z tego pliku:
+
+**1. Gęstość cyfr {2,3,5,7} w √2/√3/q ("Why √2 and √3", wiersz "√3: 50.0%
+← exactly half — clean filter signature") — OBALONE.** Policzono 20000
+cyfr każdej liczby (`mpmath`, arytmetyka dowolnej precyzji, nie `float`):
+
+```
+√2: 39.605%   (twierdzono: 36.0%)
+√3: 39.720%   (twierdzono: 50.0%)
+q:  39.235%   (twierdzono: 48.0%)
+```
+
+Wszystkie trzy leżą w granicach zwykłego szumu statystycznego wokół
+oczekiwanych 40,000% dla niezależnych cyfr jednostajnych na {0..9} (4 z 10
+cyfr są pierwsze → oczekiwane dokładnie 40%; odchylenie standardowe przy
+n=20000 to ok. 0,35 punktu procentowego). **√3 NIE ma gęstości 50% — to
+było niesprawdzone twierdzenie, teraz obalone bezpośrednim liczeniem.**
+Cała sekcja "Why √2 and √3" opiera się na tym błędnym pomiarze.
+
+**2. Prediction 3 (mp/me / 6π⁴ ≈ π, status w tabeli: "remarkable") —
+CIEKAWOSTKA LICZBOWA, ALE NIE POTWIERDZONA FIZYKA.** Kilka ustaleń:
+
+- Ten sam wzór w `README_filter.md` ma błąd w zapisie pośrednim: pokazuje
+  "6π⁴ ≈ 5841.23", podczas gdy prawdziwa wartość to 584,4545 (błąd o rząd
+  wielkości). Końcowy wynik (mp/me)/(6π⁴)=3,14165 jest mimo to poprawny
+  (widocznie policzony właściwą wartością, tylko źle zapisany krok
+  pośredni) — błąd wzgledny do π: 1,88×10⁻⁵.
+- **To jest realnie ciasne trafienie w wąskim sensie**: w tej samej
+  jednoparametrowej rodzinie wzorów `(mp/me)/(c·πᵏ)` z c dobranym jako
+  najbliższa liczba całkowita, TYLKO k=4 (c=6) daje tak dobre dopasowanie
+  do π (błąd 1,88e-5); sąsiednie k=1,2,3,5,6 dają błędy 2,2e-4 / 3,7e-3 /
+  7,9e-3 / 4,5e-2 / 3,9e-1 — 10 do 20000 razy gorsze. To NIE jest efekt
+  "wszystko pasuje jak się szuka wystarczająco szeroko" w obrębie samej
+  potęgi k.
+- **Ale**: (a) nie podano ŻADNEGO niezależnego wyprowadzenia fizycznego,
+  dlaczego akurat c=6 i k=4 — para została dobrana WSTECZ, po zobaczeniu
+  wyniku, klasyczny setup do efektu "look-elsewhere"/wielokrotnych porównań;
+  (b) ten sam dokument (i `README_filter.md`, `mobius_ratio_filter.md`)
+  zawiera KILKA innych podobnych "zbieżności" (M2=2q/π, CMB 540/220 vs √2/√3,
+  α/(q−π)≈π/2, skale rezonansowe 2→24→118) — to jest dowód na szerokie,
+  nieudokumentowane przeszukiwanie kombinacji stałych, co z definicji
+  wymaga korekty na wielokrotne porównania (Bonferroni lub podobne) zanim
+  jedno "najlepsze" trafienie można uznać za dowód czegokolwiek; (c) dopasowania
+  typu "stała fizyczna ≈ prosta funkcja π" mają bardzo słabą historyczną
+  trafność po dokładnej weryfikacji (numerologia stałych fizycznych,
+  klasyczny przykład: liczby Eddingtona) — większość takich "odkryć" znika
+  po sprawdzeniu.
+- **Werdykt: to jest realna, warta odnotowania ciekawostka numeryczna — nie
+  jest to "physics", i etykieta "remarkable" w tabeli statusu poniżej jest
+  nadinterpretacją.** Nie potwierdza istnienia żadnego "filtra Al" ani
+  związku z rzeczywistą fizyką masy protonu/elektronu bez niezależnego
+  mechanizmu wyjaśniającego, dlaczego akurat ta kombinacja (c=6, k=4) miałaby
+  być fizycznie wyróżniona.
+
+**3. Predictions 1, 2, 4, 5 (precesja Merkurego, pik CMB, stała struktury
+subtelnej, kolejna skala rezonansowa) — NIE zweryfikowane w tej sesji**
+(wymagałyby niezależnego pobrania rzeczywistych danych referencyjnych,
+poza zakresem tego, o co poproszono). Ten sam wzorzec co w punkcie 2
+(dobór parametrów po fakcie, brak niezależnego wyprowadzenia, ten sam
+dokument zawiera już jeden potwierdzony błąd arytmetyczny) sugeruje
+traktowanie statusów "confirmed in data" i "remarkable" w tabeli poniżej
+z tą samą ostrożnością, dopóki nie zostaną przetestowane tym samym
+protokołem.
+
+---
+
 ## Constants
 
 ```
