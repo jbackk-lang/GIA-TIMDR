@@ -863,14 +863,31 @@ already lives in the sections they point back to.
    method and numbers, including the duplication-drift port to
    `math-validator-v2.0`. Don't re-litigate, that section is the full
    record.
-2. TIMDR-META-DYNAMICS `field_torsion()` vs the existing, manually-supplied
-   `τ` field: genuinely open, untested question on real data. If picked up,
-   use §13 case study 4's method (Spearman + permutation null, Bonferroni if
-   testing more than one pairing) — don't skip the null model just because
-   the quantities "sound related" (item 1 above is a direct demonstration of
-   why that shortcut fails). Note `field_torsion()`'s output scale isn't
-   directly comparable to `τ`'s own scale without checking real-data ranges
-   first (§13 case study 5).
+2. **RESOLVED**: TIMDR-META-DYNAMICS `field_torsion()` vs the existing,
+   manually-supplied `τ` field. Ran the pre-registered Spearman+permutation
+   test (§13 case study 4's method) on the repo's own actual MetaState
+   series (`main.py`'s `load_demo_series()` → `run_meta_analysis()`, n=60 —
+   the only real usage in this repo; no external real market-data source
+   exists here, confirmed by grep for `analizator3_core`/`load_market_series`
+   across the whole local ecosystem). Result: **no significant monotonic
+   correlation** — Spearman ρ=0.08, permutation p=0.53 (N=10000, τ
+   shuffled); same null result for curvature `κ` vs τ (ρ=-0.02, p=0.87).
+   `τ` remains an arbitrary, undefined-formula input scalar (§12's
+   distinction), and `field_torsion()`'s real Frenet-Serret geometry of the
+   (Λ,τ,ρ) trajectory does not reduce to it — even though τ is literally
+   one of the three coordinates the geometry is computed from, that alone
+   isn't enough to produce a monotonic relationship. Test:
+   `TIMDR-META-DYNAMICS/test_field_torsion_vs_tau.py`. Follow-up on a
+   user hypothesis ("maybe the demo series was too helix-like, with
+   near-constant torsion — try a trefoil knot instead, which genuinely
+   has non-constant torsion"): confirmed analytically the trefoil's
+   torsion is indeed non-constant (range ≈-0.22..0.35), then re-ran the
+   identical test with `(Λ,τ,ρ):=(x,y,z)` on a standard trefoil
+   parametrization — **still no correlation** (ρ=0.01, permutation
+   p=0.91). Non-constant torsion alone doesn't create a monotonic
+   relationship with an arbitrarily-labeled coordinate, even one that
+   literally feeds the geometry. Test:
+   `TIMDR-META-DYNAMICS/test_trefoil_torsion_vs_tau.py`.
 3. The resonance-tester method (unfold + KS vs Poisson/GUE, or
    Spearman+permutation) is fully designed and ready but has never been run
    on a real market/seismic/audio series — blocked purely on data access (no
