@@ -1,6 +1,6 @@
 ---
 name: "timdr-signal-framework"
-description: "Use for building/debugging TIMDR-style signal/anomaly-detection systems (weather, market, radar, grid, seismic, GPS, DDoS/security, aviation PHM); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math or unverified; auditing a repo for diverged duplicate code; converting a symbolic TIMDR rule into a neural module; choosing single vs multi-module (regime-change + frozen-reference) detector architecture; cross-domain-transferring a detector (prime-gap stats, torsion, LSQ trend) with a baseline comparison; or fixing a Tkinter Canvas+Scrollbar panel that clips content. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, Boerdijk-Coxeter helix, Arrhenius ceilings, EMA vs windowed recovery, KHIPU-NEURAL lessons, DDoS validation, tension_zscore filters, baseline-poisoning, Short-Term Aftershock Incompleteness, derivative-order-vs-noise pattern, NASA C-MAPSS transfer test."
+description: "Use for building/debugging TIMDR-style signal/anomaly-detection systems (weather, market, radar, grid, seismic, GPS, DDoS/security, aviation PHM); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math or unverified; auditing a repo for diverged duplicate code; converting a symbolic TIMDR rule into a neural module; choosing single vs multi-module detector architecture; or cross-domain-transferring a detector (prime-gap stats, torsion, LSQ trend) with a baseline comparison. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, Boerdijk-Coxeter helix, category-theory checks, EMA vs windowed recovery, KHIPU-NEURAL lessons, DDoS validation, tension_zscore, baseline-poisoning, Short-Term Aftershock Incompleteness, derivative-order-vs-noise pattern, NASA C-MAPSS transfer test. Pure math/TIMDR-detector scope — no general software engineering, GUI, or infrastructure debugging."
 ---
 
 # TIMDR signal framework — reusable patterns, known pitfalls, and a numerology/formalism-testing protocol
@@ -9,24 +9,23 @@ Distilled from building/debugging the Synoptyk-v2.0 weather system and the wider
 TIMDR-family repo ecosystem (grid monitoring, market analysis, earthquake core,
 radar, DNA coverage anomaly detection, meta-dynamics, math-validator, GIA-TIMDR
 theory docs, probabilistic-timdr, KHIPU/KHIPU-NEURAL, TIMDR-Security-Module,
-TIMDR-Cosmology-Filters, TEST-TIMDR, TIMDR-Aviation-Diagnostics, etc.). Apply
-these to any other TIMDR-style repo — including a seismograph/earthquake-
-monitoring project ("Ertake"/TIMDR-Earthquake-Core) — since the underlying
-problem shape is the same: repeated readings of a physical signal, detecting
-when something unusual happens, and getting more accurate over time from your
-own track record. §18-20 additionally cover a separate but related recurring
-question in this ecosystem: is a claimed numeric/geometric/categorical
-"resonance"/"structure" pattern real mathematics or an artifact of
-under-tested pattern-matching or unverified formalism — with protocols proven
-to work, not just asserted. §21 covers a related but distinct question: when a
-deterministic/symbolic TIMDR rule is reimplemented as a gradient-learned
-neural module, does the translation itself help, hurt, or do nothing — with
-its own protocol. §22-29 are one connected audit arc: five domain-transfer
-tests (security, cosmology, radar/primes, torsion, defect-operator v1-v4)
-converging on a user-authored verdict (§26), replicated once more in
-seismology (§27) and aviation PHM (§29) — together establishing a recurring
-"higher-order-derivative loses to a simpler baseline" meta-pattern. §28 is an
-unrelated packaging/GUI-debugging record for TIMDR-Earthquake-Core.
+TIMDR-Cosmology-Filters, TEST-TIMDR, TIMDR-Aviation-Diagnostics, etc.). Scope is
+deliberately narrow: the math and signal-processing logic of TIMDR-style
+detectors (anomalia/defekt/rezonans/skręt, thresholds, resonance operators,
+cross-domain transfer tests) and the numerology/formalism-verification protocol
+— NOT general software engineering, GUI, or infrastructure concerns, which are
+out of scope here even when they came up while building these repos. §13 and
+§15 cover a recurring question in this ecosystem: is a claimed
+numeric/geometric/categorical "resonance"/"structure" pattern real mathematics
+or an artifact of under-tested pattern-matching or unverified formalism — with
+protocols proven to work, not just asserted. §16 covers a related but distinct
+question: when a deterministic/symbolic TIMDR rule is reimplemented as a
+gradient-learned neural module, does the translation itself help, hurt, or do
+nothing — with its own protocol. §17-23 are one connected audit arc: five
+domain-transfer tests (security, cosmology, radar/primes, torsion,
+defect-operator v1-v4) converging on a user-authored verdict (§21), replicated
+once more in seismology (§22) and aviation PHM (§23) — together establishing a
+recurring "higher-order-derivative loses to a simpler baseline" meta-pattern.
 
 ## 1. The four TIMDR signal types (generic, not weather-specific)
 
@@ -38,7 +37,7 @@ unrelated packaging/GUI-debugging record for TIMDR-Earthquake-Core.
   (e.g. `0.3 * (p90 - p10)`).
 - **rezonans** — several parameters flag `anomalia` at the same timestamp
   simultaneously (e.g. ≥3) — a stronger, more trustworthy signal than any single
-  anomaly. **This is a coincidence counter, not a physical oscillator — see §11
+  anomaly. **This is a coincidence counter, not a physical oscillator — see §7
   for a completely different, unrelated thing that also gets called
   "rezonans"/"resonance" in this ecosystem.**
 - **skręt** — a trend reversal: the sign of the local slope flips between two
@@ -73,83 +72,11 @@ the derived threshold collapses to a tiny constant and any nonzero reading gets
 flagged. Watch for this with any parameter that's "mostly quiet, occasionally
 active" (a seismograph's amplitude channel during quiet periods is exactly this
 shape) — consider an absolute floor, not just a purely statistical threshold, for
-such parameters. The same "mostly quiet" shape shows up again in §13 below (pure
+such parameters. The same "mostly quiet" shape shows up again in §9 below (pure
 white noise almost never triggers a candidate-event detector at all, which makes
 naive white-noise negative controls degenerate).
 
-## 3. Performance: cache threshold computation, don't repeat it per row
-
-`get_thresholds(dt, param)`-style functions get called *per row per parameter
-per check type* (anomaly + defekt + skręt ≈ up to 15 calls per row). At even a
-few hundred rows (e.g. 30 days of hourly readings = 720 rows), that's 10,000+
-calls. If each call re-queries a database and recomputes mean/std/quantiles on
-the whole window from scratch, this becomes O(n²) and turns a sub-second
-computation into minutes.
-
-**Fix**: memoize per (month, param) for climatology-backed thresholds, and per
-`param` alone for the live-fallback branch (the fallback result doesn't depend
-on `dt`, only on which parameter and the window data — compute it once per
-analysis run, cache the DataFrame query result too). This exact bug caused a
-reported "3 stations at max settings ≈ 300 seconds"; after caching, the
-equivalent workload measured well under 5 seconds.
-
-## 4. Schema mismatches are a silent-failure trap
-
-If a project has TWO independent code paths that fetch the same *kind* of data
-(e.g. one from a live API, one from a local cache/CLI tool), they can easily end
-up with different column names/shapes (`datetime` column vs. a `time`-named
-index; `wind_speed` vs `wind`). A signal analyzer written against one schema
-will throw `KeyError` when fed the other — and if that call is wrapped in a bare
-`except Exception: pass` (common "defensive" pattern), the failure is
-**completely invisible**: the UI looks like it ran fine and just "found nothing,"
-when in fact the analysis never executed at all, possibly for the entire
-lifetime of the feature.
-
-**Rule**: never use a bare `except: pass` around a signal-detection call. At
-minimum, log the exception message somewhere visible (a log panel, stderr,
-whatever the UI exposes) so a future schema drift shows up immediately instead
-of silently degrading to "always empty." Write a small adapter function
-(`_adapt_for_x()`) at the boundary between the two schemas instead of trying to
-unify the underlying fetchers.
-
-## 5. Data integrity in append-only collection pipelines: idempotent writes + unreliable trailing archive data
-
-Real bug pair found in SYNOPTYK-ARCTIC, both initially looking like "the
-collector isn't working" (a fresh run reported `bias=+0.00 MAE=0.00 n=5` for
-lead_days=0) but actually two independent, generalizable pitfalls in any
-TIMDR-family collector that appends to a CSV/log on every run:
-
-- **Non-idempotent append inflates sample counts instead of adding new data.**
-  If append-to-CSV code always writes every fetched row with no dedup, running
-  the collector twice on the same day (or after a crash-and-retry) writes the
-  same reading multiple times. `n=5` looked like "5 real days collected" but
-  was actually 1 real day duplicated 5x. Fix: dedupe on write, keyed by the
-  full logical identity of a reading (here `(station, target_date, issue_date,
-  source)`) — load existing keys from the file before appending, skip any row
-  whose key is already present. This makes re-running the collector any
-  number of times on the same data safe, and is worth testing directly
-  (`test_append_same_day_twice_is_idempotent`).
-- **A data source's "archive"/"final" endpoint may not be final for its most
-  recent days.** Open-Meteo's Archive API (reanalysis) mirrors its own
-  forecast model for roughly the trailing 1-2 days before the data is fully
-  reconciled — so comparing "forecast vs archive" for lead_days=0 (today) is
-  really comparing the forecast against a not-yet-finalized copy of itself,
-  producing a spuriously perfect bias≈0/MAE≈0 that looks like success but
-  measures nothing. Generalizes to any TIMDR pipeline pulling a "ground truth"
-  feed that reconciles/revises after a delay (satellite imagery, financial
-  closing prices before end-of-day adjustments, provisional seismic
-  magnitudes): explicitly exclude the last N days/readings of the "truth"
-  side from any bias/accuracy comparison (`exclude_trailing_days` parameter),
-  and treat "the newest comparison is suspiciously perfect" as a signal to
-  investigate, not a result to report.
-
-Both were only found because the user ran the real collector on their own
-machine and reported the literal, un-smoothed console output (`n=5`, "chyba
-nie zbiera danych") rather than a description of the problem — the same
-"reproduce with real output, don't reason in the abstract" discipline as §9's
-debugging-discipline section.
-
-## 6. EV / "engine volatility" — jump detection between successive runs
+## 3. EV / "engine volatility" — jump detection between successive runs
 
 Compare the current reading for a given target (station+timestamp, or
 sensor+event-id) against the *previous* run's reading for that same target;
@@ -168,7 +95,7 @@ flag if the delta exceeds a per-parameter threshold. Requirements:
   processes both writing to the same state file, browser session desync)
   than the comparison function itself.
 
-## 7. Self-learning bias correction from paired (prediction, later-confirmed) logs
+## 4. Self-learning bias correction from paired (prediction, later-confirmed) logs
 
 Simple, fully transparent approach — NOT machine learning, just arithmetic, and
 should be described to the user as such:
@@ -209,7 +136,7 @@ should be described to the user as such:
   only one location/time-window's worth of evidence, same caveat as any single
   backtest.
 
-## 8. Parallel independent tracks + blending, and the uncertainty-band trap
+## 5. Parallel independent tracks + blending, and the uncertainty-band trap
 
 Running a second, fully independent prediction method (e.g. deterministic trend
 extrapolation from raw history) alongside the primary live-model prediction is
@@ -230,86 +157,9 @@ in August, purely from a modest, individually-reasonable-looking formula
 compounding). Sanity-check the band width against physical plausibility, or cap
 it, rather than trusting the formula blindly at long horizons.
 
-## 9. Debugging discipline that mattered in practice
+## 6. Duplication-drift: independent copies of the same formula silently diverging
 
-- When a user reports "X isn't working," reproduce it directly — mock only the
-  network/IO boundary, then run the *actual* production function with
-  controlled synthetic inputs and inspect the real output. Don't reason about
-  it in the abstract; the actual bugs found this way (schema mismatch, O(n²)
-  threshold recompute, a CSS property silently breaking a scrollbar) were not
-  the first hypothesis guessed.
-- If a shared state file (cache, log CSV) is being read/written by both your
-  test process and the user's live/independently-running process, back it up
-  before touching it and restore it after — don't let test runs pollute the
-  user's real accumulated data.
-- Before declaring a fix complete, verify it end-to-end with the exact
-  before/after data the user reported, not just "the code looks right now."
-- When a user reports something "looks stuck" or "seems to be looping,"
-  reproduce it directly and check for the boring explanation first: is there
-  simply no progress output between long-running steps (§14), and/or is there
-  no bounded worst-case runtime? Both are far more common than an actual
-  infinite loop, and both are fixed by printing progress + adding a time
-  budget, not by debugging the algorithm.
-- When a shell command's error output uses backticks inside a double-quoted
-  string passed to `bash -c`, the shell will interpret them as command
-  substitution and silently strip that portion — this can quietly corrupt a
-  git commit message (or any generated string) without erroring. Avoid raw
-  backticks in double-quoted shell strings, or escape them.
-- **A backgrounded process (`nohup ... &`) does not reliably survive between
-  separate tool-call invocations of a sandboxed shell** — each call can be a
-  fresh process-tree scope that gets torn down on return, silently killing the
-  background job. If a computation needs more wall-clock time than one tool
-  call's timeout allows (observed cap in practice: ~120-180s, not the higher
-  value requested), don't rely on backgrounding — checkpoint progress to disk
-  (save partial results every N steps) and resume across multiple sequential
-  tool calls instead. This exact pattern was needed to compute 1000
-  `mpmath.zetazero()` values (~90-150s per 100-zero chunk).
-- **A newly-touched repo in this sandbox may have no git identity configured**,
-  even if other repos in the same ecosystem already commit fine — `git commit`
-  fails with "Author identity unknown" the first time in a fresh repo. Fix once
-  per repo: `git config user.email ...` / `git config user.name ...` before the
-  first commit attempt, not a sign of a deeper problem.
-- **Know which test runner convention a repo actually uses before adding new
-  tests.** `python -m unittest discover` only picks up `unittest.TestCase`
-  subclasses — it silently runs zero of any bare pytest-style
-  `def test_...():` functions added in a new file, with no error, which looks
-  exactly like "the tests passed" when they were never collected at all.
-  Match the existing repo's convention (grep an existing test file for
-  `unittest.TestCase` vs bare functions before writing a new one) and confirm
-  by checking the printed test COUNT went up by the expected number, not just
-  that the run exited 0.
-- **Cross-filesystem copies of a git repo commonly show spurious
-  100644→100755 file-mode-only diffs** (every file appears "modified" in
-  `git status` with 0 insertions/deletions in `git diff --stat`) — diagnose
-  with `git diff --stat` (confirms mode-only) and fix once with
-  `git config core.fileMode false`, not by inspecting each file individually.
-- **`dataclasses.replace()` is not a free way to get an independent copy** —
-  it reconstructs the object through `__init__`, so it re-runs
-  `__post_init__` validation on every call. If the data being copied is
-  already known-valid (e.g. read back from a cache/table you just validated
-  on write), `copy.copy()` (shallow copy) gives the same independence
-  guarantee for a flat dataclass of immutable fields (str/int/etc.) without
-  the redundant re-validation cost — measured ~1.9x fewer ops/sec with
-  `replace()` vs a plain constructor call on an equivalent flat object.
-- **A `dataclasses.replace()`-free copy fix for one aliasing bug can still
-  leave a second copy point uncovered.** A lookup-table pattern that both
-  *returns* cached objects (read side) and *accepts* live objects to cache
-  (write side) needs copying on BOTH sides — copying only on read still lets
-  a caller's later mutation of what it wrote silently corrupt the stored
-  template from the write side.
-- **When two call sites pass the same conceptual parameter but under
-  different names/shapes to a shared constructor** (e.g. one path builds a
-  "kind" preset with implied labels, another wants fully custom labels),
-  don't gate the choice on an incidental property like "how many items" —
-  gate it on the actual identity/content that downstream code will key
-  against. A resonance-figure module that picked a 3-vs-4-label preset purely
-  by *counting* the caller's custom labels (ignoring their actual names)
-  produced structurally mismatched keys the moment a caller supplied
-  non-default labels — invisible in tests that only ever used the defaults.
-
-## 10. Duplication-drift: independent copies of the same formula silently diverging
-
-A structurally different failure mode from §4's schema mismatches: two files
+A structurally different failure mode from schema mismatches between independent data fetchers: two files
 in the same repo independently implementing the *same* formula (copy-pasted
 once, then maintained separately) will eventually diverge when one copy gets
 a bugfix and the other doesn't. Found twice in the same repo (`THE`) across
@@ -337,14 +187,14 @@ mistaken for an unrelated bug later.
 
 Generalizes to any TIMDR-family repo built with this ecosystem's
 copy-paste-and-adapt style — across-repo duplication of a shared *concept*
-under a different name is expected and fine (§18 case study 6 found "TIMDR"
+under a different name is expected and fine (§13 case study 6 found "TIMDR"
 means four unrelated things in four different repos, which is not itself a
 problem); duplication of the exact same formula *inside one repo* is the
 specific pattern to grep for (`grep -rn "def <suspicious_function_name>"`
 across the repo) whenever auditing a repo for the first time, or especially
 when re-auditing one that was already fixed once before.
 
-## 11. `ringdown_resonance()` — a SECOND, unrelated meaning of "resonance"
+## 7. `ringdown_resonance()` — a SECOND, unrelated meaning of "resonance"
 
 Across several TIMDR repos (universal-state-analyzer, TIMDR-Grid-Monitor,
 analizator-gieldowy-v3, deliverable_timdr_finanse, TIMDR-Earthquake-Core) there
@@ -376,7 +226,7 @@ was validated repeatedly across ports:
 
 **This is a post-event descriptive tool, not a predictive one** — it inherently
 needs `event_idx` to already be known. It says nothing by itself about whether
-anything can be detected *before* a future event (see §13).
+anything can be detected *before* a future event (see §9).
 
 **Known, honestly-documented limitation**: real-world signals are often
 multi-modal (a seismogram is P+S+surface+coda superimposed, not one clean
@@ -401,15 +251,15 @@ f0=440Hz, τ=0.3s, 20dB SNR, sampled at 44100Hz) recovered frequency within 0.74
 and damping ratio within 0.0007 of the analytically exact values — the function
 itself is correct; the earlier failure was a test-setup bug. This was validated
 on a *physics-grounded synthetic* signal, not a real recording (no internet
-access to fetch one this session) — see §19 item 4.
+access to fetch one this session) — see §14 item 4.
 
-## 12. RCS / Mie-scattering "resonance region" — a THIRD, unrelated meaning
+## 8. RCS / Mie-scattering "resonance region" — a THIRD, unrelated meaning
 
 Radar cross-section (RCS) has its own "resonance region" (target size ~
 wavelength, `ka` ~ 1), where RCS oscillates with frequency/size due to
 interference between direct reflection and creeping waves circulating the
 target. **This is frequency-domain scattering physics, not a time-domain
-decaying oscillator** — nothing to do with §11's `ringdown_resonance()`, despite
+decaying oscillator** — nothing to do with §7's `ringdown_resonance()`, despite
 both being called "resonance." If a TIMDR-radar-family repo needs real RCS
 resonance-region behavior, the only exactly-solvable canonical case is a
 perfectly-conducting sphere via the Mie series (1908) — implement with
@@ -424,7 +274,7 @@ numbers: Rayleigh scaling `σ ∝ λ⁻⁴` for small `ka` (doubling `ka` should
 **sphere-only** — arbitrary real target shapes need a full electromagnetic
 solver (MoM/FEM), not a lightweight approximation.
 
-## 13. Testing whether a TIMDR signal has genuine predictive power
+## 9. Testing whether a TIMDR signal has genuine predictive power
 
 Multiple times in this ecosystem, someone proposed that a TIMDR signal (a
 topological embedding feature, `ringdown_resonance()`-derived oscillatory
@@ -436,7 +286,7 @@ answer the second question about itself.
 
 Honest protocol (used for both a topological-embedding test and a
 `ringdown_resonance()`-based test, independently, both came back negative — and
-generalized further in §18 to non-predictive "does X pattern-match Y" claims):
+generalized further in §13 to non-predictive "does X pattern-match Y" claims):
 
 1. **Pre-register the feature definition before touching real data.** Freeze
    parameters (embedding dimensions, thresholds, window sizes) on a synthetic
@@ -479,65 +329,7 @@ generalized further in §18 to non-predictive "does X pattern-match Y" claims):
    this same ecosystem flipped sign when replicated on gold — classic
    overfitting, not real structure).
 
-## 14. Lessons from a real external-data pipeline (USGS/EarthScope case study)
-
-Building the real-data mode of the §13 protocol against live USGS/EarthScope
-APIs surfaced several bugs that had nothing to do with the statistics and
-everything to do with basic API/pipeline hygiene — worth checking for in any
-TIMDR repo that pulls from a real external data source:
-
-- **Respect documented result caps.** USGS's FDSN event API caps results at
-  20,000 per query and returns `HTTP 400` (not a clear "too many results"
-  message) if you exceed it. A 5-year, magnitude≥4.5 global catalog is ~38,000
-  events — well over the cap. Fix: don't fetch one giant catalog upfront for a
-  filtering/exclusion check; issue narrow, per-candidate queries (or use a
-  lightweight `/count`-style endpoint) so no single request can approach the
-  cap regardless of the total time range being analyzed.
-- **Scope geographic/global exclusion filters to what's physically relevant,
-  not literally everywhere.** An "exclude this background window if any
-  M≥4.5 happened within ±3 days" check, if not also constrained by distance
-  from the recording station, rejects almost every candidate — magnitude-4.5+
-  earthquakes happen somewhere on Earth several times a day, so a 7-day global
-  window essentially never comes up empty. Constrain by a real physical radius
-  around the station/sensor that would actually be affected (verified via
-  USGS's own `latitude`/`longitude`/`maxradiuskm` count-query parameters that
-  a quiet region gives 0 nearby events in the same window a seismically active
-  region gives several).
-- **Long-running real-data loops need a hard wall-clock time budget, not just
-  a soft attempt-count cap**, plus visible per-item progress with flushed
-  output. A loop that only limits attempts (e.g. `n_target * 20`) can still run
-  unboundedly long in wall-clock time if the per-attempt success rate is low or
-  individual network calls are slow — and with no progress printed between
-  items, this is indistinguishable from a genuine hang to whoever is watching
-  it run. Print one line per item (with elapsed/budget shown) and stop firmly
-  once the time budget is hit, reporting honestly how much of the target was
-  actually collected.
-- **Reuse an HTTP session with retry/backoff** once a pipeline moves from one
-  big request to many small ones (a direct consequence of the point above) —
-  otherwise a handful of transient `429`/`5xx` responses turn into hard
-  failures partway through a long run.
-- **Sandbox network access is not guaranteed session-to-session, and is
-  inconsistent WITHIN a session by domain.** This session, both `librosa.org`
-  (audio example fetch) and `yfinance`/Yahoo Finance (market data) were blocked
-  at the proxy (`403`/tunnel failure) — but plain `git clone` of a public
-  `github.com` repo worked fine in the same session. Confirmed again in a later
-  session: the entire Open-Meteo API family (`api.open-meteo.com`,
-  `archive-api.open-meteo.com`, `historical-forecast-api.open-meteo.com`,
-  `previous-runs-api.open-meteo.com`) is blocked in this sandbox (`403
-  blocked-by-allowlist` via the sandbox's own HTTP proxy, confirmed with
-  verbose curl) — same pattern as `librosa.org`/`yfinance` above, different
-  domain, and `download.pytorch.org` is blocked the same way (confirmed
-  repeatedly across sessions, see §21). Build and unit-test the parsing logic
-  against a hand-built payload matching the documented response shape, and
-  have the user run the actual network call on their own machine — this is
-  exactly how the Previous Runs API backtest (see the bias-correction section
-  above) was verified for real. Don't assume a blocked domain means the whole
-  sandbox is offline, and don't assume a working domain (like GitHub) means
-  arbitrary other domains will work too — check the specific domain/method you
-  need (one cheap fetch) before designing a whole real-data test around it,
-  and have a "needs user-supplied file" fallback ready (see §19 item 3).
-
-## 15. Physical ceilings vs numeric ceilings (Arrhenius/cable-life case study)
+## 10. Physical ceilings vs numeric ceilings (Arrhenius/cable-life case study)
 
 If a TIMDR-family repo models degradation/aging using a **linear-in-native-units
 approximation of an exponential physical law** (e.g. Montsinger's "life halves
@@ -559,9 +351,9 @@ protective mechanism — and when the physical ceiling is crossed, report it
 honestly as a distinct state (e.g. "insulation destroyed," remaining life = 0),
 not silently folded into the same saturating-number behavior as the old bug.
 
-## 16. Samonaprawa — does anomalia/defekt correctly de-escalate after the event ends?
+## 11. Samonaprawa — does anomalia/defekt correctly de-escalate after the event ends?
 
-A different question from §13's "does it predict the future": once an anomaly
+A different question from §9's "does it predict the future": once an anomaly
 is over and the signal is back to genuinely normal behavior, does the
 anomaly/defekt score correctly **recover** (drop back down), or does it stay
 falsely elevated because the old anomalous samples are still sitting in
@@ -663,7 +455,7 @@ assuming "it uses a robust statistic so it's fine" — robustness to minority
 contamination does not imply the same statistic recovers cleanly once
 contamination becomes the majority of what it's being measured against.
 
-## 17. Trójkąt → helisa: zweryfikowana konstrukcja geometryczna (Boerdijk-Coxeter), i skąd bierze się τ
+## 12. Trójkąt → helisa: zweryfikowana konstrukcja geometryczna (Boerdijk-Coxeter), i skąd bierze się τ
 
 The user's mental model for this ecosystem describes a genesis: triangle →
 space → movement/time → "defekt" as a directional twist along a
@@ -695,7 +487,7 @@ own docstring admits its thresholds are "arbitralne, do skalibrowania," an
 acknowledged unfinished sketch, not a finished formula). `moebius_filter.py`
 and `prime_spectrum_filter.py` in the same repo, by contrast, turned out to
 be shallow syntactic heuristics with no real geometry behind the name — see
-§18 case study 4 for `prime_spectrum_filter.py`'s fix.
+§13 case study 4 for `prime_spectrum_filter.py`'s fix.
 
 **What is NOT established** — do not re-derive or re-affirm without new
 evidence: an extension connecting this geometry to the Riemann Hypothesis /
@@ -703,13 +495,13 @@ prime distribution / "cosmic duality" was checked and rejected — the Riemann
 critical line is a precise property of zeta zeros with no known bridge to
 this discrete construction. The one genuine adjacent fact is the
 Montgomery–Odlyzko law (zeta zero spacing matches GUE random-matrix
-statistics — real, independently re-verified in §18 case study 3), but
+statistics — real, independently re-verified in §13 case study 3), but
 that's about point-spacing statistics on a line, not about any helix. None
 of this construction's radii/angles reduce to 1/2 or the golden ratio
-(checked, reported honestly as non-matches, not rounded to fit). **§18 is
+(checked, reported honestly as non-matches, not rounded to fit). **§13 is
 that "verbal/thematic resemblance is not evidence" standard applied five more
-times with actual numbers; §20 extends it to category-theory-flavored
-formalism; §21 extends the same discipline to neural-network transplants of
+times with actual numbers; §15 extends it to category-theory-flavored
+formalism; §16 extends the same discipline to neural-network transplants of
 a symbolic rule.**
 
 A "tetragon" (4-gon) analog, and the exact reverse direction (helix →
@@ -717,14 +509,14 @@ recover the tetrahedron), were proposed but never formally constructed — no
 automatic, parameter-free construction rule exists for either, unlike the
 tetrahedron→helix direction verified above.
 
-## 18. Numerology-vs-real-math: a working, repeatable test protocol (φ/π/primes/Riemann-zero case studies)
+## 13. Numerology-vs-real-math: a working, repeatable test protocol (φ/π/primes/Riemann-zero case studies)
 
-§17 ends with a warning that "verbal/thematic resemblance is not evidence."
+§12 ends with a warning that "verbal/thematic resemblance is not evidence."
 This section is that warning turned into an actual, repeatable procedure, run
 six times across two sessions on six different claimed patterns, with honest
 results reported regardless of outcome (three falsified, one confirmed as
 real-and-already-established, one exposed a concrete bug in existing tooling
-that was then fixed — see §19 item 1 — one exposed a structural
+that was then fixed — see §14 item 1 — one exposed a structural
 domain/codomain problem in a proposed operator construction, and one — case
 study 6 — was already honestly self-corrected before review and just needed
 auditing plus turning its conceptual schema into tested code). Use this
@@ -742,7 +534,7 @@ ecosystem instead of re-deriving a methodology from scratch.
    (Bonferroni, or report the corrected p-value alongside the raw one).
 4. Report the actual result, including "no effect," without narrative
    softening — a negative result is a complete, valid answer (same principle
-   as §13 item 5).
+   as §9 item 5).
 5. **Before concluding "no structure" from a negative result, check whether
    the domain already has an established, purpose-built statistical model —
    and if your metric was homemade instead of that model, re-run against the
@@ -872,14 +664,14 @@ step of asking whether a real, independently-motivated model exists for this
 exact question before inventing one. (Folded into the protocol above as
 step 5.)
 
-**Duplication-drift follow-up (§10 pattern, found by literally auditing for
+**Duplication-drift follow-up (§6 pattern, found by literally auditing for
 it): `math-validator-v2.0/filters/prime_spectrum_filter.py` was still the
 ORIGINAL, never-fixed version** (hardcoded 0.25 threshold, no null model,
 the bare `"TIMDR Λ–τ–ρ"` claim) — v2.0's own README states v3.0 "keeps all
 v2.0 filters unchanged" while continuing development, but that guarantee
 was never rechecked after v3.0's filter received two independent fixes.
 Ported both fixes at once into v2.0 (commit `7f53787`) rather than
-re-deriving them — exactly the §10 remedy (find every copy once you find
+re-deriving them — exactly the §6 remedy (find every copy once you find
 one, don't assume a "kept in sync" claim is still true). Audited the rest
 of the ecosystem's `*filter*.py`/`*spectrum*.py`/`*classif*.py`/
 `*pattern*.py` files (both math-validator repos' other 10 filters, GIA-TIMDR,
@@ -895,8 +687,8 @@ complexity score into 5 labels using hardcoded, evenly-spaced thresholds
 bucketing of a heuristic score with no meaningful null model (there's no
 "random expression" baseline that would make a calibration test
 well-posed the way it is for real-vs-random integer sequences), so the
-§18 null-model remedy doesn't directly apply here. The unearned
-model-compatibility claim is still the §20-style "vocabulary without
+§13 null-model remedy doesn't directly apply here. The unearned
+model-compatibility claim is still the §15-style "vocabulary without
 satisfied structure" problem, just not a numeric-classification one.
 
 **Case study 5 — `M∘M` on a proposed "twist operator," instantiated as
@@ -905,7 +697,7 @@ numeric falsification).** A user proposal defined "time" in TIMDR as
 `Time = ∫M(x)dx` with `M` a self-map (`M:X→X`) called a "twist operator,"
 and asked about properties of `M²=M∘M` (existence of a fixed point, a
 "stabilization" condition `d/dx M²(x)=0`, etc.). Made `M` concrete by using
-the already-built `field_torsion()` (§19 item 2) — torsion of the demo
+the already-built `field_torsion()` (§14 item 2) — torsion of the demo
 `(Λ,τ,ρ)` trajectory from TIMDR-META-DYNAMICS, as a function `M(s)` of sample
 index `s`. Composing `M` with itself immediately exposed the real problem:
 `M`'s output (torsion values, range roughly [-0.35, 2.58]) and `M`'s input
@@ -941,7 +733,7 @@ a cross-repo comparison document (`TIMDR_POROWNANIE.md`) showing "TIMDR" means
 four unrelated things in four repos (EasySound: Hilbert-transform phase
 roughness; Senscore: z-score/percentile hit filter; KHIPU: discrete S/K pair
 validator with a 1/2±(φ-1) rope-balance rule — since found to be
-mathematically vacuous with that exact tolerance, see §21's KHIPU-adjacent
+mathematically vacuous with that exact tolerance, see §16's KHIPU-adjacent
 housekeeping note; this repo: an unimplemented five-label conceptual schema).
 **Two audit techniques used here, both reusable:**
 - **Derive, don't just re-cite, a literature constant when you have the
@@ -978,7 +770,7 @@ prime positions, digit-density claims, `(mp/me)/(6π⁴)≈π`): mostly
 falsified, one genuine-but-inconclusive numeric coincidence, and one
 root-caused float-precision bug.** User asked for a rigorous verdict on
 two specific claims in `GIA-TIMDR/docs/filters/` (a separate cluster of
-speculative docs from the Category_Q one in §20, same repo, same general
+speculative docs from the Category_Q one in §15, same repo, same general
 pattern): (1) XOR of √2/√3 decimal digits at prime-numbered positions
 reveals a "structural resonance" where XOR=0, especially at twin primes
 29/31; (2) proton/electron mass ratio divided by `6π⁴` equals π to
@@ -1043,7 +835,7 @@ of real reference data pulled in this pass.
 **Resolution delivered**: added a "WERYFIKACJA" section to the top of
 each affected file (`prime_position_filter.md`, `prime_spectrum_filter.md`,
 `al_filter_predictions.md`, `README_filter.md`) with the numbers above,
-same non-destructive pattern as §20's Category_Q fix — original
+same non-destructive pattern as §15's Category_Q fix — original
 speculative content kept below, not deleted, so the record is honest
 about both what was claimed and what was found. Committed locally
 (`GIA-TIMDR` commit `a05f71c`), not pushed.
@@ -1058,7 +850,7 @@ a `mpmath`/`sympy` high-precision computation) worth running before
 trusting any claimed digit-level pattern in π/e/√n-style constants
 anywhere in this ecosystem.
 
-## 19. Open research directions for this ecosystem (as of this session)
+## 14. Open research directions for this ecosystem (as of this session)
 
 Status notes, not reusable patterns — kept short since most of the substance
 already lives in the sections they point back to.
@@ -1067,60 +859,60 @@ already lives in the sections they point back to.
    threshold: **fixed, twice** — first the null-model calibration, then a
    deeper recalibration onto the actual Cramér/Gallagher model after the
    user asked whether the negative result was a wrong metric rather than
-   absence of structure (it was) — see §18 case study 4 for the full
+   absence of structure (it was) — see §13 case study 4 for the full
    method and numbers, including the duplication-drift port to
    `math-validator-v2.0`. Don't re-litigate, that section is the full
    record.
 2. TIMDR-META-DYNAMICS `field_torsion()` vs the existing, manually-supplied
    `τ` field: genuinely open, untested question on real data. If picked up,
-   use §18 case study 4's method (Spearman + permutation null, Bonferroni if
+   use §13 case study 4's method (Spearman + permutation null, Bonferroni if
    testing more than one pairing) — don't skip the null model just because
    the quantities "sound related" (item 1 above is a direct demonstration of
    why that shortcut fails). Note `field_torsion()`'s output scale isn't
    directly comparable to `τ`'s own scale without checking real-data ranges
-   first (§18 case study 5).
+   first (§13 case study 5).
 3. The resonance-tester method (unfold + KS vs Poisson/GUE, or
    Spearman+permutation) is fully designed and ready but has never been run
    on a real market/seismic/audio series — blocked purely on data access (no
    working internet to the specific source, or a user-supplied file of a few
    hundred+ real events/readings).
-4. `ringdown_resonance()` (§11) validated only on a synthetic
+4. `ringdown_resonance()` (§7) validated only on a synthetic
    damped-oscillator signal, never on real audio — rerun the same
    pre-registered hypotheses (is_oscillatory=True, frequency within 2%,
    damping within 0.05) if a real recording becomes available.
-5. Standing conclusion (§17, §18): no established bridge exists between
+5. Standing conclusion (§12, §13): no established bridge exists between
    Boerdijk-Coxeter helix geometry and Riemann zeros/primes/φ — run any
-   future proposal connecting these domains through the §18 protocol before
+   future proposal connecting these domains through the §13 protocol before
    writing it up as a finding.
 6. GIA-TIMDR's `docs/theory/` directory has ~20 more speculative "Model_*"
-   documents beyond the one reviewed in §20 — the same category-axiom check
+   documents beyond the one reviewed in §15 — the same category-axiom check
    applies if any of them get revisited.
-6b. GIA-TIMDR's `docs/filters/` cluster (§18 case study 7): two of its
+6b. GIA-TIMDR's `docs/filters/` cluster (§13 case study 7): two of its
    claims tested and audited (XOR/twin-primes falsified, mass-ratio
    coincidence found genuine-but-inconclusive). `mobius_ratio_filter.md`
    and the untested Predictions 1/2/4/5 in `al_filter_predictions.md`
    (Mercury precession, CMB peak ratio, fine-structure constant, next
    resonance scale) remain open — same protocol, needs real reference
    data pulled in before testing.
-7. probabilistic-timdr's Monte Carlo simulator (§18 case study 6) only
+7. probabilistic-timdr's Monte Carlo simulator (§13 case study 6) only
    covers 3 of the repo's 4 numeric claims (birthday, square-lattice
    percolation, spherical collapse) — the other 5 percolation-lattice values
    in its own table remain `CITED`, not independently simulated.
-8. KHIPU-NEURAL's positive result (§21) is from ONE synthetic task family
+8. KHIPU-NEURAL's positive result (§16) is from ONE synthetic task family
    (d_embed=8, 4 hidden categories, seq_len=10) — never run on real data, and
    the noise level / category count were never systematically swept. The
    qualitative direction (categorical helps, magnitude hurts) is unlikely to
    flip, but the exact numbers are specific to this toy configuration.
-9. defect-operator v4 (§26) is validated on ONE synthetic scenario family per
+9. defect-operator v4 (§21) is validated on ONE synthetic scenario family per
    defect type (cluster/periodic/regime-shift) — never swept across defect
    density/magnitude to find where exactly the "rare enough to bootstrap a
    clean calibration block" boundary sits, only confirmed it was crossed in
    the one dense-cluster scenario tested.
-10. §27's aftershock-swarm finding was tested on synthetic Omori-law data
+10. §22's aftershock-swarm finding was tested on synthetic Omori-law data
     (both the standalone version and the real TIMDR_EarthquakeCore version) —
     never against a real labeled aftershock catalog (e.g. Ridgecrest 2019,
     the same real dataset PhaseNet/EQTransformer literature results cite).
-11. §29's C-MAPSS transfer test is n=1 (one real engine, FD001 unit 1 only) —
+11. §23's C-MAPSS transfer test is n=1 (one real engine, FD001 unit 1 only) —
     full validation needs all 100 units of FD001 and a repeat on FD002-FD004
     (different operating conditions/fault modes), blocked in-session by this
     sandbox's network allowlist (data hosts, not the specific method) —
@@ -1128,9 +920,9 @@ already lives in the sections they point back to.
     datasets (binary `.mat`, different failure mode: rolling-element bearing
     vs. gradual whole-engine degradation) remain completely untested.
 
-## 20. Formal vocabulary without satisfied axioms: the same problem as §17, one level up (category theory case study)
+## 15. Formal vocabulary without satisfied axioms: the same problem as §12, one level up (category theory case study)
 
-§18 is about numeric/geometric pattern-matching claims (does sequence X
+§13 is about numeric/geometric pattern-matching claims (does sequence X
 resemble sequence Y). This section is the same discipline applied to a
 different failure mode: using the **vocabulary** of an established branch of
 mathematics (here, category theory) without the underlying **definitions**
@@ -1180,7 +972,7 @@ the public GitHub repo without explicit permission (publishing/modifying
 public content requires it).
 
 **General lesson, applicable to any of the other ~20 `docs/theory/Model_*.md`
-files in GIA-TIMDR (§19 item 6) or any future formal write-up in this
+files in GIA-TIMDR (§14 item 6) or any future formal write-up in this
 ecosystem**: correct-looking notation from a real branch of mathematics
 (category theory, group theory, differential geometry, measure theory,
 whatever) is not, by itself, evidence that the named structure has been
@@ -1188,12 +980,12 @@ constructed. Check the actual definitions the vocabulary requires (does every
 object have an identity? are all the Hom-sets/derivatives/axioms the
 composition or claimed structure demands actually given? are symbols used
 consistently as one type of object throughout?) before treating a document's
-claims as established — the same standard §18 applies to numeric coincidence,
+claims as established — the same standard §13 applies to numeric coincidence,
 applied here to definitional completeness.
 
-## 21. Transplanting a discrete/symbolic TIMDR rule into a gradient-learned neural module: keep it as an inductive bias, not as a frozen formula
+## 16. Transplanting a discrete/symbolic TIMDR rule into a gradient-learned neural module: keep it as an inductive bias, not as a frozen formula
 
-A distinct question from §18/§20 (is a claimed pattern real math): here the
+A distinct question from §13/§15 (is a claimed pattern real math): here the
 question is whether a TIMDR repo's own deterministic, symbolic rule — already
 known to be well-defined, since it's just running code — gains or loses
 anything by being reimplemented as a differentiable module trained by
@@ -1251,7 +1043,7 @@ worse (MAE 0.552±0.067) than the learned one — so the advantage is real
 learning, not just generic dimensionality reduction.
 
 **Protocol, reusable for any future "make TIMDR-rule-X a neural module"
-question in this ecosystem** (same discipline as §13/§18, applied to
+question in this ecosystem** (same discipline as §9/§13, applied to
 architecture design instead of pattern-verification):
 1. Try the literal, "obvious" translation first, and report its result even
    if negative (here: `KHIPUResonanceNet` losing to a trivial baseline) — it
@@ -1276,23 +1068,23 @@ architecture design instead of pattern-verification):
 
 **Environment note**: PyTorch could not be installed in this sandbox
 (`download.pytorch.org` blocked at the proxy, same pattern as other blocked
-domains in §14) — the entire KHIPU-NEURAL codebase is hand-written NumPy
+domains hit elsewhere in this sandbox) — the entire KHIPU-NEURAL codebase is hand-written NumPy
 forward/backward, with every custom gradient verified by numerical
 gradient-checking (`tests/test_gradients_*.py`), not assumed correct. One of
 those gradient-check tests caught a real bug in its own backprop (a
 Straight-Through-Estimator linearization subtlety when two independently
-quantized vectors are multiplied together) — a concrete instance of §9's
-"verify, don't assume" discipline applied to hand-rolled autodiff.
+quantized vectors are multiplied together) — a concrete instance of the broader "verify, don't assume"
+discipline applied to hand-rolled autodiff.
 
 **Housekeeping note**: KHIPU's own `TIMDRValidator` rope-balance tolerance
-(the `1/2±(φ-1)` rule referenced in §18 case study 6's cross-repo table) was
+(the `1/2±(φ-1)` rule referenced in §13 case study 6's cross-repo table) was
 separately found, in the KHIPU repo itself, to have been mathematically
 vacuous as originally implemented — `φ-1≈0.618` exceeds the maximum possible
 deviation of a `[0,1]`-bounded fraction from `0.5` (which is `0.5`), so the
 check could never return `False` for any input, regardless of what "1/2 and
 φ" was meant to capture conceptually. Fixed by switching to `2-φ=1/φ²≈0.382`
 (also directly derived from φ via `φ²=φ+1`, but actually less than 0.5). Not
-a numerology-vs-real-math finding in the §18 sense (nobody claimed the
+a numerology-vs-real-math finding in the §13 sense (nobody claimed the
 tolerance was a discovered pattern) — just a reminder that even an admittedly
 arbitrary interpretive choice can be silently self-defeating in a way worth
 checking mechanically (does the chosen constant even fall in the range where
@@ -1300,7 +1092,7 @@ the check can fire at all?), independent of whether the constant "means"
 anything.
 
 
-## 22. Decompose a fused detector's FPR by component before re-tuning (TIMDR-Security-Module DDoS case study)
+## 17. Decompose a fused detector's FPR by component before re-tuning (TIMDR-Security-Module DDoS case study)
 
 Pre-registered 300+300 trial test (Poisson background, DDoS injected at a
 random position/magnitude, vs. a pure negative control): 100% detection, but
@@ -1314,24 +1106,24 @@ re-tuning**, or a fix aimed at the fused output risks de-tuning a sub-check
 that was already fine. Documented honestly in the repo's own README rather
 than hidden.
 
-## 23. `tension_zscore` — a real, established alternative to numerology (TIMDR-Cosmology-Filters case study)
+## 18. `tension_zscore` — a real, established alternative to numerology (TIMDR-Cosmology-Filters case study)
 
-Positive counter-example to §18: same subject matter (cosmological
+Positive counter-example to §13: same subject matter (cosmological
 constants) as GIA-TIMDR's numerology, but built from real cited measurements
 and the field's own tool: `tension_zscore = (v1-v2)/sqrt(σ1²+σ2²)`. Tested
 on CMB peak spacing (Planck 2018), Mercury precession, and Hubble tension —
 correctly reproduces the real, well-known z≈5.77 SH0ES/Planck tension.
 Instructive extra: testing a naive "CMB peaks are equally spaced" null model
 against real data gives z≈21 — a correct rejection of an oversimplified
-model, not a discovered anomaly, mirroring §13/§18's "a negative result
+model, not a discovered anomaly, mirroring §9/§13's "a negative result
 matching consensus is a good sign" principle. What separates this from
 numerology isn't the subject, it's (a) real sourced data with real
 uncertainties and (b) using the field's actual established test instead of
-a homemade metric (§18 step 5).
+a homemade metric (§13 step 5).
 
-## 24. A null model's validity doesn't transfer with its code (prime-gap KS test → radar defect detection, falsified)
+## 19. A null model's validity doesn't transfer with its code (prime-gap KS test → radar defect detection, falsified)
 
-Reused math-validator-3.0's already-fixed (§18 case study 4)
+Reused math-validator-3.0's already-fixed (§13 case study 4)
 `_normalized_gaps`/KS-vs-Exp(1) code verbatim on synthetic radar-return
 position data (3 scenarios: Poisson noise, cluster, periodic). Result:
 rejected the null (p≈0) on ALL THREE, including pure Poisson noise — 100%
@@ -1345,7 +1137,7 @@ the specific point process it was built for — re-derive/check those
 assumptions before porting the code to a new domain, and always run a
 trivial domain-appropriate baseline alongside a transplanted test.**
 
-## 25. Higher-derivative operators are correct math but noise-fragile in practice (Frenet-Serret torsion case study)
+## 20. Higher-derivative operators are correct math but noise-fragile in practice (Frenet-Serret torsion case study)
 
 `τ(t)=[(ṙ×r̈)·r⃛]/‖ṙ×r̈‖²` verified exactly correct via three analytic checks
 (helix, straight line, planar curve). On noisy synthetic defect data it gave
@@ -1355,17 +1147,17 @@ baseline; even a 30x-lower-noise sweep only reached 2.98x, still worse.
 sensor data is inherently fragile (each numerical differentiation divides
 signal-to-noise ratio) — always benchmark against a lower-order baseline
 (raw value, or first derivative) before investing in a higher-order
-feature.** Replicated a second time in §29 — see that section for the named
+feature.** Replicated a second time in §23 — see that section for the named
 meta-pattern.
 
-## 26. A single adaptive-reference detector can't be both regime-robust and immune to frequent defects — needs a multi-module split, which has its own hard limit (defect-operator v1→v4)
+## 21. A single adaptive-reference detector can't be both regime-robust and immune to frequent defects — needs a multi-module split, which has its own hard limit (defect-operator v1→v4)
 
 Four iterations of a permutation-entropy anomaly detector, each fixing the
 last version's failure and creating a new one, until the failure was
 diagnosed as structural: **v1** (fixed reference) — FPR 5%→62% on regime
 shift. **v2** (adaptive median/MAD reference) — fixes FPR (3-9%) but
 cluster-defect detection collapses 89.9%→5.7% (baseline self-poisoning,
-same failure class as §16 / TIMDR-Security-Module's LOO-fix). **v3**
+same failure class as §11 / TIMDR-Security-Module's LOO-fix). **v3**
 (self-excluding buffer) — partially recovers detection, but FPR regresses to
 42%. **v4** (user-proposed split: block-level regime-change detector +
 frozen point-anomaly detector, reset only on confirmed regime change) —
@@ -1381,7 +1173,7 @@ relative to the calibration window; if defects are dense enough to
 contaminate the first calibration block, no reference-based method
 (single or multi-module) can bootstrap a clean baseline — needs an
 externally-supplied clean period, or a non-reference-based detector family
-(§27 finds a real example: STA/LTA, which recomputes its reference
+(§22 finds a real example: STA/LTA, which recomputes its reference
 continuously instead of freezing one).
 
 Canonical verdict, user's own words, recorded verbatim (`TEST-TIMDR/README.md`):
@@ -1394,7 +1186,7 @@ Canonical verdict, user's own words, recorded verbatim (`TEST-TIMDR/README.md`):
 ✔ TIMDR działa jako architektura wielomodułowa (v4), ale tylko gdy defekt jest rzadki.
 ```
 
-## 27. The "rare defect" finding replicates in real seismology (Short-Term Aftershock Incompleteness)
+## 22. The "rare defect" finding replicates in real seismology (Short-Term Aftershock Incompleteness)
 
 Tested classic STA/LTA — both a standalone rebuild and the real,
 ObsPy-verified `TIMDR_EarthquakeCore.sta_lta()`/`.trigger_onset()` — against
@@ -1412,30 +1204,7 @@ anything left to distinguish. Check what the base detector already does to
 the data before crediting (or blaming) a fusion layer for an identical
 result.
 
-## 28. TIMDR-Earthquake-Core: packaging as a tool, and a Tkinter Canvas+Scrollbar debugging checklist
-
-**Packaging**: `pyproject.toml` with `py-modules` (not a package dir) plus
-`project.scripts` gives a real CLI via `pip install -e .` for a flat-file
-repo; split `requirements.txt` into core/GUI/dev/optional groups. CLI
-gotchas: check a result dict's actual keys instead of assuming a `reason`
-field, and cast `np.floating`/`np.integer` to `float` before `json.dump`.
-
-**Canvas+Scrollbar checklist** — one user-reported symptom ("labels missing
-first characters, values hidden behind the scrollbar"), three compounding
-causes: (1) hardcoded pixel width breaks under Windows DPI scaling — let
-width come from `pack(fill="both", expand=True)` and call
-`SetProcessDpiAwareness(1)` at startup; (2) a vertical-only Canvas still has
-built-in horizontal arrow-key/gesture bindings that can silently shift
-`xview` and leave it shifted with no way to undo it — fix with
-`takefocus=0`, forced `xview_moveto(0)` on every `<Configure>`, and block
-`<Left>/<Right>/<Shift-MouseWheel>`; (3) one hardcoded label width shared
-across grid groups wastes space in shorter-label groups, pushing later
-columns off-screen — compute label width per group dynamically. For bigger
-scrollable plots: wrap the matplotlib canvas in its own Canvas+Scrollbar and
-pack it with `fill="x"` only so height stays fixed while width still tracks
-the window.
-
-## 29. Cross-domain transfer test #4: NASA C-MAPSS turbofan degradation, and a named derivative-order meta-pattern
+## 23. Cross-domain transfer test #4: NASA C-MAPSS turbofan degradation, and a named derivative-order meta-pattern
 
 Sandbox bash network blocked nearly every data host (NASA, Kaggle, CWRU,
 even `raw.githubusercontent.com` via curl), but the model's own page-fetch
@@ -1447,7 +1216,7 @@ engine trajectory this way (n=1, not a statistical validation).
 Test: `flow()` (unchanged from TIMDR-Earthquake-Core) monitoring a sensor's
 local trend lost to a simple raw-value SPC baseline (18 vs. 47 cycles lead
 time); `anomalies()` gave an earlier but unconfirmed, sparse signal (96
-cycles, no negative control run). **This is the same failure shape as §25's
+cycles, no negative control run). **This is the same failure shape as §20's
 torsion result — now a named, twice-replicated meta-pattern: monitoring a
 higher-order derived quantity is consistently less sensitive than a
 simpler value/residual for slow, near-monotonic drifts.** Always benchmark
