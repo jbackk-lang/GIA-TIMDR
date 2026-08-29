@@ -60,15 +60,47 @@ CIEKAWOSTKA LICZBOWA, ALE NIE POTWIERDZONA FIZYKA.** Kilka ustaleń:
   mechanizmu wyjaśniającego, dlaczego akurat ta kombinacja (c=6, k=4) miałaby
   być fizycznie wyróżniona.
 
-**3. Predictions 1, 2, 4, 5 (precesja Merkurego, pik CMB, stała struktury
-subtelnej, kolejna skala rezonansowa) — NIE zweryfikowane w tej sesji**
-(wymagałyby niezależnego pobrania rzeczywistych danych referencyjnych,
-poza zakresem tego, o co poproszono). Ten sam wzorzec co w punkcie 2
-(dobór parametrów po fakcie, brak niezależnego wyprowadzenia, ten sam
-dokument zawiera już jeden potwierdzony błąd arytmetyczny) sugeruje
-traktowanie statusów "confirmed in data" i "remarkable" w tabeli poniżej
-z tą samą ostrożnością, dopóki nie zostaną przetestowane tym samym
-protokołem.
+**3. Predictions 1, 2, 4, 5 — zweryfikowane (sesja 2026-08-29, kontynuacja
+audytu, dane referencyjne z web search: NASA/GR literatura, Planck 2018,
+CODATA 2022).**
+
+- **Prediction 1 (precesja Merkurego) — OBALONE we własnej, konkretnej
+  formie.** Niezależnie wyprowadzona wartość GR z parametrów orbitalnych
+  Merkurego (a=5,79090×10¹⁰ m, e=0,20563, T=87,9691 d, wzór klasyczny
+  24π³a²/(T²c²(1−e²))) daje **42,9806"/wiek**. Nieskorygowana baza
+  dokumentu (43,0) różni się od tej wartości o 0,045%. Wersja "poprawiona
+  filtrem Al" (43,0×π/q=42,9362) różni się o 0,104% — **DWA RAZY GORZEJ,
+  nie lepiej.** Poprawka Al-filtra oddala predykcję od prawdziwej
+  wartości GR, zamiast ją przybliżać — dokładne przeciwieństwo
+  twierdzenia dokumentu ("if the true value is confirmed closer to 42.94
+  than 43.00, the Al filter is the reason").
+- **Prediction 2 (stosunek pików CMB) — słabsze niż twierdzono,
+  statystycznie nierozstrzygające.** Precyzyjne wartości Planck 2018
+  (l₁=220,6±0,6, l₂=538,1±1,3 — Tabela 5, Planck 2018 I "Overview")
+  dają (l₂/l₁)/√2=1,7248 vs √3=1,7321 — odchylenie **0,42%, dwa razy
+  większe** niż twierdzone 0,2% (które użyło zaokrąglonych 220/540).
+  Z propagacją niepewności pomiarowej: z≈1,15σ od √3 — statystycznie ani
+  nie odrzuca, ani nie potwierdza. Etykieta "confirmed in data" w
+  tabeli statusu jest nieścisła przy prawdziwej precyzji danych.
+- **Prediction 4 (stała struktury subtelnej) — arytmetyka się zgadza,
+  ale to nie jest nowa informacja.** Z CODATA 2022 (1/α=137,035999177):
+  α/(q−π)=1,5620 vs π/2=1,5708, odchylenie 0,56% — dokładnie tyle, ile
+  twierdzi dokument. Ten sam brak niezależnego wyprowadzenia i ten sam
+  problem "look-elsewhere" co Prediction 3 (mp/me) w punkcie 2 powyżej.
+- **Prediction 5 (kolejna skala rezonansowa) — arytmetycznie poprawne,
+  ale niewyróżniające.** 118×(118/24)=580,17, i 577 rzeczywiście jest
+  liczbą pierwszą. Ale gęstość liczb pierwszych w okolicy 580 to ok.
+  1/ln(580)≈15,7% — w oknie [570,590] (21 liczb) są aż 3 liczby pierwsze
+  (571, 577, 587). Trafienie "blisko jakiejś liczby pierwszej" w tym
+  zakresie nie jest niczym niezwykłym i nie jest sfalsyfikowalną
+  predykcją.
+
+**Zaktualizowany werdykt ogólny**: z 5 twierdzeń w tym dokumencie, **0
+przeszło niezależną weryfikację bez zastrzeżeń.** Prediction 1 jest teraz
+wprost OBALONE we własnej, konkretnej formie — poprawka "filtra Al"
+pogarsza dopasowanie do rzeczywistości zamiast je poprawiać. Tabela
+statusu na dole dokumentu ("confirmed in data", "remarkable") powinna być
+traktowana jako nieaktualna do czasu przeredagowania.
 
 **4. Czy ciekawostka z punktu 2 ma jakieś zastosowanie? Krótko: prawie
 żadne.**
