@@ -70,6 +70,38 @@ traktowanie statusów "confirmed in data" i "remarkable" w tabeli poniżej
 z tą samą ostrożnością, dopóki nie zostaną przetestowane tym samym
 protokołem.
 
+**4. Czy ciekawostka z punktu 2 ma jakieś zastosowanie? Krótko: prawie
+żadne.**
+
+- **Mnemotechnika/ciekawostka** — skoro mp/me ≈ 6π⁵, można to
+  traktować jako sztuczkę pamięciową (zamiast pamiętać 1836,15267343,
+  wystarczy pamiętać "6π⁵"). To samo w sobie realne, ale trywialne — tej
+  samej kategorii co "22/7 ≈ π". Nic nie wnosi ponad to, bo prawdziwa
+  wartość mp/me jest już zmierzona z dużo większą precyzją (CODATA: 11
+  cyfr znaczących) niż ta zbieżność mogłaby kiedykolwiek dać.
+- **Materiał dydaktyczny jako przykład PUŁAPKI, nie odkrycia** — dobry,
+  konkretny case study do nauczania dokładnie tego, przed czym
+  przestrzega protokół numerologia-vs-prawdziwa-matematyka (§18 skilla
+  `timdr-signal-framework`): pokazuje, jak wygląda "zbyt dokładne, by
+  było przypadkiem" twierdzenie, które po sprawdzeniu (błąd
+  arytmetyczny w źródle, brak niezależnego wyprowadzenia, dobór
+  parametrów wstecz, brak korekty na wielokrotne porównania) okazuje
+  się ciekawostką, nie prawem fizyki.
+- **Czego to NIE daje**: (a) żadnej mocy predykcyjnej — mp/me jest
+  stałą zmierzoną empirycznie, wzór jej nie "wyprowadza", tylko
+  dopasowuje po fakcie dwa parametry (c=6, k=4) do już znanej liczby,
+  więc NIE redukuje liczby wolnych stałych w fizyce (klasyczne
+  kryterium fizycznej istotności takiej relacji, patrz dyskusje o
+  hipotezie dużych liczb Diraca) — nadal trzeba zmierzyć mp/me
+  niezależnie, żeby w ogóle sprawdzić, czy formuła "działa"; (b)
+  żadnego mechanizmu fizycznego — nie ma znanej teorii łączącej masy
+  kwarków/elektronu z geometrią π w ten sposób, a historyczny track
+  record numerologii stałych fizycznych tego typu (liczby Eddingtona i
+  podobne) jest zły; (c) nie warto na tym budować dalej — czyli
+  traktować jako fundament dla Predictions 1/2/4/5 powyżej — to byłoby
+  budowanie na niepewnym gruncie, dokładnie ten sam błąd co arytmetyczny
+  z punktu 2.
+
 ---
 
 ## Constants
