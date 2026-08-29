@@ -930,11 +930,24 @@ already lives in the sections they point back to.
    covers 3 of the repo's 4 numeric claims (birthday, square-lattice
    percolation, spherical collapse) — the other 5 percolation-lattice values
    in its own table remain `CITED`, not independently simulated.
-8. KHIPU-NEURAL's positive result (§16) is from ONE synthetic task family
-   (d_embed=8, 4 hidden categories, seq_len=10) — never run on real data, and
-   the noise level / category count were never systematically swept. The
-   qualitative direction (categorical helps, magnitude hurts) is unlikely to
-   flip, but the exact numbers are specific to this toy configuration.
+8. **RESOLVED (partially — mixed, not simply confirmed)**: swept
+   KHIPU-NEURAL's §16 positive result (KHIPUResonanceNetMLP vs baseline)
+   across noise_std∈{0.1,0.4,0.8,1.6} × n_categories∈{2,4,8} (36 runs, 3
+   seeds each, `khipu_neural/sweep_noise_categories.py`). Quantization
+   wins in 9/12 configs, but **loses in 3, and not randomly — the losses
+   cluster exactly where n_categories (8) approaches the fixed bottleneck
+   size (n_axes=9)**: at n_categories=8 with low/moderate noise (0.1, 0.4),
+   baseline beats khipu_mlp 0.19 vs 0.47 and 0.47 vs 0.59 — the opposite
+   direction from every other config. At very high noise (1.6) with
+   n_categories≥4, both models collapse to ≈trivial-mean-predictor
+   performance (task has no exploitable signal left for either). **Revised
+   scope**: "quantization helps as forced denoising" holds only when
+   n_categories is clearly below n_axes AND noise is in a middle range
+   (neither negligible nor task-destroying) — not the general property a
+   single config could suggest. Confirms the bottleneck_sweep.py mechanism
+   (n_axes needs real headroom over n_categories) from a second, independent
+   angle instead of just asserting it. Real data still untested (that half
+   of item 8 remains open).
 9. defect-operator v4 (§21) is validated on ONE synthetic scenario family per
    defect type (cluster/periodic/regime-shift) — never swept across defect
    density/magnitude to find where exactly the "rare enough to bootstrap a
