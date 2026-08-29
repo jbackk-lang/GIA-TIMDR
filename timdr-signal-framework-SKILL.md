@@ -95,6 +95,27 @@ flag if the delta exceeds a per-parameter threshold. Requirements:
   processes both writing to the same state file, browser session desync)
   than the comparison function itself.
 
+**Ridgecrest case study (real M≥2.0 catalog, 30-minute windows).** On real
+Ridgecrest catalog data EV came out unambiguously positive, but the first
+pass at the numbers had serious counting and calibration errors — worth
+recording so the same mistakes aren't repeated. `X_prev` (M≥2.0 events in
+the 30 minutes before the mainshock) is 5 real events (`2.80, 2.15, 2.22,
+4.97, 4.14`), not the 2 events a first look found — that first look only
+covered the last ~5 minutes of data actually fetched, not the full 30.
+`X_now` (M≥2.0 events in the 30 minutes after the mainshock) is **125**
+real events, not 7 — the 7 came from a handful of magnitudes that had
+already been quoted earlier in conversation, not from re-checking the full
+source file, an 18x undercount. The real rolling 30-minute-count
+distribution in that same window gives `p10=0, p90=118`, so
+`threshold = 0.3*(p90-p10) = 35.4`, not an eyeballed `0.9`. EV=TRUE still
+holds even against the corrected, much higher threshold (`delta = 120 >
+35.4`), but only because the swarm is that extreme — a smaller real event
+would not have survived this size of correction. **Methodological note**:
+calibrating the threshold from a window that already contains the swarm
+you're trying to detect is circular (the threshold "learns" from the very
+extreme it's meant to flag) — in real use, the p10/p90 baseline should be
+calibrated on a quiet period *before* the sequence starts, not during it.
+
 ## 4. Self-learning bias correction from paired (prediction, later-confirmed) logs
 
 Simple, fully transparent approach — NOT machine learning, just arithmetic, and
@@ -135,6 +156,17 @@ should be described to the user as such:
   7-lead-day run with no parser fixes needed on the first real request — still
   only one location/time-window's worth of evidence, same caveat as any single
   backtest.
+
+**Scope clarification (synthetic demo, not a Ridgecrest test).** A worked
+example of this section using invented (prediction, ground-truth) pairs that
+always differ by exactly 1 unit trivially gives `bias=-1`, `MAE=1` regardless
+of whether the numbers are real — that only demonstrates the bias/MAE
+arithmetic is correct, which was never in question. It is NOT a test on real
+Ridgecrest (or any other) data, and does not validate any TIMDR predictive
+model — the exercise itself says up front "we don't have a predictive model,"
+so the only thing actually exercised is the logging/grouping-by-lead-time
+mechanics, not forecast quality. Don't let a clean bias/MAE number from
+made-up pairs be read as evidence that a real forecaster works.
 
 ## 5. Parallel independent tracks + blending, and the uncertainty-band trap
 
@@ -252,6 +284,21 @@ and damping ratio within 0.0007 of the analytically exact values — the functio
 itself is correct; the earlier failure was a test-setup bug. This was validated
 on a *physics-grounded synthetic* signal, not a real recording (no internet
 access to fetch one this session) — see §14 item 4.
+
+**Catalog vs waveform — what `ringdown_resonance()` actually needs.** The
+function operates on a continuous amplitude-vs-time trace (`s`), with a
+well-defined baseline, noise band, and threshold crossings in the window
+after the event. A list of successive event MAGNITUDES from a seismic
+catalog (e.g. Ridgecrest) is not that kind of signal — it reflects Båth's
+law and the Gutenberg-Richter magnitude-frequency distribution (the largest
+aftershocks arrive first, then progressively smaller ones), not the ringdown
+of one waveform. A "monotonic decay, no oscillation" conclusion drawn from a
+bare sequence of magnitudes is NOT a result of `ringdown_resonance()` —
+the function was never actually run, so there is no baseline, no noise band,
+and no crossings to speak of. To genuinely test `ringdown_resonance()` on
+Ridgecrest, a continuous waveform (a real local seismogram) is required,
+with crossing times, frequency, and damping computed from it — not the
+catalog's magnitude column standing in for a signal it isn't.
 
 ## 8. RCS / Mie-scattering "resonance region" — a THIRD, unrelated meaning
 
