@@ -904,13 +904,28 @@ already lives in the sections they point back to.
 6. GIA-TIMDR's `docs/theory/` directory has ~20 more speculative "Model_*"
    documents beyond the one reviewed in §15 — the same category-axiom check
    applies if any of them get revisited.
-6b. GIA-TIMDR's `docs/filters/` cluster (§13 case study 7): two of its
-   claims tested and audited (XOR/twin-primes falsified, mass-ratio
-   coincidence found genuine-but-inconclusive). `mobius_ratio_filter.md`
-   and the untested Predictions 1/2/4/5 in `al_filter_predictions.md`
-   (Mercury precession, CMB peak ratio, fine-structure constant, next
-   resonance scale) remain open — same protocol, needs real reference
-   data pulled in before testing.
+6b. **RESOLVED**: GIA-TIMDR's `docs/filters/` cluster (§13 case study 7)
+   is now fully audited. Predictions 1/2/4/5 in `al_filter_predictions.md`
+   tested against real reference data (Planck 2018 Table 5, CODATA 2022,
+   NASA orbital elements): **Prediction 1 (Mercury precession) FALSIFIED
+   in its specific form** — an independently-derived GR value from orbital
+   elements (42.9806"/century) is CLOSER to the doc's own unadjusted 43.0
+   baseline (0.045% off) than to its "Al-filter-corrected" 42.9362
+   (0.104% off, 2x worse) — the claimed correction moves the prediction
+   away from reality, the exact opposite of the doc's claim. **Prediction
+   2 (CMB peak ratio)**: real Planck values give 0.42% deviation from √3,
+   2x the claimed 0.2% (which used rounded numbers), z≈1.15σ —
+   statistically inconclusive either way. **Prediction 4** (fine-structure
+   constant): arithmetic matches as claimed (0.56% off), same
+   look-elsewhere problem as the mp/me case already documented above.
+   **Prediction 5** (next resonance scale): arithmetically correct but
+   unremarkable — prime density near 580 is ~15.7%, 3 primes already sit
+   in a 21-number window around it. Also audited `mobius_ratio_filter.md`'s
+   "Al+ × √3 ≈ √3, √3 is the fixed point" claim: **pure tautology** —
+   Al+≈1.0015 approximately returns ANY input multiplied by it (verified:
+   Al+×5, Al+×1000000 give the identical 0.1487% deviation as Al+×√3),
+   nothing specific to √3. Both files updated with non-destructive
+   WERYFIKACJA sections (`GIA-TIMDR` commit `a952c57`), not pushed.
 7. probabilistic-timdr's Monte Carlo simulator (§13 case study 6) only
    covers 3 of the repo's 4 numeric claims (birthday, square-lattice
    percolation, spherical collapse) — the other 5 percolation-lattice values
