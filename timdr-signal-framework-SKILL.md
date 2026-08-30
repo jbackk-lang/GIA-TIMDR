@@ -300,6 +300,35 @@ Ridgecrest, a continuous waveform (a real local seismogram) is required,
 with crossing times, frequency, and damping computed from it — not the
 catalog's magnitude column standing in for a signal it isn't.
 
+**First real-waveform test (user-supplied, not synthetic, not a catalog).**
+The user independently downloaded real continuous seismometer data via ObsPy
+on their own machine (this sandbox's network blocks IRIS/EarthScope) —
+stations CI.CLC and CI.RIO, channel HHZ, 2019-07-06T03:18:52.998Z to
+03:24:52.998Z (6 min, 100Hz, 36001 samples, raw digitizer counts), covering
+the real Ridgecrest M7.1 mainshock. Pre-registered test (fixed
+`noise_floor_factor` sweep {1.0,1.5,2.0,3.0}, `pre_event_window=500`,
+`event_idx` from real mainshock time, run once): unbounded lookahead gave
+1885-2006 spurious crossings on both stations at every factor value (clearly
+degenerate — the whole rest of the 6-minute trace after the mainshock is full
+of coda/aftershock energy, not a clean single-mode ringdown). Bounded to a
+30s lookahead, CLC still gave 245-252 crossings at factor∈{1.5,2.0,3.0}
+(period≈0.11s, freq≈9Hz — clearly not a real seismic ringdown mode, this is
+noise-band chatter). RIO showed the documented threshold sensitivity
+directly: `is_oscillatory` flipped True→False between factor 1.5 and 2.0.
+**Conclusion, on real data, confirms the module's own documented limitation
+in full**: `ringdown_resonance()`'s single-dominant-mode zero-crossing
+assumption does not hold for real multi-modal seismic coda even in short
+post-event windows — the function needs a much narrower, physically-chosen
+analysis window (e.g. isolating one specific surface-wave arrival) to be
+meaningful on real seismograms, not a blanket post-event lookahead.
+Separately, on the SAME real data, `sta_lta()`/`trigger_onset()` (unmodified,
+nsta=100/1s, nlta=1000/10s, thr_on=3.5, thr_off=1.0) performed well: it
+correctly picked the mainshock on both stations, with RIO's onset lagging
+CLC's by an amount consistent with RIO being farther from the epicenter
+(real travel-time physics, not a bug), plus several real aftershocks. This is
+a clean split result: the STA/LTA picker generalizes to real data; the
+ringdown analysis, as documented, does not without a much narrower window.
+
 ## 8. RCS / Mie-scattering "resonance region" — a THIRD, unrelated meaning
 
 Radar cross-section (RCS) has its own "resonance region" (target size ~
@@ -1033,11 +1062,17 @@ already lives in the sections they point back to.
     disclosed in the script's docstring (amplitude-law slope, then
     magnitude floor) — both were nuisance/sensitivity parameters fixed via
     single-event probes before ever looking at the dense-vs-isolated
-    comparison, not post-hoc tuning of the finding itself. Real
-    *waveform* validation (not just real event catalog + synthetic
-    waveform) remains the open half of this item.
+    comparison, not post-hoc tuning of the finding itself.
     (`TIMDR-Earthquake-Core/stai_real_ridgecrest_test.py` +
     `data/ridgecrest_2019/`.)
+    **Further resolved**: real continuous waveform data (not just real
+    catalog + synthetic waveform) was subsequently obtained — see §22's
+    "Further update" and "GUI pipeline check" paragraphs for the real
+    CI.CLC/CI.RIO mseed test, which confirmed `sta_lta()`/`trigger_onset()`
+    generalizes to real recorded ground motion (correct mainshock pick on
+    both stations, physically-consistent travel-time lag, several real
+    aftershocks) and, via the actual `gui_app.py` code path with unmodified
+    defaults, correctly caught the mainshock on the first trigger.
 11. §23's C-MAPSS transfer test is n=1 (one real engine, FD001 unit 1 only) —
     full validation needs all 100 units of FD001 and a repeat on FD002-FD004
     (different operating conditions/fault modes), blocked in-session by this
@@ -1337,9 +1372,47 @@ same real `sta_lta()`/`trigger_onset()` gave dense-window recall 58.7% vs a
 that's individually easily detectable — the coda-overlap signature, not a
 sensitivity artifact — plus an independent, detector-free confirmation that
 the official USGS catalog itself is 1.19 magnitude units less complete in
-the dense window. Real continuous waveform data remains unobtained (see
-item 10 for the exact hosts tried and why); this update used a real event
-catalog driving a synthetic wavelet, not a real recorded seismogram.
+the dense window. At the time this was first written, real continuous
+waveform data was unobtained (sandbox networking blocks IRIS/EarthScope);
+this update used a real event catalog driving a synthetic wavelet, not a
+real recorded seismogram.
+
+**Further update — real continuous waveform obtained and tested.** The user
+independently fetched real waveform data via ObsPy on their own machine
+(stations CI.CLC/CI.RIO, HHZ, the real Ridgecrest M7.1 window, 100Hz, 36001
+samples each) and supplied it directly. On this real recording, the same
+unmodified `sta_lta()`/`trigger_onset()` correctly picked the mainshock on
+both stations (with RIO's onset lagging CLC's consistent with RIO's greater
+epicentral distance — real travel-time physics) plus several real
+aftershocks, extending the STAI finding's positive-control side (isolated,
+individually-detectable events) to genuine recorded ground motion rather
+than a synthetic wavelet. `ringdown_resonance()` was also run on this same
+real data and, separately, badly failed to generalize (see §7) — a mixed
+result: the picker generalizes to real seismograms, the ringdown module as
+documented does not.
+
+**GUI pipeline check on this same real data.** Running the exact
+`on_load_csv()` → `on_analyze()` code path from `gui_app.py` (not just the
+underlying functions in isolation) on the real `CLC_HHZ.csv` export, with
+every GUI default left untouched (`k=8`, twist threshold=20, MAD factor=3.0,
+STA/LTA 25/100 samples, thr_on/off=3.0/1.0, all three preprocessing
+checkboxes True): `trigger_onset()` found 17 onsets over the 6-minute trace,
+the first at t=61.1s versus the real mainshock at t≈60.0s — correctly
+caught, on the very first trigger, with default settings. The twist/anomaly
+detectors are still oversensitive on real data (19.9%/14.6% of all samples
+flagged) but the flags are NOT spread as uniform background noise: 53% of
+all twist flags land in the first 60s after the mainshock, decaying
+smoothly afterward, and there are zero twist flags in the two 30s bins
+before the mainshock — i.e. the over-sensitivity concentrates on real
+seismic energy (mainshock coda, ongoing aftershock activity) rather than
+firing randomly on quiet background, even though the absolute flag rate is
+too high to use these two detectors' raw counts as an event count on real
+data without retuning (as `README_gui.md` already cautions for `twist_thr`).
+This test also surfaced and fixed a real bug: `SeismicLoader.load_csv()`
+failed outright on this exact file's headerless CSV export format
+(`csv.DictReader` mistook the first data row `0.0,18754` for column names)
+— see `seismic_loader.py`'s POPRAWKA 2 for the fix and its two regression
+tests.
 
 ## 23. Cross-domain transfer test #4: NASA C-MAPSS turbofan degradation, and a named derivative-order meta-pattern
 
