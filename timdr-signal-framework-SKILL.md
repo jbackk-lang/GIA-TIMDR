@@ -1,6 +1,11 @@
 ---
 name: "timdr-signal-framework"
-description: "Use for building/debugging TIMDR-style signal/anomaly-detection systems (weather, market, radar, grid, seismic, GPS, DDoS/security, aviation PHM); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math or unverified; auditing a repo for diverged duplicate code; converting a symbolic TIMDR rule into a neural module; choosing single vs multi-module detector architecture; or cross-domain-transferring a detector (prime-gap stats, torsion, LSQ trend) with a baseline comparison. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, Boerdijk-Coxeter helix, category-theory checks, EMA vs windowed recovery, KHIPU-NEURAL lessons, DDoS validation, tension_zscore, baseline-poisoning, Short-Term Aftershock Incompleteness, derivative-order-vs-noise pattern, NASA C-MAPSS transfer test. Pure math/TIMDR-detector scope — no general software engineering, GUI, or infrastructure debugging."
+description: "Use for TIMDR-style signal/anomaly detectors (weather, market, radar, grid, seismic, GPS, security, aviation/industrial/battery/EV predictive maintenance); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math; auditing duplicated code; symbolic-to-neural TIMDR transplants; cross-domain detector transfer with baseline comparison. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, EMA vs windowed recovery, KHIPU-NEURAL, DDoS validation, tension_zscore, Short-Term Aftershock Incompleteness, NASA C-MAPSS transfer, calibration_convergence() false-convergence bug, calibrate()/fuse_calibrated() vs self-referential fuse() on baseline-free degradation, checker_online/data_live liveness split, rhythm-vs-anomaly tuning tradeoff, weakest-link multi-subsystem aggregation, OBD-II vs CAN+DBC scoping. No general software engineering, GUI, or infra debugging."
+---
+
+---
+name: "timdr-signal-framework"
+description: "Use for TIMDR-style signal/anomaly detectors (weather, market, radar, grid, seismic, GPS, security, aviation/industrial/battery/EV predictive maintenance); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math; auditing duplicated code; symbolic-to-neural TIMDR transplants; cross-domain detector transfer with baseline comparison. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, EMA vs windowed recovery, KHIPU-NEURAL, DDoS validation, tension_zscore, Short-Term Aftershock Incompleteness, NASA C-MAPSS transfer, calibration_convergence() false-convergence bug, calibrate()/fuse_calibrated() vs self-referential fuse() on baseline-free degradation, checker_online/data_live liveness split, rhythm-vs-anomaly tuning tradeoff, weakest-link multi-subsystem aggregation, OBD-II vs CAN+DBC scoping. No general software engineering, GUI, or infra debugging."
 ---
 
 # TIMDR signal framework — reusable patterns, known pitfalls, and a numerology/formalism-testing protocol
@@ -9,7 +14,8 @@ Distilled from building/debugging the Synoptyk-v2.0 weather system and the wider
 TIMDR-family repo ecosystem (grid monitoring, market analysis, earthquake core,
 radar, DNA coverage anomaly detection, meta-dynamics, math-validator, GIA-TIMDR
 theory docs, probabilistic-timdr, KHIPU/KHIPU-NEURAL, TIMDR-Security-Module,
-TIMDR-Cosmology-Filters, TEST-TIMDR, TIMDR-Aviation-Diagnostics, etc.). Scope is
+TIMDR-Cosmology-Filters, TEST-TIMDR, TIMDR-Aviation-Diagnostics,
+TIMDR-Industrial-Predict, TIMDR-Battery-Predict, TIMDR-EV-Predict, etc.). Scope is
 deliberately narrow: the math and signal-processing logic of TIMDR-style
 detectors (anomalia/defekt/rezonans/skręt, thresholds, resonance operators,
 cross-domain transfer tests) and the numerology/formalism-verification protocol
@@ -26,6 +32,14 @@ domain-transfer tests (security, cosmology, radar/primes, torsion,
 defect-operator v1-v4) converging on a user-authored verdict (§21), replicated
 once more in seismology (§22) and aviation PHM (§23) — together establishing a
 recurring "higher-order-derivative loses to a simpler baseline" meta-pattern.
+§24-29 are a second, later arc from building a family of predictive-maintenance
+fusion pipelines (industrial machinery → battery → full EV): a fixed-scale
+normalization bug in a calibration self-test (§24), the same self-referential-
+baseline blind spot from §2 recurring in sharper, real-data form on
+baseline-free degradation (§25), a two-signal liveness split for live monitors
+(§26), a recurring rhythm-vs-anomaly tuning tradeoff (§27), weakest-link
+aggregation across independently-calibrated subsystems (§28), and a
+protocol-scope-verification lesson for sensor acquisition (§29).
 
 ## 1. The four TIMDR signal types (generic, not weather-specific)
 
@@ -74,7 +88,10 @@ active" (a seismograph's amplitude channel during quiet periods is exactly this
 shape) — consider an absolute floor, not just a purely statistical threshold, for
 such parameters. The same "mostly quiet" shape shows up again in §9 below (pure
 white noise almost never triggers a candidate-event detector at all, which makes
-naive white-noise negative controls degenerate).
+naive white-noise negative controls degenerate). **A sharper, real-data version
+of this same self-referential-baseline blind spot — where the window has NO
+healthy segment anywhere, not just an uneven one — is worked through in full in
+§25.**
 
 ## 3. EV / "engine volatility" — jump detection between successive runs
 
@@ -94,6 +111,30 @@ flag if the delta exceeds a per-parameter threshold. Requirements:
   it's more often something operational (cache got cleared, two server
   processes both writing to the same state file, browser session desync)
   than the comparison function itself.
+
+**Ridgecrest case study (real M≥2.0 catalog, 30-minute windows).** On real
+Ridgecrest catalog data EV came out unambiguously positive, but the first
+pass at the numbers had serious counting and calibration errors — worth
+recording so the same mistakes aren't repeated. `X_prev` (M≥2.0 events in
+the 30 minutes before the mainshock) is 5 real events (`2.80, 2.15, 2.22,
+4.97, 4.14`), not the 2 events a first look found — that first look only
+covered the last ~5 minutes of data actually fetched, not the full 30.
+`X_now` (M≥2.0 events in the 30 minutes after the mainshock) is **125**
+real events, not 7 — the 7 came from a handful of magnitudes that had
+already been quoted earlier in conversation, not from re-checking the full
+source file, an 18x undercount. The real rolling 30-minute-count
+distribution in that same window gives `p10=0, p90=118`, so
+`threshold = 0.3*(p90-p10) = 35.4`, not an eyeballed `0.9`. EV=TRUE still
+holds even against the corrected, much higher threshold (`delta = 120 >
+35.4`), but only because the swarm is that extreme — a smaller real event
+would not have survived this size of correction. **Methodological note**:
+calibrating the threshold from a window that already contains the swarm
+you're trying to detect is circular (the threshold "learns" from the very
+extreme it's meant to flag) — in real use, the p10/p90 baseline should be
+calibrated on a quiet period *before* the sequence starts, not during it.
+This exact circularity — normalizing a change against a scale that is
+itself still moving/contaminated — recurs in a calibration-self-test
+context in §24.
 
 ## 4. Self-learning bias correction from paired (prediction, later-confirmed) logs
 
@@ -135,6 +176,17 @@ should be described to the user as such:
   7-lead-day run with no parser fixes needed on the first real request — still
   only one location/time-window's worth of evidence, same caveat as any single
   backtest.
+
+**Scope clarification (synthetic demo, not a Ridgecrest test).** A worked
+example of this section using invented (prediction, ground-truth) pairs that
+always differ by exactly 1 unit trivially gives `bias=-1`, `MAE=1` regardless
+of whether the numbers are real — that only demonstrates the bias/MAE
+arithmetic is correct, which was never in question. It is NOT a test on real
+Ridgecrest (or any other) data, and does not validate any TIMDR predictive
+model — the exercise itself says up front "we don't have a predictive model,"
+so the only thing actually exercised is the logging/grouping-by-lead-time
+mechanics, not forecast quality. Don't let a clean bias/MAE number from
+made-up pairs be read as evidence that a real forecaster works.
 
 ## 5. Parallel independent tracks + blending, and the uncertainty-band trap
 
@@ -192,7 +244,13 @@ means four unrelated things in four different repos, which is not itself a
 problem); duplication of the exact same formula *inside one repo* is the
 specific pattern to grep for (`grep -rn "def <suspicious_function_name>"`
 across the repo) whenever auditing a repo for the first time, or especially
-when re-auditing one that was already fixed once before.
+when re-auditing one that was already fixed once before. When the ported
+core is instead deliberately shared ACROSS repos on purpose (e.g. copying an
+already-mature fusion/predict module wholesale into a new domain repo, as in
+§25/§28), re-run that module's own existing regression tests immediately
+after the rename/port, before writing any new domain-specific code against
+it — confirms the transplant didn't silently break anything before new bugs
+get tangled up with old ones.
 
 ## 7. `ringdown_resonance()` — a SECOND, unrelated meaning of "resonance"
 
@@ -252,6 +310,50 @@ and damping ratio within 0.0007 of the analytically exact values — the functio
 itself is correct; the earlier failure was a test-setup bug. This was validated
 on a *physics-grounded synthetic* signal, not a real recording (no internet
 access to fetch one this session) — see §14 item 4.
+
+**Catalog vs waveform — what `ringdown_resonance()` actually needs.** The
+function operates on a continuous amplitude-vs-time trace (`s`), with a
+well-defined baseline, noise band, and threshold crossings in the window
+after the event. A list of successive event MAGNITUDES from a seismic
+catalog (e.g. Ridgecrest) is not that kind of signal — it reflects Båth's
+law and the Gutenberg-Richter magnitude-frequency distribution (the largest
+aftershocks arrive first, then progressively smaller ones), not the ringdown
+of one waveform. A "monotonic decay, no oscillation" conclusion drawn from a
+bare sequence of magnitudes is NOT a result of `ringdown_resonance()` —
+the function was never actually run, so there is no baseline, no noise band,
+and no crossings to speak of. To genuinely test `ringdown_resonance()` on
+Ridgecrest, a continuous waveform (a real local seismogram) is required,
+with crossing times, frequency, and damping computed from it — not the
+catalog's magnitude column standing in for a signal it isn't.
+
+**First real-waveform test (user-supplied, not synthetic, not a catalog).**
+The user independently downloaded real continuous seismometer data via ObsPy
+on their own machine (this sandbox's network blocks IRIS/EarthScope) —
+stations CI.CLC and CI.RIO, channel HHZ, 2019-07-06T03:18:52.998Z to
+03:24:52.998Z (6 min, 100Hz, 36001 samples, raw digitizer counts), covering
+the real Ridgecrest M7.1 mainshock. Pre-registered test (fixed
+`noise_floor_factor` sweep {1.0,1.5,2.0,3.0}, `pre_event_window=500`,
+`event_idx` from real mainshock time, run once): unbounded lookahead gave
+1885-2006 spurious crossings on both stations at every factor value (clearly
+degenerate — the whole rest of the 6-minute trace after the mainshock is full
+of coda/aftershock energy, not a clean single-mode ringdown). Bounded to a
+30s lookahead, CLC still gave 245-252 crossings at factor∈{1.5,2.0,3.0}
+(period≈0.11s, freq≈9Hz — clearly not a real seismic ringdown mode, this is
+noise-band chatter). RIO showed the documented threshold sensitivity
+directly: `is_oscillatory` flipped True→False between factor 1.5 and 2.0.
+**Conclusion, on real data, confirms the module's own documented limitation
+in full**: `ringdown_resonance()`'s single-dominant-mode zero-crossing
+assumption does not hold for real multi-modal seismic coda even in short
+post-event windows — the function needs a much narrower, physically-chosen
+analysis window (e.g. isolating one specific surface-wave arrival) to be
+meaningful on real seismograms, not a blanket post-event lookahead.
+Separately, on the SAME real data, `sta_lta()`/`trigger_onset()` (unmodified,
+nsta=100/1s, nlta=1000/10s, thr_on=3.5, thr_off=1.0) performed well: it
+correctly picked the mainshock on both stations, with RIO's onset lagging
+CLC's by an amount consistent with RIO being farther from the epicenter
+(real travel-time physics, not a bug), plus several real aftershocks. This is
+a clean split result: the STA/LTA picker generalizes to real data; the
+ringdown analysis, as documented, does not without a much narrower window.
 
 ## 8. RCS / Mie-scattering "resonance region" — a THIRD, unrelated meaning
 
@@ -401,7 +503,10 @@ contamination a minority or a majority of the window being analyzed?**
   a chronic anomaly spanning the *entire* window is invisible to a
   self-baseline method because there's nothing left to compare it against.
   Recovery-under-majority-contamination is the same failure mode, just partial
-  rather than total.
+  rather than total. **§25 is the limiting case of exactly this blind spot**:
+  when the "contamination" (continuous degradation) spans the ENTIRE
+  available window with no healthy segment left anywhere, the self-baseline
+  doesn't just degrade — it can invert which end looks worse.
 
 **Real bug found via this exact test, and the "half-fix trap" lesson**
 (`deliverable_timdr_finanse/timdr_core_finance.py::defekt()`): computed its
@@ -887,7 +992,12 @@ already lives in the sections they point back to.
    p=0.91). Non-constant torsion alone doesn't create a monotonic
    relationship with an arbitrarily-labeled coordinate, even one that
    literally feeds the geometry. Test:
-   `TIMDR-META-DYNAMICS/test_trefoil_torsion_vs_tau.py`.
+   `TIMDR-META-DYNAMICS/test_trefoil_torsion_vs_tau.py`. **Separately, this
+   same repo's broken end-to-end pipeline (crashing imports, missing
+   methods, mismatched constructor signatures across `main.py`,
+   `core_meta/`, `models/`, `analysis/`) was later fully repaired into a
+   runnable demo — see §28's aggregation section for the downstream
+   architectural pattern that repair fed into.**
 3. The resonance-tester method (unfold + KS vs Poisson/GUE, or
    Spearman+permutation) is fully designed and ready but has never been run
    on a real market/seismic/audio series — blocked purely on data access (no
@@ -953,10 +1063,50 @@ already lives in the sections they point back to.
    density/magnitude to find where exactly the "rare enough to bootstrap a
    clean calibration block" boundary sits, only confirmed it was crossed in
    the one dense-cluster scenario tested.
-10. §22's aftershock-swarm finding was tested on synthetic Omori-law data
-    (both the standalone version and the real TIMDR_EarthquakeCore version) —
-    never against a real labeled aftershock catalog (e.g. Ridgecrest 2019,
-    the same real dataset PhaseNet/EQTransformer literature results cite).
+10. **RESOLVED (partially — real catalog + real detector code, synthetic
+    waveform)**: replicated §22's STAI finding against the REAL 2019
+    Ridgecrest sequence. Event origin times and magnitudes are 100% real
+    (USGS FDSN catalog: 283 real events, 2019-07-06 03:15-06:15 UTC, the
+    first ~3h after the real M7.1 mainshock, vs 7 real isolated events a
+    month later at the same nominal M>=2.5 cutoff) fed through the ACTUAL,
+    unmodified `TIMDR_EarthquakeCore.sta_lta()`/`trigger_onset()`.
+    Waveform SAMPLES remain synthetic (a fixed pre-registered wavelet at
+    each real event time, amplitude scaled to real magnitude) because
+    every real-waveform host tried was unreachable this session
+    (`service.iris.edu`: retired, "NGF: Service Unavailable";
+    `service.earthscope.org`: unreachable; `raw.githubusercontent.com`:
+    unreachable even for plain text) — confirmed via both the fetch tool
+    and the in-app browser, a documented sandbox limitation, not a method
+    gap. Positive control passed cleanly: isolated real events recall
+    100% (7/7, single-event sanity probe showed this exact parameter set
+    reliably crosses threshold above ~M2.5). Dense window: recall dropped
+    to **58.7% (166/283)**, and — mechanistically important — recall is
+    roughly FLAT across M2.5-4.0 (54-57% in every 0.5-wide bin, only
+    improving to 70.5%/100% at M4-5/M5+), even though every one of those
+    magnitudes individually crosses the detection threshold with large
+    margin in isolation (M2.5 alone: ratio 4.13 vs thr_on 3.5; M3.5 alone:
+    9.48). Flat-not-SNR-driven misses across a magnitude range that's
+    individually easily detectable is the STAI coda-overlap signature,
+    not a sensitivity artifact. A fully independent, waveform-free check
+    of the same phenomenon on this same real catalog: the OFFICIAL USGS
+    catalog's own smallest cataloged magnitude is 1.19 units HIGHER in
+    the dense window (2.69) than in the isolated one (1.50) — real
+    catalog-level incompleteness, present before any detector of ours
+    touches the data. Two calibration corrections were needed and are
+    disclosed in the script's docstring (amplitude-law slope, then
+    magnitude floor) — both were nuisance/sensitivity parameters fixed via
+    single-event probes before ever looking at the dense-vs-isolated
+    comparison, not post-hoc tuning of the finding itself.
+    (`TIMDR-Earthquake-Core/stai_real_ridgecrest_test.py` +
+    `data/ridgecrest_2019/`.)
+    **Further resolved**: real continuous waveform data (not just real
+    catalog + synthetic waveform) was subsequently obtained — see §22's
+    "Further update" and "GUI pipeline check" paragraphs for the real
+    CI.CLC/CI.RIO mseed test, which confirmed `sta_lta()`/`trigger_onset()`
+    generalizes to real recorded ground motion (correct mainshock pick on
+    both stations, physically-consistent travel-time lag, several real
+    aftershocks) and, via the actual `gui_app.py` code path with unmodified
+    defaults, correctly caught the mainshock on the first trigger.
 11. §23's C-MAPSS transfer test is n=1 (one real engine, FD001 unit 1 only) —
     full validation needs all 100 units of FD001 and a repeat on FD002-FD004
     (different operating conditions/fault modes), blocked in-session by this
@@ -964,6 +1114,18 @@ already lives in the sections they point back to.
     needs a machine without that restriction. CWRU and NASA IMS bearing
     datasets (binary `.mat`, different failure mode: rolling-element bearing
     vs. gradual whole-engine degradation) remain completely untested.
+    **A second, independent real engine (C-MAPSS FD001 unit 2, partial
+    85-cycle live-monitoring slice) was later added to TIMDR-Industrial-Predict's
+    own demo/test suite and used to find the §24/§25 bugs below — still not
+    the full FD001-FD004 sweep this item calls for, but no longer purely n=1
+    for that specific repo's calibration logic.**
+12. §29's OBD-II/CAN scoping check was run once, against `python-obd`'s PID
+    list and one hand-written test DBC — never against a real vehicle's
+    actual CAN bus or a manufacturer-supplied DBC file (no such hardware
+    access in this sandbox). The `python-can` "virtual" bus + `cantools`
+    decoding path was verified as real, working code; whether any specific
+    real vehicle's proprietary frame layout matches the *shape* assumed here
+    (one signal per frame, frame ID known ahead of time) remains untested.
 
 ## 15. Formal vocabulary without satisfied axioms: the same problem as §12, one level up (category theory case study)
 
@@ -1180,7 +1342,10 @@ entirely, so the normalized quantity isn't close to Exponential(1) for any
 input. **Lesson: a statistical test's null model encodes assumptions about
 the specific point process it was built for — re-derive/check those
 assumptions before porting the code to a new domain, and always run a
-trivial domain-appropriate baseline alongside a transplanted test.**
+trivial domain-appropriate baseline alongside a transplanted test.** §29
+below is the same discipline applied one step further upstream — checking a
+data-ACQUISITION protocol's assumptions, before any detector is even
+involved.
 
 ## 20. Higher-derivative operators are correct math but noise-fragile in practice (Frenet-Serret torsion case study)
 
@@ -1249,6 +1414,55 @@ anything left to distinguish. Check what the base detector already does to
 the data before crediting (or blaming) a fusion layer for an identical
 result.
 
+**Update — replicated on the REAL Ridgecrest 2019 catalog, not just synthetic
+Omori-law timing** (§14 item 10): real event times/magnitudes through the
+same real `sta_lta()`/`trigger_onset()` gave dense-window recall 58.7% vs a
+100% isolated positive control, with misses flat across a magnitude range
+that's individually easily detectable — the coda-overlap signature, not a
+sensitivity artifact — plus an independent, detector-free confirmation that
+the official USGS catalog itself is 1.19 magnitude units less complete in
+the dense window. At the time this was first written, real continuous
+waveform data was unobtained (sandbox networking blocks IRIS/EarthScope);
+this update used a real event catalog driving a synthetic wavelet, not a
+real recorded seismogram.
+
+**Further update — real continuous waveform obtained and tested.** The user
+independently fetched real waveform data via ObsPy on their own machine
+(stations CI.CLC/CI.RIO, HHZ, the real Ridgecrest M7.1 window, 100Hz, 36001
+samples each) and supplied it directly. On this real recording, the same
+unmodified `sta_lta()`/`trigger_onset()` correctly picked the mainshock on
+both stations (with RIO's onset lagging CLC's consistent with RIO's greater
+epicentral distance — real travel-time physics) plus several real
+aftershocks, extending the STAI finding's positive-control side (isolated,
+individually-detectable events) to genuine recorded ground motion rather
+than a synthetic wavelet. `ringdown_resonance()` was also run on this same
+real data and, separately, badly failed to generalize (see §7) — a mixed
+result: the picker generalizes to real seismograms, the ringdown module as
+documented does not.
+
+**GUI pipeline check on this same real data.** Running the exact
+`on_load_csv()` → `on_analyze()` code path from `gui_app.py` (not just the
+underlying functions in isolation) on the real `CLC_HHZ.csv` export, with
+every GUI default left untouched (`k=8`, twist threshold=20, MAD factor=3.0,
+STA/LTA 25/100 samples, thr_on/off=3.0/1.0, all three preprocessing
+checkboxes True): `trigger_onset()` found 17 onsets over the 6-minute trace,
+the first at t=61.1s versus the real mainshock at t≈60.0s — correctly
+caught, on the very first trigger, with default settings. The twist/anomaly
+detectors are still oversensitive on real data (19.9%/14.6% of all samples
+flagged) but the flags are NOT spread as uniform background noise: 53% of
+all twist flags land in the first 60s after the mainshock, decaying
+smoothly afterward, and there are zero twist flags in the two 30s bins
+before the mainshock — i.e. the over-sensitivity concentrates on real
+seismic energy (mainshock coda, ongoing aftershock activity) rather than
+firing randomly on quiet background, even though the absolute flag rate is
+too high to use these two detectors' raw counts as an event count on real
+data without retuning (as `README_gui.md` already cautions for `twist_thr`).
+This test also surfaced and fixed a real bug: `SeismicLoader.load_csv()`
+failed outright on this exact file's headerless CSV export format
+(`csv.DictReader` mistook the first data row `0.0,18754` for column names)
+— see `seismic_loader.py`'s POPRAWKA 2 for the fix and its two regression
+tests.
+
 ## 23. Cross-domain transfer test #4: NASA C-MAPSS turbofan degradation, and a named derivative-order meta-pattern
 
 Sandbox bash network blocked nearly every data host (NASA, Kaggle, CWRU,
@@ -1269,3 +1483,246 @@ a derivative/trend feature against its raw-value equivalent before adopting
 it in a new domain. Full validation needs all 100 FD001 units plus
 FD002-FD004 — blocked here by sandbox networking, not the method; CWRU/NASA
 IMS bearing data (binary `.mat`) remain completely untested.
+
+**Later reused as the shared calibrated-fusion core for a whole family of
+predictive-maintenance repos** (TIMDR-Industrial-Predict →
+TIMDR-Battery-Predict → TIMDR-EV-Predict, §24-§28 below): a second real
+C-MAPSS engine (unit 2, a partial 85-cycle "still healthy, live monitoring"
+slice rather than a full run-to-failure trace) was added alongside unit 1 to
+stress-test the calibration logic specifically, since unit 1 alone hadn't
+been enough to surface the bugs found next.
+
+## 24. `calibration_convergence()`: normalizing relative change against a GROWING reference scale gives false convergence (TIMDR-Industrial-Predict, real OBD-II ramp)
+
+Building a method to answer "how many samples does this system need before
+its own calibration stabilizes" (`calibration_convergence()`: track
+median-vector distance between successive growing prefixes `[0:n]`, declare
+convergence once relative change stays below a tolerance for several steps
+in a row) — the original implementation normalized that per-step distance
+against the CURRENT median of the same growing prefix. On a monotonically
+increasing signal (a real OBD-II ramp, engine accelerating from 620 to
+1580+ RPM during calibration) this gives a **false positive**: the absolute
+step-to-step change stays roughly constant while the denominator (the
+growing median) keeps climbing, so the *ratio* shrinks toward zero even
+though the signal has never actually stabilized — the method reports
+"converged" at n=50 on data that is still visibly ramping.
+
+**Fix**: normalize against a FIXED scale computed once, up front, from the
+full probe window (`MAD * mad_scale` of the whole window, not of each
+growing prefix) — the denominator no longer moves as `n` grows, so a
+genuinely non-stabilizing ramp can no longer manufacture a shrinking ratio
+out of its own growing baseline. Verified with a direct regression test (a
+synthetic large-offset ramp, `n_required` goes from a false `50` under the
+old formula to the correct `None` under the fixed one) and against the real
+OBD-II ramp that surfaced the bug in the first place.
+
+**General, reusable lesson**: any "is X converging" check that divides a raw
+change by a statistic computed from the SAME data whose convergence is being
+tested is vulnerable to this — if the statistic itself is still moving (a
+growing median on a still-ramping signal, a growing count, a growing sum),
+the ratio can shrink for reasons that have nothing to do with genuine
+stabilization. Freeze the normalizing scale from a fixed reference window
+before comparing against it, the same discipline as calibrating a threshold
+from data that does NOT already contain the thing you're trying to detect
+(§3's Ridgecrest circularity warning, applied here to a denominator instead
+of a threshold).
+
+## 25. Self-referential MAD-z fusion silently assumes the window contains a genuine healthy baseline — when it doesn't, it inverts (TIMDR-EV-Predict, real NASA battery aging data)
+
+`fuse()`-style pipelines in this ecosystem compute a z-score for each sensor
+against the MEDIAN/MAD of the SAME window being analyzed, then combine into
+an energy signal `E(t) = sqrt(sum(z_i^2))`. This is fine — see §2 — as long
+as the window contains a genuine "normal" segment that ends up close to the
+window's own median. It silently breaks on data that degrades from the very
+first sample, with no healthy plateau anywhere in the recorded window.
+
+**Concrete case**: real NASA PCoE Li-ion battery aging data (cell B0047, 69
+real discharge cycles, capacity fading continuously from cycle 0, no stable
+early plateau — unlike the C-MAPSS turbofan engines used elsewhere in this
+ecosystem, §23, which DO have a long healthy run-in period). Plain `fuse()`
+gave **E=5.42 at cycle 0** (the healthiest the cell will ever be, factory-fresh
+capacity) and **E=0.66 at cycle 69** (~31% capacity fade, past the classic
+30%-fade end-of-life criterion) — the healthiest sample scored as the most
+anomalous, and the most degraded sample scored as comparatively normal.
+Root cause: with no stable plateau anywhere, the window's own median settles
+somewhere in the MIDDLE of the degradation trajectory, so the physically
+healthiest and most-degraded ends are BOTH far from that median — and
+squaring erases the sign, so a self-referential z-score can only ever say
+"how far from typical," never "which direction is worse." A unit change
+(e.g. reporting `capacity_fade = capacity[0] - capacity` instead of raw
+`capacity`) does not fix this: MAD-z of one sensor's own series is
+shift/scale-invariant, so relabeling the same numbers in different units
+produces the identical z-scores.
+
+**Fix**: this is exactly the situation `calibrate()`/`fuse_calibrated()`
+already exist for (originally built for short/noisy live-startup windows,
+see the OBD-II ramp case in §24) — freeze the reference median/MAD from a
+small, separately-chosen "as-new" window (here: the first 5 cycles) instead
+of the window's own running statistics, then score every sample against that
+FROZEN reference. After recalibrating this way: E≈4.57 at cycle 0 (near-zero
+relative to its own near-new baseline, correct) rising monotonically to
+E≈9.67 at cycle 69 (correctly flagged well past a threshold set from the
+same calibrated scale) — the physically correct direction, recovered
+without changing any sensor units, only the reference point the z-score is
+computed against.
+
+**General, reusable lesson, extending §2 and §11's self-baseline blind
+spot**: a self-referential (same-window) MAD-z/percentile baseline is safe
+only when SOME segment of that window is known to be genuinely representative
+of "normal" — check for a plateau, not just assume one exists because it did
+in a previously-tested domain (C-MAPSS engines have one; not every degrading
+system does). If a system degrades continuously with no stable segment
+anywhere in what you can observe, you need an EXTERNALLY-anchored reference
+(factory/as-new test, an explicit healthy-reference file, or the first few
+observed samples treated as "as good as it's going to get") — not a fix to
+the sensor's units or the fusion formula itself, which cannot distinguish
+direction from magnitude no matter how the raw values are transformed.
+
+## 26. Two independent "is this live" signals for any TIMDR monitor: is the checker loop alive vs is the data source alive
+
+A live-monitoring loop (poll a growing CSV/sensor feed every N seconds, fuse,
+alert) has two DIFFERENT failure modes that look identical if you only track
+one timestamp: the polling loop itself can die (process crash, `--once`/cron
+job stops being scheduled), OR the loop can keep running perfectly while the
+underlying data source (an OBD-II/CAN adapter, a sensor, an upstream file)
+silently stops producing new samples — the loop just keeps re-reading the
+same stale file every interval, updating its OWN "last checked" timestamp
+while the DATA underneath it hasn't moved.
+
+**Fix, verified on a real start→stall→resume simulation
+(TIMDR-Industrial-Predict/TIMDR-EV-Predict)**: track two independent fields,
+not one. `checker_online` = is the loop's own `timestamp` fresh (updated
+every check regardless of whether new data arrived). `data_live` = is
+`last_data_change` fresh — a SEPARATE field, updated ONLY when the sample
+count actually increases since the previous check (compare `n_samples`
+against the previous saved state; carry the old `last_data_change` forward
+untouched if the count didn't grow). Both compared against the same
+threshold (`max(3*interval, 15s)` — a few missed intervals' grace period,
+not a hair-trigger). In the verified simulation: `checker_online` stayed
+True the entire time (the loop never stopped polling), while `data_live`
+correctly flipped False after ~15-18s of no new samples, then back True once
+the feed resumed — exactly the two-signal split needed to tell "my monitor
+is broken" apart from "my sensor disconnected but my monitor is fine."
+
+**When this matters most**: multi-subsystem monitors (§28) where each
+subsystem's data source can fail independently of the others (a battery CAN
+adapter disconnecting shouldn't be indistinguishable from the motor's
+adapter failing) — compute this pair PER subsystem, not once globally. Both
+fields should be `None` (not `False`) when the check runs in `--once`/cron
+mode, where there is no single expected polling rhythm to compare freshness
+against — `False` there would be a confident-sounding claim the method has
+no actual basis for.
+
+## 27. Rhythm detection and anomaly detection pull threshold-tuning in opposite directions — a recurring, named tradeoff, not a one-off
+
+A periodic/duty-cycle signal (regular charging sessions, a regular on/off
+cycle, a rotational rhythm) with an embedded point anomaly (one bad session,
+one broken cycle) needs BOTH a rhythm detector (autocorrelation-based, looks
+at overall variance structure) and an anomaly detector (MAD-z against the
+global distribution) to fire correctly — and the SAME magnitude of injected
+anomaly that makes one detector happy tends to break the other, because
+they're sensitive to opposite things: rhythm detection is a variance-based
+statistic that a single extreme outlier can dominate (destroying the
+periodic autocorrelation signal), while anomaly detection needs the injected
+event to be statistically distinguishable from whatever OTHER variance the
+signal already has (a rhythmic signal has more natural spread than a flat
+one, so the same "anomaly" that stands out on a quiet baseline can hide
+inside a periodic signal's own swing).
+
+**Verified three separate times, same shape each time**
+(`duty_cycle_problems` in TIMDR-Industrial-Predict; `charging_grid_voltage_sag`
+and `charging_connector_overheat` in TIMDR-EV-Predict): a first-guess anomaly
+magnitude either (a) was too large and collapsed the rhythm score to ~0
+(destroyed periodicity detection while trivially tripping the anomaly
+detector), or (b) was too small to clear the anomaly detector's z-score
+threshold at all, because it landed inside the rhythmic signal's own natural
+swing (observed directly: a temperature spike large enough to look dramatic
+in isolation, +25 units, produced ZERO detected anomalies on top of an
+already-bimodal charge/idle cycle — needed +50 before it separated from the
+cycle's own natural range). Both failure directions were only found by
+testing the two detectors TOGETHER on the same synthetic data, not by
+checking each one against its own isolated test case.
+
+**Reusable process, not a single number to copy**: when designing a
+test/demo scenario meant to exercise both a rhythm detector and an anomaly
+detector on the same periodic-plus-fault signal, sweep the injected fault's
+magnitude and check BOTH detector outputs at each candidate value (not just
+whichever one you're focused on at the moment) — there is usually a workable
+middle band, but it has to be searched for empirically against the actual
+periodic amplitude already present in that specific signal, not assumed to
+transfer from a different signal's calibration.
+
+## 28. Combining several independently-calibrated fusion pipelines into one system-level score: weakest-link (min), not average
+
+When a composite system is made of several subsystems that each need their
+OWN fusion pipeline (different sensors, different scales, sometimes
+different calibration methods per §25 — e.g. a vehicle's battery, motor, and
+charging/grid interface, each independently fused into its own health score
+and TTF), the natural mistake is averaging the subsystem scores into one
+system-level number. **Averaging systematically hides a single critical
+subsystem behind healthy ones**: a system with two subsystems at health 0.99
+and 0.95 and a third at 0.05 (about to fail) averages to ≈0.66 — a
+"reasonably okay" number for a system that is actually about to fail from
+one specific cause.
+
+**Fix, verified with a test built specifically to expose the averaging
+failure**: take the MINIMUM health score across subsystems as the
+system-level score, and separately report WHICH subsystem produced it (so
+the number is diagnostic, not just a scalar). Do the same for
+time-to-failure: the system-level TTF is the MINIMUM (soonest) TTF across
+subsystems, not an average or the primary subsystem's own TTF — the system
+fails when its first subsystem does. This is the same principle already
+used inside a single fusion pipeline's `health_score()` (median of the
+recent WINDOW, not the whole history, so one old event doesn't get diluted
+by everything healthy since — §11's Mechanism B) applied one level up:
+don't let healthy components dilute a critical one, whether the dilution
+happens across time (old vs recent samples) or across subsystems (healthy
+vs failing components) — same shape, two different axes.
+
+**Aggregation should work on a subset, not just the full set.** A composite
+system won't always have live data for every subsystem at once (e.g. a
+vehicle that isn't currently charging has no live charging-subsystem
+reading) — the min-based aggregation must degrade gracefully to whatever
+subset IS currently available, not require all subsystems to report before
+producing any system-level number.
+
+## 29. Before building sensor fusion around a domain's "standard" protocol, verify it actually exposes what you need — it might not (OBD-II vs CAN+DBC for EV telemetry)
+
+A recurring, generalizable version of the "check the domain's assumptions
+before porting a method into it" lesson from §19 (a null model's validity
+doesn't transfer with its code), applied one step earlier — to signal
+ACQUISITION, before any detector is even involved. OBD-II (SAE J1979) is the
+standard, universally-supported vehicle diagnostic protocol, but its
+standardized PIDs were designed around internal-combustion engines and
+emissions — checked directly against the real `python-obd` library's full
+PID list (292 defined commands): for a pure battery-electric vehicle (no
+combustion engine at all), only TWO of those 292 PIDs are actually relevant
+(`HYBRID_BATTERY_REMAINING` — pack state-of-charge percentage — and
+`CONTROL_MODULE_VOLTAGE`). Everything else in the standard (RPM, coolant
+temp, MAF, fuel trim, O2 sensors, …) has nothing to report on a vehicle with
+no engine to measure.
+
+That is nowhere near enough signal to fuse a meaningful battery/motor/
+charging health pipeline (§28) — pack voltage and current, motor
+temperature and speed, and charger voltage/current are not exposed through
+any standardized OBD-II PID for EVs; they exist only on the vehicle's
+internal CAN bus, addressed by manufacturer-specific (non-standardized)
+frame IDs. The only way to get them is to read the raw CAN bus directly and
+decode it against a DBC file (the de facto industry format describing which
+bits of which CAN frame ID map to which named, scaled signal) — which
+requires that DBC file to exist for the specific make/model (from the
+manufacturer, a dealer tool, or a reverse-engineered community file), not
+just a generic protocol library.
+
+**Reusable lesson**: before designing a fusion pipeline's sensor groups
+around "the standard protocol for this domain," check what that protocol
+ACTUALLY exposes for your specific target within the domain — a protocol
+built for a related-but-different case within the same broad domain (ICE
+vehicles vs EVs, both "cars," both "OBD-II-equipped") can leave the needed
+physical quantities completely unaddressed, even though the domain nominally
+has a standard. When that happens, the real path is usually one layer lower
+(raw bus + schema file, rather than the higher-level standardized
+abstraction) — verify this with the actual library/spec directly (grep the
+real PID list, as done here) rather than assuming the standard is complete
+because it's ubiquitous.
+
