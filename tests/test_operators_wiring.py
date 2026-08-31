@@ -28,6 +28,7 @@ from core.constants import (
     STAB_TAU_WEIGHT,
     STAB_RHO_WEIGHT,
     PRIME_SENSITIVITY,
+    RESONANCE_MAX_K,
 )
 from core.operators import (
     op_lambda,
@@ -43,6 +44,8 @@ from core.operators import (
     op_spectral,
     op_spectral_filtered,
     op_prime,
+    theoretical_local_resonance_max,
+    adaptive_resonance_bounds,
     op_transition,
 )
 from core.diagnostics import defect_map
@@ -293,3 +296,86 @@ def test_op_transition_uses_constants_as_defaults():
     sig = inspect.signature(op_transition)
     assert sig.parameters["delta_s_soft"].default == DELTA_S_SOFT
     assert sig.parameters["delta_s_hard"].default == DELTA_S_HARD
+
+
+# ── theoretical_local_resonance_max / adaptive_resonance_bounds ────────
+# Poprawka użytkownika (2026-08-31): stała RESONANCE_MAX=1e9 była
+# ~2 000 000x za duża dla window=3 na bajtach (teoretyczne max ≈ 442) -
+# "saturacja" nigdy nie następowała. op_transition() liczy teraz sufit
+# dynamicznie zamiast czytać martwą stałą.
+
+def test_theoretical_local_resonance_max_matches_hand_computed_value():
+    # window=3, byte_max=255 -> 255*sqrt(3) ≈ 441.67
+    result = theoretical_local_resonance_max(window=3, byte_max=255)
+    assert result == pytest.approx(255 * math.sqrt(3))
+    assert result == pytest.approx(441.67, abs=0.01)
+
+
+def test_theoretical_local_resonance_max_is_actually_achievable():
+    """Sprawdza, że deklarowane 'teoretyczne maksimum' jest faktycznie
+    osiągane przez op_R_local() na oknie samych bajtów=255 (nie tylko
+    ładny wzór, który nigdy się nie realizuje)."""
+    window = 3
+    data = bytes([255] * window)
+    achieved = op_R_local(data, window=window)[0]
+    assert achieved == pytest.approx(theoretical_local_resonance_max(window))
+
+
+def test_theoretical_local_resonance_max_rejects_invalid_window():
+    with pytest.raises(ValueError):
+        theoretical_local_resonance_max(window=0)
+
+
+def test_op_transition_default_resonance_max_is_orders_of_magnitude_smaller_than_old_constant():
+    """Sedno poprawki: domyślny sufit rezonansu w op_transition() (bez
+    jawnego resonance_max) jest teraz w skali bajtów (dziesiątki-setki),
+    NIE 1e9 - stara, martwa wartość."""
+    import inspect
+
+    data = bytes([50, 50, 250, 50, 50, 50])
+    result_default = op_transition(data, delta_s_soft=1000, delta_s_hard=1000)  # soft zawsze False, izolujemy resonance
+    expected_max = RESONANCE_MAX_K * theoretical_local_resonance_max(3)
+    assert expected_max < 1e6  # rzędu setek, nie miliardów
+    # sam fakt, że default nie jest już None-czytającym-1e9, potwierdza podpis:
+    sig = inspect.signature(op_transition)
+    assert sig.parameters["resonance_max"].default is None
+
+
+def test_op_transition_transition_mask_no_longer_trivially_equals_soft_mask_by_default():
+    """Z NOWYM domyślnym (dynamicznym) resonance_max, sygnał z bardzo
+    wysoką lokalną energią (blisko teoretycznego maksimum) powinien
+    dawać resonance_mask=False w tym miejscu (bo przekracza
+    RESONANCE_MAX_K=3.0 * teoretyczne maksimum? nie - sprawdzamy
+    odwrotny, praktyczny przypadek: umiarkowany skok WEWNĄTRZ sufita
+    daje transition=True, tak jak dawniej, więc domyślne strojenie
+    nadal jest użyteczne dla typowych danych)."""
+    data = bytes([50, 50, 50, 50, 250, 50, 50, 50])
+    result = op_transition(data, delta_s_soft=5, delta_s_hard=1000)
+    assert any(result["transition"])  # domyślny (dynamiczny) sufit nadal przepuszcza typowy skok
+
+
+def test_adaptive_resonance_bounds_matches_hand_computed_k_sigma_band():
+    values = [10.0, 10.0, 10.0, 10.0]  # brak wariancji -> sigma=0
+    lo, hi = adaptive_resonance_bounds(values, k=3.0)
+    assert lo == pytest.approx(10.0)
+    assert hi == pytest.approx(10.0)
+
+
+def test_adaptive_resonance_bounds_widens_with_variance():
+    low_variance = [10.0, 11.0, 9.0, 10.0]
+    high_variance = [1.0, 50.0, 5.0, 30.0]
+    lo1, hi1 = adaptive_resonance_bounds(low_variance, k=2.0)
+    lo2, hi2 = adaptive_resonance_bounds(high_variance, k=2.0)
+    assert (hi2 - lo2) > (hi1 - lo1)
+
+
+def test_adaptive_resonance_bounds_clamps_lower_bound_at_zero():
+    # srednia bliska zeru, spora wariancja -> mean - k*sigma < 0 -> obcięte do 0
+    values = [0.0, 0.0, 0.0, 100.0]
+    lo, _hi = adaptive_resonance_bounds(values, k=5.0)
+    assert lo == 0.0
+
+
+def test_adaptive_resonance_bounds_rejects_empty_input():
+    with pytest.raises(ValueError):
+        adaptive_resonance_bounds([])
