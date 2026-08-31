@@ -80,3 +80,36 @@ obie strony — nie tylko "kod robi coś, czego teoria nie tłumaczy"
 kod nigdy go nie zaimplementował". Test na ten drugi kierunek: grep za
 kluczowymi terminami z dokumentacji teoretycznej (glosariusz,
 "Pełny Dokument") w kodzie źródłowym, nie tylko odwrotnie.
+
+---
+
+### D. Sprzeczność między dwoma polami klasyfikacji, niewidoczna przy sprawdzaniu ich osobno (rozszerza §6 "Duplication-drift")
+
+**Problem:** przy klasyfikatorze z kilkoma niezależnymi polami (np. reguła +
+poziom/miara + skala) każde pole z osobna może przejść walidację, a mimo to
+PARA pól łamać własną definicję jednego z nich. Znalezione przy budowie
+`docs/theory/Atlas_Paradoksow_TIMDR.md`: reguła "Transition" (z definicji:
+zmiana reżimu) współwystępowała w dwóch wierszach z poziomem "TRM=2" (z
+definicji: "pojedyncze pęknięcie, bez granicy reżimu do przekroczenia") —
+sprzeczność wykryta dopiero przy sprawdzeniu PARY (reguła, TRM) razem, nie
+przy weryfikacji każdego pola osobno. Osobno oba pola wyglądały poprawnie.
+
+**Rozwiązanie:** po ustaleniu wartości każdego pola z osobna, dodatkowy
+przebieg per parę pól, które mają własne warunki brzegowe: sprawdzić, czy
+każda faktycznie występująca kombinacja wartości jest zgodna z definicjami
+OBU pól naraz, nie tylko z definicją tego, które akurat się ustala. Przy
+okazji tego samego audytu wyszedł pokrewny wzorzec: gdy jeden obiekt ma dwie
+poprawne interpretacje RÓŻNEGO RODZAJU (nie tylko różną wartość tej samej
+osi — np. podział geometryczny fragment/całość vs podział wg języka opisu),
+nie wolno ich wciskać w tę samą kolumnę/pole, bo to chowa różnicę, którą pole
+miało ujawniać — potrzebne osobne pole, i to dopiero po drugim, niezależnym
+przykładzie tego samego kształtu, nie po pierwszym (żeby nie mnożyć pól na
+podstawie jednej obserwacji).
+
+**Uzasadnienie:** to inny przypadek niż duplication-drift z §6 (tam problem
+to dwie kopie TEJ SAMEJ stałej), ale ten sam mechanizm ryzyka: coś
+niewidocznego, gdy patrzysz na elementy osobno, widoczne dopiero po
+sprawdzeniu ich razem. W `core/` odpowiednik: przy rozszerzaniu wyjścia
+operatora o nowe pole/etykietę (np. rozszerzenie masek `op_transition`
+o nowy powód aktywacji) sprawdzić, czy nowa wartość nie łamie założeń już
+istniejącego pola (np. progu), nie tylko czy sama ma sens w izolacji.
