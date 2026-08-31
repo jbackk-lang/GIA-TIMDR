@@ -38,8 +38,33 @@ STAB_RHO_WEIGHT = 0.6
 # 5. Rezonans R
 # ------------------------------------------------------------
 
+# RESONANCE_MIN=0.0: uczciwie - op_R_local() zwraca sqrt(suma kwadratow),
+# WIEC ZAWSZE >= 0. Prog "> 0.0" jest wiec prawie zawsze spelniony (poza
+# zdegenerowanym przypadkiem okna samych zer) - to NIE jest realny dolny
+# filtr szumu, tylko formalna dolna granica dziedziny. Zeby MIN mial
+# realna tresc sygnalowa (odcinac szum, nie tylko "nieujemne"), trzeba go
+# wyznaczyc z danych referencyjnych - patrz
+# operators.adaptive_resonance_bounds().
 RESONANCE_MIN = 0.0
+
+# RESONANCE_MAX=1e9: HISTORYCZNA wartosc, uczciwie martwa dla danych
+# bajtowych - teoretyczne maksimum op_R_local(window=3) na bajtach
+# 0-255 to 255*sqrt(3) =~ 442, czyli 1e9 jest ~2 000 000x za duze i
+# warunek "R < RESONANCE_MAX" jest praktycznie zawsze prawdziwy (audyt
+# sesji 2026-08-31, potwierdzone przez uzytkownika). op_transition() NIE
+# UZYWA juz tej stalej jako domyslnej - liczy wlasciwy sufit dynamicznie
+# przez RESONANCE_MAX_K * operators.theoretical_local_resonance_max(window)
+# (patrz nizej i operators.py). Stala zostaje tu jako udokumentowany
+# przyklad "martwej"/niedostrojonej wartosci, nie jako zalecany domyslny.
 RESONANCE_MAX = 1e9
+
+# Mnoznik k we wzorze RESONANCE_MAX = k * teoretyczne_maksimum(window)
+# (sugestia uzytkownika: k w [1,5], 3.0 to srodek zakresu) - w
+# przeciwienstwie do stalego RESONANCE_MAX, ten mnoznik NIE zalezy od
+# window/zakresu bajtow, wiec nie "rozjezdza sie", gdy rho_window w
+# op_transition() sie zmienia.
+RESONANCE_MAX_K = 3.0
+
 RESONANCE_SMOOTHING = 0.15
 
 # ------------------------------------------------------------

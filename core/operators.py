@@ -35,7 +35,7 @@ from .constants import (
     SPECTRAL_NORMALIZE,
     PRIME_SENSITIVITY,
     RESONANCE_MIN,
-    RESONANCE_MAX,
+    RESONANCE_MAX_K,
     RESONANCE_SMOOTHING,
 )
 
@@ -328,7 +328,41 @@ def op_stab_weighted_from_data(data: bytes, rho_window: int = 3) -> list:
 
 
 # ------------------------------------------------------------
-# 14. Operator TRANSITION — brakujący filtr "Obszarów przejściowych"
+# 14. Skala rezonansu — teoretyczny sufit i granice adaptacyjne
+# ------------------------------------------------------------
+
+def theoretical_local_resonance_max(window: int, byte_max: int = 255) -> float:
+    """Teoretyczne maksimum op_R_local(window) na danych bajtowych:
+    sqrt(window * byte_max²) = byte_max * sqrt(window) - osiągane, gdy
+    KAŻDY bajt w oknie ma wartość byte_max (255 domyślnie). To jest
+    właściwa skala odniesienia dla RESONANCE_MAX (poprawka użytkownika,
+    2026-08-31: stara stała RESONANCE_MAX=1e9 była ~2 000 000x za duża
+    dla window=3, więc filtr górny nigdy się nie domykał - patrz
+    RESONANCE_MAX_K niżej i constants.py)."""
+    if window < 1:
+        raise ValueError("window musi być >= 1")
+    return byte_max * (window ** 0.5)
+
+
+def adaptive_resonance_bounds(resonance_values: list, k: float = 3.0) -> tuple:
+    """Granice rezonansu wyznaczone z DANYCH REFERENCYJNYCH zamiast z
+    teoretycznego zakresu bajtów: (max(0, mean - k*std), mean + k*std) -
+    "k-sigma band". Sensowniejsze niż theoretical_local_resonance_max(),
+    gdy masz prawdziwy sygnał referencyjny (nie tylko wiesz, że to
+    bajty 0-255) - wartości poza tym pasmem to albo szum (poniżej), albo
+    nasycenie/anomalia (powyżej), w sensie STATYSTYKI TEGO KONKRETNEGO
+    sygnału, nie abstrakcyjnego zakresu bajtów."""
+    n = len(resonance_values)
+    if n == 0:
+        raise ValueError("resonance_values nie może być puste")
+    mean = sum(resonance_values) / n
+    variance = sum((v - mean) ** 2 for v in resonance_values) / n
+    sigma = variance ** 0.5
+    return (max(0.0, mean - k * sigma), mean + k * sigma)
+
+
+# ------------------------------------------------------------
+# 15. Operator TRANSITION — brakujący filtr "Obszarów przejściowych"
 # ------------------------------------------------------------
 
 def op_transition(
@@ -336,7 +370,7 @@ def op_transition(
     delta_s_soft: float = DELTA_S_SOFT,
     delta_s_hard: float = DELTA_S_HARD,
     resonance_min: float = RESONANCE_MIN,
-    resonance_max: float = RESONANCE_MAX,
+    resonance_max: float = None,
     resonance_smoothing: float = RESONANCE_SMOOTHING,
     rho_window: int = 3,
 ) -> dict:
@@ -360,18 +394,34 @@ def op_transition(
     Ten operator używa więc op_R_local() (lokalna, opcjonalnie
     wygładzona EMA wersja tego samego wzoru energii), nie op_R().
 
-    UCZCIWIE o domyślnych stałych: RESONANCE_MIN=0.0, RESONANCE_MAX=1e9
-    z constants.py są tak szerokie, że dla typowych danych (bajty
-    0-255) resonance_mask jest PRAWIE ZAWSZE True - w praktyce
-    transition_mask ~= soft_mask przy domyślnych stałych. Filtr
-    rezonansowy staje się rzeczywiście selektywny dopiero po dostrojeniu
-    resonance_min/resonance_max do realnego zakresu energii Twoich
-    danych (patrz tests/test_operators_wiring.py dla przykładu z
-    zawężonym zakresem)."""
+    NAPRAWIONE (poprawka użytkownika, 2026-08-31): resonance_max=None
+    (domyślnie) NIE czyta już stałej RESONANCE_MAX=1e9 z constants.py
+    (była ~2 000 000x za duża dla window=3 na bajtach - filtr górny
+    nigdy się nie domykał, transition_mask ~= soft_mask). Zamiast tego
+    liczy właściwy sufit DYNAMICZNIE, dopasowany do rho_window:
+
+        resonance_max = RESONANCE_MAX_K * theoretical_local_resonance_max(rho_window)
+
+    (RESONANCE_MAX_K=3.0 domyślnie - "3x teoretyczne maksimum energii
+    okna" jako umowna granica nasycenia). Podaj własny resonance_max
+    (liczbę), żeby to nadpisać - najlepiej przez
+    adaptive_resonance_bounds() na prawdziwych danych referencyjnych,
+    jeśli je masz (bardziej znaczące niż teoretyczny zakres bajtów).
+
+    UCZCIWIE o resonance_min: RESONANCE_MIN=0.0 zostaje domyślne, ale
+    op_R_local() z definicji zwraca wartości >= 0 - więc "r >
+    resonance_min" jest prawie zawsze prawdziwe (poza zdegenerowanym
+    oknem samych zer). To NIE jest realny filtr szumu, tylko formalna
+    dolna granica dziedziny - dla realnego odcięcia szumu podaj
+    resonance_min z adaptive_resonance_bounds() na danych
+    referencyjnych."""
     n = len(data)
     tau_field = op_tau(data)
     if not tau_field:
         return {"soft": [], "hard": [], "transition": []}
+
+    if resonance_max is None:
+        resonance_max = RESONANCE_MAX_K * theoretical_local_resonance_max(rho_window)
 
     soft_defects = {i for i, _v in op_deltaS(tau_field, threshold=delta_s_soft)}
     hard_defects = {i for i, _v in op_deltaS(tau_field, threshold=delta_s_hard)}
