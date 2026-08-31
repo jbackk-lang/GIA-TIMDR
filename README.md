@@ -62,6 +62,55 @@ Odwiedź pełną dokumentację i interaktywne opisy układu:
 
 ---
 
+## 0.0.1 Aktywacja `constants.py` i nowy operator `op_transition` (2026-08-31)
+
+Audyt sesji znalazł: `constants.py` był plikiem, którego dosłownie nic
+w `core/` nie importowało — progi (`DELTA_S_THRESHOLD`) były zamiast
+tego niezależnie zduplikowane jako gołe literały w `operators.py` i
+`diagnostics.py` (mogące się rozjechać przy edycji jednej kopii bez
+drugiej), a wagi/parametry (`STAB_*_WEIGHT`, `SPECTRAL_*`,
+`PRIME_SENSITIVITY`, `RESONANCE_*`) były zdefiniowane, ale nigdzie
+nieużywane. Osobno: dokumentacja teoretyczna (§2.4
+`TIMDR_Full_Document_PL.md`, glosariusz) nazywa „Obszary przejściowe"
+(Transition Regions — granice między modalnościami, strefy bifurkacji +
+wzmacniacze rezonansu), dla których nigdy nie było operatora w kodzie.
+
+Naprawione/dodane w `operators.py` i `diagnostics.py` (73/73 testów,
+`tests/test_operators_wiring.py`):
+
+- `op_deltaS(tau_field, threshold=DELTA_S_THRESHOLD)` i
+  `defect_map(tau_field, threshold=DELTA_S_THRESHOLD)` — jedno źródło
+  prawdy zamiast dwóch niezależnych kopii `12`. `threshold=None`
+  włącza próg **adaptacyjny** (`adaptive_delta_s_threshold` —
+  k·std(|Δτ|) zamiast stałej bez wyprowadzenia).
+- `op_prime(data, sensitivity=PRIME_SENSITIVITY)` — modyfikacja
+  wstecznie kompatybilna (domyślna wartość = stare zachowanie).
+- `op_R_local(data, window, smoothing)` — **nowy** operator: lokalna,
+  per-pozycja wersja `op_R()` (ten sam wzór energii), opcjonalnie
+  wygładzona EMA (aktywuje `RESONANCE_SMOOTHING`). Potrzebny, bo stary
+  `op_R()` zwraca jedną liczbę dla całego sygnału — nie da się z niej
+  zbudować maski per-pozycja.
+- `op_stab_weighted()` / `op_stab_weighted_from_data()` — **nowe**,
+  faktycznie używają `STAB_LAMBDA_WEIGHT/STAB_TAU_WEIGHT/STAB_RHO_WEIGHT`
+  (stary `op_stab()` zostaje nietknięty, używany przez `pipeline.py`).
+- `op_spectral_filtered(data, fs)` — **nowa**, obcina widmo do
+  `[SPECTRAL_MIN_FREQ, SPECTRAL_MAX_FREQ]` i normalizuje
+  (`SPECTRAL_NORMALIZE`); stary `op_spectral()` bez zmian.
+- **`op_transition(data, ...)`** — brakujący filtr Obszarów
+  przejściowych: maski `soft`/`hard` (ΔS ponad dwoma progami) i
+  `transition` (soft ORAZ lokalny rezonans w zadanym paśmie).
+  **Uczciwie:** domyślne stałe `RESONANCE_MIN=0.0`/`MAX=1e9` są tak
+  szerokie, że dla typowych danych (bajty 0–255) filtr rezonansowy jest
+  praktycznie zawsze prawdziwy — `transition_mask` przy domyślnych
+  stałych sprowadza się w praktyce do `soft_mask`. Żeby rezonans
+  faktycznie coś odsiewał, trzeba dostroić `resonance_min`/
+  `resonance_max` do realnego zakresu energii własnych danych (patrz
+  `test_op_transition_narrow_resonance_band_can_exclude_everything`).
+
+Stare funkcje (`op_stab`, `op_spectral`, `op_R`, `TIMDR_pipeline*`) są
+niezmienione — sprawdzone testem regresyjnym, że `pipeline.py` dalej
+działa identycznie.
+
 ## 0.1 `core/sg_*.py` — kosmologia scalar-Gauss-Bonnet (2026-08)
 
 Osobna, liczbowa gałąź `core/` obok symbolicznego rdzenia Λ–τ–ρ (bajty)
