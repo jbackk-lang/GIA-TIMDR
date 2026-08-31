@@ -75,7 +75,7 @@ nieużywane. Osobno: dokumentacja teoretyczna (§2.4
 (Transition Regions — granice między modalnościami, strefy bifurkacji +
 wzmacniacze rezonansu), dla których nigdy nie było operatora w kodzie.
 
-Naprawione/dodane w `operators.py` i `diagnostics.py` (73/73 testów,
+Naprawione/dodane w `operators.py` i `diagnostics.py` (82/82 testów,
 `tests/test_operators_wiring.py`):
 
 - `op_deltaS(tau_field, threshold=DELTA_S_THRESHOLD)` i
@@ -99,13 +99,20 @@ Naprawione/dodane w `operators.py` i `diagnostics.py` (73/73 testów,
 - **`op_transition(data, ...)`** — brakujący filtr Obszarów
   przejściowych: maski `soft`/`hard` (ΔS ponad dwoma progami) i
   `transition` (soft ORAZ lokalny rezonans w zadanym paśmie).
-  **Uczciwie:** domyślne stałe `RESONANCE_MIN=0.0`/`MAX=1e9` są tak
-  szerokie, że dla typowych danych (bajty 0–255) filtr rezonansowy jest
-  praktycznie zawsze prawdziwy — `transition_mask` przy domyślnych
-  stałych sprowadza się w praktyce do `soft_mask`. Żeby rezonans
-  faktycznie coś odsiewał, trzeba dostroić `resonance_min`/
-  `resonance_max` do realnego zakresu energii własnych danych (patrz
-  `test_op_transition_narrow_resonance_band_can_exclude_everything`).
+- **`theoretical_local_resonance_max(window)`** / **`adaptive_resonance_bounds(values, k)`**
+  (**nowe**, poprawka 2026-08-31) — naprawiają `RESONANCE_MAX`: stała
+  `RESONANCE_MAX=1e9` z `constants.py` była ~2 000 000× za duża wobec
+  teoretycznego maksimum `op_R_local(window=3)` na bajtach (≈442) —
+  filtr górny nigdy się nie domykał, `transition_mask` sprowadzał się w
+  praktyce do `soft_mask`. `op_transition()` liczy teraz
+  `resonance_max` domyślnie **dynamicznie** jako
+  `RESONANCE_MAX_K * theoretical_local_resonance_max(rho_window)`
+  (`RESONANCE_MAX_K=3.0`), zamiast czytać martwą stałą. Dla realnego
+  sygnału referencyjnego lepszy wybór to `adaptive_resonance_bounds()`
+  (pasmo mean±k·σ z prawdziwych danych) zamiast teoretycznego zakresu
+  bajtów. `RESONANCE_MIN=0.0` zostaje jako słaba, prawie zawsze
+  spełniona dolna granica (`op_R_local()` z definicji ≥0) — dla
+  realnego odcięcia szumu też lepiej użyć `adaptive_resonance_bounds()`.
 
 Stare funkcje (`op_stab`, `op_spectral`, `op_R`, `TIMDR_pipeline*`) są
 niezmienione — sprawdzone testem regresyjnym, że `pipeline.py` dalej
