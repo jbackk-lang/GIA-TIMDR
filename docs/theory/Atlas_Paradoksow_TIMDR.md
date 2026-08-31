@@ -61,17 +61,6 @@ wymiaru.
 Kolumna "Skala" pozostaje ściśle geometryczna/wymiarowa (lokalnie/globalnie,
 z wymiarem jako jej podtypem) — nie mieszamy do niej innych rodzajów podziału.
 
-### 1.4 Pole dodatkowe (nie oś): Perspektywa
-
-Nie liczy się do trzech osi powyżej. Na razie ma dokładnie jeden przykład —
-Gödel-1 (syntaktyczna/semantyczna: teoria dowodu vs teoria modeli nałożone na
-ten sam, pojedynczy fakt) — więc nazwanie go "czwartą osią" byłoby
-przedwczesne: jeden punkt danych nie ustala wzorca (ta sama zasada co przy
-próbce z §4). Trzymany jako osobne pole w tabeli właśnie po to, żeby nie
-zaśmiecać kolumny "Skala" wynikiem, który nie jest skalą — dopóki nie
-pojawi się drugi, niezależny przykład tego samego kształtu, zostaje
-oznaczony jako eksperymentalny, nie równoprawny z pozostałymi trzema osiami.
-
 ### 1.3 Oś TRM: 2 / 24 / 118
 
 Niezależna od reguły — mówi, **ile poziomów pęknięcia** faktycznie tu jest,
@@ -90,6 +79,42 @@ TRM=118, więc sama liczba TRM nie odróżnia reguł).
   *i* nieprzeliczalna; wiele niezależnych modeli): Cantor globalnie, Hilbert
   globalnie, drzewa regularne globalnie, bazy Hilberta (wymiar nieskończony),
   CH, paradoks Skolema, Gödel-2.
+
+### 1.4 Pole dodatkowe (nie oś): Perspektywa
+
+Nie liczy się do trzech osi powyżej. Na razie ma dokładnie jeden przykład —
+Gödel-1 (syntaktyczna/semantyczna: teoria dowodu vs teoria modeli nałożone na
+ten sam, pojedynczy fakt) — więc nazwanie go "czwartą osią" byłoby
+przedwczesne: jeden punkt danych nie ustala wzorca (ta sama zasada co przy
+próbce z §4). Trzymany jako osobne pole w tabeli właśnie po to, żeby nie
+zaśmiecać kolumny "Skala" wynikiem, który nie jest skalą — dopóki nie
+pojawi się drugi, niezależny przykład tego samego kształtu, zostaje
+oznaczony jako eksperymentalny, nie równoprawny z pozostałymi trzema osiami.
+
+### 1.5 Zasada ogólna splitu (dlaczego kolumny się nie mieszają)
+
+To, co wydarzyło się z Gödlem-1, jest instancją jednej, powtarzalnej zasady,
+którą atlas stosuje od Cantora i Banach–Tarskiego — warto ją nazwać wprost,
+bo będzie działać na kolejnych przykładach:
+
+1. **Jeśli jeden obiekt ma dwie poprawne, niezależnie uzasadnione
+   interpretacje → dostaje dwa wiersze**, nie jedną etykietę na siłę
+   uśredniającą oba odczyty (Cantor, Banach–Tarski, Hilbert, Banach FP,
+   Gödel-1).
+2. **Jeśli te dwie interpretacje różnią się RODZAJEM podziału, nie tylko
+   wartością tej samej osi → dostają osobne pole, nie tę samą kolumnę.**
+   Geometryczne fragment-vs-całość (Skala), reżim liczności (Skala/wymiar) i
+   język opisu (Perspektywa) to trzy różne mechanizmy — wrzucenie ich do
+   jednej kolumny ukryłoby różnicę, którą właśnie ta kolumna miała ujawniać.
+3. **Nowe pole nie staje się osią na podstawie jednego przykładu.** Zostaje
+   pomocnicze/eksperymentalne, dopóki drugi, niezależny przypadek tego samego
+   kształtu nie potwierdzi, że to powtarzalny mechanizm, a nie jednorazowa
+   cecha jednego paradoksu.
+
+Test na przyszłość: gdy pojawi się kolejny przykład wymagający splitu, pytanie
+brzmi nie "czy da się go opisać w Skali", tylko "czy jego dwie interpretacje
+są tego samego RODZAJU co któryś z już istniejących podziałów" — jeśli nie,
+dostaje nowe pole, nie naciąganą wartość w starym.
 
 ---
 
