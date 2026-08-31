@@ -62,6 +62,52 @@ Odwiedź pełną dokumentację i interaktywne opisy układu:
 
 ---
 
+## 0.1 `core/sg_*.py` — kosmologia scalar-Gauss-Bonnet (2026-08)
+
+Osobna, liczbowa gałąź `core/` obok symbolicznego rdzenia Λ–τ–ρ (bajty)
+opisanego niżej — transkrypcja układu tła i perturbacji modelu
+scalar-Gauss-Bonnet (SG) podanego przez użytkownika z zewnętrznego PDF,
+zmapowana na nazewnictwo TIMDR (u=displacement, x=velocity,
+y=potential amplitude channel).
+
+- **`sg_background.py`** — układ autonomiczny tła (u,x,y,lnH), warunek
+  fizyczności (D>0, Ωm>0), całkowanie RK4 (bez scipy — brak w tym repo).
+- **`sg_shooting.py`** — dopasowanie warunków początkowych (u_ini,y_ini)
+  do Ωm(dziś)≈0.315 (Planck 2018) metodą Neldera-Meada (podręcznikowy
+  simplex, bez scipy).
+- **`sg_perturbations.py`** — Geff(F,FT), slip η(F,FT), równanie wzrostu
+  liniowego (growth/RSD) i kombinacja soczewkująca Σ=Geff(1+η)/2
+  (lensing/WL).
+
+**Uczciwie, zastrzeżenia warte przeczytania przed użyciem:**
+
+1. To transkrypcja wzorów podanych przez użytkownika, **nie**
+   niezależna weryfikacja fizyki modelu SG wobec literatury — nie mam
+   dostępu do źródłowej pracy. Sprawdzona jest tylko spójność
+   wewnętrzna (testy w `tests/test_sg_*.py`).
+2. Formuła `S = [...] / D` (dzielenie przez D) została ustalona z
+   użytkownikiem po dopytaniu — w wklejonym tekście nie było widocznej
+   kreski ułamkowej. Przy pierwszej wersji `D = 1 - 6ξu² + 36ξ²u⁴`
+   znaleźliśmy, że D nigdy nie osiąga zera dla rzeczywistych u,ξ
+   (minimum globalne = 0.75) — sprzeczne z ideą "śladem są miejsca
+   zerowe D". Użytkownik potwierdził poprawkę: przed `36ξ²u⁴` jest
+   **minus**, nie plus:
+
+       D = 1 - 6ξu² - 36ξ²u⁴
+
+   Przy tym znaku D ma realne zero dla każdego ξ≠0 (dowód w
+   `test_D_expr_has_real_zero_for_nonzero_xi`), i S faktycznie
+   dywerguje w jego pobliżu (`test_S_expr_diverges_near_real_zero_of_D`).
+3. `Geff`/`η` w `sg_perturbations.py` są teraz napędzane prawdziwą
+   trajektorią tła: użytkownik dopisał mapowanie `F(T)=1-ξT²`,
+   `F_T(T)=-2ξT`, `T=√6·u·H` (`T_of_state`/`F_of_T`/`FT_of_T` w
+   `sg_perturbations.py`). `background_functions_from_trajectory()`
+   buduje z tego (przez interpolację liniową) gotowe funkcje N->wartość
+   dla `integrate_growth()` — patrz test end-to-end
+   `test_growth_driven_by_real_sg_background_trajectory`. Moduły
+   "growth/RSD" i "lensing/WL", do których PDF każe wpiąć Geff/η, nie
+   istniały wcześniej nigdzie w repo — zostały zbudowane od zera.
+
 ## 1. MODEL WYJŚCIOWY: ASYMETRIA TRÓJKĄTA I GENEZA IMPULSU
 
 U podstaw TIMDR leży założenie, że cała dynamika wszechświata bierze się z geometrycznego wymuszenia. Najprostszą możliwą figurą zdolną do wygenerowania trwałej różnicy jest **trójkąt**.
