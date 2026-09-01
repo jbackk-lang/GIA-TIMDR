@@ -1,5 +1,41 @@
 # Möbius Ratio — Before and After the π Filter
 
+## WERYFIKACJA (audyt, sesja 2026-08-29)
+
+Kontynuacja audytu `al_filter_predictions.md` (protokół numerologia-vs-
+prawdziwa-matematyka, `timdr-signal-framework` skill §13/§18). Sprawdzono
+twierdzenie z sekcji "Connection to the Al filter":
+
+```
+Al+ × √3 = (q/π) × √3 ≈ √3   ("filter is self-referential",
+                               "√3 is the fixed point of the Al filter")
+```
+
+**To jest tautologia, nie odkrycie.** `Al+ = q/π ≈ 1,0014870535` — czyli
+liczba bardzo bliska 1. Mnożenie DOWOLNEJ liczby X przez stałą bliską 1
+zwraca X w przybliżeniu z definicji, niezależnie od tego, czym jest X:
+
+```
+Al+ × 5        = 5,0074353    (odchylenie 0,1487%)
+Al+ × 1000000  = 1001487,05   (odchylenie 0,1487%)
+Al+ × √3       = 1,734626     (odchylenie 0,1487%)
+```
+
+Odchylenie jest identyczne w każdym przypadku (dokładnie `Al+ − 1`), bo to
+właśnie definiuje mnożenie przez stałą bliską jedności — nie ma tu nic
+specyficznego dla √3. **√3 nie jest "punktem stałym filtra Al" bardziej,
+niż jest nim 5 czy milion** — każda liczba jest w tym samym sensie
+"prawie punktem stałym" mnożenia przez 1,0015. Wniosek dokumentu
+("the filter is self-referential") nie jest wspierany przez ten rachunek.
+
+Reszta dokumentu (M1=2, M2=2q/π, ich stosunek Al+/Al−) to tożsamości
+algebraiczne wynikające wprost z definicji q i π — poprawne jako
+arytmetyka, ale nie stanowią niezależnego testu niczego. Odniesienia do
+precesji Merkurego, CMB i stałej struktury subtelnej w sekcji "What this
+explains" są tymi samymi twierdzeniami, które są szczegółowo
+zweryfikowane (jedno obalone, jedno statystycznie nierozstrzygające,
+jedno bez niezależnego wyprowadzenia) w `al_filter_predictions.md`.
+
 ## Core observation
 
 The TIMDR-T operator divides numbers into:

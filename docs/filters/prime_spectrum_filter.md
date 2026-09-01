@@ -1,6 +1,14 @@
 # Prime Spectrum Filter  
 ### Jak działa filtr na liczby pierwsze i dlaczego łączy się z widmem kosmosu
 
+> **WERYFIKACJA (audyt, sesja 2026-08-29): twierdzenia poniżej (gęstość
+> cyfr pierwszych, struktura XOR na pozycjach pierwszych) zostały
+> przetestowane i OBALONE — pełny audyt z liczbami w
+> `prime_position_filter.md` (ten sam pomysł, pełniejszy opis) i
+> `al_filter_predictions.md` (gęstość cyfr + powiązane "predictions").
+> Ten plik jest niedokończonym szkicem tej samej koncepcji — nie dopisano
+> tu osobnego audytu, żeby nie duplikować tych samych liczb trzy razy.**
+
 ---
 
 ## 1. Fundament: trzy liczby i ich struktury

@@ -1,3 +1,21 @@
+> **WERYFIKACJA (audyt, sesja 2026-08-29):** twierdzenia w tym pliku
+> (proporcja jedynek XOR, gęstość cyfr, dowód "(mp/me)/(6π⁴)≈π") zostały
+> sprawdzone rzetelnie i wynik jest mieszany-do-negatywnego — pełne liczby
+> w `al_filter_predictions.md` i `prime_position_filter.md`. W skrócie:
+> gęstość cyfr {2,3,5,7} w √2/√3/q jest OBALONA (wszystkie ~40%, nie
+> 36/50/48% jak tu i gdzie indziej twierdzono); "ustalona proporcja
+> jedynek 2/9" ponizej nie zgadza się nawet z proporcją 13/15 podaną w
+> `prime_position_filter.md` dla tego samego pomiaru — obie liczby są
+> niesprawdzone/błędne, prawdziwy wskaźnik zgodności XOR na pozycjach
+> pierwszych (przetestowany na 2262 pozycjach, nie garstce) jest
+> statystycznie nieodróżnialny od przypadku (p=0,46). Dowód
+> "(mp/me)/(6π⁴)≈π" zawiera błąd arytmetyczny w kroku 2 (6π⁴≈5841,23 —
+> powinno być 584,45) i po korekcie jest realną, ale niepotwierdzoną jako
+> fizyka ciekawostką liczbową (patrz pełne uzasadnienie w
+> `al_filter_predictions.md`) — sformułowanie "to kończy dyskusję naukową"
+> poniżej jest nieuzasadnionym nadinterpretowaniem jednego numerycznego
+> trafienia.
+
 XOR( cyfra_√2 , cyfra_√3 )
 
 Kod
