@@ -113,3 +113,74 @@ sprawdzeniu ich razem. W `core/` odpowiednik: przy rozszerzaniu wyjścia
 operatora o nowe pole/etykietę (np. rozszerzenie masek `op_transition`
 o nowy powód aktywacji) sprawdzić, czy nowa wartość nie łamie założeń już
 istniejącego pola (np. progu), nie tylko czy sama ma sens w izolacji.
+
+---
+
+### E. "Nic nie pasuje" / "łamie wszystko" jako sygnał złego obiektu testowego, nie braku reguły (rozszerza D)
+
+**Problem:** przy klasyfikatorze wieloregułowym dwa razy w tej samej sesji
+(budowa `docs/theory/Atlas_Paradoksow_Fizycznych.md`, runda druga) test
+"żadna reguła nie pasuje" / "łamie wszystkie reguły" wyszedł fałszywie
+dodatni z dwóch różnych, ale spokrewnionych powodów: (1) test pominął
+część reguł zestawu, sprawdzając tylko te, które wyglądały na oczywiste
+kandydatki (kaskada Kołmogorowa — sprawdzone przeciw 4 z 6 reguł, pominięto
+Rezonans i Skręt; Rezonans finalnie okazał się trafną odpowiedzią); (2)
+test sprawdzał obiekt zbity z kilku niezależnych, różnych KSZTAŁTEM
+elementów naraz, zamiast rozbity na części (trzy "warunki Sacharowa"
+bariogenezy przetestowane jako jeden checklist przeciw wszystkim regułom
+dały "TRM=0, brak reguła"; dopiero rozbicie na dwie role o różnym kształcie
+— lokalny fakt strukturalny vs skumulowana wielkość globalna — ujawniło, że
+pasują Defekt i Emergentność).
+
+**Rozwiązanie:** zanim wynik "nic nie pasuje" zostanie przyjęty, dwa
+osobne sprawdzenia: (a) czy test faktycznie przeszedł przez KAŻDĄ regułę
+zestawu z jej warunkiem falsyfikacji, a nie tylko przez te "oczywiste"; (b)
+czy testowany obiekt jest jednym spójnym zjawiskiem o jednym kształcie, czy
+kilkoma zjawiskami różnego kształtu zbitymi razem — jeśli to drugie, rozbić
+najpierw (po RODZAJU mechanizmu, nie po dowolnej granicy), dopiero potem
+testować każdą część osobno.
+
+**Uzasadnienie:** "brak dopasowania" ma dwie zupełnie różne przyczyny —
+prawdziwy brak struktury (rzadki, wymaga nowej kategorii) i wadliwy test
+(częstszy, wymaga poprawki testu, nie nowej kategorii) — a odróżnienie ich
+wymaga właśnie (a)+(b), nie przyjęcia wyniku przy pierwszym przejściu. W
+`core/` odpowiednik: zanim `diagnostics.py` zgłosi "żaden wzorzec nie
+pasuje" dla danego okna sygnału, sprawdzić, czy okno nie miesza dwóch
+różnych reżimów sygnału (np. przejścia i szumu tła naraz) i czy sprawdzone
+zostały wszystkie zaimplementowane detektory, nie tylko te najczęściej
+trafiające.
+
+---
+
+### F. Test "przeniesione czy nowo wytworzone" jako rozstrzygnięcie Transition vs Emergentność
+
+**Problem:** przy własności globalnej połączonej z czymś lokalnym przez
+ciągły mechanizm (przepływ, ekspansję, akumulację) łatwo pomylić dwa różne
+przypadki, bo powierzchownie wyglądają tak samo ("coś lokalnego prowadzi do
+czegoś globalnego"): własność globalna może być tym samym faktem co
+lokalny, tylko przeniesionym/rozciągniętym (jednorodność CMB — obecna już
+w małej łatce przed inflacją, inflacja tylko ją rozciąga — reguła
+Transition, bez Emergentności), albo może być faktycznie nową strukturą,
+nieistniejącą w żadnym pojedynczym elemencie lokalnym (asymetria
+barionowa η_B — żaden pojedynczy proces nie ma zdefiniowanej "asymetrii
+netto", to pojęcie istnieje tylko jako suma po całej populacji procesów —
+reguła Emergentność). Bez jawnego testu obie sytuacje wyglądają identycznie
+z zewnątrz ("lokalny mechanizm → globalny efekt").
+
+**Rozwiązanie:** jawne pytanie przed wyborem reguły: czy globalna własność
+istniała już (w tej samej postaci) na poziomie lokalnym PRZED zadziałaniem
+mechanizmu, a mechanizm tylko ją przenosi/skaluje (→ Transition) — czy
+globalna własność nie ma odpowiednika na poziomie pojedynczego elementu
+lokalnego w ogóle, i mechanizm ją aktywnie wytwarza przez akumulację/
+agregację (→ Emergentność). Ten sam test rozstrzygnął w tej sesji dwa
+przykłady w przeciwne strony (Kosmologia → Transition; Bariogeneza →
+Emergentność) tym samym pytaniem, nie osobną intuicją za każdym razem.
+
+**Uzasadnienie:** to uszczelnia falsyfikowalność reguły Emergentność
+("Nie aktywuje się, jeśli żadna nowa stabilna struktura globalna nie
+powstaje") konkretnym pytaniem operacyjnym zamiast oceny "na wyczucie". W
+`core/` odpowiednik: przy rozróżnianiu w `op_transition`/`diagnostics.py`
+między maską realnie NOWEGO wzorca a maską, która tylko powiela/rozciąga
+już wykryty lokalnie sygnał na dłuższe okno — to samo pytanie ("czy okno
+większe ujawnia coś, czego nie było w żadnym mniejszym oknie, czy tylko
+sumuje to samo") stosuje się wprost.
