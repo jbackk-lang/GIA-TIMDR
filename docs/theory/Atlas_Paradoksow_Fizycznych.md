@@ -124,6 +124,7 @@ dwie konkurencyjne teorie fizyczne.
 | Izolator topologiczny | lokalnie (cechowanie w punkcie k) | jednomodelowe | Defekt | 2 |
 | Izolator topologiczny | globalnie (całka po strefie Brillouina) | jednomodelowe | Emergentność | 118 |
 | Kosmologia (problem horyzontu) | — (bez splitu) | jednomodelowe | Transition | 24 |
+| Hydrodynamika (paradoks d'Alemberta) | — (bez splitu) | jednomodelowe | Transition | 24 |
 
 **Loschmidt — rozstrzygnięcie.** Pojedyncza trajektoria nie ma zdefiniowanej
 entropii w ogóle (entropia = S=k ln Ω wymaga objętości Ω zbioru mikrostanów,
@@ -351,9 +352,60 @@ odnotowania, tylko jedno przejście.
 Osiem przykładów fizycznych rozstrzygniętych, wciąż zero nowych osi.
 Bariogeneza zostaje jako jedyny świadomie otwarty wątek tej rundy.
 
+**Przykład 3 (runda druga), krok 1/2: hydrodynamika — paradoks
+d'Alemberta.** Osobno od turbulencji (krok 2, poniżej) — zgodnie z planem:
+d'Alembert najpierw, jako szybszy test, turbulencja osobno jako pełna,
+ostrożniejsza analiza.
+
+**Ograniczenie faktograficzne, sprawdzone najpierw.** Globalna gładkość w
+czasie rozwiązań 3D Naviera–Stokesa jest NIEROZSTRZYGNIĘTA (problem
+milenijny Instytutu Claya) — żadna klasyfikacja poniżej nie zakłada
+"gładkości" jako faktu; opiera się wyłącznie na ustalonych wynikach
+(warstwa przyścienna, separacja przepływu, opór niezerowy w granicy
+ν→0⁺), nie na globalnym istnieniu/regularności rozwiązań.
+
+**Czy to naprawdę jest split lokalnie/globalnie (jak sugerowałoby "lokalne
+zaburzenie → globalny efekt"), czy coś innego?** Sprawdzone i odrzucone —
+z tego samego powodu co przy Kosmologii, gdzie pierwsze wrażenie
+("Emergentność-118") też nie przetrwało sprawdzenia. Paradoks d'Alemberta
+nie jest właściwie o PRZESTRZENNEJ skali (mała warstwa przyścienna vs cały
+przepływ) — jest o NIECIĄGŁOŚCI opisu WZGLĘDEM PARAMETRU: teoria przepływu
+potencjalnego (lepkość ν=0 dokładnie) daje opór = 0 w sposób w pełni
+domknięty i poprawny matematycznie; ale opór DOWOLNIE MAŁEJ, nieznikającej
+lepkości (ν→0⁺) jest skończony, nie znika w granicy razem z ν. To
+osobliwe zaburzenie (singular perturbation): ciągły parametr (ν, albo
+1/Re) przekraczający próg dokładnie w ν=0, między dwoma jakościowo różnymi
+reżimami (przepływ potencjalny bez oporu / przepływ lepki z warstwą
+przyścienną, separacją i oporem) — dokładnie kształt **Transition**, ten
+sam co Kosmologia i Miara Haara, nie Emergentność.
+
+Warstwa przyścienna jest tu MECHANIZMEM przejścia (jak przepływ RG był
+mechanizmem uniwersalności przy renormalizacji, jak inflacja była
+mechanizmem jednorodności przy Kosmologii), nie osobną, nową strukturą
+globalną wymagającą własnego wiersza: opór nie jest jakościowo nową
+rzeczą "wyłaniającą się" z warstwy — jest bezpośrednią konsekwencją
+asymetrii ciśnienia z separacji przepływu (przód/tył ciała), ten sam
+poziom opisu co mechanizm, nie ponad nim. Sprawdzone przeciw alternatywie:
+gdyby opór był rzeczywiście nieredukowalny do warstwy (jak liczba Cherna
+nieredukowalna do punktowej krzywizny Berry'ego, jak korelacje Bella
+nieredukowalne do statystyk brzegowych), Emergentność by pasowała — ale
+tu związek jest bezpośredni, mechanistyczny, nie agregacyjny.
+
+**Klasyfikacja:** bez splitu Skala (jednomodelowe, jak Kosmologia i Haara
+— pytanie o piąte znaczenie "lokalnie/globalnie" się tu nie stosuje),
+Transition, TRM=24 (ciągły parametr, wyraźna granica reżimu w ν=0, bez
+wielopoziomowej hierarchii — nie 118).
+
+Dziewięć przykładów fizycznych rozstrzygniętych, wciąż zero nowych osi.
+Turbulencja (krok 2 tego samego przykładu, kandydat na piąte znaczenie
+"lokalnie/globalnie" — kaskada Kołmogorowa jest ciągła, nie dwupoziomowa)
+pozostaje osobnym, nierozstrzygniętym zadaniem — zgodnie z planem, dopiero
+po pełnej, samodzielnej analizie, nie razem z d'Alembertem.
+
 ---
 
 ## 4. Niesprawdzone / robocze — nie wchodzi do tabeli jako ustalone
 
-Brak — wszystkie sześć przykładów pierwszej rundy jest teraz ustalonych.
+Turbulencja/kaskada Kołmogorowa (hydrodynamika, krok 2) — patrz §6, kandydat
+na piąte znaczenie "lokalnie/globalnie", jeszcze nie sprawdzony.
 Patrz §5 na temat zakresu tego atlasu i naturalnych kolejnych kroków.
