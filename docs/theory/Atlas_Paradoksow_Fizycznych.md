@@ -123,6 +123,7 @@ dwie konkurencyjne teorie fizyczne.
 | Informacja BH | — (bez splitu) | wielomodelowe | Stabilność | 118 |
 | Izolator topologiczny | lokalnie (cechowanie w punkcie k) | jednomodelowe | Defekt | 2 |
 | Izolator topologiczny | globalnie (całka po strefie Brillouina) | jednomodelowe | Emergentność | 118 |
+| Kosmologia (problem horyzontu) | — (bez splitu) | jednomodelowe | Transition | 24 |
 
 **Loschmidt — rozstrzygnięcie.** Pojedyncza trajektoria nie ma zdefiniowanej
 entropii w ogóle (entropia = S=k ln Ω wymaga objętości Ω zbioru mikrostanów,
@@ -315,6 +316,40 @@ Przełamuje serię pięciu z rzędu "brak zjawiska + Emergentność" z dobrego,
 niezależnego powodu, nie na siłę — wzmacnia wiarygodność wcześniejszych
 pięciu trafień (gdyby każdy nowy przykład automatycznie lądował w tym samym
 kształcie, byłby to sygnał ostrzegawczy, nie potwierdzenie).
+
+**Przykład 2 (runda druga): kosmologia — problem horyzontu.** Tylko
+jednorodność (dlaczego przyczynowo rozłączne regiony CMB mają tę samą
+temperaturę) — bariogeneza (asymetria materia–antymateria, warunki
+Sacharowa: naruszenie liczby barionowej, C/CP, odejście od równowagi) to
+osobny mechanizm, świadomie NIE rozstrzygnięty tutaj, żeby nie powtórzyć
+błędu ze zlepienia dwóch różnych zjawisk w jeden wiersz.
+
+**Czy potrzebny jest split lokalnie/globalnie?** Sprawdzone i odrzucone, z
+konkretnego powodu, nie z pominięcia kroku. Kandydat (mała, przyczynowo
+spójna łatka sprzed inflacji = lokalnie; cały obserwowalny Wszechświat =
+globalnie) różni się jakościowo od każdego dotychczasowego przypadku
+Emergentności: rozwiązanie (inflacja) pokazuje, że jednorodność NIE jest
+nową strukturą powstającą na poziomie globalnym — była obecna już lokalnie,
+w małej łatce, PRZED inflacją; inflacja tylko ją rozciągnęła. U Cantora moc
+continuum nie istnieje w żadnym lokalnym fragmencie; u izolatora
+topologicznego liczba Cherna nie istnieje lokalnie w ogóle; przy splątaniu
+korelacje są nieredukowalne do części lokalnych. Tu globalna własność JEST
+tą samą lokalną własnością, tylko przeniesioną — to nie emergencja, to
+**Transition**: ciągły parametr (współczynnik skali/liczba e-foldów,
+rosnący o czynnik ≥e^60) przekraczający próg między dwoma reżimami
+przyczynowymi (poniżej horyzontu / pozornie powyżej horyzontu), w całości
+wewnątrz jednego modelu (inflacyjne rozszerzenie standardowej kosmologii
+FRW+GR, nie porównanie dwóch niezależnych teorii) — jednomodelowe.
+
+**Klasyfikacja:** bez splitu Skala — pytanie o piąte znaczenie
+"lokalnie/globalnie" w ogóle się tu nie stosuje, tak jak nie stosowało się
+do CH, Haary, dobrego uporządkowania czy informacji BH. TRM=24 (ten sam
+kształt co Banach FP globalnie i Miara Haara: ciągły parametr, wyraźna
+granica reżimu), nie 118 — nie ma tu żadnej wielopoziomowej hierarchii do
+odnotowania, tylko jedno przejście.
+
+Osiem przykładów fizycznych rozstrzygniętych, wciąż zero nowych osi.
+Bariogeneza zostaje jako jedyny świadomie otwarty wątek tej rundy.
 
 ---
 

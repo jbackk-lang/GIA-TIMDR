@@ -172,7 +172,7 @@ struktura globalna nie powstaje.*
 | Banach–Tarski | globalnie (kula w R³) | — | jednomodelowe | Transition | 24 |
 | Banach Fixed Point | lokalnie (stabilność w punkcie) | — | jednomodelowe | Rezonans | 2 |
 | Banach Fixed Point | globalnie (kontrakcja na całości) | — | jednomodelowe | Transition | 24 |
-| Miara Haara | — (bez splitu, niesprawdzone do końca — patrz §4) | — | jednomodelowe | Transition | 24 |
+| Miara Haara | — (bez splitu) | — | jednomodelowe | Transition | 24 |
 | Dobre uporządkowanie | — (bez splitu) | — | jednomodelowe | Skręt | 2 |
 | Bazy Hilberta | skala wymiaru: skończony | — | jednomodelowe | — (brak zjawiska) | — |
 | Bazy Hilberta | skala wymiaru: nieskończony | — | jednomodelowe | Emergentność | 118 |
@@ -186,12 +186,17 @@ struktura globalna nie powstaje.*
 
 ## 4. Niedomknięte — uczciwie, nie zamiecione
 
-- **Miara Haara: lokalnie/globalnie nie zostało domknięte.** Padła hipoteza
-  (lokalnie = czy punkt ma zwarte otoczenie; globalnie = czy da się to
-  skleić w spójną miarę na całej grupie — problem sklejania typu snopowego),
-  ale nigdy nie przetestowana z takim samym rygorem jak Banach–Tarski/Banach
-  FP. Obecny wiersz w tabeli to najlepsze dotychczasowe przybliżenie, nie
-  wynik audytu.
+- **Rozwiązane: Miara Haara nie ma splitu lokalnie/globalnie.** Hipoteza
+  sklejania typu snopowego (lokalnie = zwarte otoczenie punktu, globalnie =
+  spójna miara na całej grupie) odrzucona z konkretnego powodu: w GRUPIE
+  topologicznej (nie ogólnej przestrzeni) zwartość lokalna nie różni się od
+  punktu do punktu — przez jednorodność (przesunięcia grupowe), jeśli
+  element neutralny ma zwarte otoczenie, ma je każdy punkt. To jeden,
+  globalny fakt strukturalny o całej grupie, sprawdzany raz, nie
+  "fragment" w sensie atlasu. Reguła (Transition, TRM=24) zostaje bez zmian —
+  to jeden z dwóch przykładów cytowanych wprost w definicji tej reguły
+  (§2, "zwarty→niezwarty") — zamyka się tylko pytanie o split, odpowiedzią
+  "nie", jak przy Vitalim, CH i Kosmologii (w atlasie fizycznym).
 - **"Skala wymiaru" (skończone/nieskończone) vs "skala geometryczna"
   (lokalnie/globalnie)** — nazwane tu jako podtyp jednej osi (1.2), ale mogą
   być w istocie osią czwartą, nie podtypem trzeciej. Nierozstrzygnięte.
