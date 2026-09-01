@@ -125,6 +125,10 @@ dwie konkurencyjne teorie fizyczne.
 | Izolator topologiczny | globalnie (całka po strefie Brillouina) | jednomodelowe | Emergentność | 118 |
 | Kosmologia (problem horyzontu) | — (bez splitu) | jednomodelowe | Transition | 24 |
 | Hydrodynamika (paradoks d'Alemberta) | — (bez splitu) | jednomodelowe | Transition | 24 |
+| Hydrodynamika (kaskada Kołmogorowa) | lokalnie (pojedyncza skala ℓ, zakres inercyjny) | jednomodelowe | Rezonans | 2 |
+| Hydrodynamika (kaskada Kołmogorowa) | globalnie (widmo E(k)~k^(−5/3) na całym zakresie) | jednomodelowe | Emergentność | 118 |
+| Baryogeneza (naruszenie B, C/CP) | lokalnie (pojedynczy proces/wierzchołek) | jednomodelowe | Defekt | 2 |
+| Baryogeneza (asymetria η_B) | globalnie (skumulowana historia termiczna) | jednomodelowe | Emergentność | 118 |
 
 **Loschmidt — rozstrzygnięcie.** Pojedyncza trajektoria nie ma zdefiniowanej
 entropii w ogóle (entropia = S=k ln Ω wymaga objętości Ω zbioru mikrostanów,
@@ -396,16 +400,142 @@ tu związek jest bezpośredni, mechanistyczny, nie agregacyjny.
 Transition, TRM=24 (ciągły parametr, wyraźna granica reżimu w ν=0, bez
 wielopoziomowej hierarchii — nie 118).
 
-Dziewięć przykładów fizycznych rozstrzygniętych, wciąż zero nowych osi.
-Turbulencja (krok 2 tego samego przykładu, kandydat na piąte znaczenie
-"lokalnie/globalnie" — kaskada Kołmogorowa jest ciągła, nie dwupoziomowa)
-pozostaje osobnym, nierozstrzygniętym zadaniem — zgodnie z planem, dopiero
-po pełnej, samodzielnej analizie, nie razem z d'Alembertem.
+**Przykład 3 (runda druga), krok 2/2: hydrodynamika — kaskada
+Kołmogorowa.** Pełna, samodzielna analiza, zgodnie z planem — nie razem
+z d'Alembertem, i nie na skróty: sprawdzone przeciw wszystkim sześciu
+regułom atlasu, nie tylko przeciw czterem, które wyglądały na oczywiste
+kandydatki (Emergentność, Transition, Stabilność, Defekt) — pierwsze
+podejście do tego przykładu pominęło Rezonans i Skręt, co samo w sobie
+było niedomkniętym audytem, nie ustaleniem, że reguły faktycznie nie
+pasują.
+
+**Dlaczego to NIE jest piąte znaczenie "lokalnie/globalnie", mimo
+ciągłej, wielopoziomowej kaskady bez ostrego progu.** Kaskada energii
+(ℓ_duże→ℓ_średnie→ℓ_małe→ℓ_dysypacja) rzeczywiście nie ma dwóch
+dyskretnych poziomów ani progu parametrycznego — ale dokładnie ten sam
+kształt (ciągły przepływ przez continuum skal, bez ostrego progu) miała
+już renormalizacja (ciągły przepływ sprzężeń ze skalą energii, funkcje
+β), gdzie klasyfikacja lokalnie=Defekt/globalnie=Emergentność-118
+przetrwała sprawdzenie. Argument "to jest ciągłe, nie dwupoziomowe, więc
+żadna reguła atlasu nie pasuje" nie wytrzymuje więc porównania z
+własnym, wcześniej ustalonym przykładem w tym samym dokumencie — gdyby
+ciągłość wykluczała reguły atlasu, renormalizacja też by ich nie
+dostała. Test właściwy to nie "czy przepływ jest ciągły", tylko "czy
+globalna własność istnieje niezależnie od (jest redukowalna do)
+pojedynczej lokalnej skali" — a −5/3 nie istnieje na pojedynczej skali w
+żadnym sensie, dokładnie jak entropia (Loschmidt) czy liczba Cherna
+(izolator topologiczny).
+
+**Reguły — sprawdzone przeciw wszystkim sześciu, nie tylko przeciw
+oczywistym kandydatkom:**
+
+Lokalnie (pojedyncza skala ℓ w zakresie inercyjnym): **Rezonans**, nie
+brak reguły — na każdej skali w zakresie inercyjnym transfer energii ma
+ten sam kierunek (duże→małe, nigdy odwrotnie w tym zakresie), tę samą
+statystykę (stała szybkość dysypacji ε, lokalna izotropia), tę samą,
+samopodobną postać prawa skalowania — to jest wprost definicja Rezonansu
+("lokalne reguły koherentne, ciągną w tę samą stronę"), tylko mocniejszy
+przypadek niż Banach FP czy drzewa regularne: koherencja trzyma się
+CAŁEGO continuum skal naraz, nie jednej wybranej skali/otoczenia.
+TRM=2 (ta sama wartość co przy każdym dotychczasowym Rezonansie — Banach
+FP lokalnie, drzewa regularne — pojedyncze pęknięcie/koherencja, bez
+granicy reżimu). Skręt sprawdzony i odrzucony: nie zmienia się sposób
+PORÓWNYWANIA obiektów między skalami (ta sama analiza spektralna/
+statystyczna działa jednakowo wszędzie w zakresie inercyjnym), zmienia
+się tylko wartość — Skręt wymaga zmiany metody, nie wartości.
+
+Globalnie (widmo E(k)~ε^(2/3)k^(−5/3) na całym zakresie inercyjnym):
+**Emergentność**, TRM=118 — dosłowna, nie metaforyczna wielopoziomowa
+hierarchia skal (kaskada ma więcej realnych "poziomów" niż niejeden
+dotychczasowy przykład Emergentności-118), relacja MIĘDZY skalami, którą
+żadna pojedyncza skala nie niesie. Oś modelowa: jednomodelowe (jeden
+aparat — równania Naviera–Stokesa/statystyczna teoria turbulencji, bez
+porównania modeli; ograniczenie faktograficzne z kroku 1 obowiązuje też
+tutaj — klasyfikacja opiera się na ustalonym wyniku Kołmogorowa, nie na
+założeniu o globalnej gładkości rozwiązań 3D N-S).
+
+**Sens skali.** Rozszerzenie już istniejącego, matematycznego sensu 1.1
+(fragment/całość) na continuum skal, tak jak w renormalizacji (tam:
+skala energii; tu: skala przestrzenna wiru) — nie nowe, piąte znaczenie.
+Kluczowe: to DRUGI, niezależny przypadek tego samego wzorca
+("ciągły parametr, globalna struktura nieredukowalna do pojedynczej
+skali") — wzmacnia wiarygodność istniejących osi, zamiast wymuszać nową
+na podstawie n=1 (ta sama dyscyplina co przy nieodrzuceniu Perspektywy
+jako pełnej osi po jednym przykładzie w atlasie matematycznym).
+
+**Wynik.** Turbulencja NIE generuje piątego znaczenia "lokalnie/
+globalnie" — dokłada drugi, mocny, niezależny przykład do istniejącego
+wzorca Rezonans(lokalnie)+Emergentność(globalnie) przez continuum skal,
+znanego już z renormalizacji. Kandydatura na piąte znaczenie, postawiona
+świadomie i tymczasowo w §6/9 (krok 2, przed pełną analizą), została
+sprawdzona i odrzucona z konkretnego, sprawdzalnego powodu — nie
+przemilczana i nie ogłoszona bez przejścia.
+
+Jedenaście przykładów fizycznych rozstrzygniętych, wciąż zero nowych osi.
+Hydrodynamika zamknięta w całości (oba mechanizmy: d'Alembert i
+turbulencja). Bariogeneza (poniżej) była jedynym świadomie otwartym wątkiem
+tej rundy.
+
+**Przykład 4 (runda druga): bariogeneza — warunki Sacharowa.** Pierwsze
+podejście testowało "warunki Sacharowa" jako jeden, zbity checklist
+przeciw sześciu regułom naraz i doszło do "TRM=0, brak reguła" — wniosek
+odrzucony: to błąd tego samego rodzaju co pierwotne sklejenie d'Alemberta
+z turbulencją w jeden wiersz hydrodynamiki. Trzy warunki Sacharowa nie są
+trzema niezależnymi, dowolnie wymiennymi elementami listy — mają dwa różne
+KSZTAŁTY atlasowe, nie trzy: (1) naruszenie liczby barionowej i naruszenie
+C/CP są tym samym RODZAJEM faktu (stały, strukturalny fakt o Lagrangianie:
+czy istnieje człon łamiący daną symetrię — nie parametr, nie skala), więc
+nie dostają osobnych wierszy z tego samego powodu, dla którego Gödel-1 nie
+dostał osobnych wierszy za dwie wartości tej samej osi; (2) odejście od
+równowagi (freeze-out) ma inny kształt — ciągły parametr (Γ/H, albo
+temperatura) przekraczający próg między reżimem równowagi a nierównowagi —
+ale okazuje się MECHANIZMEM łączącym pozostałe dwa, nie osobnym wierszem
+(patrz niżej), a nie osobnym zjawiskiem Transition, jak wstępnie zakładano.
+
+Lokalnie (pojedynczy proces/wierzchołek oddziaływania): liczba barionowa i
+symetria C/CP są lokalnie DOBRZE zdefiniowane (w przeciwieństwie do
+entropii jednej trajektorii czy statystyk brzegowych EPR — to nie jest
+"brak zjawiska") — po prostu konkretne oddziaływania (procesy sfaleronowe,
+bozony X w GUT) je łamią; lokalna reguła (zachowanie) nie domyka się
+globalnie, mimo że jest dobrze postawiona lokalnie — **Defekt**, TRM=2,
+ten sam mechanizm co renormalizacja lokalnie i izolator topologiczny
+lokalnie. Sprawdzone i odrzucone: Rezonans (brak skali, po której coś się
+zgadza kierunkowo), Skręt (nie zmienia się sposób porównywania), Transition
+(istnienie łamiącego członu to stały fakt strukturalny, nie parametr
+przekraczający próg).
+
+Globalnie (skumulowana asymetria η_B po całej historii termicznej):
+decydujący test to ten sam, który rozstrzygnął Kosmologię — czy globalna
+własność jest PRZENIESIONA z czegoś już obecnego lokalnie (jak jednorodność
+przed inflacją → Transition, bez Emergentności), czy GENUINIE NOWA,
+nieredukowalna do pojedynczego elementu (jak entropia u Loschmidta,
+uniwersalność w renormalizacji → Emergentność)? Tu: żaden pojedynczy proces
+nie ma sensownie zdefiniowanej "asymetrii netto" — to pojęcie istnieje
+tylko jako suma po całej populacji procesów w historii termicznej. W
+przeciwieństwie do Kosmologii, η_B nie jest transportowana z istniejącego
+lokalnego stanu — jest aktywnie WYTWORZONA. **Emergentność**, TRM=118, ten
+sam wzorzec co renormalizacja, Loschmidt, EPR, izolator topologiczny.
+
+Odejście od równowagi (freeze-out) jest **mechanizmem**, nie osobnym
+wierszem — dokładnie ta sama rola co przepływ RG w renormalizacji i
+inflacja w Kosmologii: tłumaczy, dlaczego lokalne łamanie symetrii nie
+zostaje zmyte przez procesy odwrotne (w równowadze CPT + unitarność
+wymuszają zerowanie się netto asymetrii niezależnie od siły B/CP-łamania —
+ustalony wynik) i przetrwa jako globalna struktura, ale samo w sobie nie
+jest zjawiskiem do osobnej klasyfikacji.
+
+Oś modelowa: jednomodelowe — konkurencyjne mechanizmy (GUT, leptogeneza,
+elektrosłaba, Affleck–Dine) to propozycje wewnątrz tego samego ogólnego
+schematu Sacharowa, nie różne formalne systemy wymagane do postawienia lub
+zweryfikowania samego twierdzenia.
+
+Trzynaście przykładów fizycznych rozstrzygniętych, wciąż zero nowych osi.
+Runda druga (cztery przykłady: izolator topologiczny, kosmologia,
+hydrodynamika, bariogeneza) zamknięta w całości.
 
 ---
 
 ## 4. Niesprawdzone / robocze — nie wchodzi do tabeli jako ustalone
 
-Turbulencja/kaskada Kołmogorowa (hydrodynamika, krok 2) — patrz §6, kandydat
-na piąte znaczenie "lokalnie/globalnie", jeszcze nie sprawdzony.
+Brak — wszystkie przykłady obu rund są teraz w pełni rozstrzygnięte.
 Patrz §5 na temat zakresu tego atlasu i naturalnych kolejnych kroków.
