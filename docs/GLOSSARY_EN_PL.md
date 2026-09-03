@@ -97,6 +97,53 @@
 
 ---
 
+## Skręt / Twist — nazwy kanoniczne
+
+**UWAGA:** "skręt"/"twist" ma w tym ekosystemie CZTERY niezwiązane ze
+sobą znaczenia. Każde nowe użycie tego słowa powinno od razu użyć
+jednej z poniższych rozszerzonych nazw — samo "skręt" bez przymiotnika
+jest niejednoznaczne. Pełne uzasadnienie i rozgraniczenie:
+[`theory/Resonance_M_Operator_Empiryczny.md`](theory/Resonance_M_Operator_Empiryczny.md)
+sekcja 0.
+
+### Skręt sygnałowy
+**EN:** Trend-reversal detection — sign flip of local regression slope
+in a single time series, magnitude > 1.5σ.
+**PL:** Wykrywanie odwrócenia trendu — zmiana znaku lokalnego
+nachylenia regresji w pojedynczym szeregu czasowym, wielkość > 1.5σ.
+**Źródło:** `timdr-signal-framework` §1. **Nie** jest bifurkacją w sensie
+teorii układów dynamicznych (brak jawnego modelu `f(x;λ)`) — patrz
+Resonance_M sekcja 5.
+
+### Skręt topologiczny (τ)
+**EN:** Surface deformation changing orientability (torus → Möbius →
+tetroida).
+**PL:** Deformacja powierzchni zmieniająca orientowalność (torus →
+Möbius → tetroida).
+**Źródło:** [`theory/Operators_N_TIMDR.md`](theory/Operators_N_TIMDR.md)
+("Skręt τ i jego osobliwość"). Działa na rodzinie powierzchni
+parametryzowanej stopniem deformacji, nie na pojedynczym punkcie ani
+szeregu czasowym.
+
+### Skręt powierzchniowy
+**EN:** Local surface-normal difference, `‖n(p+Δp) − n(p)‖`, on a fixed
+3D mesh.
+**PL:** Lokalna różnica normalnej powierzchni, `‖n(p+Δp) − n(p)‖`, na
+ustalonej siatce 3D.
+**Źródło:** `theory/Resonance_M_Operator_Empiryczny.md` sekcja 6.
+Punktowy, dyskretny — odrębny od torsji krzywej i od skrętu
+topologicznego τ powyżej (inna domena: mesh 2D, nie rodzina powierzchni
+ani krzywa).
+
+### Twist blokowy
+**EN:** What `TwistDetector` computes in the image-in-image decoding
+pipeline — operates on image blocks, own implementation, own purpose.
+**PL:** To, co liczy `TwistDetector` w pipeline'ie dekodowania obrazu-w-
+obrazie — działa na blokach obrazu, własna implementacja, własny cel.
+**Źródło:** `MAGE-IN-IMAGE-DECODER`.
+
+---
+
 ## Emergence / Emergencja
 
 ### Emergent Field  
