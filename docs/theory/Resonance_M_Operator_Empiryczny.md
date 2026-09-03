@@ -298,7 +298,9 @@ Powiązane dokumenty: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (rezonans
 modalny — inny operator niż tu opisany), [`Operators_N_TIMDR.md`](./Operators_N_TIMDR.md)
 (skręt topologiczny τ — inny obiekt niż tu opisany),
 [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md) (aksjomaty dla
-domeny sygnałowej opisanej tutaj), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
+domeny sygnałowej opisanej tutaj), [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md)
+(formalna aksjomatyzacja skrętu powierzchniowego z sekcji 6 — Aksjomat
+G3, z powiązaniem do Weingartena w G4), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
 (kanoniczna lista nazw skrętu), `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`
 (pełne dane i kod walidacji z sekcji 3), `TIMDR-Math-Formalism/docs/PROTOCOL.md`
 (effect size, moc testu, operator okna — formalizacja kroków 4/5 protokołu).

@@ -295,10 +295,13 @@ istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
 Żeby ten dokument nie sugerował więcej, niż faktycznie zawiera:
 
 - **Skręt powierzchniowy jako operator geometryczny.** Formuła
-  `‖n(p+Δp)−n(p)‖` (Resonance_M §6) nie jest tu powiązana z operatorem
-  kształtu (Weingarten) ani formalnie zdefiniowaną krzywizną dyskretną
-  — to wymaga nowej teorii geometrycznej, nie tylko zapisu, i nie jest
-  częścią tego zestawu aksjomatów.
+  `‖n(p+Δp)−n(p)‖` (Resonance_M §6) nie jest częścią tego zestawu
+  aksjomatów — żyje teraz we własnym, równoległym zestawie,
+  [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md) (gałąź
+  geometryczna G). Tam Aksjomat G4 **nazywa** związek ze skrętem przez
+  operator kształtu (Weingarten) — `T_S=F(W_S)` — ale jawnie NIE go
+  domyka: implementacja `W_S` i `F` pozostaje otwarta (patrz zastrzeżenie
+  pod G4 i Aksjomat G7 tamtego dokumentu, status "koncepcyjna").
 - **Dynamika/bifurkacje.** Aksjomat 4 (wyżej) krytykuje "skręt =
   bifurkacja", ale nie proponuje modelu `ẋ=f(x;λ(t))` ani dowodu
   korelacji skrętu z przejściem przez punkt krytyczny — to jedyny punkt
