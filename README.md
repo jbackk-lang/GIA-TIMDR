@@ -11,6 +11,26 @@ TIMDR/TRM (Triangle Information Momentum Dynamics Resonance) to jednolita rama i
 
 ---
 
+## 📖 Cytowanie
+
+Formalizacja gałęzi sygnałowej TIMDR (operatory progowe, rezonans jako
+koincydencja, `Axioms_S_TIMDR_Signal.md`, `Resonance_M_Operator_Empiryczny.md`,
+protokół `TIMDR-Math-Formalism` z realną walidacją na danych pogodowych)
+ma osobny, wersjonowany zapis na Zenodo:
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22288541.svg)](https://doi.org/10.5281/zenodo.22288541)
+
+> Kielich, J. S. (2026). *TIMDR Signal Formalization: Mathematical
+> Operators, Axioms_S, Effect Size, and Reproducible Resonance
+> Validation* (Version v1) [Zbiór danych]. Zenodo.
+> https://doi.org/10.5281/zenodo.22288541
+
+Zakres tego wydania to wyłącznie gałąź sygnałowa (M, S w `docs/theory/`
++ `TIMDR-Math-Formalism`) — nie obejmuje modelu geometrycznego trójkąta
+(sekcje 1-9 poniżej) ani rezonansu modalnego (`Axioms_K_TIMDR.md`).
+
+---
+
 ## Appendix: literatura 2021–2026 stosująca podobny wzorzec sygnałowy (zweryfikowane, koniec sierpnia 2026)
 
 > **Metodologia tej sekcji:** każda pozycja poniżej została sprawdzona niezależnie (tytuł, czasopismo,
