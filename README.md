@@ -11,6 +11,49 @@ TIMDR/TRM (Triangle Information Momentum Dynamics Resonance) to jednolita rama i
 
 ---
 
+## Appendix: literatura 2021–2026 stosująca podobny wzorzec sygnałowy (zweryfikowane, koniec sierpnia 2026)
+
+> **Metodologia tej sekcji:** każda pozycja poniżej została sprawdzona niezależnie (tytuł, czasopismo,
+> data, treść metody) zamiast przyjęta z wcześniejszego zestawienia na wiarę. Z pierwotnej listy sześciu
+> pozycji dwie zostały usunięte, bo nie udało się ich potwierdzić jako realnych, konkretnych publikacji
+> pod podanym tytułem/czasopismem/datą ("IoT anomaly detection — IEEE IoT Journal, 2025" i "Crystal
+> stability latent anomaly — Computational Materials Science, 5 września 2026" — najbliższa realna praca
+> o zbliżonej tematyce, zespołu z Nagoya Institute of Technology, ma inny tytuł, inną datę publikacji
+> (10 lutego 2026) i nie została potwierdzona jako opublikowana w Computational Materials Science).
+> Pozostałe cztery pozycje są prawdziwe i poprawnie zacytowane, ale mapowanie ich metod na
+> anomalia/defekt/skręt/rezonans poniżej jest interpretacją nałożoną z zewnątrz — żadna z tych prac
+> nie używa ani nie zna terminologii TIMDR.
+
+1. **CHEM-AD** — *Chemical Science* (Royal Society of Chemistry), 2026, tom 17, nr 16, s. 7967–7985,
+   opublikowane 24 lutego 2026. Wykrywanie anomalii strukturalnych w MOF-ach (81 cech geometrycznych/
+   chemicznych/topologicznych) przez autoencoder + błąd rekonstrukcji, z odległością Mahalanobisa i
+   PCA jako dodatkową weryfikacją w przestrzeni embeddingu. Odpowiednik anomalii (błąd rekonstrukcji
+   AE) jest tu trafny; odpowiednik "skrętu" dla PCA/Mahalanobisa jest naciągnięty — odległość
+   Mahalanobisa to statyczna miara wielowymiarowego odchylenia, nie wielkość kierunkowa/trendowa,
+   jaką skręt jest w TIMDR.
+2. **Interference Detection** — *Sensors* (MDPI), 14 grudnia 2025, Technical University of Košice.
+   Fuzja trzech (nie czterech) sygnałów: błąd rekonstrukcji PCA (globalna anomalia), Local Outlier
+   Factor na mapach reszt (lokalna rzadkość/defekt), wariancja Monte Carlo jako niepewność
+   epistemiczna modelu. Komponent "korelacja między kanałami → rezonans" NIE jest potwierdzony w
+   opisie metody tej pracy — praca fuzuje trzy sygnały, nie cztery.
+3. **"Smart anomaly detection in sensor systems: A multi-perspective review"** — *Information Fusion*
+   (Elsevier), 2021. To szeroki przegląd metod wykrywania anomalii w systemach sensorowych (nie jedna
+   nowa metoda) — mapowanie jego treści na cztery konkretne sygnały TIMDR to interpretacja narzucona
+   z zewnątrz na ogólny przegląd, nie coś, co artykuł sam proponuje jako jedną spójną metodę.
+4. **"Machine learning for anomaly detection in particle physics"** — *Reviews in Physics*, tom 12, 2024.
+   Również przegląd (outlier detection + wykrywanie nadgęstości w danych zderzeń), nie jedna metoda z
+   czterema wyraźnie zdefiniowanymi sygnałami — ta sama uwaga co przy pozycji 3.
+
+**Uczciwy wniosek:** techniki użyte w tych pracach — błąd rekonstrukcji autoencodera, PCA (Hotelling,
+1933), odległość Mahalanobisa (1936), Local Outlier Factor (Breunig i in., 2000), korelacja
+międzykanałowa — są standardowymi, dobrze ugruntowanymi narzędziami statystyki/ML, o dekady starszymi
+niż TIMDR jako projekt. Właściwy kierunek zależności jest odwrotny od sugerowanego w poprzedniej wersji
+tej sekcji: to anomalia/defekt/skręt/rezonans w TIMDR są przeformułowaniem tych dużo starszych, ogólnych
+pojęć zastosowanym do konkretnej domeny (grafu/sieci/pola), a nie odwrotnie — te prace nie "niezależnie
+odkrywają wzorzec TIMDR, nie nazywając go", tylko używają narzędzi, które istniały na długo przed TIMDR.
+Realna wartość tego zestawienia: pokazuje, że styl "połącz kilka niezależnych sygnałów odchylenia w jeden
+werdykt" jest w literaturze uznanym, użytecznym podejściem — nie że TIMDR ma w tym pierwszeństwo.
+
 ## 0. Dokumentacja online
 Odwiedź pełną dokumentację i interaktywne opisy układu:  
 👉 [https://jbackk-lang.github.io/](https://jbackk-lang.github.io/)
@@ -291,7 +334,36 @@ Jednolita geometria asymetrii trójkąta pozwala na aplikację ram TIMDR/TRM w s
 
 ---
 
-## 10. TIMDR — PEŁNY MODEL OPERATORA TOPOLOGICZNEJ ZMIANY SYGNAŁU
+## 10. JAK KORZYSTAĆ Z REPOZYTORIUM
+
+1. **Zaimplementuj zasady:** Nakarm lokalne modele AI (LLM/Agent) strukturą TIMDR, ze szczególnym uwzględnieniem modelu asymetrii trójkąta.
+2. **Podstaw dane:** Wprowadź własne macierze danych, sygnały dźwiękowe, fizyczne opisy układów lub serie czasowe.
+3. **Uruchom walidację:** Wykorzystaj `TIMDR-Math-Formalism` (następca pierwszej wersji `math-validator`, usuniętej z ekosystemu) w celu weryfikacji jednorodności matematycznej i zachowania warunków brzegowych.
+4. **Współtwórz:** Wyniki eksperymentów, anomalie obliczeniowe lub propozycje nowych operatorów zgłaszaj poprzez Issues oraz Pull Requests.
+
+---
+
+## 11. REPOZYTORIA POWIĄZANE
+
+Ekosystem uniwersalnej geometrii pola dystrybuowany jest pomiędzy wyspecjalizowane moduły:
+* `GIA-and-TIMDR` — Rdzeń geometryczny i definicje operatorów.
+* `topologia-informacji` — Przestrzenie metryczne i przekształcenia Möbiusa.
+* `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator`.
+* `TRM` — Przetwarzanie rezonansów warstwowych i stałych redukcji.
+* `FIELDCORE` — Niskopoziomowy silnik obliczeniowy pól dynamicznych.
+* `WHITE-LASER-MAP` / `ASTRO-MAP` / `ASTRO-CYCLES` — Mapowanie skalowane (mikro/makro).
+* `EasySound` / `Synoptyk` — Praktyczne aplikacje rezonansowe (dźwięk i predykcja złożona).
+* `FAM` — Fundamental AI Model wykorzystujący architekturę skrętu.
+
+---
+
+## 12. LICENCJA
+
+Niniejsze repozytorium dystrybuowane jest na licencji **Open Source**. Udostępnione do nieskrępowanych badań naukowych, eksperymentów technologicznych, rozwoju i budowy nowego paradygmatu unifikacji wiedzy.
+
+---
+
+## 📘 TIMDR — Pełny Model Operatora Topologicznej Zmiany Sygnału
 
 TIMDR to operator wykrywający lokalne zmiany topologii sygnału. Nie jest pojedynczą metodą — jest strukturą, która łączy trzy niezależne detektory:
 
@@ -300,8 +372,6 @@ TIMDR to operator wykrywający lokalne zmiany topologii sygnału. Nie jest pojed
 - **rezonans** — zgodność kierunku kilku sygnałów (korelacja kierunkowa)
 
 TIMDR nie jest sumą tych trzech rzeczy. TIMDR jest interpretacją ich wspólnego zachowania.
-
-*Ten formalny opis dopełnia geometryczny/pojęciowy opis TIMDR z sekcji 1–9 wyżej — to ta sama nazwa, dwie warstwy opisu: geometryczno-filozoficzna (Λ–τ–ρ, Twist, asymetria trójkąta) i formalno-sygnałowa (T/D/R poniżej). Nie są one wprost matematycznie utożsamione — patrz nota redakcyjna na końcu tej sekcji.*
 
 ### 🧩 1. Formalna definicja TIMDR
 
@@ -412,7 +482,7 @@ TIMDR to: operator topologicznej zmiany sygnału, detektor punktów krytycznych,
 
 ---
 
-## 11. GIA — OPERATOR LOKALNEGO TORU INFORMACJI
+## 📘 GIA — Operator Lokalnego Toru Informacji
 
 GIA to operator, który wyznacza dominującą trajektorię sygnału w lokalnym otoczeniu. Nie jest to zwykłe PCA — PCA jest tylko narzędziem do wyciągnięcia wektora własnego. GIA jest interpretacją tego wektora jako toru topologicznego.
 
@@ -510,34 +580,11 @@ GIA to: operator lokalnego toru informacji, wektor dominującej dynamiki, kompas
 
 ---
 
-## 12. JAK KORZYSTAĆ Z REPOZYTORIUM
-
-1. **Zaimplementuj zasady:** Nakarm lokalne modele AI (LLM/Agent) strukturą TIMDR, ze szczególnym uwzględnieniem modelu asymetrii trójkąta.
-2. **Podstaw dane:** Wprowadź własne macierze danych, sygnały dźwiękowe, fizyczne opisy układów lub serie czasowe.
-3. **Uruchom walidację:** Wykorzystaj zawarty w ekosystemie moduł `math-validator` w celu weryfikacji jednorodności matematycznej i zachowania warunków brzegowych.
-4. **Współtwórz:** Wyniki eksperymentów, anomalie obliczeniowe lub propozycje nowych operatorów zgłaszaj poprzez Issues oraz Pull Requests.
-
----
-
-## 13. REPOZYTORIA POWIĄZANE
-
-Ekosystem uniwersalnej geometrii pola dystrybuowany jest pomiędzy wyspecjalizowane moduły:
-* `GIA-and-TIMDR` — Rdzeń geometryczny i definicje operatorów.
-* `topologia-informacji` — Przestrzenie metryczne i przekształcenia Möbiusa.
-* `math-validator` — Automatyczny weryfikator homogeniczności matematycznej.
-* `TRM` — Przetwarzanie rezonansów warstwowych i stałych redukcji.
-* `FIELDCORE` — Niskopoziomowy silnik obliczeniowy pól dynamicznych.
-* `WHITE-LASER-MAP` / `ASTRO-MAP` / `ASTRO-CYCLES` — Mapowanie skalowane (mikro/makro).
-* `EasySound` / `Synoptyk` — Praktyczne aplikacje rezonansowe (dźwięk i predykcja złożona).
-* `FAM` — Fundamental AI Model wykorzystujący architekturę skrętu.
-
----
-
 ## 14. STRUKTURA DOKUMENTACJI
 
 Wszystkie dokumenty koncepcyjne repozytorium są uporządkowane pod `docs/`:
 
-- **`docs/theory/`** — pełna, litereowana seria modeli abstrakcyjnych (J, K, L, N, O, Q, R, T, U, V, X, Y) oraz seria zastosowań domenowych (AA–AK: kosmologia, biologia, technologia, percepcja, AI, język, muzyka), plus `TRM_biology.md` i `TIMDR-T-operator.md`.
+- **`docs/theory/`** — pełna, litereowana seria modeli abstrakcyjnych (J, K, L, M, N, O, Q, R, S, T, U, V, X, Y) oraz seria zastosowań domenowych (AA–AK: kosmologia, biologia, technologia, percepcja, AI, język, muzyka), plus `TRM_biology.md` i `TIMDR-T-operator.md`. **M** (`Resonance_M_Operator_Empiryczny.md`) i **S** (`Axioms_S_TIMDR_Signal.md`) to formalizacja gałęzi sygnałowej TIMDR (rezonans jako koincydencja progów, nie rezonans modalny z Axioms_K) — z realną walidacją empiryczną na danych pogodowych, nie tylko definicjami; pełny działający protokół testowy żyje w osobnym repo `TIMDR-Math-Formalism`.
 - **`docs/models/`** — konkretne modele geometryczne (emergencja, interferencja, rezonans warstwowy, model topologiczno-modalny, model S 3D).
 - **`docs/geometry/`** — konstrukcje geometryczne Möbiusa/torusa (tetroida, mobiosotourys, tourosomobius, domeny Hopfa, eksperymenty domknięcia).
 - **`docs/filters/`** — dokumentacja filtrów (liczby pierwsze, stosunek Möbiusa, przewidywania filtra Al).
@@ -589,161 +636,3 @@ WARSTWA TOPOLOGICZNA
 - **GAITIMDR** — wykrywa, jak stabilna jest funkcja i gdzie ma punkty krytyczne.
 
 Razem tworzą pełny model topologiczny sygnału: **zmiana → spójność → kierunek → stabilność**.
-
----
-
-## 16. ZMIANY W `core/` (2026-08)
-
-### 16.1 Aktywacja `constants.py` i nowy operator `op_transition`
-
-Audyt sesji znalazł: `constants.py` był plikiem, którego dosłownie nic
-w `core/` nie importowało — progi (`DELTA_S_THRESHOLD`) były zamiast
-tego niezależnie zduplikowane jako gołe literały w `operators.py` i
-`diagnostics.py` (mogące się rozjechać przy edycji jednej kopii bez
-drugiej), a wagi/parametry (`STAB_*_WEIGHT`, `SPECTRAL_*`,
-`PRIME_SENSITIVITY`, `RESONANCE_*`) były zdefiniowane, ale nigdzie
-nieużywane. Osobno: dokumentacja teoretyczna (§2.4
-`TIMDR_Full_Document_PL.md`, glosariusz) nazywa „Obszary przejściowe"
-(Transition Regions — granice między modalnościami, strefy bifurkacji +
-wzmacniacze rezonansu), dla których nigdy nie było operatora w kodzie.
-
-Naprawione/dodane w `operators.py` i `diagnostics.py` (82/82 testów,
-`tests/test_operators_wiring.py`):
-
-- `op_deltaS(tau_field, threshold=DELTA_S_THRESHOLD)` i
-  `defect_map(tau_field, threshold=DELTA_S_THRESHOLD)` — jedno źródło
-  prawdy zamiast dwóch niezależnych kopii `12`. `threshold=None`
-  włącza próg **adaptacyjny** (`adaptive_delta_s_threshold` —
-  k·std(|Δτ|) zamiast stałej bez wyprowadzenia).
-- `op_prime(data, sensitivity=PRIME_SENSITIVITY)` — modyfikacja
-  wstecznie kompatybilna (domyślna wartość = stare zachowanie).
-- `op_R_local(data, window, smoothing)` — **nowy** operator: lokalna,
-  per-pozycja wersja `op_R()` (ten sam wzór energii), opcjonalnie
-  wygładzona EMA (aktywuje `RESONANCE_SMOOTHING`). Potrzebny, bo stary
-  `op_R()` zwraca jedną liczbę dla całego sygnału — nie da się z niej
-  zbudować maski per-pozycja.
-- `op_stab_weighted()` / `op_stab_weighted_from_data()` — **nowe**,
-  faktycznie używają `STAB_LAMBDA_WEIGHT/STAB_TAU_WEIGHT/STAB_RHO_WEIGHT`
-  (stary `op_stab()` zostaje nietknięty, używany przez `pipeline.py`).
-- `op_spectral_filtered(data, fs)` — **nowa**, obcina widmo do
-  `[SPECTRAL_MIN_FREQ, SPECTRAL_MAX_FREQ]` i normalizuje
-  (`SPECTRAL_NORMALIZE`); stary `op_spectral()` bez zmian.
-- **`op_transition(data, ...)`** — brakujący filtr Obszarów
-  przejściowych: maski `soft`/`hard` (ΔS ponad dwoma progami) i
-  `transition` (soft ORAZ lokalny rezonans w zadanym paśmie).
-- **`theoretical_local_resonance_max(window)`** / **`adaptive_resonance_bounds(values, k)`**
-  — naprawiają `RESONANCE_MAX`: stała
-  `RESONANCE_MAX=1e9` z `constants.py` była ~2 000 000× za duża wobec
-  teoretycznego maksimum `op_R_local(window=3)` na bajtach (≈442) —
-  filtr górny nigdy się nie domykał, `transition_mask` sprowadzał się w
-  praktyce do `soft_mask`. `op_transition()` liczy teraz
-  `resonance_max` domyślnie **dynamicznie** jako
-  `RESONANCE_MAX_K * theoretical_local_resonance_max(rho_window)`
-  (`RESONANCE_MAX_K=3.0`), zamiast czytać martwą stałą. Dla realnego
-  sygnału referencyjnego lepszy wybór to `adaptive_resonance_bounds()`
-  (pasmo mean±k·σ z prawdziwych danych) zamiast teoretycznego zakresu
-  bajtów. `RESONANCE_MIN=0.0` zostaje jako słaba, prawie zawsze
-  spełniona dolna granica (`op_R_local()` z definicji ≥0) — dla
-  realnego odcięcia szumu też lepiej użyć `adaptive_resonance_bounds()`.
-
-Stare funkcje (`op_stab`, `op_spectral`, `op_R`, `TIMDR_pipeline*`) są
-niezmienione — sprawdzone testem regresyjnym, że `pipeline.py` dalej
-działa identycznie. Skrócony, przenośny zapis tych ustaleń (do reużycia
-w innych repo `TIMDR-*`) jest w `timdr-signal-framework-ADDENDUM.md`.
-
-### 16.2 `core/sg_*.py` — kosmologia scalar-Gauss-Bonnet
-
-Osobna, liczbowa gałąź `core/` obok symbolicznego rdzenia Λ–τ–ρ (bajty)
-opisanego wyżej — transkrypcja układu tła i perturbacji modelu
-scalar-Gauss-Bonnet (SG) podanego przez użytkownika z zewnętrznego PDF,
-zmapowana na nazewnictwo TIMDR (u=displacement, x=velocity,
-y=potential amplitude channel).
-
-- **`sg_background.py`** — układ autonomiczny tła (u,x,y,lnH), warunek
-  fizyczności (D>0, Ωm>0), całkowanie RK4 (bez scipy — brak w tym repo).
-- **`sg_shooting.py`** — dopasowanie warunków początkowych (u_ini,y_ini)
-  do Ωm(dziś)≈0.315 (Planck 2018) metodą Neldera-Meada (podręcznikowy
-  simplex, bez scipy).
-- **`sg_perturbations.py`** — Geff(F,FT), slip η(F,FT), równanie wzrostu
-  liniowego (growth/RSD) i kombinacja soczewkująca Σ=Geff(1+η)/2
-  (lensing/WL).
-
-**Uczciwie, zastrzeżenia warte przeczytania przed użyciem:**
-
-1. To transkrypcja wzorów podanych przez użytkownika, **nie**
-   niezależna weryfikacja fizyki modelu SG wobec literatury — nie mam
-   dostępu do źródłowej pracy. Sprawdzona jest tylko spójność
-   wewnętrzna (testy w `tests/test_sg_*.py`).
-2. Formuła `S = [...] / D` (dzielenie przez D) została ustalona z
-   użytkownikiem po dopytaniu — w wklejonym tekście nie było widocznej
-   kreski ułamkowej. Przy pierwszej wersji `D = 1 - 6ξu² + 36ξ²u⁴`
-   znaleźliśmy, że D nigdy nie osiąga zera dla rzeczywistych u,ξ
-   (minimum globalne = 0.75) — sprzeczne z ideą "śladem są miejsca
-   zerowe D". Użytkownik potwierdził poprawkę: przed `36ξ²u⁴` jest
-   **minus**, nie plus:
-
-       D = 1 - 6ξu² - 36ξ²u⁴
-
-   Przy tym znaku D ma realne zero dla każdego ξ≠0 (dowód w
-   `test_D_expr_has_real_zero_for_nonzero_xi`), i S faktycznie
-   dywerguje w jego pobliżu (`test_S_expr_diverges_near_real_zero_of_D`).
-3. `Geff`/`η` w `sg_perturbations.py` są teraz napędzane prawdziwą
-   trajektorią tła: użytkownik dopisał mapowanie `F(T)=1-ξT²`,
-   `F_T(T)=-2ξT`, `T=√6·u·H` (`T_of_state`/`F_of_T`/`FT_of_T` w
-   `sg_perturbations.py`). `background_functions_from_trajectory()`
-   buduje z tego (przez interpolację liniową) gotowe funkcje N->wartość
-   dla `integrate_growth()` — patrz test end-to-end
-   `test_growth_driven_by_real_sg_background_trajectory`. Moduły
-   "growth/RSD" i "lensing/WL", do których PDF każe wpiąć Geff/η, nie
-   istniały wcześniej nigdzie w repo — zostały zbudowane od zera.
-
----
-
-## 17. LICENCJA
-
-Niniejsze repozytorium dystrybuowane jest na licencji **Open Source**. Udostępnione do nieskrępowanych badań naukowych, eksperymentów technologicznych, rozwoju i budowy nowego paradygmatu unifikacji wiedzy.
-
----
-
-## Appendix: literatura 2021–2026 stosująca podobny wzorzec sygnałowy (zweryfikowane, koniec sierpnia 2026)
-
-> **Metodologia tej sekcji:** każda pozycja poniżej została sprawdzona niezależnie (tytuł, czasopismo,
-> data, treść metody) zamiast przyjęta z wcześniejszego zestawienia na wiarę. Z pierwotnej listy sześciu
-> pozycji dwie zostały usunięte, bo nie udało się ich potwierdzić jako realnych, konkretnych publikacji
-> pod podanym tytułem/czasopismem/datą ("IoT anomaly detection — IEEE IoT Journal, 2025" i "Crystal
-> stability latent anomaly — Computational Materials Science, 5 września 2026" — najbliższa realna praca
-> o zbliżonej tematyce, zespołu z Nagoya Institute of Technology, ma inny tytuł, inną datę publikacji
-> (10 lutego 2026) i nie została potwierdzona jako opublikowana w Computational Materials Science).
-> Pozostałe cztery pozycje są prawdziwe i poprawnie zacytowane, ale mapowanie ich metod na
-> anomalia/defekt/skręt/rezonans poniżej jest interpretacją nałożoną z zewnątrz — żadna z tych prac
-> nie używa ani nie zna terminologii TIMDR.
-
-1. **CHEM-AD** — *Chemical Science* (Royal Society of Chemistry), 2026, tom 17, nr 16, s. 7967–7985,
-   opublikowane 24 lutego 2026. Wykrywanie anomalii strukturalnych w MOF-ach (81 cech geometrycznych/
-   chemicznych/topologicznych) przez autoencoder + błąd rekonstrukcji, z odległością Mahalanobisa i
-   PCA jako dodatkową weryfikacją w przestrzeni embeddingu. Odpowiednik anomalii (błąd rekonstrukcji
-   AE) jest tu trafny; odpowiednik "skrętu" dla PCA/Mahalanobisa jest naciągnięty — odległość
-   Mahalanobisa to statyczna miara wielowymiarowego odchylenia, nie wielkość kierunkowa/trendowa,
-   jaką skręt jest w TIMDR.
-2. **Interference Detection** — *Sensors* (MDPI), 14 grudnia 2025, Technical University of Košice.
-   Fuzja trzech (nie czterech) sygnałów: błąd rekonstrukcji PCA (globalna anomalia), Local Outlier
-   Factor na mapach reszt (lokalna rzadkość/defekt), wariancja Monte Carlo jako niepewność
-   epistemiczna modelu. Komponent "korelacja między kanałami → rezonans" NIE jest potwierdzony w
-   opisie metody tej pracy — praca fuzuje trzy sygnały, nie cztery.
-3. **"Smart anomaly detection in sensor systems: A multi-perspective review"** — *Information Fusion*
-   (Elsevier), 2021. To szeroki przegląd metod wykrywania anomalii w systemach sensorowych (nie jedna
-   nowa metoda) — mapowanie jego treści na cztery konkretne sygnały TIMDR to interpretacja narzucona
-   z zewnątrz na ogólny przegląd, nie coś, co artykuł sam proponuje jako jedną spójną metodę.
-4. **"Machine learning for anomaly detection in particle physics"** — *Reviews in Physics*, tom 12, 2024.
-   Również przegląd (outlier detection + wykrywanie nadgęstości w danych zderzeń), nie jedna metoda z
-   czterema wyraźnie zdefiniowanymi sygnałami — ta sama uwaga co przy pozycji 3.
-
-**Uczciwy wniosek:** techniki użyte w tych pracach — błąd rekonstrukcji autoencodera, PCA (Hotelling,
-1933), odległość Mahalanobisa (1936), Local Outlier Factor (Breunig i in., 2000), korelacja
-międzykanałowa — są standardowymi, dobrze ugruntowanymi narzędziami statystyki/ML, o dekady starszymi
-niż TIMDR jako projekt. Właściwy kierunek zależności jest odwrotny od sugerowanego w poprzedniej wersji
-tej sekcji: to anomalia/defekt/skręt/rezonans w TIMDR są przeformułowaniem tych dużo starszych, ogólnych
-pojęć zastosowanym do konkretnej domeny (grafu/sieci/pola), a nie odwrotnie — te prace nie "niezależnie
-odkrywają wzorzec TIMDR, nie nazywając go", tylko używają narzędzi, które istniały na długo przed TIMDR.
-Realna wartość tego zestawienia: pokazuje, że styl "połącz kilka niezależnych sygnałów odchylenia w jeden
-werdykt" jest w literaturze uznanym, użytecznym podejściem — nie że TIMDR ma w tym pierwszeństwo.
