@@ -31,6 +31,74 @@ Zakres tego wydania to wyłącznie gałąź sygnałowa (M, S w `docs/theory/`
 
 ---
 
+## 🌿 Trzy gałęzie TIMDR — mapa terenu
+
+TIMDR to nie jedna teoria z trzema zastosowaniami — to trzy
+**niezależne** konstrukcje matematyczne pod wspólną nazwą, z własnymi
+obiektami, operatorami i aksjomatami. Współdzielenie słów ("rezonans",
+"skręt") między nimi jest źródłem większości nieporozumień w tym
+ekosystemie (pełne rozgraniczenie: `docs/GLOSSARY_EN_PL.md`) — dlatego
+rozdzielone tu wprost, jedna gałąź na wiersz, zamiast zakładać, że
+czytelnik sam to poskłada.
+
+### 1. Gałąź sygnałowa — TIMDR-Math-Formalism (M, S)
+
+**Obiekt:** `x: T→ℝᵈ`, `x∈ℓ^∞(T,ℝᵈ)`.
+**Operatory:** anomalia, defekt, skręt sygnałowy (odwrócenie trendu),
+rezonans M (koincydencja progowa + baseline dwumianowy), okno `W_k`/
+partycja `P_k`, effect size (rank-biserial `r`), kontrola +/-, test
+istotności (Mann-Whitney).
+**Pliki:** `TIMDR-Math-Formalism/` (`timdr_formalism/pipeline.py`,
+`docs/PROTOCOL.md`), `docs/theory/Axioms_S_TIMDR_Signal.md`,
+`docs/theory/Resonance_M_Operator_Empiryczny.md`.
+**To NIE jest:** geometria/krzywizna/normalne, rezonans modalny f/φ/A,
+model trójkąta.
+
+### 2. Gałąź geometryczna — TIMDR-Geometry (G)
+
+**Obiekt:** powierzchnia `S⊂ℝ³`, normalna `n(p)`.
+**Operatory:** skręt powierzchniowy `‖n(p+Δp)−n(p)‖`; krzywizna
+dyskretna i operator kształtu (Weingarten) w wersji dyskretnej —
+**wskazane jako kierunek, jeszcze niesformalizowane** (patrz
+`Axioms_S_TIMDR_Signal.md`, sekcja "Pozostałe braki formalne").
+**Pliki:** skręt powierzchniowy jest obecnie opisany w
+`Resonance_M_Operator_Empiryczny.md` §6 — osobny katalog
+`docs/theory/Geometry/` jeszcze nie istnieje, to raczej cel niż stan
+obecny; model trójkąta to sekcje 1-9 tego README.
+**To NIE jest:** sygnał czasowy, rezonans M, Axioms_S, rezonans modalny
+f/φ/A.
+
+### 3. Gałąź modalna — TIMDR-Modal (K)
+
+**Obiekt:** moduły sygnału `(f, φ, A)`.
+**Operatory:** rezonans modalny (wyrównanie częstotliwości i fazy), 10
+aksjomatów modalnych.
+**Pliki:** `docs/theory/Axioms_K_TIMDR.md`.
+**To NIE jest:** sygnał `x:T→ℝᵈ`, testy statystyczne, skręt sygnałowy,
+skręt powierzchniowy.
+
+### Tabela porównawcza (kanoniczna)
+
+| Gałąź | Domena | Operator rezonansu | Skręt | Aksjomaty | Status |
+|---|---|---|---|---|---|
+| Sygnałowa (M, S) | sygnały czasowe | M — progowy, baseline dwumianowy, zwalidowany empirycznie na danych Krakow_Centrum | sygnałowy (odwrócenie trendu) | Axioms_S | sformalizowana, testowana kodem |
+| Geometryczna (G) | powierzchnie 3D | brak | powierzchniowy (normalne) | brak | wzór zdefiniowany, powiązanie z Weingartenem otwarte |
+| Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | zdefiniowana aksjomatycznie, bez empirycznej walidacji |
+
+Żadna gałąź nie jest rozszerzeniem innej — każda ma własną domenę
+matematyczną. Tam, gdzie dwie gałęzie używają tego samego słowa
+("rezonans" w M i K, "skręt" w M i G), oznaczają **różne obiekty** —
+nie różne poziomy tej samej rzeczy.
+
+**Czwarty, wcześniejszy szkic (nie osobna gałąź):** sekcja "📘 TIMDR —
+Pełny Model Operatora Topologicznej Zmiany Sygnału" dalej w tym README
+definiuje własne, mniej sformalizowane `R` i `T` (koherencja
+kierunkowa, przejście przez zero) — to poprzednik gałęzi sygnałowej
+(M), nie czwarta niezależna konstrukcja. Rozgraniczenie wprost w tamtej
+sekcji i w `docs/GLOSSARY_EN_PL.md`.
+
+---
+
 ## Appendix: literatura 2021–2026 stosująca podobny wzorzec sygnałowy (zweryfikowane, koniec sierpnia 2026)
 
 > **Metodologia tej sekcji:** każda pozycja poniżej została sprawdzona niezależnie (tytuł, czasopismo,
@@ -499,6 +567,16 @@ TIMDR jest operatorem, który opisuje deformację sygnału, wykrywa zmiany topol
 TIMDR to: operator topologicznej zmiany sygnału, detektor punktów krytycznych, miernik lokalnej niestabilności, narzędzie predykcyjne, element warstwy geometrycznej.
 
 > **Nota redakcyjna:** T, D i R odpowiadają wprost trzem klasycznym, dobrze znanym technikom przetwarzania sygnałów — detekcji przejścia przez zero, z-score i korelacji kierunkowej — dokładnie tym samym, które są już realnie zaimplementowane w repozytoriach `topologic` i `Senscore`. Nazwa „operator topologiczny" jest tu warstwą interpretacyjną/metaforyczną, a nie odniesieniem do topologii w sensie matematycznym (homologia, rozmaitości itd.). `TIMDR-P` (sekcja 4) jest szkieletem koncepcyjnym — `f` nie ma tu jeszcze definicji ani implementacji.
+>
+> **Rozgraniczenie od gałęzi sygnałowej (M) i modalnej (K):** `R` i `T`
+> powyżej NIE są tymi samymi operatorami co rezonans M i skręt sygnałowy
+> z `docs/theory/Axioms_S_TIMDR_Signal.md` (tam: koincydencja progowa
+> `Σ𝔸ᵢ≥K`, nie średnia zgodność kierunku), ani rezonansem modalnym K z
+> `docs/theory/Axioms_K_TIMDR.md` (tam: wyrównanie częstotliwość/faza).
+> Ta sekcja jest wcześniejszym, mniej sformalizowanym szkicem —
+> kanoniczne nazwy ("rezonans kierunkowy" dla `R`, uproszczony
+> poprzednik "skrętu sygnałowego" dla `T`) i pełne rozgraniczenie:
+> [`docs/GLOSSARY_EN_PL.md`](docs/GLOSSARY_EN_PL.md).
 
 ---
 
