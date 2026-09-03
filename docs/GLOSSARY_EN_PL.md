@@ -168,10 +168,12 @@ szeregu czasowym.
 3D mesh.
 **PL:** Lokalna różnica normalnej powierzchni, `‖n(p+Δp) − n(p)‖`, na
 ustalonej siatce 3D.
-**Źródło:** `theory/Resonance_M_Operator_Empiryczny.md` sekcja 6.
-Punktowy, dyskretny — odrębny od torsji krzywej i od skrętu
-topologicznego τ powyżej (inna domena: mesh 2D, nie rodzina powierzchni
-ani krzywa).
+**Źródło:** `theory/Resonance_M_Operator_Empiryczny.md` sekcja 6
+(pierwsze wprowadzenie); formalna definicja jako aksjomat: `theory/Axioms_G_TIMDR_Geometry.md`
+Aksjomat G3 (`T_S`), z powiązaniem do krzywizny przez operator
+Weingartena wyznaczonym kierunkowo w Aksjomacie G4. Punktowy,
+dyskretny — odrębny od torsji krzywej i od skrętu topologicznego τ
+powyżej (inna domena: mesh 2D, nie rodzina powierzchni ani krzywa).
 
 ### Twist blokowy
 **EN:** What `TwistDetector` computes in the image-in-image decoding
