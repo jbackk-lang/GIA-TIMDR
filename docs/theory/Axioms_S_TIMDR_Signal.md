@@ -14,8 +14,12 @@ rozgraniczenie.
 
 Status: aksjomaty 1, 2, 3, 5 poniżej mają formalny dowód (ciągłość p.w.)
 i/lub realną walidację empiryczną, spisane w Resonance_M. Aksjomaty
-6-10 opisują protokół testowy `TIMDR-Math-Formalism` — działający kod,
+6-13 opisują protokół testowy `TIMDR-Math-Formalism` — działający kod,
 nie propozycja (`timdr_formalism/pipeline.py`, `docs/PROTOCOL.md`).
+Aksjomaty 11-13 formalizują to, co wcześniej było tylko opisane
+nieformalnie w PROTOCOL.md (efekt jako operator, moc kontroli, protokół
+jako złożenie) — patrz też sekcja "Pozostałe braki formalne" niżej dla
+tego, co świadomie NIE zostało jeszcze sformalizowane.
 
 ---
 
@@ -200,7 +204,71 @@ P_k(x) = (W'_1, \dots, W'_m),\ W'_i \text{ rozłączne}
 `TIMDR-Math-Formalism` używa `P_k` (partycji), nie `W_k` (przesuwanego
 okna) — bo Mann-Whitney U wymaga niezależnych obserwacji, a nachodzące
 okna dałyby skorelowane próbki. Pełne uzasadnienie:
-`docs/PROTOCOL.md` sekcja 4c.
+`docs/PROTOCOL.md` sekcja 4e.
+
+---
+
+# Aksjomat 11 — Efekt jest operatorem odrębnym od istotności
+**EN:** Effect is an operator `E: (samples, samples) → ℝ×[-1,1]` —
+direction and scale-free magnitude of a difference — orthogonal to the
+significance test that judges whether that difference is distinguishable
+from chance.
+**PL:** Efekt jest operatorem `E: (próbki, próbki) → ℝ×[-1,1]` —
+kierunek i bezskalowa wielkość różnicy — niezależnym od testu
+istotności, który ocenia, czy ta różnica jest odróżnialna od
+przypadku.
+
+\[
+E(x_{\text{test}}, x_{\text{bg}}) = \big(\text{median}(x_{\text{test}}) - \text{median}(x_{\text{bg}}),\ r(x_{\text{test}}, x_{\text{bg}})\big) \in \mathcal{E} = \mathbb{R} \times [-1,1]
+\]
+
+z wyróżnionym elementem `e₀=(0,0)` ("brak efektu"). Implementacja: pola
+`TestResult.median_test`, `.median_background`, `.effect_size_r`.
+Uzasadnienie: `docs/PROTOCOL.md` §4c w `TIMDR-Math-Formalism`.
+
+---
+
+# Aksjomat 12 — Generatory kontroli są próbnikami rozkładów, moc kontroli jest policzalna
+**EN:** `positive_injector`/`negative_generator_*` are samplers of
+distributions `D_pos, D_A, D_B` known by construction — unlike real-data
+power (Aksjomat 9), control power is exactly computable by Monte Carlo,
+because the ground truth is defined by the caller, not estimated from
+data.
+**PL:** Generatory kontroli to próbniki rozkładów `D_pos, D_A, D_B`
+znanych z konstrukcji — w odróżnieniu od mocy na danych realnych
+(Aksjomat 9), moc kontroli jest dokładnie policzalna metodą Monte
+Carlo, bo prawda gruntowa jest zdefiniowana przez wywołującego, nie
+szacowana z danych.
+
+\[
+\text{power}_{\text{pos}}(n_{\text{windows}}) \approx \frac{1}{R}\sum_{i=1}^{R} \mathbb{1}\!\left[p_{\text{pos}}^{(i)} < \alpha\right]
+\]
+
+Implikacja praktyczna: kontrola pozytywna, która regularnie nie
+przechodzi, ma dwie różne możliwe przyczyny (za słaby wstrzyknięty
+efekt — naprawialne zwiększeniem `n_windows`; albo metryka strukturalnie
+nieczuła — nienaprawialne zwiększeniem `n_windows`) i tylko symulacja
+Monte Carlo je rozróżnia. Uzasadnienie: `docs/PROTOCOL.md` §4d.
+
+---
+
+# Aksjomat 13 — Protokół jest złożeniem operatorów na wspólnej przestrzeni
+**EN:** The six-step protocol is a composition of operators over a
+shared hypothesis space `H`, metric space `M`, and test functional `T`
+— not six independent techniques.
+**PL:** Sześciokrokowy protokół jest złożeniem operatorów nad wspólną
+przestrzenią hipotez `H`, przestrzenią metryk `M` i funkcjonałem
+testowym `T` — nie sześcioma niezależnymi technikami.
+
+\[
+\text{Report} = \text{format\_report} \circ \langle \text{Gate}, T \rangle \circ \text{Generate} \circ \text{Preregister}
+\]
+
+gdzie `T: M × 𝒫(𝒳) × 𝒫(𝒳) → 𝕋` (test na danych głównych) jest **funkcją
+częściową**, zdefiniowaną tylko gdy `Gate(...).passed = 1` — bramka
+kontrolna (Aksjomat 7) nie jest krokiem opcjonalnym, jest warunkiem
+istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
+`docs/PROTOCOL.md` sekcja "Formalna przestrzeń TIMDR-Math".
 
 ---
 
@@ -217,7 +285,25 @@ okna dałyby skorelowane próbki. Pełne uzasadnienie:
 | 7 | bramka kontroli +/- | `run_controls` |
 | 8 | effect size `r` | `rank_biserial_effect_size` |
 | 9 | moc testu | `docs/PROTOCOL.md` §4b (dyscyplina, nie pojedyncza funkcja) |
-| 10 | okno jako operator | `docs/PROTOCOL.md` §4c |
+| 10 | okno jako operator | `docs/PROTOCOL.md` §4e |
+| 11 | efekt jako operator `E` | `docs/PROTOCOL.md` §4c |
+| 12 | moc kontroli (Monte Carlo) | `docs/PROTOCOL.md` §4d |
+| 13 | protokół jako złożenie operatorów | `docs/PROTOCOL.md` "Formalna przestrzeń TIMDR-Math" |
+
+## Pozostałe braki formalne (świadomie niesformalizowane)
+
+Żeby ten dokument nie sugerował więcej, niż faktycznie zawiera:
+
+- **Skręt powierzchniowy jako operator geometryczny.** Formuła
+  `‖n(p+Δp)−n(p)‖` (Resonance_M §6) nie jest tu powiązana z operatorem
+  kształtu (Weingarten) ani formalnie zdefiniowaną krzywizną dyskretną
+  — to wymaga nowej teorii geometrycznej, nie tylko zapisu, i nie jest
+  częścią tego zestawu aksjomatów.
+- **Dynamika/bifurkacje.** Aksjomat 4 (wyżej) krytykuje "skręt =
+  bifurkacja", ale nie proponuje modelu `ẋ=f(x;λ(t))` ani dowodu
+  korelacji skrętu z przejściem przez punkt krytyczny — to jedyny punkt
+  w całym ekosystemie TIMDR wymagający nowych badań empirycznych, nie
+  formalizacji istniejącego kodu (patrz Resonance_M §5).
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (równoległy zestaw,
 domena modalna), [`Operators_N_TIMDR.md`](./Operators_N_TIMDR.md)
