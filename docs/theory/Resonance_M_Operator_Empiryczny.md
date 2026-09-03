@@ -64,9 +64,11 @@ modalny (2) pozostaje poza zakresem tego dokumentu.
 Rekomendacja (jak w §7 skilla dla "rezonansu"): każde nowe użycie słowa
 "skręt"/"twist" powinno od razu doprecyzować, o które z czterech znaczeń
 chodzi — najlepiej przez rozszerzoną nazwę: **"skręt sygnałowy"**,
-**"skręt topologiczny"**, **"skręt powierzchniowy"**, **"TwistDetector
-(MAGE)"**. Ten dokument używa tych rozszerzonych nazw wszędzie tam,
-gdzie mogłoby dojść do pomyłki.
+**"skręt topologiczny"**, **"skręt powierzchniowy"**, **"twist
+blokowy"**. Ten dokument używa tych rozszerzonych nazw wszędzie tam,
+gdzie mogłoby dojść do pomyłki. Lista kanoniczna (jedno miejsce, nie
+duplikować gdzie indziej): [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
+sekcja "Skręt / Twist — nazwy kanoniczne".
 
 ---
 
@@ -295,5 +297,8 @@ MAGE-IN-IMAGE-DECODER — patrz sekcja 0).
 Powiązane dokumenty: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (rezonans
 modalny — inny operator niż tu opisany), [`Operators_N_TIMDR.md`](./Operators_N_TIMDR.md)
 (skręt topologiczny τ — inny obiekt niż tu opisany),
-`TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md` (pełne dane i kod
-walidacji z sekcji 3).
+[`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md) (aksjomaty dla
+domeny sygnałowej opisanej tutaj), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
+(kanoniczna lista nazw skrętu), `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`
+(pełne dane i kod walidacji z sekcji 3), `TIMDR-Math-Formalism/docs/PROTOCOL.md`
+(effect size, moc testu, operator okna — formalizacja kroków 4/5 protokołu).
