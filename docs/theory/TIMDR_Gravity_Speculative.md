@@ -410,6 +410,24 @@ zweryfikowanym; to dokładnie rozróżnienie z akapitu
 "Zastrzeżenie uczciwości" wyżej, teraz zastosowane, nie tylko
 zapowiedziane.
 
+**Bramka fizycznej ważności (mechanizm + kalibracja).** Jedyna droga,
+żeby TIMDR-Gravity przestało być analogią i stało się fizyką (dosłowny
+cytat z sesji, 2026-09-04):
+
+1. **Mechanizm** — jawne równanie / zasada wariacyjna, z której
+   geometria \((P,Q,\Omega)\) WYMUSZA coś materio-podobnego, nie
+   przypisanie \(g\sim M\cdot\Omega\) po fakcie, po wzorze Newtona
+   (§4 pkt 2 wyżej).
+2. **Kalibracja** — \(\alpha_T,\alpha_L,\alpha_E\) dobrane nie „żeby
+   liczby wyglądały", tylko z realnych pomiarów, przeszłych przez
+   kontrolę pozytywną/negatywną (§4 pkt 4 wyżej), nie dobrane tak, by
+   \(g_{\text{fiz}}\) wypadło w z góry upatrzonym zakresie.
+
+Dopóki oba warunki nie są spełnione RAZEM, dodanie jednostek (ten
+dokument) i wybór konkretnych \(\alpha\) (wyżej) są warunkiem
+koniecznym, ale nie wystarczającym — model zostaje analogią
+strukturalną, nie fizyką.
+
 ## 5. Relacja do zasady nieredukowalności gałęzi
 
 `TIMDR_Branch_Specification.md`, "Zasada nadrzędna": gałęzie M/S, G, K
