@@ -75,7 +75,11 @@ wciąż otwarte.
 **Pliki:** `docs/theory/Axioms_G_TIMDR_Geometry.md` (aksjomaty G1-G9);
 skręt powierzchniowy pierwotnie opisany w
 `Resonance_M_Operator_Empiryczny.md` §6; model trójkąta to sekcje 1-9
-tego README. Osobny katalog `docs/theory/Geometry/` jeszcze nie
+tego README. Numeryczna implementacja dyskretnego operatora Weingartena
+(G8-G9): osobne repo `TIMDR-Geometry-Formalism`
+(`timdr_geometry/weingarten.py` + testy na płaszczyźnie/sferze/walcu —
+nieuruchomione w sesji, w której powstały, patrz zastrzeżenie w jego
+README). Osobny katalog `docs/theory/Geometry/` jeszcze nie
 istnieje.
 **To NIE jest:** sygnał czasowy, rezonans M, Axioms_S, rezonans modalny
 f/φ/A.
