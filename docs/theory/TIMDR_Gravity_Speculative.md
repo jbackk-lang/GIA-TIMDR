@@ -352,18 +352,63 @@ the result"). Wprowadzenie stałych bez kalibracji jest więc
 warunkiem KONIECZNYM do fizycznej interpretacji, ale nie
 WYSTARCZAJĄCYM.
 
-**Otwarta decyzja (nie rozstrzygnięta w tej sekcji).** Powyższe stałe
-można wykorzystać na dwa sposoby: (a) zostawić TIMDR-Gravity czysto
-informacyjną — nigdy nie przypisywać \(\alpha_T,\alpha_L,\alpha_E\)
-konkretnych wartości, cały ten dokument zostaje analizą struktury, nie
-fizyki; albo (b) świadomie dobrać \(\alpha_T,\alpha_L,\alpha_E\) tak,
-by \(f_{\text{fiz}},E_{\text{fiz}},x_{\text{fiz}}\) lądowały w
-sensownych zakresach, i wtedy przejść do §4 punktów 2-4 (zasada
-wariacyjna, odróżniająca predykcja, kontrola negatywna/pozytywna) —
-bez tego (b) samo w sobie nic nie dowodzi, tylko otwiera drogę do
-dalszego testowania. Ten dokument dalej domyślnie zostaje przy (a) —
-status z nagłówka ("analogia strukturalna, nie wyprowadzona fizyka")
-się nie zmienia przez samo dodanie tej sekcji.
+**Decyzja (2026-09-04): wybór (b) — realna interpretacja fizyczna.**
+Użytkownik wybrał: \(\alpha_T,\alpha_L,\alpha_E\) dostają konkretne
+wartości, nie zostają symbolami.
+
+**Wybrane kotwice — WYBRANE, nie zmierzone.** Żeby uniknąć
+patologicznego wyniku z przykładu wyżej (np. \(\alpha_T{=}10^{-35}\)
+s/krok → \(10^{31}\) Hz), wybieram najprostszą możliwą kotwicę, bez
+ukrytego rzędu wielkości:
+\[
+\alpha_T = 1\ \text{s/krok}, \qquad \alpha_L = 1\ \text{m/jednostka\_modelowa}
+\]
+"1 krok = 1 sekunda, 1 jednostka modelowa = 1 metr" — to świadomie
+NEUTRALNY wybór (mnożnik 1, nie ukrywa żadnej decyzji o skali), zrobiony
+PO to, żeby liczby wylądowały w ludzkim zakresie, a nie dlatego że ktoś
+to zmierzył. Epistemicznie to dokładnie ten sam typ kroku co
+\(\kappa_{\text{twist}}\) w `genertor-fotonow` (§5 tamtego dokumentu):
+jawnie oznaczona konwencja, zero potwierdzenia eksperymentalnego.
+
+\(\alpha_E\) **nie dostaje wartości** — w tym dokumencie nie istnieje
+żadna wielkość typu \(|\tau|\) (energia/skręt), do której miałaby się
+przyłożyć (w przeciwieństwie do `genertor-fotonow`, gdzie
+`energia_pola()` istnieje). Wymuszenie jakiejś wartości \(\alpha_E\)
+bez punktu zaczepienia byłoby dokładnie ryzykiem numerologii
+opisanym wyżej — więc zostaje nieprzypisana, do rewizji, jeśli/gdy
+\(\Omega\) dostanie kiedyś jawną wielkość energetyczną.
+
+**Przeliczenie §3a Kroki 2-6 na te kotwice:**
+
+| wielkość (model) | wzór przeliczenia | wartość fizyczna |
+|---|---|---|
+| \(T\) | \(T_{\text{fiz}}=\alpha_T\cdot T\) | 1:1, w sekundach |
+| \(k_{MS}=0.10\) | \(\alpha_T\cdot k_{MS}\) | \(0.10\ \text{s}^{-1}\) |
+| \(k_G=0.03\) | \(k_G/(\alpha_L\alpha_T)\) | \(0.03\ \text{m}^{-1}\text{s}^{-1}\) |
+| \(g\) (\(M{=}1\)) | \((\alpha_L/\alpha_T^2)\cdot g_{\text{model}}\) | \(\lVert g\rVert=0.0270\ \text{m/s}^2\) |
+| \(g\) (\(M{=}10\)) | \((\alpha_L/\alpha_T^2)\cdot g_{\text{model}}\) | \(\lVert g\rVert=0.2702\ \text{m/s}^2\) |
+
+Interpretując \(g\) jako analog przyspieszenia grawitacyjnego
+(§4, wzorem Newtona), \(0.027\)-\(0.27\ \text{m/s}^2\) to rząd wielkości
+mniejszy niż \(g_{\text{Ziemia}}=9.8\ \text{m/s}^2\) o czynnik
+\(\sim\!36$-$360\) — liczba w rozsądnym, nie-absurdalnym zakresie
+(porównywalna np. do przyspieszeń pływowych albo czułości dobrego
+akcelerometru), ale **to jest artefakt wyboru \(\alpha_T{=}\alpha_L{=}1\),
+nie predykcja** — przy innej (równie niezmierzonej) kotwicy wyszłaby
+inna liczba, tak samo "rozsądna" albo nie.
+
+**Co ta decyzja ZMIENIA, a czego NIE.** Zmienia: liczby w §3a mają
+teraz jednostki SI, nie są gołymi floatami. Nie zmienia: \(\alpha_T,
+\alpha_L\) same są niekalibrowane (żaden pomiar ich nie ustalił);
+\(g\sim M\cdot\Omega\) dalej nie ma równania pola ani zasady
+wariacyjnej (§4 pkt 2); dalej nie ma odróżniającej predykcji od
+Newtona/OTW (§4 pkt 3); dalej nie przeszło żadnej kontroli
+pozytywnej/negatywnej (§4 pkt 4). Status z nagłówka dokumentu
+("analogia strukturalna, nie wyprowadzona fizyka") **pozostaje
+prawdziwy** — wybór (b) czyni model wymiarowo mówiącym, nie
+zweryfikowanym; to dokładnie rozróżnienie z akapitu
+"Zastrzeżenie uczciwości" wyżej, teraz zastosowane, nie tylko
+zapowiedziane.
 
 ## 5. Relacja do zasady nieredukowalności gałęzi
 
