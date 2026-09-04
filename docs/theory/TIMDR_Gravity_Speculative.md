@@ -76,7 +76,10 @@ druga, nie pierwsza pochodna względem \(T\) z Chronoprocesu.
   poprawny, uczciwy wniosek z tego, co K3/K4 już zakładają: dopóki K nie
   zostanie rozszerzone o dynamikę sprzężenia (§4 Chronoprocesu: "wymagałoby
   rozszerzenia Axioms_K_TIMDR.md o dynamikę sprzężenia — jawnie NIE
-  zrobione tutaj"), \(k_K\equiv 0\).
+  zrobione tutaj"), \(k_K\equiv 0\). \(k_K\equiv0\) nie jest brakiem
+  teorii, lecz konsekwencją aksjomatów K3/K4 — modalność TIMDR jest z
+  definicji afiniczna. Nie "brakuje" tu modalnej krzywizny czasu — ona
+  po prostu nie istnieje w tej teorii, dopóki K3/K4 się nie zmienią.
 
 *(Status: wszystkie trzy są propozycjami z tej sesji, żadna nie jest
 zaimplementowana ani przetestowana numerycznie. \(k_K\equiv0\) jest
@@ -190,7 +193,10 @@ WKŁADY z różnych miejsc — tu nie ma dla tego odpowiednika); (iii)
 żadnych jednostek fizycznych łączących \(k_{MS},k_G,k_K,M\) z realnym
 przyspieszeniem grawitacyjnym [m/s²]. Liniowość w \(M\) w Kroku 6 jest
 więc najsłabszym możliwym testem — potwierdza tylko, że mnożenie
-działa tak, jak zapisano.
+działa tak, jak zapisano. Brak zależności od odległości
+(\(1/\lVert x-x'\rVert\)) jest fundamentalny — bez niego konstrukcja
+nie może być grawitacją w sensie Newtona ani OTW, niezależnie od tego,
+jak zostanie ostatecznie rozwiązana kwestia kontrakcji z §3.
 
 ## 4. Analogia grawitacyjna — co to jest, a czego NIE jest
 
@@ -249,10 +255,26 @@ iloczyn tensorowy — to jest dokładnie ten typ konstrukcji, przed którą
 zasada nadrzędna ostrzega, i nie ma tu odpowiednika mostu Fouriera
 (żadnej znanej tożsamości matematycznej uzasadniającej *dlaczego* akurat
 iloczyn tensorowy \((P,Q)\otimes(k_{MS},k_G,k_K)\), a nie inna
-kombinacja). **Ten dokument istnieje mimo to, jawnie oznaczony jako
+kombinacja). Iloczyn tensorowy \((P,Q)\otimes(k_{MS},k_G,k_K)\) nie ma
+odpowiednika w znanej tożsamości matematycznej, dlatego nie może pełnić
+roli "mostu" analogicznego do Fouriera — most Fouriera jest most
+DWÓCH gałęzi uzasadniony jedną konkretną, sprawdzoną tożsamością
+(Gabor=Heisenberg); \(\Omega\) jest złożeniem TRZECH gałęzi bez żadnej
+takiej tożsamości za sobą. To zamyka temat zasady nadrzędnej: \(\Omega\)
+nie jest i nie może być traktowany jako drugi sankcjonowany most.
+
+**Ten dokument istnieje mimo to, jawnie oznaczony jako
 poza aksjomatami** — nie modyfikuje `TIMDR_Branch_Specification.md` ani
 żadnego pliku `Axioms_*`, i żaden z nich nie powinien go cytować jako
 uzasadnienie złamania zasady nieredukowalności.
+
+## 6. Dlaczego to jest tylko analogia
+
+TIMDR-Gravity (\(g\sim M\cdot\Omega\), §3-§4 powyżej) jest modelem
+strukturalnym, nie teorią fizyczną — nie posiada równania pola,
+jednostek ani dynamiki. Wszystko, co ten dokument dodaje ponad to
+zdanie (§3a, §4), jest rozwinięciem TEGO ograniczenia na konkretnych
+liczbach i konkretnej liście braków, nie próbą jego obejścia.
 
 ---
 
