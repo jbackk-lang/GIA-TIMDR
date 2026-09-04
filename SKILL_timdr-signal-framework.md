@@ -1,6 +1,6 @@
-# TIMDR signal framework (GIA-TIMDR core) — sygnałowa gałąź TIMDR: definicje, protokół, formalizacja
+# TIMDR signal framework (GIA-TIMDR core) — trzy gałęzie TIMDR (M/S, G, K), Chronoproces, protokół formalizmu
 
-> Kopia treści Claude-skilla `timdr-signal-framework`, **zawężona do teorii TIMDR-M (gałąź sygnałowa) i jej protokołu formalnego/statystycznego**. Pełna, cross-repo wersja skilla (audyty, case-studies z sejsmiki, radaru, bezpieczeństwa, kosmologii, EV/battery/industrial, transplanty symboliczno-neuronowe, trigger-dispatcher itd.) istnieje osobno na koncie Claude, ale NIE jest tu duplikowana — te historie błędów z innych repo nie są częścią teorii TIMDR, formalizmu ani sygnałów, więc zostały z tej kopii usunięte. Jeśli skill na koncie zostanie zaktualizowany, ten plik trzeba ręcznie zsynchronizować.
+> Kopia treści Claude-skilla `timdr-signal-framework`, **zawężona do własnej teorii/formalizmu/sygnałów GIA-TIMDR (gałęzie M/S, G, K, Chronoproces Ξ, protokół formalny/statystyczny)**. Pełna, cross-repo wersja skilla (audyty, case-studies z sejsmiki, radaru, bezpieczeństwa, kosmologii, EV/battery/industrial, transplanty symboliczno-neuronowe, trigger-dispatcher itd.) istnieje osobno na koncie Claude, ale NIE jest tu duplikowana — te historie błędów z innych repo nie są częścią teorii TIMDR, formalizmu ani sygnałów, więc zostały z tej kopii usunięte. Jeśli skill na koncie zostanie zaktualizowany, ten plik trzeba ręcznie zsynchronizować.
 
 ## 1. Cztery sygnały TIMDR (anomalia, defekt, rezonans M, skręt) — i dlaczego "rezonans"/"skręt" wymagają kwalifikatora
 
@@ -31,11 +31,15 @@ earlier, less-formalized **rezonans kierunkowy** sketch
 meanings: **skręt sygnałowy** (trend-reversal, this section), **skręt
 topologiczny (τ)** (surface deformation torus→Möbius→tetroida,
 `Operators_N_TIMDR.md`), and **skręt powierzchniowy**
-(`‖n(p+Δp)−n(p)‖`, axiomatized in `Axioms_G_TIMDR_Geometry.md`). The full,
+(`‖n(p+Δp)−n(p)‖`, axiomatized as a formal operator with explicit
+domain/codomain/continuity/stability in `Axioms_G_TIMDR_Geometry.md`,
+Aksjomaty G3/G8, with its curvature link closed analytically in G9 and
+implemented numerically in a sibling repo — §4 below). The full,
 maintained canonical list for both words lives in
-[`docs/GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md) — check it (or add to it)
-before introducing yet another informal use of either word. The formal,
-tested definition of the signal-branch operators above lives in
+[`docs/GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md), consolidated further in
+[`docs/theory/TIMDR_Twists.md`](../theory/TIMDR_Twists.md) — check it (or
+add to it) before introducing yet another informal use of either word. The
+formal, tested definition of the signal-branch operators above lives in
 `TIMDR-Math-Formalism` (`docs/theory/Axioms_S_TIMDR_Signal.md`) — §3 below
 covers what that adds (effect size, test power, a real empirical validation
 of the rezonans-M independence baseline).
@@ -125,13 +129,16 @@ zestaw aksjomatów (`Axioms_K_TIMDR.md`, 10 aksjomatów) dla "rezonansu
 modalnego" — wyrównania częstotliwości/fazy między modalnościami falowymi —
 zupełnie inny obiekt matematyczny niż progowa koincydencja "rezonansu
 sygnałowego" z tej sekcji, mimo wspólnej nazwy. Trzecia, geometryczna gałąź
-(`Axioms_G_TIMDR_Geometry.md`, autorstwa użytkownika, 7 aksjomatów)
+(`Axioms_G_TIMDR_Geometry.md`, autorstwa użytkownika, obecnie 9 aksjomatów
+G1-G9 — patrz §4 poniżej dla G8-G9, dodanych po powstaniu tej sekcji)
 formalizuje model-trójkąta/normalną powierzchni "skręt powierzchniowy"
 (`‖n(p+Δp)−n(p)‖`) jako kolejny odrębny obiekt, jawnie NIE sprowadzalny ani
 do gałęzi sygnałowej, ani modalnej, i jawnie oznaczony jako
-**koncepcyjny, jeszcze nie zwalidowany empirycznie** (własny aksjomat G7) —
-związek z krzywizną geometryczną (operator Weingartena) jest nazwany jako
-kierunek (aksjomat G4) bez implementacji, co samo w sobie jest uczciwym,
+**koncepcyjny, jeszcze nie zwalidowany empirycznie** (własny aksjomat G7,
+status niezmieniony przez G8-G9 — patrz §4) — związek z krzywizną
+geometryczną (operator Weingartena), pierwotnie nazwany jako kierunek
+(aksjomat G4) bez implementacji, jest odtąd domknięty analitycznie (G9) i
+zaimplementowany numerycznie (§4), co samo w sobie jest uczciwym,
 poprawnym sposobem zapisania otwartej luki formalizacyjnej wewnątrz zestawu
 aksjomatów, zamiast milczącego przemilczenia. Wszystkie trzy gałęzie, plus
 czwarty, jeszcze wcześniejszy nieformalny szkic wbudowany w główny README
@@ -182,4 +189,152 @@ formalizacyjnego w tym ekosystemie:**
    (tu: związek skrętu powierzchniowego z operatorem Weingartena,
    aksjomat G4), to jest poprawny sposób zapisania rzeczywistej otwartej
    luki wewnątrz dokumentu formalnego — lepszy niż milczenie i lepszy niż
-   fałszywe twierdzenie o kompletności.
+   fałszywe twierdzenie o kompletności. (Aktualizacja: ta konkretna luka
+   została odtąd domknięta — analitycznie w Aksjomatach G8-G9, numerycznie
+   w `TIMDR-Geometry-Formalism` — patrz §4 poniżej, które demonstruje
+   dokładnie ten wzorzec zamiast tylko go opisywać.)
+
+## 4. Domknięcie gałęzi geometrycznej: formalny operator T_S (G8), dyskretny Weingarten (G9), konsolidacja skrętów/gałęzi, i pierwsza numeryczna implementacja
+
+§3 zostawiło jedną lukę jawnie otwartą: Aksjomat G4 nazwał związek skrętu
+powierzchniowego z krzywizną przez operator Weingartena, bez implementacji.
+Ta sekcja domyka ją w dwóch, osobno oznaczonych krokach — najpierw
+analitycznie, potem numerycznie — wzorzec wart powtórzenia za każdym razem,
+gdy dokument formalny nazywa relację, której jeszcze nie domknął (czwarty
+wniosek §3, tu zademonstrowany, nie tylko opisany).
+
+**Domknięcie analityczne — Aksjomaty G8-G9.** G8 formalizuje T_S jako
+właściwy operator: dziedzina `S×ℝ³⇀[0,2]`, ciągłość przy `Δp→0`, ograniczenie
+Lipschitza przez `κ_max(p)=max(|κ1(p)|,|κ2(p)|)`. G9 podaje jawne `F`:
+klasyczny różniczkowy operator kształtu `S_p(v)=-D_v n(p)` (konwencja znaku
+do Carmo), jego dyskretną aproksymację różnicową na siatce, oraz relację
+pierwszego rzędu `T_S(p)=‖Δp‖·‖S_p(Δ̂p)‖+O(‖Δp‖²)` — to jest realna
+tożsamość różniczkowo-geometryczna (rozwinięcie Taylora pola normalnych), nie
+nowa konstrukcja TIMDR, jawnie tak oznaczona. Kluczowe: to domyka G4b tylko
+analitycznie — status G7 "koncepcyjna" i pozostałe wymogi (formalna
+przestrzeń powierzchni, testy empiryczne, niezależna walidacja) zostają
+otwarte; tylko wymóg (1) jest teraz częściowo spełniony.
+
+**Konsolidacja w dwóch dokumentach-indeksach.** W miarę narastania zestawów
+aksjomatów (Axioms_S 13 aksjomatów, Axioms_G 9 aksjomatów, Axioms_K 10
+aksjomatów, każdy z własnymi obiektami/operatorami), kanoniczne fakty
+rozproszyły się po plikach z jedynie tabelą porównawczą w głównym README.
+Dwa nowe dokumenty konsolidują to bez redefiniowania czegokolwiek:
+`TIMDR_Branch_Specification.md` (jedna strona na gałąź: obiekty, operatory,
+aksjomaty, pliki źródłowe, jawne "czym NIE jest" per gałąź, jedna tabela
+porównawcza) i `TIMDR_Twists.md` (wszystkie cztery znaczenia skrętu —
+sygnałowy/topologiczny τ/powierzchniowy/blokowy — z dziedziną/
+przeciwdziedziną/definicją, jedno pod drugim). Żaden dokument nie definiuje
+nowej matematyki; oba są indeksami, których jedynym zadaniem jest uczynić
+dyscyplinę "to samo słowo, inny obiekt" (ustanawianą wielokrotnie w tym
+ekosystemie — patrz §7/§8 pełnego skilla) sprawdzalną w jednym miejscu
+zamiast wymagać krzyżowego odniesienia N plików aksjomatów.
+
+**Pierwsza numeryczna implementacja gałęzi G — `TIMDR-Geometry-Formalism`.**
+Odzwierciedlając to, jak protokół §3 stał się realnym kodem jako
+`TIMDR-Math-Formalism` dla gałęzi sygnałowej, dyskretny operator Weingartena
+(G9) jest teraz realnym, uruchamialnym kodem w repozytorium siostrzanym:
+`timdr_geometry/weingarten.py` — normalne wierzchołkowe (ważone polem),
+sąsiedztwo 1-ringu, rzut na płaszczyznę styczną, dopasowanie metodą
+najmniejszych kwadratów dyskretnego operatora kształtu (symetryzowane),
+dekompozycja własna dla krzywizn głównych, plus oba sposoby liczenia T_S
+(bezpośredni wg G3, przewidywany wg G9c) do porównania. Cztery testy
+stabilności na powierzchniach ze znaną analitycznie odpowiedzią: płaszczyzna
+(krzywizna ≈0 wszędzie), sfera (obie krzywizny główne ≈1/R), walec (jedna
+krzywizna ≈0 wzdłuż osi, druga ≈1/r obwodowo) i rafinacja siatki (błąd maleje
+przy zagęszczaniu). **Jawne, istotne zastrzeżenie**: ten kod został napisany
+i matematyka prześledzona ręcznie krok po kroku, ale sandbox bash był
+niedostępny przez całą sesję, w której powstał (RPC pipe closed) — testy
+nigdy faktycznie nie zostały uruchomione. Udokumentowane to we własnym
+README repozytorium i na górze pliku testowego, dokładnie tym samym wzorcem
+uczciwości, którego użył skrypt realnej walidacji `TIMDR-Math-Formalism`,
+gdy on też nie mógł zostać uruchomiony we własnej sesji (§3 powyżej) — zawsze
+sprawdzaj i zachowuj to zastrzeżenie, dopóki ktoś faktycznie nie uruchomi
+`pytest tests/ -v` i nie zgłosi wyniku; nie porzucaj go po cichu w
+przyszłym podsumowaniu.
+
+**Wnioski wielokrotnego użytku, rozszerzające listę z §3:**
+
+5. Kiedy dokument formalny jawnie nazywa niedomkniętą relację (wniosek 4
+   powyżej), domykaj ją w dwóch wyraźnie oddzielonych, jawnie oznaczonych
+   krokach, jeśli pełne domknięcie nie jest możliwe naraz: najpierw
+   wyprowadzenie analityczne/matematyczne (tanie, bez kodu, natychmiast
+   sprawdzalne ręcznie), potem implementacja numeryczna (realny kod, realne
+   testy) — i podaj dokładnie, które części oryginalnej listy "wciąż
+   otwarte" zamyka każdy krok, zamiast ogłaszać całą lukę rozwiązaną po
+   którymkolwiek z nich.
+6. Gdy aksjomaty narastają w wielu równoległych plikach (jeden na gałąź),
+   buduj osobny jednostronicowy indeks dla każdego powtarzającego się
+   zagadnienia przekrojowego (tu: jeden dokument porównania gałęzi, jeden
+   dokument rozróżnienia słów) zamiast pozostawiać porównanie wyłącznie jako
+   tabelę w README, którą trzeba ręcznie synchronizować — jedynym źródłem
+   prawdy dla dokumentów-indeksów są pliki aksjomatów, i powinny to jawnie
+   mówić (jak oba tutaj), by przyszła edycja aksjomatu nie rozsynchronizowała
+   po cichu indeksu.
+7. Gdy kod nie może zostać uruchomiony w sesji, w której powstaje (brak
+   sandboxa, brak powłoki), nie pomijaj pisania testów — pisz je z celowo
+   szerokimi/konserwatywnymi tolerancjami, prześledź ręcznie matematykę,
+   którą sprawdzają, i jawnie oznacz zastrzeżenie "nie uruchomione"
+   (README, góra pliku testowego) zamiast albo pomijać testy, albo po cichu
+   przedstawiać nieuruchomione liczby jako zweryfikowane.
+
+## 5. Chronoproces Ξ=(T,x,Γ,φ): most między trzema gałęziami, i most Fouriera M/S↔K
+
+Odpowiedź na postulat z głównego README §7.3 (`t_lokalne=f(τ_globalne)`)
+i na pierwszą, błędną próbę uogólnienia "czasu" na wszystkie trzy gałęzie
+naraz (błąd kategorii w G: krzywa 1D nie ma operatora kształtu; `f` w K
+postulowane bez definicji). Pełny opis:
+[`docs/theory/TIMDR_Chronoprocess.md`](theory/TIMDR_Chronoprocess.md).
+
+**Konstrukcja — jedno źródło, trzy NIEZALEŻNE rzuty, zero identyfikacji
+(warunek zgodności z §4 wyżej / `TIMDR_Branch_Specification.md`):**
+nośnik `T` (uporządkowany zbiór chwil), `Ξ=(T,x,Γ,φ)`, gdzie
+`x:T→ℝᵈ` czyta M/S, `Γ:T×I→ℝ³` czyta G, `φ:T→(f,φ,A)` czyta K.
+
+- **M/S**: `tempo(t)=Δt`, `drift(t)=Δt-nominalne` — czysta reinstancja
+  `x:T→ℝᵈ`, zero nowych aksjomatów. `TIMDR-Math-Formalism/chronosignal.py`
+  — **62/63 pytest potwierdzone przez użytkownika** (1 błąd niezwiązany:
+  lokalny `PermissionError` katalogu tymczasowego Windows).
+- **G**: naprawa błędu obiektu — rodzina trajektorii `{γ_s}`,
+  `Γ(t,s)=γ_s(t)`, `S=Γ(T×I)⊂ℝ³` jest prawdziwą powierzchnią, na której
+  G3/G8/G9 działają dosłownie. Analogia (nie równoważność) do kongruencji
+  geodezyjnych w OTW (Raychaudhuri) — rozkład ekspansja/ścinanie/skręt
+  NIE zaimplementowany. `TIMDR-Geometry-Formalism/chronocongruence.py`
+  — nieuruchomione.
+- **K**: mapa synchronizacji faz `f`, formalizująca dosłownie
+  `t_lokalne=f(τ_globalne)` przez dopasowanie fazy chwilowej dwóch
+  modalności. AFINICZNA (nie Kuramoto-sprzężona) — bo Aksjomaty K3/K4
+  modelują modalność jako oscylator o stałych parametrach; pełniejsza
+  wersja wymagałaby rozszerzenia aksjomatów, jawnie NIE zrobione.
+  `TIMDR-Modal-Formalism/phase_sync.py` — pierwszy kod dla K w ogóle,
+  nieuruchomione.
+- **Most Fouriera M/S↔K** (jedyny jawny wyjątek od "zero identyfikacji"):
+  dualizm falowo-cząsteczkowy fotonu ma tę samą matematyczną strukturę co
+  klasyczna zasada nieoznaczoności Gabora dla sygnałów — FFT jest
+  KONKRETNĄ, znaną transformatą między `x(t)` i `(f,φ,A)`, nie
+  utożsamieniem. Wyprowadzone ręcznie w tej sesji: dla impulsu
+  gaussowskiego `Δt·Δf=1/(4π)` dokładnie, niezależnie od szerokości —
+  granica Gabora/Heisenberga OSIĄGANA. `TIMDR-Time-Formalism/fourier_bridge.py`
+  — część jednotonowa dokładna algebrą, część gaussowska z szerokimi
+  (±30%) tolerancjami, nieuruchomione.
+
+**Wnioski wielokrotnego użytku, rozszerzające listę z §3-§4:**
+
+8. Kiedy dwie gałęzie formalizmu współdzielą tylko wspólny NOŚNIK
+   (indeks/parametr), a nie wspólny obiekt, zbuduj kontener orkiestrujący
+   oddzielne rzuty NA nośnik zamiast próbować zdefiniować jeden obiekt
+   spinający obie gałęzie naraz — to jest formalny sposób realizacji
+   "wielu niezależnych opisów tej samej sytuacji", bez łamania
+   nieredukowalności.
+9. Jeśli między dwiema formalnie nieredukowalnymi gałęziami istnieje
+   PRAWDZIWA, ustalona matematyczna transformata (nie nowa hipoteza) —
+   jak FFT między sygnałem czasowym a jego widmem — jej dodanie jako
+   jawnie oznaczonego, pojedynczego wyjątku jest uczciwe i wartościowe;
+   nieoznaczenie go jako wyjątku (czyli cichne rozmnożenie takich mostów)
+   byłoby dokładnie tym, przed czym chroni zasada nieredukowalności.
+10. Gdy analogia fizyczna (tu: dualizm fotonu) ma zostać użyta do
+    uzasadnienia konstrukcji matematycznej, sprawdź, czy analogia ma
+    WSPÓLNE ŹRÓDŁO matematyczne (tu: sprzężone zmienne Fouriera), a nie
+    tylko powierzchowne podobieństwo słowne — jeśli tak, wyprowadź
+    konkretną, sprawdzalną konsekwencję (tu: `Δt·Δf=1/(4π)` dla impulsu
+    gaussowskiego) zamiast zostawić analogię jako czystą metaforę.

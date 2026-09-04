@@ -49,16 +49,25 @@ czytelnik sam to poskłada.
 > specyfikację (domena/przeciwdziedzina/definicja per znaczenie):
 > [`docs/theory/TIMDR_Twists.md`](docs/theory/TIMDR_Twists.md).
 >
-> **Oba formalizmy mają teraz działający, testowalny kod** (nie tylko
-> aksjomaty): gałąź sygnałowa w repo `TIMDR-Math-Formalism`
+> **Wszystkie trzy gałęzie mają teraz działający, testowalny kod** (nie
+> tylko aksjomaty): gałąź sygnałowa w repo `TIMDR-Math-Formalism`
 > (protokół pre-rejestracja/kontrola +/-/Mann-Whitney/effect size,
 > zwalidowany realnymi danymi Krakow_Centrum — `docs/diagram.svg`),
 > gałąź geometryczna w repo `TIMDR-Geometry-Formalism` (dyskretny
 > operator Weingartena domykający numerycznie Aksjomaty G8-G9,
 > testowany na płaszczyźnie/sferze/walcu — `docs/diagram_pipeline.svg`,
-> `docs/diagram_surfaces.svg`; testy nieuruchomione w sesji, w której
-> powstały — patrz zastrzeżenie w README tego repo). Gałąź modalna (K)
-> nie ma jeszcze odpowiednika.
+> `docs/diagram_surfaces.svg`), gałąź modalna w repo
+> `TIMDR-Modal-Formalism` (modalność, interferencja, rezonans modalny,
+> mapa synchronizacji faz). Tylko `TIMDR-Math-Formalism` ma potwierdzone
+> uruchomienie testów przez użytkownika (62/63 zielone) — pozostałe dwa
+> są napisane i ręcznie prześledzone, ale nieuruchomione w sesji, w
+> której powstały (patrz zastrzeżenie w README każdego z nich).
+>
+> **Chronoproces `Ξ=(T,x,Γ,φ)`** spina powyższe trzy na wspólnym
+> nośniku T, bez identyfikacji między nimi, plus jeden jawnie
+> wyodrębniony wyjątek — most Fouriera M/S↔K oparty na zasadzie
+> nieoznaczoności Gabora. Repo `TIMDR-Time-Formalism`, pełny opis:
+> [`docs/theory/TIMDR_Chronoprocess.md`](docs/theory/TIMDR_Chronoprocess.md).
 
 ### 1. Gałąź sygnałowa — TIMDR-Math-Formalism (M, S)
 
@@ -99,8 +108,12 @@ f/φ/A.
 
 **Obiekt:** moduły sygnału `(f, φ, A)`.
 **Operatory:** rezonans modalny (wyrównanie częstotliwości i fazy), 10
-aksjomatów modalnych.
-**Pliki:** `docs/theory/Axioms_K_TIMDR.md`.
+aksjomatów modalnych; plus mapa synchronizacji faz `f` formalizująca
+`t_lokalne=f(τ_globalne)` z §7.3.
+**Pliki:** `docs/theory/Axioms_K_TIMDR.md`. Pierwsza implementacja
+numeryczna: osobne repo `TIMDR-Modal-Formalism`
+(`timdr_modal/phase_sync.py`) — testy nieuruchomione w sesji, w której
+powstały.
 **To NIE jest:** sygnał `x:T→ℝᵈ`, testy statystyczne, skręt sygnałowy,
 skręt powierzchniowy.
 
@@ -110,7 +123,7 @@ skręt powierzchniowy.
 |---|---|---|---|---|---|
 | Sygnałowa (M, S) | sygnały czasowe | M — progowy, baseline dwumianowy, zwalidowany empirycznie na danych Krakow_Centrum | sygnałowy (odwrócenie trendu) | Axioms_S | sformalizowana, testowana kodem |
 | Geometryczna (G) | powierzchnie 3D | brak | powierzchniowy (normalne) | Axioms_G (G1-G9) | aksjomatyczna, koncepcyjna (G7) — związek z Weingartenem domknięty analitycznie (G8-G9), implementacja na siatce 3D i walidacja empiryczna otwarte |
-| Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | zdefiniowana aksjomatycznie, bez empirycznej walidacji |
+| Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | aksjomatyczna + pierwszy kod (`TIMDR-Modal-Formalism`, nieuruchomiony), bez empirycznej walidacji |
 
 Żadna gałąź nie jest rozszerzeniem innej — każda ma własną domenę
 matematyczną. Tam, gdzie dwie gałęzie używają tego samego słowa
@@ -416,6 +429,12 @@ Każda pojedyncza cząstka "wie" o wieku i stanie Wszechświata poprzez interakc
 * Zmian w czasie życia mionów w zależności od geometrii otaczającego pola.
 * Dokładnego przebiegu szeregu promieniotwórczego uranu ($U\text{-}238 \rightarrow Pb\text{-}206$).
 
+> **Formalizacja tego postulatu:** `f` powyżej jest teraz formalnie
+> zdefiniowane jako mapa synchronizacji faz między dwiema modalnościami
+> `(f,φ,A)` — patrz [`docs/theory/TIMDR_Chronoprocess.md`](docs/theory/TIMDR_Chronoprocess.md#4-rzut-k--mapa-synchronizacji-faz-f),
+> §4, z jawnie zaznaczoną granicą zakresu (mapa afiniczna, nie
+> Kuramoto-sprzężona).
+
 ---
 
 ## 8. INTEGRACJA SYSTEMOWA (TIMDER ARCHITECTURE)
@@ -464,7 +483,9 @@ Ekosystem uniwersalnej geometrii pola dystrybuowany jest pomiędzy wyspecjalizow
 * `GIA-and-TIMDR` — Rdzeń geometryczny i definicje operatorów.
 * `topologia-informacji` — Przestrzenie metryczne i przekształcenia Möbiusa.
 * `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator`. Implementacja gałęzi sygnałowej (M/S), diagram protokołu: `docs/diagram.svg`.
-* `TIMDR-Geometry-Formalism` — Numeryczna implementacja dyskretnego operatora Weingartena dla gałęzi geometrycznej (G): normalne wierzchołkowe, dopasowanie MNK na 1-ringu, krzywizny główne; domyka numerycznie Aksjomaty G8-G9 (`Axioms_G_TIMDR_Geometry.md`). Testy na płaszczyźnie/sferze/walcu — nieuruchomione w sesji, w której powstały. Dwa diagramy: `docs/diagram_pipeline.svg` (algorytm), `docs/diagram_surfaces.svg` (trzy powierzchnie testowe i ich krzywizna).
+* `TIMDR-Geometry-Formalism` — Numeryczna implementacja dyskretnego operatora Weingartena dla gałęzi geometrycznej (G): normalne wierzchołkowe, dopasowanie MNK na 1-ringu, krzywizny główne; domyka numerycznie Aksjomaty G8-G9 (`Axioms_G_TIMDR_Geometry.md`). Testy na płaszczyźnie/sferze/walcu — nieuruchomione w sesji, w której powstały. Dwa diagramy: `docs/diagram_pipeline.svg` (algorytm), `docs/diagram_surfaces.svg` (trzy powierzchnie testowe i ich krzywizna). Zawiera też `chronocongruence.py` — kongruencja Γ(t,s) dla Chronoprocesu (`docs/theory/TIMDR_Chronoprocess.md`).
+* `TIMDR-Modal-Formalism` — Pierwsza implementacja gałęzi modalnej (K) jako kodu: modalność `(f,φ,A)` (Aksjomat 3), interferencja (Aksjomat 4), rezonans modalny (Aksjomat 5), oraz mapa synchronizacji faz `f` formalizująca `t_lokalne=f(τ_globalne)` z §7.3 poniżej. Afiniczna (nie Kuramoto-sprzężona) — jawnie oznaczona granica zakresu. Testy nieuruchomione w sesji, w której powstały.
+* `TIMDR-Time-Formalism` — Pełny moduł Chronoprocesu `Ξ=(T,x,Γ,φ)`: orkiestruje trzy powyższe repo-siostry na wspólnym nośniku T, bez żadnej identyfikacji między nimi. Zawiera też jedyny jawny wyjątek od tej zasady — `fourier_bridge.py`, most Fouriera M/S↔K oparty na zasadzie nieoznaczoności Gabora (analogia do dualizmu falowo-cząsteczkowego fotonu, sprowadzona do sprawdzalnej matematyki). Pełny opis: `docs/theory/TIMDR_Chronoprocess.md`. Testy nieuruchomione w sesji, w której powstały.
 * `TRM` — Przetwarzanie rezonansów warstwowych i stałych redukcji.
 * `FIELDCORE` — Niskopoziomowy silnik obliczeniowy pól dynamicznych.
 * `WHITE-LASER-MAP` / `ASTRO-MAP` / `ASTRO-CYCLES` — Mapowanie skalowane (mikro/makro).
@@ -710,7 +731,7 @@ GIA to: operator lokalnego toru informacji, wektor dominującej dynamiki, kompas
 
 Wszystkie dokumenty koncepcyjne repozytorium są uporządkowane pod `docs/`:
 
-- **`docs/theory/`** — pełna, litereowana seria modeli abstrakcyjnych (G, J, K, L, M, N, O, Q, R, S, T, U, V, X, Y) oraz seria zastosowań domenowych (AA–AK: kosmologia, biologia, technologia, percepcja, AI, język, muzyka), plus `TRM_biology.md` i `TIMDR-T-operator.md`. **M** (`Resonance_M_Operator_Empiryczny.md`) i **S** (`Axioms_S_TIMDR_Signal.md`) to formalizacja gałęzi sygnałowej TIMDR (rezonans jako koincydencja progów, nie rezonans modalny z Axioms_K) — z realną walidacją empiryczną na danych pogodowych, nie tylko definicjami; pełny działający protokół testowy żyje w osobnym repo `TIMDR-Math-Formalism`. **G** (`Axioms_G_TIMDR_Geometry.md`) to aksjomaty gałęzi geometrycznej (trójkąt, powierzchnie, skręt powierzchniowy, dyskretny operator Weingartena — G1-G9) — koncepcyjna, związek skrętu z krzywizną domknięty analitycznie (G8-G9), wciąż bez implementacji numerycznej ani empirycznej walidacji, jawnie oznaczona jako taka (Aksjomat G7). **`TIMDR_Branch_Specification.md`** i **`TIMDR_Twists.md`** to dokumenty-indeksy: pierwszy zbiera formalną specyfikację (obiekty/operatory/aksjomaty/pliki/status) wszystkich trzech gałęzi w jednym miejscu, drugi konsoliduje formalne definicje wszystkich czterech znaczeń "skrętu" — oba nie definiują nic nowego, tylko strukturyzują to, co już jest w `Axioms_S`/`Axioms_G`/`Axioms_K`.
+- **`docs/theory/`** — pełna, litereowana seria modeli abstrakcyjnych (G, J, K, L, M, N, O, Q, R, S, T, U, V, X, Y) oraz seria zastosowań domenowych (AA–AK: kosmologia, biologia, technologia, percepcja, AI, język, muzyka), plus `TRM_biology.md` i `TIMDR-T-operator.md`. **M** (`Resonance_M_Operator_Empiryczny.md`) i **S** (`Axioms_S_TIMDR_Signal.md`) to formalizacja gałęzi sygnałowej TIMDR (rezonans jako koincydencja progów, nie rezonans modalny z Axioms_K) — z realną walidacją empiryczną na danych pogodowych, nie tylko definicjami; pełny działający protokół testowy żyje w osobnym repo `TIMDR-Math-Formalism`. **G** (`Axioms_G_TIMDR_Geometry.md`) to aksjomaty gałęzi geometrycznej (trójkąt, powierzchnie, skręt powierzchniowy, dyskretny operator Weingartena — G1-G9) — koncepcyjna, związek skrętu z krzywizną domknięty analitycznie (G8-G9), wciąż bez implementacji numerycznej ani empirycznej walidacji, jawnie oznaczona jako taka (Aksjomat G7). **`TIMDR_Branch_Specification.md`** i **`TIMDR_Twists.md`** to dokumenty-indeksy: pierwszy zbiera formalną specyfikację (obiekty/operatory/aksjomaty/pliki/status) wszystkich trzech gałęzi w jednym miejscu, drugi konsoliduje formalne definicje wszystkich czterech znaczeń "skrętu" — oba nie definiują nic nowego, tylko strukturyzują to, co już jest w `Axioms_S`/`Axioms_G`/`Axioms_K`. **`TIMDR_Chronoprocess.md`** dokumentuje Chronoproces `Ξ=(T,x,Γ,φ)` — most między trzema gałęziami na wspólnym nośniku T (bez identyfikacji między nimi) plus most Fouriera M/S↔K (jedyny jawny wyjątek), z kodem w czterech repo-siostrach (`TIMDR-Math-Formalism`, `TIMDR-Geometry-Formalism`, `TIMDR-Modal-Formalism`, `TIMDR-Time-Formalism`) — również nie zmienia żadnych aksjomatów, tylko orkiestruje już istniejące obiekty.
 - **`docs/models/`** — konkretne modele geometryczne (emergencja, interferencja, rezonans warstwowy, model topologiczno-modalny, model S 3D).
 - **`docs/geometry/`** — konstrukcje geometryczne Möbiusa/torusa (tetroida, mobiosotourys, tourosomobius, domeny Hopfa, eksperymenty domknięcia).
 - **`docs/filters/`** — dokumentacja filtrów (liczby pierwsze, stosunek Möbiusa, przewidywania filtra Al).
