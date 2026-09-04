@@ -282,6 +282,17 @@ powierzchniowy"** (żeby odróżnić od skrętu sygnałowego, skrętu
 topologicznego τ z `Operators_N_TIMDR.md`, i `TwistDetector` z
 MAGE-IN-IMAGE-DECODER — patrz sekcja 0).
 
+**Aktualizacja (formalna domknięcie w Axioms_G).** Ta formuła jest teraz
+sformalizowana jako Aksjomat G3 w `Axioms_G_TIMDR_Geometry.md`, z jawną
+domeną/przeciwdziedziną/ciągłością/stabilnością (Aksjomat G8) oraz
+jawną postacią związku z krzywizną przez różniczkowy operator
+Weingartena i jego dyskretną aproksymację różnicą skończoną
+(Aksjomat G9): `skręt(p) = ‖Δp‖·‖S_p(Δ̂p)‖ + O(‖Δp‖²)`. To pozostaje
+wyprowadzeniem analitycznym — dalej NIE testowane numerycznie na
+konkretnych danych 3D (adnotacja na początku tej sekcji dalej
+obowiązuje aż do rzeczywistej implementacji na siatce i walidacji
+empirycznej).
+
 ---
 
 ## 7. Podsumowanie
@@ -292,15 +303,19 @@ MAGE-IN-IMAGE-DECODER — patrz sekcja 0).
 | Teoretyczna baza niezależności (n=5, K=3) ≈ 0.09% | Rachunek poprawny, ale oparty na niesprawdzonych założeniach (niezależność, normalność) |
 | Realny rezonans sygnałowy przekracza przypadek | **Otwarte** — test na 24-dniowym oknie realnych danych nie miał mocy statystycznej (za mało anomalii/parametr); metodyka testu zweryfikowana jako sprawna kontrolą pozytywną (sekcja 3) |
 | "Skręt = bifurkacja" | Nieuzasadnione bez wyspecyfikowanego modelu dynamicznego; rekomendowana etykieta: "wykrywanie odwrócenia trendu" (sekcja 5) |
-| Skręt powierzchniowy (`‖n(p+Δp)−n(p)‖`) | Geometrycznie poprawny, odrębny od torsji krzywej i od pozostałych 3 znaczeń "skrętu" w ekosystemie — wymaga rozszerzonej nazwy (sekcja 6) |
+| Skręt powierzchniowy (`‖n(p+Δp)−n(p)‖`) | Geometrycznie poprawny, odrębny od torsji krzywej i od pozostałych 3 znaczeń "skrętu" w ekosystemie — sformalizowany jako operator (G8) ze związkiem do krzywizny domkniętym analitycznie (G9); implementacja na siatce 3D i walidacja empiryczna nadal otwarte |
 
 Powiązane dokumenty: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (rezonans
 modalny — inny operator niż tu opisany), [`Operators_N_TIMDR.md`](./Operators_N_TIMDR.md)
 (skręt topologiczny τ — inny obiekt niż tu opisany),
 [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md) (aksjomaty dla
 domeny sygnałowej opisanej tutaj), [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md)
-(formalna aksjomatyzacja skrętu powierzchniowego z sekcji 6 — Aksjomat
-G3, z powiązaniem do Weingartena w G4), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
+(formalna aksjomatyzacja skrętu powierzchniowego z sekcji 6 — Aksjomaty
+G3, G8, G9, z domknięciem związku z Weingartenem nazwanym w G4),
+[`TIMDR_Twists.md`](./TIMDR_Twists.md) (skonsolidowane formalne
+definicje wszystkich czterech znaczeń skrętu w jednym miejscu),
+[`TIMDR_Branch_Specification.md`](./TIMDR_Branch_Specification.md)
+(formalna specyfikacja trzech gałęzi TIMDR), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
 (kanoniczna lista nazw skrętu), `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`
 (pełne dane i kod walidacji z sekcji 3), `TIMDR-Math-Formalism/docs/PROTOCOL.md`
 (effect size, moc testu, operator okna — formalizacja kroków 4/5 protokołu).

@@ -298,10 +298,19 @@ istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
   `‖n(p+Δp)−n(p)‖` (Resonance_M §6) nie jest częścią tego zestawu
   aksjomatów — żyje teraz we własnym, równoległym zestawie,
   [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md) (gałąź
-  geometryczna G). Tam Aksjomat G4 **nazywa** związek ze skrętem przez
-  operator kształtu (Weingarten) — `T_S=F(W_S)` — ale jawnie NIE go
-  domyka: implementacja `W_S` i `F` pozostaje otwarta (patrz zastrzeżenie
-  pod G4 i Aksjomat G7 tamtego dokumentu, status "koncepcyjna").
+  geometryczna G). Tam Aksjomat G4 **nazywał** związek ze skrętem przez
+  operator kształtu (Weingarten) — `T_S=F(W_S)` — bez podania
+  implementacji; Aksjomaty G8-G9 (dodane później) domykają to
+  **analitycznie**: formalny operator `T_S` z domeną/przeciwdziedziną/
+  ciągłością (G8) i jawna postać `F` przez różniczkowy operator
+  Weingartena plus jego dyskretną aproksymację różnicą skończoną (G9),
+  `T_S(p)=‖Δp‖·‖S_p(Δ̂p)‖+O(‖Δp‖²)`. To pozostaje wyprowadzeniem
+  matematycznym, NIE przetestowaną implementacją na rzeczywistej siatce
+  3D ani walidacją empiryczną — status "koncepcyjna" z Aksjomatu G7
+  tamtego dokumentu nadal obowiązuje dla punktów (2)-(4) jego wymagań
+  (formalna przestrzeń powierzchni, testy empiryczne, niezależna
+  walidacja); tylko punkt (1), pełna definicja `W_S`, jest teraz
+  częściowo domknięty.
 - **Dynamika/bifurkacje.** Aksjomat 4 (wyżej) krytykuje "skręt =
   bifurkacja", ale nie proponuje modelu `ẋ=f(x;λ(t))` ani dowodu
   korelacji skrętu z przejściem przez punkt krytyczny — to jedyny punkt
@@ -309,7 +318,15 @@ istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
   formalizacji istniejącego kodu (patrz Resonance_M §5).
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (równoległy zestaw,
-domena modalna), [`Operators_N_TIMDR.md`](./Operators_N_TIMDR.md)
+domena modalna), [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md)
+(równoległy zestaw, domena geometryczna — G8/G9 domykają analitycznie
+związek skrętu powierzchniowego z Weingartenem, patrz wyżej),
+[`Operators_N_TIMDR.md`](./Operators_N_TIMDR.md)
 (operatory dla domeny modalnej), [`Resonance_M_Operator_Empiryczny.md`](./Resonance_M_Operator_Empiryczny.md)
-(dowody i walidacja empiryczna cytowane powyżej), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
+(dowody i walidacja empiryczna cytowane powyżej), [`TIMDR_Twists.md`](./TIMDR_Twists.md)
+(skonsolidowane formalne definicje wszystkich czterech znaczeń
+"skrętu", w tym skrętu sygnałowego z Aksjomatu 4 powyżej),
+[`TIMDR_Branch_Specification.md`](./TIMDR_Branch_Specification.md)
+(formalna specyfikacja trzech gałęzi TIMDR — źródło prawdy dla
+rozdziału M/S vs G vs K), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
 (kanoniczne nazwy, rozgraniczenie "rezonans"/"skręt").

@@ -15,9 +15,14 @@ poziomy jednej teorii.
 Status: koncepcyjna (patrz Aksjomat G7). G1-G3 mają jasno określone
 obiekty i wzory już używane gdzie indziej w repo (skręt powierzchniowy:
 `Resonance_M_Operator_Empiryczny.md` §6). G4 wyznacza kierunek
-(związek skrętu z krzywizną przez operator Weingartena) bez podania
-implementacji — to zamierzone, nie przeoczenie: patrz zastrzeżenie pod
-G4.
+(związek skrętu z krzywizną przez operator Weingartena); G8-G9 (dodane
+później) domykają ten kierunek analitycznie — formalny operator \(T_S\)
+z domeną/przeciwdziedziną/ciągłością (G8) i jawna postać \(F\) przez
+dyskretny/różniczkowy operator Weingartena (G9) — ale wyłącznie jako
+wyprowadzenie matematyczne (tożsamość różniczkowo-geometryczna w
+granicy \(\Delta p \to 0\)), nie jako przetestowaną implementację na
+siatce 3D ani walidację empiryczną: patrz zastrzeżenia pod G9 i status
+w G7.
 
 ---
 
@@ -90,7 +95,109 @@ dla powierzchni \(S\), taki że:
 otwarta, ale musi być zgodna z tym związkiem. To jest dokładnie luka,
 którą `Axioms_S_TIMDR_Signal.md` — sekcja "Pozostałe braki formalne" —
 zostawiła jako niesformalizowaną; G4 nie ją domyka, tylko nazywa i
-zobowiązuje przyszłą implementację do zgodności z nią.)*
+zobowiązuje przyszłą implementację do zgodności z nią. **Aktualizacja:**
+Aksjomaty G8-G9 poniżej podają jawną, analitycznie wyprowadzoną postać
+\(F\) — patrz zastrzeżenia tam co do zakresu tego domknięcia.)*
+
+---
+
+## Aksjomat G8 — \(T_S\) jako formalny operator: domena, przeciwdziedzina, ciągłość, stabilność
+
+Aksjomat G3 podaje wzór na \(T_S(p)\); ten aksjomat formalizuje go jako
+właściwy operator matematyczny, nie tylko wyrażenie.
+
+- **(G8a) Domena.** \(T_S\) jest funkcją częściową
+  \(T_S: S \times \mathbb{R}^3 \rightharpoonup \mathbb{R}_{\geq 0}\),
+  określoną w punktach \((p, \Delta p)\) takich że \(p \in S\),
+  \(p + \Delta p \in S\), oraz \(n\) jest określone w obu punktach (co,
+  z G1b, wyklucza jedynie zbiór miary zero) — zgodnie z G3a.
+- **(G8b) Przeciwdziedzina jest ograniczona.** Ponieważ
+  \(n(p), n(p+\Delta p) \in \mathbb{S}^2\) (wektory jednostkowe), z
+  nierówności trójkąta na sferze jednostkowej wynika
+  \(T_S(p) \in [0, 2]\) dla każdego dopuszczalnego \((p,\Delta p)\) —
+  \(T_S\) nie tylko jest nieujemny (G3c), ale ma jawnie skończony,
+  uniwersalny (niezależny od \(S\)) zakres.
+- **(G8c) Ciągłość w granicy \(\Delta p \to 0\).** Jeśli \(n\) jest
+  różniczkowalne w \(p\) (co zachodzi prawie wszędzie, G1b), to
+  \(\lim_{\Delta p \to 0} T_S(p, \Delta p) = 0\) — zgodnie z G3b (brak
+  przesunięcia = brak skrętu). Mocniej: dla małych \(\Delta p\),
+  \(T_S\) jest różniczkowalny w \(\Delta p\) i jego rozwinięcie do
+  pierwszego rzędu jest dane przez Aksjomat G9 poniżej.
+- **(G8d) Stabilność (ograniczenie Lipschitza).** W punktach, gdzie
+  krzywizna główna powierzchni jest ograniczona przez
+  \(\kappa_{\max}(p) = \max(|\kappa_1(p)|, |\kappa_2(p)|)\) (G9),
+  zachodzi \(T_S(p,\Delta p) \leq \kappa_{\max}(p)\cdot\|\Delta p\| +
+  O(\|\Delta p\|^2)\) — \(T_S\) jest lokalnie Lipschitzowski w
+  \(\Delta p\) ze stałą daną przez lokalną krzywiznę, nie dowolnie
+  wrażliwy na wybór kroku dyskretyzacji. To czyni \(T_S\) właściwym
+  kandydatem na operator numeryczny (na siatce), pod warunkiem że krok
+  siatki jest mały względem \(1/\kappa_{\max}\) — warunek jawnie
+  sprawdzalny, nie założony milcząco.
+
+*(G8b-G8d są twierdzeniami wynikającymi z G1 + G3 + G9, nie nowymi
+założeniami — dowody: G8b z nierówności trójkąta na \(\mathbb{S}^2\)
+(elementarne); G8c-G8d z rozwinięcia Taylora pola normalnych, patrz
+G9.)*
+
+---
+
+## Aksjomat G9 — Dyskretny operator Weingartena i jawna postać \(F\)
+
+Ten aksjomat podaje jawną definicję \(W_S\) i funkcji \(F\) z G4b —
+domykając kierunek wyznaczony przez G4, w zakresie opisanym w
+zastrzeżeniu na końcu.
+
+- **(G9a) Operator kształtu (Weingarten) w wersji różniczkowej.** Dla
+  \(p \in S\) z płaszczyzną styczną \(T_pS\), klasyczny operator
+  kształtu \(S_p: T_pS \to T_pS\) jest zdefiniowany jako
+  \(S_p(v) = -D_v n(p)\) — ujemna pochodna kierunkowa pola normalnych
+  wzdłuż \(v\). To jest standardowy obiekt geometrii różniczkowej
+  (mapa Weingartena), nie nowa konstrukcja TIMDR: jego wartości własne
+  są krzywiznami głównymi \(\kappa_1(p), \kappa_2(p)\), ślad daje
+  krzywiznę średnią \(H=(\kappa_1+\kappa_2)/2\), wyznacznik daje
+  krzywiznę Gaussa \(K=\kappa_1\kappa_2\).
+- **(G9b) Dyskretna aproksymacja na siatce.** Dla powierzchni
+  reprezentowanej jako siatka (wierzchołki/krawędzie/normalne
+  wierzchołkowe lub facetowe), dyskretny operator kształtu w punkcie
+  \(p\) wzdłuż krawędzi \(\Delta p\) jest aproksymowany różnicą
+  skończoną, rzutowaną na płaszczyznę styczną:
+  \[
+  S_p^{\text{dysk}}(\Delta p) \approx
+  \Pi_{T_pS}\!\left[\frac{n(p+\Delta p) - n(p)}{\|\Delta p\|}\right]
+  \]
+  gdzie \(\Pi_{T_pS}\) jest rzutem ortogonalnym na płaszczyznę styczną
+  w \(p\). To jest standardowa konstrukcja różnic skończonych dla
+  operatora Weingartena na siatkach (por. dyskretne operatory geometrii
+  różniczkowej), nie coś specyficznego dla TIMDR — TIMDR jedynie
+  wskazuje, że to jest wymagana definicja \(W_S\) z G4a.
+- **(G9c) Jawna postać \(F\) domykająca G4b.** Z rozwinięcia Taylora
+  pola normalnych do pierwszego rzędu:
+  \[
+  T_S(p) = \|n(p+\Delta p) - n(p)\| =
+  \|\Delta p\| \cdot \|S_p(\widehat{\Delta p})\| + O(\|\Delta p\|^2)
+  \]
+  gdzie \(\widehat{\Delta p} = \Delta p / \|\Delta p\|\). To definiuje
+  \(F\) z G4b jawnie:
+  \[
+  F(W_S)(p,\Delta p) := \|\Delta p\| \cdot \|S_p(\widehat{\Delta p})\|
+  \]
+  z \(T_S(p) = F(W_S)(p,\Delta p) + O(\|\Delta p\|^2)\).
+- **(G9d) Ograniczenie przez krzywizny główne.** Ponieważ
+  \(\|S_p(v)\| \leq \kappa_{\max}(p)\) dla jednostkowego \(v\) (z
+  definicji wartości własnych), zachodzi
+  \(T_S(p) \leq \kappa_{\max}(p)\cdot\|\Delta p\| + O(\|\Delta p\|^2)\)
+  — dokładnie ograniczenie użyte w G8d.
+
+*(**Zastrzeżenie o zakresie domknięcia.** G9a-G9d są wyprowadzeniem
+analitycznym (tożsamość różniczkowo-geometryczna, prawdziwa w granicy
+\(\Delta p \to 0\), oraz jej standardowa dyskretna aproksymacja różnicą
+skończoną) — NIE są zaimplementowanym, przetestowanym kodem na
+rzeczywistej siatce 3D, ani nie są zwalidowane empirycznie na
+rzeczywistych danych geometrycznych. To domyka G4b **analitycznie**
+(jawna postać \(F\) istnieje i jest standardowym obiektem geometrii
+różniczkowej), ale G7's status "koncepcyjna" oraz wymagania G7c
+(2)-(4) — formalna przestrzeń powierzchni, testy empiryczne, niezależna
+walidacja — pozostają otwarte: patrz zaktualizowany Aksjomat G7.)*
 
 ---
 
@@ -132,8 +239,16 @@ powierzchniach:
   kosmologii, polach, czasie globalnym itp. w gałęzi G mają status
   **metafory strukturalnej**, nie teorii naukowej.
 - **(G7c)** Rozszerzenie gałęzi G do pełnej teorii matematycznej
-  wymaga: (1) pełnej definicji \(W_S\), (2) formalnej przestrzeni
-  powierzchni, (3) testów empirycznych, (4) niezależnej walidacji.
+  wymaga: (1) pełnej definicji \(W_S\) — **częściowo domknięte przez
+  G8-G9** (różniczkowa definicja \(S_p\) + dyskretna aproksymacja
+  różnicą skończoną są podane jawnie; brakuje wciąż numerycznej
+  implementacji na konkretnej reprezentacji siatki i jej walidacji),
+  (2) formalnej przestrzeni powierzchni — otwarte, (3) testów
+  empirycznych — otwarte (żaden z powyższych wzorów nie był
+  uruchomiony na rzeczywistych danych geometrycznych; kontrast z
+  gałęzią sygnałową M, gdzie realna walidacja już się odbyła —
+  `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`), (4)
+  niezależnej walidacji — otwarte.
 
 ---
 
@@ -146,12 +261,17 @@ powierzchniach:
 | G5 | Wiersz "Operator rezonansu: brak" dla gałęzi G w tabeli "Trzy gałęzie TIMDR" (README) |
 | G6 | Sekcja "🌿 Trzy gałęzie TIMDR — mapa terenu" w README |
 | G7 | Ostrzeżenie na początku README ("model koncepcyjny / narzędzie do myślenia, nie teoria naukowa") |
+| G8-G9 | Domykają analitycznie związek \(T_S = F(W_S)\) nazwany w G4 — patrz też `TIMDR_Branch_Specification.md` (gałąź G, sekcja operatorów) |
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (gałąź modalna),
 [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md) (gałąź
 sygnałowa — sekcja "Pozostałe braki formalne" tam odnosi się wprost do
-G4 powyżej), [`Resonance_M_Operator_Empiryczny.md`](./Resonance_M_Operator_Empiryczny.md)
-§6 (pierwsze wprowadzenie \(T_S\), przed formalizacją jako G3),
-[`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md) (kanoniczne nazwy
+G4/G8/G9 powyżej), [`Resonance_M_Operator_Empiryczny.md`](./Resonance_M_Operator_Empiryczny.md)
+§6 (pierwsze wprowadzenie \(T_S\), przed formalizacją jako G3, G8, G9),
+[`TIMDR_Twists.md`](./TIMDR_Twists.md) (skonsolidowane formalne
+definicje wszystkich czterech znaczeń "skrętu" w ekosystemie, w tym
+skrętu powierzchniowego z G3/G8/G9), [`TIMDR_Branch_Specification.md`](./TIMDR_Branch_Specification.md)
+(formalna specyfikacja trzech gałęzi TIMDR — źródło prawdy dla
+podziału M/S, G, K), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md) (kanoniczne nazwy
 "skręt powierzchniowy" i rozgraniczenie od pozostałych trzech znaczeń
 skrętu).
