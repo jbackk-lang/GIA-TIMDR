@@ -41,6 +41,14 @@ ekosystemie (pełne rozgraniczenie: `docs/GLOSSARY_EN_PL.md`) — dlatego
 rozdzielone tu wprost, jedna gałąź na wiersz, zamiast zakładać, że
 czytelnik sam to poskłada.
 
+> **Adnotacja:** poniższe jest streszczeniem. Pełna, formalna
+> specyfikacja trzech gałęzi (obiekty, operatory, aksjomaty, pliki
+> źródłowe, jawne "czym NIE jest" per gałąź, jedna tabela porównawcza)
+> jest teraz osobnym dokumentem: [`docs/theory/TIMDR_Branch_Specification.md`](docs/theory/TIMDR_Branch_Specification.md).
+> Podobnie, cztery znaczenia "skrętu" mają teraz skonsolidowaną
+> specyfikację (domena/przeciwdziedzina/definicja per znaczenie):
+> [`docs/theory/TIMDR_Twists.md`](docs/theory/TIMDR_Twists.md).
+
 ### 1. Gałąź sygnałowa — TIMDR-Math-Formalism (M, S)
 
 **Obiekt:** `x: T→ℝᵈ`, `x∈ℓ^∞(T,ℝᵈ)`.
@@ -57,11 +65,14 @@ model trójkąta.
 ### 2. Gałąź geometryczna — TIMDR-Geometry (G)
 
 **Obiekt:** powierzchnia `S⊂ℝ³`, normalna `n(p)`.
-**Operatory:** skręt powierzchniowy `‖n(p+Δp)−n(p)‖` (Aksjomat G3);
-krzywizna dyskretna i operator kształtu (Weingarten) w wersji
-dyskretnej — związek ze skrętem NAZWANY (Aksjomat G4: `T_S=F(W_S)`),
-implementacja `W_S`/`F` wciąż otwarta.
-**Pliki:** `docs/theory/Axioms_G_TIMDR_Geometry.md` (aksjomaty G1-G7);
+**Operatory:** skręt powierzchniowy `‖n(p+Δp)−n(p)‖`, teraz formalny
+operator z domeną/przeciwdziedziną/ciągłością/stabilnością (Aksjomaty
+G3, G8); krzywizna dyskretna i operator kształtu (Weingarten) — związek
+ze skrętem NAZWANY w Aksjomacie G4 (`T_S=F(W_S)`) i domknięty
+analitycznie w Aksjomacie G9 (`T_S=‖Δp‖·‖S_p(Δ̂p)‖+O(‖Δp‖²)`);
+implementacja numeryczna na konkretnej siatce 3D i walidacja empiryczna
+wciąż otwarte.
+**Pliki:** `docs/theory/Axioms_G_TIMDR_Geometry.md` (aksjomaty G1-G9);
 skręt powierzchniowy pierwotnie opisany w
 `Resonance_M_Operator_Empiryczny.md` §6; model trójkąta to sekcje 1-9
 tego README. Osobny katalog `docs/theory/Geometry/` jeszcze nie
@@ -83,7 +94,7 @@ skręt powierzchniowy.
 | Gałąź | Domena | Operator rezonansu | Skręt | Aksjomaty | Status |
 |---|---|---|---|---|---|
 | Sygnałowa (M, S) | sygnały czasowe | M — progowy, baseline dwumianowy, zwalidowany empirycznie na danych Krakow_Centrum | sygnałowy (odwrócenie trendu) | Axioms_S | sformalizowana, testowana kodem |
-| Geometryczna (G) | powierzchnie 3D | brak | powierzchniowy (normalne) | Axioms_G (G1-G7) | aksjomatyczna, koncepcyjna (G7) — implementacja Weingartena/`F` otwarta (G4) |
+| Geometryczna (G) | powierzchnie 3D | brak | powierzchniowy (normalne) | Axioms_G (G1-G9) | aksjomatyczna, koncepcyjna (G7) — związek z Weingartenem domknięty analitycznie (G8-G9), implementacja na siatce 3D i walidacja empiryczna otwarte |
 | Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | zdefiniowana aksjomatycznie, bez empirycznej walidacji |
 
 Żadna gałąź nie jest rozszerzeniem innej — każda ma własną domenę
@@ -683,7 +694,7 @@ GIA to: operator lokalnego toru informacji, wektor dominującej dynamiki, kompas
 
 Wszystkie dokumenty koncepcyjne repozytorium są uporządkowane pod `docs/`:
 
-- **`docs/theory/`** — pełna, litereowana seria modeli abstrakcyjnych (G, J, K, L, M, N, O, Q, R, S, T, U, V, X, Y) oraz seria zastosowań domenowych (AA–AK: kosmologia, biologia, technologia, percepcja, AI, język, muzyka), plus `TRM_biology.md` i `TIMDR-T-operator.md`. **M** (`Resonance_M_Operator_Empiryczny.md`) i **S** (`Axioms_S_TIMDR_Signal.md`) to formalizacja gałęzi sygnałowej TIMDR (rezonans jako koincydencja progów, nie rezonans modalny z Axioms_K) — z realną walidacją empiryczną na danych pogodowych, nie tylko definicjami; pełny działający protokół testowy żyje w osobnym repo `TIMDR-Math-Formalism`. **G** (`Axioms_G_TIMDR_Geometry.md`) to aksjomaty gałęzi geometrycznej (trójkąt, powierzchnie, skręt powierzchniowy) — koncepcyjna, bez empirycznej walidacji, jawnie oznaczona jako taka (Aksjomat G7).
+- **`docs/theory/`** — pełna, litereowana seria modeli abstrakcyjnych (G, J, K, L, M, N, O, Q, R, S, T, U, V, X, Y) oraz seria zastosowań domenowych (AA–AK: kosmologia, biologia, technologia, percepcja, AI, język, muzyka), plus `TRM_biology.md` i `TIMDR-T-operator.md`. **M** (`Resonance_M_Operator_Empiryczny.md`) i **S** (`Axioms_S_TIMDR_Signal.md`) to formalizacja gałęzi sygnałowej TIMDR (rezonans jako koincydencja progów, nie rezonans modalny z Axioms_K) — z realną walidacją empiryczną na danych pogodowych, nie tylko definicjami; pełny działający protokół testowy żyje w osobnym repo `TIMDR-Math-Formalism`. **G** (`Axioms_G_TIMDR_Geometry.md`) to aksjomaty gałęzi geometrycznej (trójkąt, powierzchnie, skręt powierzchniowy, dyskretny operator Weingartena — G1-G9) — koncepcyjna, związek skrętu z krzywizną domknięty analitycznie (G8-G9), wciąż bez implementacji numerycznej ani empirycznej walidacji, jawnie oznaczona jako taka (Aksjomat G7). **`TIMDR_Branch_Specification.md`** i **`TIMDR_Twists.md`** to dokumenty-indeksy: pierwszy zbiera formalną specyfikację (obiekty/operatory/aksjomaty/pliki/status) wszystkich trzech gałęzi w jednym miejscu, drugi konsoliduje formalne definicje wszystkich czterech znaczeń "skrętu" — oba nie definiują nic nowego, tylko strukturyzują to, co już jest w `Axioms_S`/`Axioms_G`/`Axioms_K`.
 - **`docs/models/`** — konkretne modele geometryczne (emergencja, interferencja, rezonans warstwowy, model topologiczno-modalny, model S 3D).
 - **`docs/geometry/`** — konstrukcje geometryczne Möbiusa/torusa (tetroida, mobiosotourys, tourosomobius, domeny Hopfa, eksperymenty domknięcia).
 - **`docs/filters/`** — dokumentacja filtrów (liczby pierwsze, stosunek Möbiusa, przewidywania filtra Al).
