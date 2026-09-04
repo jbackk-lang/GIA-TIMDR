@@ -264,8 +264,10 @@ krzywizną krzywej 1D, nie wartością własną \(W_S\).
     odwrotnie"**): zadany \(P\in(P_{\min}(\Delta),1]\)
     \(\mapsto R=P^{-1}(P) \mapsto \partial_R(\Delta)\) — jednoznaczne
     odtworzenie obwiedni o zadanym stopniu "spłaszczenia", bo \(P(R)\)
-    jest bijekcją na swojej dziedzinie (G10d); \(P_{\min}(\Delta) =
-    1-Q_{\max}(\Delta)\), patrz G10e.
+    jest bijekcją na swojej dziedzinie (G10d); po poprawce G10e
+    \(Q_{\max}(\Delta)=1\) dla KAŻDEGO \(\Delta\) (granica
+    \(R\to R_{\max}\)), więc \(P_{\min}(\Delta)=0\) dla każdego
+    trójkąta — patrz G10e za poprawną treścią.
   *(Zastrzeżenie o zakresie: ta odwracalność jest udowodniona dla TEJ
   KONKRETNEJ jednoparametrowej rodziny \(\{\partial_R(\Delta)\}_R\) przy
   ustalonym \(\Delta\), nie dla dowolnej krzywej o zadanym \(P\) — wiele
@@ -273,25 +275,55 @@ krzywizną krzywej 1D, nie wartością własną \(W_S\).
   rodziną wymaga dodatkowego wyboru/regularyzacji, nie jest tu
   twierdzona.)*
 
-- **(G10e) Złamanie symetrii ogranicza zasięg \(Q\).** Punkt
-  \(R=r_{\text{in}}(\Delta)\) (promień okręgu wpisanego) jest
-  wyróżniony: środek każdego łuku zaokrąglającego leży wtedy w
-  incenterze \(\Delta\) (bo incenter jest jedynym punktem w odległości
-  \(r_{\text{in}}\) od WSZYSTKICH trzech boków, a środek łuku w
-  wierzchołku \(i\) leży w odległości \(R\) od dwóch boków przy tym
-  wierzchołku — dla \(R=r_{\text{in}}\) te punkty się pokrywają). Dla
-  \(\Delta_{\text{eq}}\) (G2a) zachodzi dokładnie
-  \(R_{\max}(\Delta_{\text{eq}}) = r_{\text{in}}(\Delta_{\text{eq}})\)
-  i \(L_0(R_{\max})=0\) — obwiednia degeneruje się DOKŁADNIE do okręgu
-  wpisanego, \(P\to 0\), \(Q\to 1\) osiągalne. Dla \(\Delta\) z
-  G2b (złamana symetria, \(\Delta \neq \Delta_{\text{eq}}\)) zachodzi
-  ogólnie \(R_{\max}(\Delta) < r_{\text{in}}(\Delta)\) (wiążącym
-  ograniczeniem staje się najkrótszy bok), więc \(L_0(R_{\max}) > 0\) i
-  \(Q_{\max}(\Delta) = Q(R_{\max}(\Delta)) < 1\) **ściśle** — asymetria
-  trójkąta (G2b, pierwotne źródło skrętu w gałęzi G) nie zmienia
-  DEFINICJI \((P,Q)\), ale ściśle ogranicza jej OSIĄGALNY zakres:
-  tylko trójkąt idealnie symetryczny może w pełni "rozwinąć się" do
-  czystego okręgu tą konstrukcją.
+- **(G10e) \(R_{\max}(\Delta)=r_{\text{in}}(\Delta)\) dla KAŻDEGO
+  trójkąta — poprawka wcześniejszej wersji tego punktu.** *(Ta wersja
+  G10e zastępuje wcześniejszą z tej samej sesji, która twierdziła, że
+  złamanie symetrii ścinało \(R_{\max}\) poniżej \(r_{\text{in}}\) —
+  błąd znaleziony i naprawiony przy pisaniu przykładu liczbowego do
+  `TIMDR_Gravity_Speculative.md`; szczegóły w dopisku na końcu tego
+  punktu.)* Ze standardowej tożsamości stycznej-do-okręgu-wpisanego,
+  \(\cot(\theta_i/2) = (s-a_i)/r_{\text{in}}\) (\(a_i\) = bok
+  PRZECIWLEGŁY wierzchołkowi \(i\), \(s\) = półobwód), oraz z tożsamości
+  \(a_{ij}=(s-a_i)+(s-a_j)\) (bok między wierzchołkami \(i,j\) jako suma
+  dwóch stycznych z incentera) wynika dla KAŻDEGO boku:
+  \[
+  \frac{a_{ij}}{\cot(\theta_i/2)+\cot(\theta_j/2)}
+  = \frac{a_{ij}\cdot r_{\text{in}}}{(s-a_i)+(s-a_j)}
+  = \frac{a_{ij}\cdot r_{\text{in}}}{a_{ij}} = r_{\text{in}}(\Delta),
+  \]
+  identycznie dla wszystkich trzech boków — więc
+  \(R_{\max}(\Delta)=\min\{r_{\text{in}},r_{\text{in}},r_{\text{in}}\}=r_{\text{in}}(\Delta)\)
+  **dokładnie, dla dowolnego trójkąta**, nie tylko \(\Delta_{\text{eq}}\).
+  Sumując te trzy tożsamości dodatkowo dostajemy
+  \(c(\Delta)=\sum\cot(\theta_i/2)=s/r_{\text{in}}(\Delta)\) dokładnie,
+  skąd \(L_0(R_{\max}) = P_0-2r_{\text{in}}c(\Delta) = 2s-2r_{\text{in}}\cdot(s/r_{\text{in}})=0\)
+  — obwiednia degeneruje się DOKŁADNIE do okręgu wpisanego (\(P\to0\),
+  \(Q\to1\) osiągalne w granicy \(R\to R_{\max}\)) **dla każdego
+  trójkąta**, symetrycznego czy nie. Złamanie symetrii (G2b) NIE
+  ogranicza więc osiągalny zakres \(Q\) tą drogą — to twierdzenie z
+  wcześniejszej wersji tego punktu było błędne.
+
+  Co POZOSTAJE prawdą i wynika wprost z G10d (nierówność Jensena,
+  \(c(\Delta)\geq3\sqrt3\), równość tylko dla \(\Delta_{\text{eq}}\)):
+  z \(c(\Delta)=s/r_{\text{in}}(\Delta)\) dostajemy
+  \(r_{\text{in}}(\Delta)\leq s/(3\sqrt3)\), równość tylko dla
+  \(\Delta_{\text{eq}}\) — czyli **przy ustalonym obwodzie \(P_0=2s\)**,
+  trójkąt równoboczny ma NAJWIĘKSZY promień wpisany, więc NAJWIĘKSZY
+  \(R_{\max}\) spośród wszystkich trójkątów o tym samym obwodzie.
+  Złamanie symetrii nie blokuje więc Q=1 (osiągalne zawsze), tylko
+  zmniejsza BEZWZGLĘDNY promień \(R\), przy którym to następuje, dla
+  ustalonego obwodu — inna, słabsza, ale poprawna wersja "asymetria ma
+  koszt".
+
+  *(Dopisek o znalezieniu błędu: poprzednia wersja tego punktu twierdziła
+  matematycznie fałszywy fakt, sprawdzony i naprawiony w tej samej
+  sesji, w której dopisano `TIMDR_Gravity_Speculative.md` — przy próbie
+  policzenia konkretnego przykładu liczbowego (trójkąt 3-4-5) okazało
+  się, że \(R_{\max}=r_{\text{in}}=1\) i \(L_0(R_{\max})=0\) mimo że
+  trójkąt jest ostro asymetryczny, co jest sprzeczne z wcześniejszym
+  tekstem — stąd ręczne wyprowadzenie ogólnej tożsamości powyżej.
+  Zachowane tu jawnie, zgodnie z konwencją tego repo ujawniania
+  znalezionych błędów zamiast ich cichego poprawiania.)*
 
 *(**Zastrzeżenie o statusie i o analogii z topologią.** (1) G10c-G10e
 są rachunkiem wykonanym ręcznie w tej sesji (sumy kątów zewnętrznych,
@@ -380,7 +412,7 @@ powierzchniach:
 | G6 | Sekcja "🌿 Trzy gałęzie TIMDR — mapa terenu" w README |
 | G7 | Ostrzeżenie na początku README ("model koncepcyjny / narzędzie do myślenia, nie teoria naukowa") |
 | G8-G9 | Domykają analitycznie związek \(T_S = F(W_S)\) nazwany w G4 — patrz też `TIMDR_Branch_Specification.md` (gałąź G, sekcja operatorów) |
-| G10 | Parametr redukcji/rozwinięcia \((P,Q)\) obwiedni trójkąta — nowy obiekt (krzywizna krzywej, nie powierzchni), powiązany z G2 (trójkąt, złamanie symetrii ogranicza \(Q_{\max}\)) i z rzutem G Chronoprocesu (`TIMDR_Chronoprocess.md` §3 — jeden generator \(\gamma_s\) rodziny \(\Gamma\) jako obwiednia) |
+| G10 | Parametr redukcji/rozwinięcia \((P,Q)\) obwiedni trójkąta — nowy obiekt (krzywizna krzywej, nie powierzchni), powiązany z G2 (trójkąt; \(Q_{\max}=1\) dla KAŻDEGO trójkąta, poprawka G10e — symetria wpływa na bezwzględny \(R_{\max}=r_{\text{in}}\) przy ustalonym obwodzie, nie na osiągalność \(Q=1\)) i z rzutem G Chronoprocesu (`TIMDR_Chronoprocess.md` §3 — jeden generator \(\gamma_s\) rodziny \(\Gamma\) jako obwiednia) |
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (gałąź modalna),
 [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md) (gałąź
