@@ -135,7 +135,9 @@ sobą znaczenia. Każde nowe użycie tego słowa powinno od razu użyć
 jednej z poniższych rozszerzonych nazw — samo "skręt" bez przymiotnika
 jest niejednoznaczne. Pełne uzasadnienie i rozgraniczenie:
 [`theory/Resonance_M_Operator_Empiryczny.md`](theory/Resonance_M_Operator_Empiryczny.md)
-sekcja 0.
+sekcja 0. Pełna, skonsolidowana formalna specyfikacja wszystkich
+czterech (domena, przeciwdziedzina, definicja, per znaczenie, jedno pod
+drugim): [`theory/TIMDR_Twists.md`](theory/TIMDR_Twists.md).
 
 ### Skręt sygnałowy
 **EN:** Trend-reversal detection — sign flip of local regression slope
@@ -165,13 +167,20 @@ szeregu czasowym.
 
 ### Skręt powierzchniowy
 **EN:** Local surface-normal difference, `‖n(p+Δp) − n(p)‖`, on a fixed
-3D mesh.
+3D mesh — now a formal operator with domain/codomain/continuity (G8)
+and an explicit curvature relation via a discrete Weingarten operator
+(G9), analytically derived, not yet numerically implemented/validated.
 **PL:** Lokalna różnica normalnej powierzchni, `‖n(p+Δp) − n(p)‖`, na
-ustalonej siatce 3D.
+ustalonej siatce 3D — teraz formalny operator z domeną/przeciwdziedziną/
+ciągłością (G8) i jawnym związkiem z krzywizną przez dyskretny operator
+Weingartena (G9), wyprowadzonym analitycznie, jeszcze nie
+zaimplementowanym numerycznie ani zwalidowanym.
 **Źródło:** `theory/Resonance_M_Operator_Empiryczny.md` sekcja 6
 (pierwsze wprowadzenie); formalna definicja jako aksjomat: `theory/Axioms_G_TIMDR_Geometry.md`
-Aksjomat G3 (`T_S`), z powiązaniem do krzywizny przez operator
-Weingartena wyznaczonym kierunkowo w Aksjomacie G4. Punktowy,
+Aksjomaty G3 (`T_S`), G8 (operator: domena/przeciwdziedzina/ciągłość/
+stabilność), G9 (dyskretny operator Weingartena, jawna postać `F`
+domykająca G4b). Pełna, skonsolidowana specyfikacja wszystkich czterech
+znaczeń skrętu: `theory/TIMDR_Twists.md`. Punktowy,
 dyskretny — odrębny od torsji krzywej i od skrętu topologicznego τ
 powyżej (inna domena: mesh 2D, nie rodzina powierzchni ani krzywa).
 
