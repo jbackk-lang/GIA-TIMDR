@@ -48,6 +48,17 @@ czytelnik sam to poskłada.
 > Podobnie, cztery znaczenia "skrętu" mają teraz skonsolidowaną
 > specyfikację (domena/przeciwdziedzina/definicja per znaczenie):
 > [`docs/theory/TIMDR_Twists.md`](docs/theory/TIMDR_Twists.md).
+>
+> **Oba formalizmy mają teraz działający, testowalny kod** (nie tylko
+> aksjomaty): gałąź sygnałowa w repo `TIMDR-Math-Formalism`
+> (protokół pre-rejestracja/kontrola +/-/Mann-Whitney/effect size,
+> zwalidowany realnymi danymi Krakow_Centrum — `docs/diagram.svg`),
+> gałąź geometryczna w repo `TIMDR-Geometry-Formalism` (dyskretny
+> operator Weingartena domykający numerycznie Aksjomaty G8-G9,
+> testowany na płaszczyźnie/sferze/walcu — `docs/diagram_pipeline.svg`,
+> `docs/diagram_surfaces.svg`; testy nieuruchomione w sesji, w której
+> powstały — patrz zastrzeżenie w README tego repo). Gałąź modalna (K)
+> nie ma jeszcze odpowiednika.
 
 ### 1. Gałąź sygnałowa — TIMDR-Math-Formalism (M, S)
 
@@ -452,7 +463,8 @@ Jednolita geometria asymetrii trójkąta pozwala na aplikację ram TIMDR/TRM w s
 Ekosystem uniwersalnej geometrii pola dystrybuowany jest pomiędzy wyspecjalizowane moduły:
 * `GIA-and-TIMDR` — Rdzeń geometryczny i definicje operatorów.
 * `topologia-informacji` — Przestrzenie metryczne i przekształcenia Möbiusa.
-* `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator`.
+* `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator`. Implementacja gałęzi sygnałowej (M/S), diagram protokołu: `docs/diagram.svg`.
+* `TIMDR-Geometry-Formalism` — Numeryczna implementacja dyskretnego operatora Weingartena dla gałęzi geometrycznej (G): normalne wierzchołkowe, dopasowanie MNK na 1-ringu, krzywizny główne; domyka numerycznie Aksjomaty G8-G9 (`Axioms_G_TIMDR_Geometry.md`). Testy na płaszczyźnie/sferze/walcu — nieuruchomione w sesji, w której powstały. Dwa diagramy: `docs/diagram_pipeline.svg` (algorytm), `docs/diagram_surfaces.svg` (trzy powierzchnie testowe i ich krzywizna).
 * `TRM` — Przetwarzanie rezonansów warstwowych i stałych redukcji.
 * `FIELDCORE` — Niskopoziomowy silnik obliczeniowy pól dynamicznych.
 * `WHITE-LASER-MAP` / `ASTRO-MAP` / `ASTRO-CYCLES` — Mapowanie skalowane (mikro/makro).
