@@ -58,10 +58,12 @@ czytelnik sam to poskłada.
 > testowany na płaszczyźnie/sferze/walcu — `docs/diagram_pipeline.svg`,
 > `docs/diagram_surfaces.svg`), gałąź modalna w repo
 > `TIMDR-Modal-Formalism` (modalność, interferencja, rezonans modalny,
-> mapa synchronizacji faz). Tylko `TIMDR-Math-Formalism` ma potwierdzone
-> uruchomienie testów przez użytkownika (62/63 zielone) — pozostałe dwa
-> są napisane i ręcznie prześledzone, ale nieuruchomione w sesji, w
-> której powstały (patrz zastrzeżenie w README każdego z nich).
+> mapa synchronizacji faz), plus orkiestrujący je Chronoproces Ξ w
+> `TIMDR-Time-Formalism`. Wszystkie cztery repo-siostry mają teraz
+> potwierdzone przez użytkownika przejście testów: `TIMDR-Math-Formalism`
+> 62/63, `TIMDR-Geometry-Formalism` 17/17, `TIMDR-Modal-Formalism` 17/17,
+> `TIMDR-Time-Formalism` 18/18 (patrz `docs/theory/TIMDR_Chronoprocess.md`
+> §6 za pełną tabelę).
 >
 > **Chronoproces `Ξ=(T,x,Γ,φ)`** spina powyższe trzy na wspólnym
 > nośniku T, bez identyfikacji między nimi, plus jeden jawnie
@@ -112,8 +114,8 @@ aksjomatów modalnych; plus mapa synchronizacji faz `f` formalizująca
 `t_lokalne=f(τ_globalne)` z §7.3.
 **Pliki:** `docs/theory/Axioms_K_TIMDR.md`. Pierwsza implementacja
 numeryczna: osobne repo `TIMDR-Modal-Formalism`
-(`timdr_modal/phase_sync.py`) — testy nieuruchomione w sesji, w której
-powstały.
+(`timdr_modal/phase_sync.py`) — testy potwierdzone przez użytkownika
+(17/17).
 **To NIE jest:** sygnał `x:T→ℝᵈ`, testy statystyczne, skręt sygnałowy,
 skręt powierzchniowy.
 
@@ -123,7 +125,7 @@ skręt powierzchniowy.
 |---|---|---|---|---|---|
 | Sygnałowa (M, S) | sygnały czasowe | M — progowy, baseline dwumianowy, zwalidowany empirycznie na danych Krakow_Centrum | sygnałowy (odwrócenie trendu) | Axioms_S | sformalizowana, testowana kodem |
 | Geometryczna (G) | powierzchnie 3D | brak | powierzchniowy (normalne) | Axioms_G (G1-G9) | aksjomatyczna, koncepcyjna (G7) — związek z Weingartenem domknięty analitycznie (G8-G9), implementacja na siatce 3D i walidacja empiryczna otwarte |
-| Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | aksjomatyczna + pierwszy kod (`TIMDR-Modal-Formalism`, nieuruchomiony), bez empirycznej walidacji |
+| Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | aksjomatyczna + pierwszy kod (`TIMDR-Modal-Formalism`, 17/17 testów zweryfikowane), bez empirycznej walidacji |
 
 Żadna gałąź nie jest rozszerzeniem innej — każda ma własną domenę
 matematyczną. Tam, gdzie dwie gałęzie używają tego samego słowa
@@ -484,8 +486,8 @@ Ekosystem uniwersalnej geometrii pola dystrybuowany jest pomiędzy wyspecjalizow
 * `topologia-informacji` — Przestrzenie metryczne i przekształcenia Möbiusa.
 * `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator`. Implementacja gałęzi sygnałowej (M/S), diagram protokołu: `docs/diagram.svg`.
 * `TIMDR-Geometry-Formalism` — Numeryczna implementacja dyskretnego operatora Weingartena dla gałęzi geometrycznej (G): normalne wierzchołkowe, dopasowanie MNK na 1-ringu, krzywizny główne; domyka numerycznie Aksjomaty G8-G9 (`Axioms_G_TIMDR_Geometry.md`). Testy na płaszczyźnie/sferze/walcu — nieuruchomione w sesji, w której powstały. Dwa diagramy: `docs/diagram_pipeline.svg` (algorytm), `docs/diagram_surfaces.svg` (trzy powierzchnie testowe i ich krzywizna). Zawiera też `chronocongruence.py` — kongruencja Γ(t,s) dla Chronoprocesu (`docs/theory/TIMDR_Chronoprocess.md`).
-* `TIMDR-Modal-Formalism` — Pierwsza implementacja gałęzi modalnej (K) jako kodu: modalność `(f,φ,A)` (Aksjomat 3), interferencja (Aksjomat 4), rezonans modalny (Aksjomat 5), oraz mapa synchronizacji faz `f` formalizująca `t_lokalne=f(τ_globalne)` z §7.3 poniżej. Afiniczna (nie Kuramoto-sprzężona) — jawnie oznaczona granica zakresu. Testy nieuruchomione w sesji, w której powstały.
-* `TIMDR-Time-Formalism` — Pełny moduł Chronoprocesu `Ξ=(T,x,Γ,φ)`: orkiestruje trzy powyższe repo-siostry na wspólnym nośniku T, bez żadnej identyfikacji między nimi. Zawiera też jedyny jawny wyjątek od tej zasady — `fourier_bridge.py`, most Fouriera M/S↔K oparty na zasadzie nieoznaczoności Gabora (analogia do dualizmu falowo-cząsteczkowego fotonu, sprowadzona do sprawdzalnej matematyki). Pełny opis: `docs/theory/TIMDR_Chronoprocess.md`. Testy nieuruchomione w sesji, w której powstały.
+* `TIMDR-Modal-Formalism` — Pierwsza implementacja gałęzi modalnej (K) jako kodu: modalność `(f,φ,A)` (Aksjomat 3), interferencja (Aksjomat 4), rezonans modalny (Aksjomat 5), oraz mapa synchronizacji faz `f` formalizująca `t_lokalne=f(τ_globalne)` z §7.3 poniżej. Afiniczna (nie Kuramoto-sprzężona) — jawnie oznaczona granica zakresu. Testy potwierdzone przez użytkownika: 17/17.
+* `TIMDR-Time-Formalism` — Pełny moduł Chronoprocesu `Ξ=(T,x,Γ,φ)`: orkiestruje trzy powyższe repo-siostry na wspólnym nośniku T, bez żadnej identyfikacji między nimi. Zawiera też jedyny jawny wyjątek od tej zasady — `fourier_bridge.py`, most Fouriera M/S↔K oparty na zasadzie nieoznaczoności Gabora (analogia do dualizmu falowo-cząsteczkowego fotonu, sprowadzona do sprawdzalnej matematyki). Pełny opis: `docs/theory/TIMDR_Chronoprocess.md`. Testy potwierdzone przez użytkownika: 18/18 (8/8 orkiestracja + 10/10 most Fouriera).
 * `TRM` — Przetwarzanie rezonansów warstwowych i stałych redukcji.
 * `FIELDCORE` — Niskopoziomowy silnik obliczeniowy pól dynamicznych.
 * `WHITE-LASER-MAP` / `ASTRO-MAP` / `ASTRO-CYCLES` — Mapowanie skalowane (mikro/makro).
