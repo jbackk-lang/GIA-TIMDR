@@ -22,7 +22,11 @@ dyskretny/różniczkowy operator Weingartena (G9) — ale wyłącznie jako
 wyprowadzenie matematyczne (tożsamość różniczkowo-geometryczna w
 granicy \(\Delta p \to 0\)), nie jako przetestowaną implementację na
 siatce 3D ani walidację empiryczną: patrz zastrzeżenia pod G9 i status
-w G7.
+w G7. G10 (dodany później, ta sama sesja co niniejsza aktualizacja)
+formalizuje INNY obiekt — krzywiznę krzywej (obwiedni trójkąta), nie
+powierzchni — jako parametr redukcji/rozwinięcia \((P,Q)\); status
+identyczny jak G8-G9 (wyprowadzenie ręczne, niezaimplementowane), patrz
+zastrzeżenie pod G10.
 
 ---
 
@@ -201,6 +205,117 @@ walidacja — pozostają otwarte: patrz zaktualizowany Aksjomat G7.)*
 
 ---
 
+## Aksjomat G10 — Parametr redukcji/rozwinięcia obwiedni \((P,Q)\)
+
+Ten aksjomat formalizuje inny obiekt niż G3-G9: nie krzywiznę
+**powierzchni** \(S\) (operator Weingartena \(W_S\), wartości własne
+\(\kappa_1,\kappa_2\)), tylko krzywiznę **krzywej** — obwiedni
+zbudowanej na trójkącie \(\Delta=(A,B,C)\) z G2. To rozróżnienie jest
+takiej samej natury, co G3d/G6c (to samo słowo "krzywizna", inny obiekt
+matematyczny) i musi być utrzymane: \(\kappa\) tutaj jest skalarną
+krzywizną krzywej 1D, nie wartością własną \(W_S\).
+
+- **(G10a) Konstrukcja: obwiednia zaokrąglona \(\partial_R(\Delta)\).**
+  Dla trójkąta \(\Delta=(A,B,C)\) o kątach wewnętrznych
+  \(\theta_1,\theta_2,\theta_3\) (\(\theta_1+\theta_2+\theta_3=\pi\)) i
+  promieniu zaokrąglenia \(R \geq 0\), \(\partial_R(\Delta)\) jest
+  standardową konstrukcją zaokrąglonego wielokąta (jak w CAD/geometrii
+  obliczeniowej, nie nowość TIMDR): każdy wierzchołek zastąpiony łukiem
+  stycznym do obu sąsiednich boków, promienia \(R\), boki skrócone o
+  odcinki styczne \(t_i = R\cot(\theta_i/2)\) na każdym końcu.
+  Konstrukcja jest dobrze określona (łuki się nie przecinają) dla
+  \(R \in [0, R_{\max}(\Delta))\), gdzie
+  \(R_{\max}(\Delta) = \min_{\{i,j\}} \dfrac{a_{ij}}{\cot(\theta_i/2)+\cot(\theta_j/2)}\)
+  (minimum po trzech bokach \(a_{ij}\) — bok nie może zostać skrócony
+  do długości ujemnej).
+
+- **(G10b) Rozkład L0/Lk i parametr \((P,Q)\).** Obwiednia
+  \(\partial_R(\Delta)\) rozkłada się jednoznacznie na część prostą
+  (krzywizna \(\kappa=0\)) o łącznej długości \(L_0(R)\) i część
+  łukową (krzywizna stała \(\kappa=1/R\)) o łącznej długości
+  \(L_k(R)\), \(L(R)=L_0(R)+L_k(R)\). Definiujemy
+  \[
+  P(R) = \frac{L_0(R)}{L(R)}, \qquad Q(R) = \frac{L_k(R)}{L(R)} = 1-P(R).
+  \]
+  \(P\) mierzy udział części zredukowanej (rozwijalnej, płaskiej —
+  "2D-jak"), \(Q\) udział części rozwiniętej (krzywoliniowej — o
+  nieznikającej krzywiźnie).
+
+- **(G10c) Jawna postać liniowa.** Z twierdzenia o sumie kątów
+  zewnętrznych dowolnego wypukłego wielokąta (\(=2\pi\), fakt
+  standardowy) wynika \(L_k(R) = 2\pi R\) **dokładnie**, niezależnie od
+  kształtu \(\Delta\). Z G10a, \(L_0(R) = P_0 - 2Rc(\Delta)\), gdzie
+  \(P_0\) jest obwodem \(\Delta\) i \(c(\Delta)=\sum_{i=1}^3\cot(\theta_i/2)\).
+  Obie funkcje są więc afiniczne w \(R\); w szczególności
+  \(L(R) = P_0 + 2R(\pi - c(\Delta))\).
+
+- **(G10d) Monotoniczność i odwracalność (kierunek "i odwrotnie").**
+  Ponieważ \(\cot(x/2)\) jest wypukła na \((0,\pi)\), z nierówności
+  Jensena \(c(\Delta) \geq 3\sqrt3 > \pi\) dla każdego trójkąta (równość
+  tylko dla \(\Delta_{\text{eq}}\), G2a) — więc \(L(R)\) jest ściśle
+  malejąca. Bezpośredni rachunek (regułą ilorazu) daje
+  \(dP/dR = -2(c(\Delta)L_k(R)+\pi L_0(R))/L(R)^2 < 0\) na całej
+  dziedzinie \([0,R_{\max}(\Delta))\) poza punktem zerowym — \(P(R)\)
+  jest więc **ściśle monotoniczna**, zatem odwracalna. To daje DWA
+  kierunki przekształcenia, oba jawnie zdefiniowane na tej rodzinie:
+  - **redukcja** (pomiar, "3D→2D" w sensie tego aksjomatu): krzywa
+    \(\mapsto (P,Q)\), z G10b — ekstrakcja parametru z danej obwiedni;
+  - **rozwinięcie** (konstrukcja, odwrotny kierunek — **"i
+    odwrotnie"**): zadany \(P\in(P_{\min}(\Delta),1]\)
+    \(\mapsto R=P^{-1}(P) \mapsto \partial_R(\Delta)\) — jednoznaczne
+    odtworzenie obwiedni o zadanym stopniu "spłaszczenia", bo \(P(R)\)
+    jest bijekcją na swojej dziedzinie (G10d); \(P_{\min}(\Delta) =
+    1-Q_{\max}(\Delta)\), patrz G10e.
+  *(Zastrzeżenie o zakresie: ta odwracalność jest udowodniona dla TEJ
+  KONKRETNEJ jednoparametrowej rodziny \(\{\partial_R(\Delta)\}_R\) przy
+  ustalonym \(\Delta\), nie dla dowolnej krzywej o zadanym \(P\) — wiele
+  różnych krzywych może mieć to samo \(P\), więc "odwrotność" poza tą
+  rodziną wymaga dodatkowego wyboru/regularyzacji, nie jest tu
+  twierdzona.)*
+
+- **(G10e) Złamanie symetrii ogranicza zasięg \(Q\).** Punkt
+  \(R=r_{\text{in}}(\Delta)\) (promień okręgu wpisanego) jest
+  wyróżniony: środek każdego łuku zaokrąglającego leży wtedy w
+  incenterze \(\Delta\) (bo incenter jest jedynym punktem w odległości
+  \(r_{\text{in}}\) od WSZYSTKICH trzech boków, a środek łuku w
+  wierzchołku \(i\) leży w odległości \(R\) od dwóch boków przy tym
+  wierzchołku — dla \(R=r_{\text{in}}\) te punkty się pokrywają). Dla
+  \(\Delta_{\text{eq}}\) (G2a) zachodzi dokładnie
+  \(R_{\max}(\Delta_{\text{eq}}) = r_{\text{in}}(\Delta_{\text{eq}})\)
+  i \(L_0(R_{\max})=0\) — obwiednia degeneruje się DOKŁADNIE do okręgu
+  wpisanego, \(P\to 0\), \(Q\to 1\) osiągalne. Dla \(\Delta\) z
+  G2b (złamana symetria, \(\Delta \neq \Delta_{\text{eq}}\)) zachodzi
+  ogólnie \(R_{\max}(\Delta) < r_{\text{in}}(\Delta)\) (wiążącym
+  ograniczeniem staje się najkrótszy bok), więc \(L_0(R_{\max}) > 0\) i
+  \(Q_{\max}(\Delta) = Q(R_{\max}(\Delta)) < 1\) **ściśle** — asymetria
+  trójkąta (G2b, pierwotne źródło skrętu w gałęzi G) nie zmienia
+  DEFINICJI \((P,Q)\), ale ściśle ogranicza jej OSIĄGALNY zakres:
+  tylko trójkąt idealnie symetryczny może w pełni "rozwinąć się" do
+  czystego okręgu tą konstrukcją.
+
+*(**Zastrzeżenie o statusie i o analogii z topologią.** (1) G10c-G10e
+są rachunkiem wykonanym ręcznie w tej sesji (sumy kątów zewnętrznych,
+wzór na długość odcinka stycznego, nierówność Jensena, zbieżność
+środków łuków w incenterze) — sprawdzonym krok po kroku, ale NIE
+zaimplementowanym ani przetestowanym numerycznie (ten sam status co
+G8-G9, patrz zastrzeżenie tam i G7). (2) \(P,Q\) są parametrem
+CIĄGŁYM (modułem geometrycznym, \(P\in[0,1]\)) — to inny TYP obiektu
+niż rodzaj/genus (odróżniający torus od wstęgi Möbiusa) czy wymiar
+sympleksu (odróżniający trójkąt-jako-2-sympleks od czworościanu-jako-
+3-sympleksu), które są niezmiennikami DYSKRETNYMI, stałymi pod
+homeomorfizmem — zaokrąglony trójkąt i ostry trójkąt są homeomorficzne
+(oba to okrąg topologicznie), mimo różnego \(P\). Intuicja, która
+zainspirowała ten aksjomat (jeden typ parametru rządzący przejściem
+między jakościowo różnymi reżimami — tu: wielokątnym i gładkim) jest
+tym, co G10 formalizuje; dosłowne utożsamienie z rodzajem/wymiarem
+sympleksu byłoby nadinterpretacją i nie jest tu twierdzone. Jedyny
+ścisły punkt styku z opisem sympleksowym: granica \(R\to0\) (\(P\to1\))
+odtwarza dokładnie brzeg gołego 2-sympleksu (sam trójkąt, zero
+krzywizny) — to jest właściwy, ograniczony sens, w jakim \(P\)
+"dotyka" opisu kombinatorycznego.)*
+
+---
+
 ## Aksjomat G5 — Brak operatora rezonansu geometrycznego (na tym etapie)
 
 Gałąź geometryczna G **nie definiuje** własnego operatora rezonansu na
@@ -239,11 +354,14 @@ powierzchniach:
   kosmologii, polach, czasie globalnym itp. w gałęzi G mają status
   **metafory strukturalnej**, nie teorii naukowej.
 - **(G7c)** Rozszerzenie gałęzi G do pełnej teorii matematycznej
-  wymaga: (1) pełnej definicji \(W_S\) — **częściowo domknięte przez
-  G8-G9** (różniczkowa definicja \(S_p\) + dyskretna aproksymacja
-  różnicą skończoną są podane jawnie; brakuje wciąż numerycznej
-  implementacji na konkretnej reprezentacji siatki i jej walidacji),
-  (2) formalnej przestrzeni powierzchni — otwarte, (3) testów
+  wymaga: (1) pełnej definicji \(W_S\) — **domknięte analitycznie przez
+  G8-G9 i zaimplementowane numerycznie w osobnym repo,
+  `TIMDR-Geometry-Formalism`** (moduł `timdr_geometry/weingarten.py`:
+  normalne wierzchołkowe, dyskretny operator kształtu metodą MNK na
+  1-ringu, testy na płaszczyźnie/sferze/walcu/zbieżności siatki) — testy
+  tego repo NIE były uruchomione w sesji, w której powstały (patrz
+  zastrzeżenie w jego README), więc status pozostaje
+  "zaimplementowane, nie potwierdzone wykonaniem", (2) formalnej przestrzeni powierzchni — otwarte, (3) testów
   empirycznych — otwarte (żaden z powyższych wzorów nie był
   uruchomiony na rzeczywistych danych geometrycznych; kontrast z
   gałęzią sygnałową M, gdzie realna walidacja już się odbyła —
@@ -262,6 +380,7 @@ powierzchniach:
 | G6 | Sekcja "🌿 Trzy gałęzie TIMDR — mapa terenu" w README |
 | G7 | Ostrzeżenie na początku README ("model koncepcyjny / narzędzie do myślenia, nie teoria naukowa") |
 | G8-G9 | Domykają analitycznie związek \(T_S = F(W_S)\) nazwany w G4 — patrz też `TIMDR_Branch_Specification.md` (gałąź G, sekcja operatorów) |
+| G10 | Parametr redukcji/rozwinięcia \((P,Q)\) obwiedni trójkąta — nowy obiekt (krzywizna krzywej, nie powierzchni), powiązany z G2 (trójkąt, złamanie symetrii ogranicza \(Q_{\max}\)) i z rzutem G Chronoprocesu (`TIMDR_Chronoprocess.md` §3 — jeden generator \(\gamma_s\) rodziny \(\Gamma\) jako obwiednia) |
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (gałąź modalna),
 [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md) (gałąź

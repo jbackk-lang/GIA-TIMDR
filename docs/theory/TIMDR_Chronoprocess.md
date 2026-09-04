@@ -69,6 +69,19 @@ ani wyprowadzony** — to była wskazana analogia uzasadniająca sensowność
 
 **Kod:** `TIMDR-Geometry-Formalism/timdr_geometry/chronocongruence.py`.
 
+**Powiązanie z Aksjomatem G10 (dodany później, ta sama sesja).** Jeden
+generator `γ_s` rodziny `{γ_s}` — pojedyncza trajektoria 1D — może być
+czytany jako obwiednia w sensie G10 (`Axioms_G_TIMDR_Geometry.md`):
+`(P,Q)` z G10b charakteryzowałoby TĘ JEDNĄ krzywą (jej udział
+prostoliniowy/łukowy), podczas gdy `T_S`/`W_S` z G3/G8/G9
+charakteryzuje POWIERZCHNIĘ `S=Γ(T×I)` powstałą z CAŁEJ rodziny — dwa
+różne, uzupełniające się poziomy (krzywa vs. rodzina krzywych/
+powierzchnia), nie to samo pojęcie pod dwiema nazwami. To jest
+obserwacja strukturalna, NIE zaimplementowana i nie wymagana przez
+istniejący kod `chronocongruence.py` — zero zmian w Ξ, zgodnie z
+zasadą "zero nowych aksjomatów" tego dokumentu (G10 sam jest
+aksjomatem gałęzi G, nie częścią Chronoprocesu).
+
 ## 4. Rzut K — mapa synchronizacji faz f
 
 Formalizuje dosłownie `t_lokalne=f(τ_globalne)` z §7.3 głównego README:
