@@ -131,10 +131,12 @@ P = 7.2/9.7133 = 0.7412, \qquad Q = 2.5133/9.7133 = 0.2588
 \]
 
 **Krok 2 — \((k_{MS},k_G,k_K)\) syntetyczne (§2 powyżej).**
-\(k_{MS}{=}0.10\) (zmyślona wartość drugiej różnicy driftu, jednostka
-1/krok²), \(k_G{=}0.03\) (zmyślona wartość \(\partial H/\partial t\),
-jednostka 1/długość/krok), \(k_K{=}0\) (NIE zmyślone — wyprowadzone w
-§2, tożsamościowo zero pod K3/K4).
+\(k_{MS}{=}0.10\) (zmyślona wartość drugiej różnicy driftu; jednostka
+**poprawiona w §4a poniżej** — to [czas]/[krok]², NIE 1/krok² jak
+błędnie napisano tu wcześniej, bo drift sam niesie jednostkę czasu),
+\(k_G{=}0.03\) (zmyślona wartość \(\partial H/\partial t\), jednostka
+1/długość/krok), \(k_K{=}0\) (NIE zmyślone — wyprowadzone w §2,
+tożsamościowo zero pod K3/K4).
 
 **Krok 3 — \(\Omega\) (macierz \(2\times3\), §3):**
 \[
@@ -218,11 +220,13 @@ zapis), zgodnie z tym, jak ten projekt już testuje takie hipotezy
 (patrz skill `timdr-signal-framework`, protokół numerologii/formalizmu):**
 
 1. **Jednostki/wymiary.** \(P,Q\) są bezwymiarowe (stosunek długości);
-   \(k_{MS},k_G,k_K\) mają wymiary zależne od propozycji w §2 (np.
-   \(k_{MS}\) — [czas]\(^{-1}\) w dyskretnych krokach, \(k_G\) —
-   [długość]\(^{-1}\)[czas]\(^{-1}\)) — nie zgadzają się ze sobą ani z
-   przyspieszeniem grawitacyjnym [długość][czas]\(^{-2}\) bez
-   dodatkowej stałej wymiarowej (odpowiednika \(G\)), której tu nie ma.
+   \(k_{MS},k_G,k_K\) mają wymiary zależne od propozycji w §2, i nie
+   zgadzają się ze sobą ani z przyspieszeniem grawitacyjnym
+   [długość][czas]\(^{-2}\) bez dodatkowej stałej wymiarowej
+   (odpowiednika \(G\)), której tu nie ma — pełne rozwinięcie, ze
+   stałymi skalującymi \(\alpha_T,\alpha_L,\alpha_E\), jest w **§4a
+   poniżej** (dodane po propozycji użytkownika, żeby to nie było już
+   tylko jednym zdaniem).
 2. **Zasada wariacyjna albo równanie pola.** Prawdziwa teoria
    grawitacji potrzebuje albo działania \(S[\cdot]\), z którego \(g\)
    wypada przez zasadę najmniejszego działania, albo bezpośredniego
@@ -241,6 +245,125 @@ zapis), zgodnie z tym, jak ten projekt już testuje takie hipotezy
    te same testy (pre-rejestracja, kontrola pozytywna/negatywna,
    niezależna baza), które ten projekt stosuje już w gałęzi M/S
    (`REAL_DATA_VALIDATION.md`).
+
+## 4a. Jednostki i skalowanie (Units and scaling)
+
+**Stan obecny, wprost:** wszystkie liczby w §3a (\(P,Q,k_{MS},k_G,k_K,
+g,\lVert g\rVert\)) są **bezwymiarowe / w jednostkach modelowych**.
+Żadna z nich nie jest metrem, sekundą ani dżulem. To nie jest
+przeoczenie odkryte teraz — §4 punkt 1 mówił to już wcześniej jednym
+zdaniem; ta sekcja rozwija to zdanie w konkretny, używalny aparat, wg
+propozycji użytkownika.
+
+**Trzy stałe skalujące — odpowiedniki \(c,h,G\) dla tego dokumentu.**
+Chronoprocess \(\Xi=(T,x,\Gamma,\phi)\) liczy w krokach i jednostkach
+modelowych, nie w SI. Żeby przejść z modelu do fizyki, potrzebne są
+trzy niezależne stałe (żadna nie wynika z dotychczasowych aksjomatów —
+każda musiałaby zostać wybrana lub skalibrowana):
+
+| stała | jednostka | definiuje |
+|---|---|---|
+| \(\alpha_T\) | [s/krok] | \(T_{\text{fiz}} = \alpha_T\cdot T\) |
+| \(\alpha_L\) | [m/jednostka\_modelowa] | \(x_{\text{fiz}} = \alpha_L\cdot x\) |
+| \(\alpha_E\) | [J·m] | \(E_{\text{fiz}} = \alpha_E\cdot|\tau|\) (dla wielkości typu skręt/energia) |
+
+**Zastosowanie do wielkości z §2-§3a, jedna po drugiej:**
+
+- **\(T\) (indeks Chronoprocesu).** Wprost \(T_{\text{fiz}}=\alpha_T
+  \cdot T\). Bez tego \(T\) jest liczbą kroków, nie czasem.
+
+- **\((P,Q)\).** Już bezwymiarowe (stosunek dwóch długości obwiedni,
+  §1) — **nie potrzebują żadnej stałej skalującej**, i to jest jedyna
+  wielkość w \(\Omega\), która zostaje niezmieniona przy przejściu do
+  fizyki. Warto to podkreślić dla kontrastu: \((P,Q)\) są "bezpieczne"
+  wymiarowo, \((k_{MS},k_G,k_K)\) nie są.
+
+- **\(k_{MS}\).** Zbudowane z \(\text{tempo}(t)=t[i{+}1]-t[i]\) i
+  \(\text{drift}=\text{tempo}_{\text{zmierzone}}-\text{tempo}_{\text{nominalne}}\)
+  (§2), gdzie \(\Delta(\text{krok})\equiv1\) z definicji. Skalowanie
+  \(t\to\alpha_T\cdot t\) przenosi się liniowo:
+  \(\text{tempo}_{\text{fiz}}=\alpha_T\cdot\text{tempo}_{\text{model}}\),
+  \(\text{drift}_{\text{fiz}}=\alpha_T\cdot\text{drift}_{\text{model}}\),
+  i \(k_{MS}\) jako DRUGA różnica driftu po kroku:
+  \[
+  k_{MS,\text{fiz}} = \alpha_T\cdot k_{MS,\text{model}}, \qquad
+  [k_{MS,\text{fiz}}] = \text{s}/\text{krok}^2
+  \]
+  — to poprawia jednostkę zapisaną (błędnie) w §3a Krok 2 jako
+  "1/krok²"; poprawna jednostka to [czas]/[krok]², dokładnie jak
+  zauważył użytkownik.
+
+- **\(k_G\).** Zbudowane z \(H=(\kappa_1+\kappa_2)/2\) (krzywizna
+  średnia, [1/długość]) i \(\partial H/\partial t\) (§2). Skalowanie
+  długości \(x\to\alpha_L\cdot x\) daje \(H_{\text{fiz}}=H_{\text{model}}
+  /\alpha_L\) (krzywizna to odwrotność długości — skaluje się
+  odwrotnie), a skalowanie czasu jak wyżej:
+  \[
+  k_{G,\text{fiz}} = \frac{k_{G,\text{model}}}{\alpha_L\cdot\alpha_T},
+  \qquad [k_{G,\text{fiz}}] = \frac{1}{\text{m}\cdot\text{s}}
+  \]
+
+- **\(k_K\equiv0\).** Skalowanie nie zmienia zera — pozostaje
+  tożsamościowo zero niezależnie od \(\alpha_T,\alpha_L,\alpha_E\)
+  (konsekwencja K3/K4, §2, nie skalowania).
+
+- **\(g\sim M\cdot\Omega\) (Krok 6, §3a).** Wartości \(\lVert g\rVert=
+  0.0270\) / \(0.2702\) w tabeli §3a są **modelowe**, nie [m/s²]. Żeby
+  je zinterpretować fizycznie, trzeba by najpierw ustalić, którą z
+  \(\alpha_T,\alpha_L,\alpha_E\) (albo jaką ich kombinację) przypisać
+  masie \(M\) i kontrakcji \(\pi\) z §3 — to NIE jest zrobione tutaj;
+  bez tego kroku \(g_{\text{fiz}}\) nie jest zdefiniowane, tylko
+  \(g_{\text{model}}\) jest.
+
+**Dlaczego \(\alpha_T\) źle dobrane daje \(10^{31}\) Hz — nie bug, wybór
+skali.** Jeśli częstotliwość liczy się jako \(f\sim1/\Delta T\) z
+niezeskalowanym krokiem modelowym, a potem próbuje się ją
+zinterpretować fizycznie przez \(f_{\text{fiz}}=1/(\alpha_T\cdot\Delta
+T)\) z bardzo małym \(\alpha_T\) (np. \(10^{-35}\) s/krok — rząd czasu
+Plancka, wybrany bez uzasadnienia), wynik rzędu \(10^{31}\) Hz jest
+ARYTMETYCZNIE POPRAWNY, tylko \(\alpha_T\) było nieskalibrowane. To
+dokładnie ta sama sytuacja, co \(\sim10^{31}\) Hz w
+`genertor-fotonow/foton.py` (patrz
+`genertor-fotonow/theory/dimensional-analysis.md` §4) — dwa niezależne
+dokumenty, ten sam mechanizm: brak skalowania czasu, nie błąd w kodzie
+czy w tym dokumencie.
+
+**Dlaczego wielkość typu "\(|τ|\cdot0.001\)" nie jest energią.** Analogicznie:
+dopóki nie wprowadzi się \(\alpha_E\) [J·m] i nie napisze
+\(E_{\text{fiz}}=\alpha_E\cdot|\tau|\), wyrażenie \(|\tau|\cdot0.001\)
+(gdziekolwiek by się pojawiło — w tym dokumencie żadna taka wielkość
+jeszcze nie jest liczona, ale mechanizm dotyczy każdej przyszłej próby
+zapisania czegoś jako "energię" z \(k_{MS},k_G,k_K\) czy z \(g\)) ma co
+najwyżej wymiar tego, z czego jest zbudowane (np. [1/m] jeśli \(\tau\)
+jest krzywizną/skrętem) razy liczba bezwymiarowa — czyli **gęstość
+krzywizny, nie energię**, dopóki \(\alpha_E\) nie zostanie jawnie
+podane.
+
+**Zastrzeżenie uczciwości (wzorem reszty dokumentu).** Wprowadzenie
+\(\alpha_T,\alpha_L,\alpha_E\) czyni model **wymiarowo poprawnym**, ale
+**nie czyni go fizycznie prawdziwym**. Same stałe nie są tu
+skalibrowane do niczego — dopóki nie ma niezależnego pomiaru
+wiążącego \(T,x,\Omega\) z rzeczywistą obserwacją, wartości
+\(\alpha_T,\alpha_L,\alpha_E\) można dobrać tak, by \(f_{\text{fiz}}\)
+czy \(E_{\text{fiz}}\) wyszły w dowolnym z góry upatrzonym zakresie —
+to jest dokładnie ryzyko numerologii, przed którym ostrzega protokół w
+skillu `timdr-signal-framework` (§2: "freeze parameters before seeing
+the result"). Wprowadzenie stałych bez kalibracji jest więc
+warunkiem KONIECZNYM do fizycznej interpretacji, ale nie
+WYSTARCZAJĄCYM.
+
+**Otwarta decyzja (nie rozstrzygnięta w tej sekcji).** Powyższe stałe
+można wykorzystać na dwa sposoby: (a) zostawić TIMDR-Gravity czysto
+informacyjną — nigdy nie przypisywać \(\alpha_T,\alpha_L,\alpha_E\)
+konkretnych wartości, cały ten dokument zostaje analizą struktury, nie
+fizyki; albo (b) świadomie dobrać \(\alpha_T,\alpha_L,\alpha_E\) tak,
+by \(f_{\text{fiz}},E_{\text{fiz}},x_{\text{fiz}}\) lądowały w
+sensownych zakresach, i wtedy przejść do §4 punktów 2-4 (zasada
+wariacyjna, odróżniająca predykcja, kontrola negatywna/pozytywna) —
+bez tego (b) samo w sobie nic nie dowodzi, tylko otwiera drogę do
+dalszego testowania. Ten dokument dalej domyślnie zostaje przy (a) —
+status z nagłówka ("analogia strukturalna, nie wyprowadzona fizyka")
+się nie zmienia przez samo dodanie tej sekcji.
 
 ## 5. Relacja do zasady nieredukowalności gałęzi
 
