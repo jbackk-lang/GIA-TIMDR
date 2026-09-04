@@ -353,6 +353,21 @@ odwracalna — daje to oba kierunki wprost postulowane przez użytkownika
 udowodnione dla TEJ jednoparametrowej rodziny, nie dla dowolnej krzywej.
 Pełny tekst: `Axioms_G_TIMDR_Geometry.md`, Aksjomat G10.
 
+**Domknięcie numeryczne — `TIMDR-Geometry-Formalism/timdr_geometry/envelope.py`.**
+Tym samym wzorcem co G8-G9 (wniosek 5/7): `TriangleGeometry` (boki, kąty,
+`s`, pole, `r_in`, `c(Δ)`), `L0_of_R/Lk_of_R/L_of_R/P_of_R/Q_of_R`
+(postać zamknięta G10c), `R_of_P` (odwrotność w postaci zamkniętej —
+funkcja Möbiusa, bez solvera), `rounded_triangle_boundary` (sama
+obwiednia jako polilinia odcinki+łuki, skonstruowana geometrycznie
+NIEZALEŻNIE od wzorów zamkniętych) i `verify_envelope_length`
+(porównanie obu). **✅ Zweryfikowane przez użytkownika: 65/65 testów
+przeszło** (`tests/test_envelope.py`) — w tym poprawiona tożsamość
+`R_max(Δ)=r_in(Δ)` na 5 trójkątach (dwiema niezależnymi ścieżkami,
+żeby test nie był kołowy), `L0(R_max)=0`/`Q(R_max)=1` dla każdego z
+nich, nierówność Jensena, ścisła monotoniczność i odwracalność `P(R)`,
+oraz niezależna zgodność skonstruowanej geometrii z wzorem zamkniętym
+(ten sam duch co `T_S_empirical` vs `T_S_predicted` w `weingarten.py`).
+
 **Samo-znaleziony błąd matematyczny w G10e — i dlaczego jest to nowy,
 ogólny wniosek dla protokołu z §2.** Pierwsza wersja G10e twierdziła, że
 złamanie symetrii trójkąta ściśle ogranicza zasięg `Q` (`R_max(Δ)<r_in(Δ)`,
