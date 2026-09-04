@@ -129,11 +129,11 @@ zestaw aksjomatów (`Axioms_K_TIMDR.md`, 10 aksjomatów) dla "rezonansu
 modalnego" — wyrównania częstotliwości/fazy między modalnościami falowymi —
 zupełnie inny obiekt matematyczny niż progowa koincydencja "rezonansu
 sygnałowego" z tej sekcji, mimo wspólnej nazwy. Trzecia, geometryczna gałąź
-(`Axioms_G_TIMDR_Geometry.md`, autorstwa użytkownika, obecnie 9 aksjomatów
-G1-G9 — patrz §4 poniżej dla G8-G9, dodanych po powstaniu tej sekcji)
-formalizuje model-trójkąta/normalną powierzchni "skręt powierzchniowy"
-(`‖n(p+Δp)−n(p)‖`) jako kolejny odrębny obiekt, jawnie NIE sprowadzalny ani
-do gałęzi sygnałowej, ani modalnej, i jawnie oznaczony jako
+(`Axioms_G_TIMDR_Geometry.md`, autorstwa użytkownika, obecnie 10 aksjomatów
+G1-G10 — patrz §4 poniżej dla G8-G9, i §6 dla G10, oba dodane po powstaniu
+tej sekcji) formalizuje model-trójkąta/normalną powierzchni "skręt
+powierzchniowy" (`‖n(p+Δp)−n(p)‖`) jako kolejny odrębny obiekt, jawnie NIE
+sprowadzalny ani do gałęzi sygnałowej, ani modalnej, i jawnie oznaczony jako
 **koncepcyjny, jeszcze nie zwalidowany empirycznie** (własny aksjomat G7,
 status niezmieniony przez G8-G9 — patrz §4) — związek z krzywizną
 geometryczną (operator Weingartena), pierwotnie nazwany jako kierunek
@@ -216,7 +216,7 @@ przestrzeń powierzchni, testy empiryczne, niezależna walidacja) zostają
 otwarte; tylko wymóg (1) jest teraz częściowo spełniony.
 
 **Konsolidacja w dwóch dokumentach-indeksach.** W miarę narastania zestawów
-aksjomatów (Axioms_S 13 aksjomatów, Axioms_G 9 aksjomatów, Axioms_K 10
+aksjomatów (Axioms_S 13 aksjomatów, Axioms_G 10 aksjomatów, Axioms_K 10
 aksjomatów, każdy z własnymi obiektami/operatorami), kanoniczne fakty
 rozproszyły się po plikach z jedynie tabelą porównawczą w głównym README.
 Dwa nowe dokumenty konsolidują to bez redefiniowania czegokolwiek:
@@ -284,7 +284,7 @@ Odpowiedź na postulat z głównego README §7.3 (`t_lokalne=f(τ_globalne)`)
 i na pierwszą, błędną próbę uogólnienia "czasu" na wszystkie trzy gałęzie
 naraz (błąd kategorii w G: krzywa 1D nie ma operatora kształtu; `f` w K
 postulowane bez definicji). Pełny opis:
-[`docs/theory/TIMDR_Chronoprocess.md`](theory/TIMDR_Chronoprocess.md).
+`docs/theory/TIMDR_Chronoprocess.md`.
 
 **Konstrukcja — jedno źródło, trzy NIEZALEŻNE rzuty, zero identyfikacji
 (warunek zgodności z §4 wyżej / `TIMDR_Branch_Specification.md`):**
@@ -338,3 +338,103 @@ nośnik `T` (uporządkowany zbiór chwil), `Ξ=(T,x,Γ,φ)`, gdzie
     tylko powierzchowne podobieństwo słowne — jeśli tak, wyprowadź
     konkretną, sprawdzalną konsekwencję (tu: `Δt·Δf=1/(4π)` dla impulsu
     gaussowskiego) zamiast zostawić analogię jako czystą metaforę.
+
+## 6. Aksjomat G10 (parametr obwiedni P/Q), samo-znaleziony błąd w G10e, i dokument spekulacyjny TIMDR_Gravity_Speculative.md
+
+**Aksjomat G10.** Formalizuje inny obiekt niż G3-G9 (krzywizna
+**powierzchni**): krzywiznę **krzywej**, obwiedni zaokrąglonej
+`∂_R(Δ)` zbudowanej na trójkącie z G2 — rozkład na część prostą `L0(R)`
+(krzywizna 0) i łukową `Lk(R)` (krzywizna `1/R`), `P=L0/L`, `Q=Lk/L=1-P`.
+Z twierdzenia o sumie kątów zewnętrznych, `Lk(R)=2πR` dokładnie; `L0`
+afiniczne w `R`. Udowodniono ręcznie (nierówność Jensena, reguła
+ilorazu): `P(R)` jest ściśle monotoniczna na `[0,R_max(Δ))`, więc
+odwracalna — daje to oba kierunki wprost postulowane przez użytkownika
+("redukcja" krzywa↦(P,Q), "i odwrotnie" — zadane P↦R↦obwiednia),
+udowodnione dla TEJ jednoparametrowej rodziny, nie dla dowolnej krzywej.
+Pełny tekst: `Axioms_G_TIMDR_Geometry.md`, Aksjomat G10.
+
+**Samo-znaleziony błąd matematyczny w G10e — i dlaczego jest to nowy,
+ogólny wniosek dla protokołu z §2.** Pierwsza wersja G10e twierdziła, że
+złamanie symetrii trójkąta ściśle ogranicza zasięg `Q` (`R_max(Δ)<r_in(Δ)`,
+`Q_max<1` dla każdego trójkąta poza równobocznym) — "sprawdzone krok po
+kroku" w chwili napisania. Błąd wyszedł na jaw dopiero przy liczeniu
+KONKRETNEGO przykładu liczbowego (trójkąt 3-4-5) do
+`TIMDR_Gravity_Speculative.md` (§ niżej): dla tego jawnie asymetrycznego
+trójkąta wyszło `R_max=r_in=1.0` dokładnie, sprzeczne z tekstem aksjomatu.
+Ręczne wyprowadzenie ogólne pokazało dlaczego: ze standardowej tożsamości
+stycznej-do-okręgu-wpisanego `cot(θᵢ/2)=(s-aᵢ)/r_in` wynika
+`R_max(Δ)=r_in(Δ)` **dokładnie, dla KAŻDEGO trójkąta** — `Q=1` jest więc
+osiągalne zawsze, nie tylko dla trójkąta równobocznego. Poprawione w
+`Axioms_G_TIMDR_Geometry.md` z jawnym dopiskiem o naprawie (nie cichym
+nadpisaniem) — co POZOSTAJE prawdą: przy ustalonym obwodzie trójkąt
+równoboczny ma NAJWIĘKSZY `r_in`, więc symetria wpływa na bezwzględny
+promień `R`, przy którym `Q→1` następuje, nie na to, czy w ogóle następuje.
+
+11. **Nowy wniosek wielokrotnego użytku (rozszerza §2/§3):** nawet ręczne
+    wyprowadzenie "sprawdzone krok po kroku" może zawierać fałszywe
+    twierdzenie OGÓLNE, jeśli nigdy nie zostało podstawione pod jeden
+    konkretny przykład liczbowy. Ten błąd nie został znaleziony przy
+    przeglądzie samego aksjomatu — wyszedł dopiero przy budowaniu
+    NIEZWIĄZANEGO, downstream przykładu liczbowego dla innego dokumentu.
+    Wniosek: policz choć jeden konkretny przypadek dla KAŻDEGO ogólnego
+    twierdzenia geometrycznego/matematycznego przed opublikowaniem go w
+    pliku aksjomatów — dokładnie ten sam duch co kontrolki
+    pozytywna/negatywna z §2, tylko zastosowany do czystej matematyki, nie
+    do statystyki.
+
+**`TIMDR_Gravity_Speculative.md` — jak potraktowano propozycję łamiącą
+zasadę nieredukowalności.** Użytkownik zaproponował rozszerzenie:
+tensor czasoprzestrzeni `Ω=(P,Q)⊗(k_MS,k_G,k_K)` (jeden "parametr czasu"
+per gałąź — nowe, nieistniejące wcześniej obiekty) plus masa `M` i
+analogia grawitacyjna `g~M·Ω` (echo Newtonowskiego
+`Φ(x)=-G∫ρ(x')/‖x-x'‖d³x'`). To wprost łączy WSZYSTKIE TRZY gałęzie
+naraz przez iloczyn tensorowy — dokładnie ten typ konstrukcji, przed
+którym chroni "zasada nadrzędna" `TIMDR_Branch_Specification.md`, i bez
+odpowiednika mostu Fouriera (§5 wniosek 9: most Fouriera ma za sobą
+KONKRETNĄ znaną tożsamość matematyczną; `Ω` nie ma żadnej). Rozwiązanie
+(zapytane wprost, wybrane przez użytkownika): ANI cichy refuz, ANI ciche
+wpisanie do aksjomatów — osobny, jawnie oznaczony dokument spekulacyjny
+(`GIA-TIMDR/docs/theory/TIMDR_Gravity_Speculative.md`), z bannerem
+statusu na górze, który NIE jest cytowany przez żaden plik `Axioms_*` ani
+`TIMDR_Branch_Specification.md`.
+
+Dokument zawiera: (a) propozycje `k_MS,k_G,k_K` zbudowane z obiektów już
+istniejących w Chronoprocesie (druga różnica driftu dla M/S, `∂H/∂t`
+wzdłuż kongruencji dla G, `d²f/dτ²` dla K) — z uczciwym wnioskiem, że
+`k_K≡0` jest KONSEKWENCJĄ aksjomatów K3/K4 (modalność afiniczna), nie
+luką; (b) jawną postać `Ω` jako macierzy `2×3`, z zaznaczeniem, że
+`g~M·Ω` nie zgadza się rzędem tensora z prawdziwym polem grawitacyjnym
+bez dodatkowej, nierozstrzygniętej mapy kontrakcji; (c) konkretny
+przykład liczbowy (trójkąt 3-4-5, syntetyczne `k_MS=0.10,k_G=0.03`) —
+patrz niżej za wnioskiem stąd; (d) listę czterech braków do przejścia od
+analogii do teorii (jednostki, zasada wariacyjna/równanie pola,
+odróżniająca predykcja, kontrola pozytywna/negatywna wg protokołu z §2);
+(e) cztery jednozdaniowe "zamknięcia" dodane na wyraźną prośbę
+użytkownika o "kuloodporność": dlaczego `Ω` nie może być drugim mostem
+(brak znanej tożsamości za sobą, w przeciwieństwie do Fouriera), dlaczego
+`k_K≡0` nie jest luką, dlaczego brak zależności od odległości
+(`1/‖x-x'‖`) jest fundamentalny (nie kosmetyczny) dla każdej konstrukcji
+grawitacji-podobnej, i mini-sekcja "dlaczego to jest tylko analogia"
+(brak równania pola/jednostek/dynamiki).
+
+12. **Nowy wniosek wielokrotnego użytku:** gdy propozycja użytkownika
+    wprost łamie zasadę, którą framework sam sobie narzucił (tu: zero
+    mostów poza jednym, udowodnionym wyjątkiem), właściwa reakcja to ani
+    milczące podporządkowanie się, ani milczący refuz — nazwij konflikt
+    wprost, zapytaj, jak go potraktować (tu: `AskUserQuestion` z trzema
+    opcjami), i jeśli wybrany zostanie "osobny dokument", zbuduj go tak,
+    żeby żaden plik aksjomatów go nie cytował jako uzasadnienie — samo
+    istnienie dokumentu nie może po cichu osłabić zasady, przed którą
+    reszta frameworku ma chronić.
+13. **Nowy wniosek wielokrotnego użytku (znaleziony przy liczeniu
+    przykładu z `TIMDR_Gravity_Speculative.md`):** gdy tensorujesz/łączysz
+    wielkość UNORMOWANĄ (składowe sumujące się do stałej, tu `P+Q≡1`) z
+    niepowiązanym wektorem, najprostsza "naiwna" kontrakcja (suma
+    wszystkich wpisów) jest zwykle ZDEGENEROWANA — sprowadza się do
+    funkcji WYŁĄCZNIE drugiego wektora, kasując całą informację niesioną
+    przez wielkość unormowaną (tu: suma wszystkich 6 wpisów `Ω` wyszła
+    `(P+Q)(k_MS+k_G+k_K)=k_MS+k_G+k_K`, niezależnie od `P,Q`). Zawsze
+    sprawdź proponowaną kontrakcję na konkretnych liczbach, zanim uznasz
+    ją za sensowną — to ten sam duch co wniosek 11 (podstaw liczby, nie
+    ufaj samej algebrze), zastosowany tu do wyboru operacji, nie do
+    twierdzenia.
