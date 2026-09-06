@@ -85,7 +85,7 @@
 
 ## Rezonans / Resonance — nazwy kanoniczne
 
-**UWAGA:** tak jak skręt, "rezonans" ma w tym ekosystemie TRZY
+**UWAGA:** tak jak skręt, "rezonans" ma w tym ekosystemie CZTERY
 niezwiązane ze sobą znaczenia. Pełne rozgraniczenie modalnego i
 sygnałowego: [`theory/Resonance_M_Operator_Empiryczny.md`](theory/Resonance_M_Operator_Empiryczny.md)
 sekcja 0.
@@ -125,6 +125,43 @@ mniej sformalizowany szkic — częściowo pokrywa się z gałęzią sygnałową
 (M) w duchu (oba działają na progach/pochodnych szeregu czasowego), ale
 używa **innego wzoru** (średnia zgodność kierunku, nie zliczanie
 przekroczeń progu 2σ) — nie traktuj go jako tożsamego z rezonansem M.
+
+### Rezonans dynamiczny trójwęzła / G-Rezonans (Aksjomat G5)
+**EN:** True mechanical/physical resonance — a ring of N≥3 damped
+coupled harmonic oscillators on nodes of a closed curve (coupled
+through the curve as a "waveguide"), driven harmonically at one node;
+response amplitude peaks at the system's natural frequencies. A node
+defect splits the ring's degenerate frequency doublet (Δτ) or shifts
+its singlet (Δr) — qualitatively different spectral fingerprints per
+defect type. Formalized as **Aksjomat G5** of the geometric branch
+(`Axioms_G_TIMDR_Geometry.md`) — general operator for any N≥3 in
+`core/geometric_resonance_operator.py`; the original N=3 trefoil
+prototype (`core/trefoil_resonance_model.py`) is now a thin wrapper
+over it.
+**PL:** Prawdziwy fizyczny/mechaniczny rezonans — pierścień N≥3
+tłumionych, sprzężonych oscylatorów harmonicznych na węzłach zamkniętej
+krzywej (sprzężone przez krzywą jako "falowód"), pobudzany harmonicznie
+w jednym węźle; amplituda odpowiedzi ma piki przy częstościach własnych
+układu. Defekt węzła rozszczepia zdegenerowany dublet częstości układu
+(Δτ) albo przesuwa jego singlet (Δr) — jakościowo różny odcisk widmowy
+per typ defektu. Sformalizowany jako **Aksjomat G5** gałęzi
+geometrycznej (`Axioms_G_TIMDR_Geometry.md`) — operator ogólny dla
+dowolnego N≥3 w `core/geometric_resonance_operator.py`; pierwotny
+prototyp dla N=3 (trójwęzeł, `core/trefoil_resonance_model.py`) jest
+teraz cienką warstwą nad nim.
+**Źródło:** `docs/theory/Axioms_G_TIMDR_Geometry.md` (Aksjomat G5),
+`core/geometric_resonance_operator.py`,
+`core/trefoil_resonance_model.py`,
+[`geometry/TIMDR_GResonance_Operator.md`](geometry/TIMDR_GResonance_Operator.md),
+[`geometry/TIMDR_Trefoil_ResonanceModel.md`](geometry/TIMDR_Trefoil_ResonanceModel.md)
+(pierwotny prototyp, przed podniesieniem do G5).
+**Nie** jest rezonansem M (licznik koincydencji, operator boolowski),
+rezonansem sygnałowym z `core/trefoil_frenet_torsion.py` (tam:
+koincydencja ≥K z N kanałów anomalnych na TEJ SAMEJ figurze — różne
+obiekty współdzielące figurę, nie tylko nazwę), ani rezonansem modalnym
+K (wyrównanie częstotliwość/faza modułów na przestrzeni topologicznej —
+Aksjomat G6b) — mimo współdzielenia pojęcia "częstości własnej", jest
+osobnym obiektem matematycznym o innej domenie.
 
 ---
 
