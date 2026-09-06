@@ -86,25 +86,37 @@ model trójkąta.
 
 ### 2. Gałąź geometryczna — TIMDR-Geometry (G)
 
-**Obiekt:** powierzchnia `S⊂ℝ³`, normalna `n(p)`.
-**Operatory:** skręt powierzchniowy `‖n(p+Δp)−n(p)‖`, teraz formalny
-operator z domeną/przeciwdziedziną/ciągłością/stabilnością (Aksjomaty
-G3, G8); krzywizna dyskretna i operator kształtu (Weingarten) — związek
-ze skrętem NAZWANY w Aksjomacie G4 (`T_S=F(W_S)`) i domknięty
-analitycznie w Aksjomacie G9 (`T_S=‖Δp‖·‖S_p(Δ̂p)‖+O(‖Δp‖²)`);
-implementacja numeryczna na konkretnej siatce 3D i walidacja empiryczna
-wciąż otwarte.
-**Pliki:** `docs/theory/Axioms_G_TIMDR_Geometry.md` (aksjomaty G1-G9);
+**Obiekt:** powierzchnia `S⊂ℝ³`, normalna `n(p)` — LUB (Aksjomat G5)
+zamknięta krzywa `C⊂ℝ³` z N≥3 węzłami sprzężenia rozłożonymi cyklicznie.
+**Operatory:** skręt powierzchniowy `‖n(p+Δp)−n(p)‖`, formalny operator
+z domeną/przeciwdziedziną/ciągłością/stabilnością (Aksjomaty G3, G8);
+krzywizna dyskretna i operator kształtu (Weingarten) — związek ze
+skrętem NAZWANY w Aksjomacie G4 (`T_S=F(W_S)`) i domknięty analitycznie
+w Aksjomacie G9 (`T_S=‖Δp‖·‖S_p(Δ̂p)‖+O(‖Δp‖²)`); implementacja
+numeryczna na konkretnej siatce 3D i walidacja empiryczna wciąż otwarte.
+**G-Rezonans** `𝓡_G` (Aksjomat G5, zaktualizowany — wcześniej jawnie
+stwierdzał brak operatora): widmo rezonansowe `(ωₖ,Qₖ,A(ω))` układu N
+tłumionych oscylatorów harmonicznych sprzężonych w pierścień wzdłuż
+krzywej (sztywność węzła ~krzywizna, sprzężenie segmentu ~torsja),
+pobudzanego lokalnie — zaimplementowany i przetestowany numerycznie DLA
+N=3 (trójwęzeł: defekt sprzężenia rozszczepia zdegenerowany dublet,
+defekt sztywności węzła przesuwa singlet), sprawdzony strukturalnie dla
+innego N, **nie zwalidowany empirycznie na realnej krzywej**.
+**Pliki:** `docs/theory/Axioms_G_TIMDR_Geometry.md` (aksjomaty G1-G10);
 skręt powierzchniowy pierwotnie opisany w
 `Resonance_M_Operator_Empiryczny.md` §6; model trójkąta to sekcje 1-9
 tego README. Numeryczna implementacja dyskretnego operatora Weingartena
 (G8-G9): osobne repo `TIMDR-Geometry-Formalism`
 (`timdr_geometry/weingarten.py` + testy na płaszczyźnie/sferze/walcu —
 nieuruchomione w sesji, w której powstały, patrz zastrzeżenie w jego
-README). Osobny katalog `docs/theory/Geometry/` jeszcze nie
-istnieje.
+README). G-Rezonans (G5): `core/geometric_resonance_operator.py`
+(ogólny) + `core/trefoil_resonance_model.py` (warstwa N=3) +
+`docs/geometry/TIMDR_GResonance_Operator.md`. Osobny katalog
+`docs/theory/Geometry/` jeszcze nie istnieje.
 **To NIE jest:** sygnał czasowy, rezonans M, Axioms_S, rezonans modalny
-f/φ/A.
+f/φ/A — `𝓡_G` w szczególności nie jest szczególnym przypadkiem
+rezonansu modalnego (inna domena: krzywa z węzłami mechanicznymi, nie
+moduły falowe na przestrzeni topologicznej).
 
 ### 3. Gałąź modalna — TIMDR-Modal (K)
 
@@ -124,13 +136,13 @@ skręt powierzchniowy.
 | Gałąź | Domena | Operator rezonansu | Skręt | Aksjomaty | Status |
 |---|---|---|---|---|---|
 | Sygnałowa (M, S) | sygnały czasowe | M — progowy, baseline dwumianowy, zwalidowany empirycznie na danych Krakow_Centrum | sygnałowy (odwrócenie trendu) | Axioms_S | sformalizowana, testowana kodem |
-| Geometryczna (G) | powierzchnie 3D | brak | powierzchniowy (normalne) | Axioms_G (G1-G9) | aksjomatyczna, koncepcyjna (G7) — związek z Weingartenem domknięty analitycznie (G8-G9), implementacja na siatce 3D i walidacja empiryczna otwarte |
+| Geometryczna (G) | powierzchnie 3D / krzywe z węzłami | G — widmo `(ω,Q,A)` układu N oscylatorów na węzłach krzywej, zaimplementowany i testowany dla N=3, nie zwalidowany empirycznie | powierzchniowy (normalne) | Axioms_G (G1-G10) | aksjomatyczna, koncepcyjna (G7) — związek z Weingartenem domknięty analitycznie (G8-G9), G-Rezonans domknięty numerycznie dla N=3 (G5), implementacja na siatce 3D i walidacja empiryczna otwarte |
 | Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | aksjomatyczna + pierwszy kod (`TIMDR-Modal-Formalism`, 17/17 testów zweryfikowane), bez empirycznej walidacji |
 
 Żadna gałąź nie jest rozszerzeniem innej — każda ma własną domenę
-matematyczną. Tam, gdzie dwie gałęzie używają tego samego słowa
-("rezonans" w M i K, "skręt" w M i G), oznaczają **różne obiekty** —
-nie różne poziomy tej samej rzeczy.
+matematyczną. Tam, gdzie gałęzie używają tego samego słowa ("rezonans"
+teraz we WSZYSTKICH trzech: M, G, K; "skręt" w M i G), oznaczają
+**różne obiekty** — nie różne poziomy tej samej rzeczy.
 
 **Czwarty, wcześniejszy szkic (nie osobna gałąź):** sekcja "📘 TIMDR —
 Pełny Model Operatora Topologicznej Zmiany Sygnału" dalej w tym README
