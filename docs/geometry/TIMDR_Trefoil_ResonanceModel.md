@@ -158,10 +158,40 @@ faktycznie jest defekt.
   ale nie wyjaśnione analitycznie (np. przez rozkład na reprezentacje
   nieprzywiedlne grupy `C₃`) — zostawione jako otwarty wątek.
 
+## 6. Aktualizacja: podniesione do Aksjomatu G5 (operator gałęzi G)
+
+Na wyraźną prośbę użytkownika, ten prototyp (N=3, jedna konkretna
+geometria) został OGÓLNIONY i sformalizowany jako pełnoprawny operator
+gałęzi geometrycznej G — **Aksjomat G5**
+(`docs/theory/Axioms_G_TIMDR_Geometry.md`), zastępujący wcześniejszą
+wersję tego aksjomatu, która jawnie stwierdzała brak takiego operatora.
+Ogólna implementacja (dowolne \(N\geq3\), nie tylko trójwęzeł) żyje
+teraz w `core/geometric_resonance_operator.py`; ten plik i
+`core/trefoil_resonance_model.py` są zachowane bez zmian zachowania
+(zweryfikowane testem regresyjnym) jako udokumentowany tu, historyczny
+punkt wyjścia i wciąż aktualna warstwa kompatybilności dla N=3.
+
+Jeden z punktów §5 powyżej ("nie potwierdzono uogólnienia na inne
+krzywe węzłowe") jest częściowo zaadresowany: ogólność KODU (nie
+konkretnej geometrii) jest teraz sprawdzona strukturalnie dla
+N=4,5,6,8 względem niezależnej teorii analitycznej (widmo macierzy
+cyrkulantowej) — patrz `tests/test_geometric_resonance_operator.py` i
+pełny opis w [`TIMDR_GResonance_Operator.md`](./TIMDR_GResonance_Operator.md).
+To NADAL nie jest walidacja na innej, realnej krzywej geometrycznej —
+tylko dowód, że sam kod nie jest ukrytym przypadkiem szczególnym N=3.
+Wszystkie pozostałe ograniczenia z §5 (brak `Δz1`, niekalibrowane
+stałe, brak walidacji empirycznej) pozostają w mocy również dla
+operatora ogólnego — patrz Aksjomat G5f za pełne, zaktualizowane
+zestawienie.
+
 ## Źródła
 
 - Kod: [`../../core/trefoil_resonance_model.py`](../../core/trefoil_resonance_model.py)
-- Testy: [`../../tests/test_trefoil_resonance_model.py`](../../tests/test_trefoil_resonance_model.py)
+  (warstwa N=3), [`../../core/geometric_resonance_operator.py`](../../core/geometric_resonance_operator.py) (operator ogólny, Aksjomat G5)
+- Testy: [`../../tests/test_trefoil_resonance_model.py`](../../tests/test_trefoil_resonance_model.py),
+  [`../../tests/test_geometric_resonance_operator.py`](../../tests/test_geometric_resonance_operator.py)
 - Geometria bazowa (κ, τ idealnego trójwęzła): [`TIMDR_Trefoil_FrenetTorsion.md`](./TIMDR_Trefoil_FrenetTorsion.md)
+- Formalizacja: [`../theory/Axioms_G_TIMDR_Geometry.md`](../theory/Axioms_G_TIMDR_Geometry.md) (Aksjomat G5),
+  [`TIMDR_GResonance_Operator.md`](./TIMDR_GResonance_Operator.md) (pełny opis operatora ogólnego)
 - Rozgraniczenie znaczeń "rezonans": [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md),
   [`../theory/Resonance_M_Operator_Empiryczny.md`](../theory/Resonance_M_Operator_Empiryczny.md) §0

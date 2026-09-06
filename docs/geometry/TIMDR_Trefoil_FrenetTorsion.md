@@ -165,6 +165,19 @@ matematyczne w różnych domenach, nie różne poziomy jednej teorii.
   jeden, konkretny reprezentant, nie dowód dla całej klasy krzywych
   węzłowych.
 
+## 7. Aktualizacja: próba zastosowania praktycznego nie powiodła się (uczciwie zdiagnozowana)
+
+Próba zastosowania tej samej matematyki (κ/τ z różnic skończonych) do
+realnych, krótkich serii pogodowych (embedding 3 parametrów jako
+trajektoria) **nie przeszła kontroli pozytywnej ani negatywnej** —
+patrz [`TIMDR_Trefoil_RealDataValidation.md`](./TIMDR_Trefoil_RealDataValidation.md).
+To NIE unieważnia wyników w sekcjach 1-6 powyżej (tam: gładka krzywa
+syntetyczna, gęsto próbkowana, N=300) — pokazuje tylko, że ta sama
+matematyka wymaga gładkich, gęsto próbkowanych danych, żeby działać;
+krótkie, szorstkie realne serie (N~25) łamią ją przez wzmacnianie
+szumu przy potrójnym różniczkowaniu i maskowanie progu przez małą
+próbkę.
+
 ## Źródła
 
 - Kod: [`../../core/trefoil_frenet_torsion.py`](../../core/trefoil_frenet_torsion.py)
