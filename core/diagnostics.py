@@ -6,8 +6,7 @@
 import math
 from typing import List, Tuple
 
-from .constants import DELTA_S_THRESHOLD
-from .operators import adaptive_delta_s_threshold
+from core.constants import DELTA_S_THRESHOLD
 
 # ------------------------------------------------------------
 # 1. MEDIAN FILTER — wygładzanie pola skrętu
@@ -73,17 +72,13 @@ def prime_analyzer(data: bytes) -> float:
 # 5. DEFECT MAP — mapa defektów skrętu
 # ------------------------------------------------------------
 
-def defect_map(tau_field: List[int], threshold=DELTA_S_THRESHOLD) -> List[Tuple[int, int]]:
+def defect_map(tau_field: List[int], threshold: int = DELTA_S_THRESHOLD) -> List[Tuple[int, int]]:
     """Mapa defektów: punkty gwałtownej zmiany pola τ.
 
-    threshold czyta teraz DELTA_S_THRESHOLD z constants.py (to samo
-    źródło co operators.op_deltaS()) zamiast osobnej, niezależnej kopii
-    literału `12` - wcześniej te dwie funkcje miały każda swoją kopię
-    tej samej stałej, mogące się rozjechać przy edycji jednej bez
-    drugiej. threshold=None włącza próg adaptacyjny (patrz
-    operators.adaptive_delta_s_threshold()), tak samo jak w op_deltaS()."""
-    if threshold is None:
-        threshold = adaptive_delta_s_threshold(tau_field)
+    NAPRAWIONE (audyt 2026-08-31): domyślny próg pochodzi teraz z
+    core.constants.DELTA_S_THRESHOLD (jedno źródło prawdy dzielone z
+    core.operators.op_deltaS), zamiast niezależnie zduplikowanej stałej
+    '12' w dwóch miejscach - patrz tests/test_operators_wiring.py."""
     defects = []
     for i in range(1, len(tau_field)):
         if abs(tau_field[i] - tau_field[i - 1]) > threshold:

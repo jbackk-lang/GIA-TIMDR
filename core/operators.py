@@ -2,42 +2,40 @@
 #   OPERATORS — warstwa matematyczna rdzenia TIMDR
 #   Λ–τ–ρ / J / M / ΔS / Defekty / Rezonanse
 # ============================================================
-"""
-UZUPEŁNIENIE 2026-08-31 (audyt sesji + poprawki użytkownika): do tego
-pliku dopisano funkcje aktywujące stałe z constants.py, które wcześniej
-nie były przez NIC importowane (sprawdzone: `grep -rn "constants"
-core/` dawało zero wyników) - progi typu DELTA_S_THRESHOLD były
-niezależnie zduplikowane jako gołe literały w kilku miejscach zamiast
-odczytywane z jednego źródła, a wagi/parametry typu STAB_*_WEIGHT,
-SPECTRAL_*, PRIME_SENSITIVITY, RESONANCE_* były zdefiniowane, ale
-dosłownie nigdzie nieużywane.
-
-Zasada przyjęta przy tych poprawkach: gdzie zmiana to bezpieczny,
-wstecznie kompatybilny parametr z domyślną wartością równą staremu
-zachowaniu (op_deltaS, op_prime) - MODYFIKUJĘ istniejącą funkcję.
-Gdzie zmiana wymagałaby zmiany kształtu/typu zwracanej wartości albo
-sygnatury w sposób łamiący dotychczasowe wywołania z pipeline.py
-(op_stab, op_spectral, op_R) - DODAJĘ nową, osobno nazwaną funkcję
-obok starej, która zostaje nietknięta.
-"""
+#
+# NAPRAWIONE (audyt sesji 2026-08-31, dokonczone przy naprawie
+# ImportError w tests/test_operators_wiring.py): constants.py byl
+# plikiem, ktorego NIC nie importowalo - kilka progow/wag bylo
+# zdefiniowanych, ale nigdzie nieuzywanych albo niezaleznie
+# zduplikowanych (np. '12' tutaj i w core/diagnostics.py). Ponizej
+# doszyto: op_deltaS z jednym zrodlem prawdy (DELTA_S_THRESHOLD) i
+# opcja adaptacyjna, op_R_local (lokalny rezonans + EMA),
+# op_stab_weighted (aktywacja STAB_*_WEIGHT), op_spectral_filtered
+# (SPECTRAL_MIN/MAX_FREQ, NORMALIZE), op_prime z PRIME_SENSITIVITY,
+# op_transition (filtr "Obszarow przejsciowych"). Stare funkcje
+# (op_stab, op_spectral, op_R) NIETKNIETE - wsteczna kompatybilnosc z
+# pipeline.py, zweryfikowana testami regresyjnymi w
+# tests/test_operators_wiring.py.
 
 import math
+import statistics
 
-from .constants import (
+from core.constants import (
     DELTA_S_THRESHOLD,
     DELTA_S_SOFT,
     DELTA_S_HARD,
     STAB_LAMBDA_WEIGHT,
     STAB_TAU_WEIGHT,
     STAB_RHO_WEIGHT,
+    PRIME_SENSITIVITY,
     SPECTRAL_MIN_FREQ,
     SPECTRAL_MAX_FREQ,
     SPECTRAL_NORMALIZE,
-    PRIME_SENSITIVITY,
     RESONANCE_MIN,
     RESONANCE_MAX_K,
-    RESONANCE_SMOOTHING,
+    RESONANCE_SMOOTHING,  # noqa: F401 (typowa wartosc do przekazania jawnie w op_R_local(smoothing=...), patrz docstring)
 )
+from core.diagnostics import defect_map
 
 # ------------------------------------------------------------
 # 1. Operator Λ — redukcja lokalnej zmiany
@@ -89,40 +87,32 @@ def op_M(data: bytes) -> bytes:
 # 5. Operator ΔS — detekcja defektu skrętu
 # ------------------------------------------------------------
 
-def adaptive_delta_s_threshold(tau_field: list, k: float = 2.5) -> float:
-    """Próg adaptacyjny: k * odchylenie standardowe |Δτ| (różnic
-    kolejnych wartości tau_field) - zamiast stałej '12' bez
-    wyprowadzenia matematycznego. k=2.5 to typowa wartość progu
-    "istotnego odchylenia" w analizie sygnałów, NIE wyprowadzona z
-    danych TIMDR - do dostrojenia empirycznie na prawdziwych danych,
-    nie autorytatywna liczba."""
-    diffs = [abs(tau_field[i] - tau_field[i - 1]) for i in range(1, len(tau_field))]
-    if not diffs:
-        raise ValueError("tau_field za krótki, żeby policzyć odchylenia (potrzeba >= 2 elementy)")
-    n = len(diffs)
-    mean = sum(diffs) / n
-    variance = sum((d - mean) ** 2 for d in diffs) / n
-    return k * (variance ** 0.5)
-
-
 def op_deltaS(tau_field: list, threshold=DELTA_S_THRESHOLD) -> list:
     """ΔS — defekt skrętu: punkty gwałtownej zmiany pola τ.
 
-    `threshold` czyta teraz DELTA_S_THRESHOLD z constants.py zamiast
-    literału `12` wklejonego na sztywno (poprzednia wersja - patrz git
-    history) - to samo źródło prawdy, którego używa też defect_map() w
-    diagnostics.py, więc nie mogą się już rozjechać niezależną edycją.
-
-    threshold=None włącza próg ADAPTACYJNY (k*std(|Δτ|), patrz
-    adaptive_delta_s_threshold() wyżej) zamiast stałej liczby - opt-in,
-    nie zmienia domyślnego zachowania."""
+    `threshold`: próg stały (domyślnie DELTA_S_THRESHOLD - jedno
+    źródło prawdy dzielone z `core.diagnostics.defect_map`, na którym
+    ta funkcja się teraz opiera). `threshold=None` włącza próg
+    ADAPTACYJNY (`adaptive_delta_s_threshold`), liczony na żywo z
+    samego `tau_field`."""
     if threshold is None:
         threshold = adaptive_delta_s_threshold(tau_field)
-    defects = []
-    for i in range(1, len(tau_field)):
-        if abs(tau_field[i] - tau_field[i - 1]) > threshold:
-            defects.append((i, tau_field[i]))
-    return defects
+    return defect_map(tau_field, threshold=threshold)
+
+
+def adaptive_delta_s_threshold(tau_field: list, k: float = 2.5) -> float:
+    """Próg adaptacyjny dla op_deltaS/defect_map: `k * odchylenie
+    standardowe (populacyjne) kolejnych różnic` |tau[i]-tau[i-1]| —
+    BEZ składnika średniej (nie mean+k*std): pole o stałej, dużej
+    różnicy między kolejnymi punktami (brak wariancji różnic) daje
+    próg 0, nie próg równy tej różnicy — bo "stała duża różnica" to tu
+    NORMA pola, nie odchylenie od normy, którą ma wykrywać ten próg."""
+    if len(tau_field) < 2:
+        raise ValueError(
+            "adaptive_delta_s_threshold wymaga co najmniej 2 punktów (żeby policzyć choć jedną różnicę)"
+        )
+    diffs = [abs(tau_field[i] - tau_field[i - 1]) for i in range(1, len(tau_field))]
+    return k * statistics.pstdev(diffs)
 
 # ------------------------------------------------------------
 # 6. Operator R — rezonans (stabilizacja)
@@ -131,6 +121,46 @@ def op_deltaS(tau_field: list, threshold=DELTA_S_THRESHOLD) -> list:
 def op_R(data: bytes) -> float:
     """R — rezonans: energia skrętu."""
     return sum(b * b for b in data) ** 0.5
+
+
+def op_R_local(data: bytes, window: int = 3, smoothing=None) -> list:
+    """R_local — lokalny rezonans: energia (sqrt sumy kwadratów) w
+    przesuwnym oknie długości `window`, tryb "valid" (jak `op_tau`) —
+    dla `window=3` daje DOKŁADNIE `len(data)-2` wartości, wyrównane
+    indeks-w-indeks z `op_tau(data)` (oba centrowane na tych samych
+    trójkach punktów).
+
+    `smoothing=None` (domyślnie): surowe wartości lokalnej energii.
+    `smoothing=alpha` w (0,1]: wygładzanie EMA (typowa wartość:
+    `RESONANCE_SMOOTHING` z `core.constants`) — `y[0]=x[0]`,
+    `y[i]=alpha*x[i]+(1-alpha)*y[i-1]`."""
+    if window < 1:
+        raise ValueError("window musi być dodatnią liczbą całkowitą")
+    n = len(data)
+    if n < window:
+        return []
+    raw = [
+        math.sqrt(sum(b * b for b in data[start:start + window]))
+        for start in range(n - window + 1)
+    ]
+    if smoothing is None or not raw:
+        return raw
+    out = [raw[0]]
+    for x in raw[1:]:
+        out.append(smoothing * x + (1 - smoothing) * out[-1])
+    return out
+
+
+def theoretical_local_resonance_max(window: int, byte_max: int = 255) -> float:
+    """Teoretyczne maksimum `op_R_local(window=window)` na bajtach
+    `0..byte_max`: osiągane, gdy KAŻDY bajt okna = `byte_max` —
+    `byte_max * sqrt(window)`. Zastępuje martwą stałą
+    `RESONANCE_MAX=1e9` (patrz `core.constants`) jako sufit rezonansu
+    faktycznie osiągalny na danych bajtowych, nie sufit ~2 000 000x za
+    duży."""
+    if window < 1:
+        raise ValueError("window musi być dodatnią liczbą całkowitą")
+    return byte_max * math.sqrt(window)
 
 # ------------------------------------------------------------
 # 7. Operator E — emergencja (zamknięcie M²)
@@ -146,26 +176,23 @@ def op_E(data: bytes) -> bytes:
 
 def op_prime(data: bytes, sensitivity: float = PRIME_SENSITIVITY) -> float:
     """PRIME — rytm skrętu: częstotliwość lokalnych zmian, skalowana
-    przez `sensitivity` (domyślnie PRIME_SENSITIVITY=1.0 z constants.py -
-    ta sama wartość, więc domyślne wywołanie zachowuje się identycznie
-    jak poprzednio; wcześniej ta stała była zdefiniowana, ale nigdzie
-    nieużywana)."""
+    przez `sensitivity` (domyślnie `PRIME_SENSITIVITY=1.0` z
+    `core.constants` — wsteczna kompatybilność: wynik identyczny jak
+    przed dodaniem tego parametru)."""
     changes = 0
     last = data[0] if data else 0
     for b in data:
         if b != last:
             changes += 1
         last = b
-    return sensitivity * changes / max(1, len(data))
+    return (changes / max(1, len(data))) * sensitivity
 
 # ------------------------------------------------------------
 # 9. Operator SPECTRAL — widmo skrętu
 # ------------------------------------------------------------
 
 def op_spectral(data: bytes) -> list:
-    """SPECTRAL — widmo skrętu (prosty FFT dyskretny). Niezmienione -
-    patrz op_spectral_filtered() niżej dla wersji z obcięciem pasma i
-    normalizacją (SPECTRAL_MIN_FREQ/MAX_FREQ/NORMALIZE z constants.py)."""
+    """SPECTRAL — widmo skrętu (prosty FFT dyskretny)."""
     N = len(data)
     spectrum = []
     for k in range(N):
@@ -176,37 +203,32 @@ def op_spectral(data: bytes) -> list:
 
 
 def op_spectral_filtered(data: bytes, fs: float = 1.0) -> list:
-    """SPECTRAL (obcięte pasmo + normalizacja) — jak op_spectral(), ale
-    aktywuje SPECTRAL_MIN_FREQ/MAX_FREQ/NORMALIZE z constants.py, które
-    wcześniej nie były używane NIGDZIE (op_spectral() liczyło pełne
-    widmo bez żadnego obcięcia). `fs` (częstotliwość próbkowania, Hz) to
-    NOWY parametr - bez niego MIN_FREQ/MAX_FREQ (podane w Hz) nie mają
-    sensu fizycznego, bo sama DFT zna tylko indeksy k, nie Hz; fs=1.0
-    (domyślne) traktuje częstotliwość jako znormalizowaną (cykle/próbkę).
+    """SPECTRAL_FILTERED — widmo `op_spectral()` z częstotliwością
+    fizyczną `freq_k = k*fs/N` dołączoną do każdego bina i
+    ograniczoną do pasma `[SPECTRAL_MIN_FREQ, SPECTRAL_MAX_FREQ]` z
+    `core.constants` (czytane jako atrybuty TEGO modułu przy każdym
+    wywołaniu — można je podmienić w locie przez
+    `core.operators.SPECTRAL_MIN_FREQ = ...`, patrz testy). Gdy
+    `SPECTRAL_NORMALIZE` jest prawdziwe, amplitudy w paśmie są
+    znormalizowane tak, by maksymalny moduł `(re,im)` wynosił 1.0.
 
-    Zwraca listę (freq, re, im) tylko dla biner w [SPECTRAL_MIN_FREQ,
-    SPECTRAL_MAX_FREQ], znormalizowaną do maks. amplitudy=1 jeśli
-    SPECTRAL_NORMALIZE=True. Osobna funkcja od op_spectral() - dodana,
-    nie modyfikuje starej (inny kształt wyniku: trójki z częstotliwością,
-    nie same (re,im))."""
-    N = len(data)
-    if N == 0:
+    Zwraca listę `(freq, re, im)` — inny kształt niż `op_spectral()`
+    (`(re, im)`), celowo: `op_spectral()` zostaje NIETKNIĘTE dla
+    wstecznej kompatybilności (patrz test regresyjny)."""
+    raw = op_spectral(data)
+    n = len(data)
+    if n == 0:
         return []
-    spectrum = []
-    for k in range(N):
-        freq = k * fs / N
-        if freq < SPECTRAL_MIN_FREQ or freq > SPECTRAL_MAX_FREQ:
-            continue
-        re = sum(data[n] * math.cos(2 * math.pi * k * n / N) for n in range(N))
-        im = sum(data[n] * math.sin(2 * math.pi * k * n / N) for n in range(N))
-        spectrum.append((freq, re, im))
-
-    if SPECTRAL_NORMALIZE and spectrum:
-        max_mag = max(math.hypot(re, im) for _freq, re, im in spectrum)
+    filtered = []
+    for k, (re, im) in enumerate(raw):
+        freq = k * fs / n
+        if SPECTRAL_MIN_FREQ <= freq <= SPECTRAL_MAX_FREQ:
+            filtered.append((freq, re, im))
+    if SPECTRAL_NORMALIZE and filtered:
+        max_mag = max(math.hypot(re, im) for _freq, re, im in filtered)
         if max_mag > 0:
-            spectrum = [(freq, re / max_mag, im / max_mag) for freq, re, im in spectrum]
-
-    return spectrum
+            filtered = [(freq, re / max_mag, im / max_mag) for freq, re, im in filtered]
+    return filtered
 
 # ------------------------------------------------------------
 # 10. Operator REL — relacja skrętu (I(t))
@@ -221,216 +243,109 @@ def op_rel(M: bytes) -> bytes:
 # ------------------------------------------------------------
 
 def op_stab(data: bytes) -> bytes:
-    """STAB — stabilizacja skrętu. Niezmienione - patrz
-    op_stab_weighted()/op_stab_weighted_from_data() niżej dla wersji,
-    która faktycznie używa STAB_LAMBDA_WEIGHT/STAB_TAU_WEIGHT/
-    STAB_RHO_WEIGHT (wcześniej zdefiniowane w constants.py, ale
-    nieużywane - ta funkcja ich nigdy nie stosowała)."""
+    """STAB — stabilizacja skrętu."""
     return op_lambda(op_J(data))
 
 
-# ------------------------------------------------------------
-# 12. Operator R lokalny (ρ) + EMA — dla op_stab_weighted i op_transition
-# ------------------------------------------------------------
-
-def _ema(values: list, alpha: float) -> list:
-    """Wykładnicza średnia ruchoma: y[0]=x[0], y[i]=alpha*x[i]+(1-alpha)*y[i-1].
-    Podręcznikowy wzór, biblioteka standardowa - używana przez
-    op_R_local() do aktywowania RESONANCE_SMOOTHING z constants.py
-    (wcześniej zdefiniowane, nigdy nieużyte)."""
-    if not values:
-        return []
-    if not (0.0 <= alpha <= 1.0):
-        raise ValueError("alpha (współczynnik EMA) musi być w [0,1]")
-    out = [values[0]]
-    for v in values[1:]:
-        out.append(alpha * v + (1.0 - alpha) * out[-1])
-    return out
-
-
-def op_R_local(data: bytes, window: int = 3, smoothing: float = None) -> list:
-    """ρ / lokalny rezonans — ten sam wzór co istniejący, GLOBALNY op_R()
-    (energia sqrt(Σb²)), ale liczony w przesuwnym oknie zamiast dla
-    całego `data` naraz, więc ma wartość PER POZYCJA zamiast jednej
-    liczby dla całego sygnału. NOWY operator - wypełnia lukę: op_R()
-    sam z siebie nie da się użyć do maski per-pozycja (op_transition()
-    poniżej), ani jako "kanał ρ" w op_stab_weighted() (potrzebne tam
-    sekwencje, nie skalar).
-
-    window=3 (domyślne) wyrównuje długość wyniku (len(data)-2) z
-    op_tau() - te same indeksy (pozycja i w wyniku odpowiada oryginalnej
-    pozycji i+1 w `data`), więc oba dają się bezpośrednio łączyć.
-
-    smoothing=None (domyślne): surowe wartości energii, bez wygładzania.
-    smoothing=RESONANCE_SMOOTHING (z constants.py) aktywuje EMA - tej
-    stałej też nikt wcześniej nie używał."""
-    if window < 1:
-        raise ValueError("window musi być >= 1")
-    n = len(data)
-    if n < window:
-        return []
-    raw = [
-        sum(b * b for b in data[i:i + window]) ** 0.5
-        for i in range(n - window + 1)
-    ]
-    if smoothing is None:
-        return raw
-    return _ema(raw, smoothing)
-
-
-# ------------------------------------------------------------
-# 13. Operator STAB ważony — aktywuje STAB_*_WEIGHT
-# ------------------------------------------------------------
-
-def op_stab_weighted(lambda_channel: list, tau_channel: list, rho_channel: list) -> list:
-    """Ważona stabilność trzech kanałów (Λ,τ,ρ), zgodnie z wagami z
-    constants.py (STAB_LAMBDA_WEIGHT/STAB_TAU_WEIGHT/STAB_RHO_WEIGHT) -
-    NOWA funkcja, NIE modyfikuje istniejącego op_stab(data) (który
-    zostaje bez zmian - używany przez pipeline.py).
-
-    Wymaga trzech sekwencji tej SAMEJ długości (rzuca ValueError w
-    przeciwnym razie zamiast po cichu obcinać/dopełniać) - użyj
-    op_stab_weighted_from_data(), żeby zbudować je poprawnie wyrównane
-    z jednego strumienia bajtów."""
-    n = len(lambda_channel)
-    if len(tau_channel) != n or len(rho_channel) != n:
-        raise ValueError(
-            f"kanały muszą mieć tę samą długość: Λ={n}, τ={len(tau_channel)}, ρ={len(rho_channel)}"
-        )
+def op_stab_weighted(lam: list, tau: list, rho: list) -> list:
+    """STAB ważony — aktywacja stałych `STAB_LAMBDA_WEIGHT`,
+    `STAB_TAU_WEIGHT`, `STAB_RHO_WEIGHT` z `core.constants` (były
+    zdefiniowane, ale nigdzie nieużywane — patrz nagłówek modułu):
+    kombinacja liniowa trzech kanałów, wyrównanych długością przez
+    wołającego (patrz `op_stab_weighted_from_data` po gotowe
+    wyrównanie z surowych bajtów)."""
+    if not (len(lam) == len(tau) == len(rho)):
+        raise ValueError("lam, tau, rho muszą mieć tę samą długość")
     return [
-        STAB_LAMBDA_WEIGHT * lambda_channel[i]
-        + STAB_TAU_WEIGHT * tau_channel[i]
-        + STAB_RHO_WEIGHT * rho_channel[i]
-        for i in range(n)
+        STAB_LAMBDA_WEIGHT * l + STAB_TAU_WEIGHT * t + STAB_RHO_WEIGHT * r
+        for l, t, r in zip(lam, tau, rho)
     ]
 
 
-def op_stab_weighted_from_data(data: bytes, rho_window: int = 3) -> list:
-    """Buduje trzy wyrównane kanały (Λ,τ,ρ) z JEDNEGO strumienia bajtów
-    i woła op_stab_weighted() - wygodny odpowiednik starego
-    op_stab(data), tym razem z faktycznie użytymi wagami.
-
-    Wyrównanie: op_lambda(data) ma długość len(data) (pozycja i <-> i),
-    op_tau(data) ma długość len(data)-2 (pozycje 1..len(data)-2) - więc
-    kanał Λ jest przycinany do tego samego zakresu (`[1:-1]`). Kanał ρ =
-    op_R_local(data, window=3) ma z definicji tę samą długość i te same
-    indeksy co op_tau() (patrz jego docstring) - stąd rho_window=3
-    domyślnie; inna wartość rho_window da inną długość i
-    op_stab_weighted() to wykryje jako ValueError, zamiast po cichu
-    dopasować błędne dane."""
-    n = len(data)
-    if n < 3:
-        raise ValueError("dane muszą mieć długość >= 3, żeby zbudować wyrównane kanały Λ/τ/ρ")
-    lambda_channel = list(op_lambda(data))[1:n - 1]
-    tau_channel = op_tau(data)
-    rho_channel = op_R_local(data, window=rho_window)
-    return op_stab_weighted(lambda_channel, tau_channel, rho_channel)
-
+def op_stab_weighted_from_data(data: bytes) -> list:
+    """Buduje trzy kanały (Λ, τ, ρ) wyrównane długością z surowych
+    bajtów i woła `op_stab_weighted`: `lam` = `op_lambda(data)` bez
+    pierwszego i ostatniego elementu (wyrównanie z `op_tau`, który z
+    natury nie ma wartości na krańcach), `tau` = `op_tau(data)`,
+    `rho` = `op_R_local(data, window=3)` (też `len(data)-2` wartości —
+    patrz `op_R_local`)."""
+    if len(data) < 3:
+        raise ValueError("op_stab_weighted_from_data wymaga co najmniej 3 bajtów (tyle, co op_tau)")
+    lam = list(op_lambda(data))[1:len(data) - 1]
+    tau = op_tau(data)
+    rho = op_R_local(data, window=3)
+    return op_stab_weighted(lam, tau, rho)
 
 # ------------------------------------------------------------
-# 14. Skala rezonansu — teoretyczny sufit i granice adaptacyjne
+# 12. Operator TRANSITION — "Obszary przejściowe" (§2.4 dokumentacji
+#     teoretycznej) i pomocnicze progi rezonansu adaptacyjnego
 # ------------------------------------------------------------
 
-def theoretical_local_resonance_max(window: int, byte_max: int = 255) -> float:
-    """Teoretyczne maksimum op_R_local(window) na danych bajtowych:
-    sqrt(window * byte_max²) = byte_max * sqrt(window) - osiągane, gdy
-    KAŻDY bajt w oknie ma wartość byte_max (255 domyślnie). To jest
-    właściwa skala odniesienia dla RESONANCE_MAX (poprawka użytkownika,
-    2026-08-31: stara stała RESONANCE_MAX=1e9 była ~2 000 000x za duża
-    dla window=3, więc filtr górny nigdy się nie domykał - patrz
-    RESONANCE_MAX_K niżej i constants.py)."""
-    if window < 1:
-        raise ValueError("window musi być >= 1")
-    return byte_max * (window ** 0.5)
 
+def adaptive_resonance_bounds(values: list, k: float = 3.0) -> tuple:
+    """Pasmo `[mean-k*std, mean+k*std]` (odchylenie standardowe
+    populacyjne) dla listy wartości rezonansu — dolna granica
+    OBCINANA do 0.0 (energia/amplituda z definicji nieujemna, pasmo
+    nigdy nie schodzi poniżej zera nawet przy dużej wariancji)."""
+    if not values:
+        raise ValueError("adaptive_resonance_bounds wymaga niepustej listy wartości")
+    mean = sum(values) / len(values)
+    std = statistics.pstdev(values)
+    lo = max(0.0, mean - k * std)
+    hi = mean + k * std
+    return lo, hi
 
-def adaptive_resonance_bounds(resonance_values: list, k: float = 3.0) -> tuple:
-    """Granice rezonansu wyznaczone z DANYCH REFERENCYJNYCH zamiast z
-    teoretycznego zakresu bajtów: (max(0, mean - k*std), mean + k*std) -
-    "k-sigma band". Sensowniejsze niż theoretical_local_resonance_max(),
-    gdy masz prawdziwy sygnał referencyjny (nie tylko wiesz, że to
-    bajty 0-255) - wartości poza tym pasmem to albo szum (poniżej), albo
-    nasycenie/anomalia (powyżej), w sensie STATYSTYKI TEGO KONKRETNEGO
-    sygnału, nie abstrakcyjnego zakresu bajtów."""
-    n = len(resonance_values)
-    if n == 0:
-        raise ValueError("resonance_values nie może być puste")
-    mean = sum(resonance_values) / n
-    variance = sum((v - mean) ** 2 for v in resonance_values) / n
-    sigma = variance ** 0.5
-    return (max(0.0, mean - k * sigma), mean + k * sigma)
-
-
-# ------------------------------------------------------------
-# 15. Operator TRANSITION — brakujący filtr "Obszarów przejściowych"
-# ------------------------------------------------------------
 
 def op_transition(
     data: bytes,
     delta_s_soft: float = DELTA_S_SOFT,
     delta_s_hard: float = DELTA_S_HARD,
     resonance_min: float = RESONANCE_MIN,
-    resonance_max: float = None,
-    resonance_smoothing: float = RESONANCE_SMOOTHING,
-    rho_window: int = 3,
+    resonance_max=None,
 ) -> dict:
-    """Wykrywa obszary przejściowe (Transition Regions,
-    docs/TIMDR_Full_Document_PL.md §2.4 i docs/GLOSSARY_EN_PL.md):
-    granice między modalnościami, opisane w teorii jako strefy
-    bifurkacji + wzmacniacze rezonansu. Ten operator NIE ISTNIAŁ
-    wcześniej nigdzie w kodzie (sprawdzone przy audycie tej sesji) -
-    teoria go nazywała, kod nigdy go nie implementował.
+    """TRANSITION — filtr "Obszarów przejściowych" z §2.4 dokumentacji
+    teoretycznej: dla każdej pozycji `op_tau(data)` zwraca TRZY gęste
+    (pełnej długości, wyrównane z `tau_field`) maski boolowskie:
 
-    Zwraca słownik trzech GĘSTYCH masek bool (długość len(data)-2, te
-    same indeksy co op_tau()/op_R_local(), pozycja i <-> oryginalna
-    pozycja i+1 w `data`):
-      - "soft": ΔS > delta_s_soft (zmiana reżimu dynamiki)
-      - "hard": ΔS > delta_s_hard (silna bifurkacja)
-      - "transition": soft ORAZ lokalny rezonans w (resonance_min, resonance_max)
-        (dokładna definicja z teorii: strefa bifurkacji + wzmocniony rezonans RAZEM)
+    - `soft`: `|Δτ| > delta_s_soft` (miękki próg defektu, patrz
+      `DELTA_S_SOFT`),
+    - `hard`: `|Δτ| > delta_s_hard` (twardy próg, `DELTA_S_HARD`) —
+      z definicji podzbiór `soft` dla `delta_s_hard >= delta_s_soft`,
+    - `transition`: `soft` ORAZ lokalna energia (`op_R_local(data,
+      window=3)`, wyrównana z `tau_field` z konstrukcji) mieści się w
+      paśmie `[resonance_min, resonance_max]` — "obszar przejściowy"
+      to miejsce, gdzie zaszła zmiana WYSTARCZAJĄCO duża (soft), ale
+      NIE tak ekstremalna, by wypaść poza akceptowalne pasmo
+      rezonansu (np. czysty szum impulsowy poza skalą danych).
 
-    WAŻNE o rezonansie: stary, globalny op_R(data) zwraca JEDNĄ liczbę
-    dla całego sygnału - nie da się z niej zbudować maski per-pozycja.
-    Ten operator używa więc op_R_local() (lokalna, opcjonalnie
-    wygładzona EMA wersja tego samego wzoru energii), nie op_R().
+    `resonance_max=None` (domyślnie) liczy sufit DYNAMICZNIE jako
+    `RESONANCE_MAX_K * theoretical_local_resonance_max(3)` —
+    NAPRAWIONE (audyt 2026-08-31): stara, martwa stała
+    `RESONANCE_MAX=1e9` była ~2 000 000x za duża dla energii lokalnej
+    na bajtach (teoretyczne maksimum ~442) — "saturacja" nigdy nie
+    następowała, próg był w praktyce nieaktywny. Nowy domyślny sufit
+    jest w skali bajtów (dziesiątki-setki), nie miliardów.
 
-    NAPRAWIONE (poprawka użytkownika, 2026-08-31): resonance_max=None
-    (domyślnie) NIE czyta już stałej RESONANCE_MAX=1e9 z constants.py
-    (była ~2 000 000x za duża dla window=3 na bajtach - filtr górny
-    nigdy się nie domykał, transition_mask ~= soft_mask). Zamiast tego
-    liczy właściwy sufit DYNAMICZNIE, dopasowany do rho_window:
-
-        resonance_max = RESONANCE_MAX_K * theoretical_local_resonance_max(rho_window)
-
-    (RESONANCE_MAX_K=3.0 domyślnie - "3x teoretyczne maksimum energii
-    okna" jako umowna granica nasycenia). Podaj własny resonance_max
-    (liczbę), żeby to nadpisać - najlepiej przez
-    adaptive_resonance_bounds() na prawdziwych danych referencyjnych,
-    jeśli je masz (bardziej znaczące niż teoretyczny zakres bajtów).
-
-    UCZCIWIE o resonance_min: RESONANCE_MIN=0.0 zostaje domyślne, ale
-    op_R_local() z definicji zwraca wartości >= 0 - więc "r >
-    resonance_min" jest prawie zawsze prawdziwe (poza zdegenerowanym
-    oknem samych zer). To NIE jest realny filtr szumu, tylko formalna
-    dolna granica dziedziny - dla realnego odcięcia szumu podaj
-    resonance_min z adaptive_resonance_bounds() na danych
-    referencyjnych."""
-    n = len(data)
-    tau_field = op_tau(data)
-    if not tau_field:
+    Dla `len(data) < 3` (za mało na `op_tau`) zwraca trzy puste listy,
+    nie rzuca wyjątku."""
+    if len(data) < 3:
         return {"soft": [], "hard": [], "transition": []}
 
     if resonance_max is None:
-        resonance_max = RESONANCE_MAX_K * theoretical_local_resonance_max(rho_window)
+        resonance_max = RESONANCE_MAX_K * theoretical_local_resonance_max(3)
 
-    soft_defects = {i for i, _v in op_deltaS(tau_field, threshold=delta_s_soft)}
-    hard_defects = {i for i, _v in op_deltaS(tau_field, threshold=delta_s_hard)}
-    resonance = op_R_local(data, window=rho_window, smoothing=resonance_smoothing)
+    tau_field = op_tau(data)
+    resonance = op_R_local(data, window=3)  # wyrównane z tau_field z konstrukcji (oba "valid" na trójkach)
 
-    m = len(tau_field)  # = n - 2, wspólny zakres indeksów
-    soft_mask = [i in soft_defects for i in range(m)]
-    hard_mask = [i in hard_defects for i in range(m)]
-    resonance_mask = [resonance_min < r < resonance_max for r in resonance[:m]]
-    transition_mask = [s and r for s, r in zip(soft_mask, resonance_mask)]
-
-    return {"soft": soft_mask, "hard": hard_mask, "transition": transition_mask}
+    soft, hard, transition = [], [], []
+    prev = tau_field[0] if tau_field else 0
+    for idx, cur in enumerate(tau_field):
+        diff = abs(cur - prev) if idx > 0 else 0  # brak poprzednika w tau_field -> brak skoku
+        is_soft = diff > delta_s_soft
+        is_hard = diff > delta_s_hard
+        in_band = resonance_min <= resonance[idx] <= resonance_max
+        soft.append(is_soft)
+        hard.append(is_hard)
+        transition.append(is_soft and in_band)
+        prev = cur
+    return {"soft": soft, "hard": hard, "transition": transition}
