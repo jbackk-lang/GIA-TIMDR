@@ -26,7 +26,12 @@ w G7. G10 (dodany później, ta sama sesja co niniejsza aktualizacja)
 formalizuje INNY obiekt — krzywiznę krzywej (obwiedni trójkąta), nie
 powierzchni — jako parametr redukcji/rozwinięcia \((P,Q)\); status
 identyczny jak G8-G9 (wyprowadzenie ręczne, niezaimplementowane), patrz
-zastrzeżenie pod G10.
+zastrzeżenie pod G10. **G5 (zaktualizowany później, kolejna sesja)**
+przestał być pustym stwierdzeniem braku — jest teraz operatorem
+G-Rezonans, skonstruowanym i przetestowanym NUMERYCZNIE (silniejszy
+status niż G8-G10, które są wyprowadzeniem ręcznym bez implementacji)
+dla \(N=3\) na geometrii trójwęzła, wciąż bez walidacji empirycznej na
+realnej krzywej — patrz zastrzeżenie o zakresie pod G5.
 
 ---
 
@@ -348,30 +353,146 @@ krzywizny) — to jest właściwy, ograniczony sens, w jakim \(P\)
 
 ---
 
-## Aksjomat G5 — Brak operatora rezonansu geometrycznego (na tym etapie)
+## Aksjomat G5 — Operator G-Rezonans
 
-Gałąź geometryczna G **nie definiuje** własnego operatora rezonansu na
-powierzchniach:
+*(Ta wersja Aksjomatu G5 ZASTĘPUJE wcześniejszą z tej rodziny
+dokumentów, która stwierdzała jawny, celowy brak operatora rezonansu w
+gałęzi G — "Brak operatora rezonansu geometrycznego (na tym etapie)".
+Ten brak był, w chwili napisania, uczciwym stwierdzeniem stanu, nie
+błędem — ale na wyraźną prośbę użytkownika, prototyp zbudowany i
+przetestowany wcześniej dla trójwęzła
+[`core/trefoil_resonance_model.py`](../../core/trefoil_resonance_model.py),
+[`TIMDR_Trefoil_ResonanceModel.md`](../geometry/TIMDR_Trefoil_ResonanceModel.md))
+został tu podniesiony do rangi formalnego operatora gałęzi G, w wersji
+ogólnej (dowolna liczba węzłów \(N\geq3\), nie tylko trójwęzeł) —
+`core/geometric_resonance_operator.py`. Poprzednia treść jest
+zachowana w historii gita tego pliku, zgodnie z konwencją tego repo
+ujawniania zmian aksjomatów zamiast ich cichego nadpisywania.)*
 
-- **(G5a)** Nie istnieje w tym wydaniu formalny operator "rezonansu
-  geometrycznego" analogiczny do rezonansu M w gałęzi sygnałowej.
-- **(G5b)** Wszelkie użycie słowa "rezonans" w kontekście gałęzi G ma
-  charakter metaforyczny lub koncepcyjny, nie formalny.
-- **(G5c)** Próby zdefiniowania rezonansu geometrycznego muszą być
-  jawnie oznaczone jako osobne rozszerzenie, nie część tego zestawu
-  aksjomatów.
+Gałąź geometryczna G definiuje operator **G-Rezonans** \(\mathcal{R}_G\)
+na zamkniętych krzywych z wyróżnionymi, cyklicznie sprzężonymi węzłami —
+obiekcie geometrycznym INNYM niż powierzchnia \(S\) z G1-G4/G8-G9
+(normalne, operator Weingartena) i innym niż obwiednia trójkąta z G10
+(choć, podobnie jak G10, jest to obiekt zbudowany na krzywej, nie na
+powierzchni — ten sam wzorzec "ta sama gałąź, różne obiekty", co
+G3d/G6c dla skrętu, stosowany tu do rezonansu).
+
+- **(G5a) Domena.** Zamknięta krzywa \(C \subset \mathbb{R}^3\) z
+  \(N \geq 3\) wyróżnionymi węzłami sprzężenia
+  \(p_0, \dots, p_{N-1}\) rozłożonymi cyklicznie wzdłuż \(C\) (węzeł
+  \(i\) sąsiaduje z węzłami \((i{-}1) \bmod N\) i
+  \((i{+}1) \bmod N\)). Każdy węzeł \(i\) niesie lokalną krzywiznę
+  krzywej \(\kappa_i\) w tym punkcie; każdy segment \(C\) łączący węzeł
+  \(i\) z węzłem \((i{+}1)\bmod N\) niesie torsję tego segmentu
+  \(\tau_i\). (\(N=3\), \(\kappa_i\equiv\kappa_{\text{idealne}}\),
+  \(\tau_i\equiv\tau_{\text{idealne}}\) dla wszystkich \(i\) to
+  przypadek trójwęzła idealnego — jedyny, dla którego G5c-G5e są dziś
+  numerycznie sprawdzone, patrz G5f.)
+- **(G5b) Przeciwdziedzina.** Widmo rezonansowe
+  \(\Sigma = (\{\omega_k\}_{k=1}^{N}, \{Q_k\}, A(\omega))\): zbiór
+  częstości własnych układu, ich dobroć (ostrość piku, metoda połowy
+  mocy) i profil amplitudy odpowiedzi \(A(\omega)=|X(\omega)|\) w
+  funkcji częstości pobudzenia \(\omega\).
+- **(G5c) Definicja.** \(\mathcal{R}_G\) przypisuje krzywej
+  \((C,\{p_i\},\{\kappa_i\},\{\tau_i\})\) układ \(N\) tłumionych
+  oscylatorów harmonicznych sprzężonych w pierścień:
+  \[
+  M x'' + \Gamma x' + Kx = F(t),\qquad
+  K_{ii} = k_{\text{scale}}\kappa_i + kc_{\text{scale}}(|\tau_{i-1}|+|\tau_i|),\qquad
+  K_{i,i+1}=K_{i+1,i}=-kc_{\text{scale}}|\tau_i|
+  \]
+  (indeksy mod \(N\)), pobudzany LOKALNIE (jeden węzeł \(j\)):
+  \(F(t) = F_0\cos(\omega t)\,e_j\). Odpowiedź ustalona (phasor):
+  \(X(\omega) = (K - \omega^2 M + i\omega\Gamma)^{-1}F\). Widmo
+  \(\Sigma\) = lokalne maksima \(|X(\omega)|\) powyżej progu, z ich
+  dobrocią \(Q_k=\omega_k/\text{szerokość pasma 3dB}\). Implementacja:
+  `core/geometric_resonance_operator.py`
+  (`build_ring_matrices`, `natural_frequencies`,
+  `steady_state_response`, `find_peaks`, `estimate_Q`).
+- **(G5d) Warunek stabilności.** \(\mathcal{R}_G\) NIE dopuszcza
+  destrukcyjnego (nieograniczonego) wzrostu odpowiedzi dla ŻADNEGO
+  skończonego pobudzenia, gdy \(M\), \(K\), \(\Gamma\) są symetryczne i
+  ściśle dodatnio określone (masy > 0, sztywności > 0, tłumienie > 0 na
+  KAŻDYM węźle): wtedy macierz układu
+  \(A(\omega)=K-\omega^2M+i\omega\Gamma\) jest nieosobliwa dla każdego
+  rzeczywistego \(\omega\) — przy \(\omega=0\), \(A=K\) (nieosobliwa z
+  założenia); przy \(\omega\neq0\), część urojona \(\omega\Gamma\) jest
+  ściśle dodatnio określona, więc \(A\) (hermitowska, z niezerową,
+  dodatnio określoną częścią urojoną) nie może mieć zerowej wartości
+  własnej. Brak zer \(\det A(\omega)=0\) na rzeczywistej osi \(\omega\)
+  oznacza SKOŃCZONĄ odpowiedź dla każdej skończonej częstości
+  pobudzenia — formalny, sprawdzalny odpowiednik nieformalnego "Q nie
+  eksploduje" używanego jako kryterium rewizji w prototypie
+  trójwęzła. Implementacja predykatu: `is_stable()` w
+  `core/geometric_resonance_operator.py`.
+- **(G5e) Defekt węzła jako źródło zmiany widma.** Lokalna perturbacja
+  \(D_i(\Delta\kappa_i,\Delta\tau_i)\) geometrii w węźle \(i\) (zmiana
+  krzywizny węzła i/lub torsji przyległych segmentów) zmienia \(K\), a
+  przez to widmo \(\Sigma\) — RÓŻNE rodzaje defektu dają JAKOŚCIOWO
+  różne odciski widmowe. Sprawdzone numerycznie dla \(N=3\) (trójwęzeł
+  symetryczny): defekt sprzężenia (\(\Delta\tau\) na segmentach
+  przyległych do jednego węzła) rozszczepia zdegenerowany dublet
+  częstości własnych monotonicznie z siłą defektu; defekt sztywności
+  węzła (\(\Delta\kappa\) tego węzła) przesuwa głównie tryb
+  niezdegenerowany (singlet), z dubletem prawie nietkniętym — dwa
+  jakościowo różne "podpisy" defektu w tym samym widmie
+  (`tests/test_trefoil_resonance_model.py`, kroki 6).
+- **(G5f) Status i zakres walidacji — zastrzeżenie analogiczne do
+  G8-G10.** G5a-G5e są skonstruowane i przetestowane NUMERYCZNIE (nie
+  tylko wyprowadzone ręcznie, w odróżnieniu od G8-G10, które są
+  wyprowadzeniem analitycznym bez implementacji) dla \(N=3\) na
+  geometrii idealnego trójwęzła — sześć testów w
+  `tests/test_trefoil_resonance_model.py` (degeneracja bazowa,
+  łamanie symetrii przez defekt, dokładnie 2 piki bazowe,
+  rozszczepienie/przesunięcie per typ defektu, stabilność w
+  przetestowanym zakresie). Ogólność implementacji (dowolne
+  \(N\geq3\), nie ukryty przypadek szczególny \(N=3\)) jest sprawdzona
+  STRUKTURALNIE (nie na realnej geometrii innej niż trójwęzeł) w
+  `tests/test_geometric_resonance_operator.py`. To, co NIE jest
+  zrobione: (1) żadna walidacja na realnej, zmierzonej krzywej 3D —
+  kontrast z gałęzią M/S, gdzie realna walidacja już się odbyła
+  (`TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`); (2) stałe
+  \(k_{\text{scale}}, kc_{\text{scale}}, \gamma\) (przejście geometria
+  → mechanika) są wyborem modelowym, NIE skalibrowanym na danych — ten
+  sam status co `min_curvature` w `the_geo_pro_4d.py`; (3) przesunięcie
+  węzła WZDŁUŻ krzywej (jeden z trzech parametrów oryginalnie
+  proponowanego defektu \(D_i(\Delta z_i,\Delta r_i,\Delta\tau_i)\))
+  nie jest reprezentowane w macierzach \(M,K,\Gamma\) — zmienia tylko
+  położenie równowagi układu, nie jego widmo; (4) próba praktycznego
+  zastosowania TEJ SAMEJ figury geometrycznej (trójwęzeł jako model
+  sygnału, nie jako G-Rezonans) na realnych danych pogodowych dała
+  jawny wynik negatywny z innych, niezależnych przyczyn
+  (`docs/geometry/TIMDR_Trefoil_RealDataValidation.md`) — to NIE jest
+  test operatora \(\mathcal{R}_G\) samego w sobie, ale ostrzeżenie
+  przed myleniem dwóch różnych twierdzeń, systematycznie mylonych w
+  tym ekosystemie: "działa poprawnie na kontrolowanych, syntetycznych
+  przykładach" i "jest użyteczne w praktycznym zastosowaniu na realnych
+  danych". Status ogólny: **skonstruowany i zweryfikowany numerycznie
+  na kontrolowanych przykładach, nie zwalidowany empirycznie** — ten
+  sam poziom pewności co G8-G10 pod względem braku walidacji
+  empirycznej, ale silniejszy pod względem implementacji (kod
+  uruchomiony i przetestowany, nie tylko wyprowadzony na papierze).
 
 ---
 
 ## Aksjomat G6 — Rozdział gałęzi G od M i K
 
 - **(G6a)** Obiekty gałęzi G (trójkąt, powierzchnia, normalne, skręt
-  powierzchniowy) nie są elementami przestrzeni sygnałów
-  \(x:T\to\mathbb{R}^d\) ani modułów \((f,\phi,A)\).
-- **(G6b)** Operatory gałęzi G (Λ, τ, ρ, J, \(T_S\), \(W_S\)) nie są
-  rozszerzeniami ani szczególnymi przypadkami operatorów gałęzi M
-  (anomalia, defekt, skręt sygnałowy, rezonans M) ani gałęzi K
-  (rezonans modalny).
+  powierzchniowy, krzywa z węzłami sprzężenia — G5) nie są elementami
+  przestrzeni sygnałów \(x:T\to\mathbb{R}^d\) ani modułów
+  \((f,\phi,A)\).
+- **(G6b)** Operatory gałęzi G (Λ, τ, ρ, J, \(T_S\), \(W_S\),
+  \(\mathcal{R}_G\) — G5) nie są rozszerzeniami ani szczególnymi
+  przypadkami operatorów gałęzi M (anomalia, defekt, skręt sygnałowy,
+  rezonans M) ani gałęzi K (rezonans modalny). W szczególności
+  \(\mathcal{R}_G\) (G5) NIE jest szczególnym przypadkiem rezonansu
+  modalnego z `Axioms_K_TIMDR.md` (Aksjomat 5: wyrównanie
+  częstotliwość/faza modułów \((f,\phi,A)\) na przestrzeni
+  topologicznej \(T=(X,\tau)\)) mimo że oba operują pojęciem
+  "częstości własnej" — domeny są rozłączne (krzywa z węzłami
+  mechanicznymi kontra moduły falowe na przestrzeni topologicznej) i
+  definicje matematyczne różne (układ mechaniczny drugiego rzędu
+  kontra wyrównanie parametrów).
 - **(G6c)** Wspólne słowa ("skręt", "rezonans") oznaczają różne
   obiekty w gałęziach G, M i K — nie różne poziomy tej samej teorii.
 
@@ -398,7 +519,11 @@ powierzchniach:
   uruchomiony na rzeczywistych danych geometrycznych; kontrast z
   gałęzią sygnałową M, gdzie realna walidacja już się odbyła —
   `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`), (4)
-  niezależnej walidacji — otwarte.
+  niezależnej walidacji — otwarte. *(Wyjątek częściowy: operator
+  \(\mathcal{R}_G\) z G5 JEST zaimplementowany i przetestowany
+  numerycznie w tym repo, w odróżnieniu od \(W_S\) powyżej — ale nadal
+  bez testów empirycznych i niezależnej walidacji, więc punkty (3)-(4)
+  pozostają otwarte także dla niego; patrz zastrzeżenie G5f.)*
 
 ---
 
@@ -408,7 +533,7 @@ powierzchniach:
 |---|---|
 | G1-G2 | Sekcja 1 głównego `README.md` GIA-TIMDR (model trójkąta, asymetria, impuls) |
 | G3-G4 | Skręt powierzchniowy w `Resonance_M_Operator_Empiryczny.md` §6, plus sekcje o Mobiosotourys/Tetroidzie (README sekcja 6) |
-| G5 | Wiersz "Operator rezonansu: brak" dla gałęzi G w tabeli "Trzy gałęzie TIMDR" (README) |
+| G5 | Operator G-Rezonans \(\mathcal{R}_G\) — `core/geometric_resonance_operator.py` (ogólny, N≥3), `core/trefoil_resonance_model.py` (warstwa N=3), pełny opis w [`TIMDR_GResonance_Operator.md`](../geometry/TIMDR_GResonance_Operator.md); wiersz "Rezonans" w tabeli porównawczej `TIMDR_Branch_Specification.md` i w tabeli "Trzy gałęzie TIMDR" (README) |
 | G6 | Sekcja "🌿 Trzy gałęzie TIMDR — mapa terenu" w README |
 | G7 | Ostrzeżenie na początku README ("model koncepcyjny / narzędzie do myślenia, nie teoria naukowa") |
 | G8-G9 | Domykają analitycznie związek \(T_S = F(W_S)\) nazwany w G4 — patrz też `TIMDR_Branch_Specification.md` (gałąź G, sekcja operatorów) |
@@ -420,9 +545,13 @@ sygnałowa — sekcja "Pozostałe braki formalne" tam odnosi się wprost do
 G4/G8/G9 powyżej), [`Resonance_M_Operator_Empiryczny.md`](./Resonance_M_Operator_Empiryczny.md)
 §6 (pierwsze wprowadzenie \(T_S\), przed formalizacją jako G3, G8, G9),
 [`TIMDR_Twists.md`](./TIMDR_Twists.md) (skonsolidowane formalne
-definicje wszystkich czterech znaczeń "skrętu" w ekosystemie, w tym
+definicje wszystkich pięciu znaczeń "skrętu" w ekosystemie, w tym
 skrętu powierzchniowego z G3/G8/G9), [`TIMDR_Branch_Specification.md`](./TIMDR_Branch_Specification.md)
 (formalna specyfikacja trzech gałęzi TIMDR — źródło prawdy dla
 podziału M/S, G, K), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md) (kanoniczne nazwy
-"skręt powierzchniowy" i rozgraniczenie od pozostałych trzech znaczeń
-skrętu).
+"skręt powierzchniowy" i rozgraniczenie od pozostałych czterech znaczeń
+skrętu oraz od pozostałych trzech znaczeń rezonansu),
+[`../geometry/TIMDR_GResonance_Operator.md`](../geometry/TIMDR_GResonance_Operator.md)
+(pełny opis operatora G-Rezonans z G5: konstrukcja, testy, status
+walidacji, uczciwe ograniczenia), [`../geometry/TIMDR_Trefoil_ResonanceModel.md`](../geometry/TIMDR_Trefoil_ResonanceModel.md)
+(pierwotny prototyp dla trójwęzła, przed podniesieniem do G5).
