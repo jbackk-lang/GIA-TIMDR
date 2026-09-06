@@ -1,4 +1,4 @@
-# TIMDR_Twists — skonsolidowana formalna specyfikacja czterech znaczeń "skrętu"
+# TIMDR_Twists — skonsolidowana formalna specyfikacja pięciu znaczeń "skrętu"
 
 **Status:** dokument referencyjny (T1 + T2), nie nowy zestaw aksjomatów.
 Nie definiuje niczego nowego matematycznie — zbiera w jednym miejscu
@@ -10,7 +10,7 @@ wskazany w kolumnie "Źródło" — ten dokument jest indeksem/mapą, nie
 zamiennikiem.
 
 **Dlaczego ten dokument istnieje:** "skręt"/"twist" jest w ekosystemie
-TIMDR słowem przeciążonym — używanym w co najmniej czterech,
+TIMDR słowem przeciążonym — używanym w co najmniej pięciu,
 matematycznie niezwiązanych znaczeniach. `GLOSSARY_EN_PL.md` już
 zawiera krótkie wpisy dla każdego; ten dokument idzie krok dalej i
 podaje pełną domenę/przeciwdziedzinę/definicję dla każdego, jedno pod
@@ -18,7 +18,7 @@ drugim, żeby rozdzielenie było niepodważalne przy pierwszym spojrzeniu.
 
 ---
 
-## T1 — Formalne definicje czterech skrętów
+## T1 — Formalne definicje pięciu skrętów
 
 ### 1. Skręt sygnałowy (gałąź M/S — sygnałowa)
 
@@ -100,24 +100,68 @@ drugim, żeby rozdzielenie było niepodważalne przy pierwszym spojrzeniu.
   szerszym ekosystemie repo.
 - **Źródło:** `MAGE-IN-IMAGE-DECODER` repo, własny pipeline.
 
+### 5. Torsja Freneta-Serreta trójwęzła (skręt osiowy) (gałąź G — geometryczna, krzywa 3D)
+
+- **Domena:** pojedyncza przestrzenna krzywa \(\gamma: T \to
+  \mathbb{R}^3\) sparametryzowana czasem/parametrem \(t\) (tu:
+  klasyczny trójwęzeł/trefoil knot, ale definicja nie jest ograniczona
+  do tej jednej krzywej) — **nie** rodzina powierzchni (jak τ
+  topologiczne) ani ustalona siatka (jak skręt powierzchniowy).
+- **Definicja:** torsja Freneta-Serreta liczona z prędkości/
+  przyspieszenia/szarpnięcia (\(v,a,j\)) wyznaczonych różnicami
+  skończonymi z 4 kolejnych próbek krzywej:
+  \[
+  \kappa(t) = \frac{\|v \times a\|}{\|v\|^3}, \qquad
+  \tau(t) = \frac{\det(v,a,j)}{\|v \times a\|^2}
+  \]
+  z bramkowaniem szumu identycznym jak przy skręcie powierzchniowym:
+  \(\kappa(t) < \kappa_{min} \Rightarrow \tau(t) = 0\) (dzielenie przez
+  \(\|v\times a\|^2\) wzmacnia szum przy niemal-prostoliniowym odcinku
+  krzywej — ten sam wzorzec błędu, co przy `cross_norm==0` opisanym w
+  `the_geo_pro_4d.py`).
+- **Przeciwdziedzina:** \(\tau(t) \in \mathbb{R}\) (nieograniczona, w
+  przeciwieństwie do skrętu powierzchniowego \([0,2]\)).
+- **Nie jest:** skrętem topologicznym τ powyżej (inna domena:
+  pojedyncza krzywa 3D, nie rodzina powierzchni \(S_\lambda\)) — mimo
+  współdzielonego symbolu τ w obu miejscach, celowo NIEidentyfikowane.
+  Formalnie ten sam matematyczny obiekt co torsja Freneta-Serreta,
+  którą `Operators_N_TIMDR.md` explicite sprawdza i **odrzuca** jako
+  tożsamą ze skrętem topologicznym — więc tu jest nazwana wprost jako
+  odrębne, piąte znaczenie, zamiast milcząco pożyczać nazwę "skręt
+  topologiczny".
+- **Status:** empirycznie przetestowane na syntetycznym trójwęźle z
+  kontrolą pozytywną (deformacja węzła wykrywalna, zlokalizowana z
+  dokładnością ≤6 próbek/300) i negatywną (czysty trójwęzeł — zero
+  fałszywych alarmów) — patrz `TIMDR_Trefoil_FrenetTorsion.md`. Różni
+  się statusem od τ topologicznego (koncepcyjne, bez implementacji) i
+  od skrętu powierzchniowego (analityczne G8-G9, numeryczna
+  implementacja nieuruchomiona w sesji, w której powstała) — to jedyne
+  z trzech znaczeń gałęzi G, które ma **uruchomione i potwierdzone
+  testy** na tym etapie.
+- **Źródło:** `core/trefoil_frenet_torsion.py`,
+  `docs/geometry/TIMDR_Trefoil_FrenetTorsion.md`. Matematyka
+  identyczna z `THE_TIMDR_Hyperflow_Engine/the_geo_pro_4d.py` (tam
+  zwalidowana: błąd <0,001% względem analitycznej helisy).
+
 ---
 
 ## T2 — Jawne rozdzielenie domen
 
-| Znaczenie | Gałąź TIMDR | Domena obiektu | Przeciwdziedzina | Relacja do pozostałych trzech |
+| Znaczenie | Gałąź TIMDR | Domena obiektu | Przeciwdziedzina | Relacja do pozostałych |
 |---|---|---|---|---|
 | Skręt sygnałowy | M/S (sygnałowa) | szereg czasowy \(x:T\to\mathbb{R}^d\) | boolowska (wykryty/nie) | niezależny; dzieli słowo, nie obiekt |
-| Skręt topologiczny (τ) | G (geometryczna) | rodzina powierzchni \(S_\lambda\) | zależna od parametryzacji | niezależny od skrętu powierzchniowego (inna domena: rodzina vs. ustalona siatka) |
-| Skręt powierzchniowy | G (geometryczna) | ustalona siatka \(S\subset\mathbb{R}^3\) | \([0,2]\subset\mathbb{R}_{\geq0}\) | niezależny od τ; związany z krzywizną przez G9, nie z τ |
+| Skręt topologiczny (τ) | G (geometryczna) | rodzina powierzchni \(S_\lambda\) | zależna od parametryzacji | niezależny od skrętu powierzchniowego i od torsji trójwęzła (inna domena) |
+| Skręt powierzchniowy | G (geometryczna) | ustalona siatka \(S\subset\mathbb{R}^3\) | \([0,2]\subset\mathbb{R}_{\geq0}\) | niezależny od τ i od torsji trójwęzła; związany z krzywizną przez G9, nie z τ |
 | Twist blokowy | poza TIMDR | bloki obrazu 2D | zależna od implementacji | całkowicie niezależny, tylko leksykalne podobieństwo nazwy |
+| Torsja Freneta-Serreta trójwęzła | G (geometryczna) | pojedyncza krzywa 3D \(\gamma:T\to\mathbb{R}^3\) | \(\mathbb{R}\) (nieograniczona) | niezależna od τ topologicznego mimo współdzielonego symbolu τ; jedyne znaczenie gałęzi G z uruchomionymi testami |
 
 **Zasada nadrzędna (zgodna z Aksjomatem G6 i analogicznym rozdziałem w
-`Axioms_S_TIMDR_Signal.md`):** żadne z czterech znaczeń nie jest
+`Axioms_S_TIMDR_Signal.md`):** żadne z pięciu znaczeń nie jest
 rozszerzeniem ani szczególnym przypadkiem żadnego innego. Wspólne słowo
 nazywa różne obiekty matematyczne w różnych domenach — nie różne
 poziomy jednej teorii. Każde nowe użycie słowa "skręt"/"twist" w tym
-ekosystemie powinno od razu wskazywać, o które z czterech (lub o nowe,
-piąte) znaczenie chodzi.
+ekosystemie powinno od razu wskazywać, o które z pięciu (lub o nowe,
+szóste) znaczenie chodzi.
 
 ---
 
@@ -126,5 +170,9 @@ Powiązane: [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md)
 (Aksjomaty G3, G8, G9 — skręt powierzchniowy), [`Operators_N_TIMDR.md`](./Operators_N_TIMDR.md)
 (skręt topologiczny τ), [`TIMDR_Branch_Specification.md`](./TIMDR_Branch_Specification.md)
 (formalna specyfikacja trzech gałęzi TIMDR, w tym rozdzielenie
-"skrętu" per gałąź), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
+"skrętu" per gałąź), [`../geometry/tourosomobius.md`](../geometry/tourosomobius.md)
+(pojęciowy szkic "trójwęzła helikalnego", inspiracja punktu 5 — czysto
+notacyjny, bez formalizacji), [`TIMDR_Trefoil_FrenetTorsion.md`](../geometry/TIMDR_Trefoil_FrenetTorsion.md)
+(punkt 5 — torsja Freneta-Serreta trójwęzła, pełny opis eksperymentu i
+kodu), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
 (krótkie, dwujęzyczne wpisy — ten dokument jest ich rozwinięciem).
