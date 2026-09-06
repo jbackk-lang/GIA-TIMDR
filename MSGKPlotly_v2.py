@@ -191,4 +191,19 @@ for scene_key in ["scene", "scene2", "scene3", "scene4"]:
         }
     )
 
-fig.show()
+
+# fig.show() bywa zawodne, gdy plotly nie ma poprawnie ustawionego
+# domyślnego renderera ("browser") -- wtedy nic się nie otwiera i nie ma
+# żadnego błędu. Zamiast tego: zapisz do pliku HTML obok skryptu i otwórz
+# go jawnie przez system operacyjny.
+import os
+import webbrowser
+
+out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MSGKPlotly_v2.html")
+fig.write_html(out_path)
+print(f"Zapisano: {out_path}")
+
+if os.name == "nt":
+    os.startfile(out_path)
+else:
+    webbrowser.open("file://" + out_path)
