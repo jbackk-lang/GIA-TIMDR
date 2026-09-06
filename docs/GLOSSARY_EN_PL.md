@@ -130,13 +130,13 @@ przekroczeń progu 2σ) — nie traktuj go jako tożsamego z rezonansem M.
 
 ## Skręt / Twist — nazwy kanoniczne
 
-**UWAGA:** "skręt"/"twist" ma w tym ekosystemie CZTERY niezwiązane ze
-sobą znaczenia. Każde nowe użycie tego słowa powinno od razu użyć
+**UWAGA:** "skręt"/"twist" ma w tym ekosystemie PIĘĆ niezwiązanych ze
+sobą znaczeń. Każde nowe użycie tego słowa powinno od razu użyć
 jednej z poniższych rozszerzonych nazw — samo "skręt" bez przymiotnika
 jest niejednoznaczne. Pełne uzasadnienie i rozgraniczenie:
 [`theory/Resonance_M_Operator_Empiryczny.md`](theory/Resonance_M_Operator_Empiryczny.md)
 sekcja 0. Pełna, skonsolidowana formalna specyfikacja wszystkich
-czterech (domena, przeciwdziedzina, definicja, per znaczenie, jedno pod
+pięciu (domena, przeciwdziedzina, definicja, per znaczenie, jedno pod
 drugim): [`theory/TIMDR_Twists.md`](theory/TIMDR_Twists.md).
 
 ### Skręt sygnałowy
@@ -190,6 +190,29 @@ pipeline — operates on image blocks, own implementation, own purpose.
 **PL:** To, co liczy `TwistDetector` w pipeline'ie dekodowania obrazu-w-
 obrazie — działa na blokach obrazu, własna implementacja, własny cel.
 **Źródło:** `MAGE-IN-IMAGE-DECODER`.
+
+### Torsja Freneta-Serreta trójwęzła (skręt osiowy)
+**EN:** Frenet-Serret torsion along a trefoil-knot curve's own axis —
+`τ(t) = det(v,a,j)/‖v×a‖²` from finite-difference velocity/
+acceleration/jerk, identical formula to `the_geo_pro_4d.py`
+(`THE_TIMDR_Hyperflow_Engine`), curvature-gated (`κ<min_curvature ⇒
+τ=0`, same noise-amplification fix as G8-G9 for surface twist).
+**PL:** Torsja Freneta-Serreta wzdłuż osi krzywej trójwęzła (trefoil
+knot) — `τ(t) = det(v,a,j)/‖v×a‖²` z prędkości/przyspieszenia/
+szarpnięcia liczonych różnicami skończonymi, wzór identyczny z
+`the_geo_pro_4d.py` (`THE_TIMDR_Hyperflow_Engine`), bramkowany
+krzywizną (`κ<min_curvature ⇒ τ=0`, ta sama poprawka na wzmacnianie
+szumu co G8-G9 dla skrętu powierzchniowego).
+**Źródło:** `core/trefoil_frenet_torsion.py`,
+[`geometry/TIMDR_Trefoil_FrenetTorsion.md`](geometry/TIMDR_Trefoil_FrenetTorsion.md).
+Zainspirowane koncepcją "trójwęzła helikalnego" z
+`geometry/tourosomobius.md` (tam czysto notacyjną, bez dziedziny/
+przeciwdziedziny/kodu/testów) — tu domknięte jako osobny, empirycznie
+przetestowany obiekt. **Nie** jest skrętem topologicznym τ powyżej
+(inna domena: pojedyncza krzywa 3D sparametryzowana czasem, nie rodzina
+powierzchni) — mimo współdzielonego symbolu τ w obu miejscach, celowo
+NIEidentyfikowane (patrz `theory/TIMDR_Branch_Specification.md`,
+zasada nadrzędna).
 
 ---
 
