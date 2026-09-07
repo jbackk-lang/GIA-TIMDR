@@ -1,13 +1,3 @@
----
-name: "timdr-signal-framework"
-description: "Use for TIMDR-style signal/anomaly detectors (weather, market, radar, grid, seismic, GPS, security, aviation/industrial/battery/EV predictive maintenance); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math; auditing duplicated code; symbolic-to-neural TIMDR transplants; cross-domain detector transfer with baseline comparison. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, EMA vs windowed recovery, KHIPU-NEURAL, DDoS validation, tension_zscore, Short-Term Aftershock Incompleteness, NASA C-MAPSS transfer, calibration_convergence() false-convergence bug, calibrate()/fuse_calibrated() vs self-referential fuse() on baseline-free degradation, checker_online/data_live liveness split, rhythm-vs-anomaly tuning tradeoff, weakest-link multi-subsystem aggregation, OBD-II vs CAN+DBC scoping. No general software engineering, GUI, or infra debugging."
----
-
----
-name: "timdr-signal-framework"
-description: "Use for TIMDR-style signal/anomaly detectors (weather, market, radar, grid, seismic, GPS, security, aviation/industrial/battery/EV predictive maintenance); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math; auditing duplicated code; symbolic-to-neural TIMDR transplants; cross-domain detector transfer with baseline comparison. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, EMA vs windowed recovery, KHIPU-NEURAL, DDoS validation, tension_zscore, Short-Term Aftershock Incompleteness, NASA C-MAPSS transfer, calibration_convergence() false-convergence bug, calibrate()/fuse_calibrated() vs self-referential fuse() on baseline-free degradation, checker_online/data_live liveness split, rhythm-vs-anomaly tuning tradeoff, weakest-link multi-subsystem aggregation, OBD-II vs CAN+DBC scoping. No general software engineering, GUI, or infra debugging."
----
-
 # TIMDR signal framework — reusable patterns, known pitfalls, and a numerology/formalism-testing protocol
 
 Distilled from building/debugging the Synoptyk-v2.0 weather system and the wider
@@ -39,7 +29,13 @@ baseline blind spot from §2 recurring in sharper, real-data form on
 baseline-free degradation (§25), a two-signal liveness split for live monitors
 (§26), a recurring rhythm-vs-anomaly tuning tradeoff (§27), weakest-link
 aggregation across independently-calibrated subsystems (§28), and a
-protocol-scope-verification lesson for sensor acquisition (§29).
+protocol-scope-verification lesson for sensor acquisition (§29). §30 is a
+third arc: a systematic, one-repo-at-a-time sweep across ~20 repos in this
+ecosystem adding a single unifying priority-dispatcher ("trigger module") on
+top of each repo's already-tested detectors — the reusable shape of that
+dispatcher, the dedup-first check that stopped it from being built where an
+equivalent already existed under a different name, and the scope filter that
+correctly excluded repos with no continuous-signal engine to dispatch over.
 
 ## 1. The four TIMDR signal types (generic, not weather-specific)
 
@@ -1726,3 +1722,133 @@ abstraction) — verify this with the actual library/spec directly (grep the
 real PID list, as done here) rather than assuming the standard is complete
 because it's ubiquitous.
 
+## 30. The `*Trigger` dispatcher pattern: one prioritized event on top of several already-tested detectors — plus dedup-first and scope-filter discipline
+
+Recurring task across this session: take a repo that already has 2-4
+independent, separately-tested TIMDR detectors (typically some subset of
+`twist()`/`anomalies()`/`rhythm()`/`trend()`/`predict_failure()`, one repo's
+`fuse()`+`Fusion`+`Predict` pair) whose outputs are exposed as parallel,
+unranked fields (a dict/JSON response with `twist_idx`, `anomaly_idx`,
+`rhythm_periods`, `ttf`, … all present at once, nothing saying which one
+*matters*), and add exactly one dispatcher class that answers a single
+question: **which one event fired, and where.** Built fresh in
+`deliverable_timdr_finanse`, `universal-state-analyzer`,
+`FLIGHT-TRACKING-TIMDR`, `synoptyk-v2.0`, `TIMDR-Bio-Signals`,
+`TIMDR-META-DYNAMICS`, `TIMDR-Industrial-Predict`, `Boundary-Matter-main`,
+and `TIMDR-Battery-Predict` — nine independent instances of the same shape,
+which is what makes it worth recording as a pattern rather than a one-off.
+
+**The shape, held constant across all nine:**
+- An `Enum` of trigger types, always including a `NONE` member.
+- A `*Result` class: `triggered: bool`, `trigger_type`, `location`
+  (an index into the underlying series, or `None` when not applicable —
+  e.g. a whole-series property like a detected rhythm period has no single
+  index), `message: str`, plus `as_dict()` for JSON/API responses.
+- A dispatcher class taking the already-existing detector object(s) as
+  **injectable dependencies** (`fusion=None, predictor=None` defaulting to
+  real instances) — never re-deriving statistics itself, only calling
+  `fusion.twist()`, `predictor.predict_failure()`, etc. and mapping their
+  return values onto one `*Result`.
+- A fixed **priority order**, documented in the class docstring, where the
+  strongest/most-actionable evidence wins regardless of which event
+  appears chronologically first in the data (stated explicitly in every
+  instance: "silniejszy/łączny dowód wygrywa niezależnie od tego, co
+  pojawiło się chronologicznie pierwsze"). Concrete orderings actually used:
+  finance's `RESONANCE > STRUCTURE > DEFEKT > SCALE > NONE` (coincidence of
+  several anomalous parameters at once beats any single-parameter signal);
+  the industrial/battery pair's `FAILURE_IMMINENT > STRUCTURE > ANOMALY >
+  NONE` (an explicit forward-looking TTF prediction outranks a
+  backward-looking structural or point anomaly, because it's the most
+  actionable evidence even though it says nothing yet has happened); a
+  market repo's `STRUCTURE > ANOMALY_VOLUME > RHYTHM > NONE` (a sudden
+  price-twist outranks a volume spike, which outranks a detected
+  periodicity — because periodicity is descriptive of the whole series,
+  not itself a "something went wrong" event). There is no universal
+  ordering across domains — each dispatcher's docstring states and
+  justifies its own, and the justification is domain reasoning ("most
+  actionable," "backward vs forward looking," "single vs coincident
+  evidence"), not an arbitrary enum declaration order.
+- `get_last()` returning the most recent `*Result` (mirrors the
+  stateful-object convention already used elsewhere in these repos, e.g.
+  `checker_online` in §26).
+
+**Dead-parameter-bug avoidance (a specific, previously-learned lesson from
+TIMDR-Security-Module, deliberately re-applied here every time):** when the
+underlying detector methods have their own hardcoded thresholds with no
+parameter to override them (`TIMDRIndustrialFusion.twist()`/`anomalies()`
+at fixed 3.5/3.0 MAD-z, identically in the battery sibling), the dispatcher
+must NOT accept constructor parameters that look like they configure those
+thresholds but don't actually thread through to anything — that's a silent
+no-op parameter, worse than no parameter at all because it invites a caller
+to believe they've changed behavior when they haven't. Document this
+explicitly in the docstring (as done in both `timdr_industrial_trigger.py`
+and `timdr_battery_trigger.py`) rather than adding the parameter "to look
+configurable." Only expose parameters that are real (here: `alert_ttf_seconds`
+for the TTF branch, which genuinely is a free choice, plus pass-through
+`threshold`/`window` that the underlying `predict_failure()` genuinely
+accepts).
+
+**Testing discipline, held constant across all nine dispatchers:** exactly
+one real, hand-derived integration test against the true underlying
+detector (no mocking) — small enough to verify every intermediate number by
+hand (e.g. `E=[10]*10` with one sample bumped to `20`; MAD-of-nine-zeros
+forces the span/4 fallback from §2, giving an exact, checkable z=4.0) —
+plus several dependency-injected fake/stub detectors (`_FakeFusion`,
+`_FakePredictor`, `_FakeMarket`, …) that return hardcoded index lists to
+test PURELY the dispatcher's priority/mapping logic (does STRUCTURE really
+beat ANOMALY when both fire; does `location` come out right; does `NONE`
+fire only when everything is empty) without re-deriving the underlying
+math for every branch. Never write a dispatcher test that re-verifies
+detector math the detector's own test suite already covers — that's
+duplicated verification effort for zero additional confidence.
+
+**Display discipline — a trigger firing is reported as an event, not folded
+into an always-present table column.** When wiring a new dispatcher into an
+existing dashboard/GUI, add its output either as a new, clearly-labeled
+summary card (only shown as `"—"`/`"brak zdarzenia"` when nothing fired) or
+append a line to a log/journal ONLY when `triggered` is actually `True` —
+never as a new column that's populated on every single row regardless of
+whether anything happened. This is the same "typ" TIMDR-column mistake
+already documented and fixed once in `synoptyk-v2.0/gui_app.py` (a column
+that was practically always active at that repo's original precipitation
+threshold, drowning the signal in noise) — re-litigated here specifically
+because it is exactly the failure mode a fresh, badly-placed trigger
+integration would reintroduce if the display point weren't chosen with this
+history in mind.
+
+**Dedup-first discipline: check for an existing equivalent under a different
+name before building a new dispatcher — building one anyway is harmful
+duplication, not redundant safety.** Applied as a mandatory first step in
+every repo touched during this sweep, and in five of them it correctly
+produced "no action" instead of a new file: `TIMDR-Grid-Monitor`
+(`api.py::_summary()` already does this), `TIMDR-EV-Predict`
+(`monitor_ev.py::run_all_checks()`'s `result["alert"]`), `TIMDR-DNA`
+(`cnv_analyzer.py::analyze_coverage()`'s `candidates` list, itself already
+built on `TIMDRCore.analyze_multi()`), `TIMDR-Echosonda-3D`
+(`timdr_midwater_targets.py::classify_targets()`), and
+`analizator-gieldowy-v3` (`classify_emergence()`). Building a second,
+parallel dispatcher in any of these would not have been a harmless
+belt-and-suspenders addition — it would have created exactly the
+duplication-drift risk §6 warns about (two independently-maintained
+"which event fired" answers over the same underlying data, guaranteed to
+diverge the first time only one of them gets a bugfix), while adding
+nothing a caller couldn't already get from the existing function. Grep for
+the *behavior* (a function that already reduces several detector outputs
+to one ranked answer), not just for the literal string "trigger" — none of
+the five existing examples above use that word in their name.
+
+**Scope filter: not every repo with time-series-flavored code gets a
+trigger.** A repo needs a genuine continuous-signal analysis engine
+(MAD-z-score-based `twist`/`anomalies`/`rhythm`/`defekt`, in the sense of
+§1) already present before a priority dispatcher over it makes sense at
+all. Correctly excluded, each for a different reason, during this same
+sweep: `analizator-gieldowy` and `analizator-gieldowy-2.0` (SMA10/SMA30
+crossover → discrete KUP/SPRZEDAJ/TRZYMAJ classifier — a fixed
+if/elif decision tree, not a statistical detector with anything to
+prioritize); `TIMDR-Materials-Design` (static/spatial analysis, no time
+axis); `SYNOPTYK-ARCTIC` (forecast-bias/MAE tracker per lead-day, plus a
+discrete connectivity-staleness bucketer — both operate on a single scalar
+via fixed thresholds/lead-time grouping, not a MAD-z engine over a
+channel). The tell in each case: no existing function computes a z-score,
+a local-maximum-of-autocorrelation, or a threshold-crossing index over a
+time series — there is nothing a dispatcher could meaningfully rank.

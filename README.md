@@ -11,6 +11,136 @@ TIMDR/TRM (Triangle Information Momentum Dynamics Resonance) to jednolita rama i
 
 ---
 
+## 📖 Cytowanie
+
+Formalizacja gałęzi sygnałowej TIMDR (operatory progowe, rezonans jako
+koincydencja, `Axioms_S_TIMDR_Signal.md`, `Resonance_M_Operator_Empiryczny.md`,
+protokół `TIMDR-Math-Formalism` z realną walidacją na danych pogodowych)
+ma osobny, wersjonowany zapis na Zenodo:
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22288541.svg)](https://doi.org/10.5281/zenodo.22288541)
+
+> Kielich, J. S. (2026). *TIMDR Signal Formalization: Mathematical
+> Operators, Axioms_S, Effect Size, and Reproducible Resonance
+> Validation* (Version v1) [Zbiór danych]. Zenodo.
+> https://doi.org/10.5281/zenodo.22288541
+
+Zakres tego wydania to wyłącznie gałąź sygnałowa (M, S w `docs/theory/`
++ `TIMDR-Math-Formalism`) — nie obejmuje modelu geometrycznego trójkąta
+(sekcje 1-9 poniżej) ani rezonansu modalnego (`Axioms_K_TIMDR.md`).
+
+---
+
+## 🌿 Trzy gałęzie TIMDR — mapa terenu
+
+TIMDR to nie jedna teoria z trzema zastosowaniami — to trzy
+**niezależne** konstrukcje matematyczne pod wspólną nazwą, z własnymi
+obiektami, operatorami i aksjomatami. Współdzielenie słów ("rezonans",
+"skręt") między nimi jest źródłem większości nieporozumień w tym
+ekosystemie (pełne rozgraniczenie: `docs/GLOSSARY_EN_PL.md`) — dlatego
+rozdzielone tu wprost, jedna gałąź na wiersz, zamiast zakładać, że
+czytelnik sam to poskłada.
+
+> **Adnotacja:** poniższe jest streszczeniem. Pełna, formalna
+> specyfikacja trzech gałęzi (obiekty, operatory, aksjomaty, pliki
+> źródłowe, jawne "czym NIE jest" per gałąź, jedna tabela porównawcza)
+> jest teraz osobnym dokumentem: [`docs/theory/TIMDR_Branch_Specification.md`](docs/theory/TIMDR_Branch_Specification.md).
+> Podobnie, cztery znaczenia "skrętu" mają teraz skonsolidowaną
+> specyfikację (domena/przeciwdziedzina/definicja per znaczenie):
+> [`docs/theory/TIMDR_Twists.md`](docs/theory/TIMDR_Twists.md).
+>
+> **Wszystkie trzy gałęzie mają teraz działający, testowalny kod** (nie
+> tylko aksjomaty): gałąź sygnałowa w repo `TIMDR-Math-Formalism`
+> (protokół pre-rejestracja/kontrola +/-/Mann-Whitney/effect size,
+> zwalidowany realnymi danymi Krakow_Centrum — `docs/diagram.svg`),
+> gałąź geometryczna w repo `TIMDR-Geometry-Formalism` (dyskretny
+> operator Weingartena domykający numerycznie Aksjomaty G8-G9,
+> testowany na płaszczyźnie/sferze/walcu — `docs/diagram_pipeline.svg`,
+> `docs/diagram_surfaces.svg`), gałąź modalna w repo
+> `TIMDR-Modal-Formalism` (modalność, interferencja, rezonans modalny,
+> mapa synchronizacji faz), plus orkiestrujący je Chronoproces Ξ w
+> `TIMDR-Time-Formalism`. Wszystkie cztery repo-siostry mają teraz
+> potwierdzone przez użytkownika przejście testów: `TIMDR-Math-Formalism`
+> 62/63, `TIMDR-Geometry-Formalism` 17/17, `TIMDR-Modal-Formalism` 17/17,
+> `TIMDR-Time-Formalism` 18/18 (patrz `docs/theory/TIMDR_Chronoprocess.md`
+> §6 za pełną tabelę).
+>
+> **Chronoproces `Ξ=(T,x,Γ,φ)`** spina powyższe trzy na wspólnym
+> nośniku T, bez identyfikacji między nimi, plus jeden jawnie
+> wyodrębniony wyjątek — most Fouriera M/S↔K oparty na zasadzie
+> nieoznaczoności Gabora. Repo `TIMDR-Time-Formalism`, pełny opis:
+> [`docs/theory/TIMDR_Chronoprocess.md`](docs/theory/TIMDR_Chronoprocess.md).
+
+### 1. Gałąź sygnałowa — TIMDR-Math-Formalism (M, S)
+
+**Obiekt:** `x: T→ℝᵈ`, `x∈ℓ^∞(T,ℝᵈ)`.
+**Operatory:** anomalia, defekt, skręt sygnałowy (odwrócenie trendu),
+rezonans M (koincydencja progowa + baseline dwumianowy), okno `W_k`/
+partycja `P_k`, effect size (rank-biserial `r`), kontrola +/-, test
+istotności (Mann-Whitney).
+**Pliki:** `TIMDR-Math-Formalism/` (`timdr_formalism/pipeline.py`,
+`docs/PROTOCOL.md`), `docs/theory/Axioms_S_TIMDR_Signal.md`,
+`docs/theory/Resonance_M_Operator_Empiryczny.md`.
+**To NIE jest:** geometria/krzywizna/normalne, rezonans modalny f/φ/A,
+model trójkąta.
+
+### 2. Gałąź geometryczna — TIMDR-Geometry (G)
+
+**Obiekt:** powierzchnia `S⊂ℝ³`, normalna `n(p)`.
+**Operatory:** skręt powierzchniowy `‖n(p+Δp)−n(p)‖`, teraz formalny
+operator z domeną/przeciwdziedziną/ciągłością/stabilnością (Aksjomaty
+G3, G8); krzywizna dyskretna i operator kształtu (Weingarten) — związek
+ze skrętem NAZWANY w Aksjomacie G4 (`T_S=F(W_S)`) i domknięty
+analitycznie w Aksjomacie G9 (`T_S=‖Δp‖·‖S_p(Δ̂p)‖+O(‖Δp‖²)`);
+implementacja numeryczna na konkretnej siatce 3D i walidacja empiryczna
+wciąż otwarte.
+**Pliki:** `docs/theory/Axioms_G_TIMDR_Geometry.md` (aksjomaty G1-G9);
+skręt powierzchniowy pierwotnie opisany w
+`Resonance_M_Operator_Empiryczny.md` §6; model trójkąta to sekcje 1-9
+tego README. Numeryczna implementacja dyskretnego operatora Weingartena
+(G8-G9): osobne repo `TIMDR-Geometry-Formalism`
+(`timdr_geometry/weingarten.py` + testy na płaszczyźnie/sferze/walcu —
+nieuruchomione w sesji, w której powstały, patrz zastrzeżenie w jego
+README). Osobny katalog `docs/theory/Geometry/` jeszcze nie
+istnieje.
+**To NIE jest:** sygnał czasowy, rezonans M, Axioms_S, rezonans modalny
+f/φ/A.
+
+### 3. Gałąź modalna — TIMDR-Modal (K)
+
+**Obiekt:** moduły sygnału `(f, φ, A)`.
+**Operatory:** rezonans modalny (wyrównanie częstotliwości i fazy), 10
+aksjomatów modalnych; plus mapa synchronizacji faz `f` formalizująca
+`t_lokalne=f(τ_globalne)` z §7.3.
+**Pliki:** `docs/theory/Axioms_K_TIMDR.md`. Pierwsza implementacja
+numeryczna: osobne repo `TIMDR-Modal-Formalism`
+(`timdr_modal/phase_sync.py`) — testy potwierdzone przez użytkownika
+(17/17).
+**To NIE jest:** sygnał `x:T→ℝᵈ`, testy statystyczne, skręt sygnałowy,
+skręt powierzchniowy.
+
+### Tabela porównawcza (kanoniczna)
+
+| Gałąź | Domena | Operator rezonansu | Skręt | Aksjomaty | Status |
+|---|---|---|---|---|---|
+| Sygnałowa (M, S) | sygnały czasowe | M — progowy, baseline dwumianowy, zwalidowany empirycznie na danych Krakow_Centrum | sygnałowy (odwrócenie trendu) | Axioms_S | sformalizowana, testowana kodem |
+| Geometryczna (G) | powierzchnie 3D | brak | powierzchniowy (normalne) | Axioms_G (G1-G9) | aksjomatyczna, koncepcyjna (G7) — związek z Weingartenem domknięty analitycznie (G8-G9), implementacja na siatce 3D i walidacja empiryczna otwarte |
+| Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | aksjomatyczna + pierwszy kod (`TIMDR-Modal-Formalism`, 17/17 testów zweryfikowane), bez empirycznej walidacji |
+
+Żadna gałąź nie jest rozszerzeniem innej — każda ma własną domenę
+matematyczną. Tam, gdzie dwie gałęzie używają tego samego słowa
+("rezonans" w M i K, "skręt" w M i G), oznaczają **różne obiekty** —
+nie różne poziomy tej samej rzeczy.
+
+**Czwarty, wcześniejszy szkic (nie osobna gałąź):** sekcja "📘 TIMDR —
+Pełny Model Operatora Topologicznej Zmiany Sygnału" dalej w tym README
+definiuje własne, mniej sformalizowane `R` i `T` (koherencja
+kierunkowa, przejście przez zero) — to poprzednik gałęzi sygnałowej
+(M), nie czwarta niezależna konstrukcja. Rozgraniczenie wprost w tamtej
+sekcji i w `docs/GLOSSARY_EN_PL.md`.
+
+---
+
 ## Appendix: literatura 2021–2026 stosująca podobny wzorzec sygnałowy (zweryfikowane, koniec sierpnia 2026)
 
 > **Metodologia tej sekcji:** każda pozycja poniżej została sprawdzona niezależnie (tytuł, czasopismo,
@@ -301,6 +431,12 @@ Każda pojedyncza cząstka "wie" o wieku i stanie Wszechświata poprzez interakc
 * Zmian w czasie życia mionów w zależności od geometrii otaczającego pola.
 * Dokładnego przebiegu szeregu promieniotwórczego uranu ($U\text{-}238 \rightarrow Pb\text{-}206$).
 
+> **Formalizacja tego postulatu:** `f` powyżej jest teraz formalnie
+> zdefiniowane jako mapa synchronizacji faz między dwiema modalnościami
+> `(f,φ,A)` — patrz [`docs/theory/TIMDR_Chronoprocess.md`](docs/theory/TIMDR_Chronoprocess.md#4-rzut-k--mapa-synchronizacji-faz-f),
+> §4, z jawnie zaznaczoną granicą zakresu (mapa afiniczna, nie
+> Kuramoto-sprzężona).
+
 ---
 
 ## 8. INTEGRACJA SYSTEMOWA (TIMDER ARCHITECTURE)
@@ -338,7 +474,7 @@ Jednolita geometria asymetrii trójkąta pozwala na aplikację ram TIMDR/TRM w s
 
 1. **Zaimplementuj zasady:** Nakarm lokalne modele AI (LLM/Agent) strukturą TIMDR, ze szczególnym uwzględnieniem modelu asymetrii trójkąta.
 2. **Podstaw dane:** Wprowadź własne macierze danych, sygnały dźwiękowe, fizyczne opisy układów lub serie czasowe.
-3. **Uruchom walidację:** Wykorzystaj zawarty w ekosystemie moduł `math-validator` w celu weryfikacji jednorodności matematycznej i zachowania warunków brzegowych.
+3. **Uruchom walidację:** Wykorzystaj `TIMDR-Math-Formalism` (następca pierwszej wersji `math-validator`, usuniętej z ekosystemu) w celu weryfikacji jednorodności matematycznej i zachowania warunków brzegowych.
 4. **Współtwórz:** Wyniki eksperymentów, anomalie obliczeniowe lub propozycje nowych operatorów zgłaszaj poprzez Issues oraz Pull Requests.
 
 ---
@@ -348,7 +484,10 @@ Jednolita geometria asymetrii trójkąta pozwala na aplikację ram TIMDR/TRM w s
 Ekosystem uniwersalnej geometrii pola dystrybuowany jest pomiędzy wyspecjalizowane moduły:
 * `GIA-and-TIMDR` — Rdzeń geometryczny i definicje operatorów.
 * `topologia-informacji` — Przestrzenie metryczne i przekształcenia Möbiusa.
-* `math-validator` — Automatyczny weryfikator homogeniczności matematycznej.
+* `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator`. Implementacja gałęzi sygnałowej (M/S), diagram protokołu: `docs/diagram.svg`.
+* `TIMDR-Geometry-Formalism` — Numeryczna implementacja dyskretnego operatora Weingartena dla gałęzi geometrycznej (G): normalne wierzchołkowe, dopasowanie MNK na 1-ringu, krzywizny główne; domyka numerycznie Aksjomaty G8-G9 (`Axioms_G_TIMDR_Geometry.md`). Testy na płaszczyźnie/sferze/walcu — nieuruchomione w sesji, w której powstały. Dwa diagramy: `docs/diagram_pipeline.svg` (algorytm), `docs/diagram_surfaces.svg` (trzy powierzchnie testowe i ich krzywizna). Zawiera też `chronocongruence.py` — kongruencja Γ(t,s) dla Chronoprocesu (`docs/theory/TIMDR_Chronoprocess.md`).
+* `TIMDR-Modal-Formalism` — Pierwsza implementacja gałęzi modalnej (K) jako kodu: modalność `(f,φ,A)` (Aksjomat 3), interferencja (Aksjomat 4), rezonans modalny (Aksjomat 5), oraz mapa synchronizacji faz `f` formalizująca `t_lokalne=f(τ_globalne)` z §7.3 poniżej. Afiniczna (nie Kuramoto-sprzężona) — jawnie oznaczona granica zakresu. Testy potwierdzone przez użytkownika: 17/17.
+* `TIMDR-Time-Formalism` — Pełny moduł Chronoprocesu `Ξ=(T,x,Γ,φ)`: orkiestruje trzy powyższe repo-siostry na wspólnym nośniku T, bez żadnej identyfikacji między nimi. Zawiera też jedyny jawny wyjątek od tej zasady — `fourier_bridge.py`, most Fouriera M/S↔K oparty na zasadzie nieoznaczoności Gabora (analogia do dualizmu falowo-cząsteczkowego fotonu, sprowadzona do sprawdzalnej matematyki). Pełny opis: `docs/theory/TIMDR_Chronoprocess.md`. Testy potwierdzone przez użytkownika: 18/18 (8/8 orkiestracja + 10/10 most Fouriera).
 * `TRM` — Przetwarzanie rezonansów warstwowych i stałych redukcji.
 * `FIELDCORE` — Niskopoziomowy silnik obliczeniowy pól dynamicznych.
 * `WHITE-LASER-MAP` / `ASTRO-MAP` / `ASTRO-CYCLES` — Mapowanie skalowane (mikro/makro).
@@ -479,6 +618,16 @@ TIMDR jest operatorem, który opisuje deformację sygnału, wykrywa zmiany topol
 TIMDR to: operator topologicznej zmiany sygnału, detektor punktów krytycznych, miernik lokalnej niestabilności, narzędzie predykcyjne, element warstwy geometrycznej.
 
 > **Nota redakcyjna:** T, D i R odpowiadają wprost trzem klasycznym, dobrze znanym technikom przetwarzania sygnałów — detekcji przejścia przez zero, z-score i korelacji kierunkowej — dokładnie tym samym, które są już realnie zaimplementowane w repozytoriach `topologic` i `Senscore`. Nazwa „operator topologiczny" jest tu warstwą interpretacyjną/metaforyczną, a nie odniesieniem do topologii w sensie matematycznym (homologia, rozmaitości itd.). `TIMDR-P` (sekcja 4) jest szkieletem koncepcyjnym — `f` nie ma tu jeszcze definicji ani implementacji.
+>
+> **Rozgraniczenie od gałęzi sygnałowej (M) i modalnej (K):** `R` i `T`
+> powyżej NIE są tymi samymi operatorami co rezonans M i skręt sygnałowy
+> z `docs/theory/Axioms_S_TIMDR_Signal.md` (tam: koincydencja progowa
+> `Σ𝔸ᵢ≥K`, nie średnia zgodność kierunku), ani rezonansem modalnym K z
+> `docs/theory/Axioms_K_TIMDR.md` (tam: wyrównanie częstotliwość/faza).
+> Ta sekcja jest wcześniejszym, mniej sformalizowanym szkicem —
+> kanoniczne nazwy ("rezonans kierunkowy" dla `R`, uproszczony
+> poprzednik "skrętu sygnałowego" dla `T`) i pełne rozgraniczenie:
+> [`docs/GLOSSARY_EN_PL.md`](docs/GLOSSARY_EN_PL.md).
 
 ---
 
@@ -584,7 +733,7 @@ GIA to: operator lokalnego toru informacji, wektor dominującej dynamiki, kompas
 
 Wszystkie dokumenty koncepcyjne repozytorium są uporządkowane pod `docs/`:
 
-- **`docs/theory/`** — pełna, litereowana seria modeli abstrakcyjnych (J, K, L, N, O, Q, R, T, U, V, X, Y) oraz seria zastosowań domenowych (AA–AK: kosmologia, biologia, technologia, percepcja, AI, język, muzyka), plus `TRM_biology.md` i `TIMDR-T-operator.md`.
+- **`docs/theory/`** — pełna, litereowana seria modeli abstrakcyjnych (G, J, K, L, M, N, O, Q, R, S, T, U, V, X, Y) oraz seria zastosowań domenowych (AA–AK: kosmologia, biologia, technologia, percepcja, AI, język, muzyka), plus `TRM_biology.md` i `TIMDR-T-operator.md`. **M** (`Resonance_M_Operator_Empiryczny.md`) i **S** (`Axioms_S_TIMDR_Signal.md`) to formalizacja gałęzi sygnałowej TIMDR (rezonans jako koincydencja progów, nie rezonans modalny z Axioms_K) — z realną walidacją empiryczną na danych pogodowych, nie tylko definicjami; pełny działający protokół testowy żyje w osobnym repo `TIMDR-Math-Formalism`. **G** (`Axioms_G_TIMDR_Geometry.md`) to aksjomaty gałęzi geometrycznej (trójkąt, powierzchnie, skręt powierzchniowy, dyskretny operator Weingartena — G1-G9) — koncepcyjna, związek skrętu z krzywizną domknięty analitycznie (G8-G9), wciąż bez implementacji numerycznej ani empirycznej walidacji, jawnie oznaczona jako taka (Aksjomat G7). **`TIMDR_Branch_Specification.md`** i **`TIMDR_Twists.md`** to dokumenty-indeksy: pierwszy zbiera formalną specyfikację (obiekty/operatory/aksjomaty/pliki/status) wszystkich trzech gałęzi w jednym miejscu, drugi konsoliduje formalne definicje wszystkich czterech znaczeń "skrętu" — oba nie definiują nic nowego, tylko strukturyzują to, co już jest w `Axioms_S`/`Axioms_G`/`Axioms_K`. **`TIMDR_Chronoprocess.md`** dokumentuje Chronoproces `Ξ=(T,x,Γ,φ)` — most między trzema gałęziami na wspólnym nośniku T (bez identyfikacji między nimi) plus most Fouriera M/S↔K (jedyny jawny wyjątek), z kodem w czterech repo-siostrach (`TIMDR-Math-Formalism`, `TIMDR-Geometry-Formalism`, `TIMDR-Modal-Formalism`, `TIMDR-Time-Formalism`) — również nie zmienia żadnych aksjomatów, tylko orkiestruje już istniejące obiekty.
 - **`docs/models/`** — konkretne modele geometryczne (emergencja, interferencja, rezonans warstwowy, model topologiczno-modalny, model S 3D).
 - **`docs/geometry/`** — konstrukcje geometryczne Möbiusa/torusa (tetroida, mobiosotourys, tourosomobius, domeny Hopfa, eksperymenty domknięcia).
 - **`docs/filters/`** — dokumentacja filtrów (liczby pierwsze, stosunek Möbiusa, przewidywania filtra Al).

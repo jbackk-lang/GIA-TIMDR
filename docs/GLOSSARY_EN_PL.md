@@ -83,17 +83,157 @@
 
 ---
 
-## Resonance / Rezonans
+## Rezonans / Resonance — nazwy kanoniczne
 
-### Resonance Condition  
-**EN:** Alignment of frequencies and phases.  
-**PL:** Wyrównanie częstotliwości i faz.  
-**Meaning:** Powstaje struktura trwała.
+**UWAGA:** tak jak skręt, "rezonans" ma w tym ekosystemie CZTERY
+niezwiązane ze sobą znaczenia. Pełne rozgraniczenie modalnego i
+sygnałowego: [`theory/Resonance_M_Operator_Empiryczny.md`](theory/Resonance_M_Operator_Empiryczny.md)
+sekcja 0.
 
-### Resonant Structure  
-**EN:** Stable emergent configuration.  
-**PL:** Stabilna konfiguracja emergentna.  
-**Meaning:** „Cząstka” w Twoim języku.
+### Rezonans modalny
+**EN:** Alignment of frequency and phase parameters between
+modalities — `|f_i−f_j|<ε_f ∧ |φ_i−φ_j|<ε_φ`.
+**PL:** Wyrównanie parametrów częstotliwości i fazy między
+modalnościami — `|f_i−f_j|<ε_f ∧ |φ_i−φ_j|<ε_φ`.
+**Meaning:** Powstaje struktura trwała ("cząstka").
+**Źródło:** `theory/Axioms_K_TIMDR.md` (Aksjomat 5),
+`theory/Operators_N_TIMDR.md` (operator ℛ). Operator na falach
+(częstotliwość/faza), nie na progach amplitudy w czasie.
+
+### Rezonans sygnałowy (M)
+**EN:** Boolean coincidence-counting operator — `K` of `n` parameters
+simultaneously anomalous, with a binomial independence baseline,
+empirically validated on real weather data (Krakow_Centrum).
+**PL:** Boolowski operator zliczający koincydencję — `K` z `n`
+parametrów jednocześnie anomalnych, z bazą niezależności dwumianową,
+zwalidowany empirycznie na realnych danych pogodowych (Krakow_Centrum).
+**Źródło:** `timdr-signal-framework` §1, `theory/Axioms_S_TIMDR_Signal.md`
+(Aksjomat 3), `theory/Resonance_M_Operator_Empiryczny.md`.
+
+### Rezonans kierunkowy
+**EN:** Mean sign-agreement of derivatives across multiple signals —
+`R(t) = (1/n)·Σ sign(S_i'(t))` — directional coherence. NOT threshold
+coincidence (rezonans M) and NOT frequency/phase alignment (rezonans
+modalny).
+**PL:** Średnia zgodność znaku pochodnych wielu sygnałów —
+`R(t) = (1/n)·Σ sign(S_i'(t))` — koherencja kierunkowa. NIE koincydencja
+progowa (rezonans M) i NIE wyrównanie częstotliwość/faza (rezonans
+modalny).
+**Źródło:** sekcja "📘 TIMDR — Pełny Model Operatora Topologicznej
+Zmiany Sygnału" w głównym `README.md` GIA-TIMDR. To wcześniejszy,
+mniej sformalizowany szkic — częściowo pokrywa się z gałęzią sygnałową
+(M) w duchu (oba działają na progach/pochodnych szeregu czasowego), ale
+używa **innego wzoru** (średnia zgodność kierunku, nie zliczanie
+przekroczeń progu 2σ) — nie traktuj go jako tożsamego z rezonansem M.
+
+### Rezonans dynamiczny trójwęzła
+**EN:** True mechanical/physical resonance — a ring of 3 damped coupled
+harmonic oscillators (nodes of a trefoil knot, coupled through the axis
+as a "waveguide"), driven harmonically at one node; response amplitude
+peaks at the system's natural frequencies. A node defect splits the
+ring's degenerate frequency doublet (Δτ1) or shifts its singlet (Δr1) —
+qualitatively different spectral fingerprints per defect type.
+**PL:** Prawdziwy fizyczny/mechaniczny rezonans — pierścień 3 tłumionych,
+sprzężonych oscylatorów harmonicznych (węzły trójwęzła, sprzężone przez
+oś jako "falowód"), pobudzany harmonicznie w jednym węźle; amplituda
+odpowiedzi ma piki przy częstościach własnych układu. Defekt węzła
+rozszczepia zdegenerowany dublet częstości układu (Δτ1) albo przesuwa
+jego singlet (Δr1) — jakościowo różny odcisk widmowy per typ defektu.
+**Źródło:** `core/trefoil_resonance_model.py`,
+[`geometry/TIMDR_Trefoil_ResonanceModel.md`](geometry/TIMDR_Trefoil_ResonanceModel.md).
+**Nie** jest rezonansem M (licznik koincydencji, operator boolowski) ani
+rezonansem sygnałowym z `core/trefoil_frenet_torsion.py` (tam:
+koincydencja ≥K z N kanałów anomalnych na TEJ SAMEJ figurze — dwa różne
+obiekty współdzielące figurę, nie tylko nazwę) — mimo dotyczenia tego
+samego trójwęzła, jest osobnym, czwartym obiektem matematycznym.
+
+---
+
+## Skręt / Twist — nazwy kanoniczne
+
+**UWAGA:** "skręt"/"twist" ma w tym ekosystemie PIĘĆ niezwiązanych ze
+sobą znaczeń. Każde nowe użycie tego słowa powinno od razu użyć
+jednej z poniższych rozszerzonych nazw — samo "skręt" bez przymiotnika
+jest niejednoznaczne. Pełne uzasadnienie i rozgraniczenie:
+[`theory/Resonance_M_Operator_Empiryczny.md`](theory/Resonance_M_Operator_Empiryczny.md)
+sekcja 0. Pełna, skonsolidowana formalna specyfikacja wszystkich
+pięciu (domena, przeciwdziedzina, definicja, per znaczenie, jedno pod
+drugim): [`theory/TIMDR_Twists.md`](theory/TIMDR_Twists.md).
+
+### Skręt sygnałowy
+**EN:** Trend-reversal detection — sign flip of local regression slope
+in a single time series, magnitude > 1.5σ.
+**PL:** Wykrywanie odwrócenia trendu — zmiana znaku lokalnego
+nachylenia regresji w pojedynczym szeregu czasowym, wielkość > 1.5σ.
+**Źródło:** `timdr-signal-framework` §1. **Nie** jest bifurkacją w sensie
+teorii układów dynamicznych (brak jawnego modelu `f(x;λ)`) — patrz
+Resonance_M sekcja 5.
+
+*Wcześniejszy, uproszczony wariant:* `T(t) = [sign(S'(t)) ≠
+sign(S'(t−Δt))]` z sekcji "📘 TIMDR — Pełny Model..." w głównym
+`README.md` GIA-TIMDR to ten sam koncept (odwrócenie kierunku), ale bez
+progu wielkości (1.5σ) — samo przejście przez zero, nie tylko
+odwrócenie o zauważalnej skali. Traktuj `T(t)` jako mniej rygorystycznego
+poprzednika tej definicji, nie jako osobne, piąte znaczenie skrętu.
+
+### Skręt topologiczny (τ)
+**EN:** Surface deformation changing orientability (torus → Möbius →
+tetroida).
+**PL:** Deformacja powierzchni zmieniająca orientowalność (torus →
+Möbius → tetroida).
+**Źródło:** [`theory/Operators_N_TIMDR.md`](theory/Operators_N_TIMDR.md)
+("Skręt τ i jego osobliwość"). Działa na rodzinie powierzchni
+parametryzowanej stopniem deformacji, nie na pojedynczym punkcie ani
+szeregu czasowym.
+
+### Skręt powierzchniowy
+**EN:** Local surface-normal difference, `‖n(p+Δp) − n(p)‖`, on a fixed
+3D mesh — now a formal operator with domain/codomain/continuity (G8)
+and an explicit curvature relation via a discrete Weingarten operator
+(G9), analytically derived, not yet numerically implemented/validated.
+**PL:** Lokalna różnica normalnej powierzchni, `‖n(p+Δp) − n(p)‖`, na
+ustalonej siatce 3D — teraz formalny operator z domeną/przeciwdziedziną/
+ciągłością (G8) i jawnym związkiem z krzywizną przez dyskretny operator
+Weingartena (G9), wyprowadzonym analitycznie, jeszcze nie
+zaimplementowanym numerycznie ani zwalidowanym.
+**Źródło:** `theory/Resonance_M_Operator_Empiryczny.md` sekcja 6
+(pierwsze wprowadzenie); formalna definicja jako aksjomat: `theory/Axioms_G_TIMDR_Geometry.md`
+Aksjomaty G3 (`T_S`), G8 (operator: domena/przeciwdziedzina/ciągłość/
+stabilność), G9 (dyskretny operator Weingartena, jawna postać `F`
+domykająca G4b). Pełna, skonsolidowana specyfikacja wszystkich czterech
+znaczeń skrętu: `theory/TIMDR_Twists.md`. Punktowy,
+dyskretny — odrębny od torsji krzywej i od skrętu topologicznego τ
+powyżej (inna domena: mesh 2D, nie rodzina powierzchni ani krzywa).
+
+### Twist blokowy
+**EN:** What `TwistDetector` computes in the image-in-image decoding
+pipeline — operates on image blocks, own implementation, own purpose.
+**PL:** To, co liczy `TwistDetector` w pipeline'ie dekodowania obrazu-w-
+obrazie — działa na blokach obrazu, własna implementacja, własny cel.
+**Źródło:** `MAGE-IN-IMAGE-DECODER`.
+
+### Torsja Freneta-Serreta trójwęzła (skręt osiowy)
+**EN:** Frenet-Serret torsion along a trefoil-knot curve's own axis —
+`τ(t) = det(v,a,j)/‖v×a‖²` from finite-difference velocity/
+acceleration/jerk, identical formula to `the_geo_pro_4d.py`
+(`THE_TIMDR_Hyperflow_Engine`), curvature-gated (`κ<min_curvature ⇒
+τ=0`, same noise-amplification fix as G8-G9 for surface twist).
+**PL:** Torsja Freneta-Serreta wzdłuż osi krzywej trójwęzła (trefoil
+knot) — `τ(t) = det(v,a,j)/‖v×a‖²` z prędkości/przyspieszenia/
+szarpnięcia liczonych różnicami skończonymi, wzór identyczny z
+`the_geo_pro_4d.py` (`THE_TIMDR_Hyperflow_Engine`), bramkowany
+krzywizną (`κ<min_curvature ⇒ τ=0`, ta sama poprawka na wzmacnianie
+szumu co G8-G9 dla skrętu powierzchniowego).
+**Źródło:** `core/trefoil_frenet_torsion.py`,
+[`geometry/TIMDR_Trefoil_FrenetTorsion.md`](geometry/TIMDR_Trefoil_FrenetTorsion.md).
+Zainspirowane koncepcją "trójwęzła helikalnego" z
+`geometry/tourosomobius.md` (tam czysto notacyjną, bez dziedziny/
+przeciwdziedziny/kodu/testów) — tu domknięte jako osobny, empirycznie
+przetestowany obiekt. **Nie** jest skrętem topologicznym τ powyżej
+(inna domena: pojedyncza krzywa 3D sparametryzowana czasem, nie rodzina
+powierzchni) — mimo współdzielonego symbolu τ w obu miejscach, celowo
+NIEidentyfikowane (patrz `theory/TIMDR_Branch_Specification.md`,
+zasada nadrzędna).
 
 ---
 
