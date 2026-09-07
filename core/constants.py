@@ -42,6 +42,19 @@ RESONANCE_MIN = 0.0
 RESONANCE_MAX = 1e9
 RESONANCE_SMOOTHING = 0.15
 
+# NAPRAWIONE (audyt 2026-08-31, dokonczone przy naprawie importu
+# tests/test_operators_wiring.py): RESONANCE_MAX=1e9 jest ~2 000 000x
+# za duze dla lokalnej energii op_R_local() na oknie bajtow (teoretyczne
+# maksimum dla window=3 to 255*sqrt(3)~=442 - patrz
+# theoretical_local_resonance_max()) - "saturacja" wzgledem tej stalej
+# nigdy nie nastepowala, wiec byla martwym progiem. RESONANCE_MAX_K to
+# mnoznik teoretycznego maksimum (nie stala bezwzgledna) - uzywany jako
+# DOMYSLNY, dynamiczny sufit rezonansu w op_transition() gdy
+# resonance_max=None (skala bajtow: dziesiatki-setki, nie miliardy).
+# RESONANCE_MAX (powyzej) zostaje NIETKNIETY dla wstecznej
+# kompatybilnosci z kodem, ktory go juz czyta wprost.
+RESONANCE_MAX_K = 3.0
+
 # ------------------------------------------------------------
 # 6. Widmo skrętu (SPECTRAL)
 # ------------------------------------------------------------

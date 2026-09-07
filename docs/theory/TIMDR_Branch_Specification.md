@@ -74,27 +74,39 @@ tabelę.
   - związek z krzywizną: \(T_S(p) = F(W_S)(p,\Delta p) =
     \|\Delta p\|\cdot\|S_p(\widehat{\Delta p})\| + O(\|\Delta p\|^2)\)
     (Aksjomaty G4, G9c) — domknięty analitycznie, nie numerycznie
-- **Aksjomaty:** 9 — `Axioms_G_TIMDR_Geometry.md` (G1-G9; G1-G3
+  - `G-Rezonans` \(\mathcal{R}_G\): widmo rezonansowe
+    \((\{\omega_k\},\{Q_k\},A(\omega))\) zamkniętej krzywej z \(N\geq3\)
+    węzłami sprzężenia, jako odpowiedź układu \(N\) tłumionych
+    oscylatorów harmonicznych (macierze \(M,K,\Gamma\) z lokalnej
+    krzywizny/torsji) na pobudzenie lokalne (Aksjomat G5) — domknięty
+    numerycznie DLA \(N=3\) (trójwęzeł), nie zwalidowany empirycznie
+- **Aksjomaty:** 10 — `Axioms_G_TIMDR_Geometry.md` (G1-G10; G1-G3
   mają wzory już używane gdzie indziej w repo, G4 nazywa związek z
-  Weingartenem, G8-G9 domykają go analitycznie, G5 jawnie stwierdza
-  brak operatora rezonansu geometrycznego, G6 rozdziela od M/K, G7
-  ustala status).
+  Weingartenem, G5 definiuje operator G-Rezonans (zaktualizowane —
+  wcześniej jawnie stwierdzał brak), G6 rozdziela od M/K, G7 ustala
+  status, G8-G9 domykają analitycznie związek skrętu z krzywizną, G10
+  formalizuje parametr redukcji/rozwinięcia obwiedni trójkąta).
 - **Status empiryczny:** koncepcyjna (Aksjomat G7) — brak
-  zaimplementowanej numerycznie wersji na rzeczywistej siatce 3D i
-  brak walidacji empirycznej; wymagania do pełnej teorii matematycznej
-  wypisane wprost w G7c.
+  zaimplementowanej numerycznie wersji \(W_S\) na rzeczywistej siatce
+  3D i brak walidacji empirycznej dla żadnego operatora gałęzi
+  (włącznie z \(\mathcal{R}_G\), mimo że TEN jest już zaimplementowany
+  i przetestowany numerycznie dla \(N=3\) — patrz G5f); wymagania do
+  pełnej teorii matematycznej wypisane wprost w G7c.
 - **Pliki źródłowe:** `Axioms_G_TIMDR_Geometry.md`,
   `Resonance_M_Operator_Empiryczny.md` §6, `TIMDR_Twists.md` (definicja
-  skrętu powierzchniowego wśród czterech), główny `README.md` sekcje
-  o modelu trójkąta / Möbius / tetroidzie, osobne repo
-  `TIMDR-Geometry-Formalism` (`timdr_geometry/weingarten.py` —
-  numeryczna implementacja G8-G9: dyskretny operator kształtu, testy na
-  płaszczyźnie/sferze/walcu/zbieżności siatki; nieuruchomione w sesji,
-  w której powstały).
+  skrętu powierzchniowego wśród pięciu), główny `README.md` sekcje
+  o modelu trójkąta / Möbius / tetroidzie, `core/geometric_resonance_operator.py`
+  + `core/trefoil_resonance_model.py` + `TIMDR_GResonance_Operator.md`
+  (operator G-Rezonans, G5), osobne repo `TIMDR-Geometry-Formalism`
+  (`timdr_geometry/weingarten.py` — numeryczna implementacja G8-G9:
+  dyskretny operator kształtu, testy na płaszczyźnie/sferze/walcu/
+  zbieżności siatki; nieuruchomione w sesji, w której powstały).
 - **Czym NIE jest:** rozszerzeniem gałęzi M/S (obiekty G nie są
   elementami przestrzeni sygnałów \(x:T\to\mathbb{R}^d\) — Aksjomat
-  G6a) ani gałęzi K (brak operatora rezonansu — Aksjomat G5); nie ma
-  własnego "rezonansu geometrycznego" w tym wydaniu.
+  G6a) ani gałęzi K — \(\mathcal{R}_G\) (G5) nie jest szczególnym
+  przypadkiem rezonansu modalnego (inna domena: krzywa z węzłami
+  mechanicznymi, nie moduły falowe na przestrzeni topologicznej,
+  Aksjomat G6b).
 
 ---
 
@@ -139,18 +151,20 @@ tabelę.
 
 | | **M/S — sygnałowa** | **G — geometryczna** | **K — modalna** |
 |---|---|---|---|
-| Domena | \(x:T\to\mathbb{R}^d\) (szereg czasowy) | \(S\subset\mathbb{R}^3\) (powierzchnia/siatka) | \(T=(X,\tau)\), moduły \((f,\phi,A)\) |
-| "Rezonans" | koincydencja progowa \(\geq K\) parametrów naraz | **brak operatora** (Aksjomat G5) | wyrównanie częstotliwość/faza |
+| Domena | \(x:T\to\mathbb{R}^d\) (szereg czasowy) | \(S\subset\mathbb{R}^3\) (powierzchnia/siatka) LUB krzywa \(C\subset\mathbb{R}^3\) z węzłami (G5) | \(T=(X,\tau)\), moduły \((f,\phi,A)\) |
+| "Rezonans" | koincydencja progowa \(\geq K\) parametrów naraz | widmo \((\omega_k,Q_k,A(\omega))\) układu N oscylatorów na węzłach krzywej (Aksjomat G5) — zaimplementowane i przetestowane dla N=3, nie zwalidowane empirycznie | wyrównanie częstotliwość/faza |
 | "Skręt" | odwrócenie trendu (regresja) | zmiana normalnej \(T_S\), związana z krzywizną (G8-G9) | *(nieużywane w tej gałęzi)* |
 | "Anomalia" | \(\mathbb{1}[\lvert x_i-\mu_i\rvert>2\sigma_i]\) | *(nieużywane w tej gałęzi)* | *(nieużywane w tej gałęzi)* |
-| Liczba aksjomatów | 13 | 9 | 10 |
-| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek z krzywizną domknięty analitycznie | koncepcyjna, brak udokumentowanej walidacji |
+| Liczba aksjomatów | 13 | 10 | 10 |
+| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3) | koncepcyjna, brak udokumentowanej walidacji |
 | Plik źródłowy | `Axioms_S_TIMDR_Signal.md` | `Axioms_G_TIMDR_Geometry.md` | `Axioms_K_TIMDR.md` |
 
-**Puste komórki są zamierzone**, nie przeoczeniem: brak operatora
-rezonansu w G (Aksjomat G5) i brak użycia "skrętu"/"anomalii" w K są
-jawnymi stwierdzeniami o zakresie każdej gałęzi, nie lukami do
-wypełnienia.
+**Pozostałe puste komórki są zamierzone**, nie przeoczeniem: brak
+użycia "skrętu"/"anomalii" w K jest jawnym stwierdzeniem o zakresie tej
+gałęzi, nie luką do wypełnienia. Komórka "Rezonans" dla gałęzi G była
+wcześniej pusta (Aksjomat G5 jawnie stwierdzał brak operatora) — od
+tej aktualizacji jest wypełniona operatorem G-Rezonans, patrz
+`TIMDR_GResonance_Operator.md` po pełny opis i uczciwy stan walidacji.
 
 ---
 
