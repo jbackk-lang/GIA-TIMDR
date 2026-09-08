@@ -7,8 +7,9 @@ zi sygnalowej TIMDR (Axioms_S_TIMDR_Signal.md) na konkretny przypadek
 
 Nie wprowadza nowej matematyki ani nowych aksjomatow -- to jest wpisanie
 sie w istniejaca definicje sygnalu z Chronoprocesu Xi=(T,x,Gamma,phi)
-(patrz GIA-TIMDR/SKILL_timdr-signal-framework.md, dyskusja "naprawa M/S"),
-z dwiema rozdzielonymi seriami:
+(pelny opis: GIA-TIMDR/docs/theory/TIMDR_Chronoprocess.md, sekcja 2;
+skrot: GIA-TIMDR/SKILL_timdr-signal-framework.md, sekcja 5), z dwiema
+rozdzielonymi seriami:
 
     tempo(t)  = t[i+1] - t[i]                        -- proces odstepow
     drift(t)  = tempo_zmierzone(t) - tempo_nominalne  -- wymaga zegara
