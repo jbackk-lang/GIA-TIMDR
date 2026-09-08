@@ -10,9 +10,9 @@ weryfikacja) — z zastrzeżeniem, że to weryfikacja NA PRZYPADKACH
 SYNTETYCZNYCH o znanej odpowiedzi, nie na rzeczywistych danych
 geometrycznych (G7c(3) pozostaje otwarte).
 
-UWAGA UCZCIWOŚCIOWA: ten plik NIE był uruchomiony w tej sesji — sandbox
-bash był niedostępny (RPC pipe closed) przez cały czas pisania tego
-modułu. Matematyka dopasowania (rzut styczny, MNK, symetryzacja,
+UWAGA UCZCIWOŚCIOWA: ten plik został odtąd faktycznie uruchomiony
+(`pytest tests/ -v`) i ZWERYFIKOWANY — wszystkie cztery testy przeszły.
+Matematyka dopasowania (rzut styczny, MNK, symetryzacja,
 eigendekompozycja) została prześledzona ręcznie krok po kroku i wygląda
 poprawnie, a tolerancje liczbowe poniżej są celowo szerokie, żeby nie
 polegać na precyzyjnym zgadywaniu błędu dyskretyzacji bez wykonania

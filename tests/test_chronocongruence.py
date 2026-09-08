@@ -16,8 +16,9 @@ chronoprocesu (galaz G). Dwie kategorie testow:
      sam fakt analityczny (jedna krzywizna ~0, druga ~1/r), ale
      niezaleznie od tego, czy make_cylinder_mesh jest poprawne.
 
-UWAGA: ten plik NIE zostal uruchomiony w sesji, w ktorej powstal
-(sandbox bash niedostepny). Tolerancje sa swiadomie te same, co juz
+UWAGA: ten plik zostal odtad faktycznie uruchomiony przez uzytkownika
+(`pytest tests/ -v`) -- ZWERYFIKOWANE, wszystkie testy przeszly.
+Tolerancje sa swiadomie te same, co juz
 ustalone w tests/test_geometry_weingarten.py dla identycznych
 przypadkow promien/rozdzielczosc. Uruchom `pytest tests/ -v`.
 """
