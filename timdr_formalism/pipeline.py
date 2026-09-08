@@ -20,18 +20,42 @@ Ten sam protokół co "czy sygnał TIMDR ma moc predykcyjną" (test na
 sygnałach czasowych) — tu zastosowany do statycznych struktur
 matematycznych (ciągów, wzorów, konstrukcji kategorii) zamiast do
 sygnałów czasowych.
+
+BEZPIECZEŃSTWO IMPORTU SCIPY (2026-09-08): `mann_whitney_test()` ma
+opcjonalny, czysto-numpy backend (`backend="numpy"`, domyślnie
+`backend="auto"` próbuje scipy i spada na numpy, gdy go brak) — port
+`_mannwhitney_u_p_numpy()` z `TIMDR-Earthquake-Core/precursor_validation.py`,
+gdzie ten sam problem już wystąpił naprawdę: import `scipy` (tam
+`savgol_filter`) NA POZIOMIE MODUŁU wywalił całe GUI na maszynie, gdzie
+Windows Device Guard blokował DLL-e scipy — nawet dla wywołujących,
+którzy w ogóle nie używali tej ścieżki kodu (patrz HISTORIA_I_TESTY.md
+w tamtym repo). To repo dotąd miało `from scipy import stats` na
+sztywno na poziomie modułu — ten sam potencjalny punkt awarii, teraz
+naprawiony przez owinięcie importu w `try/except` i dodanie
+równoważnego (zgodnego co do kilku miejsc po przecinku, normalna
+aproksymacja z korektą na remisy) backendu bez zależności od scipy.
+Backend numpy wspiera tylko `alternative="two-sided"` — warianty
+jednostronne wymagają scipy wprost (`backend="scipy"`, zgłasza czytelny
+błąd, jeśli scipy niedostępne).
 """
 from __future__ import annotations
 
 import hashlib
 import json
+import math
 import time
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Callable, Optional, Sequence
 
 import numpy as np
-from scipy import stats
+
+try:
+    from scipy import stats as _scipy_stats
+    _HAS_SCIPY = True
+except Exception:  # pragma: no cover - dokladnie ten scenariusz z Device Guard
+    _scipy_stats = None
+    _HAS_SCIPY = False
 
 
 # ---------------------------------------------------------------------
@@ -166,6 +190,61 @@ def ar1_noise(
 # Krok 4: Prawdziwy test statystyczny — Mann-Whitney U
 # ---------------------------------------------------------------------
 
+def _mannwhitney_u_p_numpy(a: np.ndarray, b: np.ndarray) -> tuple[float, float]:
+    """Dwustronny test Manna-Whitneya, czysty numpy/stdlib (bez scipy).
+
+    Port `_mannwhitney_u_p()` z
+    `TIMDR-Earthquake-Core/precursor_validation.py` — jedno miejsce
+    definicji tej konkretnej implementacji (nie druga, niezależna
+    kopia): ten plik jest teraz kanoniczny, tamten sibling-importuje
+    stąd (patrz `TIMDR-Earthquake-Core/precursor_validation.py`).
+
+    Zwraca (U dla grupy `a`, dwustronna p-wartość) — aproksymacja
+    normalna z korektą na remisy, bez korekty ciągłości (ta sama
+    konwencja co `scipy.stats.mannwhitneyu(method='asymptotic')`).
+    Zgodność sprawdzona empirycznie do kilku miejsc po przecinku przy
+    rozmiarach próbek używanych w tym repo."""
+    a = np.asarray(a, dtype=float)
+    b = np.asarray(b, dtype=float)
+    n1, n2 = len(a), len(b)
+    all_vals = np.concatenate([a, b])
+    n = len(all_vals)
+
+    order = np.argsort(all_vals, kind="mergesort")
+    sorted_vals = all_vals[order]
+    ranks = np.empty(n, dtype=float)
+    i = 0
+    rank_cursor = 1
+    while i < n:
+        j = i
+        while j + 1 < n and sorted_vals[j + 1] == sorted_vals[i]:
+            j += 1
+        avg_rank = (rank_cursor + rank_cursor + (j - i)) / 2.0
+        ranks[order[i:j + 1]] = avg_rank
+        rank_cursor += (j - i + 1)
+        i = j + 1
+
+    r1 = float(ranks[:n1].sum())
+    u1 = r1 - n1 * (n1 + 1) / 2.0
+
+    mu = n1 * n2 / 2.0
+    _, counts = np.unique(all_vals, return_counts=True)
+    tie_term = float(np.sum(counts.astype(float) ** 3 - counts.astype(float)))
+    if n > 1:
+        sigma2 = (n1 * n2 / 12.0) * ((n + 1) - tie_term / (n * (n - 1)))
+    else:
+        sigma2 = 0.0
+    sigma = math.sqrt(sigma2) if sigma2 > 0 else 0.0
+
+    if sigma == 0:
+        # zdegenerowane (np. wszystkie wartosci identyczne) - brak dowodu na roznice
+        return u1, 1.0
+
+    z = (u1 - mu) / sigma
+    p = math.erfc(abs(z) / math.sqrt(2.0))  # dwustronna p-wartosc, rozklad normalny
+    return u1, min(1.0, p)
+
+
 def rank_biserial_effect_size(statistic: float, n_test: int, n_background: int) -> float:
     """Rank-biserial correlation — rozmiar efektu dla testu Manna-Whitneya,
     niezależny od p-wartości (p mówi "czy", r mówi "jak dużo").
@@ -264,20 +343,54 @@ def mann_whitney_test(
     test_values: Sequence[float],
     background_values: Sequence[float],
     alternative: str = "two-sided",
+    backend: str = "auto",
 ) -> TestResult:
     """Krok 4: prawdziwy test statystyczny (Mann-Whitney U), nie
     porównanie percentylowe "na oko" — patrz skill §13 krok 3 protokołu:
     "Use a real significance test (Mann-Whitney U), not just a
-    percentile comparison"."""
+    percentile comparison".
+
+    `backend`: "auto" (domyślnie) używa scipy, jeśli dostępne, inaczej
+    cicho spada na czysto-numpy `_mannwhitney_u_p_numpy()`. "scipy"
+    wymusza scipy (zgłasza `RuntimeError`, jeśli niedostępne — nigdy nie
+    udaje, że policzył coś, czego nie policzył). "numpy" wymusza
+    fallback bez scipy jawnie (przydatne w środowiskach, gdzie sam
+    IMPORT scipy jest ryzykowny — patrz uwaga na górze pliku) — wspiera
+    WYŁĄCZNIE `alternative="two-sided"`, jednostronne warianty wymagają
+    scipy.
+    """
     tv = np.asarray(test_values, dtype=float)
     bv = np.asarray(background_values, dtype=float)
     if tv.size == 0 or bv.size == 0:
         raise ValueError("test_values i background_values nie mogą być puste")
-    result = stats.mannwhitneyu(tv, bv, alternative=alternative)
-    statistic = float(result.statistic)
+
+    if backend not in ("auto", "scipy", "numpy"):
+        raise ValueError(f"backend musi być 'auto'/'scipy'/'numpy', dostano {backend!r}")
+
+    use_scipy = _HAS_SCIPY if backend == "auto" else (backend == "scipy")
+
+    if use_scipy:
+        if not _HAS_SCIPY:
+            raise RuntimeError(
+                "backend='scipy' zażądany, ale scipy nie jest dostępne/importowalne "
+                "w tym środowisku (patrz uwaga o Device Guard na górze pliku) — "
+                "użyj backend='numpy' albo backend='auto'."
+            )
+        result = _scipy_stats.mannwhitneyu(tv, bv, alternative=alternative)
+        statistic = float(result.statistic)
+        pvalue = float(result.pvalue)
+    else:
+        if alternative != "two-sided":
+            raise ValueError(
+                "backend='numpy' (fallback bez scipy) wspiera wyłącznie "
+                "alternative='two-sided' — warianty jednostronne wymagają "
+                "backend='scipy'."
+            )
+        statistic, pvalue = _mannwhitney_u_p_numpy(tv, bv)
+
     return TestResult(
         statistic=statistic,
-        pvalue=float(result.pvalue),
+        pvalue=pvalue,
         n_test=int(tv.size),
         n_background=int(bv.size),
         median_test=float(np.median(tv)),

@@ -14,6 +14,7 @@ scipy w ogóle.
 import numpy as np
 import pytest
 
+from timdr_formalism import pipeline
 from timdr_formalism.pipeline import (
     Hypothesis,
     Preregistration,
@@ -28,6 +29,7 @@ from timdr_formalism.pipeline import (
     ar1_noise,
     rank_biserial_effect_size,
     effect_size_label,
+    _mannwhitney_u_p_numpy,
 )
 
 
@@ -144,6 +146,82 @@ def test_mann_whitney_detects_large_separation():
 def test_mann_whitney_rejects_empty_input():
     with pytest.raises(ValueError):
         mann_whitney_test([], [1, 2, 3])
+
+
+# ---------------------------------------------------------------------
+# Backend bez scipy (Device Guard safety, patrz nagłówek pipeline.py)
+# ---------------------------------------------------------------------
+
+def test_scipy_available_in_this_test_environment():
+    # Sanity check zalozenia reszty tego bloku testow: w tym srodowisku
+    # scipy faktycznie jest importowalne, wiec backend="auto" powyzej i
+    # ponizej realnie porownuje oba backendy, nie tylko definicje.
+    assert pipeline._HAS_SCIPY is True
+
+
+def test_numpy_backend_detects_large_separation():
+    rng = np.random.default_rng(0)
+    test_values = rng.normal(loc=50, scale=1, size=40)
+    background_values = rng.normal(loc=0, scale=1, size=40)
+    result = mann_whitney_test(test_values, background_values, backend="numpy")
+    assert result.pvalue < 1e-6
+    assert result.median_test > result.median_background
+
+
+def test_numpy_backend_matches_scipy_backend_closely():
+    # Zgodnosc backendu bez-scipy ze scipy do kilku miejsc po przecinku
+    # (ta sama wlasciwosc, ktora precursor_validation.py juz udokumentowal
+    # dla oryginalnej implementacji, ktorej to jest portem).
+    rng = np.random.default_rng(3)
+    test_values = rng.normal(loc=2.0, scale=1.5, size=30)
+    background_values = rng.normal(loc=0.0, scale=1.5, size=30)
+    scipy_result = mann_whitney_test(test_values, background_values, backend="scipy")
+    numpy_result = mann_whitney_test(test_values, background_values, backend="numpy")
+    assert numpy_result.statistic == pytest.approx(scipy_result.statistic)
+    assert numpy_result.pvalue == pytest.approx(scipy_result.pvalue, abs=1e-6)
+    assert numpy_result.effect_size_r == pytest.approx(scipy_result.effect_size_r)
+
+
+def test_auto_backend_uses_scipy_when_available():
+    result_auto = mann_whitney_test([10, 11, 12], [1, 2, 3], backend="auto")
+    result_scipy = mann_whitney_test([10, 11, 12], [1, 2, 3], backend="scipy")
+    assert result_auto.pvalue == pytest.approx(result_scipy.pvalue)
+
+
+def test_auto_backend_falls_back_to_numpy_when_scipy_unavailable(monkeypatch):
+    monkeypatch.setattr(pipeline, "_HAS_SCIPY", False)
+    result = mann_whitney_test([10, 11, 12], [1, 2, 3], backend="auto")
+    # Backend numpy nie ma pola do odroznienia w wyniku, ale dziala i
+    # daje sensowny wynik (pelna separacja -> p male, r=+1).
+    assert result.effect_size_r == pytest.approx(1.0)
+
+
+def test_numpy_backend_rejects_one_sided_alternative():
+    with pytest.raises(ValueError):
+        mann_whitney_test([1, 2, 3], [4, 5, 6], alternative="greater", backend="numpy")
+
+
+def test_scipy_backend_raises_clearly_when_scipy_unavailable(monkeypatch):
+    monkeypatch.setattr(pipeline, "_HAS_SCIPY", False)
+    with pytest.raises(RuntimeError):
+        mann_whitney_test([1, 2, 3], [4, 5, 6], backend="scipy")
+
+
+def test_invalid_backend_rejected():
+    with pytest.raises(ValueError):
+        mann_whitney_test([1, 2, 3], [4, 5, 6], backend="not-a-backend")
+
+
+def test_mannwhitney_u_p_numpy_matches_hand_computed_full_separation():
+    # Pelna separacja: U musi wyjsc maksymalne (n1*n2), p bliskie zeru.
+    u, p = _mannwhitney_u_p_numpy(np.array([10.0, 11.0, 12.0]), np.array([1.0, 2.0, 3.0]))
+    assert u == pytest.approx(9.0)  # n1*n2 = 3*3
+    assert p < 0.05
+
+
+def test_mannwhitney_u_p_numpy_degenerate_identical_values_gives_p_one():
+    u, p = _mannwhitney_u_p_numpy(np.array([5.0, 5.0, 5.0]), np.array([5.0, 5.0, 5.0]))
+    assert p == 1.0
 
 
 def test_test_result_verdict_text_matches_significance():
