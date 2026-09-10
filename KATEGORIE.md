@@ -1,4 +1,18 @@
-## 🗂️ Struktura projektów: dwie kategorie
+## 🗂️ Struktura projektów — przeniesione
+
+**Ten plik był duplikatem, który rozjeżdżał się z aktualną wersją.**
+Kanoniczna, aktualizowana lista kategorii repozytoriów (w tym sekcja
+„Formalizacje TIMDR" i sekcja powiązań/pochodzenia kodu między repo)
+żyje teraz WYŁĄCZNIE w:
+
+**[jbackk-lang.github.io/KATEGORIE.md](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md)**
+
+Treść poniżej zachowana dla historii (stan sierpień 2026, dwie
+kategorie, bez Synoptyk-v3 i bez sekcji powiązań kodu) — NIE aktualizuj
+jej dalej, tylko plik w jbackk-lang.github.io.
+---
+
+## 🗂️ Struktura projektów: dwie kategorie (ARCHIWALNE, nieaktualizowane)
 Repozytoria w tym profilu dzielą się na dwie wyraźnie różne kategorie. Rozróżnienie jest celowe i konsekwentne:
 - **Narzędzia inżynierskie** — kod zweryfikowany, działający na realnych danych, testowalny.
 - **Modele koncepcyjne** — język metaforyczny (Λ–τ–ρ / TIMDR / TRM / GIA) używany jako narzędzie do myślenia, bez klasycznej warstwy obliczeniowej pod spodem. Nie są to teorie naukowe ani modele empiryczne.
