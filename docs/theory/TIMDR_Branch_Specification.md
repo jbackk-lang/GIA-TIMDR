@@ -80,6 +80,23 @@ tabelę.
     oscylatorów harmonicznych (macierze \(M,K,\Gamma\) z lokalnej
     krzywizny/torsji) na pobudzenie lokalne (Aksjomat G5) — domknięty
     numerycznie DLA \(N=3\) (trójwęzeł), nie zwalidowany empirycznie
+  - **`Λ_G` — dyspersja krzywizny (dodane 2026-09-10)**:
+    \(\Lambda_G(S) = \sigma_H/(\sigma_H+|\bar H|+\epsilon)\), gdzie
+    \(H(p)\) to krzywizna średnia z operatora kształtu (G9b) po
+    wszystkich wierzchołkach z pełnym 1-ringiem. Zbudowane w
+    odpowiedzi na propozycję traktowania Λ z META-DYNAMICS jako rodziny
+    operatorów per gałąź — pierwotny pomysł (parametr porządku pola
+    KIERUNKÓW głównych krzywizny, analogia nematyczna do
+    `circular_dispersion`) ODRZUCONY: kierunki główne żyją w LOKALNYCH
+    bazach stycznych różnych dla każdego wierzchołka, więc uśrednianie
+    kątów między nimi wymagałoby transportu równoległego (osobny,
+    niezrobiony projekt) — zamiast tego użyto już istniejącej,
+    koordynatowo-niezależnej wielkości skalarnej \(H(p)\). 0 = krzywizna
+    stała (sfera/płaszczyzna/walec), →1 = silnie niejednorodna.
+    Zwalidowane na syntetykach: sfera/walec ≈0, płaszczyzna z losowym
+    szumem wysokości wyraźnie wyższe (6/6 testów, `timdr_geometry/
+    weingarten.py::mean_curvature_dispersion`,
+    `tests/test_curvature_dispersion.py`).
 - **Aksjomaty:** 10 — `Axioms_G_TIMDR_Geometry.md` (G1-G10; G1-G3
   mają wzory już używane gdzie indziej w repo, G4 nazywa związek z
   Weingartenem, G5 definiuje operator G-Rezonans (zaktualizowane —
@@ -100,7 +117,9 @@ tabelę.
   (operator G-Rezonans, G5), osobne repo `TIMDR-Geometry-Formalism`
   (`timdr_geometry/weingarten.py` — numeryczna implementacja G8-G9:
   dyskretny operator kształtu, testy na płaszczyźnie/sferze/walcu/
-  zbieżności siatki; nieuruchomione w sesji, w której powstały).
+  zbieżności siatki; nieuruchomione w sesji, w której powstały; ten sam
+  plik zawiera też `Λ_G`/`mean_curvature_dispersion`, dodane
+  2026-09-10, 6/6 testów potwierdzonych w sandboxie).
 - **Czym NIE jest:** rozszerzeniem gałęzi M/S (obiekty G nie są
   elementami przestrzeni sygnałów \(x:T\to\mathbb{R}^d\) — Aksjomat
   G6a) ani gałęzi K — \(\mathcal{R}_G\) (G5) nie jest szczególnym
@@ -131,6 +150,22 @@ tabelę.
     (Aksjomat 7)
   - przejście między warstwami \(R_{k+1}=F(R_k)\), spójność całości
     \(\bigcap_k R_k \neq \varnothing\) (Aksjomaty 9-10)
+  - **`Λ_K`, `τ_K` — dyspersja fazowa i jej tempo (dodane 2026-09-10)**:
+    \(\Lambda_K(t) = 1-\lvert\text{mean}_i(e^{i\theta_i(t)})\rvert\),
+    gdzie \(\theta_i(t)\) to faza chwilowa modalności \(i\) (Aksjomat 4).
+    W przeciwieństwie do próby w gałęzi G (odrzuconej z powodu braku
+    wspólnego układu odniesienia), TUTAJ wszystkie modalności dzielą
+    JEDEN globalny okrąg fazowy — więc to jest DOSŁOWNIE ten sam obiekt
+    matematyczny co `circular_dispersion` w Quantum-Lattice i
+    `wind_direction_coherence` w Synoptyk-v3, nie tylko analogia.
+    \(\tau_K(t,\Delta t) = \lvert\Lambda_K(t+\Delta t)-\Lambda_K(t)\rvert/\Delta t\).
+    Nietrywialna dynamika: mimo że modalności są monochromatyczne
+    (Aksjomat 3, stałe f/φ), \(\Lambda_K(t)\) OSCYLUJE w czasie dla
+    układów wielu częstości (dudnienie) — zerowe TYLKO analitycznie, gdy
+    wszystkie \(f_i\) są równe. Zwalidowane: 8/8 testów, w tym kontrola
+    analityczna \(\tau_K\equiv0\) dla równych częstości
+    (`timdr_modal/phase_sync.py::modal_phase_dispersion`,
+    `modal_phase_tempo`, `tests/test_phase_dispersion.py`).
 - **Aksjomaty:** 10 — `Axioms_K_TIMDR.md` (numeracja 1-10).
 - **Status empiryczny:** brak realnej walidacji empirycznej udokumentowanej
   w tym repo (w odróżnieniu od gałęzi M/S) — status nieokreślony wprost
@@ -138,7 +173,10 @@ tabelę.
   koncepcyjny jak gałąź G, dopóki nie powstanie odpowiednik
   `REAL_DATA_VALIDATION.md` dla K.
 - **Pliki źródłowe:** `Axioms_K_TIMDR.md`, `Operators_N_TIMDR.md`
-  (operatory dla domeny modalnej, w tym skręt topologiczny τ).
+  (operatory dla domeny modalnej, w tym skręt topologiczny τ),
+  `TIMDR-Modal-Formalism/timdr_modal/phase_sync.py` (`Λ_K`/`τ_K`
+  dodane 2026-09-10, `modal_phase_dispersion`/`modal_phase_tempo`, 8/8
+  testów potwierdzonych w sandboxie, w tym kontrola analityczna).
 - **Czym NIE jest:** rozszerzeniem gałęzi M/S (rezonans modalny to
   wyrównanie częstotliwości/fazy, nie koincydencja progowa amplitud w
   czasie — jawnie rozróżnione w Axioms_S Aksjomat 3) ani gałęzi G
@@ -274,6 +312,28 @@ ewolucji `M=dS/dt` + klasyfikacja fazy na podstawie `magnitude(M)`).
   aksjomatycznego ani w `Axioms_K_TIMDR.md`, ani nigdzie indziej — jawnie
   odnotowane tutaj jako otwarty punkt, żeby nie stał się kolejnym cichym
   kolizyjnym użyciem tego samego wzoru w trzeciej domenie.
+
+**Runda 2 (2026-09-10, ten sam dzień): rodzina Λ (i częściowo τ)
+rozszerzona na G i K.** Użytkownik zapytał "a gdyby" Λ/τ/ρ/J nie były
+własnością jednej gałęzi, tylko RODZINĄ CZTERECH PYTAŃ (dyspersja/tempo/
+gęstość/sprzężenie) realizowaną osobno w KAŻDEJ gałęzi TIMDR — dokładnie
+tak, jak ta gałąź sama jest realizowana osobno w sześciu domenach.
+Audyt przed obietnicą pokazał, że z 16 możliwych komórek (4 pytania ×
+4 gałęzie) tylko ok. 6-7 miało już realny kod — reszta była czystą
+analogią słowną. Użytkownik wybrał zbudowanie brakujących operatorów
+(nie tylko nazwanie luki) dla dwóch najbardziej obiecujących komórek:
+- **`Λ_G`** (dyspersja krzywizny średniej) w `TIMDR-Geometry-Formalism`
+  — patrz sekcja "Gałąź G" wyżej.
+- **`Λ_K`/`τ_K`** (dyspersja fazowa i jej tempo) w
+  `TIMDR-Modal-Formalism` — patrz sekcja "Gałąź K" wyżej. Nie ODRZUCONE
+  jak próba w G, bo modalności dzielą jeden globalny okrąg fazowy —
+  formuła jest tu DOSŁOWNIE tym samym obiektem co `circular_dispersion`,
+  nie tylko analogią.
+
+Pozostałe komórki (ρ/J-podobne sygnały w G/K, cała kolumna TRM,
+dyspersja/tempo w M/S poza istniejącym skrętem sygnałowym) pozostają
+NIEZBUDOWANE — jawnie nienazwane jako "zrobione", żeby nie sugerować
+kompletności, której nie ma.
 
 ---
 

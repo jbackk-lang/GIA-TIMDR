@@ -271,6 +271,27 @@ wprost jako luka, nie ukryte — wzorem tego, jak Aksjomat G7 nazwał brak
 implementacji numerycznej G, zanim `TIMDR-Geometry-Formalism` ją
 dostarczył.
 
+**Runda 2, ten sam dzień: rodzina Λ (i częściowo τ) rozszerzona na G i
+K.** Użytkownik zapytał "a gdyby" Λ/τ/ρ/J było rodziną CZTERECH PYTAŃ
+(dyspersja/tempo/gęstość/sprzężenie) realizowaną OSOBNO w każdej
+gałęzi — audyt przed obietnicą pokazał, że z 16 komórek (4×4) tylko
+~6-7 miało już realny kod, reszta była czystą analogią słowną (m.in.
+sprawdzone grepem: `Axioms_K_TIMDR.md` i `Axioms_G_TIMDR_Geometry.md`
+nie miały ŻADNEGO operatora dyspersji). Wybrano zbudowanie dwóch
+brakujących: `Λ_G` (dyspersja krzywizny średniej,
+`timdr_geometry/weingarten.py::mean_curvature_dispersion`, 6/6 testów)
+i `Λ_K`/`τ_K` (dyspersja fazowa i jej tempo,
+`timdr_modal/phase_sync.py::modal_phase_dispersion`/`modal_phase_tempo`,
+8/8 testów, w tym kontrola ANALITYCZNA τ_K≡0 dla równych częstości).
+Ważna różnica: próba dla G ODRZUCIŁA pierwszy pomysł (parametr porządku
+kierunków głównych krzywizny) bo kierunki żyją w różnych lokalnych
+bazach stycznych (wymagałoby transportu równoległego) — zamiast tego
+użyto skalara H(p). Dla K formuła Λ_K jest DOSŁOWNIE tym samym obiektem
+co `circular_dispersion`, bo modalności dzielą jeden globalny okrąg
+fazowy — nie trzeba było niczego odrzucać. Pełne szczegóły:
+`TIMDR_Branch_Specification.md`, sekcje "Gałąź G"/"Gałąź K"/"Runda 2".
+Pozostałe komórki (ρ/J w G/K, cała kolumna TRM) jawnie NIEZBUDOWANE.
+
 ## 15. Meta-zasady TIMDR (wnioski ogólne, wielokrotnego użytku)
 
 - Audytuj istniejące znaczenia słowa PRZED napisaniem nowych aksjomatów pod tą samą nazwą.
@@ -289,3 +310,4 @@ dostarczył.
 - **Gdy dwie diagnostyki na tych samych danych dają różne odpowiedzi (np. duża spójność kierunkowa I duża wirowość jednocześnie), to dowód że mierzą naprawdę różne rzeczy, nie że jedna jest zepsuta — sprawdź to explicite kontrolą przed zaufaniem nowej metryce.**
 - **"Rodzina operatorów w jednej domenie" (np. sześć meta_adapter.py) ≠ "sześć gałęzi" — nowa gałąź wymaga INNEGO kształtu obiektu matematycznego, nie tylko nowej domeny tego samego kształtu; sprawdzaj to rozróżnienie explicite, zanim zaakceptujesz propozycję "X powinno być osobną gałęzią" (punkt 14).**
 - **Gdy kod działa od dawna w wielu domenach, ale nigdy nie został formalnie zestawiony obok istniejących sformalizowanych struktur (tu: Λ-τ-ρ-J vs M/S/G/K), samo zestawienie w jednym dokumencie-indeksie jest realną, wartościową pracą — nawet bez nowej matematyki — bo ujawnia kolizje symboli (τ), których nikt wcześniej nie zauważył, bo nie stały obok siebie (punkt 14).**
+- **Przed budową operatora "analogicznego" w nowej domenie (np. dyspersja krzywizny wzorem dyspersji fazowej), sprawdź czy domena ma WSPÓLNY globalny układ odniesienia dla wielkości, którą chcesz uśredniać — jeśli nie (różne lokalne bazy styczne per punkt na siatce 3D), nie wymuszaj tej samej formuły; poszukaj innej, koordynatowo-niezależnej wielkości zamiast robić błąd "podobne słowo, inny obiekt" (punkt 14, runda 2 — Λ_G vs Λ_K).**

@@ -122,8 +122,10 @@ tego README. Numeryczna implementacja dyskretnego operatora Weingartena
 (G8-G9): osobne repo `TIMDR-Geometry-Formalism`
 (`timdr_geometry/weingarten.py` + testy na płaszczyźnie/sferze/walcu —
 nieuruchomione w sesji, w której powstały, patrz zastrzeżenie w jego
-README). G-Rezonans (G5): `core/geometric_resonance_operator.py`
-(ogólny) + `core/trefoil_resonance_model.py` (warstwa N=3) +
+README; ten sam plik ma teraz też `Λ_G`/`mean_curvature_dispersion`,
+dodane 2026-09-10, 6/6 testów potwierdzonych). G-Rezonans (G5):
+`core/geometric_resonance_operator.py` (ogólny) +
+`core/trefoil_resonance_model.py` (warstwa N=3) +
 `docs/geometry/TIMDR_GResonance_Operator.md`. Osobny katalog
 `docs/theory/Geometry/` jeszcze nie istnieje.
 **To NIE jest:** sygnał czasowy, rezonans M, Axioms_S, rezonans modalny
@@ -140,7 +142,10 @@ aksjomatów modalnych; plus mapa synchronizacji faz `f` formalizująca
 **Pliki:** `docs/theory/Axioms_K_TIMDR.md`. Pierwsza implementacja
 numeryczna: osobne repo `TIMDR-Modal-Formalism`
 (`timdr_modal/phase_sync.py`) — testy potwierdzone przez użytkownika
-(17/17).
+(17/17). Ten sam plik ma teraz też `Λ_K`/`τ_K` (dyspersja fazowa i jej
+tempo, dodane 2026-09-10, 8/8 testów potwierdzonych) — dosłownie ten
+sam parametr porządku co `circular_dispersion` w Quantum-Lattice, bo
+modalności dzielą jeden globalny okrąg fazowy.
 **To NIE jest:** sygnał `x:T→ℝᵈ`, testy statystyczne, skręt sygnałowy,
 skręt powierzchniowy.
 
