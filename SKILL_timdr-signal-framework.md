@@ -4,7 +4,7 @@
 
 ## 1. Co to w ogóle jest?
 
-Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), trzy gałęzie (M/S, G, K), Chronoproces spinający je bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, i jeden jawnie oznaczony dokument spekulacyjny.
+Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), CZTERY gałęzie (M/S, G, K, i od 2026-09-10 formalnie META-DYNAMICS Λ-τ-ρ-J jako rodzina operatorów agregatowych, analogicznie do rodziny krzywizn w Geometry Formalism), Chronoproces spinający M/S/G/K bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, i jeden jawnie oznaczony dokument spekulacyjny.
 
 ## 2. Cztery sygnały TIMDR (M/S)
 
@@ -13,16 +13,21 @@ Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologi
 - **rezonans M** — ≥3 anomalii w tym samym czasie (koincydencja, NIE fizyczny oscylator).
 - **skręt sygnałowy** — odwrócenie trendu, flip znaku nachylenia > próg.
 
-„Rezonans" i „skręt" mają wiele znaczeń w całym ekosystemie GIA-TIMDR —
+„Rezonans" i „skręt"/τ mają wiele znaczeń w całym ekosystemie GIA-TIMDR —
 zawsze podawaj który: rezonans ma 4 znaczenia (M sygnałowy, K modalny,
-kierunkowy R(t), G-Rezonans/G5 — punkt 11), skręt ma **6** (sygnałowy,
-topologiczny τ [Operators_N_TIMDR.md, torus→Möbius→tetroida], powierzchniowy,
-blokowy, Frenet-Serret trójwęzła — punkt 11, i **τ dynamiczny TRM**
-[R=k·τⁿ, `TRM_biology.md`, punkt 13] — NIEROZSTRZYGNIĘTE, czy to
-rozszerzenie skrętu topologicznego czy odrębny obiekt pod tym samym
-symbolem, patrz punkt 13). Kanoniczna lista: `docs/GLOSSARY_EN_PL.md`,
-`TIMDR_Twists.md` — **wymaga aktualizacji o to 6. znaczenie**, jeszcze
-nie zrobione.
+kierunkowy R(t), G-Rezonans/G5 — punkt 11; plus kanał J w META-DYNAMICS,
+patrz punkt 15, który jest POKREWNY duchem ale formalnie odrębny — 5
+znaczeń licząc J), skręt/τ ma **6** formalnie skonsolidowanych w
+`TIMDR_Twists.md` (sygnałowy, topologiczny τ [Operators_N_TIMDR.md,
+torus→Möbius→tetroida], powierzchniowy, blokowy, Frenet-Serret trójwęzła,
+i **τ dynamiczny TRM** [R=k·τⁿ, `TRM_biology.md`, punkt 13] —
+NIEROZSTRZYGNIĘTE, czy to rozszerzenie skrętu topologicznego czy odrębny
+obiekt pod tym samym symbolem) PLUS **τ META-DYNAMICS** (transformacja,
+Λ-τ-ρ-J, punkt 15) — formalnie poza zakresem "skrętu" (nigdy tak nie
+nazywane w kodzie), ale współdzieli symbol τ, więc licz 7 kolizji
+symbolu τ w sumie. Kanoniczna lista: `docs/GLOSSARY_EN_PL.md`,
+`TIMDR_Twists.md`, `TIMDR_Branch_Specification.md` — **zaktualizowane
+2026-09-10, ten dług jest teraz spłacony**.
 
 ## 3. Protokół formalizmu (anty-numerologia)
 
@@ -62,15 +67,19 @@ podczas aktywnego kolapsu kanały Λ i τ są silnie skorelowane (Spearman
 ~0.9-0.96), zinterpretowane jako wspólny monotoniczny trend, NIE
 duplikat liczenia (kanał J pozostaje niezależny nawet wtedy).
 
-## 5. Trzy gałęzie TIMDR (i rozdzielenie znaczeń)
+## 5. Cztery gałęzie TIMDR (i rozdzielenie znaczeń)
 
 - **M/S** — sygnały czasowe (anomalia/defekt/rezonans M/skręt sygnałowy), `Axioms_S_TIMDR_Signal.md`, 13 aksjomatów.
 - **K** — rezonans modalny (częstotliwość/faza między modalnościami), `Axioms_K_TIMDR.md`, 10 aksjomatów — zupełnie inny obiekt niż rezonans M.
 - **G** — geometria (skręt powierzchniowy, operator kształtu/Weingarten, krzywizny obwiedni, G-Rezonans), `Axioms_G_TIMDR_Geometry.md`, 10 aksjomatów.
+- **META-DYNAMICS** (dodana formalnie 2026-09-10, punkt 15) — agregatowy wektor 4D `MetaState(Λ,τ,ρ,J)` + operator ewolucji `M=dS/dt`, 0 aksjomatów (jawna luka), ale działający kod w 6 domenach + 1 uniwersalny walidator (punkt 4).
 
 Plus starszy, nieformalny szkic kierunkowy `R(t)=mean(sign(Sᵢ'(t)))` w
-głównym README, i teraz TRM (`TRM_biology.md`, punkt 13) jako CZWARTY,
-narracyjny/nieformalny użytkownik liter Λ/τ/ρ, spoza tej trójki gałęzi.
+głównym README (poprzednik M/S, nie osobna gałąź), i TRM (`TRM_biology.md`,
+punkt 13) jako PIĄTY, narracyjny/nieformalny użytkownik liter Λ/τ/ρ,
+spoza tej czwórki formalnych gałęzi — TRM NIE jest tożsame z gałęzią
+META-DYNAMICS mimo współdzielonych liter (patrz punkt 13, kolizja τ
+NIEROZSTRZYGNIĘTA; kolizja Λ/ρ w ogóle niezbadana).
 Żadna gałąź nie jest rozszerzeniem innej — każda ma własny obiekt/operator,
 mimo współdzielonych nazw.
 
@@ -157,7 +166,15 @@ operatorów GIA-TIMDR). Pełny zestaw testów repo: 118/118.
 strukturalny"/"hipoteza, nie klasyczna biologia", NIEfalsyfikowany
 empirycznie) używa liter Λ/τ/ρ narracyjnie (τ = "poziom złożoności/
 energia utrzymania", operacyjnie mass×metabolizm w przykładzie K-Pg) —
-CZWARTY, odrębny od M/S/G/K, użytkownik tych symboli w ekosystemie.
+odrębny od M/S/G/K, użytkownik tych symboli w ekosystemie. **Od
+2026-09-10 (punkt 15) formalna gałąź META-DYNAMICS TEŻ używa Λ/τ/ρ/J —
+DWA różne, niezależne zestawy definicji pod tymi samymi czterema
+literami. τ TRM vs τ META-DYNAMICS: różne domeny (skalarny proces
+redukcji vs tempo zmiany defektu w agregacie), związek niezbadany, NIE
+zakładaj żadnej odpowiedzi. Λ TRM vs Λ META-DYNAMICS i ρ TRM vs ρ
+META-DYNAMICS: kolizja w ogóle jeszcze nie zbadana, nawet nie
+NIEROZSTRZYGNIĘTA formalnie — po prostu nikt jeszcze nie zadał tego
+pytania.**
 2026-09-10: użytkownik dostarczył 9 równań formalizujących wcześniej
 czysto jakościowe twierdzenia TRM_biology.md ("wysokie τ → niestabilne"),
 rdzeń: prawo redukcji `R(τ)=k·τⁿ`, `dI/dt=-R(τ)`, autonomicznie
@@ -201,7 +218,60 @@ konkretnie: rdzeń matematyczny "R=k·τⁿ jako coś więcej niż zwykły
 rozpad" — na razie brak dowodu. Zgodnie z protokołem (punkt 3): wynik
 negatywny zaraportowany wprost, bez naginania interpretacji.
 
-## 14. Meta-zasady TIMDR (wnioski ogólne, wielokrotnego użytku)
+## 14. Rodziny sygnałów — formalizacja gałęzi META-DYNAMICS (Λ-τ-ρ-J)
+
+2026-09-10, na propozycję użytkownika: przestać traktować Λ/τ/ρ/J jako
+"po prostu cztery metryki" i formalnie uznać je za CZWARTĄ gałąź TIMDR
+(obok M/S, G, K) — rodzinę operatorów agregatowych, jeden kształt
+obiektu matematyczny (`MetaState∈ℝ⁴` + operator ewolucji `M=dS/dt`)
+instancjonowany w sześciu niezależnych domenach, dokładnie tym samym
+wzorcem, w jakim `TIMDR-Geometry-Formalism` potraktował krzywiznę jako
+rodzinę (Weingarten/powierzchnia, obwiednia P/Q, torsja trójwęzła,
+Chronoproces/trajektoria, K-modalna) zamiast jednej wielkości. To NIE
+był nowy pomysł matematyczny — kod istniał od dawna (sześć
+`meta_adapter.py`, `meta_validator.py`), tylko nigdzie nie był formalnie
+opisany obok M/S/G/K w `TIMDR_Branch_Specification.md`.
+
+**Co dokładnie zrobiono:**
+1. Dodano pełną sekcję "Gałąź META-DYNAMICS" do
+   `TIMDR_Branch_Specification.md` (obiekty, operatory, status
+   empiryczny, pliki źródłowe, "czym NIE jest") + kolumnę w tabeli
+   porównawczej — wzorem M/S/G/K.
+2. Rozszerzono `TIMDR_Twists.md` o τ TRM (6. znaczenie skrętu, wcześniej
+   brakujące mimo że skill już to sygnalizował) i notatkę o τ
+   META-DYNAMICS (poza zakresem słowa "skręt", ale kolizyjny symbol).
+3. Rozszerzono `GLOSSARY_EN_PL.md` o pełną sekcję "Λ-τ-ρ-J /
+   META-DYNAMICS" (definicje Λ/τ/ρ/J, dwujęzyczne, z jawnym
+   rozgraniczeniem od wszystkich innych znaczeń tych symboli).
+4. Zaktualizowano główny `README.md` GIA-TIMDR (nagłówek "Cztery
+   gałęzie", nowa sekcja 4, wiersz w tabeli kanonicznej).
+
+**Jawna, uzasadniona decyzja klasyfikacyjna (odpowiedź na część
+propozycji użytkownika, NIE przyjęta bez zmian):** użytkownik
+zaproponował, żeby `TIMDR-Quantum-Lattice` "stało się pełnoprawną
+gałęzią" zamiast "dziwnym dodatkiem". Odrzucone jako osobna gałąź —
+Quantum-Lattice (i pozostałe 5 domen) dzielą JEDEN kształt obiektu
+matematycznego (`MetaState`+`MetaOperatorM`) i jeden protokół walidacji
+(`meta_validator.py`); różnią się TYLKO mapowaniem fizycznych wielkości
+domeny na Λ/τ/ρ/J — to dokładnie definicja INSTANCJI gałęzi, nie nowej
+gałęzi (analogicznie do tego, jak Krakow_Centrum jest instancją M/S, nie
+osobną gałęzią). Nowa gałąź byłaby uzasadniona tylko przy INNYM
+kształcie obiektu matematycznego, nie przy nowej domenie tego samego
+kształtu. Osobno odnotowany (NIE zaklasyfikowany, otwarty punkt):
+zespolony parametr porządku `Z(t)=mean(exp(i·faza))` (Kuramoto),
+używany zarówno w Quantum-Lattice jak i w `Synoptyk-v3` (spójność
+kierunku wiatru) — pokrewny duchem gałęzi K, ale formalnie ani część
+META-DYNAMICS, ani jeszcze własny aksjomat K.
+
+**Uczciwa luka pozostawiona otwarta:** gałąź META-DYNAMICS ma ZERO
+spisanych aksjomatów (w odróżnieniu od M/S=13, G=10, K=10) — działający
+kod w 6 domenach plus 1 uniwersalny walidator, ale brak formalnego
+zestawu aksjomatów analogicznego do `Axioms_S/G/K_TIMDR.md`. Nazwane
+wprost jako luka, nie ukryte — wzorem tego, jak Aksjomat G7 nazwał brak
+implementacji numerycznej G, zanim `TIMDR-Geometry-Formalism` ją
+dostarczył.
+
+## 15. Meta-zasady TIMDR (wnioski ogólne, wielokrotnego użytku)
 
 - Audytuj istniejące znaczenia słowa PRZED napisaniem nowych aksjomatów pod tą samą nazwą.
 - Protokół testowania musi być kodem z API, nie tylko prozą.
@@ -217,3 +287,5 @@ negatywny zaraportowany wprost, bez naginania interpretacji.
 - **Dodatkowy parametr funkcyjny (np. wykładnik potęgowy) musi wygrać z prostszym baseline'em przez kryterium informacyjne (AIC/BIC), ustalone PRZED dopasowaniem — "da się dopasować" nie znaczy "lepszy model" (punkt 13, 0/2 na razie).**
 - **Gdy optymalizacja nieliniowa daje zdegenerowany wynik (utknięcie na brzegu bounds), podejrzewaj METODĘ (zły init/parametryzacja) przed odrzuceniem modelu — ale nie zmieniaj progu decyzyjnego po zobaczeniu poprawionego wyniku (punkt 13, battery test).**
 - **Gdy dwie diagnostyki na tych samych danych dają różne odpowiedzi (np. duża spójność kierunkowa I duża wirowość jednocześnie), to dowód że mierzą naprawdę różne rzeczy, nie że jedna jest zepsuta — sprawdź to explicite kontrolą przed zaufaniem nowej metryce.**
+- **"Rodzina operatorów w jednej domenie" (np. sześć meta_adapter.py) ≠ "sześć gałęzi" — nowa gałąź wymaga INNEGO kształtu obiektu matematycznego, nie tylko nowej domeny tego samego kształtu; sprawdzaj to rozróżnienie explicite, zanim zaakceptujesz propozycję "X powinno być osobną gałęzią" (punkt 14).**
+- **Gdy kod działa od dawna w wielu domenach, ale nigdy nie został formalnie zestawiony obok istniejących sformalizowanych struktur (tu: Λ-τ-ρ-J vs M/S/G/K), samo zestawienie w jednym dokumencie-indeksie jest realną, wartościową pracą — nawet bez nowej matematyki — bo ujawnia kolizje symboli (τ), których nikt wcześniej nie zauważył, bo nie stały obok siebie (punkt 14).**

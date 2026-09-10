@@ -167,14 +167,17 @@ osobnym obiektem matematycznym o innej domenie.
 
 ## Skręt / Twist — nazwy kanoniczne
 
-**UWAGA:** "skręt"/"twist" ma w tym ekosystemie PIĘĆ niezwiązanych ze
+**UWAGA:** "skręt"/"twist" ma w tym ekosystemie SZEŚĆ niezwiązanych ze
 sobą znaczeń. Każde nowe użycie tego słowa powinno od razu użyć
 jednej z poniższych rozszerzonych nazw — samo "skręt" bez przymiotnika
 jest niejednoznaczne. Pełne uzasadnienie i rozgraniczenie:
 [`theory/Resonance_M_Operator_Empiryczny.md`](theory/Resonance_M_Operator_Empiryczny.md)
 sekcja 0. Pełna, skonsolidowana formalna specyfikacja wszystkich
-pięciu (domena, przeciwdziedzina, definicja, per znaczenie, jedno pod
-drugim): [`theory/TIMDR_Twists.md`](theory/TIMDR_Twists.md).
+sześciu (domena, przeciwdziedzina, definicja, per znaczenie, jedno pod
+drugim): [`theory/TIMDR_Twists.md`](theory/TIMDR_Twists.md). Osobno,
+gałąź META-DYNAMICS ma WŁASNE τ ("transformacja") nigdy nie nazywane
+"skrętem" — patrz sekcja "Λ-τ-ρ-J" niżej i
+[`theory/TIMDR_Branch_Specification.md`](theory/TIMDR_Branch_Specification.md).
 
 ### Skręt sygnałowy
 **EN:** Trend-reversal detection — sign flip of local regression slope
@@ -250,6 +253,85 @@ przetestowany obiekt. **Nie** jest skrętem topologicznym τ powyżej
 powierzchni) — mimo współdzielonego symbolu τ w obu miejscach, celowo
 NIEidentyfikowane (patrz `theory/TIMDR_Branch_Specification.md`,
 zasada nadrzędna).
+
+### τ TRM (Model Topologicznej Redukcji)
+**EN:** Scalar reduction-law quantity with its own discrete ladder
+`τᵢ₊₁=λτᵢ→φ`, driving `dI/dt=-R(τ)=-k·τⁿ` — relation to topological
+twist τ above is explicitly UNRESOLVED (open question, not
+independence, not identity). The concrete reduction law was tested
+empirically (AIC, pre-registered ΔAIC=2 threshold) on two independent
+real decay curves (Quantum-Lattice collapse dispersion, NASA battery
+capacity fade) and **rejected both times** — does not invalidate
+`TRM_biology.md` as a whole, only this specific functional form.
+**PL:** Skalarna wielkość prawa redukcji z własną dyskretną drabinką
+`τᵢ₊₁=λτᵢ→φ`, napędzająca `dI/dt=-R(τ)=-k·τⁿ` — związek ze skrętem
+topologicznym τ powyżej jest jawnie NIEROZSTRZYGNIĘTY (otwarte pytanie,
+nie niezależność, nie tożsamość). Konkretne prawo redukcji przetestowane
+empirycznie (AIC, pre-rejestrowany próg ΔAIC=2) na dwóch niezależnych
+realnych krzywych zaniku (dyspersja kolapsu Quantum-Lattice, zanik
+pojemności baterii NASA) i **odrzucone dwukrotnie** — nie obala całości
+`TRM_biology.md`, tylko tę konkretną formę funkcyjną.
+**Źródło:** `theory/TRM_biology.md`, `theory/TIMDR_Twists.md` (punkt 6),
+`timdr-signal-framework` §13 (pełne liczby testów AIC).
+
+---
+
+## Λ-τ-ρ-J / META-DYNAMICS — nazwy kanoniczne
+
+**UWAGA:** czwarta gałąź TIMDR (obok M/S, G, K), dodana do
+`theory/TIMDR_Branch_Specification.md` 2026-09-10 jako formalny opis
+kodu działającego od dawna w sześciu niezależnych domenach. Λ, τ, ρ, J
+tutaj są NIEZALEŻNE od wszystkich innych znaczeń tych symboli w tym
+dokumencie (zwłaszcza τ — patrz sekcja "Skręt" powyżej, ten symbol ma
+już cztery inne, wzajemnie rozdzielone znaczenia).
+
+### Λ (Lambda) — struktura
+**EN:** Aggregate structural state of the system at one time step
+(domain-specific — e.g. phase dispersion `1-|mean(exp(i·phase))|` on a
+lattice).
+**PL:** Zagregowany stan strukturalny systemu w jednym kroku czasowym
+(zależny od domeny — np. dyspersja fazowa `1-|mean(exp(i·faza))|` na
+siatce).
+
+### τ (tau) — transformacja
+**EN:** Rate of change of the system's defect/anomaly level (domain
+example: mean `|D(t)-D(t-1)|` across a lattice, normalized by a
+rolling median+k·MAD threshold). **Independent object** from
+topological twist τ (branch G) and from τ TRM — shares only the Greek
+letter, not the mathematical object; relation to τ TRM specifically
+untested (different domains, no formal comparison attempted).
+**PL:** Tempo zmiany poziomu defektu/anomalii systemu (przykład
+domenowy: średnie `|D(t)-D(t-1)|` po całej siatce, znormalizowane
+progiem rolling mediana+k·MAD). **Niezależny obiekt** od skrętu
+topologicznego τ (gałąź G) i od τ TRM — dzieli tylko literę grecką, nie
+obiekt matematyczny; związek z τ TRM konkretnie niezbadany (różne
+domeny, brak formalnego porównania).
+
+### ρ (rho) — anomalia
+**EN:** Fraction of elements/cells currently above a domain-calibrated
+anomaly threshold ("hotspots").
+**PL:** Frakcja elementów/komórek aktualnie ponad skalibrowany domenowo
+próg anomalii ("hotspoty").
+
+### J — operator punktowy (kanał rezonansu)
+**EN:** Fraction of elements/cells currently above a resonance
+threshold — deliberately NOT summed with ρ at the raw-value level
+(tested and rejected as `Ω=D+|R|` in `TIMDR-Quantum-Lattice`); enters
+the combined result only through `magnitude(M)` on derivatives.
+**PL:** Frakcja elementów/komórek aktualnie ponad próg rezonansu —
+świadomie NIEsumowana z ρ na poziomie surowych wartości (przetestowane
+i odrzucone jako `Ω=D+|R|` w `TIMDR-Quantum-Lattice`); wchodzi do
+wspólnego wyniku wyłącznie przez `magnitude(M)` na pochodnych.
+**Źródło (całej rodziny Λ-τ-ρ-J):**
+`TIMDR-META-DYNAMICS/core_meta/meta_state.py`,
+`core_meta/meta_operator_M.py`, sześć domenowych `meta_adapter.py`
+(finanse, pogoda, sejsmika, łożyska, sieć energetyczna, siatka
+kwantowa — pełna lista w `theory/TIMDR_Branch_Specification.md`),
+`TIMDR-Math-Formalism/timdr_formalism/meta_validator.py` (uniwersalna
+warstwa walidacji, niezależna od domeny).
+**Nie jest:** rozszerzeniem M/S, G ani K — czwarty, niezależny kształt
+obiektu matematycznego (wektor 4D + operator ewolucji `M=dS/dt`), patrz
+`theory/TIMDR_Branch_Specification.md` sekcja "Czym NIE jest".
 
 ---
 

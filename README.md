@@ -31,26 +31,34 @@ Zakres tego wydania to wyłącznie gałąź sygnałowa (M, S w `docs/theory/`
 
 ---
 
-## 🌿 Trzy gałęzie TIMDR — mapa terenu
+## 🌿 Cztery gałęzie TIMDR — mapa terenu
 
-TIMDR to nie jedna teoria z trzema zastosowaniami — to trzy
+TIMDR to nie jedna teoria z czterema zastosowaniami — to cztery
 **niezależne** konstrukcje matematyczne pod wspólną nazwą, z własnymi
-obiektami, operatorami i aksjomatami. Współdzielenie słów ("rezonans",
-"skręt") między nimi jest źródłem większości nieporozumień w tym
-ekosystemie (pełne rozgraniczenie: `docs/GLOSSARY_EN_PL.md`) — dlatego
-rozdzielone tu wprost, jedna gałąź na wiersz, zamiast zakładać, że
-czytelnik sam to poskłada.
+obiektami, operatorami i (dla trzech z czterech) aksjomatami.
+Współdzielenie słów ("rezonans", "skręt") między nimi jest źródłem
+większości nieporozumień w tym ekosystemie (pełne rozgraniczenie:
+`docs/GLOSSARY_EN_PL.md`) — dlatego rozdzielone tu wprost, jedna gałąź
+na wiersz, zamiast zakładać, że czytelnik sam to poskłada. Czwarta
+gałąź (META-DYNAMICS, Λ-τ-ρ-J) dodana do tego README 2026-09-10 — nie
+jest nowym pomysłem, tylko formalnym opisem kodu działającego od
+dawna w sześciu niezależnych domenach, wcześniej nigdzie tu nie
+zebranego w jedną specyfikację (dokładnie ten sam wzorzec, w jakim
+`TIMDR-Geometry-Formalism` potraktował krzywiznę jako rodzinę
+operatorów zamiast jednej wielkości).
 
 > **Adnotacja:** poniższe jest streszczeniem. Pełna, formalna
-> specyfikacja trzech gałęzi (obiekty, operatory, aksjomaty, pliki
+> specyfikacja czterech gałęzi (obiekty, operatory, aksjomaty, pliki
 > źródłowe, jawne "czym NIE jest" per gałąź, jedna tabela porównawcza)
 > jest teraz osobnym dokumentem: [`docs/theory/TIMDR_Branch_Specification.md`](docs/theory/TIMDR_Branch_Specification.md).
-> Podobnie, cztery znaczenia "skrętu" mają teraz skonsolidowaną
+> Podobnie, sześć znaczeń "skrętu"/τ ma teraz skonsolidowaną
 > specyfikację (domena/przeciwdziedzina/definicja per znaczenie):
 > [`docs/theory/TIMDR_Twists.md`](docs/theory/TIMDR_Twists.md).
 >
-> **Wszystkie trzy gałęzie mają teraz działający, testowalny kod** (nie
-> tylko aksjomaty): gałąź sygnałowa w repo `TIMDR-Math-Formalism`
+> **Trzy z czterech gałęzi mają działający, testowalny kod obok
+> aksjomatów** (czwarta, META-DYNAMICS, jest ODWROTNIE — kod od dawna,
+> aksjomaty jeszcze nie spisane, patrz sekcja 4 niżej): gałąź sygnałowa
+> w repo `TIMDR-Math-Formalism`
 > (protokół pre-rejestracja/kontrola +/-/Mann-Whitney/effect size,
 > zwalidowany realnymi danymi Krakow_Centrum — `docs/diagram.svg`),
 > gałąź geometryczna w repo `TIMDR-Geometry-Formalism` (dyskretny
@@ -63,12 +71,17 @@ czytelnik sam to poskłada.
 > potwierdzone przez użytkownika przejście testów: `TIMDR-Math-Formalism`
 > 62/63, `TIMDR-Geometry-Formalism` 17/17, `TIMDR-Modal-Formalism` 17/17,
 > `TIMDR-Time-Formalism` 18/18 (patrz `docs/theory/TIMDR_Chronoprocess.md`
-> §6 za pełną tabelę).
+> §6 za pełną tabelę). META-DYNAMICS ma kod w `TIMDR-META-DYNAMICS` plus
+> sześć domenowych integracji i jeden uniwersalny walidator
+> (`TIMDR-Math-Formalism/timdr_formalism/meta_validator.py`) — nie ma
+> jeszcze własnego repo formalizującego ani spisanych aksjomatów.
 >
-> **Chronoproces `Ξ=(T,x,Γ,φ)`** spina powyższe trzy na wspólnym
+> **Chronoproces `Ξ=(T,x,Γ,φ)`** spina gałęzie M/S, G, K na wspólnym
 > nośniku T, bez identyfikacji między nimi, plus jeden jawnie
 > wyodrębniony wyjątek — most Fouriera M/S↔K oparty na zasadzie
-> nieoznaczoności Gabora. Repo `TIMDR-Time-Formalism`, pełny opis:
+> nieoznaczoności Gabora. META-DYNAMICS NIE jest jeszcze podłączona do
+> Chronoprocesu — otwarty punkt, nie milcząco pominięty. Repo
+> `TIMDR-Time-Formalism`, pełny opis:
 > [`docs/theory/TIMDR_Chronoprocess.md`](docs/theory/TIMDR_Chronoprocess.md).
 
 ### 1. Gałąź sygnałowa — TIMDR-Math-Formalism (M, S)
@@ -131,6 +144,30 @@ numeryczna: osobne repo `TIMDR-Modal-Formalism`
 **To NIE jest:** sygnał `x:T→ℝᵈ`, testy statystyczne, skręt sygnałowy,
 skręt powierzchniowy.
 
+### 4. Gałąź META-DYNAMICS — TIMDR-META-DYNAMICS (Λ-τ-ρ-J)
+
+**Obiekt:** `MetaState(Λ,τ,ρ,J) ∈ ℝ⁴` per krok czasowy — Λ=struktura,
+τ=transformacja, ρ=anomalia, J=operator punktowy — plus operator
+ewolucji `M=dS/dt` i klasyfikacja fazy (`stabilna`/`przejściowa`/
+`krytyczna`) na podstawie `magnitude(M)`.
+**Operatory:** JEDEN kształt obiektu, SZEŚĆ domenowych mapowań (rodzina
+operatorów, nie jedna wielkość — patrz adnotacja wyżej): finanse
+(`analizator-gieldowy-v3`), pogoda (`Synoptyk-v3`), sejsmika
+(`TIMDR-Earthquake-Core`), wibracje łożysk (`TIMDR-Industrial-Predict`),
+sieć energetyczna (`TIMDR-Grid-Monitor`), siatka kwantowa
+(`TIMDR-Quantum-Lattice` — Λ=dyspersja fazowa, τ=tempo zmiany defektu,
+ρ=hotspoty, J=kanał rezonansu). Uniwersalna, niezależna od domeny
+warstwa walidacji: `meta_validator.py` (5 obszarów sprawdzeń).
+**Pliki:** `TIMDR-META-DYNAMICS/core_meta/meta_state.py` +
+`meta_operator_M.py`, sześć `*meta_adapter.py` domenowych,
+`TIMDR-Math-Formalism/timdr_formalism/meta_validator.py`.
+**To NIE jest:** sygnał `x:T→ℝᵈ` (M/S), obiekt na powierzchni/siatce 3D
+(G), moduł częstotliwość/faza/amplituda (K) — czwarty, niezależny
+kształt: wektor 4D + operator ewolucji. Domenowe instancje (sześć
+repo wyżej) NIE są osobnymi gałęziami, tylko instancjami tej jednej —
+patrz `docs/theory/TIMDR_Branch_Specification.md` sekcja "Domenowe
+instancje NIE są osobnymi gałęziami" po pełne uzasadnienie tej decyzji.
+
 ### Tabela porównawcza (kanoniczna)
 
 | Gałąź | Domena | Operator rezonansu | Skręt | Aksjomaty | Status |
@@ -138,17 +175,19 @@ skręt powierzchniowy.
 | Sygnałowa (M, S) | sygnały czasowe | M — progowy, baseline dwumianowy, zwalidowany empirycznie na danych Krakow_Centrum | sygnałowy (odwrócenie trendu) | Axioms_S | sformalizowana, testowana kodem |
 | Geometryczna (G) | powierzchnie 3D / krzywe z węzłami | G — widmo `(ω,Q,A)` układu N oscylatorów na węzłach krzywej, zaimplementowany i testowany dla N=3, nie zwalidowany empirycznie | powierzchniowy (normalne) | Axioms_G (G1-G10) | aksjomatyczna, koncepcyjna (G7) — związek z Weingartenem domknięty analitycznie (G8-G9), G-Rezonans domknięty numerycznie dla N=3 (G5), implementacja na siatce 3D i walidacja empiryczna otwarte |
 | Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | aksjomatyczna + pierwszy kod (`TIMDR-Modal-Formalism`, 17/17 testów zweryfikowane), bez empirycznej walidacji |
+| META-DYNAMICS (Λ,τ,ρ,J) | dowolny system, wektor 4D per krok | J — kanał rezonansu (frakcja elementów ponad próg), NIEaddytywny z ρ | τ — tempo transformacji (zmiany defektu), INNY obiekt niż τ topologiczne/TRM mimo symbolu | brak (jawna luka) | działający kod w 6 domenach, mechanizm potwierdzony (p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane |
 
 Żadna gałąź nie jest rozszerzeniem innej — każda ma własną domenę
 matematyczną. Tam, gdzie gałęzie używają tego samego słowa ("rezonans"
-teraz we WSZYSTKICH trzech: M, G, K; "skręt" w M i G), oznaczają
-**różne obiekty** — nie różne poziomy tej samej rzeczy.
+teraz we WSZYSTKICH czterech: M, G, K, META-DYNAMICS; "skręt"/τ w M, G
+i META-DYNAMICS), oznaczają **różne obiekty** — nie różne poziomy tej
+samej rzeczy.
 
-**Czwarty, wcześniejszy szkic (nie osobna gałąź):** sekcja "📘 TIMDR —
+**Piąty, wcześniejszy szkic (nie osobna gałąź):** sekcja "📘 TIMDR —
 Pełny Model Operatora Topologicznej Zmiany Sygnału" dalej w tym README
 definiuje własne, mniej sformalizowane `R` i `T` (koherencja
 kierunkowa, przejście przez zero) — to poprzednik gałęzi sygnałowej
-(M), nie czwarta niezależna konstrukcja. Rozgraniczenie wprost w tamtej
+(M), nie osobna niezależna konstrukcja. Rozgraniczenie wprost w tamtej
 sekcji i w `docs/GLOSSARY_EN_PL.md`.
 
 ---

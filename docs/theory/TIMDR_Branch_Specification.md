@@ -147,17 +147,147 @@ tabelę.
 
 ---
 
+## Gałąź META-DYNAMICS — agregatowa (Λ-τ-ρ-J)
+
+**Dodane 2026-09-10** — ta gałąź istniała już od dawna jako działający
+kod uruchomiony w sześciu niezależnych domenach, ale nigdy nie była
+formalnie opisana obok M/S, G, K w tym dokumencie ani w
+`TIMDR_Twists.md`/`GLOSSARY_EN_PL.md`. Dodana w odpowiedzi na
+propozycję użytkownika, żeby traktować Λ/τ/ρ/J (i pochodne od nich
+sygnały) jako **rodzinę operatorów agregatowych**, dokładnie tak jak
+`TIMDR-Geometry-Formalism` potraktował krzywiznę: nie jedną wielkość,
+tylko rodzinę operatorów, z których każdy działa w swojej domenie, ale
+dzieli wspólną strukturę matematyczną (stan 4-wymiarowy + operator
+ewolucji `M=dS/dt` + klasyfikacja fazy na podstawie `magnitude(M)`).
+
+- **Domena:** dowolny system, dla którego można w każdym kroku czasowym
+  policzyć CZTERY zagregowane liczby (nie surowy szereg 1D jak w M/S,
+  nie punkt/siatkę 3D jak w G, nie moduły falowe jak w K) — jeden
+  `MetaState(Λ,τ,ρ,J) ∈ ℝ⁴` per krok.
+- **Obiekty podstawowe:**
+  - `MetaState(Λ,τ,ρ,J)` — stan pola na poziomie meta (`core_meta/meta_state.py`,
+    `TIMDR-META-DYNAMICS`): Λ = **struktura**, τ = **transformacja**, ρ =
+    **anomalia**, J = **operator punktowy**. Tych czterech nazw NIE należy
+    mylić z żadnym innym Λ/τ/ρ/J użytym gdzie indziej w tym ekosystemie —
+    to jest niezależna, samodzielna definicja tej gałęzi (patrz
+    rozgraniczenie τ poniżej).
+  - Operator ewolucji `M = d/dt(Λ,τ,ρ,J)` (`core_meta/meta_operator_M.py`,
+    klasa `MetaOperatorM`), `magnitude(M) = Σ|składowa|`,
+    `classify_phase(M) ∈ {"stabilna","przejściowa","krytyczna"}` z
+    progami 0.1/1.0 — jawnie oznaczonymi jako **arbitralne/nieskalibrowane**
+    na żadnej konkretnej domenie (patrz status empiryczny niżej).
+- **Operatory (rodzina konkretnych instancji, jedna per domena — wzorem
+  rodziny operatorów krzywizny w Geometry Formalism):** każda z sześciu
+  domen mapuje własny stan na `MetaState` przez własny `meta_adapter.py`,
+  z WŁASNYMI, udokumentowanymi w danym repo definicjami Λ/τ/ρ/J —
+  ta gałąź NIE narzuca jednego wzoru, tylko wspólny KSZTAŁT (4 liczby +
+  operator ewolucji). Przykład w pełni udokumentowany (najświeższy,
+  `TIMDR-Quantum-Lattice/meta_adapter.py`):
+  - Λ = **dyspersja fazowa** = `1 - |mean(exp(i·faza))|` po całej
+    siatce (0 = kolaps/porządek, ~1 = fazy losowe) — ten sam wzór, co
+    już używany gdzie indziej w tym repo do diagnozowania kolapsu.
+  - τ = **tempo zmiany defektu** = średnie `|D(t)-D(t-1)|` po całej
+    siatce, znormalizowane globalnym progiem (mediana+k·MAD z okna
+    kalibracyjnego).
+  - ρ = **hotspoty** = frakcja komórek z `D > próg_anomalii`.
+  - J = **kanał rezonansu** = frakcja komórek z `|R| > próg_rezonansu`
+    — ŚWIADOMIE nieaddytywny z ρ (dodanie wprost, `Ω=D+|R|`, zostało
+    przetestowane w innym miejscu tego repo i ODRZUCONE jako niszczące
+    sygnał lokalizacji hotspotów; J wchodzi do wspólnego wyniku
+    WYŁĄCZNIE przez `magnitude(M)` na pochodnych, nigdy przez sumę
+    surowych poziomów).
+  - Pozostałe pięć domen (chronologicznie): finansowa
+    (`analizator-gieldowy-v3/meta_dynamics_module.py`), pogodowa
+    (`Synoptyk-v3/membrane/meta_adapter.py`), sejsmiczna
+    (`TIMDR-Earthquake-Core/meta_adapter.py`), wibracje łożysk
+    (`TIMDR-Industrial-Predict/bearing_meta_adapter.py`), starzenie
+    sieci energetycznej (`TIMDR-Grid-Monitor/meta_adapter.py`) — każda
+    z własnym, jawnie udokumentowanym mapowaniem Λ/τ/ρ/J na wielkości
+    fizyczne tej domeny, nieidentycznym ze wzorami Quantum-Lattice
+    powyżej.
+  - Warstwa walidacji NIEZALEŻNA od pojedynczej domeny:
+    `TIMDR-Math-Formalism/timdr_formalism/meta_validator.py` — pięć
+    obszarów sprawdzeń (kształt/zakres, izolacja kanałów przez
+    korelację Spearmana, diagnostyka progów fazy, porównanie reżimów
+    Manna-Whitneya+Kołmogorowa-Smirnowa, stabilność fazy, spójność
+    między przebiegami) działających na SUROWYCH liczbach `MetaSeriesData`,
+    bez zależności od żadnej konkretnej domeny — analogicznie do tego,
+    jak `pipeline.py` służy całej gałęzi M/S, nie jednemu repo.
+- **Aksjomaty:** BRAK sformalizowanego zestawu aksjomatów (w
+  odróżnieniu od M/S=13, G=10, K=10) — ta gałąź istnieje jako
+  DZIAŁAJĄCY KOD w sześciu repo plus jeden uniwersalny walidator, nie
+  jako spisany zestaw aksjomatów. To jest jawna, uczciwie nazwana luka,
+  nie przeoczenie — analogicznie do tego, jak Aksjomat G7 jawnie
+  nazywał brak implementacji numerycznej gałęzi G, zanim
+  `TIMDR-Geometry-Formalism` ją dostarczył.
+- **Status empiryczny:** mieszany, per domena, ZAWSZE z uczciwie
+  zgłoszonym wynikiem negatywnym gdzie wystąpił. Przykład najpełniej
+  udokumentowany (Quantum-Lattice): kontrola pozytywna (kolaps
+  `helix_mode="original"`) wykazała statystycznie istotną różnicę
+  `magnitude(M)` między aktywną a osiadłą fazą (Mann-Whitney,
+  p=7.3e-136) — mechanizm DZIAŁA — ale progi `classify_phase()`
+  (0.1/1.0, przeniesione bez zmian z oryginalnego szkicu) nigdy się nie
+  odpaliły na tej skali danych (max zaobserwowane magnitude ~0.03) —
+  **mechanizm działa, progi nie są skalibrowane** — to rozróżnienie
+  jest odtąd formalnym wymogiem tej gałęzi, nie tylko zaleceniem.
+  Druga, niezależna weryfikacja tego samego wyniku:
+  `meta_validator.py` zastosowany do tych samych danych Quantum-Lattice
+  potwierdził rozdzielenie faz i ujawnił nowe, uczciwie zaraportowane
+  zastrzeżenie (korelacja Λ-τ podczas aktywnego kolapsu, prawdopodobnie
+  wspólny trend monotoniczny, nie błąd zduplikowanego sygnału).
+- **Pliki źródłowe:** `TIMDR-META-DYNAMICS/core_meta/meta_state.py`,
+  `core_meta/meta_operator_M.py`, sześć `*meta_adapter.py`/
+  `meta_dynamics_module.py` w domenowych repo wymienionych wyżej,
+  `TIMDR-Math-Formalism/timdr_formalism/meta_validator.py` (i jego
+  testy), `jbackk-lang.github.io/KATEGORIE.md` (zbiorcza tabela
+  wszystkich integracji tej gałęzi).
+- **Czym NIE jest:** rozszerzeniem żadnej z pozostałych trzech gałęzi —
+  `MetaState` nie jest elementem przestrzeni sygnałów `x:T→ℝᵈ` (M/S),
+  nie żyje na powierzchni/siatce 3D (G), nie jest modułem
+  częstotliwość/faza/amplituda (K); to CZWARTY, niezależny kształt
+  obiektu matematycznego (wektor 4D + operator ewolucji), współdzielący
+  z pozostałymi gałęziami wyłącznie OGÓLNY protokół numerologii/
+  formalizmu (§2 skilla), nie żaden konkretny wzór.
+- **Domenowe instancje NIE są osobnymi gałęziami.** Jawna odpowiedź na
+  propozycję "Quantum-Lattice jako pełnoprawna gałąź": sześć repo
+  wymienionych wyżej dzielą JEDEN kształt obiektu matematycznego
+  (`MetaState` + `MetaOperatorM`) i jeden protokół walidacji
+  (`meta_validator.py`) — różnią się TYLKO tym, jak fizyczne wielkości
+  danej domeny są zmapowane na Λ/τ/ρ/J, dokładnie tak jak
+  Krakow_Centrum i inne miasta są różnymi INSTANCJAMI gałęzi M/S, nie
+  osobnymi gałęziami. Nowa gałąź byłaby uzasadniona tylko wtedy, gdyby
+  jakaś domena wymagała INNEGO kształtu obiektu matematycznego (jak G
+  różni się od M/S kształtem domeny: powierzchnia 3D zamiast szeregu
+  1D) — żadna z sześciu instancji tego nie robi.
+- **Sygnał pokrewny, ale formalnie OSOBNY (nie część tej gałęzi):**
+  zespolony parametr porządku `Z(t) = mean(exp(i·faza))` (parametr
+  porządku Kuramoto), użyty w `TIMDR-Quantum-Lattice` (dynamika faz
+  siatki) i w `Synoptyk-v3/membrane/spectrum.py`
+  (`wind_direction_coherence`, spójność kierunku wiatru) — to NIE jest
+  kanał Λ/τ/ρ/J (choć w Quantum-Lattice `Λ` jest z niego wyprowadzone
+  przez `1-|Z|`, `Z` samo w sobie niesie WIĘCEJ informacji: `arg(Z)`,
+  czyli średnią fazę/kierunek, którego żaden z czterech kanałów
+  META-DYNAMICS nie przenosi). Tematycznie bliższy duchowi gałęzi K
+  (synchronizacja faz wielu oscylatorów/kierunków), ale sformalizowany
+  innym wzorem niż wyrównanie częstotliwość/faza z Aksjomatu K5 — nie
+  utożsamiany z rezonansem modalnym. Nie ma jeszcze własnego wpisu
+  aksjomatycznego ani w `Axioms_K_TIMDR.md`, ani nigdzie indziej — jawnie
+  odnotowane tutaj jako otwarty punkt, żeby nie stał się kolejnym cichym
+  kolizyjnym użyciem tego samego wzoru w trzeciej domenie.
+
+---
+
 ## Tabela porównawcza (jedna strona, cały ekosystem)
 
-| | **M/S — sygnałowa** | **G — geometryczna** | **K — modalna** |
-|---|---|---|---|
-| Domena | \(x:T\to\mathbb{R}^d\) (szereg czasowy) | \(S\subset\mathbb{R}^3\) (powierzchnia/siatka) LUB krzywa \(C\subset\mathbb{R}^3\) z węzłami (G5) | \(T=(X,\tau)\), moduły \((f,\phi,A)\) |
-| "Rezonans" | koincydencja progowa \(\geq K\) parametrów naraz | widmo \((\omega_k,Q_k,A(\omega))\) układu N oscylatorów na węzłach krzywej (Aksjomat G5) — zaimplementowane i przetestowane dla N=3, nie zwalidowane empirycznie | wyrównanie częstotliwość/faza |
-| "Skręt" | odwrócenie trendu (regresja) | zmiana normalnej \(T_S\), związana z krzywizną (G8-G9) | *(nieużywane w tej gałęzi)* |
-| "Anomalia" | \(\mathbb{1}[\lvert x_i-\mu_i\rvert>2\sigma_i]\) | *(nieużywane w tej gałęzi)* | *(nieużywane w tej gałęzi)* |
-| Liczba aksjomatów | 13 | 10 | 10 |
-| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3) | koncepcyjna, brak udokumentowanej walidacji |
-| Plik źródłowy | `Axioms_S_TIMDR_Signal.md` | `Axioms_G_TIMDR_Geometry.md` | `Axioms_K_TIMDR.md` |
+| | **M/S — sygnałowa** | **G — geometryczna** | **K — modalna** | **META-DYNAMICS — agregatowa** |
+|---|---|---|---|---|
+| Domena | \(x:T\to\mathbb{R}^d\) (szereg czasowy) | \(S\subset\mathbb{R}^3\) (powierzchnia/siatka) LUB krzywa \(C\subset\mathbb{R}^3\) z węzłami (G5) | \(T=(X,\tau)\), moduły \((f,\phi,A)\) | dowolny system, per krok jeden \(MetaState(\Lambda,\tau,\rho,J)\in\mathbb{R}^4\) |
+| "Rezonans" | koincydencja progowa \(\geq K\) parametrów naraz | widmo \((\omega_k,Q_k,A(\omega))\) układu N oscylatorów na węzłach krzywej (Aksjomat G5) — zaimplementowane i przetestowane dla N=3, nie zwalidowane empirycznie | wyrównanie częstotliwość/faza | kanał J — frakcja komórek/elementów z \(\lvert R\rvert\) ponad próg, NIEaddytywny z ρ |
+| "Skręt" | odwrócenie trendu (regresja) | zmiana normalnej \(T_S\), związana z krzywizną (G8-G9) | *(nieużywane w tej gałęzi)* | τ = tempo zmiany defektu/anomalii w czasie (transformacja) — INNY obiekt niż τ topologiczne G ani τ TRM, mimo wspólnego symbolu |
+| "Anomalia" | \(\mathbb{1}[\lvert x_i-\mu_i\rvert>2\sigma_i]\) | *(nieużywane w tej gałęzi)* | *(nieużywane w tej gałęzi)* | ρ — frakcja komórek/elementów ponad próg anomalii (mediana+k·MAD) |
+| Liczba aksjomatów | 13 | 10 | 10 | 0 (działający kod w 6 domenach + 1 uniwersalny walidator, brak spisanych aksjomatów — jawna luka) |
+| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3) | koncepcyjna, brak udokumentowanej walidacji | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
+| Plik źródłowy | `Axioms_S_TIMDR_Signal.md` | `Axioms_G_TIMDR_Geometry.md` | `Axioms_K_TIMDR.md` | `TIMDR-META-DYNAMICS/core_meta/meta_state.py` + `meta_operator_M.py` |
 
 **Pozostałe puste komórki są zamierzone**, nie przeoczeniem: brak
 użycia "skrętu"/"anomalii" w K jest jawnym stwierdzeniem o zakresie tej
@@ -165,14 +295,19 @@ gałęzi, nie luką do wypełnienia. Komórka "Rezonans" dla gałęzi G była
 wcześniej pusta (Aksjomat G5 jawnie stwierdzał brak operatora) — od
 tej aktualizacji jest wypełniona operatorem G-Rezonans, patrz
 `TIMDR_GResonance_Operator.md` po pełny opis i uczciwy stan walidacji.
+Kolumna META-DYNAMICS dodana 2026-09-10 — patrz sekcja "Gałąź
+META-DYNAMICS" powyżej po pełne uzasadnienie i sześć domenowych
+instancji.
 
 ---
 
 Powiązane: [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md),
 [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md),
 [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md), [`TIMDR_Twists.md`](./TIMDR_Twists.md)
-(rozwinięcie wiersza "Skręt" powyżej na cztery znaczenia z pełnymi
-definicjami), [`Resonance_M_Operator_Empiryczny.md`](./Resonance_M_Operator_Empiryczny.md),
+(rozwinięcie wiersza "Skręt" powyżej na sześć znaczeń z pełnymi
+definicjami, w tym τ META-DYNAMICS z tej strony), [`Resonance_M_Operator_Empiryczny.md`](./Resonance_M_Operator_Empiryczny.md),
 [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md) (krótkie, dwujęzyczne
 wpisy — ten dokument jest ich strukturalnym rozwinięciem na poziomie
-całych gałęzi, nie pojedynczych słów).
+całych gałęzi, nie pojedynczych słów), `TRM_biology.md` (τ TRM — osobny,
+NIErozstrzygnięty związek ze skrętem topologicznym gałęzi G, patrz
+`timdr-signal-framework` §13).
