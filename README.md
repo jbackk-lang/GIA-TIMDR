@@ -173,6 +173,15 @@ repo wyżej) NIE są osobnymi gałęziami, tylko instancjami tej jednej —
 patrz `docs/theory/TIMDR_Branch_Specification.md` sekcja "Domenowe
 instancje NIE są osobnymi gałęziami" po pełne uzasadnienie tej decyzji.
 
+### Rodzina sygnałów Λ/τ/ρ/J — mapa pokrycia (2026-09-10)
+
+![Siatka 4x4: rodzina sygnałów Λ/τ/ρ/J w czterech gałęziach TIMDR](docs/images/lambda_family_grid.svg)
+
+Teal = zbudowane 2026-09-10 (Λ_G, Λ_K, τ_K), zielony = istniało wcześniej,
+szary = jeszcze nie istnieje. Pełne uzasadnienie każdej komórki (dlaczego
+akurat te dwie luki, dlaczego nie pozostałe siedem) — sekcja "Runda 2" w
+[`docs/theory/TIMDR_Branch_Specification.md`](docs/theory/TIMDR_Branch_Specification.md).
+
 ### Tabela porównawcza (kanoniczna)
 
 | Gałąź | Domena | Operator rezonansu | Skręt | Aksjomaty | Status |

@@ -1,0 +1,47 @@
+<svg width="100%" viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Rodzina sygnałów Λ/τ/ρ/J w czterech gałęziach TIMDR</title>
+<desc>Siatka 4x4: wiersze to cztery typy sygnałów (dyspersja Λ, tempo τ, gęstość ρ, sprzężenie J), kolumny to cztery gałęzie TIMDR (M/S, G, K, META-DYNAMICS). Teal = zbudowane 2026-09-10 (Λ_G, Λ_K, τ_K), zielony = istniało wcześniej, szary = jeszcze nie istnieje.</desc>
+<style>
+  text { font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif; fill: #1a1a1a; }
+  .th { font-size: 13px; font-weight: 600; }
+  .ts { font-size: 11px; fill: #4a4a4a; }
+  .t { font-size: 13px; font-weight: 600; }
+</style>
+<rect width="680" height="400" fill="#ffffff"/>
+
+<text class="th" x="205" y="60" text-anchor="middle">M/S</text>
+<text class="th" x="325" y="60" text-anchor="middle">G</text>
+<text class="th" x="445" y="60" text-anchor="middle">K</text>
+<text class="th" x="565" y="60" text-anchor="middle">META-DYN</text>
+
+<text class="t" x="40" y="108">dyspersja (Λ)</text>
+<g><rect x="150" y="75" width="110" height="58" rx="8" fill="#e5e7eb"/><text class="th" x="205" y="99" text-anchor="middle">—</text><text class="ts" x="205" y="117" text-anchor="middle">brak</text></g>
+<g><rect x="270" y="75" width="110" height="58" rx="8" fill="#5eead4"/><text class="th" x="325" y="99" text-anchor="middle">Λ_G</text><text class="ts" x="325" y="117" text-anchor="middle">nowe dziś</text></g>
+<g><rect x="390" y="75" width="110" height="58" rx="8" fill="#5eead4"/><text class="th" x="445" y="99" text-anchor="middle">Λ_K</text><text class="ts" x="445" y="117" text-anchor="middle">nowe dziś</text></g>
+<g><rect x="510" y="75" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="565" y="99" text-anchor="middle">Λ</text><text class="ts" x="565" y="117" text-anchor="middle">istniało</text></g>
+
+<text class="t" x="40" y="176">tempo (τ)</text>
+<g><rect x="150" y="143" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="205" y="167" text-anchor="middle">skręt sygn.</text><text class="ts" x="205" y="185" text-anchor="middle">istniało</text></g>
+<g><rect x="270" y="143" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="325" y="167" text-anchor="middle">torsja F-S</text><text class="ts" x="325" y="185" text-anchor="middle">istniało</text></g>
+<g><rect x="390" y="143" width="110" height="58" rx="8" fill="#5eead4"/><text class="th" x="445" y="167" text-anchor="middle">τ_K</text><text class="ts" x="445" y="185" text-anchor="middle">nowe dziś</text></g>
+<g><rect x="510" y="143" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="565" y="167" text-anchor="middle">τ</text><text class="ts" x="565" y="185" text-anchor="middle">istniało</text></g>
+
+<text class="t" x="40" y="244">gęstość (ρ)</text>
+<g><rect x="150" y="211" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="205" y="235" text-anchor="middle">anomalia</text><text class="ts" x="205" y="253" text-anchor="middle">istniało</text></g>
+<g><rect x="270" y="211" width="110" height="58" rx="8" fill="#e5e7eb"/><text class="th" x="325" y="235" text-anchor="middle">—</text><text class="ts" x="325" y="253" text-anchor="middle">brak</text></g>
+<g><rect x="390" y="211" width="110" height="58" rx="8" fill="#e5e7eb"/><text class="th" x="445" y="235" text-anchor="middle">—</text><text class="ts" x="445" y="253" text-anchor="middle">brak</text></g>
+<g><rect x="510" y="211" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="565" y="235" text-anchor="middle">ρ</text><text class="ts" x="565" y="253" text-anchor="middle">istniało</text></g>
+
+<text class="t" x="40" y="312">sprzężenie (J)</text>
+<g><rect x="150" y="279" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="205" y="303" text-anchor="middle">rezonans M</text><text class="ts" x="205" y="321" text-anchor="middle">istniało</text></g>
+<g><rect x="270" y="279" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="325" y="303" text-anchor="middle">G-Rezonans</text><text class="ts" x="325" y="321" text-anchor="middle">istniało</text></g>
+<g><rect x="390" y="279" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="445" y="303" text-anchor="middle">modalny</text><text class="ts" x="445" y="321" text-anchor="middle">istniało</text></g>
+<g><rect x="510" y="279" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="565" y="303" text-anchor="middle">J</text><text class="ts" x="565" y="321" text-anchor="middle">istniało</text></g>
+
+<rect x="150" y="357" width="14" height="14" rx="3" fill="#5eead4"/>
+<text class="ts" x="172" y="368">zbudowane 2026-09-10</text>
+<rect x="340" y="357" width="14" height="14" rx="3" fill="#86efac"/>
+<text class="ts" x="362" y="368">istniało wcześniej</text>
+<rect x="520" y="357" width="14" height="14" rx="3" fill="#e5e7eb"/>
+<text class="ts" x="542" y="368">jeszcze nie istnieje</text>
+</svg>
