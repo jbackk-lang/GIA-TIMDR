@@ -38,6 +38,18 @@ from .calibration import (
     load_krakow_weather_window,
     P_ANOMALY_2SIGMA_NORMAL,
 )
+from .meta_validator import (
+    MetaSeriesData,
+    ValidationIssue,
+    MetaValidationReport,
+    validate_shape_and_ranges,
+    validate_channel_isolation,
+    diagnose_phase_thresholds,
+    compare_regimes,
+    phase_stability_diagnostic,
+    cross_run_consistency,
+    validate_meta_series,
+)
 
 __all__ = [
     "Hypothesis",
@@ -66,4 +78,14 @@ __all__ = [
     "load_parameter_windows_from_csv",
     "load_krakow_weather_window",
     "P_ANOMALY_2SIGMA_NORMAL",
+    "MetaSeriesData",
+    "ValidationIssue",
+    "MetaValidationReport",
+    "validate_shape_and_ranges",
+    "validate_channel_isolation",
+    "diagnose_phase_thresholds",
+    "compare_regimes",
+    "phase_stability_diagnostic",
+    "cross_run_consistency",
+    "validate_meta_series",
 ]
