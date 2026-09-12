@@ -49,9 +49,11 @@ tabelę.
   `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`,
   `Resonance_M_Operator_Empiryczny.md`, `timdr-signal-framework` (skill,
   §1-§3 wersji zawężonej do GIA-TIMDR). Osobno, w tym samym repo:
-  `timdr_formalism/{gs_matrix,theta_bifurcation,signal_class}.py` +
-  `docs/SG_COUPLING_PHASE_DIAGRAM.md` + `docs/theory/Signal_Classes.md`
-  — pipeline sygnałowy SG-Coupling/Θ_bif/klasy I-II-III, ARCHITEKTONICZNIE
+  `timdr_formalism/{gs_matrix,theta_bifurcation,signal_class,signal_meta_bridge}.py`
+  + `docs/SG_COUPLING_PHASE_DIAGRAM.md` + `docs/theory/Signal_Classes.md`
+  — pipeline sygnałowy SG-Coupling/Θ_bif/klasy I-II-III (od 2026-09-12
+  zamknięty w `MetaState`/faza systemu przez `signal_meta_bridge.py` —
+  patrz sekcja "Gałąź META-DYNAMICS" niżej, siódma domena), ARCHITEKTONICZNIE
   ODRĘBNY od `pipeline.py`/`PROTOCOL.md` powyżej (ten pierwszy pyta "w
   jakim reżimie pracuje sygnał", ten drugi "czy hipoteza o nim jest
   matematycznie sensowna") — patrz sekcja "Warstwa meta" niżej po pełne
@@ -250,6 +252,25 @@ ewolucji `M=dS/dt` + klasyfikacja fazy na podstawie `magnitude(M)`).
     z własnym, jawnie udokumentowanym mapowaniem Λ/τ/ρ/J na wielkości
     fizyczne tej domeny, nieidentycznym ze wzorami Quantum-Lattice
     powyżej.
+  - **Siódma domena (2026-09-12), pierwsza z tego repo/gałęzi M/S**:
+    `TIMDR-Math-Formalism/timdr_formalism/signal_meta_bridge.py` —
+    domyka łańcuch `sygnał → SG-Coupling → Θ_bif → klasa I/II/III →
+    MetaState → faza systemu`, zlecony wprost przez użytkownika. W
+    odróżnieniu od pozostałych sześciu domen (agregacja PO PRZESTRZENI,
+    np. po komórkach siatki), tu nie ma przestrzeni — agregacja jest PO
+    OKNIE CZASOWYM (partycja rozłączna). `ρ` = frakcja kroków w oknie
+    sklasyfikowanych jako Klasa III (zależne od `β`), `J` = średnia
+    względna wielkość `N(t)=S_down·S_up` znormalizowana do własnego
+    maksimum w oknie (zależne od `N`, CELOWO inna wielkość źródłowa niż
+    `ρ`, żeby korelacja między kanałami była wynikiem empirycznym, nie
+    tautologią z konstrukcji). Wynik, ten sam wzorzec co w pozostałych
+    sześciu domenach: **mechanizm działa** (mean(ρ) i mean(J) wyraźnie
+    wyższe w trybie twardym niż miękkim, kierunek zgodny z intuicją),
+    ale **próg "krytyczna" (`magnitude(M)≥1.0`) nie rozdziela reżimów**
+    (identyczna liczba okien w obu trybach) — progi 0.1/1.0 pozostają
+    nieskalibrowane na tej skali, dokładnie jak w Quantum-Lattice. Pełne
+    liczby: `TIMDR-Math-Formalism/docs/theory/Signal_Classes.md`, sekcja
+    "Integracja z MetaState".
   - Warstwa walidacji NIEZALEŻNA od pojedynczej domeny:
     `TIMDR-Math-Formalism/timdr_formalism/meta_validator.py` — pięć
     obszarów sprawdzeń (kształt/zakres, izolacja kanałów przez
