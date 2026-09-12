@@ -48,7 +48,14 @@ tabelę.
   `TIMDR-Math-Formalism/docs/PROTOCOL.md`,
   `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`,
   `Resonance_M_Operator_Empiryczny.md`, `timdr-signal-framework` (skill,
-  §1-§3 wersji zawężonej do GIA-TIMDR).
+  §1-§3 wersji zawężonej do GIA-TIMDR). Osobno, w tym samym repo:
+  `timdr_formalism/{gs_matrix,theta_bifurcation,signal_class}.py` +
+  `docs/SG_COUPLING_PHASE_DIAGRAM.md` + `docs/theory/Signal_Classes.md`
+  — pipeline sygnałowy SG-Coupling/Θ_bif/klasy I-II-III, ARCHITEKTONICZNIE
+  ODRĘBNY od `pipeline.py`/`PROTOCOL.md` powyżej (ten pierwszy pyta "w
+  jakim reżimie pracuje sygnał", ten drugi "czy hipoteza o nim jest
+  matematycznie sensowna") — patrz sekcja "Warstwa meta" niżej po pełne
+  rozróżnienie.
 - **Czym NIE jest:** rozszerzeniem gałęzi K (rezonans modalny to inny
   operator — wyrównanie częstotliwości/fazy, nie koincydencja progowa)
   ani gałęzi G (skręt sygnałowy to odwrócenie trendu w czasie, nie
@@ -334,6 +341,52 @@ Pozostałe komórki (ρ/J-podobne sygnały w G/K, cała kolumna TRM,
 dyspersja/tempo w M/S poza istniejącym skrętem sygnałowym) pozostają
 NIEZBUDOWANE — jawnie nienazwane jako "zrobione", żeby nie sugerować
 kompletności, której nie ma.
+
+---
+
+## Warstwa meta: TIMDR-Math-Formalism jako meta-detektor hipotez (nie piąta gałąź)
+
+**Dodane 2026-09-12**, w odpowiedzi na pytanie użytkownika "gdzie
+wstawiłeś klasy sygnałów I/II/III?" i wyjaśnienie, że mieszają się tu
+dwa różne poziomy. `TIMDR-Math-Formalism` NIE jest piątą gałęzią obok
+M/S, G, K, META-DYNAMICS — samo repo mówi to wprost we własnym
+`docs/PROTOCOL.md`: "nie jest detektorem sygnału czasowego — jest
+detektorem **matematycznej sensowności**". Odpowiada na inne pytanie
+niż którakolwiek z czterech gałęzi: nie "jaki kształt ma ten obiekt
+matematyczny" (pytanie gałęzi), tylko "czy ta struktura / ten wzór /
+ten »rezonans« to w ogóle realna matematyka, czy tylko ładnie
+wyglądający pattern bez dowodu (numerologia)". To WARSTWA PRZEKROJOWA
+(meta-poziom): sześciokrokowy protokół (pre-rejestracja, kontrola +/-,
+Mann-Whitney, effect size, korekta Bonferroniego, uczciwy wynik
+negatywny) nie zależy od tego, czy testowana hipoteza dotyczy sygnału
+1D (M/S), powierzchni 3D (G), modułów falowych (K) czy `MetaState` 4D
+(META-DYNAMICS) — stosuje się do hipotez z KAŻDEJ gałęzi naraz.
+
+To samo repo zawiera DRUGĄ, architektonicznie odrębną rzecz, łatwą do
+pomylenia z powyższym, bo mieszka w tych samych plikach: pipeline
+SG-Coupling + operator bifurkacji Θ_bif + **klasy sygnału I/II/III**
+(`timdr_formalism/{gs_matrix,theta_bifurcation,signal_class}.py`,
+`docs/SG_COUPLING_PHASE_DIAGRAM.md`, `docs/theory/Signal_Classes.md`).
+To NIE jest część meta-detektora — to zastosowana implementacja gałęzi
+M/S (sygnał + próg `Q` + reakcja `β`), rozszerzona o `MetaState` z
+META-DYNAMICS jako dodatkowy kanał diagnostyczny (`N(t)` w
+`Signal_Classes.md`). Odpowiada na pytanie "w jakim reżimie aktualnie
+pracuje TEN KONKRETNY sygnał" (klasa I: zachowawczy, II: modulujący,
+III: anomalia strukturalna) — zupełnie inny poziom niż "czy hipoteza o
+tym sygnale jest matematycznie sensowna". Oba mechanizmy żyją w jednym
+repo z powodów praktycznych/historycznych (rozwijane w tej samej
+sesji), NIE dlatego, że są tym samym mechanizmem:
+
+| | Meta-detektor hipotez | Pipeline sygnałowy (M/S) |
+|---|---|---|
+| Pytanie | "czy to w ogóle jest prawdziwa matematyka?" | "w jakim reżimie pracuje ten sygnał?" |
+| Wejście | hipoteza (opis struktury + twierdzenie) | szereg czasowy sygnału `x(t)` |
+| Pliki | `pipeline.py`, `calibration.py`, `meta_validator.py`, `chronosignal.py`, `docs/PROTOCOL.md`, `docs/REAL_DATA_VALIDATION.md` | `gs_matrix.py`, `theta_bifurcation.py`, `signal_class.py`, `docs/SG_COUPLING_PHASE_DIAGRAM.md`, `docs/theory/Signal_Classes.md` |
+| Wynik | werdykt: efekt istotny / nie / niejednoznaczny | klasa I, II lub III w danym kroku czasowym |
+
+Dokumentacja obu powinna być czytana i aktualizowana OSOBNO — nie
+wolno traktować werdyktu jednego mechanizmu jako potwierdzenia albo
+zaprzeczenia drugiego.
 
 ---
 
