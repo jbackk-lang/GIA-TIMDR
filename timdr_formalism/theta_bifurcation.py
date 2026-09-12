@@ -85,6 +85,40 @@ wklad idzie do kanalu wygaszanego), ktorego oryginalna propozycja NIE
 opisywala i ktory NIE zostal tu dodany bez wyraznej prosby -- ta wersja
 jest wierna najprostszej, dosłownej interpretacji wzoru z poprawka
 tylko tam, gdzie to bylo NIEZBEDNE (nasycenie zamiast wybuchu).
+
+ZNALEZIONY REALNY BLAD (2026-09-12, przy budowie "phase diagram"
+parametrow SG-Coupling, NIE zalozony/przewidziany z gory): poprawka z
+punktu 2 (tanh zamiast exp) okazala sie NIEWYSTARCZAJACA. Deklarowany
+sufit "|S_up|<=S_UP_MAX dla KAZDEGO dt" byl PRAWDZIWY tylko dopoki S
+(wejsciowa wartosc sygnalu PRZED operatorem) pozostawalo w skali rzedu
+1-10 -- czyli dokladnie tak, jak we wszystkich testach w tym pliku
+(S0=0.5, 1.0, 2.0). Oryginalny wzor uzywal `R_phase[S] = -S` (SUROWA
+wartosc/amplituda sygnalu), NIE kierunku znormalizowanego do dlugosci 1
+-- wiec S_up skalowalo sie WPROST PROPORCJONALNIE do wielkosci S, a nie
+bylo naprawde ograniczone przez S_up_max. W realnej petli SG-Coupling ze
+sprzezeniem zwrotnym (gdzie S samo w sobie moze urosnac, zanim operator
+w ogole zdazy zadzialac -- np. alpha=2.0, anomaly_bump=130.0 w
+tests/test_sg_coupling_full_operator.py) to dawalo NIESTABILNA PETLE
+DODATNIEGO SPRZEZENIA: kazdy krok mnozyl |S| przez czynnik rzedu
+~S_up_max (bo S_up~S_up_max*(-S)), co samo w sobie jest niestabilnym
+rownaniem rozniczkowym (|S_new|~S_up_max*|S_old|, S_up_max=10 > 1) --
+skonczony wybuch do inf w kilkadziesiat krokow, dokladnie ten sam objaw
+(przepelnienie), ktoremu poprawka z punktu 2 miala zapobiegac, tylko
+przez inny mechanizm.
+
+POPRAWKA: R_phase[S] zdefiniowane jako KIERUNEK (-sign(S), dlugosc <=1),
+NIE surowa wartosc (-S). Teraz S_up = (1-beta)*(-sign(S))*S_up_max*
+tanh(...) jest NAPRAWDE ograniczone przez S_up_max niezaleznie od tego,
+jak duze jest wejsciowe S -- sufit jest teraz prawdziwy dla KAZDEGO S,
+nie tylko dla S w skali testowanej w tym pliku. To jest zgodne z
+zamierzona interpretacja "kondensacji do nowego trwalego stanu": nowy
+stan powinien miec STALA, wyznaczona przez S_up_max amplitude,
+niezaleznie od tego, jak wielka byla amplituda PRZED bifurkacja -- nie
+powinien "pamietac" starej skali przez wspolczynnik proporcjonalnosci.
+Zweryfikowane bezposrednio: tests/test_sg_coupling_phase_diagram.py
+zawiera test regresyjny odtwarzajacy dokladnie ten przypadek
+(alpha=2.0, anomaly_bump=130.0), ktory PRZED ta poprawka konczyl sie
+przepelnieniem (inf), a PO niej daje skonczony wynik.
 """
 from __future__ import annotations
 
@@ -153,8 +187,19 @@ def theta_bifurcation(
 
     S_down = beta * S * float(np.exp(-lambda_down * time_since_cutoff_start))
 
-    R_phase_S = -S  # odbicie fazowe
-    S_up = (1.0 - beta) * R_phase_S * S_up_max * float(np.tanh(lambda_up * time_since_cutoff_start))
+    # R_phase[S] = -sign(S) - KIERUNEK odbicia fazowego (dlugosc <=1), NIE
+    # -S (surowa wartosc/amplituda). Patrz PUNKT 3 w naglowku modulu dla
+    # pelnego uzasadnienia tej poprawki -- oryginalna wersja (-S zamiast
+    # -sign(S)) skalowala S_up WPROST proporcjonalnie do wejsciowego S,
+    # wiec S_UP_MAX NIE bylo faktycznym sufitem, gdy S samo w sobie bylo
+    # juz duze (co zdarza sie realnie w petli SG-Coupling ze sprzezeniem
+    # zwrotnym) - i to prowadzilo do dokladnie tego samego rodzaju
+    # niekontrolowanego wzrostu, ktoremu ta poprawka (tanh) miala zapobiec.
+    if S == 0.0:
+        R_phase_direction = 0.0
+    else:
+        R_phase_direction = -1.0 if S > 0.0 else 1.0
+    S_up = (1.0 - beta) * R_phase_direction * S_up_max * float(np.tanh(lambda_up * time_since_cutoff_start))
 
     S_new = S_down + S_up
     return ThetaBifResult(S_new=S_new, beta=beta, S_down=S_down, S_up=S_up, in_bifurcation=True)
