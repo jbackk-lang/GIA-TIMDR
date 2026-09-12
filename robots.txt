@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Deklaracja mapy witryny dla robotów Google, Bing i crawlerów AI
-Sitemap: https://github.io
