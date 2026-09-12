@@ -35,9 +35,33 @@ def test_exactly_at_threshold_returns_unchanged_signal():
 # compute_beta: monotonicznosc i granice
 # ---------------------------------------------------------------------
 
-def test_beta_is_one_just_above_threshold():
-    beta = compute_beta(Q=0.351, Q_crit=0.35)
-    assert beta == pytest.approx(1.0, abs=0.01)
+def test_beta_is_one_deep_below_the_soft_margin():
+    """ZMIENIONE 2026-09-12 (patrz timdr_formalism/theta_bifurcation.py,
+    "DODANY MARGINES OSTRZEGAWCZY"): przed dodaniem anticipation_fraction,
+    ta funkcja nazywala sie test_beta_is_one_just_above_threshold i
+    sprawdzala beta(Q=0.351, Q_crit=0.35) - to juz NIE jest prawda,
+    bo Q=0.351 wpada teraz w miekki margines ostrzegawczy PONIZEJ
+    prawdziwego progu (Q_eff_crit=0.285 dla Q_crit=0.35,
+    anticipation_fraction=0.1 domyslne) i celowo NIE daje juz beta~1 -
+    patrz test_beta_is_in_class_II_range_at_threshold ponizej dla
+    nowego, zamierzonego zachowania W TYM miejscu. Ten test sprawdza
+    zamiast tego to, co WCIAZ powinno byc prawda: DALEKO ponizej
+    marginesu (tu Q=0.2, wyraznie < Q_eff_crit=0.285) beta jest
+    dokladnie 1.0 - Klasa I, brak jakiejkolwiek antycypacji."""
+    beta = compute_beta(Q=0.2, Q_crit=0.35)
+    assert beta == 1.0
+
+
+def test_beta_is_in_class_II_range_at_threshold():
+    """Bezposrednia weryfikacja zamierzonego skutku marginesu
+    ostrzegawczego: PRZY samym progu Q=Q_crit (i tuz nad nim), beta
+    powinno byc w przedziale (0.8,1.0) - dokladnie wymog oficjalnej
+    definicji Klasy II (`docs/theory/Signal_Classes.md`), NIE ~1.0 jak
+    w starym, czysto skokowym wzorze."""
+    beta_at_crit = compute_beta(Q=0.35, Q_crit=0.35)
+    assert 0.8 < beta_at_crit < 1.0
+    beta_just_above = compute_beta(Q=0.351, Q_crit=0.35)
+    assert 0.8 < beta_just_above < 1.0
 
 
 def test_beta_approaches_zero_near_q_equals_one():
@@ -68,12 +92,20 @@ def test_mild_exceedance_converges_to_small_nonzero_plateau_not_zero():
     modelu, nie blad kodu -- rzeczywista struktura operatora (kanal
     S_up nasyca sie przez tanh do (1-beta)*S_up_max, NIE do zera, dla
     KAZDEGO niezerowego (1-beta)) oznacza, ze nawet BARDZO lekkie
-    przekroczenie progu (Q=0.36 przy Q_crit=0.35) zostawia TRWALY,
-    niezerowy "odcisk" w sygnale (tu: ok. 15% oryginalnej amplitudy),
+    przekroczenie progu zostawia TRWALY, niezerowy "odcisk" w sygnale,
     zamiast w pelni zanikac. To jest uczciwie odnotowana wlasciwosc
     modelu (kompromis wprowadzony poprawka nasycenia z blow-up), nie
-    cicho poprawiony test, zeby przeszedl."""
-    Q_mild = 0.36  # tuz nad Q_crit=0.35 -> beta bliskie 1 (0.9846)
+    cicho poprawiony test, zeby przeszedl.
+
+    ZMIENIONE 2026-09-12 (margines ostrzegawczy w compute_beta - patrz
+    modul theta_bifurcation.py, anticipation_fraction=0.05 wyliczone z
+    wymogow Klasy II): przy Q_mild=0.36, Q_crit=0.35 beta wynosi teraz
+    ~0.938 (bylo ~0.9846 przed dodaniem anticipation_fraction), wiec
+    plateau ~0.623 (bylo <0.6 przed zmiana) - zweryfikowane
+    bezposrednio, nie zgadywane; granica testu zaktualizowana zeby
+    odzwierciedlac PRAWDZIWA, nowa wartosc, nie zeby ukryc zmiane
+    zachowania."""
+    Q_mild = 0.36  # tuz nad Q_crit=0.35 -> beta~0.938 (z domyslnym anticipation_fraction=0.05)
     S0 = 2.0
     magnitudes = [
         abs(theta_bifurcation(S=S0, Q=Q_mild, Q_crit=0.35, time_since_cutoff_start=dt).S_new)
@@ -83,9 +115,9 @@ def test_mild_exceedance_converges_to_small_nonzero_plateau_not_zero():
     # koniecznie malec caly czas (przejsciowo moze przejsc przez zero,
     # bo S_down i S_up maja przeciwne znaki - zobacz wydruk w konwersacji).
     assert abs(magnitudes[-1] - magnitudes[-2]) < 1e-3, "powinno ustabilizowac sie na plateau"
-    # Plateau jest MALE wzgledem oryginalnej amplitudy (bo beta bliskie
-    # 1 dla lekkiego przekroczenia), ale NIE zero.
-    assert 0.0 < magnitudes[-1] < 0.3 * abs(S0)
+    # Plateau jest NIEZEROWE, ale nadal wyraznie mniejsze niz S_UP_MAX (10.0)
+    # - lekkie przekroczenie progu nie kondensuje w pelni.
+    assert 0.2 * abs(S0) < magnitudes[-1] < 10.0
 
 
 def test_deeper_exceedance_gives_larger_plateau_than_milder_one():

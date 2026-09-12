@@ -119,6 +119,78 @@ Zweryfikowane bezposrednio: tests/test_sg_coupling_phase_diagram.py
 zawiera test regresyjny odtwarzajacy dokladnie ten przypadek
 (alpha=2.0, anomaly_bump=130.0), ktory PRZED ta poprawka konczyl sie
 przepelnieniem (inf), a PO niej daje skonczony wynik.
+
+DODANY MARGINES OSTRZEGAWCZY W beta(Q) (2026-09-12, na potrzeby
+klasyfikacji sygnalu I/II/III, patrz timdr_formalism/signal_class.py):
+oficjalna definicja "Klasy II" (sygnal modulujacy) wymagala
+`Q(R) <= Q_crit, ale blisko progu, beta w (0.8-1.0)`. Sprawdzone
+bezposrednio: STARY wzor `compute_beta` byl funkcja SKOKOWA - zwracal
+DOKLADNIE 1.0 dla KAZDEGO Q<=Q_crit, bez zadnego stopniowego zblizania
+sie do progu - "beta w (0.8,1.0) PRZED przekroczeniem progu" bylo
+matematycznie nieosiagalne starym wzorem.
+
+POPRAWKA: `compute_beta` dostal parametr `anticipation_fraction`
+(domyslnie 0.05 - patrz uzasadnienie liczbowe nizej) - definiuje
+EFEKTYWNY, "miekki" prog
+`Q_eff_crit = Q_crit - anticipation_fraction*(1-Q_crit)`, o
+`anticipation_fraction` czesci pozostalego zapasu (1-Q_crit) PONIZEJ
+prawdziwego progu. Ten sam liniowy wzor co wczesniej
+(`1 - exceedance/max_slack`) jest teraz stosowany wzgledem
+`Q_eff_crit` zamiast `Q_crit` - wiec beta zaczyna lagodnie spadac juz w
+przedziale `[Q_eff_crit, Q_crit]`, osiagajac przy Q=Q_crit dokladnie
+`1 - anticipation_fraction/(1+anticipation_fraction)`.
+
+DLACZEGO DOKLADNIE 0.05, NIE ZGADNIETE: oficjalna definicja Klasy II
+(`docs/theory/Signal_Classes.md`) wymaga JEDNOCZESNIE `beta w (0.8,1.0)`
+ORAZ `S_up < 5%` (gdzie S_up% traktowane tu jako `(1-beta)*100%` - patrz
+`timdr_formalism/signal_class.py`) na progu Q=Q_crit. Sprawdzone
+bezposrednio: `anticipation_fraction=0.1` (pierwsza probowana wartosc)
+dawalo `beta(Q_crit)~0.909`, czyli `S_up%~9.09%` - SPELNIA pierwszy
+warunek, ALE LAMIE drugi (9.09%>5%). Rozwiazane algebraicznie z obu
+warunkow naraz: `1-beta(Q_crit) = anticipation_fraction/(1+anticipation_fraction) = 0.05`
+=> `anticipation_fraction = 0.05/0.95 ~ 0.0526`, zaokraglone w dol do
+`0.05` (bezpieczny margines: `S_up%(Q_crit)=4.76%<5%`, `beta(Q_crit)=0.9524`
+w (0.8,1.0)) - obie granice oficjalnej definicji spelnione JEDNOCZESNIE,
+nie tylko jedna z dwoch. WAZNE: to NIE zmienia tego, KIEDY operator `theta_bifurcation`
+faktycznie modyfikuje sygnal - ten prog (twardy, dokladnie `Q<=Q_crit`,
+"galaz holomorficzna bez ingerencji") zostaje BEZ ZMIAN, bo jest
+osobno, jawnie testowany (`test_exactly_at_threshold_returns_unchanged_signal`)
+i to jest INNY fakt niz "jak blisko jestesmy progu" - margines
+ostrzegawczy w `compute_beta` sluzy WYLACZNIE diagnostyce/klasyfikacji
+(dziala tez jako uzyteczny, ciaglejszy sygnal wewnatrz samego operatora,
+gdy Q>Q_crit juz przekroczone - patrz nizej), nie zmienia faktycznego
+dzialania operatora PRZED przekroczeniem progu.
+
+Skutek uboczny (zaakceptowany, zweryfikowany): poniewaz `compute_beta`
+jest tez wolane WEWNATRZ `theta_bifurcation` gdy `Q>Q_crit`, nowy,
+przesuniety wzor zmienia NIECO liczbowe wartosci beta rowniez PO
+przekroczeniu progu (nieco wolniejszy spadek do zera, bo max_slack_eff
+jest wiekszy niz max_slack) - cala istniejaca paczka testow
+(theta_bifurcation, sg_coupling_full_operator, hard_mode, phase_diagram)
+zostala ponownie uruchomiona i, gdzie trzeba, poprawiona z jawnym
+wyjasnieniem, NIE cichym przesunieciem progu pod nowy wynik.
+
+DODANE N(t) = S_down * S_up ("nakladanie kanalow", potrzebne do
+klasyfikacji sygnalu): trywialna wielkosc wyprowadzona z juz
+istniejacych S_down/S_up, dodana jako pole `N` w `ThetaBifResult`. Dla
+Q<=Q_crit (brak bifurkacji) S_up=0, wiec N=0 zawsze - zgodne z
+oczekiwaniem "N(t)~=0" dla sygnalu w normie.
+
+UWAGA O POMINIETYM det(K): oficjalna propozycja klasyfikacji I/II/III
+wlaczala tez `det(K)` (zapasc przestrzeni stanow, z GS-Matrix) jako
+piaty warunek. Sprawdzone bezposrednio (rozniczki skonczone na
+faktycznym update-mapie G/S z run_sg_coupling_simulation_v2): Jakobian
+d(G_new,S_new)/d(G_old,S_old) ma KOLUMNE G_old TOZSAMOSCIOWO ZEROWA w
+KAZDYM punkcie (bo G=R0+alpha*S^2 jest JEDNOKIERUNKOWYM odczytem z S -
+G nigdy nie wplywa z powrotem na dynamike S), wiec det(K)=0 WSZEDZIE,
+niezaleznie od Q/alpha/bump - nie rozroznia zadnej strefy. Na jawna
+decyzje (2026-09-12): det(K) NIE jest uzywane w klasyfikatorze sygnalu
+dla TEGO konkretnego toy-modelu - K (z GS-Matrix, `gs_matrix.py`) jest
+osobnym, niepolaczonym numerycznie obiektem (macierz dla ODDZIELNEGO
+ukladu `dV/dt=KV`), nie wielkoscia obliczalna z trajektorii (G(t),S(t))
+tej symulacji bez wiekszej, osobno uzasadnionej zmiany modelu (nadanie
+G wlasnej dynamiki ze sprzezeniem zwrotnym od S) - taka zmiana NIE
+zostala tu wprowadzona bez wyraznej prosby.
 """
 from __future__ import annotations
 
@@ -127,6 +199,7 @@ from dataclasses import dataclass
 import numpy as np
 
 S_UP_MAX_DEFAULT = 10.0  # gorna granica amplitudy kanalu kondensujacego
+BETA_ANTICIPATION_FRACTION_DEFAULT = 0.05  # patrz "DODANY MARGINES OSTRZEGAWCZY" w naglowku - 0.05 wyliczone tak, zeby S_up%(Q_crit)<5% ORAZ beta(Q_crit) w (0.8,1.0) jednoczesnie
 
 
 @dataclass(frozen=True)
@@ -135,18 +208,39 @@ class ThetaBifResult:
     beta: float
     S_down: float
     S_up: float
+    N: float
     in_bifurcation: bool
 
 
-def compute_beta(Q: float, Q_crit: float) -> float:
-    """Waga podziału beta(t) in [0,1] - patrz naglowek modulu, punkt 1."""
-    if Q <= Q_crit:
-        return 1.0  # poza trybem bifurkacji, konwencja: caly "wklad" w kanale spoczynkowym
+def compute_beta(
+    Q: float,
+    Q_crit: float,
+    anticipation_fraction: float = BETA_ANTICIPATION_FRACTION_DEFAULT,
+) -> float:
+    """Waga podziału beta(t) in [0,1] - patrz naglowek modulu, punkty 1
+    i "DODANY MARGINES OSTRZEGAWCZY".
+
+    `anticipation_fraction`: jaka czesc pozostalego zapasu (1-Q_crit)
+    ponizej prawdziwego progu Q_crit ma stanowic "miekki" margines, w
+    ktorym beta zaczyna juz lagodnie spadac ponizej 1.0 (uzyteczne dla
+    klasyfikacji sygnalu - patrz timdr_formalism/signal_class.py, Klasa II).
+    `anticipation_fraction=0.0` odtwarza STARY, czysto skokowy wzor
+    (beta=1.0 dokladnie dla Q<=Q_crit)."""
     max_slack = 1.0 - Q_crit
     if max_slack <= 0:
-        return 0.0
-    exceedance = Q - Q_crit
-    beta = 1.0 - exceedance / max_slack
+        # Q_crit>=1: prog matematycznie nieosiagalny (strefa martwa,
+        # patrz test_sg_coupling_phase_diagram.py) - brak sensownego
+        # marginesu do zdefiniowania.
+        return 1.0 if Q <= Q_crit else 0.0
+
+    soft_margin = anticipation_fraction * max_slack
+    Q_eff_crit = Q_crit - soft_margin
+    max_slack_eff = max_slack + soft_margin  # = 1.0 - Q_eff_crit
+
+    if Q <= Q_eff_crit:
+        return 1.0
+    exceedance = Q - Q_eff_crit
+    beta = 1.0 - exceedance / max_slack_eff
     return float(np.clip(beta, 0.0, 1.0))
 
 
@@ -181,7 +275,8 @@ def theta_bifurcation(
 
     if Q <= Q_crit:
         # Galaz "holomorficzna" (poza trybem bifurkacji) - brak ingerencji.
-        return ThetaBifResult(S_new=S, beta=1.0, S_down=S, S_up=0.0, in_bifurcation=False)
+        # N=S_down*S_up=S*0=0, zgodnie z oczekiwaniem "N(t)~=0" dla Klasy I.
+        return ThetaBifResult(S_new=S, beta=1.0, S_down=S, S_up=0.0, N=0.0, in_bifurcation=False)
 
     beta = compute_beta(Q, Q_crit)
 
@@ -202,4 +297,5 @@ def theta_bifurcation(
     S_up = (1.0 - beta) * R_phase_direction * S_up_max * float(np.tanh(lambda_up * time_since_cutoff_start))
 
     S_new = S_down + S_up
-    return ThetaBifResult(S_new=S_new, beta=beta, S_down=S_down, S_up=S_up, in_bifurcation=True)
+    N = S_down * S_up  # "nakladanie kanalow" - patrz naglowek modulu
+    return ThetaBifResult(S_new=S_new, beta=beta, S_down=S_down, S_up=S_up, N=N, in_bifurcation=True)

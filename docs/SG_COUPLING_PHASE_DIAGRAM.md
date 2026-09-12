@@ -10,6 +10,13 @@ Buduje na dwoch wczesniej ustalonych rezimach:
 [`tests/test_sg_coupling_full_operator_hard_mode.py`](../tests/test_sg_coupling_full_operator_hard_mode.py)
 (rezim "twardy").
 
+**Powiazanie z klasami sygnalu I/II/III** (2026-09-12): ta mapa
+klasyfikuje CALE kombinacje `(alpha, anomaly_bump)` w jedna z 4 stref;
+[`docs/theory/Signal_Classes.md`](theory/Signal_Classes.md) klasyfikuje
+KAZDY KROK czasowy z osobna (I/II/III) i pokazuje, jak obie warstwy sie
+lacza - w tym udokumentowane zastrzezenie, ze strefa "cicha" NIE zawsze
+znaczy "caly czas Klasa I".
+
 ![Phase diagram: siatka alpha x anomaly_bump pokolorowana wg strefy (martwa/cicha/miekka/twarda)](sg_coupling_phase_diagram.svg)
 
 ## Cztery strefy, nie trzy
