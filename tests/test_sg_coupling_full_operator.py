@@ -22,12 +22,20 @@ def run_sg_coupling_simulation_v2(
     duration: float = 10.0,
     lambda_down: float = 2.0,
     lambda_up: float = 1.0,
+    anomaly_bump: float = 3.0,
 ):
     """Ta sama dynamika co run_sg_coupling_simulation (v1), ale z
     PELNYM operatorem Theta_bif (S_down/S_up) zamiast prostego
     tlumienia 0.1*S. Sledzi t_cutoff_start per ciagly epizod
     przekroczenia progu (resetowany, gdy Q spadnie z powrotem <=
-    Q_crit)."""
+    Q_crit).
+
+    anomaly_bump: wielkosc wstrzknietego skoku sygnalu w oknie
+      t in [4.8, 5.2] (domyslnie 3.0 - wartosc z oryginalnego,
+      "miekkiego" scenariusza). Wyeksponowane jako parametr (zamiast
+      wpisane na sztywno), zeby dalo sie zbudowac scenariusz "twardy"
+      (silniejsza anomalia i/lub wyzsze alpha) bez duplikowania calej
+      funkcji - patrz test_sg_coupling_full_operator_hard_mode.py."""
     if Q_crit is None:
         Q_crit = calibrate_q_crit(margin=1.3, L0=L0, alpha=alpha, R0=R0, dt=dt, duration=duration)
 
@@ -40,6 +48,8 @@ def run_sg_coupling_simulation_v2(
     Q = np.zeros(N)
     cutoff_triggered = np.zeros(N, dtype=bool)
     beta_trace = np.full(N, np.nan)
+    S_down_trace = np.full(N, np.nan)
+    S_up_trace = np.full(N, np.nan)
 
     G[0] = R0
     S[0] = 0.0
@@ -49,7 +59,7 @@ def run_sg_coupling_simulation_v2(
     for i in range(1, N):
         signal_input = np.sin(2 * np.pi * 0.5 * t[i])
         if 4.8 <= t[i] <= 5.2:
-            signal_input += 3.0
+            signal_input += anomaly_bump
 
         S_raw = S[i - 1] + dt * (-1.0 * S[i - 1] + signal_input)
 
@@ -76,14 +86,16 @@ def run_sg_coupling_simulation_v2(
             S[i] = result.S_new
             G[i] = G[i]  # Theta_bif dziala tylko na skladowa S (zgodnie z propozycja)
             beta_trace[i] = result.beta
+            S_down_trace[i] = result.S_down
+            S_up_trace[i] = result.S_up
         else:
             t_cutoff_start = None  # koniec epizodu, reset
 
-    return t, G, S, R, Q, cutoff_triggered, beta_trace
+    return t, G, S, R, Q, cutoff_triggered, beta_trace, S_down_trace, S_up_trace
 
 
 def test_v2_no_nan_or_inf_over_full_run():
-    t, G, S, R, Q, cutoff, beta = run_sg_coupling_simulation_v2()
+    t, G, S, R, Q, cutoff, beta, S_down, S_up = run_sg_coupling_simulation_v2()
     assert np.all(np.isfinite(S))
     assert np.all(np.isfinite(G))
     assert np.all(np.isfinite(R))
@@ -91,12 +103,12 @@ def test_v2_no_nan_or_inf_over_full_run():
 
 
 def test_v2_no_false_triggers_before_anomaly_window():
-    t, G, S, R, Q, cutoff, beta = run_sg_coupling_simulation_v2()
+    t, G, S, R, Q, cutoff, beta, S_down, S_up = run_sg_coupling_simulation_v2()
     assert np.sum(cutoff[t < 4.5]) == 0
 
 
 def test_v2_detects_anomaly_window():
-    t, G, S, R, Q, cutoff, beta = run_sg_coupling_simulation_v2()
+    t, G, S, R, Q, cutoff, beta, S_down, S_up = run_sg_coupling_simulation_v2()
     anomaly_mask = (t >= 4.8) & (t <= 5.2)
     assert np.sum(cutoff[anomaly_mask]) > 0
 
@@ -118,7 +130,7 @@ def test_v2_beta_is_responsive_but_stays_high_for_this_specific_example():
     REAGUJE na sile przekroczenia, nawet jesli w tym przykladzie
     reakcja jest niewielka), i NIGDY nie wraca do dokladnie 1.0 (co
     oznaczaloby brak jakiejkolwiek reakcji)."""
-    t, G, S, R, Q, cutoff, beta = run_sg_coupling_simulation_v2()
+    t, G, S, R, Q, cutoff, beta, S_down, S_up = run_sg_coupling_simulation_v2()
     anomaly_mask = (t >= 4.8) & (t <= 5.2) & cutoff
     assert np.any(anomaly_mask), "brak probek cutoff w oknie anomalii do przetestowania"
     beta_during_anomaly = beta[anomaly_mask]
@@ -134,7 +146,7 @@ def test_v2_vs_v1_both_finite_and_comparable_at_anomaly_peak():
     from test_sg_coupling import run_sg_coupling_simulation
 
     t1, G1, S1, R1, Q1, cutoff1 = run_sg_coupling_simulation()
-    t2, G2, S2, R2, Q2, cutoff2, beta2 = run_sg_coupling_simulation_v2()
+    t2, G2, S2, R2, Q2, cutoff2, beta2, S_down2, S_up2 = run_sg_coupling_simulation_v2()
 
     peak_idx = np.argmax(Q1[(t1 >= 4.8) & (t1 <= 5.2)])
     anomaly_slice = (t1 >= 4.8) & (t1 <= 5.2)
