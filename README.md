@@ -253,7 +253,14 @@ werdykt" jest w literaturze uznanym, użytecznym podejściem — nie że TIMDR m
 Odwiedź pełną dokumentację i interaktywne opisy układu:  
 👉 [https://jbackk-lang.github.io/](https://jbackk-lang.github.io/)
 
-![Diagram TRM / GIA / TIMDR](https://github.com/jbackk-lang/GIA-TIMDR/raw/main/diagram.png)
+Aktualny, kategoryzowany podział całego ekosystemu (kto jest narzędziem
+inżynierskim, kto formalizacją TIMDR, a kto modelem koncepcyjnym) —
+patrz Sekcja 11 niżej i kanoniczne źródło:
+[`jbackk-lang.github.io/KATEGORIE.md`](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md).
+(Poprzedni statyczny diagram `diagram.png` — czterowarstwowe drzewo z
+2026-08 wymieniające m.in. nieistniejące już nazwy `math-validator`,
+`Synoptyk`, `Astro-Map` — usunięty jako nieaktualny; ekosystem urósł
+od tego czasu z ~13 do ponad 50 repo i zmienił nazwy/wersje wielu z nich.)
 
 ---
 
@@ -546,18 +553,41 @@ Jednolita geometria asymetrii trójkąta pozwala na aplikację ram TIMDR/TRM w s
 
 ## 11. REPOZYTORIA POWIĄZANE
 
-Ekosystem uniwersalnej geometrii pola dystrybuowany jest pomiędzy wyspecjalizowane moduły:
-* `GIA-and-TIMDR` — Rdzeń geometryczny i definicje operatorów.
-* `topologia-informacji` — Przestrzenie metryczne i przekształcenia Möbiusa.
-* `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator`. Implementacja gałęzi sygnałowej (M/S), diagram protokołu: `docs/diagram.svg`.
+GIA-TIMDR jest fundamentem teoretycznym (aksjomaty, formalizm) całego
+ekosystemu — sam w sobie należy do kategorii "modele koncepcyjne"
+(patrz `KATEGORIE.md`), a jego aksjomaty żyją jako kod w repo-siostrach
+niżej. Pełna, aktualna lista WSZYSTKICH repo ekosystemu (obecnie
+ponad 50, w trzech kategoriach) jest utrzymywana w JEDNYM miejscu, żeby
+uniknąć rozjazdu dwóch kopii tej samej listy —
+[`jbackk-lang.github.io/KATEGORIE.md`](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md).
+Tutaj tylko repo bezpośrednio powiązane z tym plikiem, uporządkowane wg
+tych samych trzech kategorii:
+
+### 🧮 Formalizacje TIMDR (bezpośrednie implementacje aksjomatów z tego repo)
+
+* `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator` (usuniętej z ekosystemu, patrz Sekcja 10 wyżej). Implementacja gałęzi sygnałowej (M/S), diagram protokołu: `docs/diagram.svg`.
 * `TIMDR-Geometry-Formalism` — Numeryczna implementacja dyskretnego operatora Weingartena dla gałęzi geometrycznej (G): normalne wierzchołkowe, dopasowanie MNK na 1-ringu, krzywizny główne; domyka numerycznie Aksjomaty G8-G9 (`Axioms_G_TIMDR_Geometry.md`). Testy na płaszczyźnie/sferze/walcu — nieuruchomione w sesji, w której powstały. Dwa diagramy: `docs/diagram_pipeline.svg` (algorytm), `docs/diagram_surfaces.svg` (trzy powierzchnie testowe i ich krzywizna). Zawiera też `chronocongruence.py` — kongruencja Γ(t,s) dla Chronoprocesu (`docs/theory/TIMDR_Chronoprocess.md`).
 * `TIMDR-Modal-Formalism` — Pierwsza implementacja gałęzi modalnej (K) jako kodu: modalność `(f,φ,A)` (Aksjomat 3), interferencja (Aksjomat 4), rezonans modalny (Aksjomat 5), oraz mapa synchronizacji faz `f` formalizująca `t_lokalne=f(τ_globalne)` z §7.3 poniżej. Afiniczna (nie Kuramoto-sprzężona) — jawnie oznaczona granica zakresu. Testy potwierdzone przez użytkownika: 17/17.
 * `TIMDR-Time-Formalism` — Pełny moduł Chronoprocesu `Ξ=(T,x,Γ,φ)`: orkiestruje trzy powyższe repo-siostry na wspólnym nośniku T, bez żadnej identyfikacji między nimi. Zawiera też jedyny jawny wyjątek od tej zasady — `fourier_bridge.py`, most Fouriera M/S↔K oparty na zasadzie nieoznaczoności Gabora (analogia do dualizmu falowo-cząsteczkowego fotonu, sprowadzona do sprawdzalnej matematyki). Pełny opis: `docs/theory/TIMDR_Chronoprocess.md`. Testy potwierdzone przez użytkownika: 18/18 (8/8 orkiestracja + 10/10 most Fouriera).
-* `TRM` — Przetwarzanie rezonansów warstwowych i stałych redukcji.
-* `FIELDCORE` — Niskopoziomowy silnik obliczeniowy pól dynamicznych.
-* `WHITE-LASER-MAP` / `ASTRO-MAP` / `ASTRO-CYCLES` — Mapowanie skalowane (mikro/makro).
-* `EasySound` / `Synoptyk` — Praktyczne aplikacje rezonansowe (dźwięk i predykcja złożona).
-* `FAM` — Fundamental AI Model wykorzystujący architekturę skrętu.
+
+### 🔧 Narzędzia inżynierskie (ten sam rdzeń, realne dane — wybrane przykłady)
+
+* `math-validator-3.0` — trzecia generacja walidatora (SymPy, algebra liniowa, logika zdaniowa); następca (przez `math-validator-v2.0`) pierwszej, usuniętej wersji.
+* `synoptyk-v2.0` — prognoza pogody, realne dane Open-Meteo, filtr falkowy DWT db4.
+* `Analizator_Gieldowy_v3.0` — sygnały TIMDR na realnych danych giełdowych (yfinance); to NIE jest doradztwo inwestycyjne.
+* `AstroCycles-TIMDR` / `astro-map` — cykle i mapowanie astronomiczne w języku TIMDR.
+* `EasySound` — filtrowanie i czyszczenie dźwięku (filtr Butterwortha).
+
+### 🌀 Modele koncepcyjne (ten sam framework Λ–τ–ρ, warstwa metaforyczna)
+
+* `topologia-informacji` — centralny framework pojęciowy Λ–τ–ρ, przestrzenie metryczne i przekształcenia Möbiusa.
+* `TRM` / `Topological-Reduction-Model-TRM` / `TRM-Geometry-Core` — rezonans i redukcja topologiczna jako metafora.
+* `FIELDCORE` — kosmos jako układ dwóch skrętów pola.
+* `WHITE-LASER-MAP` — model białego lasera bez fosforu.
+* `TIMDR-Multisensory-Meditation-Engine` — multisensoryczna medytacja geometryczna.
+
+Pełne, zawsze aktualne listy (z opisem KAŻDEGO repo, nie tylko wybranych
+przykładów) — patrz `KATEGORIE.md` linkowane wyżej.
 
 ---
 
