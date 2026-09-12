@@ -5,7 +5,7 @@
 > służąca do analizy struktur. Nie należy tego traktować jako dowodu na to, jak faktycznie zbudowana jest
 > rzeczywistość, ani jako publikacji naukowej w rozumieniu peer review.
 
-**Uniwersalny model pola, impulsów i informacji, wyprowadzony z pierwotnej asymetrii geometrycznej Trójkąta.**
+**Uniwersalny model sygnałowy pola, impulsów i informacji, wyprowadzony z pierwotnej asymetrii geometrycznej Trójkąta.**
 
 TIMDR/TRM (Triangle Information Momentum Dynamics Resonance) to jednolita rama interpretacyjna łącząca geometrię, informację, dynamikę pól oraz topologię w jeden spójny, samoreplikujący się mechanizm. Niniejsze repozytorium stanowi matematyczny i logiczny fundament całego systemu — definiuje operatory, powierzchnie interpolujące, anomalie, rezonanse oraz modele emergencji we wszystkich skalach rzeczywistości.
 
