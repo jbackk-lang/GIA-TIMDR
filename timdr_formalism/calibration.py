@@ -52,15 +52,55 @@ from __future__ import annotations
 
 import csv
 import importlib.util
+import math
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Optional, Sequence
 
 import numpy as np
-from scipy import stats
 
 from .chronosignal import anomalia_flags
 from .pipeline import bonferroni_correct
+
+# POPRAWKA (Windows Device Guard blokuje scipy DLL - ten sam blad, ktory
+# juz raz naprawiono w pipeline.py::mann_whitney_test i w Synoptyk-v3/
+# membrane/interpolate.py, ale ktory WROCIL tutaj, bo ten plik zostal
+# dodany PO tamtych naprawach i importowal `from scipy import stats` na
+# poziomie modulu -- co crashuje natychmiast przy `import calibration`,
+# jeszcze zanim jakikolwiek kod uzytkownika sie uruchomi, na dowolnej
+# maszynie z Device Guard/App Control blokujacym scipy).
+#
+# Tu obie uzywane funkcje scipy.stats maja DOKLADNE (nie przyblizone)
+# odpowiedniki w bibliotece standardowej Pythona, wiec zamiast dualnego
+# backendu 'auto'/'scipy'/'numpy' (jak w pipeline.py, gdzie scipy'owy
+# test Manna-Whitneya nie ma prostego dokladnego zamiennika), scipy jest
+# tu usuwane calkowicie -- nie ma kompromisu dokladnosci do udokumentowania:
+#   - stats.norm.sf(x) == 0.5*erfc(x/sqrt(2)) -- tozsamosc analityczna,
+#     nie przyblizenie (definicja dystrybuanty rozkladu normalnego przez
+#     funkcje bledu).
+#   - stats.binom.sf(k-1, n, p) == suma dokladnych wyrazow dwumianowych
+#     P(X>=k) dla X~Binomial(n,p), liczona przez math.comb (dokladna
+#     arytmetyka wymierna/zmiennoprzecinkowa, nie tablica/aproksymacja).
+
+
+def _normal_survival_function(x: float) -> float:
+    """P(Z > x) dla standardowego rozkladu normalnego Z~N(0,1).
+    Dokladna tozsamosc z funkcja bledu (erfc), nie przyblizenie -
+    identyczna wartosc co scipy.stats.norm.sf(x)."""
+    return 0.5 * math.erfc(x / math.sqrt(2.0))
+
+
+def _binomial_survival_function(k: int, n: int, p: float) -> float:
+    """P(X >= k) dla X~Binomial(n,p). Dokladna suma wyrazow dwumianowych
+    (math.comb -> dokladne wspolczynniki), identyczna wartosc co
+    scipy.stats.binom.sf(k-1, n, p). Dla realistycznych n (rzedu
+    dziesiatek parametrow monitorowanych naraz) to calkowicie
+    wystarczajaco szybkie - nie potrzeba tablicowej aproksymacji."""
+    if k <= 0:
+        return 1.0
+    if k > n:
+        return 0.0
+    return float(sum(math.comb(n, i) * (p ** i) * ((1.0 - p) ** (n - i)) for i in range(k, n + 1)))
 
 
 # ---------------------------------------------------------------------
@@ -100,7 +140,7 @@ _weather = _load_weather_validation_module()
 # P(|Z|>2) dla standardowego rozkladu normalnego -- 2*(1-Phi(2)), a nie
 # zaokraglone na sztywno 0.0455, zeby nie duplikowac przyblizenia, ktore
 # scipy juz liczy dokladnie.
-P_ANOMALY_2SIGMA_NORMAL: float = float(2.0 * stats.norm.sf(2.0))
+P_ANOMALY_2SIGMA_NORMAL: float = float(2.0 * _normal_survival_function(2.0))
 
 
 def theoretical_independence_baseline_rate(
@@ -123,7 +163,7 @@ def theoretical_independence_baseline_rate(
         raise ValueError("K musi spelniac 1 <= K <= n")
     if not (0.0 < p_anomaly < 1.0):
         raise ValueError("p_anomaly musi byc w (0, 1)")
-    return float(stats.binom.sf(K - 1, n, p_anomaly))
+    return _binomial_survival_function(K, n, p_anomaly)
 
 
 # ---------------------------------------------------------------------
