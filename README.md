@@ -15,6 +15,25 @@ uczciwie raportowany wynik negatywny.
 
 ![Diagram protokołu: hipoteza → dane testowe/tło → bramka kontroli +/- → test Manna-Whitneya lub stop → werdykt](docs/diagram.svg)
 
+## ⚠️ Uwaga architektoniczna: to repo zawiera DWIE różne rzeczy
+
+To repo odpowiada na pytanie **"czy to w ogóle jest prawdziwa
+matematyka?"** (protokół opisany wyżej — `pipeline.py`, `calibration.py`,
+`meta_validator.py`, `chronosignal.py`, `docs/PROTOCOL.md`). Zawiera też
+osobny, architektonicznie ODRĘBNY pipeline sygnałowy gałęzi M/S —
+SG-Coupling + operator bifurkacji Θ_bif + **klasy sygnału I/II/III**
+(`timdr_formalism/{gs_matrix,theta_bifurcation,signal_class}.py`) —
+który odpowiada na zupełnie inne pytanie: **"w jakim reżimie aktualnie
+pracuje TEN KONKRETNY sygnał?"** (zachowawczy / modulujący / anomalia
+strukturalna). Oba mieszkają w tym samym repo z powodów praktycznych
+(rozwijane w tej samej sesji), NIE dlatego, że są tym samym
+mechanizmem — werdykt jednego NIE potwierdza ani nie zaprzecza
+drugiemu. Pełne rozróżnienie i tabela porównawcza:
+`GIA-TIMDR/docs/theory/TIMDR_Branch_Specification.md`, sekcja "Warstwa
+meta". Dokumentacja pipeline'u sygnałowego: [docs/SG_COUPLING_PHASE_DIAGRAM.md](docs/SG_COUPLING_PHASE_DIAGRAM.md)
+(mapa faz `alpha`/`anomaly_bump`) i [docs/theory/Signal_Classes.md](docs/theory/Signal_Classes.md)
+(definicja klas I/II/III + trzy decyzje implementacyjne).
+
 ## 🔧 Instalacja
 
 ```
@@ -104,6 +123,9 @@ Na Windows wystarczy dwuklik na `run.bat` — zainstaluje zależności
 | `format_report` | 6 | Czytelny raport/werdykt, w tym uczciwy wynik negatywny |
 | `chronosignal.tempo`, `chronosignal.drift` | — (instancja sygnału) | Odstępy/drift z sekwencji znaczników czasu — patrz §⏱️ niżej |
 | `chronosignal.anomalia_flags/defekt_flags/skret_flags` | — (detektory) | Definicje §1 skilla, zastosowane do tempa/driftu |
+| `gs_matrix.py` | — (pipeline sygnałowy, NIE protokół) | Macierz K rozdzielona na część antysymetryczną (zachowawczą) i symetryczną (tłumienie) — patrz uwaga architektoniczna wyżej |
+| `theta_bifurcation.py` | — (pipeline sygnałowy, NIE protokół) | Operator bifurkacji Θ_bif: próg `Q`, reakcja `β`, kanały `S_down`/`S_up`, tryby miękki/twardy — [docs/SG_COUPLING_PHASE_DIAGRAM.md](docs/SG_COUPLING_PHASE_DIAGRAM.md) |
+| `signal_class.py` | — (pipeline sygnałowy, NIE protokół) | Klasyfikacja I/II/III na podstawie `β` — [docs/theory/Signal_Classes.md](docs/theory/Signal_Classes.md) |
 
 ## 🧪 Testy
 
