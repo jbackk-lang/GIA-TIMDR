@@ -2,6 +2,34 @@
 prime_spectrum_filter.py — analizuje widmo liczb pierwszych
 związane z wyrażeniem typu N (liczba naturalna).
 
+SYNCHRONIZACJA (2026-09-12) — rozwiązanie cross-repo drift: ten plik i
+`math-validator-3.0/filters/prime_spectrum_filter.py` były dwiema
+NIEZALEŻNIE łatanymi kopiami tego samego pierwotnego filtra (znany
+problem, patrz `timdr-signal-framework` skill §10). Porównanie
+programowe (usunięcie komentarzy/docstringów, diff samego wykonywalnego
+kodu) potwierdziło, że cała różnica 145 linii `diff -u` dotyczyła
+WYŁĄCZNIE komentarzy/docstringów — wykonywalny kod (183 linie bez
+komentarzy) był bajt-w-bajt IDENTYCZNY w obu repo. Zgodnie z decyzją
+użytkownika ("jeśli różnica nie jest istotna dla walidatora, weź
+oryginał z math-validator-3.0") ten plik został zastąpiony pełną,
+bardziej szczegółową wersją dokumentacji z `math-validator-3.0` (repo
+opisuje samo siebie jako następcę `math-validator-v2.0`, z pełną
+historią obu napraw — GIA-TIMDR miał tylko streszczenie tej historii).
+`math-validator-3.0` pozostaje niezmieniony — to on jest teraz źródłem
+kanonicznym dla tego pliku.
+
+ODNOTOWANE, NIE NAPRAWIONE PRZY OKAZJI: linia `from core import
+ParsedExpr` niżej odwołuje się do `ParsedExpr` z `math-validator-3.0`
+(płaski `core.py`, klasa `ParsedExpr`) — GIA-TIMDR ma WŁASNY pakiet
+`core/` (fizyka SG-Coupling/trefoil/itd.) bez takiej klasy. Ten import
+był identyczny (i identycznie potencjalnie niedziałający w kontekście
+GIA-TIMDR) w OBU wersjach przed tą synchronizacją — to nie jest nowy
+problem wprowadzony teraz, tylko already-istniejąca, nienaprawiona
+niespójność w pliku, który i tak nie ma testu w GIA-TIMDR (patrz
+AUDIT_AND_CLEANUP_2026-09-12.md). Naprawa tego importu wykraczałaby
+poza zakres "zsynchronizuj dokumentację" i nie została zrobiona bez
+wyraźnej prośby.
+
 Idea:
 - jeśli wyrażenie upraszcza się do liczby całkowitej N > 2
 - bierzemy liczby pierwsze p ≤ N**(1/3)
@@ -10,57 +38,60 @@ Idea:
   - różnice między kolejnymi (gaps)
   - stosunki p_{n+1} / p_n
   - klasyfikację widma WZGLĘDEM PRAWDZIWEGO, USTALONEGO W TEORII LICZB
-    MODELU (patrz niżej)
+    MODELU (patrz niżej — to jest DRUGA naprawa tego filtra)
 
-PORTOWANA NAPRAWA (ta sesja) — to repo (v2.0) miało jeszcze ORYGINALNĄ,
-nigdy nie naprawioną wersję tego filtra: sztywny próg 0.25 na ad hoc
-metryce ("odległość gaps od krzywej log(x)"), bez modelu zerowego, z
-twierdzeniem "widmo zgodne z logarytmiczną spiralą / 1/f (Λ–τ–ρ/TIMDR)"
-w notatkach. `math-validator-3.0` (repo-następca, patrz jego README:
-"Dalej rozwijana jako math-validator-3.0... zachowując wszystkie filtry
-v2.0 bez zmian") przeszedł od tego czasu DWIE niezależne naprawy tego
-samego pliku, których to repo nigdy nie dostało — stąd rozjazd
-(duplication-drift, patrz timdr-signal-framework skill §10). Ta zmiana
-portuje OBIE naprawy naraz, zamiast powtarzać ten sam proces od zera:
+DRUGA POPRAWKA — rekalibracja na model Cramera/Gallaghera:
 
-1. Pierwsza naprawa (math-validator-3.0 commit f1f258d): zastąpienie
-   sztywnego progu 0.25 modelem zerowym z losowych ciągów. Wynik na
-   realnych pierwszych: NIE trafiały w etykietę częściej niż losowe
-   ciągi — ale sama metryka ("kształt do log(x)") pozostała ad hoc.
+Pierwsza naprawa (patrz git log math-validator-3.0) zastąpiła sztywny
+próg 0.25 modelem zerowym z losowych ciągów całkowitych — ale sama
+METRYKA ("średnia znormalizowana odległość gaps od krzywej log(x)")
+pozostała ad hoc, wymyślona na potrzeby tego filtra, bez żadnego
+oparcia w teorii liczb. Test względem tej metryki wypadł negatywnie:
+prawdziwe liczby pierwsze NIE trafiały w etykietę "log_spiral_1_over_f"
+częściej niż losowe ciągi (patrz git log f1f258d).
 
-2. Druga naprawa (math-validator-3.0 commit 697e728, ta sesja):
-   zamiast ad hoc metryki użyto PRAWDZIWEGO modelu z analitycznej
-   teorii liczb — model Cramera / hipoteza Gallaghera: znormalizowana
-   luka między kolejnymi pierwszymi w pobliżu x, x_n = gap_n/log(p_n),
-   powinna asymptotycznie zbiegać do rozkładu Exponencjalnego(1)
-   (proces pierwszych lokalnie jak proces Poissona o intensywności
-   1/log(x)).
+Użytkownik zapytał wprost: czy ten negatywny wynik oznacza brak
+struktury, czy złą metrykę/"płaszczyznę"? Zweryfikowano to w osobnej,
+pre-zarejestrowanej sesji kalibracyjnej (protokół z timdr-signal-framework
+§18): zamiast ad hoc metryki, użyto PRAWDZIWEGO, ugruntowanego w
+analitycznej teorii liczb modelu Cramera / hipotezy Gallaghera — luki
+między kolejnymi liczbami pierwszymi w pobliżu x, znormalizowane przez
+log(x), powinny asymptotycznie zbiegać do rozkładu Exponencjalnego(1)
+(równoważnie: proces pierwszych lokalnie jak proces Poissona o
+intensywności 1/log(x)).
 
-   Test na 78498 prawdziwych liczbach pierwszych do 10^6:
-     - średnia x_n = 1.0017 (zgodna z przewidywaniem modelu ~1.0)
-     - KS test x_n vs Exp(1): D=0.1478, p≈0 — odrzuca czysty Exp(1)
-       przy tym N, ale to udokumentowany efekt skończonego zakresu
-       (zbieżność modelu jest asymptotyczna/wolna), nie dowód braku
-       struktury
-     - korelacja Pearsona kolejnych x_n: r=-0.0568, p≈4.4e-57 — mała,
-       ale statystycznie bardzo istotna. To JEST realna struktura
-       wykraczająca poza sam model Cramera (i.i.d. luki), zgodna z
-       udokumentowanymi w literaturze obciążeniami/korelacjami
-       sąsiednich luk między liczbami pierwszymi. Kontrola: i.i.d.
-       Exp(1) o tej samej licznosci daje r=-0.0009, p=0.80 — więc
-       korelacja u prawdziwych pierwszych nie jest artefaktem metody.
-     - obie kontrole negatywne narzędzia testującego poprawne: i.i.d.
-       Exp(1) → KS nie odrzuca (p=0.11); ciąg stały → KS wyraźnie
-       odrzuca (p≈0).
+Test na 78498 prawdziwych liczbach pierwszych do 10^6 (sympy.primerange),
+ze znormalizowaną luką x_n = (p_{n+1}-p_n)/log(p_n):
+  - średnia x_n = 1.0017 (bardzo blisko przewidywania modelu Cramera ~1.0)
+  - test Kolmogorova-Smirnowa x_n vs Exp(1): D=0.1478, p≈0 — ODRZUCA
+    czysty Exp(1) przy tym N. To UDOKUMENTOWANY efekt skończonego zakresu
+    (zbieżność modelu Cramera do Exp(1) jest wolna/asymptotyczna, nie
+    dokładna przy skończonym N) — nie dowód braku struktury.
+  - korelacja Pearsona kolejnych znormalizowanych luk (x_n, x_{n+1}):
+    r=-0.0568, p≈4.4e-57 — MAŁA, ale statystycznie bardzo istotna ujemna
+    korelacja. To JEST realna struktura wykraczająca poza prosty model
+    Cramera (który zakłada niezależne, i.i.d. luki) — zgodna z
+    udokumentowanymi w literaturze analitycznej teorii liczb
+    obciążeniami/korelacjami sąsiednich luk między liczbami pierwszymi.
+    Kontrola: te same statystyki na i.i.d. Exp(1) o tej samej licznosci
+    dają r=-0.0009, p=0.80 (brak korelacji) — więc korelacja u prawdziwych
+    pierwszych NIE jest artefaktem metody.
+  - obie kontrole negatywne narzędzia testującego zachowały się poprawnie:
+    i.i.d. Exp(1) → KS nie odrzuca (p=0.11); ciąg arytmetyczny/stały →
+    KS wyraźnie odrzuca (p≈0).
 
-WNIOSEK: negatywny wynik pierwszej naprawy wynikał z metryki, nie z
-braku struktury liczb pierwszych. Względem właściwego modelu struktura
-JEST widoca.
+WNIOSEK: negatywny wynik pierwszej naprawy wynikał z metryki/"płaszczyzny"
+("kształt do log(x)"), nie z braku struktury liczb pierwszych. Względem
+właściwego modelu (Cramer/Gallagher) struktura jest widoczna — a nawet
+wykracza poza sam model Cramera (korelacja sąsiednich luk).
 
-WAŻNE OGRANICZENIE SKALI: ten filtr liczy pierwsze TYLKO do N**(1/3).
-Żeby mieć >=30 luk (minimum sensowne dla testu KS/korelacji), trzeba
-N >= ok. 2 048 383. Dla mniejszych N filtr zwraca
-"insufficient_data_for_cramer_test" zamiast zgadywać.
+WAŻNE OGRANICZENIE SKALI (uczciwie udokumentowane): ten filtr liczy
+pierwsze TYLKO do N**(1/3). Żeby mieć >=30 luk (minimum do sensownego
+testu KS/korelacji, patrz MIN_GAPS_FOR_CRAMER_TEST), potrzeba N^(1/3) >=
+127, czyli N >= ok. 2 048 383. Dla mniejszych N filtr zwraca
+"insufficient_data_for_cramer_test" zamiast zgadywać — to WPROST
+naprawia nadużycie z pierwszej wersji, która potrafiła nadawać pewną
+etykietę na 6-24 lukach.
 
 Etykieta "log_spiral_1_over_f" i jakikolwiek związek z TIMDR Λ–τ–ρ
 zostały usunięte całkowicie (były i pozostają niepotwierdzone).
@@ -78,7 +109,8 @@ except ImportError:  # pragma: no cover
 
 # Minimalna liczba luk, przy ktorej test KS/korelacji ma w ogole sens
 # statystyczny. Ponizej tego progu filtr NIE zgaduje - zwraca jawnie
-# "insufficient_data_for_cramer_test".
+# "insufficient_data_for_cramer_test" (patrz naglowek pliku - to wprost
+# naprawia nadmierna pewnosc pierwszej wersji filtra).
 MIN_GAPS_FOR_CRAMER_TEST = 30
 
 # Prog istotnosci dla testu KS i korelacji sasiednich luk.
@@ -96,10 +128,12 @@ def _ks_two_sided_vs_exp1(x):
     """Statystyka i p-wartosc dwustronnego testu Kolmogorova-Smirnowa
     x vs rozklad Exponencjalny(1) (CDF F(t) = 1 - e^-t, t >= 0).
 
-    Implementacja czysto matematyczna (bez scipy): p-wartosc liczona
+    Implementacja czysto matematyczna (bez scipy - ten projekt nigdy nie
+    mial scipy jako zaleznosci, patrz requirements.txt): p-wartosc liczona
     asymptotycznym wzorem Kolmogorova z poprawka Marsaglii-Stephensa,
-    standardowa, ugruntowana aproksymacja (rownowazna temu, co pod
-    maska robi scipy.stats.kstest dla duzych n)."""
+    standardowa, ugruntowana aproksymacja uzywana w wiekszosci bibliotek
+    statystycznych (rownowazna temu, co pod maska robi scipy.stats.kstest
+    dla duzych n)."""
     n = len(x)
     if n == 0:
         return None, None
@@ -121,14 +155,17 @@ def _ks_two_sided_vs_exp1(x):
 
 
 def _serial_pearson_r(x):
-    """Korelacja Pearsona kolejnych znormalizowanych luk (x_n, x_n+1).
-    Model Cramera zaklada i.i.d. luki (r~0); realna, statystycznie
-    istotna wartosc != 0 to struktura WYKRACZAJACA poza sam model
-    Cramera (znana w literaturze jako obciazenia/korelacje sasiednich
-    luk miedzy liczbami pierwszymi - NIE jest to zwiazane z TIMDR).
+    """Korelacja Pearsona kolejnych znormalizowanych luk (x_n, x_n+1) -
+    dokladnie ta "plaszczyzna"/zaleznosc miedzy sasiednimi punktami widma,
+    o ktora pytal uzytkownik. Model Cramera zaklada i.i.d. luki (r~0);
+    realna, statystycznie istotna wartosc != 0 to struktura WYKRACZAJACA
+    poza sam model Cramera (znana w literaturze jako obciazenia/korelacje
+    sasiednich luk miedzy liczbami pierwszymi - NIE jest to zwiazane z
+    TIMDR, patrz zastrzezenie w notes ponizej).
 
-    P-wartosc: transformacja Fishera z + przyblizenie normalne
-    (dokladne dla duzych n_pairs). Bez zaleznosci od scipy."""
+    P-wartosc: transformacja Fishera z + przyblizenie normalne (dokladne
+    dla duzych n_pairs, ktore w tym filtrze wystepuja - patrz
+    MIN_GAPS_FOR_CRAMER_TEST). Bez zaleznosci od scipy."""
     n = len(x)
     if n < 3:
         return None, None
