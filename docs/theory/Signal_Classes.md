@@ -123,3 +123,53 @@ daje czystą Klasę I przez cały przebieg (`Qmax=0.4538`, poniżej
 `Q_eff_crit`). Innymi słowy: "cicha" (phase diagram) = "prawie zawsze I,
 z możliwymi krótkimi wizytami w II blisko granicy", nie "zawsze
 dokładnie I".
+
+## Integracja z MetaState (Λ,τ,ρ,J) — pełny łańcuch pipeline'u
+
+**Dodane 2026-09-12**, na wyraźne zlecenie użytkownika, po opisaniu
+pełnego łańcucha: `sygnał → SG-Coupling → Θ_bif → klasa I/II/III →
+MetaState → faza systemu`. Do tego momentu klasy I/II/III i MetaState
+z gałęzi META-DYNAMICS były dwoma rozłącznymi mechanizmami w osobnych
+repo — [`timdr_formalism/signal_meta_bridge.py`](../../timdr_formalism/signal_meta_bridge.py)
+jest pierwszym rzeczywistym wiązaniem między nimi (siódma domenowa
+instancja MetaState w tym ekosystemie, po sześciu opisanych w
+`GIA-TIMDR/docs/theory/TIMDR_Branch_Specification.md`).
+
+Sygnał dzielony jest na rozłączne okna czasowe (partycja, nie okno
+przesuwne); każde okno agregowane jest do jednego `MetaState`:
+
+| Kanał | Wzór | Zależy wyłącznie od |
+|---|---|---|
+| Λ (struktura) | `std(Q_okno) / (std(Q_okno) + |mean(Q_okno)| + ε)` | `Q` |
+| τ (transformacja) | `mean(|Δβ_okno|) / dt_krok` | `β` |
+| ρ (anomalia) | frakcja kroków w oknie z klasą III | klasy (czyli `β`) |
+| J (rezonans/sprzężenie) | `mean(|N_okno| / (max|N_okno| + ε))` | `N = S_down·S_up` |
+
+`ρ` i `J` zależą od dwóch RÓŻNYCH wielkości źródłowych (klasa vs `N`)
+celowo — gdyby `J` było zdefiniowane np. jako "frakcja kroków z
+`cutoff=True`", byłoby z KONSTRUKCJI nadzbiorem `ρ` (Klasa III wymaga
+`cutoff=True`), co dałoby gwarantowaną korelację zamiast empirycznego
+wyniku do sprawdzenia.
+
+**Wynik na trybie miękkim vs twardym (zweryfikowany bezpośrednio,
+`tests/test_signal_meta_bridge.py`, 20 okien po `window_size=50` kroków
+każdy):**
+
+| | tryb miękki | tryb twardy |
+|---|---|---|
+| mean(ρ) | `0.0` (dokładnie — nigdy nie osiąga Klasy III) | `~0.013` |
+| mean(J) | `~0.001` | `~0.019` (≈19×) |
+| faza "stabilna" | 11/20 okien | 2/20 okien |
+| faza "przejściowa" | 5/20 okien | 14/20 okien |
+| faza "krytyczna" | 3/20 okien | 3/20 okien — **identycznie** |
+
+**Uczciwie odnotowany wynik częściowy** — dokładnie ten sam wzorzec co
+w pozostałych sześciu domenach META-DYNAMICS: mechanizm reaguje na
+różnicę reżimów w oczekiwanym kierunku (mniej "stabilna", więcej
+"przejściowa" w trybie twardym), ale próg "krytyczna" (dziedziczony bez
+zmian z oryginalnego szkicu META-DYNAMICS, `magnitude(M) ≥ 1.0`) NIE
+rozdziela reżimów — liczba okien "krytyczna" jest identyczna w obu
+trybach. Progi `0.1`/`1.0` są arbitralne/nieskalibrowane na skali tego
+konkretnego sygnału (tak jak w Quantum-Lattice i pozostałych domenach)
+— **mechanizm działa, progi nie są skalibrowane**, nie jest to ukrywane
+ani przerabiane na wynik lepszy niż jest.

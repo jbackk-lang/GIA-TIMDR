@@ -126,6 +126,7 @@ Na Windows wystarczy dwuklik na `run.bat` — zainstaluje zależności
 | `gs_matrix.py` | — (pipeline sygnałowy, NIE protokół) | Macierz K rozdzielona na część antysymetryczną (zachowawczą) i symetryczną (tłumienie) — patrz uwaga architektoniczna wyżej |
 | `theta_bifurcation.py` | — (pipeline sygnałowy, NIE protokół) | Operator bifurkacji Θ_bif: próg `Q`, reakcja `β`, kanały `S_down`/`S_up`, tryby miękki/twardy — [docs/SG_COUPLING_PHASE_DIAGRAM.md](docs/SG_COUPLING_PHASE_DIAGRAM.md) |
 | `signal_class.py` | — (pipeline sygnałowy, NIE protokół) | Klasyfikacja I/II/III na podstawie `β` — [docs/theory/Signal_Classes.md](docs/theory/Signal_Classes.md) |
+| `signal_meta_bridge.py` | — (pipeline sygnałowy, NIE protokół) | Pełny łańcuch: sygnał→SG-Coupling→Θ_bif→klasa I/II/III→`MetaState(Λ,τ,ρ,J)`→faza systemu; wynik: mechanizm działa, progi fazy nieskalibrowane (jak w innych domenach META-DYNAMICS) — sekcja "Integracja z MetaState" w [docs/theory/Signal_Classes.md](docs/theory/Signal_Classes.md) |
 
 ## 🧪 Testy
 
