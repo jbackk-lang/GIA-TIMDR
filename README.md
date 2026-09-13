@@ -47,6 +47,8 @@ zebranego w jedną specyfikację (dokładnie ten sam wzorzec, w jakim
 `TIMDR-Geometry-Formalism` potraktował krzywiznę jako rodzinę
 operatorów zamiast jednej wielkości).
 
+![Cztery gałęzie TIMDR](docs/diagrams/galezie.svg)
+
 > **Adnotacja:** poniższe jest streszczeniem. Pełna, formalna
 > specyfikacja czterech gałęzi (obiekty, operatory, aksjomaty, pliki
 > źródłowe, jawne "czym NIE jest" per gałąź, jedna tabela porównawcza)
@@ -115,6 +117,20 @@ pobudzanego lokalnie — zaimplementowany i przetestowany numerycznie DLA
 N=3 (trójwęzeł: defekt sprzężenia rozszczepia zdegenerowany dublet,
 defekt sztywności węzła przesuwa singlet), sprawdzony strukturalnie dla
 innego N, **nie zwalidowany empirycznie na realnej krzywej**.
+
+![Trzy gałęzie aksjomatyczne jako węzeł koniczynowy, z meta-dynamiką w środku splotu](docs/diagrams/trefoil.svg)
+
+*Geometryczna metafora (nie wykres danych) skrętu topologicznego τ:
+trzy płatki węzła to M/S, G, K; meta-dynamika Λ-τ-ρ-J siedzi w miejscu,
+gdzie pętla splata się sama ze sobą — bo nie jest osobną gałęzią
+aksjomatyczną, tylko rodziną przewijającą się przez pozostałe trzy.
+Te same cztery gałęzie jako interaktywne sceny 3D zbudowane wprost z
+formuł (rura 2σ dla anomalii M/S, sfera z normalnymi dla G,
+sprzężone spirale fazowe dla K):
+[`docs/diagrams/wzory_3d.html`](docs/diagrams/wzory_3d.html)
+(pobierz i otwórz w przeglądarce — GitHub nie uruchamia JS w
+podglądzie README).*
+
 **Pliki:** `docs/theory/Axioms_G_TIMDR_Geometry.md` (aksjomaty G1-G10);
 skręt powierzchniowy pierwotnie opisany w
 `Resonance_M_Operator_Empiryczny.md` §6; model trójkąta to sekcje 1-9

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>GIA-TIMDR — cztery gałęzie, wzory w 3D</title>
+<style>
+  :root {
+    --surface-2: #fcfcfb;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --border: rgba(11,11,11,0.10);
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #f1efe8; color: var(--text-primary); margin: 0; padding: 24px; }
+  h1 { font-size: 18px; font-weight: 500; margin: 0 0 16px; }
+</style>
+</head>
+<body>
+<h1>Cztery gałęzie GIA-TIMDR — wzory jako sceny 3D (przeciągnij, żeby obrócić)</h1>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+
+<div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem;">
+<p style="font-size:13px;font-weight:500;color:var(--text-primary);margin:0 0 4px;">M/S — sygnał w rurze 2σ</p>
+<canvas id="c3dMS" style="width:100%;height:220px;display:block;"></canvas>
+</div>
+
+<div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem;">
+<p style="font-size:13px;font-weight:500;color:var(--text-primary);margin:0 0 4px;">G — normalne na sferze, Δp</p>
+<canvas id="c3dG" style="width:100%;height:220px;display:block;"></canvas>
+</div>
+
+<div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem;">
+<p style="font-size:13px;font-weight:500;color:var(--text-primary);margin:0 0 4px;">K — dwie spirale fazowe</p>
+<canvas id="c3dK" style="width:100%;height:220px;display:block;"></canvas>
+</div>
+
+<div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem;">
+<p style="font-size:13px;font-weight:500;color:var(--text-primary);margin:0 0 4px;">Meta-dynamika — 4 spirale Λτρj</p>
+<canvas id="c3dMeta" style="width:100%;height:220px;display:block;"></canvas>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  function setupScene(canvasId, height){
+    var canvas = document.getElementById(canvasId);
+    var container = canvas.parentElement;
+    var w = container.clientWidth || 300;
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, w/height, 0.1, 100);
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+    renderer.setClearColor(0x000000,0);
+    renderer.setSize(w,height);
+    renderer.setPixelRatio(window.devicePixelRatio||1);
+    var group = new THREE.Group();
+    scene.add(group);
+    var state = {dragging:false,lastX:0,lastY:0};
+    canvas.style.cursor='grab';
+    canvas.addEventListener('pointerdown',function(e){state.dragging=true;state.lastX=e.clientX;state.lastY=e.clientY;canvas.style.cursor='grabbing';});
+    window.addEventListener('pointerup',function(){state.dragging=false;canvas.style.cursor='grab';});
+    window.addEventListener('pointermove',function(e){
+      if(!state.dragging) return;
+      var dx=e.clientX-state.lastX, dy=e.clientY-state.lastY;
+      state.lastX=e.clientX; state.lastY=e.clientY;
+      group.rotation.y += dx*0.01;
+      group.rotation.x += dy*0.01;
+    });
+    return {scene:scene,camera:camera,renderer:renderer,group:group,state:state,canvas:canvas,height:height};
+  }
+
+  var msS = setupScene('c3dMS', 220);
+  msS.camera.position.set(6,4,8); msS.camera.lookAt(0,0,0);
+  var n=60, sig=[];
+  for (var i=0;i<n;i++){
+    var v = Math.sin(i/6)*1.2 + (Math.random()-0.5)*0.5;
+    if (i===22) v += 2.6;
+    if (i===45) v -= 2.4;
+    sig.push(v);
+  }
+  var mean = sig.reduce(function(a,b){return a+b;},0)/n;
+  var std = Math.sqrt(sig.reduce(function(a,b){return a+(b-mean)*(b-mean);},0)/n);
+  var tubeGeo = new THREE.CylinderGeometry(2*std, 2*std, 6.4, 24, 1, true);
+  tubeGeo.rotateZ(Math.PI/2);
+  var tube = new THREE.Mesh(tubeGeo, new THREE.MeshBasicMaterial({color:0x2a78d6, transparent:true, opacity:0.18, side:THREE.DoubleSide}));
+  tube.position.y = mean;
+  msS.group.add(tube);
+  var msPts = sig.map(function(v,idx){ return new THREE.Vector3((idx/n)*6-3, v, 0); });
+  msS.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(msPts), new THREE.LineBasicMaterial({color:0x185FA5})));
+  sig.forEach(function(v,idx){
+    if (v>mean+2*std || v<mean-2*std){
+      var sph = new THREE.Mesh(new THREE.SphereGeometry(0.12,12,12), new THREE.MeshBasicMaterial({color:0xe34948}));
+      sph.position.set((idx/n)*6-3, v, 0);
+      msS.group.add(sph);
+    }
+  });
+
+  var gS = setupScene('c3dG', 220);
+  gS.camera.position.set(4,3,5); gS.camera.lookAt(0,0,0);
+  gS.group.add(new THREE.Mesh(new THREE.SphereGeometry(2,24,16), new THREE.MeshBasicMaterial({color:0x1baf7a, wireframe:true, transparent:true, opacity:0.5})));
+  function spherePoint(theta,phi){ return new THREE.Vector3(2*Math.sin(phi)*Math.cos(theta), 2*Math.cos(phi), 2*Math.sin(phi)*Math.sin(theta)); }
+  var p1 = spherePoint(0.2,1.2), p2 = spherePoint(0.6,1.2);
+  [p1,p2].forEach(function(p){
+    var dot = new THREE.Mesh(new THREE.SphereGeometry(0.09,10,10), new THREE.MeshBasicMaterial({color:0x0b0b0b}));
+    dot.position.copy(p);
+    gS.group.add(dot);
+  });
+  [[p1],[p2]].forEach(function(arr){
+    var p = arr[0]; var nDir = p.clone().normalize();
+    var end = p.clone().add(nDir.multiplyScalar(1.1));
+    gS.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([p,end]), new THREE.LineBasicMaterial({color:0x6250d6})));
+  });
+  gS.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([p1,p2]), new THREE.LineBasicMaterial({color:0xeb6834})));
+
+  var kS = setupScene('c3dK', 220);
+  kS.camera.position.set(5,4,7); kS.camera.lookAt(0,0,0);
+  var steps=200, turns=4, kPts1=[], kPts2=[];
+  for (var s=0;s<=steps;s++){
+    var frac = s/steps;
+    var x = frac*6-3;
+    var t1 = 2*Math.PI*turns*frac;
+    var t2 = 2*Math.PI*turns*frac*0.8 + 1.2;
+    kPts1.push(new THREE.Vector3(x, Math.cos(t1), Math.sin(t1)));
+    kPts2.push(new THREE.Vector3(x, Math.cos(t2)*1.6, Math.sin(t2)*1.6));
+  }
+  kS.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(kPts1), new THREE.LineBasicMaterial({color:0x2a78d6})));
+  kS.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(kPts2), new THREE.LineBasicMaterial({color:0x6250d6})));
+
+  var metaS = setupScene('c3dMeta', 220);
+  metaS.camera.position.set(10,6,12); metaS.camera.lookAt(0,0,0);
+  var mOffsets=[-4.5,-1.5,1.5,4.5];
+  var mColors=[0x2a78d6,0xeb6834,0x1baf7a,0xeda100];
+  var mFuncs=[
+    function(frac){ return 0.3+Math.sqrt(frac*40)*0.35; },
+    function(frac){ return 1.2+Math.sin(frac*40/5)*0.5; },
+    function(frac){ return 2.2*Math.exp(-frac*40/25); },
+    function(frac){ return 0.2+2/(1+Math.exp(-(frac*40-20)/4)); }
+  ];
+  mFuncs.forEach(function(fn,idx){
+    var pts=[], mSteps=150, mTurns=5;
+    for (var s2=0;s2<=mSteps;s2++){
+      var frac2 = s2/mSteps;
+      var r = fn(frac2);
+      var t = 2*Math.PI*mTurns*frac2;
+      var y = -2.5+frac2*5;
+      pts.push(new THREE.Vector3(mOffsets[idx]+r*Math.cos(t), y, r*Math.sin(t)));
+    }
+    metaS.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({color:mColors[idx]})));
+  });
+
+  var allScenes = [msS,gS,kS,metaS];
+  function animate(){
+    requestAnimationFrame(animate);
+    allScenes.forEach(function(sc){
+      if (!sc.state.dragging) sc.group.rotation.y += 0.004;
+      sc.renderer.render(sc.scene, sc.camera);
+    });
+  }
+  animate();
+
+  window.addEventListener('resize', function(){
+    allScenes.forEach(function(sc){
+      var w = sc.canvas.parentElement.clientWidth || 300;
+      sc.camera.aspect = w/sc.height;
+      sc.camera.updateProjectionMatrix();
+      sc.renderer.setSize(w, sc.height);
+    });
+  });
+})();
+</script>
+</body>
+</html>
