@@ -49,6 +49,22 @@ operatorów zamiast jednej wielkości).
 
 ![Cztery gałęzie TIMDR](docs/diagrams/galezie.svg)
 
+> **Struktura repozytorium (2026-09-14):** cztery gałęzie formalne
+> (Math/Geometry/Modal/Time), wcześniej osobnymi repozytoriami, zostały
+> scalone tutaj jako podkatalogi przez `git subtree` — **z zachowaniem
+> pełnej historii commitów** każdej z nich (widoczna w `git log` jako
+> drugi rodzic commitu scalającego). GIA-TIMDR jest odtąd jedynym
+> repozytorium formalnym tego ekosystemu:
+>
+> - [`TIMDR-Math-Formalism/`](TIMDR-Math-Formalism) — gałąź sygnałowa (M/S), pipeline testujący numerologię, Chronosignal
+> - [`TIMDR-Geometry-Formalism/`](TIMDR-Geometry-Formalism) — gałąź geometryczna (G), dyskretny operator Weingartena
+> - [`TIMDR-Modal-Formalism/`](TIMDR-Modal-Formalism) — gałąź modalna (K), rezonans fazowy
+> - [`TIMDR-Time-Formalism/`](TIMDR-Time-Formalism) — Chronoproces Ξ, most między gałęziami
+>
+> Poniższy opis odnosi się do tych samych czterech gałęzi merytorycznie
+> — zmieniła się tylko fizyczna granica repozytoriów, nie treść czy
+> niezależność matematyczna gałęzi.
+
 > **Adnotacja:** poniższe jest streszczeniem. Pełna, formalna
 > specyfikacja czterech gałęzi (obiekty, operatory, aksjomaty, pliki
 > źródłowe, jawne "czym NIE jest" per gałąź, jedna tabela porównawcza)
