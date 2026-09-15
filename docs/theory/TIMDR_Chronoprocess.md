@@ -120,6 +120,16 @@ spełniona). Pełne wyprowadzenie w nagłówku pliku źródłowego.
 
 **Kod:** `TIMDR-Time-Formalism/timdr_time/fourier_bridge.py`.
 
+**Zakres jawnie ograniczony (dopisane po eksploracji 2026-09-15):**
+`Δt·Δf=1/(4π)` jest dokładne tylko dla pojedynczego, idealnego impulsu
+gaussowskiego. Na trzech realnych domenach (sejsmika, wibracje łożysk,
+finanse) zdarzenia wycięte z `anomalia_flags()` dały rozjechany,
+niestabilny rozkład tego iloczynu, nawet po filtrze kształtu — most
+Fouriera NIE jest ogólnym narzędziem diagnostycznym dla dowolnych
+zdarzeń M/S↔K. Pełny wynik:
+`TIMDR-Time-Formalism/docs/RESULT_FOURIER_BRIDGE_SCOPE.md`; zakres
+formalny dopisany w `Axioms_K_TIMDR.md` i `Axioms_S_TIMDR_Signal.md`.
+
 ## 6. Status uczciwie
 
 | Element | Repo | Wykonanie |

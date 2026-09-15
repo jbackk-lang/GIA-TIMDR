@@ -316,6 +316,23 @@ istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
   korelacji skrętu z przejściem przez punkt krytyczny — to jedyny punkt
   w całym ekosystemie TIMDR wymagający nowych badań empirycznych, nie
   formalizacji istniejącego kodu (patrz Resonance_M §5).
+- **Most Fouriera M/S↔K — zakres jawnie ograniczony.** Most Fouriera
+  (`Δt·Δf=1/(4π)`, `TIMDR-Time-Formalism/timdr_time/fourier_bridge.py`,
+  omówiony w `TIMDR_Chronoprocess.md` §5) jest MATEMATYCZNIE dokładny
+  wyłącznie dla pojedynczego, idealnego impulsu gaussowskiego —
+  potwierdzone 10/10 pytest. NIE jest to ogólna reguła dla dowolnego
+  zdarzenia M/S↔K wyciętego progiem anomalii (`𝔸_i`, Aksjomat 2
+  powyżej) z realnego szeregu czasowego: eksploracja pre-rejestrowana
+  (`TIMDR-Time-Formalism/docs/PREREG_MS_K_EVENTS.md` i
+  `RESULT_FOURIER_BRIDGE_SCOPE.md`) na trzech realnych domenach
+  (sejsmika, wibracje łożysk, finanse) dała rozjechany, niestabilny
+  rozkład `Δt·Δf` nawet po filtrze odsiewającym zdarzenia
+  nie-impulsowe kształtem — łożyska i finanse nie produkują nawet
+  jednego zdarzenia choćby z grubsza impulsowego. Most Fouriera
+  obowiązuje więc na poziomie pojedynczego modu (definicja
+  matematyczna, budowa testów syntetycznych, ograniczenie w Aksjomatach
+  K — patrz `Axioms_K_TIMDR.md`), nie jako operator diagnostyczny nad
+  operatorem anomalii `𝔸_i` z tego dokumentu.
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (równoległy zestaw,
 domena modalna), [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md)

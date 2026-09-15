@@ -140,4 +140,36 @@ R_{k+1} = F(R_k)
 \bigcap_{k=1}^{n} R_k \neq \varnothing
 \]
 
+---
+
+## Zakres mostu Fouriera M/S↔K (dopisek, nie nowy aksjomat)
+
+Most Fouriera (`Δt·Δf=1/(4π)`,
+`TIMDR-Time-Formalism/timdr_time/fourier_bridge.py`, opisany w
+`TIMDR_Chronoprocess.md` §5) tworzy modalności `(f,φ,A)` z sygnału
+`x(t)` przez FFT — to jedyny wyjątek od zasady zerowej identyfikacji
+między gałęziami TIMDR. Jego zakres jest jawnie ograniczony: równość
+`Δt·Δf=1/(4π)` jest MATEMATYCZNIE dokładna tylko dla pojedynczego,
+idealnego impulsu gaussowskiego (potwierdzone 10/10 pytest w
+`tests/test_fourier_bridge.py`).
+
+To NIE jest globalna reguła dla dowolnego zdarzenia M/S↔K. Pre-
+rejestrowana eksploracja
+(`TIMDR-Time-Formalism/docs/PREREG_MS_K_EVENTS.md` i
+`RESULT_FOURIER_BRIDGE_SCOPE.md`) na oknach wyciętych wokół zdarzeń
+`anomalia_flags()` (Aksjomat S2, `Axioms_S_TIMDR_Signal.md`) z trzech
+realnych domen — sejsmika, wibracje łożysk, finanse — dała rozjechany,
+niestabilny rozkład `Δt·Δf` (odchylenie standardowe `ratio` o rząd do
+dwóch rzędów wielkości szersze niż na sygnale syntetycznym), nawet po
+dodaniu filtru odsiewającego zdarzenia nie-impulsowe kształtem;
+wibracje łożysk i finanse nie wyprodukowały ani jednego zdarzenia
+choćby z grubsza impulsowego.
+
+**Wniosek**: most Fouriera obowiązuje na poziomie pojedynczego,
+idealnego modu — jako definicja matematyczna i budulec testów
+syntetycznych — nie jako operator diagnostyczny nad dowolnymi realnymi
+zdarzeniami M/S. Rozszerzenie na dowolne zdarzenia realne (a stąd
+dalej — na `Im(λ)` bloku `K_{M/S↔K}` z GS-Matrix jako model
+predykcyjny dyspersji) pozostaje otwartym, świadomie odłożonym future
+work, nie ustalonym wynikiem.
 
