@@ -1,10 +1,10 @@
 # TIMDR signal framework (GIA-TIMDR core) — uproszczony skrót
 
-> Uproszczona wersja skilla `timdr-signal-framework` (kopia treści z konta Claude), zawężona do własnej teorii/formalizmu/sygnałów GIA-TIMDR. Pełna, cross-repo wersja skilla (audyty, case-studies z sejsmiki, radaru, bezpieczeństwa, kosmologii, EV/battery/industrial, Quantum-Lattice, Synoptyk-v3 itd.) istnieje osobno i NIE jest tu duplikowana. Stan: 2026-09-15.
+> Uproszczona wersja skilla `timdr-signal-framework` (kopia treści z konta Claude), zawężona do własnej teorii/formalizmu/sygnałów GIA-TIMDR. Pełna, cross-repo wersja skilla (audyty, case-studies z sejsmiki, radaru, bezpieczeństwa, kosmologii, EV/battery/industrial, Quantum-Lattice, Synoptyk-v3 itd.) istnieje osobno i NIE jest tu duplikowana. Stan: 2026-09-16.
 
 ## 1. Co to w ogóle jest?
 
-Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), CZTERY gałęzie (M/S, G, K, i od 2026-09-10 formalnie META-DYNAMICS Λ-τ-ρ-J jako rodzina operatorów agregatowych, analogicznie do rodziny krzywizn w Geometry Formalism), Chronoproces spinający M/S/G/K bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, poprawiony GS-Matrix i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12), zakres empiryczny mostu Fouriera ustalony na realnych danych i nowa, jawnie eksploracyjna konstrukcja sprzężenia helikalnego K↔Θ_bif (2026-09-15), i jeden jawnie oznaczony dokument spekulacyjny.
+Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), CZTERY gałęzie (M/S, G, K, i od 2026-09-10 formalnie META-DYNAMICS Λ-τ-ρ-J jako rodzina operatorów agregatowych, analogicznie do rodziny krzywizn w Geometry Formalism), Chronoproces spinający M/S/G/K bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, poprawiony GS-Matrix i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12), zakres empiryczny mostu Fouriera ustalony na realnych danych i nowa, jawnie eksploracyjna konstrukcja sprzężenia helikalnego K↔Θ_bif (2026-09-15), i most M/S↔topologia/K przetestowany na 3 realnych domenach z silnym, częściowo scharakteryzowanym sygnałem na łożyskach (2026-09-15/16, punkt 19).
 
 ## 2. Cztery sygnały TIMDR (M/S)
 
@@ -88,6 +88,13 @@ pojedynczego, idealnego modu; nowa, jawnie eksploracyjna konstrukcja
 łącząca GS-Matrix z Θ_bif, z częściowo działającym (binarnym) i
 częściowo nie (ilościowym) estymatorem.
 
+**Rozszerzenie 2026-09-15/16: most M/S↔topologia/K** — patrz punkt 19
+dla pełnego opisu; skrótowo: pięć metryk skalarnych odrzuconych na
+syntetyce (1/50), ale silny (łożyska 82%) i częściowo scharakteryzowany
+(korelacja+homogeniczność+odróżnienie od kurtozy/entropii widmowej)
+sygnał na realnych danych, niespójny/słaby na dwóch innych domenach
+(sejsmika, BTC).
+
 ## 5. Cztery gałęzie TIMDR (i rozdzielenie znaczeń)
 
 - **M/S** — sygnały czasowe (anomalia/defekt/rezonans M/skręt sygnałowy), `Axioms_S_TIMDR_Signal.md`, 13 aksjomatów.
@@ -109,7 +116,9 @@ helikalne K↔Θ_bif (punkt 18, 2026-09-15) jest nową konstrukcją
 ROZSZERZAJĄCĄ ten sam toy-model — też świadomie nieaksjomatyzowana, też
 nie jest szóstą gałęzią, i pozostaje tam mimo częściowo pozytywnego
 wyniku (w odróżnieniu od mostu Fouriera, który miał gotową matematykę
-przed jakąkolwiek sesją).
+przed jakąkolwiek sesją). Most M/S↔topologia/K (punkt 19) tym bardziej
+— pięć konkurencyjnych, świadomie nieaksjomatyzowanych konstrukcji, nie
+szósta gałąź, mimo silnego wyniku na łożyskach.
 Żadna gałąź nie jest rozszerzeniem innej — każda ma własny obiekt/operator,
 mimo współdzielonych nazw.
 
@@ -171,8 +180,8 @@ z realnymi danymi (sejsmika Ridgecrest 2019, CI.CLC/CI.RIO).
 Piąte znaczenie skrętu: torsja Freneta-Serreta trójwęzła (odróżniona od
 skrętu topologicznego τ mimo wspólnego symbolu). Czwarte znaczenie
 rezonansu: pierścień N≥3 tłumionych oscylatorów sprzężonych węzłami
-krzywej 3D, warunek stabilności jako predykat algebraiczny
-(dodatnia określoność M/K/Γ ⟹ brak bieguna na osi rzeczywistej —
+krzywej 3D, warunek stabilności jako predykat algebraiczny (dodatnia
+określoność M/K/Γ ⟹ brak bieguna na osi rzeczywistej —
 `core/geometric_resonance_operator.py::is_stable()`). Uogólniony z
 prototypu N=3 (tylko 1 z 6 funkcji zakładała N=3) i zweryfikowany
 niezależnie teorią macierzy cyrkulantowych (N=3,4,5,6,8). Wsteczna
@@ -360,6 +369,9 @@ Pozostałe komórki (ρ/J w G/K, cała kolumna TRM) jawnie NIEZBUDOWANE.
 - **Estymator parametrów układu dynamicznego z JEDNEJ obserwacji skalarnej przez lokalne różnicowanie (lub DMD/log-propagator) jest z natury wzmacniaczem szumu — jeśli reżim ma DWIE różne rzeczywiste stałe czasowe, trajektoria embeddingu opóźniającego kolabuje asymptotycznie na 1D (dominujący mod przytłacza drugi), więc macierz regresji jest niemal osobliwa NIEZALEŻNIE od poziomu szumu (sprawdzaj `cond()` regresji jako wskaźnik, nie tylko końcowy wynik) — dopasowanie ZNANEGO KSZTAŁTU rozwiązania do CAŁEGO okna (nieliniowe najmniejsze kwadraty, nie różnicowanie próbka-po-próbce) jest dużo odporniejsze, bo używa globalnej struktury zamiast lokalnych różnic (punkt 18).**
 - **Formalny test z większą próbą (N=30) i losowanymi warunkami początkowymi/nuisance-parametrami może ujawnić, że wstępna eksploracja z małą próbą (6-10 powtórzeń) i JEDNYM stałym warunkiem początkowym była częściowo artefaktem tego wygodnego przypadku — nie zakładaj, że mała, obiecująca eksploracja uogólnia się bez formalnego, większego powtórzenia z losowanymi nuisance-parametrami PRZED zapisaniem wyniku jako "działa" (punkt 18).**
 - **Wynik estymatora/testu może być ASYMETRYCZNY między dwoma powiązanymi wielkościami (tu: `Im(λ)` solidnie odzyskiwane, `Re(λ)` nie) — nie uśredniaj/zaokrąglaj tego do jednego zdania "działa"/"nie działa"; zawęź zakres stosowalności do TEJ CZĘŚCI, która faktycznie przeszła test (tu: binarna klasyfikacja obecności rotacji, nie wartość liczbowa) — wzorem tego, jak most Fouriera został zawężony do pojedynczego modu zamiast odrzucony w całości (punkt 18).**
+- **Region pozytywny testu (kontrola pozytywna vs tło) musi być JEDNORODNY w czasie/strukturze — region mieszający różne stany (np. impuls + zanikanie, albo losowo domieszkowany innym reżimem) systematycznie osłabia/zaburza rozmiar efektu; to jest generyczna własność testu Manna-Whitneya (rozcieńczenie próby), nie odkrycie specyficzne dla geometrii — traktuj jako REGUŁĘ PROTOKOŁU (obok reguł punktu 3), zweryfikowaną w kontrolowany sposób (ta sama domena, sztucznie regulowany stopień zanieczyszczenia) zanim uznasz ją za przyczynową, nie tylko skorelowaną z dwoma przykładami (punkt 19).**
+- **Dwie metryki o PODOBNEJ mocy klasyfikacyjnej (podobny odsetek `passed` w tej samej siatce testów) NIE muszą mierzyć tego samego zjawiska — sprawdź korelację (Spearmana) WPROST na tych samych próbkach przed uznaniem jednej za "przemalowaną" wersję drugiej lub za dowód, że nowa metryka nie wnosi nic ponad znaną klasyczną cechę; podobna moc + brak korelacji = dwa niezależne źródła sygnału o tym samym zjawisku, nie redundancja (punkt 19).**
+- **Nazwa/promocja nowego obiektu matematycznego lub aksjomatu na podstawie n=2 przykładów (dwie domeny, jedna zadziałała, jedna gorzej) jest przedwczesna — zanim sformalizujesz, odizoluj podejrzewaną zmienną przyczynową W JEDNEJ domenie (kontrolowany eksperyment), i sprawdź hipotezę na TRZECIEJ, NIEZALEŻNIE wybranej domenie zamiast poprzestać na dwóch (punkt 19, BTC obaliło nadmierne uogólnienie "jednorodność wystarczy" z n=2).**
 
 ## 16. GS-Matrix poprawiony i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12)
 
@@ -541,25 +553,83 @@ eksploracja: **kryterium A (dokładność `Re(λ)`) NIE PRZESZŁO** — błąd
 30% już przy szumie 2%, 99.6% przy szumie 10%; **kryterium B (binarna
 klasyfikacja "czy jest rotacja") PRZESZŁO** — czułość/swoistość 90-100%
 w całym testowanym zakresie szumu. Częściowy sukces, nie zaokrąglony w
-górę. Przyczyna rozbieżności ze wstępną eksploracją: tamta używała
-JEDNEGO stałego warunku początkowego i 6-10 powtórzeń — artefakt
-wygodnego przypadku, złapany dopiero formalnym, większym testem.
+górę.
 
 **Zawężenie zakresu (wzorem punktu 17) i zastosowanie do realnych
 danych**: estymator NIE nadaje się do ilościowych `Re(λ)` na realnych
 danych, nadaje się jako BINARNY detektor obecności rotacji. Zastosowany
-(po naprawie realnej usterki numerycznej — przepełnienie `exp()` bez
-granic parametrów optymalizacji, naprawione granicami + normalizacją
-amplitudy, udokumentowane jako amendment) do tych samych okien co
-punkt 17: sejsmika CLC 0%, RIO 7.4% z rotacją; łożyska normal 50%,
-ball_fault 100%, outer_race 100%. Kierunek fizycznie sensowny (łożyska
-wielocyklowe w oknie → częściej rotacja), ale JAWNIE oznaczone jako
-opisowa obserwacja na małej próbie (N=1-27/domenę), NIE test
-istotności — brak tła/Manna-Whitneya/Bonferroniego.
+do tych samych okien co punkt 17: sejsmika CLC 0%, RIO 7.4% z rotacją;
+łożyska normal 50%, ball_fault 100%, outer_race 100%. Kierunek
+fizycznie sensowny, ale JAWNIE oznaczone jako opisowa obserwacja na
+małej próbie (N=1-27/domenę), NIE test istotności.
 
 **Status**: konstrukcja pozostaje częścią GS-Matrix (eksploracyjny,
-NIEaksjomatyzowany toy-model, punkt 5) — NIE dopisana do `Axioms_*` w
-odróżnieniu od mostu Fouriera, bo (w przeciwieństwie do FFT) to nowa
-konstrukcja zbudowana w tej sesji, bez gotowej matematyki sprzed niej.
+NIEaksjomatyzowany toy-model, punkt 5) — NIE dopisana do `Axioms_*`.
 Streszczenie: `TIMDR-Math-Formalism/docs/theory/
 RESULT_HELICAL_COUPLING_SCOPE.md`.
+
+## 19. Most M/S↔topologia/K: seria syntetyczna odrzucona (1/50), ale REALNE dane dają silny, częściowo scharakteryzowany sygnał (2026-09-15/16)
+
+Pięć kandydatów na skalarną metrykę topologiczną (torsja Freneta-Serreta,
+winding/crossing number po embeddingu opóźniającym, homologia
+perzystentna β₁, winding fazy Hilberta inspirowany OAM fotonu),
+przetestowanych na SYNTETYCZNYM sygnale (2 częstotliwości + szum) przez
+`pipeline.run_controls()` — **1/50 komórek siatki, ta jedna odrzucona
+jako niewiarygodna** (`GIA-TIMDR/docs/geometry/RESULT_TOPOLOGICAL_
+BRIDGE_MS_SCOPE.md`). Cztery z pięciu dzieliły wspólny mechanizm
+(embedding opóźniający: szum ma większą lokalną/globalną złożoność
+geometryczną niż sygnał periodyczny), piąty (winding fazy) zawiódł z
+odrębnego powodu (dominująca częstotliwość maskuje słabszą składową).
+Krótko, bo to ślepa uliczka bez dalszego potencjału w tej postaci —
+pełne szczegóły w RESULT-ach, nie tutaj.
+
+**Zwrot: te same 5 metryk na TRZECH realnych domenach dało jakościowo
+inny, dużo bardziej informacyjny obraz** (`GIA-TIMDR/docs/geometry/
+RESULT_REAL_{BEARING,SEISMIC,BTC}_NOISE_ROBUSTNESS.md` +
+`AUDIT_G_COMPLEXITY_HYPOTHESIS.md`) — realny „pozytyw"/„negatyw"
+zamiast syntetycznych generatorów, ten sam syntetyczny szum addytywny
+dołożony NA WIERZCH:
+
+- **Łożyska CWRU (normal vs 3 typy defektu)**: **123/150 (82%)**.
+  `winding_number`/`crossing_number`/`phase_winding`: 30/30, duży
+  efekt (r≥0,8) utrzymany nawet przy szumie o mocy sygnału (σ=1,0).
+  `torsion`: kierunek ODWRÓCONY względem pozostałych + fałszywy alarm
+  specyficzności — ten sam wzorzec niskiej wiarygodności torsji co w
+  serii syntetycznej, powtórzony na realnych danych.
+- **Trzy tanie kontrole PO wyniku, PRZED nazwaniem czegokolwiek nowym
+  obiektem** (`AUDIT_G_COMPLEXITY_HYPOTHESIS.md`, odpowiedź na
+  propozycję „G-complexity"/nowy aksjomat): (1) korelacja Spearmana
+  między `winding`/`crossing`/`phase_winding` na 96 realnych
+  segmentach: ρ=0,83–0,93 — **to jeden, wspólny sygnał**, nie trzy
+  przypadkowe zbieżności; (2) test homogeniczności regionu
+  pozytywnego W IZOLACJI (ta sama domena, sztucznie zanieczyszczony
+  region pozytywny, `mix_frac=0→0,75`) — monotoniczna degradacja
+  `r: 1,0→0,2`, **potwierdzone empirycznie w kontrolowany sposób**,
+  ale mechanizm to generyczne rozcieńczenie próby w teście
+  Manna-Whitneya (statystyka, nie geometria) — reguła protokołu, NIE
+  aksjomat gałęzi G; (3) dwie klasyczne cechy (kurtoza, entropia
+  widmowa) na tej samej siatce: podobna moc klasyfikacyjna (22/30,
+  27/30 vs 30/30) ale PRAKTYCZNIE BRAK korelacji z naszą trójką
+  (|ρ|<0,25 we wszystkich 6 porównaniach) — **podobna moc ≠ ten sam
+  obiekt**, nasza trójka mierzy coś realnie innego niż oba klasyczne
+  kandydaty.
+- **Sejsmika Ridgecrest (koda vs tło, 2 stacje)**: 47/100 (47%) —
+  kierunek NIESPÓJNY między stacjami (ten sam mainshock!), efekt
+  KRUCHY (znika σ≥0,3-0,5). Zdiagnozowane: region pozytywny (300s
+  kody) jest wewnętrznie NIEJEDNORODNY (nieliczne okna silnego
+  wstrząsu + wiele cichnących okien) — w odróżnieniu od jednorodnego
+  regionu defektu łożyska.
+- **BTC/USD (reżim zmienności, bloki 24h wg mediany std)**: 6/50
+  (12%) — mimo region pozytywny ŚWIADOMIE zaprojektowany jako
+  jednorodny (okna nigdy nie przecinają granicy bloku, lekcja z
+  sejsmiki wprost zastosowana). **Jednorodność okazała się KONIECZNA,
+  ale NIE WYSTARCZAJĄCA** — hipoteza „jednorodność gwarantuje sukces"
+  została tu przetestowana i w dużej mierze obalona na nowej domenie.
+
+**Status**: cała seria (syntetyczna i realna) pozostaje eksploracyjna,
+NIE promowana do `Axioms_G_TIMDR_Geometry.md`. Nazwa „G-complexity"
+dla `winding`/`crossing`/`phase_winding` — PRZEDWCZESNA (tylko 2 z 6
+zaproponowanych alternatyw faktycznie przetestowane jako kontrola
+korelacji). Otwarte, nieodłożone: envelope spectrum/autokorelacja jako
+kolejne klasyczne baseline'y; powtórzenie kontroli korelacji na
+sejsmice/BTC.
