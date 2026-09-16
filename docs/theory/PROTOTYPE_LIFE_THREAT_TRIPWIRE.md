@@ -98,6 +98,40 @@ rozróżnienie jest częścią projektu, nie przeoczeniem.
   (zademonstrowane wyżej); warstwa 2 zależy całkowicie od jakości
   niezmierzonego, niedostarczonego modelu semantycznego.
 
+## Warstwa jezykowa (`translator`) — i dlaczego NIE zapożyczona z TIMDR-Security-Module
+
+Użytkownik zapytał, czy dałoby się wykorzystać "lepszy filtr, logikę" z
+istniejącego `TIMDR-Security-Module` (zabezpieczenie sieci: `twist()`,
+`anomaly_score()`, `TIMDRSecurityTrigger`) oraz zasugerował dodanie
+tłumaczenia na inne języki.
+
+**Sprawdzone, nie założone**: `TIMDR-Security-Module` działa na
+**liczbowych** szeregach czasowych (bajty/połączenia/CPU) — to ta sama
+rodzina co `ai_behavior_monitor.py`, nie ta sama rodzina co ten plik
+(klasyfikacja **treści** języka naturalnego). Jego wewnętrzna matematyka
+(odporny z-score leave-one-out, normalizacja mediana/MAD) nie ma
+zastosowania do dopasowywania wzorców w tekście — inny typ danych, nie da
+się zapożyczyć jeden-do-jednego. Co **jest** faktycznie przeniesione, to
+sam **wzorzec architektoniczny**: `TIMDRSecurityTrigger` jest "cienkim
+dispatcherem NAD" istniejącymi detektorami, który pyta każdy z nich i mówi,
+który sygnał odpalił się pierwszy — dokładnie to samo już robi
+`check_text()` (regex + `semantic_judge`, logiczny OR).
+
+Zgodnie z tym samym wzorcem dodano trzeci, opcjonalny hak: `translator:
+Callable[[str], str]`. Tekst jest tłumaczony (jeśli hak podany) na PL/EN
+**przed** warstwą regex, a wynik na oryginale i na tłumaczeniu są
+połączone logicznym OR (żeby błąd tłumaczenia nie zamaskował trafienia,
+które regex złapałby wprost na oryginale). `semantic_judge` dostaje zawsze
+oryginalny tekst — dobry model językowy rozumie wiele języków natywnie,
+nie potrzebuje pośrednika.
+
+**To samo uczciwe zastrzeżenie co dla `semantic_judge`**: `translator` nie
+ma tu dostarczonej realnej implementacji (brak API tłumaczenia w tym
+sandboxie). Demo w kodzie (`_stub_translator`) to twardo zakodowany
+słownik JEDNEGO zdania francuskiego — pokazuje mechanikę integracji
+(zdanie po francusku, przeoczone bez `translator`, złapane z atrapą), nie
+zmierzoną skuteczność żadnego prawdziwego tłumacza.
+
 ## Status
 
 Koncepcyjny prototyp. Warstwa 1 działa i przetestowana na garstce
@@ -111,12 +145,12 @@ inżynieryjnego (content tripwire + hard stop), nie nowa matematyka.
 
 ## Warunki przed użyciem na realnym systemie
 
-1. Realna implementacja `semantic_judge` (konkretny model, konkretny
-   prompt/interfejs).
+1. Realna implementacja `semantic_judge` i `translator` (konkretny model,
+   konkretny prompt/interfejs, konkretna usługa tłumaczenia).
 2. Realne dane kalibracyjne: zróżnicowany zbiór prawdziwych zagrożeń
    (pozytywna kontrola) i prawdziwie bezpiecznego tekstu obejmującego
    fikcję/cytaty/dyskusje kliniczne w wielu językach (negatywna kontrola) —
-   zmierzona czułość/swoistość obu warstw osobno i razem.
+   zmierzona czułość/swoistość wszystkich trzech warstw osobno i razem.
 3. Jawna procedura obsługi `LifeThreatHalt` na produkcji (kto przegląda,
    jak wygląda wznowienie, jak ograniczone jest ryzyko odmowy usługi przy
    znanych wzorcach wyzwalających).

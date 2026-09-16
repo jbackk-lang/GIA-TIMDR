@@ -84,6 +84,43 @@ danych kontrolnych (znane prawdziwe zagrozenia + znany bezpieczny tekst
 w wielu jezykach/stylach) bylby dokladnie tym bledem, przed ktorym
 ostrzega `calibrate_resonance_K` w drugim module: nie wolno rekomendowac
 progu/wlaczyc mechanizmu na produkcji bez sprawdzonej mocy testu.
+
+===========================================================================
+DOPISEK 2 (2026-09-16): WARSTWA JEZYKOWA -- I DLACZEGO NIE ZAPOZYCZONA
+Z TIMDR-Security-Module
+===========================================================================
+Uzytkownik zapytal, czy da sie wykorzystac "lepszy filtr, logike" z juz
+istniejacego `TIMDR-Security-Module` (zabezpieczenie sieci: `twist()`,
+`anomaly_score()`, `trend()`, `TIMDRSecurityTrigger`) oraz zasugerowal
+dodanie tlumaczenia na inne jezyki.
+
+SPRAWDZONE (nie zalozone): `TIMDR-Security-Module` dziala na LICZBOWYCH
+szeregach czasowych (`[bytes_in, bytes_out, connections, t]` albo
+`[cpu_pct, mem_pct, load_avg, t]`) -- to DOKLADNIE ta sama rodzina co
+`ai_behavior_monitor.py` w tym repo (statystyczna detekcja anomalii w
+danych liczbowych), NIE ta sama rodzina co ten plik (klasyfikacja TRESCI
+jezyka naturalnego). Jego wewnetrzna matematyka (odporny z-score
+leave-one-out, normalizacja mediana/MAD, autokorelacja rytmu) NIE ma
+zastosowania do dopasowywania wzorcow w tekscie -- to rozne typy danych,
+nie da sie tego zapozyczyc jeden-do-jednego bez oszukiwania samego siebie.
+
+Co JEST faktycznie przeniesione (wzorzec architektoniczny, nie kod):
+`TIMDRSecurityTrigger` to "cienki dispatcher NAD" istniejacymi detektorami,
+ktory "nie liczy zadnej statystyki", tylko pyta kazdy z nich i mowi, KTORY
+sygnal odpalil sie pierwszy -- dokladnie ten sam wzorzec, ktory `check_text()`
+juz realizuje w DOPISKU 1 wyzej (warstwa regex + warstwa semantic_judge,
+logiczny OR, kazda MOZE wywolac HALT niezaleznie).
+
+Warstwa jezykowa ponizej (`translator`) jest zbudowana analogicznie do
+`semantic_judge`: opcjonalny hak (`Callable[[str], str]`), BEZ realnej
+implementacji dostarczonej w tym repo (brak dostepu do API tlumaczenia w
+tym sandboxie) -- tylko punkt integracji, zademonstrowany na atrapie.
+Zamiast duplikowac listy slow-kluczy w N jezykach (co i tak nigdy nie
+byloby wyczerpujace), tekst jest NAJPIERW tlumaczony (jesli hak podany) na
+jezyk, w ktorym dziala warstwa regex (PL/EN), POTEM sprawdzany -- wynik na
+oryginale i na tlumaczeniu sa polaczone logicznym OR, zeby blad/utrata
+niuansu w tlumaczeniu nie zamaskowal trafienia, ktore regex zlapalby na
+oryginale wprost.
 ===========================================================================
 """
 from __future__ import annotations
@@ -172,35 +209,56 @@ def _pattern_check(text: str) -> Optional[TripwireResult]:
 
 
 def check_text(
-    text: str, semantic_judge: Optional[Callable[[str], bool]] = None
+    text: str,
+    semantic_judge: Optional[Callable[[str], bool]] = None,
+    translator: Optional[Callable[[str], str]] = None,
 ) -> TripwireResult:
-    """Dwuwarstwowe sprawdzenie (patrz DOPISEK w naglowku modulu):
+    """Trzywarstwowe sprawdzenie (patrz DOPISEK 1 i DOPISEK 2 w naglowku
+    modulu):
 
     Warstwa 1 (regex, zawsze wlaczona) -- deterministyczna, auditowalna,
     dziala bez zadnych zaleznosci zewnetrznych, ale slepa na parafraze/
-    inny jezyk/obejscia slowne.
+    inny jezyk/obejscia slowne. Uruchamiana zarowno na oryginalnym tekscie,
+    JAK I (jesli `translator` podany) na jego tlumaczeniu -- logiczny OR,
+    zeby ewentualny blad tlumaczenia nie zamaskowal trafienia, ktore regex
+    zlapalby wprost na oryginale.
 
-    Warstwa 2 (`semantic_judge`, OPCJONALNA, wstrzykiwana przez
-    wywolujacego) -- prawdziwe zrozumienie tresci (np. model jezykowy z
-    pytaniem "czy ten tekst swiadomie i jednoznacznie grozi czyjemus
-    zyciu?"). Jesli podana, dziala ROWNOLEGLE z regexem: kazda warstwa
-    MOZE SAMODZIELNIE wywolac triggered=True (logiczny OR, nie AND --
-    regex nie moze zawetowac trafienia semantycznego ani odwrotnie).
+    Warstwa 2 (`semantic_judge`, OPCJONALNA) -- prawdziwe zrozumienie
+    tresci (np. model jezykowy z pytaniem "czy ten tekst swiadomie i
+    jednoznacznie grozi czyjemus zyciu?"), dostaje ZAWSZE oryginalny tekst
+    (dobry model jezykowy rozumie wiele jezykow natywnie -- nie potrzebuje
+    warstwy tlumaczenia tak jak regex).
 
-    W tym repo `semantic_judge` NIE ma dostarczonej realnej implementacji
-    (brak dostepu do modelu/API w tym sandboxie) -- jej realna
-    czulosc/swoistosc jest NIEZMIERZONA. Podanie tu funkcji bez uprzedniej
-    kalibracji na realnych kontrolach pozytywnej/negatywnej byloby
-    dokladnie tym bledem, przed ktorym ostrzega reszta tego ekosystemu
-    (`calibrate_resonance_K`): nie rekomenduj/wlaczaj progu bez sprawdzonej
-    mocy testu."""
+    Wszystkie trzy zrodla dzialaja ROWNOLEGLE: kazde MOZE SAMODZIELNIE
+    wywolac triggered=True (logiczny OR, zadne nie wetuje pozostalych).
+
+    W tym repo ANI `semantic_judge`, ANI `translator` NIE maja dostarczonej
+    realnej implementacji (brak dostepu do modelu/API tlumaczenia w tym
+    sandboxie) -- ich realna czulosc/swoistosc jest NIEZMIERZONA. Podanie
+    tu funkcji bez uprzedniej kalibracji na realnych kontrolach
+    pozytywnej/negatywnej (w wielu jezykach) byloby dokladnie tym bledem,
+    przed ktorym ostrzega reszta tego ekosystemu (`calibrate_resonance_K`):
+    nie rekomenduj/wlaczaj progu bez sprawdzonej mocy testu."""
     pattern_result = _pattern_check(text)
+
+    translated_text = None
+    if pattern_result is None and translator is not None:
+        translated_text = translator(text)
+        translated_result = _pattern_check(translated_text)
+        if translated_result is not None:
+            translated_result.source = "pattern_translated"
+            translated_result.reason = (
+                f"[warstwa regex, PO TLUMACZENIU z oryginalu {text[:80]!r}] "
+                + translated_result.reason
+            )
+            pattern_result = translated_result
+
     semantic_triggered = False
     if semantic_judge is not None:
         semantic_triggered = bool(semantic_judge(text))
 
     if pattern_result is not None and semantic_triggered:
-        pattern_result.source = "pattern+semantic"
+        pattern_result.source = f"{pattern_result.source}+semantic"
         pattern_result.reason += " [warstwa semantyczna: TAKZE zaklasyfikowala jako zagrozenie]"
         return pattern_result
     if pattern_result is not None:
@@ -215,17 +273,21 @@ def check_text(
         )
     return TripwireResult(
         triggered=False,
-        reason="Brak trafienia w warstwie regex i (jesli podana) w warstwie semantycznej.",
+        reason="Brak trafienia w warstwie regex (oryginal i tlumaczenie, jesli podane) i w warstwie semantycznej.",
     )
 
 
-def enforce(text: str, semantic_judge: Optional[Callable[[str], bool]] = None) -> None:
+def enforce(
+    text: str,
+    semantic_judge: Optional[Callable[[str], bool]] = None,
+    translator: Optional[Callable[[str], str]] = None,
+) -> None:
     """Wywolaj to w miejscu, gdzie ma nastapic 'ogolny paraliz' --
     podnosi LifeThreatHalt (przerywa normalny przeplyw), NIE zwraca
     cicho wartosci logicznej. Wywolujacy MUSI go zlapac i podjac
     swiadoma decyzje (eskalacja do czlowieka, log, zatrzymanie pipeline'u
     -- NIE cichy autonomiczny restart)."""
-    result = check_text(text, semantic_judge=semantic_judge)
+    result = check_text(text, semantic_judge=semantic_judge, translator=translator)
     if result.triggered:
         raise LifeThreatHalt(result)
 
@@ -270,6 +332,23 @@ def _stub_semantic_judge(text: str) -> bool:
     return text.strip() == PARAPHRASE_EXAMPLE
 
 
+# Przyklad zagrozenia w jezyku spoza PL/EN, ktorego regex (listy tylko
+# PL/EN) z definicji nie zlapie bez warstwy tlumaczenia.
+FOREIGN_LANGUAGE_EXAMPLE = "Je vais le tuer ce soir, j'ai déjà le couteau."  # FR
+
+
+def _stub_translator(text: str) -> str:
+    """ATRAPA (stub), NIE prawdziwe tlumaczenie -- slownik JEDNEGO znanego
+    zdania FR->EN, wylacznie zeby pokazac punkt integracji `translator`
+    dzialajacy end-to-end. Realny caller podpiac tu powinien prawdziwa
+    usluge tlumaczenia (i, tak jak semantic_judge, NIE wlaczac jej na
+    produkcji bez kalibracji na realnych wielojezycznych kontrolach)."""
+    known = {
+        FOREIGN_LANGUAGE_EXAMPLE: "I am going to kill him tonight, I already have the knife.",
+    }
+    return known.get(text.strip(), text)
+
+
 def run_illustrative_eval() -> str:
     lines = ["=== WARSTWA 1 (regex) SAMA -- PRZYKLADY, KTORE POWINNY WYZWOLIC ==="]
     for ex in POSITIVE_EXAMPLES:
@@ -288,6 +367,14 @@ def run_illustrative_eval() -> str:
     lines.append(f"  z ATRAPA semantic_judge: [{'TRIGGERED' if r_with_sem.triggered else 'MISSED'}] (source={r_with_sem.source!r})")
     lines.append("  UWAGA: _stub_semantic_judge rozpoznaje TYLKO to jedno zdanie -- to demonstracja")
     lines.append("  punktu integracji, NIE zmierzona skutecznosc realnego modelu.")
+    lines.append("")
+    lines.append("=== DOWOD NA OGRANICZENIE WARSTWY 1: zagrozenie w jezyku spoza PL/EN ===")
+    r_no_tr = check_text(FOREIGN_LANGUAGE_EXAMPLE)
+    lines.append(f"  bez translator: [{'TRIGGERED' if r_no_tr.triggered else 'MISSED (jak przewidziano, regex tylko PL/EN)'}] {FOREIGN_LANGUAGE_EXAMPLE!r}")
+    r_with_tr = check_text(FOREIGN_LANGUAGE_EXAMPLE, translator=_stub_translator)
+    lines.append(f"  z ATRAPA translator: [{'TRIGGERED' if r_with_tr.triggered else 'MISSED'}] (source={r_with_tr.source!r})")
+    lines.append("  UWAGA: _stub_translator zna TYLKO to jedno zdanie (slownik) -- demonstracja")
+    lines.append("  punktu integracji, NIE dzialajace tlumaczenie ogolnego tekstu.")
     return "\n".join(lines)
 
 
@@ -302,5 +389,10 @@ if __name__ == "__main__":
     print("\n=== Demonstracja enforce() / LifeThreatHalt (warstwa 2, atrapa) ===")
     try:
         enforce(PARAPHRASE_EXAMPLE, semantic_judge=_stub_semantic_judge)
+    except LifeThreatHalt as e:
+        print(f"HALT zlapany poprawnie (source={e.result.source!r}): {e}")
+    print("\n=== Demonstracja enforce() / LifeThreatHalt (warstwa jezykowa, atrapa) ===")
+    try:
+        enforce(FOREIGN_LANGUAGE_EXAMPLE, translator=_stub_translator)
     except LifeThreatHalt as e:
         print(f"HALT zlapany poprawnie (source={e.result.source!r}): {e}")
