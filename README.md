@@ -29,6 +29,18 @@ Zakres tego wydania to wyłącznie gałąź sygnałowa (M, S w `docs/theory/`
 + `TIMDR-Math-Formalism`) — nie obejmuje modelu geometrycznego trójkąta
 (sekcje 1-9 poniżej) ani rezonansu modalnego (`Axioms_K_TIMDR.md`).
 
+Pełny przegląd całego ekosystemu (wszystkie cztery gałęzie: M/S, G, K,
+META-DYNAMICS, protokół anty-numerologiczny, most Fouriera, GS-Matrix/
+Θ_bif, most M/S↔topologia/K na trzech realnych domenach) ma osobny,
+angielskojęzyczny preprint na Zenodo:
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22788266.svg)](https://doi.org/10.5281/zenodo.22788266)
+
+> Kielich, J. S. (2026). *TIMDR: A Multi-Branch Formal Framework for
+> Signal, Geometric, Modal, and Aggregate-Dynamics Analysis — An
+> Honest Status Report, Including Negative Results*. Zenodo.
+> https://doi.org/10.5281/zenodo.22788266
+
 ---
 
 ## 🌿 Cztery gałęzie TIMDR — mapa terenu
