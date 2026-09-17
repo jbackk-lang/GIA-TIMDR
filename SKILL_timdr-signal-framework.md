@@ -1,10 +1,10 @@
 # TIMDR signal framework (GIA-TIMDR core) — uproszczony skrót
 
-> Uproszczona wersja skilla `timdr-signal-framework` (kopia treści z konta Claude), zawężona do własnej teorii/formalizmu/sygnałów GIA-TIMDR. Pełna, cross-repo wersja skilla (audyty, case-studies z sejsmiki, radaru, bezpieczeństwa, kosmologii, EV/battery/industrial, Quantum-Lattice, Synoptyk-v3 itd.) istnieje osobno i NIE jest tu duplikowana. Stan: 2026-09-16.
+> Uproszczona wersja skilla `timdr-signal-framework` (kopia treści z konta Claude), zawężona do własnej teorii/formalizmu/sygnałów GIA-TIMDR. Pełna, cross-repo wersja skilla (audyty, case-studies z sejsmiki, radaru, bezpieczeństwa, kosmologii, EV/battery/industrial, Quantum-Lattice, Synoptyk-v3 itd.) istnieje osobno i NIE jest tu duplikowana. Stan: 2026-09-17.
 
 ## 1. Co to w ogóle jest?
 
-Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), CZTERY gałęzie (M/S, G, K, i od 2026-09-10 formalnie META-DYNAMICS Λ-τ-ρ-J jako rodzina operatorów agregatowych, analogicznie do rodziny krzywizn w Geometry Formalism), Chronoproces spinający M/S/G/K bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, poprawiony GS-Matrix i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12), zakres empiryczny mostu Fouriera ustalony na realnych danych i nowa, jawnie eksploracyjna konstrukcja sprzężenia helikalnego K↔Θ_bif (2026-09-15), i most M/S↔topologia/K przetestowany na 3 realnych domenach z silnym, częściowo scharakteryzowanym sygnałem na łożyskach (2026-09-15/16, punkt 19).
+Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), CZTERY gałęzie (M/S, G, K, i od 2026-09-10 formalnie META-DYNAMICS Λ-τ-ρ-J jako rodzina operatorów agregatowych, analogicznie do rodziny krzywizn w Geometry Formalism), Chronoproces spinający M/S/G/K bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, poprawiony GS-Matrix i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12), zakres empiryczny mostu Fouriera ustalony na realnych danych i nowa, jawnie eksploracyjna konstrukcja sprzężenia helikalnego K↔Θ_bif (2026-09-15), i most M/S↔topologia/K przetestowany na 3 realnych domenach z silnym, częściowo scharakteryzowanym sygnałem na łożyskach (2026-09-15/16, punkt 19), oraz siódme, formalnie odrębne znaczenie „skrętu” — widmo Laplasjanu na wstędze Möbiusa, zewnętrzna notatka matematyczna zrecenzowana, poprawiona i zintegrowana z repo, z kandydującym (NIE ustalonym) mostem do gałęzi K i własnym DOI Zenodo (2026-09-17, punkt 20). Tego samego dnia (punkt 21) propozycja rozszerzenia operatora na trzy gałęzie naraz (MöbiusCoherence) została zaflagowana jako łamiąca zasadę nieredukowalności gałęzi i za zgodą użytkownika rozbita na dwa niezależne, jawnie nieustalone kandydaty 2-gałęziowe.
 
 ## 2. Cztery sygnały TIMDR (M/S)
 
@@ -17,15 +17,18 @@ Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologi
 zawsze podawaj który: rezonans ma 4 znaczenia (M sygnałowy, K modalny,
 kierunkowy R(t), G-Rezonans/G5 — punkt 11; plus kanał J w META-DYNAMICS,
 patrz punkt 14, który jest POKREWNY duchem ale formalnie odrębny — 5
-znaczeń licząc J), skręt/τ ma **6** formalnie skonsolidowanych w
+znaczeń licząc J), skręt/τ ma **7** formalnie skonsolidowanych w
 `TIMDR_Twists.md` (sygnałowy, topologiczny τ [Operators_N_TIMDR.md,
 torus→Möbius→tetroida], powierzchniowy, blokowy, Frenet-Serret trójwęzła,
-i **τ dynamiczny TRM** [R=k·τⁿ, `TRM_biology.md`, punkt 13] —
+**τ dynamiczny TRM** [R=k·τⁿ, `TRM_biology.md`, punkt 13] —
 NIEROZSTRZYGNIĘTE, czy to rozszerzenie skrętu topologicznego czy odrębny
-obiekt pod tym samym symbolem) PLUS **τ META-DYNAMICS** (transformacja,
-Λ-τ-ρ-J, punkt 14) — formalnie poza zakresem "skrętu" (nigdy tak nie
-nazywane w kodzie), ale współdzieli symbol τ, więc licz 7 kolizji
-symbolu τ w sumie. Kanoniczna lista: `docs/GLOSSARY_EN_PL.md`,
+obiekt pod tym samym symbolem — i, od 2026-09-17, **widmo Laplasjanu na
+wstędze Möbiusa** [siódme, formalnie odrębne znaczenie: skręt jako
+warunek identyfikacji brzegowej definiujący DZIEDZINĘ operatora
+różniczkowego (nie sam operator) — punkt 20]) PLUS **τ META-DYNAMICS**
+(transformacja, Λ-τ-ρ-J, punkt 14) — formalnie poza zakresem "skrętu"
+(nigdy tak nie nazywane w kodzie), ale współdzieli symbol τ, więc licz 8
+kolizji symbolu τ w sumie. Kanoniczna lista: `docs/GLOSSARY_EN_PL.md`,
 `TIMDR_Twists.md`, `TIMDR_Branch_Specification.md`.
 
 ## 3. Protokół formalizmu (anty-numerologia)
@@ -166,6 +169,8 @@ nieredukowalności gałęzi (łączy wszystkie 3 naraz, bez odpowiednika
 mostu Fouriera) → osobny, jawnie oznaczony `TIMDR_Gravity_Speculative.md`,
 NIE cytowany przez żaden plik `Axioms_*`. Zawiera 4 braki do przejścia
 od analogii do teorii i uczciwe zastrzeżenie "dlaczego to tylko analogia".
+Ten sam wzorzec zastosowany ponownie 2026-09-17 do propozycji
+`MöbiusCoherence(S)` — patrz punkt 21.
 
 ## 10. Domknięcie pętli samokorekty (Axioms_S, Axioms_K)
 
@@ -345,7 +350,7 @@ Pozostałe komórki (ρ/J w G/K, cała kolumna TRM) jawnie NIEZBUDOWANE.
 - Wysokie p jest wartościowym wynikiem negatywnym TYLKO gdy test miał moc (sprawdź, że kontrolne grupy zawierały kwalifikujące się zdarzenia).
 - Luka formalna nazwana w dokumencie = poprawny stan, nie błąd — domykaj w dwóch krokach (analityczny → numeryczny), jawnie oznaczonych.
 - Podstaw KONKRETNY przykład liczbowy pod każde ogólne twierdzenie matematyczne przed publikacją — ręczne "sprawdzone krok po kroku" nie wystarcza.
-- Gdy propozycja łamie zasadę frameworku (np. nieredukowalność gałęzi), nazwij konflikt i zapytaj — nie milcz, nie zgadzaj się automatycznie.
+- Gdy propozycja łamie zasadę frameworku (np. nieredukowalność gałęzi), nazwij konflikt i zapytaj — nie milcz, nie zgadzaj się automatycznie (patrz punkt 9, punkt 21 — ten sam wzorzec zastosowany dwukrotnie).
 - "Poprawne na syntetykach" i "użyteczne na realnych danych" to DWA różne twierdzenia — rozdzielaj zawsze, nawet gdy pierwsze wypada dobrze.
 - Warunek stabilności formalizuj jako predykat algebraiczny, gdy matematyka pozwala — silniejszy i bardziej przenośny niż próg empiryczny.
 - Przed uogólnieniem prototypu sprawdź, ile kodu faktycznie zakładało szczególny przypadek — i zweryfikuj ogólność NIEZALEŻNĄ teorią, nie kolejnymi testami tego samego typu.
@@ -372,6 +377,8 @@ Pozostałe komórki (ρ/J w G/K, cała kolumna TRM) jawnie NIEZBUDOWANE.
 - **Region pozytywny testu (kontrola pozytywna vs tło) musi być JEDNORODNY w czasie/strukturze — region mieszający różne stany (np. impuls + zanikanie, albo losowo domieszkowany innym reżimem) systematycznie osłabia/zaburza rozmiar efektu; to jest generyczna własność testu Manna-Whitneya (rozcieńczenie próby), nie odkrycie specyficzne dla geometrii — traktuj jako REGUŁĘ PROTOKOŁU (obok reguł punktu 3), zweryfikowaną w kontrolowany sposób (ta sama domena, sztucznie regulowany stopień zanieczyszczenia) zanim uznasz ją za przyczynową, nie tylko skorelowaną z dwoma przykładami (punkt 19).**
 - **Dwie metryki o PODOBNEJ mocy klasyfikacyjnej (podobny odsetek `passed` w tej samej siatce testów) NIE muszą mierzyć tego samego zjawiska — sprawdź korelację (Spearmana) WPROST na tych samych próbkach przed uznaniem jednej za "przemalowaną" wersję drugiej lub za dowód, że nowa metryka nie wnosi nic ponad znaną klasyczną cechę; podobna moc + brak korelacji = dwa niezależne źródła sygnału o tym samym zjawisku, nie redundancja (punkt 19).**
 - **Nazwa/promocja nowego obiektu matematycznego lub aksjomatu na podstawie n=2 przykładów (dwie domeny, jedna zadziałała, jedna gorzej) jest przedwczesna — zanim sformalizujesz, odizoluj podejrzewaną zmienną przyczynową W JEDNEJ domenie (kontrolowany eksperyment), i sprawdź hipotezę na TRZECIEJ, NIEZALEŻNIE wybranej domenie zamiast poprzestać na dwóch (punkt 19, BTC obaliło nadmierne uogólnienie "jednorodność wystarczy" z n=2).**
+- **Gdy integrujesz zewnętrzny dokument matematyczny (spoza repo, spoza tej sesji) do istniejącego systemu dyscypliny nazewniczej (tu: siedem znaczeń "skrętu"), recenzja PRZED integracją — szukanie realnych, niekosmetycznych błędów matematycznych, nie tylko stylu — jest CZĘŚCIĄ tej samej dyscypliny co pre-rejestracja własnych wyników, nie osobnym, luźniejszym trybem; i audytuj najpierw, czy nowe znaczenie jest rozszerzeniem/instancją istniejącego obiektu czy naprawdę odrębnym, zanim dopiszesz je jako kolejny numer na liście (punkt 20).**
+- **Gdy użytkownik proponuje operator łączący WIĘCEJ NIŻ DWIE gałęzie naraz w jednym wyniku, sprawdź NAJPIERW, czy ma to uzasadnienie analogiczne do mostu Fouriera (konkretna, znana transformata, nie nowa hipoteza) — jeśli nie, zaflaguj to wprost jako łamanie zasady nieredukowalności gałęzi (ten sam błąd co odrzucona propozycja grawitacji, punkt 9) i zaproponuj rozbicie na niezależne mosty 2-gałęziowe zamiast milcząco pisać dopisek do trzech plików `Axioms_*` naraz (punkt 21).**
 
 ## 16. GS-Matrix poprawiony i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12)
 
@@ -633,3 +640,109 @@ zaproponowanych alternatyw faktycznie przetestowane jako kontrola
 korelacji). Otwarte, nieodłożone: envelope spectrum/autokorelacja jako
 kolejne klasyczne baseline'y; powtórzenie kontroli korelacji na
 sejsmice/BTC.
+
+## 20. Widmo Laplasjanu na wstędze Möbiusa — siódme znaczenie skrętu, zewnętrzna notatka zintegrowana z repo (2026-09-17)
+
+Użytkownik przyniósł samodzielną notatkę matematyczną ("Spectral Analysis
+of the Möbius Laplacian", Jacek Kielich) spoza repo, poprosił o recenzję,
+poprawki i integrację. Poza samą matematyką, to case study we WŁASNYM
+procesie: peer review → poprawki → weryfikacja numeryczna dwiema
+niezależnymi metodami → integracja wg istniejącej dyscypliny repo, BEZ
+mieszania gałęzi (patrz nowa reguła w punkcie 15).
+
+**Recenzja znalazła 4 realne błędy w v1** (nie kosmetyczne): niezdefiniowany/
+nieużywany operator "skrętu" T_twist; nieuzasadnione założenie
+parzystości w wyprowadzeniu `e^{ikπ}=±1`; brakujący warunek brzegowy
+czyniący twierdzenie o "szczelinie widmowej" fałszywym w ogólności
+(kontrprzykład Neumanna: mod stały k=0,n=0 daje λ=0, szczelina znika);
+nieuzasadniona sekcja "numerologii" sugerująca powiązania z
+Yang-Mills/Navier-Stokes/Hipotezą Riemanna — wycięta, nie osłabiona.
+
+**Matematyka v2 (poprawiona)**: Laplasjan POZOSTAJE klasyczny
+(`Δu=u_ss+u_tt`) na ilorazie cylindra `S¹×[-1,1]` przez `ℤ/2`,
+`ψ(s,t)=(s+π,-t)` — skręt wchodzi WYŁĄCZNIE przez dziedzinę (warunek
+`u∘ψ=u`), nie przez operator. Przy Dirichlecie na `t=±1`: pełne widmo
+`λ_{k,n}=k²+(nπ/2)²`, ograniczone do (k parzyste, n nieparzyste) lub
+(k nieparzyste, n parzyste) — parytet UDOWODNIONY (tożsamość sumy
+kątów), nie założony jak w v1. Stan podstawowy `λ₁=π²/4` — LICZBOWO
+identyczny jak dla zwykłego cylindra z tym samym warunkiem brzegowym:
+szczelina widmowa jest dziedziczona z Dirichleta, NIE tworzona przez
+sam skręt. Co skręt faktycznie, mierzalnie robi: usuwa ok. połowę
+modów cylindra — zweryfikowane na kontrprzykładzie `(k,n)=(0,2)`:
+obecny w widmie cylindra, nieobecny w widmie Möbiusa.
+
+**Weryfikacja dwiema NIEZALEŻNYMI metodami**: (1) rozdzielenie
+zmiennych (forma zamknięta, klasyczne Sturm-Liouville na `[-1,1]`);
+(2) pełna dyskretyzacja 2D różnic skończonych (siatka 50×40 na
+cylindrze, schemat pięciopunktowy) z operatorem skrętu jako jawną
+macierzą permutacji `Ψ` (sprawdzone `Ψ²=I`), widmo Möbiusa uzyskane
+przez rzut na podprzestrzeń `+1` `Ψ` i diagonalizację — metoda NIE
+zakłada rozdzielenia zmiennych, więc jest genuinie niezależnym
+sprawdzeniem. Zgodne w granicach oczekiwanego błędu dyskretyzacji
+`O(h²)` (0.05%–1.8% dla pierwszych 6 wartości własnych, błąd rośnie z
+numerem modu — zgodnie z oczekiwaniem).
+
+**Integracja z repo, bez naruszenia dyscypliny "zero identyfikacji
+między gałęziami"**: nazwane jako SIÓDME, formalnie odrębne znaczenie
+"skrętu" w `TIMDR_Twists.md` (odróżnione explicite od WCZEŚNIEJ
+istniejących, dużo mniej rygorystycznych użyć "Möbiusa" w tym samym
+repo: `tourosomobius.md` — czysta notacja pojęciowa bez dowodu,
+`diffraction_mobius.md` — zdanie o Laplasjanie skrętu bez definicji,
+wpis "Möbius Band" w `GLOSSARY_EN_PL.md` — luźna sugestia w kierunku
+modalności). Dopisek cross-referencyjny (NIE nowy aksjomat) w
+`Axioms_G_TIMDR_Geometry.md`. Kandydujący (NIE ustalony) most G↔K
+dopisany do `Axioms_K_TIMDR.md` — częstotliwości własne
+`ω_{k,n}=√λ_{k,n}` pasują formalnie do definicji modalności Aksjomatu
+K3, ale brakuje: (a) definicji interferencji/rezonansu (Aksjomaty
+K4-K5) dla nieskończonego, dyskretnego zbioru modów zamiast skończonej
+listy modalności, (b) jakiejkolwiek walidacji empirycznej lub choćby
+syntetycznej, (c) sprawdzenia, czy reguła selekcji uogólnia się poza
+płaski, dokładnie rozwiązywalny przypadek Möbiusa/cylindra — dokładnie
+ten sam wzorzec dyscypliny co jedyny dotąd wyjątek, most Fouriera
+M/S↔K (punkt 17).
+
+**Publikacja**: DOI Zenodo `10.5281/zenodo.22812269` ("Spectral
+Analysis of the Möbius Laplacian", Kielich J. S., 2026), dopisany do
+README GIA-TIMDR (sekcja "Cytowanie", obok dwóch wcześniejszych DOI —
+gałąź sygnałowa i pełny przegląd ekosystemu) i do
+`docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md` (status + sekcja
+"Powiązane").
+
+Pełny dokument: `docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md` +
+źródłowy PDF `Spectral_Analysis_of_the_Mobius_Laplacian_v2.pdf`
+(wersja 2, poprawiona po recenzji).
+
+## 21. Propozycja "MöbiusCoherence(S)" złamała nieredukowalność gałęzi — rozbita na dwa kandydaty 2-gałęziowe (2026-09-17)
+
+Użytkownik zaproponował operator `MöbiusCoherence(S)` łączący w JEDNYM
+wyniku trzy gałęzie: `Z0` (M/S, tłumienie trybu zerowego,
+`Z0=μ²·T/(Eac+ε)`, gdzie `μ` to średnia okna a `Eac=∫(S-μ)²dt` energia
+AC), `ω1` (K, pierwsza istotna częstotliwość FFT powyżej progu
+energii), `G_i` (G, znormalizowana kombinacja
+`winding_number`/`crossing_number`/`phase_winding` z punktu 19).
+Zidentyfikowane PRZED zapisaniem czegokolwiek do repo: to jest
+dokładnie ten sam błąd co wcześniej odrzucony
+`TIMDR_Gravity_Speculative.md` (tensor `Ω=(P,Q)⊗(k_MS,k_G,k_K)`, punkt
+9) — łamie zasadę nieredukowalności gałęzi (jedyny sankcjonowany
+wyjątek, most Fouriera, łączy tylko DWIE gałęzie i ma za sobą
+konkretną, znaną transformatę, nie nową hipotezę).
+
+Zaflagowane użytkownikowi wprost (wzorem meta-zasady punktu 15: "gdy
+propozycja łamie zasadę frameworku, nazwij konflikt i zapytaj") zamiast
+milcząco zaakceptowane i wpisane do trzech plików `Axioms_*` naraz.
+Użytkownik wybrał: rozbić na dwa niezależne kandydaty 2-gałęziowe.
+
+Dopisane do `Axioms_S/G/K_TIMDR.md` (GIA-TIMDR, commit `5d347a1`):
+**most M/S↔K #2** (`Z0`/`ω1` — odrębny obiekt od mostu Fouriera, tam
+iloczyn `Δt·Δf`, tu dwie osobne progowane wielkości) i **most G↔K #2**
+(`G_i`/`ω1` — odrębny obiekt od mostu G↔K widma Möbiusa z punktu 20,
+tam wartości własne ustalonego operatora różniczkowego, tu empiryczna
+korelacja istniejących metryk topologicznych z częstotliwością
+modalną). Oba jawnie NIE ustalone: brak pre-rejestrowanych progów
+`θ0`/`θω`/`θG`, brak kontroli pozytywnej/negatywnej, zero kodu/testów,
+zero przebiegu na realnych danych. Czysto dokumentacyjny krok (dopisek,
+nie implementacja) — kod, pre-rejestracja i walidacja na realnych
+danych (bezpośrednie rozszerzenie punktu 19 — te same domeny:
+łożyska/sejsmika/BTC — dostarczyłyby naturalny test) pozostają future
+work, bez presji wykonania.
+
