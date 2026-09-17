@@ -186,6 +186,16 @@ Reguła doboru \((k\text{ parzyste}\leftrightarrow n\text{ nieparzyste})\)
 z tamtego dokumentu jest więc konkretną, policzalną regułą selekcji
 topologicznej na dopuszczalny zbiór częstotliwości modalnych.
 
+**Jawny operator (dopisany 2026-09-17, doprecyzowanie, nie nowy
+kandydat)**: `T(k,n)=1` jeśli para `(k,n)` jest dopuszczalna na
+Möbiusie (reguła doboru powyżej), `0` w przeciwnym razie; złożony
+operator `MC_{K↔G}(k,n)=T(k,n)·(ω_{k,n}/ω_ref)` — zero dla par
+zabronionych przez topologię, znormalizowana częstotliwość własna dla
+par dopuszczalnych. To jest jawna, policzalna FORMA reguły selekcji
+opisanej wyżej słownie, NIE nowe twierdzenie — status "kandydat,
+nieustalony" bez zmian, `ω_ref` wymaga tej samej kalibracji z kontroli
+pozytywnej/negatywnej co pozostałe kandydujące mosty poniżej.
+
 **To NIE jest ustalony most**, z tego samego powodu i w tym samym duchu
 co zastrzeżenie o moście Fouriera M/S↔K powyżej — jedyny dotąd wyjątek
 od zasady zerowej identyfikacji między gałęziami TIMDR pozostaje

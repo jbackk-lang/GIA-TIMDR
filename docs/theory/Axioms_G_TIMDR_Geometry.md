@@ -550,7 +550,10 @@ topologicznym τ z `Operators_N_TIMDR.md` (tam rodzina powierzchni
 pojedyncza powierzchnia). Pełny opis, dowód i weryfikacja numeryczna:
 [`../geometry/TIMDR_Mobius_Laplacian_Spectrum.md`](../geometry/TIMDR_Mobius_Laplacian_Spectrum.md).
 Kandydujący (NIE ustalony) most do gałęzi K — patrz dopisek w
-`Axioms_K_TIMDR.md`.
+`Axioms_K_TIMDR.md`. Tam też (2026-09-17) doprecyzowany jawny,
+policzalny operator `MC_{K↔G}(k,n)=T(k,n)·(ω_{k,n}/ω_ref)`, gdzie
+`T(k,n)∈{0,1}` koduje regułę doboru par — forma operatorowa tej samej,
+już opisanej reguły selekcji, NIE nowy kandydat.
 
 ## Dopisek: kandydujący (NIE ustalony) most G↔K #2 — koherencja topologiczna vs pierwsza częstotliwość modalna (2026-09-17, nie nowy aksjomat)
 
@@ -598,6 +601,31 @@ G↔K #2" po stronie K), [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md
 powtórzenia dla tego kandydata), [`TIMDR_Gravity_Speculative.md`](./TIMDR_Gravity_Speculative.md)
 (wcześniejszy, analogiczny przypadek 3-gałęziowego mieszania odrzucony
 z tego samego powodu).
+
+## Dopisek: kandydujący (NIE ustalony) most M/S↔G #1 — tłumienie trybu zerowego vs koherencja topologiczna (2026-09-17, nie nowy aksjomat)
+
+Trzeci kandydat wywiedziony z tej samej pierwotnej propozycji
+`MöbiusCoherence(S)` (patrz dopisek "most G↔K #2" powyżej) — po
+usunięciu `ω1` (K) z jej przeredagowanej wersji "Kandydat A" zostają
+tylko `Z0` (M/S) i `G_i` (G), czyli GENUINE 2-gałęziowy most M/S↔G, bez
+pośrednictwa gałęzi K. Operator ciągły
+`MC_{M/S↔G}(S_i)=w1·(1-Z0)+w3·(G_i/Gref)`, binarny
+`MC_{M/S↔G}(S_i)=1[Z0<θ0]·1[G_i>θG]`. Pełna definicja `Z0` i `G_i`:
+`Axioms_S_TIMDR_Signal.md`, sekcja "Pozostałe braki formalne".
+
+**To NIE jest ustalony most** — ten sam wzorzec dyscypliny co pozostałe
+kandydaty w tym dokumencie. Brakuje: wag `w1`/`w3` (wersja ciągła),
+progów `θ0`/`θG` (wersja binarna), kontroli pozytywnej/negatywnej,
+jakiegokolwiek przebiegu na realnych danych. Odrębny od mostu G↔K #2
+powyżej (tam `G_i` testowane przeciw `ω1`, gałąź K; tu przeciw `Z0`,
+gałąź M/S) — trzy różne kandydaty (M/S↔K #2, G↔K #2, M/S↔G #1) dzielą
+część składników, ale żaden nie jest podzbiorem/rozszerzeniem innego;
+nie mylić.
+
+Powiązane: [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md)
+(dopisek "most M/S↔G #1" po stronie M/S, pełne definicje `Z0`),
+[`../geometry/RESULT_REAL_BEARING_NOISE_ROBUSTNESS.md`](../geometry/RESULT_REAL_BEARING_NOISE_ROBUSTNESS.md)
+i towarzyszące pliki (źródło `G_i`).
 
 ## Mapowanie aksjomatów G na README / repo
 

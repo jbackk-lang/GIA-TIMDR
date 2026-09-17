@@ -360,6 +360,23 @@ istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
   Rozbite na dwa niezależne kandydaty 2-gałęziowe: ten (M/S↔K) i osobny
   G↔K (`Axioms_G_TIMDR_Geometry.md`, dopisek "kandydujący most G↔K #2"),
   każdy wymagający własnej walidacji przed jakimkolwiek połączeniem.
+- **Kandydujący (NIE ustalony) most M/S↔G #1: tłumienie trybu zerowego
+  + koherencja topologiczna.** Propozycja (2026-09-17): jawny operator,
+  ciągły `MC_{M/S↔G}(S_i)=w1·(1-Z0)+w3·(G_i/Gref)` lub binarny
+  `MC_{M/S↔G}(S_i)=1[Z0<θ0]·1[G_i>θG]`, gdzie `Z0=μ²·T/(Eac+ε)`
+  (tłumienie trybu zerowego, definicja powyżej) a
+  `G_i=norm(W_i,C_i,P_i)` znormalizowaną kombinacją metryk
+  topologicznych z punktu 19 skilla `timdr-signal-framework`. Testuje
+  BEZPOŚREDNIO, bez pośrednictwa gałęzi K, czy okno sygnału bez trybu
+  stałego ma spójny "skręt" geometryczny trajektorii — odrębne od mostu
+  M/S↔K #2 powyżej (tam druga wielkość to `ω1`, częstotliwość modalna
+  K; tu `G_i`, topologia G). Pierwotna wersja propozycji zawierała
+  jeszcze `ω1` (czyniąc operator trzy-gałęziowym mimo etykiety
+  "M/S↔G") — usunięte na wyraźne życzenie użytkownika po zaflagowaniu
+  niezgodności (patrz punkt 21 skilla). **NIE ustalony** — brak wag
+  `w1`/`w3`, progów `θ0`/`θG`, kontroli pozytywnej/negatywnej, i
+  jakiegokolwiek przebiegu na realnych danych. Pełny opis:
+  `Axioms_G_TIMDR_Geometry.md`.
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (równoległy zestaw,
 domena modalna), [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md)
