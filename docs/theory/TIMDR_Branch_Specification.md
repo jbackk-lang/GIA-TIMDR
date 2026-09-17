@@ -57,7 +57,11 @@ tabelę.
   ODRĘBNY od `pipeline.py`/`PROTOCOL.md` powyżej (ten pierwszy pyta "w
   jakim reżimie pracuje sygnał", ten drugi "czy hipoteza o nim jest
   matematycznie sensowna") — patrz sekcja "Warstwa meta" niżej po pełne
-  rozróżnienie.
+  rozróżnienie. Most `MC_{M/S↔G}` #1 (tłumienie trybu zerowego `Z0` vs
+  koherencja topologiczna `G_i`, gałąź G) testowany na realnych danych
+  2026-09-17 i **częściowo ustalony** (silny na łożyskach, częściowy na
+  sejsmice, brak na BTC) — pełny opis w sekcji "Gałąź G" wyżej i w
+  `Axioms_S_TIMDR_Signal.md`.
 - **Czym NIE jest:** rozszerzeniem gałęzi K (rezonans modalny to inny
   operator — wyrównanie częstotliwości/fazy, nie koincydencja progowa)
   ani gałęzi G (skręt sygnałowy to odwrócenie trendu w czasie, nie
@@ -114,9 +118,86 @@ tabelę.
     \((k\text{ nieparzyste},n\text{ parzyste})\). Zwalidowane dwiema
     niezależnymi metodami (forma zamknięta + dyskretyzacja 2D z jawną
     projekcją symetrii, 0.05–1.8% błędu na pierwszych 6 wartościach
-    własnych). Siódme znaczenie "skrętu" (`TIMDR_Twists.md` punkt 7),
-    kandydujący (NIE ustalony) most do gałęzi K przez
-    \(\omega_{k,n}=\sqrt{\lambda_{k,n}}\) — patrz `Axioms_K_TIMDR.md`.
+    własnych). Siódme znaczenie "skrętu" (`TIMDR_Twists.md` punkt 7).
+
+  - **Most `MC_{K↔G}` — widmo Möbiusa jako reguła selekcji częstotliwości
+    modalnej `ω1` (kandydat 2026-09-17, przetestowany na realnych danych
+    tego samego dnia).** Operator `MC_{K↔G}(k,n)=T(k,n)·(ω_{k,n}/ω_ref)`,
+    `T(k,n)∈{0,1}` = dopuszczalność pary na kratownicy Möbiusa powyżej,
+    `ω_ref` kalibrowane z tła (mediana `ω1` na 30 oknach negatywnych,
+    seedy 1000-1029, przed dotknięciem danych testowych). Pełny opis
+    operatora: `Axioms_K_TIMDR.md` i `Axioms_G_TIMDR_Geometry.md`
+    (dopiski "most G↔K").
+    - **Wyniki testów (3 domeny, 60 komórek siatki, 2026-09-17):** łożyska
+      CWRU 24/30, sejsmika Ridgecrest 12/20, BTC/USD 0/10 — surowo
+      36/60 "przeszło" test Manna-Whitneya (pozytywna vs negatywna klasa,
+      pipeline `run_controls`).
+    - **Ograniczenie, znalezione przez diagnozę NIEZALEŻNĄ od danych:**
+      geometria samej kratownicy `(k,n)` (zakres `K_RANGE=(-6..6)`,
+      `N_RANGE=(1..7)`) ma ~79% bazowy wskaźnik "trafień w dopuszczalny
+      punkt" dla znormalizowanej częstotliwości `x=ω1/ω_ref` blisko 1
+      (tam, gdzie z definicji `ω_ref` ląduje typowa wartość testowa) —
+      wynika to z gęstości modów wokół stanu podstawowego `ω=π/2`, NIE z
+      sygnału. Surowy wynik 36/60 jest więc w dużej mierze artefaktem
+      konstrukcji kratownicy, nie dowodem struktury Möbiusa w danych.
+    - **Status: NIE ustalony — odrzucony w obecnej formie.** Kandydat
+      pozostaje niediagnostyczny na tej konfiguracji; brak próby
+      dostrojenia po zobaczeniu wyniku (złamałoby to dyscyplinę
+      anty-numerologii). Pełny wynik: `docs/geometry/PREREG_MOBIUS_
+      COHERENCE_BRIDGES.md` (pre-rejestracja), `docs/geometry/RESULT_
+      MOBIUS_COHERENCE_BRIDGES_REAL_DATA.md` (wynik + diagnoza),
+      `core/mobius_kg_bridge.py` + `core/real_mobius_kg_bridge.py` (kod).
+
+  - **Most `MC_{M/S↔G}` #1 — tłumienie trybu zerowego (`Z0`, gałąź M/S)
+    vs koherencja topologiczna (`G_i`, gałąź G) (kandydat 2026-09-17,
+    przetestowany na realnych danych tego samego dnia).** `Z0=μ²·T/
+    (Eac+ε)` (pełna definicja: `Axioms_S_TIMDR_Signal.md`, dopisek
+    "most M/S↔G #1"); `G_i` = znormalizowana kombinacja
+    `winding_number`/`crossing_number`/`phase_winding` (te same metryki
+    co `G-complexity` wyżej w tej sekcji, punkt 19 skilla). Operator
+    ciągły `MC=w1·(1-Z0)+w3·(G_i/Gref)` (`w1=w3=0,5`, `Gref=1,0`,
+    stałe niekalibrowane), binarny `MC=1[Z0<θ0]·1[G_i>θG]` (`θ0`,`θG`
+    kalibrowane z tła, mediana rozkładu). Pełny opis: `Axioms_G_TIMDR_
+    Geometry.md` i `Axioms_S_TIMDR_Signal.md` (dopiski "most M/S↔G #1").
+    - **Wyniki testów (3 domeny, 240 komórek siatki: 4 metryki × 2 okna
+      × 5 poziomów szumu, 2026-09-17):** łożyska CWRU — `G_i` 30/30
+      (pełna separacja, efekt zawsze "duży"), `MC_continuous` 30/30,
+      `Z0` 21/30, `MC_binary` 23/30; sejsmika Ridgecrest — `G_i` 10/20
+      (kierunek niespójny między stacjami CLC/RIO), `Z0` 12/20,
+      `MC_continuous` 9/20, `MC_binary` 5/20; BTC/USD — 0/40 we
+      WSZYSTKICH czterech metrykach. Razem 140/240. Wynik zgodny z
+      przewidywaniem zapisanym w pre-rejestracji PRZED testem (łożyska
+      silny, sejsmika częściowy, BTC brak) — `G_i` na łożyskach
+      SILNIEJSZY niż oryginalny wynik winding/crossing/phase_winding z
+      punktu 19 (123/150).
+    - **Ograniczenia:** (1) `MC_continuous` zakłada `Z0∈[0,1]`, ale `Z0`
+      jest z definicji nieograniczone (rzędu 20-39 na sejsmice) —
+      domenowo zależne zniekształcenie formuły, odziedziczone z
+      pierwotnej propozycji, nienaprawione po zobaczeniu wyniku; (2)
+      `G_i` dziedziczy znaną, wcześniej udokumentowaną (punkt 19 skilla)
+      słabość na NAIWNEJ konstrukcji syntetycznej (szum biały ma większą
+      złożoność geometryczną embeddingu niż sygnał periodyczny) —
+      zweryfikowane jako oczekiwany wynik negatywny w testach
+      syntetycznych (`tests/test_zero_mode_topology_bridge.py`), NIE
+      wpływa na wynik realny powyżej; (3) klasy pozytywna/negatywna we
+      wszystkich 3 domenach ustalone NIEZALEŻNIE od metryki (etykiety
+      CWRU, znacznik czasu mainshocku, podział std bloku BTC) — metryka
+      NIGDY nie testowana jako selektor, tylko jako diagnostyka na już
+      wybranym podziale (ten sam status co pozostałe metryki tej
+      rodziny mostów, patrz punkt 19 skilla i lekcja G-Rezonansu,
+      Aksjomat G5f).
+    - **Status: częściowo ustalony.** Realny, powtarzalny efekt
+      diagnostyczny na 2 z 3 domen (silny na łożyskach, częściowy na
+      sejsmice), zerowy na trzeciej (BTC) — NIE jest to "ustalony most"
+      w sensie ecosystemu (brak niezależnej replikacji, brak
+      teoretycznego uzasadnienia analogicznego do transformaty
+      Fouriera), ale też nie jest to odrzucony kandydat: to pierwszy w
+      tej rodzinie mostów kandydat z jednoznacznie potwierdzonym,
+      częściowym sygnałem empirycznym zamiast czystej propozycji.
+      Klasyfikacja: diagnostyka, nie selektor. Pełny wynik: `docs/
+      geometry/PREREG_MOBIUS_COHERENCE_BRIDGES.md`, `docs/geometry/
+      RESULT_MOBIUS_COHERENCE_BRIDGES_REAL_DATA.md`, `core/zero_mode_
+      topology_bridge.py` + `core/real_zero_mode_topology_bridge.py`.
 - **Aksjomaty:** 10 — `Axioms_G_TIMDR_Geometry.md` (G1-G10; G1-G3
   mają wzory już używane gdzie indziej w repo, G4 nazywa związek z
   Weingartenem, G5 definiuje operator G-Rezonans (zaktualizowane —
@@ -141,7 +222,12 @@ tabelę.
   plik zawiera też `Λ_G`/`mean_curvature_dispersion`, dodane
   2026-09-10, 6/6 testów potwierdzonych w sandboxie),
   `docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md` + PDF źródłowy
-  (widmo Laplasjanu Möbiusa, dodane 2026-09-17).
+  (widmo Laplasjanu Möbiusa, dodane 2026-09-17), `core/mobius_kg_bridge.py`
+  + `core/real_mobius_kg_bridge.py` (most `MC_{K↔G}`, odrzucony),
+  `core/zero_mode_topology_bridge.py` + `core/real_zero_mode_topology_
+  bridge.py` (most `MC_{M/S↔G}` #1, częściowo ustalony), `docs/geometry/
+  PREREG_MOBIUS_COHERENCE_BRIDGES.md` + `docs/geometry/RESULT_MOBIUS_
+  COHERENCE_BRIDGES_REAL_DATA.md` (pre-rejestracja i wynik obu mostów).
 - **Czym NIE jest:** rozszerzeniem gałęzi M/S (obiekty G nie są
   elementami przestrzeni sygnałów \(x:T\to\mathbb{R}^d\) — Aksjomat
   G6a) ani gałęzi K — \(\mathcal{R}_G\) (G5) nie jest szczególnym
@@ -199,6 +285,10 @@ tabelę.
   `TIMDR-Modal-Formalism/timdr_modal/phase_sync.py` (`Λ_K`/`τ_K`
   dodane 2026-09-10, `modal_phase_dispersion`/`modal_phase_tempo`, 8/8
   testów potwierdzonych w sandboxie, w tym kontrola analityczna).
+  Most `MC_{K↔G}` (widmo Laplasjanu Möbiusa jako reguła selekcji
+  `ω1`) testowany na realnych danych 2026-09-17 i **odrzucony w
+  obecnej formie** (artefakt geometrii kratownicy, nie sygnał) — pełny
+  opis w sekcji "Gałąź G" wyżej i w `Axioms_K_TIMDR.md`.
 - **Czym NIE jest:** rozszerzeniem gałęzi M/S (rezonans modalny to
   wyrównanie częstotliwości/fazy, nie koincydencja progowa amplitud w
   czasie — jawnie rozróżnione w Axioms_S Aksjomat 3) ani gałęzi G
@@ -445,6 +535,17 @@ tej aktualizacji jest wypełniona operatorem G-Rezonans, patrz
 Kolumna META-DYNAMICS dodana 2026-09-10 — patrz sekcja "Gałąź
 META-DYNAMICS" powyżej po pełne uzasadnienie i sześć domenowych
 instancji.
+
+**Mosty kandydujące między gałęziami, testowane na realnych danych
+2026-09-17** (nie mieszczą się w tabeli per-gałąź powyżej, bo z
+definicji łączą dwie): `MC_{K↔G}` (widmo Möbiusa ↔ `ω1`) —
+**status: NIE ustalony, odrzucony w obecnej formie** (36/60, artefakt
+geometrii kratownicy); `MC_{M/S↔G}` #1 (`Z0` ↔ `G_i`) — **status:
+częściowo ustalony** (140/240, silny na łożyskach, częściowy na
+sejsmice, brak na BTC). Oba szczegółowo opisane w sekcji "Gałąź G"
+wyżej, wraz z pełnymi wynikami i ograniczeniami; jedyny wcześniej
+sankcjonowany most (Fourier M/S↔K) pozostaje odrębny — patrz sekcja
+"Gałąź M/S" i `TIMDR_Chronoprocess.md` §5.
 
 ---
 
