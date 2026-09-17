@@ -4,7 +4,7 @@
 
 ## 1. Co to w ogóle jest?
 
-Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), CZTERY gałęzie (M/S, G, K, i od 2026-09-10 formalnie META-DYNAMICS Λ-τ-ρ-J jako rodzina operatorów agregatowych, analogicznie do rodziny krzywizn w Geometry Formalism), Chronoproces spinający M/S/G/K bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, poprawiony GS-Matrix i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12), zakres empiryczny mostu Fouriera ustalony na realnych danych i nowa, jawnie eksploracyjna konstrukcja sprzężenia helikalnego K↔Θ_bif (2026-09-15), i most M/S↔topologia/K przetestowany na 3 realnych domenach z silnym, częściowo scharakteryzowanym sygnałem na łożyskach (2026-09-15/16, punkt 19), oraz siódme, formalnie odrębne znaczenie „skrętu” — widmo Laplasjanu na wstędze Möbiusa, zewnętrzna notatka matematyczna zrecenzowana, poprawiona i zintegrowana z repo, z kandydującym (NIE ustalonym) mostem do gałęzi K i własnym DOI Zenodo (2026-09-17, punkt 20). Tego samego dnia (punkt 21) propozycja rozszerzenia operatora na trzy gałęzie naraz (MöbiusCoherence) została zaflagowana jako łamiąca zasadę nieredukowalności gałęzi i za zgodą użytkownika rozbita na dwa niezależne, jawnie nieustalone kandydaty 2-gałęziowe.
+Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), CZTERY gałęzie (M/S, G, K, i od 2026-09-10 formalnie META-DYNAMICS Λ-τ-ρ-J jako rodzina operatorów agregatowych, analogicznie do rodziny krzywizn w Geometry Formalism), Chronoproces spinający M/S/G/K bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, poprawiony GS-Matrix i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12), zakres empiryczny mostu Fouriera ustalony na realnych danych i nowa, jawnie eksploracyjna konstrukcja sprzężenia helikalnego K↔Θ_bif (2026-09-15), i most M/S↔topologia/K przetestowany na 3 realnych domenach z silnym, częściowo scharakteryzowanym sygnałem na łożyskach (2026-09-15/16, punkt 19), oraz siódme, formalnie odrębne znaczenie „skrętu” — widmo Laplasjanu na wstędze Möbiusa, zewnętrzna notatka matematyczna zrecenzowana, poprawiona i zintegrowana z repo, z kandydującym (NIE ustalonym) mostem do gałęzi K i własnym DOI Zenodo (2026-09-17, punkt 20). Tego samego dnia (punkt 21) propozycja rozszerzenia operatora na trzy gałęzie naraz (MöbiusCoherence) została zaflagowana jako łamiąca zasadę nieredukowalności gałęzi i za zgodą użytkownika rozbita na dwa niezależne, jawnie nieustalone kandydaty 2-gałęziowe. Oba zaimplementowane, pre-rejestrowane i przetestowane na 3 realnych domenach jeszcze tego samego dnia (punkt 22): `MC_K↔G` ODRZUCONY (wynik zdominowany artefaktem geometrii kratownicy, nie sygnałem), `MC_M/S↔G` POTWIERDZIŁ przewidywanie sprzed testu (silny na łożyskach, częściowy na sejsmice, brak na BTC) — zaklasyfikowany jako diagnostyka, nie selektor.
 
 ## 2. Cztery sygnały TIMDR (M/S)
 
@@ -379,6 +379,7 @@ Pozostałe komórki (ρ/J w G/K, cała kolumna TRM) jawnie NIEZBUDOWANE.
 - **Nazwa/promocja nowego obiektu matematycznego lub aksjomatu na podstawie n=2 przykładów (dwie domeny, jedna zadziałała, jedna gorzej) jest przedwczesna — zanim sformalizujesz, odizoluj podejrzewaną zmienną przyczynową W JEDNEJ domenie (kontrolowany eksperyment), i sprawdź hipotezę na TRZECIEJ, NIEZALEŻNIE wybranej domenie zamiast poprzestać na dwóch (punkt 19, BTC obaliło nadmierne uogólnienie "jednorodność wystarczy" z n=2).**
 - **Gdy integrujesz zewnętrzny dokument matematyczny (spoza repo, spoza tej sesji) do istniejącego systemu dyscypliny nazewniczej (tu: siedem znaczeń "skrętu"), recenzja PRZED integracją — szukanie realnych, niekosmetycznych błędów matematycznych, nie tylko stylu — jest CZĘŚCIĄ tej samej dyscypliny co pre-rejestracja własnych wyników, nie osobnym, luźniejszym trybem; i audytuj najpierw, czy nowe znaczenie jest rozszerzeniem/instancją istniejącego obiektu czy naprawdę odrębnym, zanim dopiszesz je jako kolejny numer na liście (punkt 20).**
 - **Gdy użytkownik proponuje operator łączący WIĘCEJ NIŻ DWIE gałęzie naraz w jednym wyniku, sprawdź NAJPIERW, czy ma to uzasadnienie analogiczne do mostu Fouriera (konkretna, znana transformata, nie nowa hipoteza) — jeśli nie, zaflaguj to wprost jako łamanie zasady nieredukowalności gałęzi (ten sam błąd co odrzucona propozycja grawitacji, punkt 9) i zaproponuj rozbicie na niezależne mosty 2-gałęziowe zamiast milcząco pisać dopisek do trzech plików `Axioms_*` naraz (punkt 21).**
+- **Zanim uznasz statystyczną istotność testu Manna-Whitneya na metryce binarnej/dyskretnej (np. "czy najbliższy punkt kratownicy jest dopuszczalny") za dowód struktury w SYGNALE, sprawdź NIEZALEŻNIE OD DANYCH, jaki jest bazowy wskaźnik "trafień" wynikający z samej GEOMETRII/GĘSTOŚCI przestrzeni kandydatów wokół punktu kalibracji (tu: losowe x blisko znormalizowanej wartości ~1 trafiało w dopuszczalny punkt kratownicy Möbiusa w ~79% przypadków z samej gęstości modów wokół stanu podstawowego, nie z sygnału) — wysoki bazowy wskaźnik bliski sufitowi w obu grupach (pozytywnej i negatywnej) jest sygnałem ostrzegawczym do zbadania PRZED odczytaniem p<0,05 jako potwierdzenia hipotezy (punkt 22, `MC_K↔G` odrzucony z tego właśnie powodu).**
 
 ## 16. GS-Matrix poprawiony i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12)
 
@@ -745,4 +746,74 @@ nie implementacja) — kod, pre-rejestracja i walidacja na realnych
 danych (bezpośrednie rozszerzenie punktu 19 — te same domeny:
 łożyska/sejsmika/BTC — dostarczyłyby naturalny test) pozostają future
 work, bez presji wykonania.
+
+## 22. Oba kandydaty z MöbiusCoherence(S) zaimplementowane, pre-rejestrowane i przetestowane na 3 realnych domenach — MC_K↔G ODRZUCONY (artefakt geometrii), MC_M/S↔G POTWIERDZONY zgodnie z przewidywaniem (2026-09-17)
+
+Kontynuacja punktu 21 tego samego dnia: użytkownik wybrał "pełny pakiet"
+(kod + pre-rejestracja + realne dane, 3 domeny × 2 mosty) zamiast
+zatrzymania się na samym dopisku dokumentacyjnym.
+
+**Implementacja + testy syntetyczne (26/26)**: `core/mobius_kg_bridge.py`
+(`is_allowed`/`lambda_kn`/`omega_kn`/`mc_k_g`/`nearest_lattice_point`,
+13 testów — "czy operator robi to co mówi") i
+`core/zero_mode_topology_bridge.py` (`zero_mode_fraction`,
+`calibrate_gi_ranges`/`g_i`, `mc_ms_g_continuous`/`binary`, 13 testów,
+w tym JEDEN jawnie negatywny — `G_i` nie separuje na naiwnej
+konstrukcji syntetycznej dwie-częstotliwości-plus-szum-vs-biały-szum,
+dokładne powtórzenie ustalenia z punktu 19: szum biały ma WIĘKSZĄ
+lokalną złożoność geometryczną embeddingu niż sygnał periodyczny na
+tej konkretnej konstrukcji).
+
+**Pre-rejestracja** (`docs/geometry/PREREG_MOBIUS_COHERENCE_BRIDGES.md`,
+zamrożona PRZED napisaniem kodu na realne dane, commit przed kodem —
+w odróżnieniu od mostu łożyskowego z punktu 19, tu dowód braku
+data-snoopingu jest widoczny w samej kolejności commitów): dane/
+generatory/siatka reużyte 1:1 z trzech istniejących mostów real_
+{bearing,seismic,btc}_noise_robustness_bridge.py; `ω_ref`/`GiRanges`/
+`θ0`/`θG` kalibrowane z tła (seedy 1000-1029, rozłączne od testowych
+0-29, mediana rozkładu tła — nie dostrojone do separacji); wagi
+`w1=w3=0,5`, `gref=1,0` stałe z kodu.
+
+**`MC_K↔G` (widmo Laplasjanu Möbiusa jako reguła selekcji `ω1`) —
+ODRZUCONY.** Surowo 36/60 komórek "przeszło" (łożyska 24/30, sejsmika
+12/20, BTC 0/10) — ale diagnoza geometrii kratownicy `(k,n)`
+NIEZALEŻNA od jakichkolwiek danych pokazała, że losowe `x` blisko
+znormalizowanej wartości ~1 (tam, gdzie z definicji `ω_ref` ląduje
+typowe `ω1/ω_ref`) trafia w punkt dopuszczalny w ~79% przypadków z
+SAMEJ gęstości kratownicy wokół stanu podstawowego (`ω=π/2`), nie z
+50%, jak można by naiwnie oczekiwać z 46/91 par dopuszczalnych.
+**Wniosek: wynik NIE jest wiarygodnym dowodem struktury Möbiusa** —
+w obecnej konfiguracji kratownicy most jest niediagnostyczny, kandydat
+pozostaje odrzucony bez próby dostrojenia po fakcie (złamałoby to
+dyscyplinę anty-numerologii).
+
+**`MC_M/S↔G` #1 (`Z0` tłumienie trybu zerowego vs `G_i` koherencja
+topologiczna) — wynik POTWIERDZA przewidywanie zapisane w PREREG PRZED
+testem.** 140/240 komórek przeszło: łożyska SILNY (`G_i` 30/30, pełna
+separacja, efekt zawsze "duży" — NAWET SILNIEJSZY niż oryginalny wynik
+winding/crossing/phase_winding z punktu 19, 123/150), sejsmika
+CZĘŚCIOWY (`G_i` 10/20, kierunek niespójny między stacjami), BTC BRAK
+(0/40 we wszystkich 4 metrykach `Z0`/`G_i`/`MC_continuous`/`MC_binary`,
+spójnie). Znane, nienaprawione zniekształcenie: `MC_continuous` zakłada
+`Z0∈[0,1]`, ale `Z0` jest nieograniczone (rzędu 20-39 na sejsmice) —
+domenowo zależne zniekształcenie formuły, odziedziczone z pierwotnej
+propozycji, jawnie odnotowane, nie naprawione po zobaczeniu wyniku.
+
+**Klasyfikacja selektor vs diagnostyka (lekcja G-Rezonansu, punkt 11)**:
+`MC_M/S↔G` — **diagnostyka, nie selektor**, dokładnie jak wszystkie
+pozostałe metryki tej rodziny mostów (torsja/winding/crossing/
+homologia/phase_winding, punkt 19) — klasy pozytywna/negatywna we
+wszystkich 3 domenach były ustalone NIEZALEŻNIE od metryki (etykiety
+CWRU, znacznik czasu mainshocku, podział medianowy std bloku BTC),
+metryka nigdy nie była użyta do samodzielnego wykrycia/wyboru tych
+klas z nieoznakowanych danych — to jest generalizowalne ustalenie:
+ŻADEN dotąd zmierzony most w tej rodzinie (włącznie z 82%-owym
+wynikiem punktu 19) nie został przetestowany jako selektor, tylko jako
+diagnostyka na już ustalonym podziale. `MC_K↔G` — ani selektor, ani
+wiarygodna diagnostyka w obecnej formie (patrz odrzucenie wyżej).
+
+Zapisane do `Axioms_S/G/K_TIMDR.md` (GIA-TIMDR, commity `38d4f6d`
+kod+wynik, `4986db3` klasyfikacja w Axioms). Kod:
+`core/real_mobius_kg_bridge.py`, `core/real_zero_mode_topology_bridge.py`.
+Pełny wynik: `docs/geometry/RESULT_MOBIUS_COHERENCE_BRIDGES_REAL_DATA.md`.
 
