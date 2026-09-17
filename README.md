@@ -41,6 +41,17 @@ angielskojęzyczny preprint na Zenodo:
 > Honest Status Report, Including Negative Results*. Zenodo.
 > https://doi.org/10.5281/zenodo.22788266
 
+Analiza widmowa Laplasjanu na wstędze Möbiusa (siódme znaczenie
+"skrętu" w tym repo — `docs/theory/TIMDR_Twists.md` punkt 7,
+`docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md`) — samodzielna
+notatka matematyczna, niezależna od gałęzi TIMDR, ma osobny zapis na
+Zenodo:
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22812269.svg)](https://doi.org/10.5281/zenodo.22812269)
+
+> Kielich, J. S. (2026). *Spectral Analysis of the Möbius Laplacian*
+> (Version v1). Zenodo. https://doi.org/10.5281/zenodo.22812269
+
 ---
 
 ## 🌿 Cztery gałęzie TIMDR — mapa terenu

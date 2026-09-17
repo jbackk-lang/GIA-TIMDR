@@ -8,7 +8,8 @@ przeciwdziedziny i tabeli rozdzielenia. Pełny, źródłowy dokument (z
 pełnym wyprowadzeniem, tabelami i dowodami): [`Spectral_Analysis_of_the_
 Mobius_Laplacian_v2.pdf`](./Spectral_Analysis_of_the_Mobius_Laplacian_v2.pdf)
 (Jacek Kielich, wersja 2 — poprawiona po niezależnym przeglądzie, patrz
-"Note on this revision" na początku PDF).
+"Note on this revision" na początku PDF). Opublikowane na Zenodo:
+[10.5281/zenodo.22812269](https://doi.org/10.5281/zenodo.22812269).
 
 ## 0. Skąd to się wzięło
 
@@ -146,7 +147,8 @@ specyfikacja domeny/przeciwdziedziny tego znaczenia "skrętu"),
 cross-referencyjny, nie nowy aksjomat), [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md)
 (dopisek o kandydującym moście, ten sam wzorzec co most Fouriera M/S↔K),
 [`Spectral_Analysis_of_the_Mobius_Laplacian_v2.pdf`](./Spectral_Analysis_of_the_Mobius_Laplacian_v2.pdf)
-(pełny dokument źródłowy), [`tourosomobius.md`](./tourosomobius.md) i
+(pełny dokument źródłowy), [DOI 10.5281/zenodo.22812269](https://doi.org/10.5281/zenodo.22812269)
+(wersjonowany zapis na Zenodo), [`tourosomobius.md`](./tourosomobius.md) i
 [`diffraction_mobius.md`](./diffraction_mobius.md) (wcześniejsze, dużo
 mniej rygorystyczne użycia "Möbiusa" w tym repo — patrz §1, ten dokument
 ich NIE formalizuje ani nie potwierdza).
