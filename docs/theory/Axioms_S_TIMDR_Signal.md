@@ -378,6 +378,18 @@ istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
   jakiegokolwiek przebiegu na realnych danych. Pełny opis:
   `Axioms_G_TIMDR_Geometry.md`.
 
+  **Wynik na realnych danych (2026-09-17, zadanie #64)**: uruchomiony
+  na 3 domenach, `core/real_zero_mode_topology_bridge.py`, pełny wynik
+  `docs/geometry/RESULT_MOBIUS_COHERENCE_BRIDGES_REAL_DATA.md`.
+  140/240 komórek przeszło, wzorzec zgodny z oczekiwaniem sprzed testu:
+  łożyska silny (`G_i` 30/30, pełna separacja), sejsmika częściowy
+  (`G_i` 10/20), BTC brak (0/40 we wszystkich 4 metrykach). `MC_continuous`
+  ma znane, nienaprawione zniekształcenie na domenach o dużym `Z0`
+  (sejsmika). Klasyfikacja: **diagnostyka, nie selektor** (lekcja
+  G-Rezonansu, punkt 11 skilla) — klasy pozytywna/negatywna były
+  ustalone niezależnie od metryki w każdej domenie, metryka nigdy nie
+  była użyta do samodzielnego wykrycia klas z nieoznakowanych danych.
+
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (równoległy zestaw,
 domena modalna), [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md)
 (równoległy zestaw, domena geometryczna — G8/G9 domykają analitycznie

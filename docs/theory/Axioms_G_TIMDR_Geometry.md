@@ -555,6 +555,16 @@ policzalny operator `MC_{K↔G}(k,n)=T(k,n)·(ω_{k,n}/ω_ref)`, gdzie
 `T(k,n)∈{0,1}` koduje regułę doboru par — forma operatorowa tej samej,
 już opisanej reguły selekcji, NIE nowy kandydat.
 
+**Wynik na realnych danych (2026-09-17, zadanie #64)**: 36/60 komórek
+surowo "przeszło" (łożyska 24/30, sejsmika 12/20, BTC 0/10), ale
+diagnoza geometrii kratownicy (niezależna od danych) pokazała ~79%
+bazowy wskaźnik trafień w punkt dopuszczalny dla `x` blisko 1 — z SAMEJ
+gęstości kratownicy wokół stanu podstawowego, nie z sygnału. Wniosek:
+wynik NIE jest wiarygodnym dowodem struktury Möbiusa, most odrzucony w
+obecnej formie (ani selektor, ani wiarygodna diagnostyka). Pełny opis:
+`Axioms_K_TIMDR.md` (ten sam dopisek po stronie K),
+`docs/geometry/RESULT_MOBIUS_COHERENCE_BRIDGES_REAL_DATA.md`.
+
 ## Dopisek: kandydujący (NIE ustalony) most G↔K #2 — koherencja topologiczna vs pierwsza częstotliwość modalna (2026-09-17, nie nowy aksjomat)
 
 Odrębny kandydat od mostu G↔K opisanego w dopisku powyżej (widmo
@@ -626,6 +636,31 @@ Powiązane: [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md)
 (dopisek "most M/S↔G #1" po stronie M/S, pełne definicje `Z0`),
 [`../geometry/RESULT_REAL_BEARING_NOISE_ROBUSTNESS.md`](../geometry/RESULT_REAL_BEARING_NOISE_ROBUSTNESS.md)
 i towarzyszące pliki (źródło `G_i`).
+
+**Wynik na realnych danych (2026-09-17, zadanie #64)**: uruchomiony na
+3 domenach, `core/real_zero_mode_topology_bridge.py`, pełny wynik
+`docs/geometry/RESULT_MOBIUS_COHERENCE_BRIDGES_REAL_DATA.md`. 140/240
+komórek przeszło, wzorzec DOKŁADNIE zgodny z oczekiwaniem
+sprzed testu (PREREG §0): `G_i` na łożyskach 30/30 (pełna separacja,
+efekt zawsze "duży" — silniejszy niż oryginalny wynik winding/
+crossing/phase_winding z punktu 19, 123/150), na sejsmice 10/20
+(częściowa, kierunek niespójny między stacjami), na BTC 0/10 (brak
+sygnału, spójnie we wszystkich 4 metrykach `Z0`/`G_i`/`MC_continuous`/
+`MC_binary`). Znane zastrzeżenie: `MC_continuous` zakłada `Z0∈[0,1]`,
+ale `Z0` jest nieograniczone — formuła zniekształcona domenowo
+zależnie (silnie na sejsmice, gdzie `Z0` rzędu 20-39), nienaprawione
+po zobaczeniu wyniku.
+
+**Klasyfikacja: diagnostyka, nie selektor** (lekcja G-Rezonansu,
+punkt 11 skilla) — klasy pozytywna/negatywna w każdej z 3 domen były
+ustalone NIEZALEŻNIE od `G_i`/`Z0` (etykiety CWRU, znacznik czasu
+mainshocku, podział medianowy po odchyleniu standardowym bloku BTC),
+metryka nigdy nie była użyta do SAMODZIELNEGO wykrycia/wyboru tych
+klas z nieoznakowanych danych — dokładnie ten sam status co pozostałe
+metryki tej rodziny mostów (winding/crossing/phase_winding, torsja,
+homologia trwała, punkt 19), nie gorszy ani lepszy pod tym względem.
+`G_i` na łożyskach jest mimo to najsilniejszym dotąd zmierzonym
+kandydatem diagnostycznym w całej rodzinie mostów M/S↔topologia/G/K.
 
 ## Mapowanie aksjomatów G na README / repo
 

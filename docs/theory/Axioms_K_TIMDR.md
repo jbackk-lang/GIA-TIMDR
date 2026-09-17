@@ -207,6 +207,27 @@ istnieniem reguły selekcji; (c) sprawdzenia, czy reguła uogólnia się
 poza płaski, dokładnie rozwiązywalny przypadek Möbiusa/cylindra. Pełne
 zastrzeżenia: `TIMDR_Mobius_Laplacian_Spectrum.md` §4-5.
 
+**Wynik na realnych danych (2026-09-17, zadanie #64)**: uruchomiony na
+3 domenach (łożyska/sejsmika/BTC), `core/real_mobius_kg_bridge.py`,
+pełna metodologia i wynik: `docs/geometry/PREREG_MOBIUS_COHERENCE_
+BRIDGES.md` (pre-rejestracja) i `docs/geometry/RESULT_MOBIUS_
+COHERENCE_BRIDGES_REAL_DATA.md` (wynik). Surowo 36/60 komórek
+"przeszło" — ale diagnoza geometrii kratownicy `(k,n)` NIEZALEŻNA od
+jakichkolwiek danych pokazała, że losowe `x` blisko wartości
+znormalizowanej ~1 (czyli tam, gdzie ląduje typowe `ω1/ω_ref` z
+konstrukcji `ω_ref`) trafia w punkt dopuszczalny w ~79% przypadków z
+SAMEJ geometrii kratownicy (stan podstawowy `ω=π/2` przyciąga szeroki
+zakres wartości), nie z 50%, jak można by naiwnie oczekiwać.
+**Wniosek: wynik NIE jest wiarygodnym dowodem struktury Möbiusa w
+realnych danych modalnych** — jest w dużej mierze artefaktem geometrii
+operatora na tej konkretnej siatce `K_RANGE=(-6..6)×N_RANGE=(1..7)`.
+Klasyfikacja: **ani selektor, ani wiarygodna diagnostyka w obecnej
+formie** — kandydat pozostaje NIE ustalony, i w tej konfiguracji nie
+jest rekomendowany do dalszego użycia bez zmiany konstrukcji (np.
+kalibracji `ω_ref` odpornej na gęstość geometryczną kratownicy,
+niezmienionej po fakcie w tej sesji, żeby nie złamać dyscypliny
+anty-numerologii).
+
 ## Kandydujący (NIE ustalony) most M/S↔K #2: tłumienie trybu zerowego + pierwsza istotna częstotliwość (dopisek, nie nowy aksjomat)
 
 Odrębny od mostu Fouriera M/S↔K powyżej (`Δt·Δf=1/(4π)`) — inny obiekt,
