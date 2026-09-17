@@ -197,3 +197,30 @@ istnieniem reguły selekcji; (c) sprawdzenia, czy reguła uogólnia się
 poza płaski, dokładnie rozwiązywalny przypadek Möbiusa/cylindra. Pełne
 zastrzeżenia: `TIMDR_Mobius_Laplacian_Spectrum.md` §4-5.
 
+## Kandydujący (NIE ustalony) most M/S↔K #2: tłumienie trybu zerowego + pierwsza istotna częstotliwość (dopisek, nie nowy aksjomat)
+
+Odrębny od mostu Fouriera M/S↔K powyżej (`Δt·Δf=1/(4π)`) — inny obiekt,
+ten sam status "kandydat, nieustalony". Propozycja (2026-09-17):
+`ω1=2π·f1` (pierwsza istotna częstotliwość powyżej progu energii z FFT
+okna `S_i`) jako modalność `f_i` z Aksjomatu 3, testowana razem z
+`Z0=μ²·T/(Eac+ε)` (tłumienie trybu zerowego, strona M/S — pełna
+definicja i status w `Axioms_S_TIMDR_Signal.md`, sekcja "Pozostałe
+braki formalne"). Inspiracja: widmo Laplasjanu Möbiusa
+(`λ₁=π²/4>0`, `docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md`) jako
+analogia strukturalna, NIE to samo twierdzenie. **NIE ustalony** — brak
+pre-rejestrowanych progów, kontroli pozytywnej/negatywnej, danych
+realnych. Świadomie rozdzielony od mostu G↔K #2 poniżej (pierwotnie
+jeden operator trzy-gałęziowy, rozbity na dwa 2-gałęziowe kandydaty —
+pełne uzasadnienie w `Axioms_S_TIMDR_Signal.md`).
+
+## Kandydujący (NIE ustalony) most G↔K #2: koherencja topologiczna + pierwsza istotna częstotliwość (dopisek, nie nowy aksjomat)
+
+Odrębny od mostu G↔K (widmo Möbiusa) powyżej — inny obiekt, ten sam
+status. Testuje korelację `G_i` (znormalizowana kombinacja
+`winding_number`/`crossing_number`/`phase_winding`, punkt 19 skilla
+`timdr-signal-framework`, już przetestowanych na 3 realnych domenach) z
+`ω1`. **NIE ustalony** — brak progu `θG`, kontroli, danych realnych dla
+tej konkretnej pary. Pełny opis, uzasadnienie rozdziału od mostu M/S↔K
+#2 powyżej, i status: `Axioms_G_TIMDR_Geometry.md`, dopisek
+"kandydujący most G↔K #2".
+

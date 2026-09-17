@@ -552,6 +552,53 @@ pojedyncza powierzchnia). Pełny opis, dowód i weryfikacja numeryczna:
 Kandydujący (NIE ustalony) most do gałęzi K — patrz dopisek w
 `Axioms_K_TIMDR.md`.
 
+## Dopisek: kandydujący (NIE ustalony) most G↔K #2 — koherencja topologiczna vs pierwsza częstotliwość modalna (2026-09-17, nie nowy aksjomat)
+
+Odrębny kandydat od mostu G↔K opisanego w dopisku powyżej (widmo
+Laplasjanu Möbiusa): TAMTEN łączy `ω_{k,n}=√λ_{k,n}`, wartości własne
+ustalonego operatora różniczkowego, z modalnością Aksjomatu K3 — TEN
+testuje empiryczną korelację między istniejącymi metrykami
+`winding_number`/`crossing_number`/`phase_winding` (punkt 19 skilla
+`timdr-signal-framework`, już przetestowanymi na 3 realnych domenach:
+łożyska CWRU 82%, sejsmika Ridgecrest 47%, BTC/USD 12% —
+`../geometry/RESULT_REAL_{BEARING,SEISMIC,BTC}_NOISE_ROBUSTNESS.md`) i
+pierwszą istotną częstotliwością modalną `ω1` z gałęzi K. Różne obiekty
+pod tym samym ogólnym nagłówkiem "most G↔K" — nie mylić.
+
+Propozycja (2026-09-17): `G_i` = znormalizowana kombinacja
+`(W_i,C_i,P_i)` na oknie `S_i`; test, czy `G_i` koreluje z `ω1`, jest
+stabilne między oknami, nie znika przy rozcieńczeniu regionu
+pozytywnego (metodologia identyczna do już wykonanej kontroli
+homogeniczności w `../geometry/AUDIT_G_COMPLEXITY_HYPOTHESIS.md`), i
+nie jest tylko przemalowaną kurtozą/entropią widmową (już sprawdzone
+jako NIE dla samych `W/C/P` w tym samym audycie — `|ρ|<0,25`, ale ta
+kontrola była względem kurtozy/entropii, NIE względem `ω1`).
+
+**To NIE jest ustalony most** — ten sam wzorzec dyscypliny co most
+Fouriera M/S↔K i most G↔K (widmo Möbiusa) powyżej. Brakuje:
+pre-rejestrowanego progu `θG`, kontroli pozytywnej/negatywnej dla
+SAMEJ pary `(G_i,ω1)`, i jakiegokolwiek przebiegu na realnych danych
+dla tej konkretnej korelacji.
+
+**Świadomie ROZDZIELONE od kandydata M/S↔K** (`Z0`/`ω1`, dopisek w
+`Axioms_S_TIMDR_Signal.md`, sekcja "Pozostałe braki formalne").
+Pierwotna propozycja użytkownika łączyła `Z0` (M/S), `ω1` (K) i `G_i`
+(G) w JEDNYM operatorze trzy-gałęziowym (`MöbiusCoherence(S)`) — to
+łamałoby zasadę nieredukowalności gałęzi bez uzasadnienia analogicznego
+do mostu Fouriera, dokładnie jak wcześniej odrzucony
+`TIMDR_Gravity_Speculative.md` (tensor `Ω=(P,Q)⊗(k_MS,k_G,k_K)`).
+Rozbite na dwa niezależne kandydaty 2-gałęziowe (ten i M/S↔K powyżej),
+każdy wymagający własnej, osobnej walidacji przed jakimkolwiek
+połączeniem.
+
+Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (dopisek "most
+G↔K #2" po stronie K), [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md)
+(kandydat M/S↔K #2, `Z0`/`ω1`), [`../geometry/AUDIT_G_COMPLEXITY_HYPOTHESIS.md`](../geometry/AUDIT_G_COMPLEXITY_HYPOTHESIS.md)
+(istniejące kontrole homogeniczności/korelacji — metodologia do
+powtórzenia dla tego kandydata), [`TIMDR_Gravity_Speculative.md`](./TIMDR_Gravity_Speculative.md)
+(wcześniejszy, analogiczny przypadek 3-gałęziowego mieszania odrzucony
+z tego samego powodu).
+
 ## Mapowanie aksjomatów G na README / repo
 
 | Aksjomat | Odniesienie |

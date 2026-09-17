@@ -333,6 +333,33 @@ istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
   matematyczna, budowa testów syntetycznych, ograniczenie w Aksjomatach
   K — patrz `Axioms_K_TIMDR.md`), nie jako operator diagnostyczny nad
   operatorem anomalii `𝔸_i` z tego dokumentu.
+- **Kandydujący (NIE ustalony) most M/S↔K #2: tłumienie trybu zerowego
+  + pierwsza istotna częstotliwość.** Propozycja (2026-09-17): dla okna
+  `S_i(t)` długości `T` zdefiniować średnią `μ=(1/T)∫S(t)dt`, energię AC
+  `Eac=∫(S(t)-μ)²dt`, i udział trybu zerowego
+  `Z0=μ²·T/(Eac+ε)` — mała wartość `Z0` ("brak trybu stałego") jako
+  sygnałowy odpowiednik "braku stałej funkcji własnej". Testowana razem
+  z `ω1=2π·f1` (pierwsza istotna częstotliwość FFT powyżej progu
+  energii, gałąź K — patrz `Axioms_K_TIMDR.md`, dopisek "most M/S↔K
+  #2"). Inspiracja: widmo Laplasjanu Möbiusa
+  (`docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md`, `λ₁=π²/4>0`,
+  brak trybu zerowego przy Dirichlecie) — to jest ANALOGIA strukturalna,
+  NIE to samo twierdzenie: tam `λ₁` jest własnością ustalonego operatora
+  różniczkowego na ustalonej dziedzinie, tu `Z0`/`ω1` są statystykami
+  OKNA czasowego. **To NIE jest ten sam most co most Fouriera powyżej**
+  (inny obiekt — nie iloczyn `Δt·Δf`, tylko dwie osobne, progowane
+  wielkości) i **NIE jest ustalony**: brak pre-rejestrowanych progów
+  `θ0`/`θω`, brak kontroli pozytywnej/negatywnej, brak jakiegokolwiek
+  przebiegu na realnych danych. Pierwotna propozycja użytkownika łączyła
+  `Z0`, `ω1` i metryki geometryczne `G_i` (winding/crossing/
+  phase_winding) w JEDNYM operatorze trzy-gałęziowym
+  (`MöbiusCoherence(S)`, obejmującym M/S+G+K naraz) — odrzucone jako
+  łamiące zasadę nieredukowalności gałęzi bez uzasadnienia analogicznego
+  do mostu Fouriera (ten sam wzorzec co wcześniej odrzucony
+  `TIMDR_Gravity_Speculative.md`, tensor `Ω=(P,Q)⊗(k_MS,k_G,k_K)`).
+  Rozbite na dwa niezależne kandydaty 2-gałęziowe: ten (M/S↔K) i osobny
+  G↔K (`Axioms_G_TIMDR_Geometry.md`, dopisek "kandydujący most G↔K #2"),
+  każdy wymagający własnej walidacji przed jakimkolwiek połączeniem.
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (równoległy zestaw,
 domena modalna), [`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md)
