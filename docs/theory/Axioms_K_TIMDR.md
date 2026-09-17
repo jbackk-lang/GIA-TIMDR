@@ -173,3 +173,27 @@ dalej — na `Im(λ)` bloku `K_{M/S↔K}` z GS-Matrix jako model
 predykcyjny dyspersji) pozostaje otwartym, świadomie odłożonym future
 work, nie ustalonym wynikiem.
 
+## Kandydujący (NIE ustalony) most G↔K: widmo Laplasjanu Möbiusa jako reguła selekcji częstotliwości modalnych (dopisek, nie nowy aksjomat)
+
+`docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md` (patrz też
+`TIMDR_Twists.md` punkt 7) liczy widmo \(\{\lambda_{k,n}\}\) zwykłego,
+płaskiego Laplasjanu na wstędze Möbiusa — skręt wchodzi tam wyłącznie
+przez dziedzinę operatora (warunek identyfikacji brzegowej), nie przez
+modyfikację operatora. W standardowej interpretacji (równanie falowe)
+\(\omega_{k,n}=\sqrt{\lambda_{k,n}}\) to częstotliwości własne — czyli
+dokładnie to, czym Aksjomat 3 definiuje modalność \((f_i,\phi_i,A_i)\).
+Reguła doboru \((k\text{ parzyste}\leftrightarrow n\text{ nieparzyste})\)
+z tamtego dokumentu jest więc konkretną, policzalną regułą selekcji
+topologicznej na dopuszczalny zbiór częstotliwości modalnych.
+
+**To NIE jest ustalony most**, z tego samego powodu i w tym samym duchu
+co zastrzeżenie o moście Fouriera M/S↔K powyżej — jedyny dotąd wyjątek
+od zasady zerowej identyfikacji między gałęziami TIMDR pozostaje
+Fourierem, nie tym. Brakuje: (a) definicji "interferencji"/"rezonansu"
+(Aksjomaty 4-5) dla nieskończonego, dyskretnego zbioru modów
+\(\{\omega_{k,n}\}\) zamiast skończonej listy modalności; (b)
+jakiejkolwiek walidacji empirycznej lub syntetycznej poza samym
+istnieniem reguły selekcji; (c) sprawdzenia, czy reguła uogólnia się
+poza płaski, dokładnie rozwiązywalny przypadek Möbiusa/cylindra. Pełne
+zastrzeżenia: `TIMDR_Mobius_Laplacian_Spectrum.md` §4-5.
+

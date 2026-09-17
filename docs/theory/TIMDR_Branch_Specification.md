@@ -106,6 +106,17 @@ tabelę.
     szumem wysokości wyraźnie wyższe (6/6 testów, `timdr_geometry/
     weingarten.py::mean_curvature_dispersion`,
     `tests/test_curvature_dispersion.py`).
+  - **Widmo Laplasjanu Möbiusa (dodane 2026-09-17)**: skręt jako warunek
+    identyfikacji brzegowej \(u(s+\pi,-t)=u(s,t)\) definiujący dziedzinę
+    zwykłego Laplasjanu \(\Delta u=u_{ss}+u_{tt}\) na cylindrze; przy
+    Dirichlecie na \(t=\pm1\) widmo \(\lambda_{k,n}=k^2+(n\pi/2)^2\)
+    ograniczone do par \((k\text{ parzyste},n\text{ nieparzyste})\) lub
+    \((k\text{ nieparzyste},n\text{ parzyste})\). Zwalidowane dwiema
+    niezależnymi metodami (forma zamknięta + dyskretyzacja 2D z jawną
+    projekcją symetrii, 0.05–1.8% błędu na pierwszych 6 wartościach
+    własnych). Siódme znaczenie "skrętu" (`TIMDR_Twists.md` punkt 7),
+    kandydujący (NIE ustalony) most do gałęzi K przez
+    \(\omega_{k,n}=\sqrt{\lambda_{k,n}}\) — patrz `Axioms_K_TIMDR.md`.
 - **Aksjomaty:** 10 — `Axioms_G_TIMDR_Geometry.md` (G1-G10; G1-G3
   mają wzory już używane gdzie indziej w repo, G4 nazywa związek z
   Weingartenem, G5 definiuje operator G-Rezonans (zaktualizowane —
@@ -128,7 +139,9 @@ tabelę.
   dyskretny operator kształtu, testy na płaszczyźnie/sferze/walcu/
   zbieżności siatki; nieuruchomione w sesji, w której powstały; ten sam
   plik zawiera też `Λ_G`/`mean_curvature_dispersion`, dodane
-  2026-09-10, 6/6 testów potwierdzonych w sandboxie).
+  2026-09-10, 6/6 testów potwierdzonych w sandboxie),
+  `docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md` + PDF źródłowy
+  (widmo Laplasjanu Möbiusa, dodane 2026-09-17).
 - **Czym NIE jest:** rozszerzeniem gałęzi M/S (obiekty G nie są
   elementami przestrzeni sygnałów \(x:T\to\mathbb{R}^d\) — Aksjomat
   G6a) ani gałęzi K — \(\mathcal{R}_G\) (G5) nie jest szczególnym

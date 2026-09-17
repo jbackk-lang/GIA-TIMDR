@@ -527,6 +527,31 @@ G3d/G6c dla skrętu, stosowany tu do rezonansu).
 
 ---
 
+## Dopisek: widmo Laplasjanu na wstędze Möbiusa (2026-09-17, nie nowy aksjomat)
+
+Osobny, samodzielnie zweryfikowany wynik — NIE jest częścią G1-G10 i
+nie zmienia żadnego z nich. Dla wstęgi Möbiusa jako ilorazu płaskiego
+cylindra \(S^1\times[-1,1]\) przez wolne działanie \(\mathbb{Z}/2\),
+\(\psi(s,t)=(s+\pi,-t)\), zwykły płaski Laplasjan \(\Delta u=u_{ss}+u_{tt}\)
+(operator BEZ zmian; skręt wchodzi wyłącznie przez dziedzinę — funkcje
+spełniające \(u(s+\pi,-t)=u(s,t)\)) ma przy warunku Dirichleta na
+\(t=\pm1\) widmo \(\lambda_{k,n}=k^2+(n\pi/2)^2\) ograniczone do par
+\((k\text{ parzyste},n\text{ nieparzyste})\) lub \((k\text{ nieparzyste},
+n\text{ parzyste})\) — zweryfikowane dwiema niezależnymi metodami
+(forma zamknięta + niezależna dyskretyzacja 2D z jawną projekcją na
+podprzestrzeń niezmienniczą).
+
+To jest siódme, formalnie odrębne znaczenie "skrętu" w tym ekosystemie
+(`TIMDR_Twists.md` punkt 7) — NIE jest skrętem powierzchniowym G3/G8/G9
+powyżej (inna definicja: tam pole normalnych i operator Weingartena na
+ustalonej siatce, tu widmo operatora różniczkowego) ani skrętem
+topologicznym τ z `Operators_N_TIMDR.md` (tam rodzina powierzchni
+\(S_\lambda\) i zdarzenie na ścieżce deformacji, tu ustalona,
+pojedyncza powierzchnia). Pełny opis, dowód i weryfikacja numeryczna:
+[`../geometry/TIMDR_Mobius_Laplacian_Spectrum.md`](../geometry/TIMDR_Mobius_Laplacian_Spectrum.md).
+Kandydujący (NIE ustalony) most do gałęzi K — patrz dopisek w
+`Axioms_K_TIMDR.md`.
+
 ## Mapowanie aksjomatów G na README / repo
 
 | Aksjomat | Odniesienie |
@@ -545,13 +570,16 @@ sygnałowa — sekcja "Pozostałe braki formalne" tam odnosi się wprost do
 G4/G8/G9 powyżej), [`Resonance_M_Operator_Empiryczny.md`](./Resonance_M_Operator_Empiryczny.md)
 §6 (pierwsze wprowadzenie \(T_S\), przed formalizacją jako G3, G8, G9),
 [`TIMDR_Twists.md`](./TIMDR_Twists.md) (skonsolidowane formalne
-definicje wszystkich pięciu znaczeń "skrętu" w ekosystemie, w tym
-skrętu powierzchniowego z G3/G8/G9), [`TIMDR_Branch_Specification.md`](./TIMDR_Branch_Specification.md)
+definicje wszystkich siedmiu znaczeń "skrętu" w ekosystemie, w tym
+skrętu powierzchniowego z G3/G8/G9 i widma Laplasjanu Möbiusa, punkt 7),
+[`TIMDR_Branch_Specification.md`](./TIMDR_Branch_Specification.md)
 (formalna specyfikacja trzech gałęzi TIMDR — źródło prawdy dla
 podziału M/S, G, K), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md) (kanoniczne nazwy
-"skręt powierzchniowy" i rozgraniczenie od pozostałych czterech znaczeń
+"skręt powierzchniowy" i rozgraniczenie od pozostałych sześciu znaczeń
 skrętu oraz od pozostałych trzech znaczeń rezonansu),
 [`../geometry/TIMDR_GResonance_Operator.md`](../geometry/TIMDR_GResonance_Operator.md)
 (pełny opis operatora G-Rezonans z G5: konstrukcja, testy, status
 walidacji, uczciwe ograniczenia), [`../geometry/TIMDR_Trefoil_ResonanceModel.md`](../geometry/TIMDR_Trefoil_ResonanceModel.md)
-(pierwotny prototyp dla trójwęzła, przed podniesieniem do G5).
+(pierwotny prototyp dla trójwęzła, przed podniesieniem do G5),
+[`../geometry/TIMDR_Mobius_Laplacian_Spectrum.md`](../geometry/TIMDR_Mobius_Laplacian_Spectrum.md)
+(widmo Laplasjanu na wstędze Möbiusa, dopisek powyżej).

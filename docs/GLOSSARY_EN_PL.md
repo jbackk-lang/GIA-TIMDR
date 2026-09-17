@@ -12,7 +12,12 @@
 ### Möbius Band  
 **EN:** A non‑orientable surface with a half‑twist.  
 **PL:** Nieorientowalna powierzchnia z półobrotem.  
-**Meaning / Znaczenie:** Odwrócenie fazy, zmiana modalności.
+**Meaning / Znaczenie:** Odwrócenie fazy, zmiana modalności.  
+**UWAGA:** to jest luźny, niesformalizowany wpis. Rygorystyczny,
+numerycznie zweryfikowany wynik o tym, jak identyfikacja Möbiusa
+faktycznie zmienia widmo operatora różniczkowego (nie "fazę" per se) —
+patrz "Skręt jako warunek identyfikacji brzegowej" niżej i
+[`geometry/TIMDR_Mobius_Laplacian_Spectrum.md`](geometry/TIMDR_Mobius_Laplacian_Spectrum.md).
 
 ### Transition Region  
 **EN:** Boundary zone between topological modes.  
@@ -167,13 +172,13 @@ osobnym obiektem matematycznym o innej domenie.
 
 ## Skręt / Twist — nazwy kanoniczne
 
-**UWAGA:** "skręt"/"twist" ma w tym ekosystemie SZEŚĆ niezwiązanych ze
+**UWAGA:** "skręt"/"twist" ma w tym ekosystemie SIEDEM niezwiązanych ze
 sobą znaczeń. Każde nowe użycie tego słowa powinno od razu użyć
 jednej z poniższych rozszerzonych nazw — samo "skręt" bez przymiotnika
 jest niejednoznaczne. Pełne uzasadnienie i rozgraniczenie:
 [`theory/Resonance_M_Operator_Empiryczny.md`](theory/Resonance_M_Operator_Empiryczny.md)
 sekcja 0. Pełna, skonsolidowana formalna specyfikacja wszystkich
-sześciu (domena, przeciwdziedzina, definicja, per znaczenie, jedno pod
+siedmiu (domena, przeciwdziedzina, definicja, per znaczenie, jedno pod
 drugim): [`theory/TIMDR_Twists.md`](theory/TIMDR_Twists.md). Osobno,
 gałąź META-DYNAMICS ma WŁASNE τ ("transformacja") nigdy nie nazywane
 "skrętem" — patrz sekcja "Λ-τ-ρ-J" niżej i
@@ -273,6 +278,30 @@ pojemności baterii NASA) i **odrzucone dwukrotnie** — nie obala całości
 `TRM_biology.md`, tylko tę konkretną formę funkcyjną.
 **Źródło:** `theory/TRM_biology.md`, `theory/TIMDR_Twists.md` (punkt 6),
 `timdr-signal-framework` §13 (pełne liczby testów AIC).
+
+### Skręt jako warunek identyfikacji brzegowej (widmo Laplasjanu Möbiusa)
+**EN:** Boundary-identification condition `u(s+π,−t)=u(s,t)` defining
+the domain of the ordinary flat Laplacian on the cylinder — the twist
+enters only through the function space, not the operator. Under
+Dirichlet data at `t=±1`, restricts the spectrum to
+`λ_k,n = k² + (nπ/2)²` for `(k even, n odd)` or `(k odd, n even)`;
+ground state `λ₁ = π²/4`, numerically identical to the ordinary
+cylinder's — the gap is inherited from the boundary condition, not
+created by the twist. Verified by two independent methods (closed-form
+separation of variables + 2-D finite-difference discretization with
+explicit symmetry projection).
+**PL:** Warunek identyfikacji brzegowej `u(s+π,−t)=u(s,t)` definiujący
+dziedzinę zwykłego, płaskiego Laplasjanu na cylindrze — skręt wchodzi
+wyłącznie przez przestrzeń funkcji, nie przez operator. Przy warunku
+Dirichleta na `t=±1` ogranicza widmo do `λ_k,n = k² + (nπ/2)²` dla
+`(k parzyste, n nieparzyste)` lub `(k nieparzyste, n parzyste)`; stan
+podstawowy `λ₁ = π²/4`, liczbowo identyczny jak dla zwykłego cylindra —
+szczelina jest dziedziczona z warunku brzegowego, nie tworzona przez
+skręt. Zweryfikowane dwiema niezależnymi metodami (forma zamknięta +
+dyskretyzacja 2D różnic skończonych z jawną projekcją symetrii).
+**Źródło:** `theory/TIMDR_Twists.md` (punkt 7),
+`geometry/TIMDR_Mobius_Laplacian_Spectrum.md`,
+`geometry/Spectral_Analysis_of_the_Mobius_Laplacian_v2.pdf`.
 
 ---
 

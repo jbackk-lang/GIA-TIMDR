@@ -1,4 +1,4 @@
-# TIMDR_Twists — skonsolidowana formalna specyfikacja sześciu znaczeń "skrętu"
+# TIMDR_Twists — skonsolidowana formalna specyfikacja siedmiu znaczeń "skrętu"
 
 **Status:** dokument referencyjny (T1 + T2), nie nowy zestaw aksjomatów.
 Nie definiuje niczego nowego matematycznie — zbiera w jednym miejscu
@@ -10,7 +10,7 @@ wskazany w kolumnie "Źródło" — ten dokument jest indeksem/mapą, nie
 zamiennikiem.
 
 **Dlaczego ten dokument istnieje:** "skręt"/"twist" jest w ekosystemie
-TIMDR słowem przeciążonym — używanym w co najmniej sześciu,
+TIMDR słowem przeciążonym — używanym w co najmniej siedmiu,
 matematycznie niezwiązanych znaczeniach. `GLOSSARY_EN_PL.md` już
 zawiera krótkie wpisy dla każdego; ten dokument idzie krok dalej i
 podaje pełną domenę/przeciwdziedzinę/definicję dla każdego, jedno pod
@@ -27,7 +27,7 @@ słowa "skręt") powinien sprawdzić oba dokumenty.
 
 ---
 
-## T1 — Formalne definicje pięciu skrętów
+## T1 — Formalne definicje siedmiu skrętów
 
 ### 1. Skręt sygnałowy (gałąź M/S — sygnałowa)
 
@@ -190,6 +190,49 @@ słowa "skręt") powinien sprawdzić oba dokumenty.
   tej sekcji z punktu widzenia gałęzi META-DYNAMICS, z którą τ TRM NIE
   jest tożsame mimo pokrewnego ducha "tempa zmiany").
 
+### 7. Skręt jako warunek identyfikacji brzegowej operatora różniczkowego (gałąź G — geometryczna, widmo Laplasjanu)
+
+- **Domena:** funkcje na płaskim cylindrze \(S^1\times[-1,1]\)
+  (\(s\in S^1\) okresowe z okresem \(2\pi\), \(t\in[-1,1]\)) spełniające
+  warunek identyfikacji \(u(s+\pi,-t)=u(s,t)\) (niezmienniczość względem
+  wolnego działania \(\mathbb{Z}/2\), \(\psi(s,t)=(s+\pi,-t)\),
+  \(\psi^2=\mathrm{id}\)) — czyli funkcje na wstędze Möbiusa. Operator
+  różniczkowy pozostaje klasycznym, płaskim Laplasjanem
+  \(\Delta u = u_{ss}+u_{tt}\); skręt wchodzi WYŁĄCZNIE przez domenę
+  (dopuszczalną przestrzeń funkcji), nie przez modyfikację operatora.
+- **Definicja:** przy warunku brzegowym Dirichleta na \(t=\pm1\), widmo
+  \(-\Delta u=\lambda u\) jest ograniczone do
+  \[
+  \lambda_{k,n} = k^2+(n\pi/2)^2,\quad (k\text{ parzyste},\,n\text{
+  nieparzyste})\text{ lub }(k\text{ nieparzyste},\,n\text{ parzyste}),
+  \quad k\in\mathbb{Z},\,n\geq1,
+  \]
+  tj. skręt wybiera podzbiór (ok. połowę) par \((k,n)\) dostępnych na
+  zwykłym cylindrze z tym samym warunkiem brzegowym.
+- **Przeciwdziedzina:** dyskretny zbiór \(\{\lambda_{k,n}\}\subset
+  \mathbb{R}_{\geq0}\), stan podstawowy \(\lambda_1=\pi^2/4\).
+- **Nie jest:** skrętem topologicznym τ z punktu 2 (inna domena — tam
+  rodzina powierzchni \(S_\lambda\) i zdarzenie na ścieżce deformacji,
+  tu ustalona, pojedyncza powierzchnia i widmo operatora różniczkowego
+  na niej) ani skrętem powierzchniowym z punktu 3 (inna definicja i
+  przeciwdziedzina — tam pole normalnych i operator Weingartena na
+  siatce, tu widmo Laplasjanu). Nie jest też kontynuacją ani
+  formalizacją luźnych, wcześniej istniejących użyć słowa "Möbius" w
+  `docs/geometry/tourosomobius.md` ani `docs/geometry/diffraction_mobius.md`
+  (oba: notacja pojęciowa bez dziedziny/dowodu/testów) — patrz
+  `TIMDR_Mobius_Laplacian_Spectrum.md` §1 dla pełnego rozgraniczenia.
+- **Status:** zweryfikowane dwiema niezależnymi metodami (rozdzielenie
+  zmiennych w formie zamkniętej + niezależna dyskretyzacja 2D różnic
+  skończonych z jawną projekcją na podprzestrzeń niezmienniczą), zgodne
+  w granicach oczekiwanego błędu dyskretyzacji (0.05–1.8% dla pierwszych
+  6 wartości własnych). Kandydujący (NIE ustalony) most do gałęzi K
+  opisany w `Axioms_K_TIMDR.md` — patrz zastrzeżenia tam i w
+  `TIMDR_Mobius_Laplacian_Spectrum.md` §4-5.
+- **Źródło:** `docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md`
+  (streszczenie w konwencji tego repo), `docs/geometry/Spectral_
+  Analysis_of_the_Mobius_Laplacian_v2.pdf` (pełny dokument źródłowy,
+  Jacek Kielich).
+
 ---
 
 ## T2 — Jawne rozdzielenie domen
@@ -202,16 +245,17 @@ słowa "skręt") powinien sprawdzić oba dokumenty.
 | Twist blokowy | poza TIMDR | bloki obrazu 2D | zależna od implementacji | całkowicie niezależny, tylko leksykalne podobieństwo nazwy |
 | Torsja Freneta-Serreta trójwęzła | G (geometryczna) | pojedyncza krzywa 3D \(\gamma:T\to\mathbb{R}^3\) | \(\mathbb{R}\) (nieograniczona) | niezależna od τ topologicznego mimo współdzielonego symbolu τ; jedyne znaczenie gałęzi G z uruchomionymi testami |
 | τ TRM | poza formalną klasyfikacją M/S/G/K | skalarny proces redukcji \(I(t)\) z drabinką \(\tau_{i+1}=\lambda\tau_i\to\phi\) | \(\mathbb{R}_{\geq0}\) | relacja z τ topologicznym NIEROZSTRZYGNIĘTA; prawo redukcji ODRZUCONE empirycznie (AIC) dwukrotnie, nie obala całości TRM_biology.md |
+| Skręt jako warunek identyfikacji brzegowej (widmo Laplasjanu) | G (geometryczna) | funkcje na cylindrze \(S^1\times[-1,1]\) z warunkiem \(u(s+\pi,-t)=u(s,t)\) | dyskretne widmo \(\{\lambda_{k,n}\}\subset\mathbb{R}_{\geq0}\) | niezależny od τ topologicznego i od skrętu powierzchniowego (inna definicja/domena); kandydujący, NIE ustalony most do gałęzi K przez \(\omega_{k,n}=\sqrt{\lambda_{k,n}}\) |
 
 **Zasada nadrzędna (zgodna z Aksjomatem G6 i analogicznym rozdziałem w
-`Axioms_S_TIMDR_Signal.md`):** żadne z sześciu znaczeń nie jest
+`Axioms_S_TIMDR_Signal.md`):** żadne z siedmiu znaczeń nie jest
 rozszerzeniem ani szczególnym przypadkiem żadnego innego (z jednym
 jawnie oznaczonym wyjątkiem: relacja skręt topologiczny ↔ τ TRM jest
 NIEROZSTRZYGNIĘTA, nie ustalona jako niezależna). Wspólne słowo/symbol
 nazywa różne obiekty matematyczne w różnych domenach — nie różne
 poziomy jednej teorii. Każde nowe użycie słowa "skręt"/"twist" (lub
 symbolu τ) w tym ekosystemie powinno od razu wskazywać, o które z
-sześciu (lub o nowe, siódme) znaczenie chodzi — patrz też τ
+siedmiu (lub o nowe, ósme) znaczenie chodzi — patrz też τ
 META-DYNAMICS w `TIMDR_Branch_Specification.md`, które współdzieli
 symbol, ale nigdy nie jest nazywane "skrętem".
 
@@ -229,4 +273,9 @@ empirycznie), [`../geometry/tourosomobius.md`](../geometry/tourosomobius.md)
 notacyjny, bez formalizacji), [`TIMDR_Trefoil_FrenetTorsion.md`](../geometry/TIMDR_Trefoil_FrenetTorsion.md)
 (punkt 5 — torsja Freneta-Serreta trójwęzła, pełny opis eksperymentu i
 kodu), [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md)
-(krótkie, dwujęzyczne wpisy — ten dokument jest ich rozwinięciem).
+(krótkie, dwujęzyczne wpisy — ten dokument jest ich rozwinięciem),
+[`TIMDR_Mobius_Laplacian_Spectrum.md`](../geometry/TIMDR_Mobius_Laplacian_Spectrum.md)
+(punkt 7 — widmo Laplasjanu na wstędze Möbiusa, streszczenie i pełne
+rozgraniczenie od wcześniejszych, luźnych użyć "Möbiusa" w tym repo),
+[`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (kandydujący, NIE ustalony
+most punktu 7 do gałęzi K).
