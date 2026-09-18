@@ -1,0 +1,33 @@
+{
+  "status": "TEMPLATE_ONLY_DO_NOT_EDIT_AFTER_PREREGISTRATION",
+  "calibration": "PATH_TO_BACKGROUND_CALIBRATION.npz",
+  "domains": [
+    {
+      "name": "bearing",
+      "data": "PATH_TO_BEARING_REAL_WINDOWS.npz",
+      "positive_mask_definition": "DOCUMENT_EXTERNAL_REAL_CASE_BEFORE_TEST",
+      "negative_mask_definition": "DOCUMENT_EXTERNAL_REAL_CASE_BEFORE_TEST",
+      "artifact_mask_definition": "OPTIONAL_EXTERNAL_PREEXISTING_ARTIFACT_FLAGS"
+    },
+    {
+      "name": "seismic",
+      "data": "PATH_TO_SEISMIC_REAL_WINDOWS.npz",
+      "positive_mask_definition": "DOCUMENT_EXTERNAL_REAL_CASE_BEFORE_TEST",
+      "negative_mask_definition": "DOCUMENT_EXTERNAL_REAL_CASE_BEFORE_TEST",
+      "artifact_mask_definition": "OPTIONAL_EXTERNAL_PREEXISTING_ARTIFACT_FLAGS"
+    },
+    {
+      "name": "btc",
+      "data": "PATH_TO_BTC_REAL_WINDOWS.npz",
+      "positive_mask_definition": "DOCUMENT_EXTERNAL_REAL_CASE_BEFORE_TEST",
+      "negative_mask_definition": "DOCUMENT_EXTERNAL_REAL_CASE_BEFORE_TEST",
+      "artifact_mask_definition": "OPTIONAL_EXTERNAL_PREEXISTING_ARTIFACT_FLAGS"
+    }
+  ],
+  "required_npz_keys": {
+    "signals": "float[n_windows, n_samples]",
+    "positive": "bool[n_windows]",
+    "negative": "bool[n_windows]",
+    "artifact": "optional bool[n_windows]"
+  }
+}

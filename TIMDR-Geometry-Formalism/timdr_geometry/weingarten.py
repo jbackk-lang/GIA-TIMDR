@@ -45,6 +45,10 @@ from typing import Optional
 
 import numpy as np
 
+# Frozen implementation constant for the geometry-side dispersion operator.
+# It is intentionally explicit and is not tuned from bridge outcomes.
+EPS_GEOMETRY = 1e-9
+
 __all__ = [
     "Mesh",
     "ShapeOperatorResult",
@@ -58,6 +62,9 @@ __all__ = [
     "kappa_max",
     "mean_curvature",
     "gaussian_curvature",
+    "EPS_GEOMETRY",
+    "mean_curvature_dispersion",
+    "mean_curvature_dispersion_blocks",
     "make_plane_mesh",
     "make_sphere_mesh",
     "make_cylinder_mesh",
@@ -290,6 +297,67 @@ def mean_curvature(op: ShapeOperatorResult) -> float:
 def gaussian_curvature(op: ShapeOperatorResult) -> float:
     """K = κ1·κ2 — wyznacznik operatora kształtu (Aksjomat G9a)."""
     return float(np.prod(op.principal_curvatures))
+
+
+def mean_curvature_dispersion(
+    H_values: np.ndarray,
+    eps: float = EPS_GEOMETRY,
+) -> float:
+    """Geometry-side self-normalized dispersion operator Λ_G.
+
+    Computes exactly the same algebraic shape as the META dispersion
+    operator, but on mean-curvature values H rather than on Q:
+
+        Λ_G = std(H) / (std(H) + |mean(H)| + eps)
+
+    Conventions are deliberately explicit:
+      * ``np.std`` is used with its default ``ddof=0``;
+      * ``np.mean`` is used directly;
+      * no NaN filtering, clipping, rescaling, or post-hoc normalization
+        is performed here; NaNs therefore propagate as NaN;
+      * empty input is invalid;
+      * ``eps`` must be finite and strictly positive.
+
+    ``eps`` is an operator parameter, not a bridge-fit parameter.
+    The default ``EPS_GEOMETRY`` is frozen at 1e-9 for this implementation.
+    """
+    H_values = np.asarray(H_values, dtype=float)
+    if H_values.ndim != 1:
+        raise ValueError("H_values musi mieć kształt 1D")
+    if H_values.size == 0:
+        raise ValueError("puste H_values — nie da się obliczyć Lambda_G")
+    if not np.isfinite(eps) or eps <= 0.0:
+        raise ValueError("eps musi być skończone i > 0")
+
+    h_mean = float(np.mean(H_values))
+    h_std = float(np.std(H_values))
+    return h_std / (h_std + abs(h_mean) + float(eps))
+
+
+def mean_curvature_dispersion_blocks(
+    H_trace: np.ndarray,
+    block_slices: list[tuple[int, int]],
+    eps: float = EPS_GEOMETRY,
+) -> np.ndarray:
+    """Compute Λ_G for caller-supplied, disjoint H blocks.
+
+    The block boundaries are intentionally supplied by the caller instead of
+    being regenerated here. This prevents the geometry operator from silently
+    choosing a different partition than META. To be comparable with
+    ``signal_meta_bridge``, the caller must pass the exact same block slices
+    used for the META trace and must have H already aligned to that sample
+    index. This function therefore does *not* invent a timestamp mapping.
+    """
+    H_trace = np.asarray(H_trace, dtype=float)
+    if H_trace.ndim != 1:
+        raise ValueError("H_trace musi mieć kształt 1D")
+
+    values: list[float] = []
+    for start, end in block_slices:
+        if start < 0 or end < start or end > H_trace.size:
+            raise ValueError(f"nieprawidłowy blok [{start}, {end}) dla H_trace długości {H_trace.size}")
+        values.append(mean_curvature_dispersion(H_trace[start:end], eps=eps))
+    return np.asarray(values, dtype=float)
 
 
 # ---------------------------------------------------------------------
