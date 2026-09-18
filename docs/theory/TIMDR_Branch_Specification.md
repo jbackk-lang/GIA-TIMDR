@@ -59,8 +59,10 @@ tabelę.
   matematycznie sensowna") — patrz sekcja "Warstwa meta" niżej po pełne
   rozróżnienie. Most `MC_{M/S↔G}` #1 (tłumienie trybu zerowego `Z0` vs
   koherencja topologiczna `G_i`, gałąź G) testowany na realnych danych
-  2026-09-17 i **częściowo ustalony** (silny na łożyskach, częściowy na
-  sejsmice, brak na BTC) — pełny opis w sekcji "Gałąź G" wyżej i w
+  2026-09-17 i **USTALONY (diagnostyka)** (silny na łożyskach, częściowy
+  na sejsmice, brak na BTC — zakres wyniku bez zmian od pierwotnego
+  testu, patrz "Słownik statusów mostów kandydujących" niżej w tym
+  dokumencie) — pełny opis w sekcji "Gałąź G" wyżej i w
   `Axioms_S_TIMDR_Signal.md`.
 - **Czym NIE jest:** rozszerzeniem gałęzi K (rezonans modalny to inny
   operator — wyrównanie częstotliwości/fazy, nie koincydencja progowa)
@@ -186,15 +188,30 @@ tabelę.
       wybranym podziale (ten sam status co pozostałe metryki tej
       rodziny mostów, patrz punkt 19 skilla i lekcja G-Rezonansu,
       Aksjomat G5f).
-    - **Status: częściowo ustalony.** Realny, powtarzalny efekt
+    - **Status: USTALONY (diagnostyka)** (podniesiony z "częściowo
+      ustalony" 2026-09-18, na wyraźną prośbę użytkownika — patrz
+      "Słownik statusów mostów kandydujących" niżej w tym dokumencie po
+      pełną definicję tieru i uzasadnienie różnicy względem pełnego
+      "ustalony"). Kandydat spełnia wszystkie sześć kryteriów tieru: (1)
+      pre-rejestracja `w1/w3/θ0/θG` PRZED danymi testowymi
+      (`PREREG_MOBIUS_COHERENCE_BRIDGES.md`), (2) kontrole
+      pozytywna+negatywna na syntetyce
+      (`tests/test_zero_mode_topology_bridge.py`, 13 testów), (3) wynik
+      na realnych danych zgodny z przewidywaniem sprzed testu, (4) test
+      przenośności na 3 niezależnych domenach (łożyska/sejsmika/BTC),
+      (5) jawnie spisane ograniczenia (patrz wyżej — dystorsja
+      `MC_continuous`, dziedziczona słabość `G_i`), (6) jawna
+      klasyfikacja diagnostyka-nie-selektor. **Realny, powtarzalny efekt
       diagnostyczny na 2 z 3 domen (silny na łożyskach, częściowy na
-      sejsmice), zerowy na trzeciej (BTC) — NIE jest to "ustalony most"
-      w sensie ecosystemu (brak niezależnej replikacji, brak
-      teoretycznego uzasadnienia analogicznego do transformaty
-      Fouriera), ale też nie jest to odrzucony kandydat: to pierwszy w
-      tej rodzinie mostów kandydat z jednoznacznie potwierdzonym,
-      częściowym sygnałem empirycznym zamiast czystej propozycji.
-      Klasyfikacja: diagnostyka, nie selektor. Pełny wynik: `docs/
+      sejsmice), zerowy na trzeciej (BTC) — ten zakres NIE znika wraz z
+      podniesieniem statusu, jest jego integralną częścią.** Tier
+      "USTALONY (diagnostyka)" jest świadomie węższy niż pełne
+      "ustalony": NIE wymaga niezależnej replikacji (powtórzenia tego
+      samego testu na świeżych danych) ani teoretycznego uzasadnienia
+      analogicznego do transformaty Fouriera — oba te elementy wciąż
+      brakują i są warunkiem ewentualnego dalszego podniesienia statusu.
+      To pierwszy stabilny most 2-gałęziowy w rodzinie mostów
+      Möbiusowych, spełniający ten tier. Pełny wynik: `docs/
       geometry/PREREG_MOBIUS_COHERENCE_BRIDGES.md`, `docs/geometry/
       RESULT_MOBIUS_COHERENCE_BRIDGES_REAL_DATA.md`, `core/zero_mode_
       topology_bridge.py` + `core/real_zero_mode_topology_bridge.py`.
@@ -225,7 +242,7 @@ tabelę.
   (widmo Laplasjanu Möbiusa, dodane 2026-09-17), `core/mobius_kg_bridge.py`
   + `core/real_mobius_kg_bridge.py` (most `MC_{K↔G}`, odrzucony),
   `core/zero_mode_topology_bridge.py` + `core/real_zero_mode_topology_
-  bridge.py` (most `MC_{M/S↔G}` #1, częściowo ustalony), `docs/geometry/
+  bridge.py` (most `MC_{M/S↔G}` #1, USTALONY jako diagnostyka), `docs/geometry/
   PREREG_MOBIUS_COHERENCE_BRIDGES.md` + `docs/geometry/RESULT_MOBIUS_
   COHERENCE_BRIDGES_REAL_DATA.md` (pre-rejestracja i wynik obu mostów).
 - **Czym NIE jest:** rozszerzeniem gałęzi M/S (obiekty G nie są
@@ -536,16 +553,62 @@ Kolumna META-DYNAMICS dodana 2026-09-10 — patrz sekcja "Gałąź
 META-DYNAMICS" powyżej po pełne uzasadnienie i sześć domenowych
 instancji.
 
+## Słownik statusów mostów kandydujących (dopisane 2026-09-18, na
+wyraźną prośbę użytkownika)
+
+Trzy dotąd używane etykiety (NIE ustalony / częściowo ustalony /
+ustalony) nie miały formalnej granicy między sobą — tylko przykłady per
+most. Ten dopisek precyzuje to, bez cichej zmiany jakiegokolwiek
+wcześniej przyznanego statusu poza jawnie wymienionym niżej:
+
+- **NIE ustalony** — kandydat bez przejścia testu na realnych danych,
+  albo z wynikiem odrzuconym po niezależnej diagnozie (np. `MC_{K↔G}`,
+  artefakt geometrii kratownicy).
+- **częściowo ustalony** — częściowy/niespójny wynik na realnych
+  danych, bez jeszcze udokumentowanej metodologicznej kompletności
+  procesu (patrz niżej).
+- **USTALONY (diagnostyka)** — NOWY, węższy tier (wprowadzony tym
+  dopiskiem, 2026-09-18): kandydat spełniający WSZYSTKIE z sześciu: (1)
+  pre-rejestracja progów/wag PRZED dotknięciem danych testowych, (2)
+  kontrola pozytywna i negatywna na danych syntetycznych, (3) przebieg
+  na realnych danych z wynikiem zgodnym z przewidywaniem sprzed testu,
+  (4) test przenośności międzydomenowej (≥3 niezależne domeny), (5)
+  jawnie spisane ograniczenia, (6) jawna klasyfikacja
+  diagnostyka-nie-selektor. **NIE wymaga**: niezależnej replikacji
+  (powtórzenia TEGO SAMEGO testu na świeżych danych/w osobnej sesji) ani
+  teoretycznego uzasadnienia analogicznego do mostu Fouriera
+  (`Δt·Δf=1/(4π)`) — to są dodatkowe wymogi pełnego "ustalony" niżej,
+  świadomie NIE spełnione przez ten tier. Status jest ZAWSZE domenowo
+  zawężony do wyniku faktycznie zmierzonego — np. "silny na łożyskach,
+  częściowy na sejsmice, ZERO na BTC" pozostaje częścią etykiety, nie
+  znika po jej nadaniu; etykieta mówi o **metodologicznej kompletności
+  procesu walidacji**, NIE o uniwersalnej mocy metryki.
+- **ustalony** (pełny, bez kwalifikatora) — jak wyżej PLUS niezależna
+  replikacja i teoretyczne uzasadnienie. Dotąd żaden kandydat
+  cross-branch w tym dokumencie nie osiągnął tego poziomu; jedyny
+  precedens bliski temu poziomowi to sam most Fouriera M/S↔K
+  (matematyczna tożsamość + 10/10 testów), z jawnie ograniczonym
+  zakresem (`Axioms_K_TIMDR.md`).
+
+Ten dopisek NIE zmienia statusu `MC_{K↔G}` (pozostaje NIE
+ustalony/odrzucony — diagnoza geometryczna to kwestia jakości wyniku,
+nie tieru). Zmienia WYŁĄCZNIE `MC_{M/S↔G}` #1, z częściowo ustalony na
+**USTALONY (diagnostyka)** — uzasadnienie per kryterium w sekcji "Gałąź
+G" wyżej (podsekcja mostu), pełne zmiany też w `Axioms_G_TIMDR_Geometry.md`
+i `Axioms_S_TIMDR_Signal.md`.
+
 **Mosty kandydujące między gałęziami, testowane na realnych danych
 2026-09-17** (nie mieszczą się w tabeli per-gałąź powyżej, bo z
 definicji łączą dwie): `MC_{K↔G}` (widmo Möbiusa ↔ `ω1`) —
 **status: NIE ustalony, odrzucony w obecnej formie** (36/60, artefakt
 geometrii kratownicy); `MC_{M/S↔G}` #1 (`Z0` ↔ `G_i`) — **status:
-częściowo ustalony** (140/240, silny na łożyskach, częściowy na
-sejsmice, brak na BTC). Oba szczegółowo opisane w sekcji "Gałąź G"
-wyżej, wraz z pełnymi wynikami i ograniczeniami; jedyny wcześniej
-sankcjonowany most (Fourier M/S↔K) pozostaje odrębny — patrz sekcja
-"Gałąź M/S" i `TIMDR_Chronoprocess.md` §5.
+USTALONY (diagnostyka)** (140/240, silny na łożyskach, częściowy na
+sejsmice, brak na BTC — zakres wyniku bez zmian, zmienia się wyłącznie
+etykieta metodologicznej kompletności, patrz słownik statusów wyżej).
+Oba szczegółowo opisane w sekcji "Gałąź G" wyżej, wraz z pełnymi
+wynikami i ograniczeniami; jedyny wcześniej sankcjonowany most (Fourier
+M/S↔K) pozostaje odrębny — patrz sekcja "Gałąź M/S" i
+`TIMDR_Chronoprocess.md` §5.
 
 ---
 

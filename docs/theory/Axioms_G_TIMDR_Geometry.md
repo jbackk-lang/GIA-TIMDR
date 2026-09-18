@@ -612,7 +612,7 @@ powtórzenia dla tego kandydata), [`TIMDR_Gravity_Speculative.md`](./TIMDR_Gravi
 (wcześniejszy, analogiczny przypadek 3-gałęziowego mieszania odrzucony
 z tego samego powodu).
 
-## Dopisek: kandydujący (NIE ustalony) most M/S↔G #1 — tłumienie trybu zerowego vs koherencja topologiczna (2026-09-17, nie nowy aksjomat)
+## Dopisek: USTALONY (diagnostyka) most M/S↔G #1 — tłumienie trybu zerowego vs koherencja topologiczna (2026-09-17, podniesiony z częściowo ustalony 2026-09-18, nie nowy aksjomat)
 
 Trzeci kandydat wywiedziony z tej samej pierwotnej propozycji
 `MöbiusCoherence(S)` (patrz dopisek "most G↔K #2" powyżej) — po
@@ -623,10 +623,12 @@ pośrednictwa gałęzi K. Operator ciągły
 `MC_{M/S↔G}(S_i)=1[Z0<θ0]·1[G_i>θG]`. Pełna definicja `Z0` i `G_i`:
 `Axioms_S_TIMDR_Signal.md`, sekcja "Pozostałe braki formalne".
 
-**To NIE jest ustalony most** — ten sam wzorzec dyscypliny co pozostałe
-kandydaty w tym dokumencie. Brakuje: wag `w1`/`w3` (wersja ciągła),
-progów `θ0`/`θG` (wersja binarna), kontroli pozytywnej/negatywnej,
-jakiegokolwiek przebiegu na realnych danych. Odrębny od mostu G↔K #2
+**Stan PRZED testem na realnych danych (2026-09-17, opis historyczny —
+patrz status zaktualizowany niżej)**: brakowało wag `w1`/`w3` (wersja
+ciągła), progów `θ0`/`θG` (wersja binarna), kontroli
+pozytywnej/negatywnej, jakiegokolwiek przebiegu na realnych danych —
+ten sam wzorzec dyscypliny co pozostałe kandydaty w tym dokumencie w
+momencie ich zgłoszenia. Odrębny od mostu G↔K #2
 powyżej (tam `G_i` testowane przeciw `ω1`, gałąź K; tu przeciw `Z0`,
 gałąź M/S) — trzy różne kandydaty (M/S↔K #2, G↔K #2, M/S↔G #1) dzielą
 część składników, ale żaden nie jest podzbiorem/rozszerzeniem innego;
@@ -661,6 +663,21 @@ metryki tej rodziny mostów (winding/crossing/phase_winding, torsja,
 homologia trwała, punkt 19), nie gorszy ani lepszy pod tym względem.
 `G_i` na łożyskach jest mimo to najsilniejszym dotąd zmierzonym
 kandydatem diagnostycznym w całej rodzinie mostów M/S↔topologia/G/K.
+
+**Status (podniesiony 2026-09-18, na wyraźną prośbę użytkownika):
+USTALONY (diagnostyka)** — pierwszy most 2-gałęziowy w rodzinie mostów
+Möbiusowych, który spełnia wszystkie sześć kryteriów tego tieru
+(pre-rejestracja, kontrole syntetyczne, wynik realny zgodny z
+przewidywaniem, przenośność na 3 domeny, spisane ograniczenia,
+klasyfikacja diagnostyka-nie-selektor — pełna definicja tieru i
+uzasadnienie różnicy względem pełnego "ustalony":
+`TIMDR_Branch_Specification.md`, sekcja "Słownik statusów mostów
+kandydujących"). Zakres wyniku (silny na łożyskach, częściowy na
+sejsmice, zero na BTC) pozostaje bez zmian — etykieta mówi o
+kompletności metodologicznej procesu, nie o uniwersalnej mocy metryki.
+Pełne "ustalony" (bez kwalifikatora) wymagałoby dodatkowo niezależnej
+replikacji i teoretycznego uzasadnienia analogicznego do mostu
+Fouriera — świadomie NIE osiągnięte tym podniesieniem statusu.
 
 ## Mapowanie aksjomatów G na README / repo
 
