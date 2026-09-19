@@ -1,0 +1,51 @@
+{
+  "dataset_id": "CMU_KITCHEN_S13_BROWNIE_v0.1",
+  "prereg_version": "B4_KITCHEN_v0.2",
+  "method": "circular_block_permutation",
+  "block_length": 12,
+  "verdict": "INCONCLUSIVE",
+  "n_geometry_frames": 82219,
+  "n_blocks": 1645,
+  "h_summary": {
+    "min": -1.0985872591645476,
+    "max": 0.16956909321079122,
+    "mean": -0.6178759965483634
+  },
+  "q_summary": {
+    "min": 13.19224492218654,
+    "max": 4145.91019118257,
+    "mean": 72.5880768094928
+  },
+  "lambda_g_summary": {
+    "min": 0.0,
+    "max": 0.9422793387040389,
+    "mean": 0.049994334970210524
+  },
+  "lambda_meta_summary": {
+    "min": 0.06141887905434589,
+    "max": 0.7123845125671169,
+    "mean": 0.2939745769246577
+  },
+  "controls": {
+    "positive": {
+      "rho": 1.0,
+      "pvalue": 9.999000099990002e-05,
+      "permutations": 10000,
+      "exceedances": 0,
+      "block_length": 12,
+      "method": "circular_block_permutation"
+    },
+    "negative": {
+      "rho": 0.11452537949845046,
+      "pvalue": 0.017298270172982702,
+      "permutations": 10000,
+      "exceedances": 172,
+      "block_length": 12,
+      "method": "circular_block_permutation"
+    },
+    "passed": false
+  },
+  "main_test": null,
+  "alpha": 0.05,
+  "seed": 20260919
+}
