@@ -227,12 +227,20 @@ tabelę.
   analitycznie krzywiźnie (płaszczyzna/sfera/walec); pierwszy test na
   REALNEJ (nie syntetycznej) geometrii — B4-Kitchen (dopisek w
   `Axioms_G_TIMDR_Geometry.md`) — dał werdykt SUPPORTED w trzeciej
-  iteracji metodologicznej (v0.3), ale sklasyfikowany jako **NIE
-  ustalony** (jedna domena/sesja, bez repliki, mały rozmiar efektu) —
-  brak walidacji empirycznej pozostaje w mocy dla \(\mathcal{R}_G\)
-  (mimo że jest już zaimplementowany i przetestowany numerycznie dla
-  \(N=3\) — patrz G5f); wymagania do pełnej teorii matematycznej
-  wypisane wprost w G7c.
+  iteracji metodologicznej (v0.3, Brownie, rho=0.0708). **2026-09-19,
+  ten sam dzień: druga, niezależna sesja (Eggs, ten sam uczestnik S13,
+  inny przepis) powtórzyła SUPPORTED zamrożoną metodą bez żadnych zmian
+  (rho=0.1249, p≈4e-5, silniejszy sygnał niż Brownie), tym razem bez
+  zastrzeżenia "trzecia próba na tych samych danych" (zupełnie osobny
+  zbiór).** Zaktualizowana klasyfikacja: **SUPPORTED wewnątrz-osobniczo
+  (2/2), NIE ustalone międzyosobniczo** — CMU Kitchen Capture ma
+  przekonwertowany mocap AMC/ASF wyłącznie dla Subject 13, więc
+  prawdziwa replika międzyosobnicza pozostaje niewykonalna z tego zbioru
+  bez samodzielnej konwersji surowego Vicon innego uczestnika. Brak
+  walidacji empirycznej pozostaje w mocy dla \(\mathcal{R}_G\) (mimo że
+  jest już zaimplementowany i przetestowany numerycznie dla \(N=3\) —
+  patrz G5f); wymagania do pełnej teorii matematycznej wypisane wprost w
+  G7c.
 - **Pliki źródłowe:** `Axioms_G_TIMDR_Geometry.md`,
   `Resonance_M_Operator_Empiryczny.md` §6, `TIMDR_Twists.md` (definicja
   skrętu powierzchniowego wśród pięciu), główny `README.md` sekcje
@@ -240,7 +248,12 @@ tabelę.
   + `core/trefoil_resonance_model.py` + `TIMDR_GResonance_Operator.md`,
   `core/b4_kitchen_run*.py` + `docs/geometry/PREREG_B4_KITCHEN_v0.2/v0.3.md`
   + `docs/geometry/RESULT_B4_KITCHEN_v0.2/v0.3.md` (pierwszy realny test
-  \(W_S\), patrz dopisek "B4-Kitchen" w `Axioms_G_TIMDR_Geometry.md`)
+  \(W_S\), patrz dopisek "B4-Kitchen" w `Axioms_G_TIMDR_Geometry.md`),
+  `docs/geometry/B3_KITCHEN_PREREG_EGGS_v0.1.md` + `docs/geometry/
+  b4_kitchen_manifest_eggs.json` + `docs/geometry/RESULT_B4_KITCHEN_EGGS_v0.1.md`
+  + `core/b4_kitchen_run_eggs.py` (replika na innym przepisie tego samego
+  uczestnika, SUPPORTED, patrz podsekcja "Replika Eggs" w dopisku
+  "B4-Kitchen" w `Axioms_G_TIMDR_Geometry.md`)
   (operator G-Rezonans, G5), osobne repo `TIMDR-Geometry-Formalism`
   (`timdr_geometry/weingarten.py` — numeryczna implementacja G8-G9:
   dyskretny operator kształtu, testy na płaszczyźnie/sferze/walcu/
@@ -549,7 +562,7 @@ zaprzeczenia drugiego.
 | "Skręt" | odwrócenie trendu (regresja) | zmiana normalnej \(T_S\), związana z krzywizną (G8-G9) | *(nieużywane w tej gałęzi)* | τ = tempo zmiany defektu/anomalii w czasie (transformacja) — INNY obiekt niż τ topologiczne G ani τ TRM, mimo wspólnego symbolu |
 | "Anomalia" | \(\mathbb{1}[\lvert x_i-\mu_i\rvert>2\sigma_i]\) | *(nieużywane w tej gałęzi)* | *(nieużywane w tej gałęzi)* | ρ — frakcja komórek/elementów ponad próg anomalii (mediana+k·MAD) |
 | Liczba aksjomatów | 13 | 10 | 10 | 0 (działający kod w 6 domenach + 1 uniwersalny walidator, brak spisanych aksjomatów — jawna luka) |
-| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3) | koncepcyjna, brak udokumentowanej walidacji | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
+| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3); B4-Kitchen: SUPPORTED wewnątrz-osobniczo (2/2 przepisów S13), NIE ustalone międzyosobniczo | koncepcyjna, brak udokumentowanej walidacji | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
 | Plik źródłowy | `Axioms_S_TIMDR_Signal.md` | `Axioms_G_TIMDR_Geometry.md` | `Axioms_K_TIMDR.md` | `TIMDR-META-DYNAMICS/core_meta/meta_state.py` + `meta_operator_M.py` |
 
 **Pozostałe puste komórki są zamierzone**, nie przeoczeniem: brak

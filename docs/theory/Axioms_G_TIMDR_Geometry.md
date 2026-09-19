@@ -517,12 +517,20 @@ G3d/G6c dla skrętu, stosowany tu do rezonansu).
   4/4 `test_b4_bearing_data_gate.py`, dopisany osobno tego samego dnia po
   przeczytaniu w całości i niezależnym uruchomieniu), status "zaimplementowane
   i potwierdzone wykonaniem", (2) formalnej przestrzeni powierzchni — wciąż
-  otwarte, (3) testów empirycznych — **częściowo domknięte**: pierwszy
-  realny (nie syntetyczny) test na danych geometrycznych istnieje —
-  patrz dopisek "B4-Kitchen" niżej — ale to JEDNA sesja nagraniowa, bez
-  repliki, więc kontrast z gałęzią sygnałową M (gdzie realna walidacja
-  ma wiele dni danych pogodowych — `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`)
-  pozostaje w mocy co do SKALI walidacji, nie co do jej istnienia, (4)
+  otwarte, (3) testów empirycznych — **częściowo domknięte, wzmocnione
+  2026-09-19**: pierwszy realny (nie syntetyczny) test na danych
+  geometrycznych istnieje i ma teraz DWIE niezależne sesje nagraniowe
+  (Brownie v0.3, Eggs v0.1 — ten sam uczestnik, inne przepisy, obie
+  SUPPORTED) — patrz dopisek "B4-Kitchen" niżej. To wzmacnia wewnątrz-
+  osobniczą wiarygodność wyniku (drugie, świeże uruchomienie ZAMROŻONEJ
+  metody, bez multiple-comparisons z Brownie, bo to zupełnie inny zbiór
+  danych), ale NIE zamyka luki (3): obie sesje dzielą tego samego
+  uczestnika, tę samą kuchnię i sprzęt — CMU Kitchen Capture nie
+  udostępnia przekonwertowanego mocapu dla żadnego innego uczestnika, więc
+  testu MIĘDZYOSOBNICZEGO wciąż nie ma. Kontrast z gałęzią sygnałową M
+  (gdzie realna walidacja ma wiele dni danych pogodowych —
+  `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`) pozostaje w mocy co
+  do SKALI i RÓŻNORODNOŚCI walidacji, nie co do jej istnienia, (4)
   niezależnej walidacji — otwarte. *(Wyjątek częściowy: operator
   \(\mathcal{R}_G\) z G5 JEST zaimplementowany i przetestowany
   numerycznie w tym repo, w odróżnieniu od \(W_S\) powyżej — ale nadal
@@ -729,20 +737,68 @@ kalibracją (4.33% i 5.33% fałszywych alarmów, oba przedziały ufności
 zawierają nominalne 5%) — wybrana dla v0.3 metoda n_eff, z NOWĄ,
 niesprawdzoną przed zamrożeniem parą ziaren kontroli negatywnej.
 
-**Status: NIE ustalony (wstępny sygnał pozytywny, jedna sesja, bez
-repliki)** — mimo werdyktu "SUPPORTED" w v0.3, to jest jedna domena (jedna
-sesja nagraniowa), bez testu przenośności międzydomenowej i bez
-niezależnej repliki, w dodatku po trzech iteracjach metodologicznych na
-tym samym zbiorze — rozmiar efektu mały (`rho=0.0708`). Pełne omówienie
-ryzyka wielokrotnego próbowania i uczciwe zastrzeżenia:
-`docs/geometry/RESULT_B4_KITCHEN_v0.3.md`. Prerejestracje i pełne wyniki:
-`docs/geometry/PREREG_B4_KITCHEN_v0.2.md`/`v0.3.md`,
+**Status (2026-09-19, pierwotna ocena z v0.3 poniżej, zaktualizowane
+niżej po replice Eggs): NIE ustalony międzyosobniczo (wstępny sygnał
+pozytywny, jedna sesja, bez repliki)** — mimo werdyktu "SUPPORTED" w
+v0.3, to jest jedna domena (jedna sesja nagraniowa), bez testu
+przenośności międzydomenowej i bez niezależnej repliki, w dodatku po
+trzech iteracjach metodologicznych na tym samym zbiorze — rozmiar efektu
+mały (`rho=0.0708`). Pełne omówienie ryzyka wielokrotnego próbowania i
+uczciwe zastrzeżenia: `docs/geometry/RESULT_B4_KITCHEN_v0.3.md`.
+Prerejestracje i pełne wyniki: `docs/geometry/PREREG_B4_KITCHEN_v0.2.md`/`v0.3.md`,
 `docs/geometry/B4_KITCHEN_RESULT_v0.1/v0.2/v0.3.json`. Dane źródłowe:
 `docs/geometry/b4_kitchen_manifest_template.json` (hashe SHA-256
 archiwów i triangulacji). Kod: `core/b4_kitchen_run.py` (v0.1),
 `core/b4_kitchen_run_v0_2.py` (v0.2), `core/_kitchen_v03_candidate_methods_synthetic_only.py`
 + `core/_kitchen_v03_calibration_check_synthetic_only.py` (dobór metody
 v0.3, wyłącznie na syntetykach).
+
+### Replika Eggs (2026-09-19, ten sam dzień): drugi, niezależny zbiór danych, ta sama zamrożona metoda
+
+Odpowiedź na "co dalej" nazwane w `RESULT_B4_KITCHEN_v0.3.md`: replika
+CAŁKOWICIE NOWEJ sesji nagraniowej (Subject 13, przepis Eggs zamiast
+Brownie — jedyny inny przepis z gotowym, przekonwertowanym mocapem
+AMC/ASF u tego samego uczestnika; sprawdzone na pełnej tabeli 39
+uczestników CMU Kitchen Capture, że żaden INNY uczestnik nie ma takiego
+mocapu). Prerejestracja PRZED dotknięciem geometrii/audio Eggs:
+`docs/geometry/B3_KITCHEN_PREREG_EGGS_v0.1.md` — ta sama triangulacja
+(reużyta bit-do-bitu, te same nazwy stawów ASF), ta sama metoda
+statystyczna `ar1_effective_n_spearman` (v0.3, zero zmian parametrów),
+nowe etykiety ziaren kontroli negatywnej wygenerowane tą samą regułą
+PRZED zobaczeniem wyniku.
+
+```text
+n_geometry_frames = 58507, n_blocks = 1171
+kontrola pozytywna: p≈0.0 ✓
+kontrola negatywna: p=0.5602 ✓
+test główny: rho=0.1249, n_eff=1067.5, p=0.0000396
+werdykt: SUPPORTED
+```
+
+Silniejszy sygnał niż Brownie (`rho=0.0708`→`0.1249`, `p=0.0093`→`p≈4e-5`)
+i, ważne, **wolny od zastrzeżenia "trzecia próba na tych samych danych"**
+z v0.3 — to pierwsze i jedyne uruchomienie tej metody na danych Eggs,
+zupełnie osobny zbiór (inna sesja nagraniowa, inne audio, inna
+geometria), więc efekt wielokrotnego próbkowania z trzech iteracji na
+Brownie się tu nie stosuje.
+
+**To WCIĄŻ NIE jest replika międzyosobnicza** — oba dodatnie wyniki
+(Brownie, Eggs) dzielą tego samego uczestnika, tę samą kuchnię, ten sam
+dzień nagraniowy, ten sam sprzęt. Prawdziwa replika międzyosobnicza
+pozostaje niewykonalna z tego zbioru danych bez samodzielnej konwersji
+surowego Vicon innego uczestnika do AMC/ASF (poza zakresem tej sesji).
+
+**Zaktualizowany status: SUPPORTED wewnątrz-osobniczo (2/2 przepisów
+tego samego uczestnika, zero prób NOT SUPPORTED/INCONCLUSIVE na świeżych
+danych), NIE ustalone międzyosobniczo.** Nie osiąga tieru "USTALONY
+(diagnostyka)" z `TIMDR_Branch_Specification.md` (brakuje testu na ≥3
+niezależnych domenach w sensie międzyosobniczym — tu mamy 2 domeny, ale
+obie tego samego "podmiotu"), a tym bardziej pełnego "ustalony". Pełny
+wynik i uczciwe zastrzeżenia: `docs/geometry/RESULT_B4_KITCHEN_EGGS_v0.1.md`.
+Prerejestracja: `docs/geometry/B3_KITCHEN_PREREG_EGGS_v0.1.md`. Manifest:
+`docs/geometry/b4_kitchen_manifest_eggs.json`. Surowy wynik:
+`docs/geometry/B4_KITCHEN_RESULT_EGGS_v0.1.json`. Kod:
+`core/b4_kitchen_run_eggs.py`, `core/_kitchen_h_checkpoint_runner_eggs.py`.
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (gałąź modalna),
 [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md) (gałąź
