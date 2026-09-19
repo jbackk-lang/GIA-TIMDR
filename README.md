@@ -96,9 +96,12 @@ operatorów zamiast jednej wielkości).
 > specyfikację (domena/przeciwdziedzina/definicja per znaczenie):
 > [`docs/theory/TIMDR_Twists.md`](docs/theory/TIMDR_Twists.md).
 >
-> **Trzy z czterech gałęzi mają działający, testowalny kod obok
-> aksjomatów** (czwarta, META-DYNAMICS, jest ODWROTNIE — kod od dawna,
-> aksjomaty jeszcze nie spisane, patrz sekcja 4 niżej): gałąź sygnałowa
+> **Wszystkie cztery gałęzie mają teraz aksjomaty** — META-DYNAMICS
+> dołączyła jako ostatnia, 2026-09-19
+> ([`docs/theory/Axioms_META_TIMDR.md`](docs/theory/Axioms_META_TIMDR.md),
+> META-1 do META-9). Trzy pierwsze miały działający, testowalny kod obok
+> aksjomatów od dawna; META-DYNAMICS miała kolejność ODWRÓCONĄ — kod od
+> dawna, aksjomaty dopisane dopiero teraz, patrz sekcja 4 niżej: gałąź sygnałowa
 > w repo `TIMDR-Math-Formalism`
 > (protokół pre-rejestracja/kontrola +/-/Mann-Whitney/effect size,
 > zwalidowany realnymi danymi Krakow_Centrum — `docs/diagram.svg`),
@@ -220,7 +223,10 @@ sieć energetyczna (`TIMDR-Grid-Monitor`), siatka kwantowa
 warstwa walidacji: `meta_validator.py` (5 obszarów sprawdzeń).
 **Pliki:** `TIMDR-META-DYNAMICS/core_meta/meta_state.py` +
 `meta_operator_M.py`, sześć `*meta_adapter.py` domenowych,
-`TIMDR-Math-Formalism/timdr_formalism/meta_validator.py`.
+`TIMDR-Math-Formalism/timdr_formalism/meta_validator.py`,
+`docs/theory/Axioms_META_TIMDR.md` (META-1 do META-9, dopisane
+2026-09-19 — status empiryczny per domena i jawnie niezweryfikowane
+pozycje, w tym p=7.3e-136 w Quantum-Lattice, opisane w dokumencie).
 **To NIE jest:** sygnał `x:T→ℝᵈ` (M/S), obiekt na powierzchni/siatce 3D
 (G), moduł częstotliwość/faza/amplituda (K) — czwarty, niezależny
 kształt: wektor 4D + operator ewolucji. Domenowe instancje (sześć
@@ -244,13 +250,42 @@ akurat te dwie luki, dlaczego nie pozostałe siedem) — sekcja "Runda 2" w
 | Sygnałowa (M, S) | sygnały czasowe | M — progowy, baseline dwumianowy, zwalidowany empirycznie na danych Krakow_Centrum | sygnałowy (odwrócenie trendu) | Axioms_S | sformalizowana, testowana kodem |
 | Geometryczna (G) | powierzchnie 3D / krzywe z węzłami | G — widmo `(ω,Q,A)` układu N oscylatorów na węzłach krzywej, zaimplementowany i testowany dla N=3, nie zwalidowany empirycznie | powierzchniowy (normalne) | Axioms_G (G1-G10) | aksjomatyczna, koncepcyjna (G7) — związek z Weingartenem domknięty analitycznie (G8-G9), G-Rezonans domknięty numerycznie dla N=3 (G5), implementacja na siatce 3D i walidacja empiryczna otwarte |
 | Modalna (K) | moduły f/φ/A | K — modalny (wyrównanie f/φ) | brak | Axioms_K | aksjomatyczna + pierwszy kod (`TIMDR-Modal-Formalism`, 17/17 testów zweryfikowane), bez empirycznej walidacji |
-| META-DYNAMICS (Λ,τ,ρ,J) | dowolny system, wektor 4D per krok | J — kanał rezonansu (frakcja elementów ponad próg), NIEaddytywny z ρ | τ — tempo transformacji (zmiany defektu), INNY obiekt niż τ topologiczne/TRM mimo symbolu | brak (jawna luka) | działający kod w 6 domenach, mechanizm potwierdzony (p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane |
+| META-DYNAMICS (Λ,τ,ρ,J) | dowolny system, wektor 4D per krok | J — kanał rezonansu (frakcja elementów ponad próg), NIEaddytywny z ρ | τ — tempo transformacji (zmiany defektu), INNY obiekt niż τ topologiczne/TRM mimo symbolu | Axioms_META (META-1–META-9, 2026-09-19) | działający kod w 6 domenach, mechanizm potwierdzony (p=7.3e-136 w Quantum-Lattice, niezweryfikowane w tym repo), progi klasyfikacji fazy nieskalibrowane |
 
 Żadna gałąź nie jest rozszerzeniem innej — każda ma własną domenę
 matematyczną. Tam, gdzie gałęzie używają tego samego słowa ("rezonans"
 teraz we WSZYSTKICH czterech: M, G, K, META-DYNAMICS; "skręt"/τ w M, G
 i META-DYNAMICS), oznaczają **różne obiekty** — nie różne poziomy tej
 samej rzeczy.
+
+### Mosty kandydujące między gałęziami (testowane na realnych danych)
+
+Poza czterema gałęziami i Chronoprocesem istnieją trzy kandydujące
+mosty łączące dwie gałęzie naraz, każdy pre-rejestrowany i uruchomiony
+na tych samych trzech realnych domenach (łożyska CWRU, sejsmika,
+BTC). Status wg słownika w
+[`TIMDR_Branch_Specification.md`](docs/theory/TIMDR_Branch_Specification.md)
+(sekcja "Słownik statusów mostów kandydujących"):
+
+- **`MC_{K↔G}`** (widmo Möbiusa ↔ `ω1`, 2026-09-17) — **NIE ustalony,
+  odrzucony w obecnej formie**: 36/60, ale diagnoza geometryczna
+  pokazała, że to artefakt gęstości kratownicy blisko stanu
+  podstawowego, nie sygnał.
+- **`MC_{M/S↔G}` #1** (`Z0` ↔ `G_i`, 2026-09-17) — **USTALONY
+  (diagnostyka)**: 140/240, silny na łożyskach (30/30), częściowy na
+  sejsmice (10/20), brak na BTC (0/40) — diagnostyka, nie selektor.
+- **`MC_{M/S↔K}` #2** (`Z0` ↔ `ω1`, 2026-09-19) — **częściowo
+  ustalony**: `MC_continuous` 43/60, `MC_binary` 38/60, silny na
+  łożyskach, kierunek niespójny między stacjami sejsmicznymi, słaby i
+  częściowo przeciwny na BTC. Nie osiąga tieru "USTALONY (diagnostyka)",
+  bo brakuje kontroli syntetycznej dla samej kombinacji `Z0`/`ω1`; jawne
+  pre-rejestrowane zastrzeżenie: obie składowe już osobno wykazują ten
+  sam wzorzec domenowy w innych mostach, więc wynik NIE jest niezależnym
+  dowodem koincydencji `Z0`↔`ω1`.
+
+Pełne PREREG/RESULT każdego mostu: `docs/geometry/`. Podsumowanie i
+pełna definicja statusów: `TIMDR_Branch_Specification.md`, sekcja
+"Mosty kandydujące między gałęziami".
 
 **Piąty, wcześniejszy szkic (nie osobna gałąź):** sekcja "📘 TIMDR —
 Pełny Model Operatora Topologicznej Zmiany Sygnału" dalej w tym README
