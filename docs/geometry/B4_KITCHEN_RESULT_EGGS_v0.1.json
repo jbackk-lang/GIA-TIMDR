@@ -1,0 +1,59 @@
+{
+  "dataset_id": "CMU_KITCHEN_S13_EGGS_v0.1",
+  "replica_of": "CMU_KITCHEN_S13_BROWNIE_v0.1 (same subject, different recipe)",
+  "prereg": "docs/geometry/B3_KITCHEN_PREREG_EGGS_v0.1.md",
+  "method": "ar1_effective_n_spearman (frozen unchanged from PREREG_B4_KITCHEN_v0.3.md)",
+  "verdict": "SUPPORTED",
+  "n_geometry_frames": 58507,
+  "n_blocks": 1171,
+  "h_summary": {
+    "min": -1.0273660041015917,
+    "max": 0.21667969091446962,
+    "mean": -0.5019543786804156
+  },
+  "q_summary": {
+    "min": 12.088779382407544,
+    "max": 3379.9763115271994,
+    "mean": 68.71430411440097
+  },
+  "lambda_g_summary": {
+    "min": 0.0,
+    "max": 0.9071503313179672,
+    "mean": 0.06480613427836317
+  },
+  "lambda_meta_summary": {
+    "min": 0.06324586137065637,
+    "max": 0.6187327991921951,
+    "mean": 0.29090818049886513
+  },
+  "controls": {
+    "positive": {
+      "rho": 0.9999999999999999,
+      "r1x": 0.9974380871050385,
+      "r1y": 0.9974380871050385,
+      "n_eff": 3.00384285669894,
+      "t": 1001919.585944371,
+      "pvalue": 0.0
+    },
+    "negative": {
+      "rho": 0.03562783755524711,
+      "r1x": 0.7937328455677173,
+      "r1y": 0.7892168285863473,
+      "n_eff": 268.9659747856057,
+      "t": 0.5824963784421179,
+      "pvalue": 0.5602323802086407
+    },
+    "passed": true,
+    "seed_x": 5600943,
+    "seed_y": 429881
+  },
+  "main_test": {
+    "rho": 0.12491405630364222,
+    "r1x": 0.5810603435243197,
+    "r1y": 0.07960779064849854,
+    "n_eff": 1067.455901643471,
+    "t": 4.1095476957279935,
+    "pvalue": 3.9643483124071856e-05
+  },
+  "alpha": 0.05
+}
