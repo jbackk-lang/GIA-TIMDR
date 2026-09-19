@@ -1,0 +1,19 @@
+{
+  "artifact_id": "CMU_KITCHEN_S13_BROWNIE_TORSO_TETRAHEDRON_v0.1",
+  "status": "FROZEN_BEFORE_B4",
+  "coordinate_source": "S13_Brownie_Mocap.zip::brownie_1.V.global",
+  "coordinate_unit": "metres (values recorded in brownie_1.V.global; no rescaling)",
+  "anatomical_template_source": "S13_Brownie_Mocap.zip::participant.ASF hierarchy",
+  "surface_definition": "Closed four-vertex torso simplex. It is a kinematic surface proxy, not a scanned body surface.",
+  "vertices": [
+    {"vertex_id": 0, "source_joint": "pelvis", "coordinate_columns": ["pelvis.x", "pelvis.y", "pelvis.z"]},
+    {"vertex_id": 1, "source_joint": "lclavicle", "coordinate_columns": ["lclavicle.x", "lclavicle.y", "lclavicle.z"]},
+    {"vertex_id": 2, "source_joint": "rclavicle", "coordinate_columns": ["rclavicle.x", "rclavicle.y", "rclavicle.z"]},
+    {"vertex_id": 3, "source_joint": "LowerNeck", "coordinate_columns": ["LowerNeck.x", "LowerNeck.y", "LowerNeck.z"]}
+  ],
+  "faces": [[0, 2, 1], [0, 1, 3], [0, 3, 2], [1, 2, 3]],
+  "topology_rule": "Use exactly these four faces in every frame; do not add limbs, interpolate joints, smooth coordinates, reorient faces from a B4 result, or choose an alternative subset of joints.",
+  "frame_validity_rule": "A frame is valid only when all 12 declared coordinate values are finite and the signed tetrahedron volume has absolute value greater than 1e-10 m^3. Invalid frames are excluded.",
+  "curvature_rule": "Use the repository's existing discrete Weingarten implementation on this mesh and reduce finite vertex H values by the arithmetic mean.",
+  "created_before_b4": true
+}

@@ -1,0 +1,49 @@
+{
+  "dataset_id": "CMU_KITCHEN_S13_BROWNIE_v0.1",
+  "verdict": "INCONCLUSIVE",
+  "n_geometry_frames": 82219,
+  "n_blocks": 1645,
+  "h_summary": {
+    "min": -1.0985872591645476,
+    "max": 0.16956909321079122,
+    "mean": -0.6178759965483633
+  },
+  "q_summary": {
+    "min": 13.19224492218654,
+    "max": 4145.91019118257,
+    "mean": 72.5880768094928
+  },
+  "lambda_g_summary": {
+    "min": 0.0,
+    "max": 0.9422793387040389,
+    "mean": 0.049994334970210524
+  },
+  "lambda_meta_summary": {
+    "min": 0.06141887905434589,
+    "max": 0.7123845125671169,
+    "mean": 0.2939745769246577
+  },
+  "controls": {
+    "positive": {
+      "rho": 1.0,
+      "pvalue": 9.999000099990002e-05,
+      "permutations": 10000,
+      "exceedances": 0
+    },
+    "negative": {
+      "rho": 0.11452537949845046,
+      "pvalue": 0.00019998000199980003,
+      "permutations": 10000,
+      "exceedances": 1
+    },
+    "passed": false
+  },
+  "main_test": {
+    "rho": 0.07082455871135257,
+    "pvalue": 0.0036996300369963003,
+    "permutations": 10000,
+    "exceedances": 36
+  },
+  "alpha": 0.05,
+  "seed": 20260919
+}

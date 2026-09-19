@@ -1,0 +1,47 @@
+{
+  "status": "FROZEN_AND_ELIGIBLE_FOR_FIRST_B4_KITCHEN_RUN",
+  "dataset_id": "CMU_KITCHEN_S13_BROWNIE_v0.1",
+  "session_selector": {
+    "subject_id": "13",
+    "recipe": "Brownie",
+    "required_archives": ["mocap.zip", "Mic.zip"]
+  },
+  "geometry_source": "C:\\Users\\jback\\Downloads\\S13_Brownie_Mocap.zip::brownie_1.V.global",
+  "meta_Q_source": "C:\\Users\\jback\\Downloads\\S13_Brownie_Audio.zip::AudioTrack.wav",
+  "time_source": "C:\\Users\\jback\\Downloads\\S13_Brownie_Mocap.zip::mocapTime-sync.txt",
+  "geometry_time_mapping_source": "mocapTime-sync.txt frame timestamps relative to recording-synch.log audio-start timestamp",
+  "time_mapping_artifact": {
+    "mocap_sync_entry": "mocapTime-sync.txt",
+    "audio_sync_entry": "recording-synch.log",
+    "audio_start": "12_01_45_2056940",
+    "first_geometry_frame": "12_02_01_2318490",
+    "first_frame_offset_s": 16.026155,
+    "frame_count": 82220,
+    "geometry_coordinate_row_count": 82221,
+    "amc_frame_index_source": "brownie_1.AMC: explicit frames 0..82220",
+    "row_pairing_status": "VERIFIED: V.global record 0 is AMC frame 0 and is excluded; records 1..82220 pair ordinally with mocapTime-sync Frame:1..Frame:82220",
+    "last_frame_policy": "exclude Frame:82220 from B4 trace: no source timestamp for a following frame"
+  },
+  "selected_microphone_channel": "AudioTrack.wav",
+  "triangulation_artifact": "docs/geometry/kitchen_triangulation.json",
+  "raw_file_hashes": {
+    "mocap_archive_sha256": "77609D7ECF8478C68013F2C040F9D48C7B560B828EF7C27DEFB9CF6B4E93AA9F",
+    "microphone_archive_sha256": "27A1AD07AD05CD6C2AEA951B34DD35C029E52D758AABCDC998BBDA6440A8DC15",
+    "mocap_file_sha256": "ARCHIVE_MEMBER_NOT_EXTRACTED",
+    "microphone_file_sha256": "ARCHIVE_MEMBER_NOT_EXTRACTED",
+    "triangulation_sha256": "9BCDFD51CE489063B2F18A652A31D1882FC7BE52C65100E87F866A91ECFF55E8"
+  },
+  "sampling_interval": {
+    "geometry": "per-frame timestamps from mocapTime-sync.txt; nominal 120 Hz",
+    "audio": "1 / 44100 s"
+  },
+  "window_size": 50,
+  "n_total_blocks": 1645,
+  "n_valid_blocks": 1645,
+  "exclusion_log": [
+    "Excluded AMC/V.global frame 0: explicitly numbered in brownie_1.AMC but absent from mocapTime-sync.txt.",
+    "Excluded Frame:82220 from B4 trace: Q_i requires a source T_(i+1), which is absent.",
+    "No interpolation of missing joints, smoothing, rescaling, or post-hoc audio-to-mocap alignment.",
+    "Invalid or degenerate torso-simplex frames are excluded under kitchen_triangulation.json."
+  ]
+}
