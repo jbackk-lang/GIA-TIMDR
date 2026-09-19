@@ -314,16 +314,31 @@ tabelę.
     (`timdr_modal/phase_sync.py::modal_phase_dispersion`,
     `modal_phase_tempo`, `tests/test_phase_dispersion.py`).
 - **Aksjomaty:** 10 — `Axioms_K_TIMDR.md` (numeracja 1-10).
-- **Status empiryczny:** brak realnej walidacji empirycznej udokumentowanej
-  w tym repo (w odróżnieniu od gałęzi M/S) — status nieokreślony wprost
-  w samym pliku źródłowym; traktować jako co najmniej tak samo
-  koncepcyjny jak gałąź G, dopóki nie powstanie odpowiednik
-  `REAL_DATA_VALIDATION.md` dla K.
+- **Status empiryczny (zaktualizowane 2026-09-19 — poprzedni wpis "brak
+  realnej walidacji" był NIEAKTUALNY):** DWA realne testy istnieją w
+  `TIMDR-Modal-Formalism`. (1) `real_data_validation.py` — sejsmometryczny,
+  dwie stacje Ridgecrest 2019 jako modalności, permutacyjny p-value +
+  kontrola pozytywna, wynik uczciwie niejednoznaczny z powodu bardzo małej
+  próby (~36 okien). (2) `docs/PREREG_K_MARS_DAS_v0.1.md` +
+  `docs/RESULT_K_MARS_DAS_v0.1.md` (2026-09-19) — PIERWSZY test na
+  prawdziwym sygnale ŚWIATŁOWODOWYM: MARS/SeaFOAM DAS, 52 km podmorski
+  kabel telekomunikacyjny, dwa kanały (skrajne końce ~14.8 km, reguła
+  geometryczna zamrożona przed pobraniem) jako modalności. Kontrola
+  pozytywna działa (p≈0.0005), test główny **NOT SUPPORTED** (p=0.365) —
+  uczciwy wynik negatywny, jedna próba, jedna para kanałów, brak testu
+  przenośności. Gałąź K ma teraz TĘ SAMĄ kategorię statusu co M/S:
+  częściowo zwalidowana empirycznie (realne dane, honest negative), nie
+  już "brak walidacji" — ale wciąż słabiej niż M/S czy G pod względem
+  liczby i różnorodności testów.
 - **Pliki źródłowe:** `Axioms_K_TIMDR.md`, `Operators_N_TIMDR.md`
   (operatory dla domeny modalnej, w tym skręt topologiczny τ),
   `TIMDR-Modal-Formalism/timdr_modal/phase_sync.py` (`Λ_K`/`τ_K`
   dodane 2026-09-10, `modal_phase_dispersion`/`modal_phase_tempo`, 8/8
-  testów potwierdzonych w sandboxie, w tym kontrola analityczna).
+  testów potwierdzonych w sandboxie, w tym kontrola analityczna),
+  `TIMDR-Modal-Formalism/timdr_modal/real_data_validation.py` (Ridgecrest,
+  sejsmometryczny), `TIMDR-Modal-Formalism/docs/PREREG_K_MARS_DAS_v0.1.md`
+  + `RESULT_K_MARS_DAS_v0.1.md` (MARS/SeaFOAM, światłowodowy, NOT
+  SUPPORTED).
   Most `MC_{K↔G}` (widmo Laplasjanu Möbiusa jako reguła selekcji
   `ω1`) testowany na realnych danych 2026-09-17 i **odrzucony w
   obecnej formie** (artefakt geometrii kratownicy, nie sygnał) — pełny
@@ -562,7 +577,7 @@ zaprzeczenia drugiego.
 | "Skręt" | odwrócenie trendu (regresja) | zmiana normalnej \(T_S\), związana z krzywizną (G8-G9) | *(nieużywane w tej gałęzi)* | τ = tempo zmiany defektu/anomalii w czasie (transformacja) — INNY obiekt niż τ topologiczne G ani τ TRM, mimo wspólnego symbolu |
 | "Anomalia" | \(\mathbb{1}[\lvert x_i-\mu_i\rvert>2\sigma_i]\) | *(nieużywane w tej gałęzi)* | *(nieużywane w tej gałęzi)* | ρ — frakcja komórek/elementów ponad próg anomalii (mediana+k·MAD) |
 | Liczba aksjomatów | 13 | 10 | 10 | 0 (działający kod w 6 domenach + 1 uniwersalny walidator, brak spisanych aksjomatów — jawna luka) |
-| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3); B4-Kitchen: SUPPORTED wewnątrz-osobniczo (2/2 przepisów S13), NIE ustalone międzyosobniczo | koncepcyjna, brak udokumentowanej walidacji | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
+| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3); B4-Kitchen: SUPPORTED wewnątrz-osobniczo (2/2 przepisów S13), NIE ustalone międzyosobniczo | częściowo zwalidowana empirycznie (Ridgecrest sejsmometryczny — niejednoznaczny z powodu małej próby; MARS DAS światłowodowy — NOT SUPPORTED, uczciwy negatyw) | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
 | Plik źródłowy | `Axioms_S_TIMDR_Signal.md` | `Axioms_G_TIMDR_Geometry.md` | `Axioms_K_TIMDR.md` | `TIMDR-META-DYNAMICS/core_meta/meta_state.py` + `meta_operator_M.py` |
 
 **Pozostałe puste komórki są zamierzone**, nie przeoczeniem: brak
