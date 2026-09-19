@@ -359,15 +359,27 @@ tabelę.
   94.7% okien mimo ~50 kandydujących binów (losowo oczekiwane ~2%) —
   sugestywna silna zgodność widmowa, niezgłaszalna jako potwierdzenie,
   bo test mierzy ciągłą bliskość, nie dyskretną identyczność. Naprawa
-  wymaga przeprojektowania samej statystyki (nie kolejnego parametru) —
-  jawnie odłożone, nie wykonane bez nowej, osobnej decyzji.
+  wymaga przeprojektowania samej statystyki (nie kolejnego parametru).
+  **v0.3 (nowa statystyka — korelacja krzyżowa, decyzja użytkownika po
+  przedstawieniu opcji, ten sam dzień)**: zamiast `(f,φ,A)`+`is_resonant()`,
+  korelacja Pearsona zero-lag między odtrendowanymi oknami PT/TR.
+  Wynik: `mean(r_w)=0.90` (mediana 0.91), z=78 względem null
+  permutacyjnego, p=0.0005, kontrola pozytywna czysta —
+  **SUPPORTED, pierwszy potwierdzony realny wynik gałęzi K w tym repo**.
+  Kluczowe zastrzeżenie: domena (częstotliwość AC w obszarze
+  synchronicznym) wybrana WŁAŚNIE dlatego, że fizyka energetyki a priori
+  gwarantuje wyrównanie — wynik potwierdza, że formalizm K poprawnie
+  wykrywa ZNANE zjawisko, gdy jest fizycznie zagwarantowane, nie
+  odkrycie nowego rezonansu w otwartej hipotezie (Ridgecrest/MARS DAS
+  pozostają bez zmian). Nie spełnia kryteriów "ustalony (diagnostyka)"
+  (brak syntetycznej kontroli, jedna para lokalizacji, brak repliki).
   Gałąź K ma
-  teraz TĘ SAMĄ kategorię statusu co M/S:
-  częściowo zwalidowana empirycznie (realne dane, dwa honest negative +
-  jeden honest inconclusive z nazwanym mechanizmem), nie
-  już "brak walidacji" — ale wciąż słabiej niż M/S czy G pod względem
-  liczby i różnorodności testów, i wciąż BEZ jednego jednoznacznie
-  potwierdzonego wyniku SUPPORTED na realnych danych.
+  teraz TĘ SAMĄ kategorię statusu co M/S i G:
+  częściowo zwalidowana empirycznie (realne dane: dwa honest negative,
+  dwa honest inconclusive z nazwanym mechanizmem, i TERAZ jeden honest
+  SUPPORTED z jawnie ograniczoną interpretacją) — pierwsza gałąź obok G
+  (B4-Kitchen) z realnym wynikiem pozytywnym, choć wciąż słabiej niż
+  M/S czy G pod względem liczby i różnorodności testów oraz replikacji.
 - **Pliki źródłowe:** `Axioms_K_TIMDR.md`, `Operators_N_TIMDR.md`
   (operatory dla domeny modalnej, w tym skręt topologiczny τ),
   `TIMDR-Modal-Formalism/timdr_modal/phase_sync.py` (`Λ_K`/`τ_K`
@@ -381,7 +393,9 @@ tabelę.
   + `RESULT_K_GRID_FREQ_v0.1.md` (sieć elektroenergetyczna PT-TR,
   INCONCLUSIVE, zdegenerowana kalibracja), `docs/PREREG_K_GRID_FREQ_v0.2.md`
   + `RESULT_K_GRID_FREQ_v0.2.md` (poprawka zero-padding, przewidywanie
-  sfałszowane, wciąż INCONCLUSIVE).
+  sfałszowane, wciąż INCONCLUSIVE), `docs/PREREG_K_GRID_FREQ_v0.3.md`
+  + `RESULT_K_GRID_FREQ_v0.3.md` (nowa statystyka — korelacja krzyżowa,
+  **SUPPORTED**, pierwszy potwierdzony realny wynik gałęzi K).
   Most `MC_{K↔G}` (widmo Laplasjanu Möbiusa jako reguła selekcji
   `ω1`) testowany na realnych danych 2026-09-17 i **odrzucony w
   obecnej formie** (artefakt geometrii kratownicy, nie sygnał) — pełny
@@ -620,7 +634,7 @@ zaprzeczenia drugiego.
 | "Skręt" | odwrócenie trendu (regresja) | zmiana normalnej \(T_S\), związana z krzywizną (G8-G9) | *(nieużywane w tej gałęzi)* | τ = tempo zmiany defektu/anomalii w czasie (transformacja) — INNY obiekt niż τ topologiczne G ani τ TRM, mimo wspólnego symbolu |
 | "Anomalia" | \(\mathbb{1}[\lvert x_i-\mu_i\rvert>2\sigma_i]\) | *(nieużywane w tej gałęzi)* | *(nieużywane w tej gałęzi)* | ρ — frakcja komórek/elementów ponad próg anomalii (mediana+k·MAD) |
 | Liczba aksjomatów | 13 | 10 | 10 | 0 (działający kod w 6 domenach + 1 uniwersalny walidator, brak spisanych aksjomatów — jawna luka) |
-| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3); B4-Kitchen: SUPPORTED wewnątrz-osobniczo (2/2 przepisów S13), NIE ustalone międzyosobniczo | częściowo zwalidowana empirycznie: Ridgecrest sejsmometryczny (niejednoznaczny, mała próba); MARS DAS światłowodowy v0.1+v0.2 (NOT SUPPORTED, uczciwy negatyw, spójny po poprawce); sieć elektroenergetyczna PT-TR v0.1+v0.2 (INCONCLUSIVE dwukrotnie — poprawka zero-padding nie naprawiła degeneracji kalibracji, wymaga przeprojektowania statystyki) — wciąż BEZ jednoznacznego SUPPORTED | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
+| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3); B4-Kitchen: SUPPORTED wewnątrz-osobniczo (2/2 przepisów S13), NIE ustalone międzyosobniczo | częściowo zwalidowana empirycznie: Ridgecrest sejsmometryczny (niejednoznaczny, mała próba); MARS DAS światłowodowy v0.1+v0.2 (NOT SUPPORTED, uczciwy negatyw, spójny po poprawce); sieć elektroenergetyczna PT-TR: v0.1+v0.2 INCONCLUSIVE (degeneracja kalibracji), v0.3 **SUPPORTED** (korelacja krzyżowa, z=78, p=0.0005) — pierwszy potwierdzony realny wynik K, interpretacja ograniczona (domena z gwarantowaną a priori fizyką) | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
 | Plik źródłowy | `Axioms_S_TIMDR_Signal.md` | `Axioms_G_TIMDR_Geometry.md` | `Axioms_K_TIMDR.md` | `TIMDR-META-DYNAMICS/core_meta/meta_state.py` + `meta_operator_M.py` |
 
 **Pozostałe puste komórki są zamierzone**, nie przeoczeniem: brak
