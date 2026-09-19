@@ -2,6 +2,19 @@
 
 > Uproszczona wersja skilla `timdr-signal-framework` (kopia treści z konta Claude), zawężona do własnej teorii/formalizmu/sygnałów GIA-TIMDR. Pełna, cross-repo wersja skilla (audyty, case-studies z sejsmiki, radaru, bezpieczeństwa, kosmologii, EV/battery/industrial, Quantum-Lattice, Synoptyk-v3 itd.) istnieje osobno i NIE jest tu duplikowana. Stan: 2026-09-17.
 
+## 0. Granica roli AI: filtr epistemiczny, nie źródło wyniku
+
+**AI nie wykonuje TIMDR jako autorytet matematyczny ani empiryczny. AI może wykonywać TIMDR jako filtr epistemiczny.** AI może pilnować rozdziału gałęzi, prerejestracji, kontroli dodatniej i ujemnej, spójności definicji oraz jawnego raportowania falsyfikacji. Nie może samodzielnie ustanowić twierdzenia, podnieść statusu hipotezy ani uznać wyniku za `SUPPORTED`.
+
+Każde twierdzenie należy oznaczyć jednym z rozłącznych poziomów:
+
+- **matematyka** — dowód lub formalne wyprowadzenie możliwe do niezależnej kontroli;
+- **kod** — deterministyczny program i jego uruchomione testy;
+- **empiria** — odtwarzalny przebieg na zamrożonych danych, według prerejestru;
+- **interpretacja AI** — pomocnicza analiza, hipoteza albo ostrzeżenie metodologiczne.
+
+Status empiryczny może wynikać wyłącznie z poziomu „empiria”, po zachowaniu prerejestru i kontroli. Interpretacja AI nie zastępuje danych, kodu, dowodu ani nie może zmieniać statusu wyniku.
+
 ## 1. Co to w ogóle jest?
 
 Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologia), CZTERY gałęzie (M/S, G, K, i od 2026-09-10 formalnie META-DYNAMICS Λ-τ-ρ-J jako rodzina operatorów agregatowych, analogicznie do rodziny krzywizn w Geometry Formalism), Chronoproces spinający M/S/G/K bez mieszania, domknięcia geometryczne (G8-G10), operator G-Rezonans (G5), uniwersalny walidator agregatu Λ-τ-ρ-J, test prawa redukcji TRM, poprawiony GS-Matrix i pełny operator bifurkacji Θ_bif z phase diagram (2026-09-12), zakres empiryczny mostu Fouriera ustalony na realnych danych i nowa, jawnie eksploracyjna konstrukcja sprzężenia helikalnego K↔Θ_bif (2026-09-15), i most M/S↔topologia/K przetestowany na 3 realnych domenach z silnym, częściowo scharakteryzowanym sygnałem na łożyskach (2026-09-15/16, punkt 19), oraz siódme, formalnie odrębne znaczenie „skrętu” — widmo Laplasjanu na wstędze Möbiusa, zewnętrzna notatka matematyczna zrecenzowana, poprawiona i zintegrowana z repo, z kandydującym (NIE ustalonym) mostem do gałęzi K i własnym DOI Zenodo (2026-09-17, punkt 20). Tego samego dnia (punkt 21) propozycja rozszerzenia operatora na trzy gałęzie naraz (MöbiusCoherence) została zaflagowana jako łamiąca zasadę nieredukowalności gałęzi i za zgodą użytkownika rozbita na dwa niezależne, jawnie nieustalone kandydaty 2-gałęziowe. Oba zaimplementowane, pre-rejestrowane i przetestowane na 3 realnych domenach jeszcze tego samego dnia (punkt 22): `MC_K↔G` ODRZUCONY (wynik zdominowany artefaktem geometrii kratownicy, nie sygnałem), `MC_M/S↔G` POTWIERDZIŁ przewidywanie sprzed testu (silny na łożyskach, częściowy na sejsmice, brak na BTC) — zaklasyfikowany jako diagnostyka, nie selektor.
@@ -816,4 +829,3 @@ Zapisane do `Axioms_S/G/K_TIMDR.md` (GIA-TIMDR, commity `38d4f6d`
 kod+wynik, `4986db3` klasyfikacja w Axioms). Kod:
 `core/real_mobius_kg_bridge.py`, `core/real_zero_mode_topology_bridge.py`.
 Pełny wynik: `docs/geometry/RESULT_MOBIUS_COHERENCE_BRIDGES_REAL_DATA.md`.
-
