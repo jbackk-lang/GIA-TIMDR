@@ -326,7 +326,14 @@ tabelę.
   geometryczna zamrożona przed pobraniem) jako modalności. Kontrola
   pozytywna działa (p≈0.0005), test główny **NOT SUPPORTED** (p=0.365) —
   uczciwy wynik negatywny, jedna próba, jedna para kanałów, brak testu
-  przenośności. Gałąź K ma teraz TĘ SAMĄ kategorię statusu co M/S:
+  przenośności. **v0.2 (poprawka doboru kanałów, ten sam dzień)**: v0.1
+  użył skrajnych końców kabla jednokierunkowego (~14,8 km), co wprowadzało
+  niedopasowanie czasowe okien z powodu opóźnienia propagacji fali
+  (zdiagnozowane przez użytkownika) — v0.2 użył bliskich kanałów (36,4 m,
+  powyżej długości bazy pomiarowej, poniżej progu opóźnienia), wynik
+  **NOT SUPPORTED jeszcze mocniej** (0/60 okien, p=1.0) — poprawka nie
+  ujawniła ukrytego rezonansu, wzmacnia wniosek negatywny. Gałąź K ma
+  teraz TĘ SAMĄ kategorię statusu co M/S:
   częściowo zwalidowana empirycznie (realne dane, honest negative), nie
   już "brak walidacji" — ale wciąż słabiej niż M/S czy G pod względem
   liczby i różnorodności testów.
