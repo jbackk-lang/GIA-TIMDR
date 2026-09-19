@@ -1,0 +1,53 @@
+{
+  "status": "FROZEN_AND_ELIGIBLE_FOR_B4_KITCHEN_EGGS_REPLICA_RUN",
+  "dataset_id": "CMU_KITCHEN_S13_EGGS_v0.1",
+  "replica_of": "CMU_KITCHEN_S13_BROWNIE_v0.1 (same subject, different recipe - not an inter-subject replica)",
+  "session_selector": {
+    "subject_id": "13",
+    "recipe": "Eggs",
+    "required_archives": ["mocap.zip", "Mic.zip"]
+  },
+  "geometry_source": "C:\\Users\\jback\\Downloads\\S13_Eggs_Mocap.zip::eggs_2.V.global",
+  "meta_Q_source": "C:\\Users\\jback\\Downloads\\S13_Eggs_Audio.zip::AudioTrack.wav",
+  "time_source": "C:\\Users\\jback\\Downloads\\S13_Eggs_Mocap.zip::mocapTime-sync.txt",
+  "geometry_time_mapping_source": "mocapTime-sync.txt frame timestamps relative to recording-synch.log audio-start timestamp",
+  "time_mapping_artifact": {
+    "mocap_sync_entry": "mocapTime-sync.txt",
+    "audio_sync_entry": "recording-synch.log",
+    "audio_start": "12_42_22_6824940",
+    "first_geometry_frame": "12_42_41_6981013",
+    "first_frame_offset_s": 19.0156073,
+    "frame_count": 58508,
+    "geometry_coordinate_row_count": 58509,
+    "amc_frame_index_source": "eggs_2.AMC: explicit frames 0..58508",
+    "row_pairing_status": "VERIFIED: V.global record 0 is AMC frame 0 and is excluded; records 1..58508 pair ordinally with mocapTime-sync Frame:1..Frame:58508",
+    "last_frame_policy": "exclude Frame:58508 from B4 trace: no source timestamp for a following frame"
+  },
+  "selected_microphone_channel": "AudioTrack.wav",
+  "triangulation_artifact": "docs/geometry/kitchen_triangulation.json (reused unchanged from Brownie - identical ASF joint names, same subject)",
+  "raw_file_hashes": {
+    "mocap_archive_sha256": "D145C723AC14A1EEC8F605C39C4CBC542AAC2B4E60C31A14A5E3829060981ACA",
+    "microphone_archive_sha256": "DBBE2D36F93F5AABF071493A6270D3C73B56DA0D01DB49030C0792ECB55A926B",
+    "mocap_file_sha256": "ARCHIVE_MEMBER_NOT_EXTRACTED",
+    "microphone_file_sha256": "ARCHIVE_MEMBER_NOT_EXTRACTED",
+    "triangulation_sha256": "9BCDFD51CE489063B2F18A652A31D1882FC7BE52C65100E87F866A91ECFF55E8"
+  },
+  "sampling_interval": {
+    "geometry": "per-frame timestamps from mocapTime-sync.txt; nominal 120 Hz",
+    "audio": "1 / 44100 s"
+  },
+  "window_size": 50,
+  "n_total_blocks": "TO_BE_FILLED_BY_FIRST_DETERMINISTIC_RUN (expected 1171, computed = ceil(58507/50))",
+  "n_valid_blocks": "TO_BE_FILLED_BY_FIRST_DETERMINISTIC_RUN",
+  "negative_control_seed_labels": {
+    "seed_x_label": "B4_KITCHEN_EGGS_NEG_X",
+    "seed_y_label": "B4_KITCHEN_EGGS_NEG_Y",
+    "generation_rule": "int(hashlib.sha256(label).hexdigest()[:8], 16) % 10_000_000 - identical rule to PREREG_B4_KITCHEN_v0.3.md, new labels only"
+  },
+  "exclusion_log": [
+    "Excluded AMC/V.global frame 0: explicitly numbered in eggs_2.AMC but absent from mocapTime-sync.txt.",
+    "Excluded Frame:58508 from B4 trace: Q_i requires a source T_(i+1), which is absent.",
+    "No interpolation of missing joints, smoothing, rescaling, or post-hoc audio-to-mocap alignment.",
+    "Invalid or degenerate torso-simplex frames are excluded under kitchen_triangulation.json (reused unchanged)."
+  ]
+}
