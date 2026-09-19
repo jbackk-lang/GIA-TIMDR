@@ -238,11 +238,28 @@ okna `S_i`) jako modalność `f_i` z Aksjomatu 3, testowana razem z
 definicja i status w `Axioms_S_TIMDR_Signal.md`, sekcja "Pozostałe
 braki formalne"). Inspiracja: widmo Laplasjanu Möbiusa
 (`λ₁=π²/4>0`, `docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md`) jako
-analogia strukturalna, NIE to samo twierdzenie. **NIE ustalony** — brak
-pre-rejestrowanych progów, kontroli pozytywnej/negatywnej, danych
-realnych. Świadomie rozdzielony od mostu G↔K #2 poniżej (pierwotnie
-jeden operator trzy-gałęziowy, rozbity na dwa 2-gałęziowe kandydaty —
-pełne uzasadnienie w `Axioms_S_TIMDR_Signal.md`).
+analogia strukturalna, NIE to samo twierdzenie. Świadomie rozdzielony od
+mostu G↔K #2 poniżej (pierwotnie jeden operator trzy-gałęziowy, rozbity
+na dwa 2-gałęziowe kandydaty — pełne uzasadnienie w
+`Axioms_S_TIMDR_Signal.md`).
+
+**Wynik na realnych danych (2026-09-19)**: pre-rejestrowany w
+`docs/geometry/PREREG_MS_K_BRIDGE_2.md`, uruchomiony w
+`core/real_ms_k_zero_mode_bridge.py`, pełny wynik
+`docs/geometry/RESULT_MS_K_BRIDGE_2.md`. `MC_continuous` 43/60
+(łożyska 30/30, sejsmika 10/20 — kierunek NIESPÓJNY między stacjami CLC
+i RIO — BTC 3/10, kierunek częściowo przeciwny), `MC_binary` 38/60
+(łożyska 30/30, sejsmika 5/20, BTC 3/10) — wzorzec dokładnie zgodny z
+przewidywaniem sprzed testu, identyczny porządek co we wszystkich
+poprzednich mostach tej rodziny. **Zastrzeżenie pre-rejestrowane PRZED
+wynikiem**: obie składowe (`Z0`, `ω1`) już osobno wykazują ten sam
+wzorzec domenowy w innych mostach z niezwiązanych powodów — ten wynik
+NIE jest niezależnym dowodem specyficznej koincydencji `Z0`↔`ω1`.
+**Status: częściowo ustalony** — NIE "USTALONY (diagnostyka)", bo
+brakuje kryterium tego tieru: kontroli syntetycznej dla samej kombinacji
+`mc_continuous`/`mc_binary` (odziedziczone składniki mają własne testy
+syntetyczne, kombinacja nie ma jeszcze swoich). Klasyfikacja:
+diagnostyka, nie selektor.
 
 ## Kandydujący (NIE ustalony) most G↔K #2: koherencja topologiczna + pierwsza istotna częstotliwość (dopisek, nie nowy aksjomat)
 

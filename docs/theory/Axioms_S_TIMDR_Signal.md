@@ -360,6 +360,21 @@ istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
   Rozbite na dwa niezależne kandydaty 2-gałęziowe: ten (M/S↔K) i osobny
   G↔K (`Axioms_G_TIMDR_Geometry.md`, dopisek "kandydujący most G↔K #2"),
   każdy wymagający własnej walidacji przed jakimkolwiek połączeniem.
+
+  **Wynik na realnych danych (2026-09-19)**: pre-rejestracja
+  `docs/geometry/PREREG_MS_K_BRIDGE_2.md`, kod
+  `core/real_ms_k_zero_mode_bridge.py`, pełny wynik
+  `docs/geometry/RESULT_MS_K_BRIDGE_2.md`. `MC_continuous` 43/60
+  (łożyska 30/30, sejsmika 10/20 kierunek niespójny CLC/RIO, BTC 3/10
+  częściowo przeciwny kierunek), `MC_binary` 38/60 (łożyska 30/30,
+  sejsmika 5/20, BTC 3/10) — zgodne z przewidywaniem sprzed testu.
+  Jawnie pre-rejestrowane zastrzeżenie: obie składowe już osobno
+  wykazują ten sam wzorzec domenowy w innych mostach — wynik NIE jest
+  niezależnym dowodem koincydencji `Z0`↔`ω1`. **Status: częściowo
+  ustalony** (brak testów syntetycznych dla samej kombinacji — kryterium
+  tieru "USTALONY (diagnostyka)" niespełnione, patrz
+  `TIMDR_Branch_Specification.md`). Klasyfikacja: diagnostyka, nie
+  selektor.
 - **USTALONY (diagnostyka) most M/S↔G #1: tłumienie trybu zerowego
   + koherencja topologiczna** (podniesiony z "kandydujący, NIE ustalony"
   2026-09-18, na wyraźną prośbę użytkownika — pełna definicja tieru:

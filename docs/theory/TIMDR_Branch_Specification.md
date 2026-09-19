@@ -597,18 +597,28 @@ nie tieru). Zmienia WYŁĄCZNIE `MC_{M/S↔G}` #1, z częściowo ustalony na
 G" wyżej (podsekcja mostu), pełne zmiany też w `Axioms_G_TIMDR_Geometry.md`
 i `Axioms_S_TIMDR_Signal.md`.
 
-**Mosty kandydujące między gałęziami, testowane na realnych danych
-2026-09-17** (nie mieszczą się w tabeli per-gałąź powyżej, bo z
-definicji łączą dwie): `MC_{K↔G}` (widmo Möbiusa ↔ `ω1`) —
-**status: NIE ustalony, odrzucony w obecnej formie** (36/60, artefakt
-geometrii kratownicy); `MC_{M/S↔G}` #1 (`Z0` ↔ `G_i`) — **status:
+**Mosty kandydujące między gałęziami, testowane na realnych danych**
+(nie mieszczą się w tabeli per-gałąź powyżej, bo z definicji łączą
+dwie): `MC_{K↔G}` (widmo Möbiusa ↔ `ω1`, 2026-09-17) — **status: NIE
+ustalony, odrzucony w obecnej formie** (36/60, artefakt geometrii
+kratownicy); `MC_{M/S↔G}` #1 (`Z0` ↔ `G_i`, 2026-09-17) — **status:
 USTALONY (diagnostyka)** (140/240, silny na łożyskach, częściowy na
 sejsmice, brak na BTC — zakres wyniku bez zmian, zmienia się wyłącznie
-etykieta metodologicznej kompletności, patrz słownik statusów wyżej).
-Oba szczegółowo opisane w sekcji "Gałąź G" wyżej, wraz z pełnymi
-wynikami i ograniczeniami; jedyny wcześniej sankcjonowany most (Fourier
-M/S↔K) pozostaje odrębny — patrz sekcja "Gałąź M/S" i
-`TIMDR_Chronoprocess.md` §5.
+etykieta metodologicznej kompletności, patrz słownik statusów wyżej);
+`MC_{M/S↔K}` #2 (`Z0` ↔ `ω1`, 2026-09-19) — **status: częściowo
+ustalony** (`MC_continuous` 43/60, `MC_binary` 38/60 — silny na
+łożyskach, sejsmika kierunek niespójny między stacjami, BTC słaby/
+częściowo przeciwny kierunek; NIE osiąga tieru "USTALONY (diagnostyka)"
+bo brakuje kontroli syntetycznej dla samej kombinacji `Z0`/`ω1`; jawnie
+pre-rejestrowane zastrzeżenie: obie składowe już osobno wykazują ten
+sam wzorzec domenowy w innych mostach, więc wynik NIE jest niezależnym
+dowodem koincydencji `Z0`↔`ω1` — pełny opis:
+`docs/geometry/PREREG_MS_K_BRIDGE_2.md` i
+`docs/geometry/RESULT_MS_K_BRIDGE_2.md`, dopiski w
+`Axioms_K_TIMDR.md`/`Axioms_S_TIMDR_Signal.md`). Pierwsze dwa
+szczegółowo opisane w sekcji "Gałąź G" wyżej; jedyny wcześniej
+sankcjonowany most (Fourier M/S↔K) pozostaje odrębny — patrz sekcja
+"Gałąź M/S" i `TIMDR_Chronoprocess.md` §5.
 
 ---
 
