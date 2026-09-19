@@ -350,6 +350,17 @@ tabelę.
   sam ze sobą). Sugestywne, ale nie przeszło przez bramkę kontrolną —
   zdiagnozowane i zgłoszone jawnie, nie ukryte ani nie naprawione w
   miejscu (wymaga nowej prerejestracji v0.2 per zasada anty-tuningu).
+  **v0.2 (poprawka kalibracji, ten sam dzień)**: zero-padding FFT 16×
+  (drobniejsza siatka częstotliwości), by usunąć masę punktową w
+  rozkładzie `|Δf|`. Przewidywanie z prerejestracji v0.2 **sfałszowane**
+  — odsetek dokładnych wiązań spadł tylko nieznacznie (96.5%→94.7%),
+  kontrola pozytywna wciąż nie przechodzi, wciąż **INCONCLUSIVE**.
+  Głębsza diagnoza: PT i TR trafiają w ten sam dominujący bin FFT w
+  94.7% okien mimo ~50 kandydujących binów (losowo oczekiwane ~2%) —
+  sugestywna silna zgodność widmowa, niezgłaszalna jako potwierdzenie,
+  bo test mierzy ciągłą bliskość, nie dyskretną identyczność. Naprawa
+  wymaga przeprojektowania samej statystyki (nie kolejnego parametru) —
+  jawnie odłożone, nie wykonane bez nowej, osobnej decyzji.
   Gałąź K ma
   teraz TĘ SAMĄ kategorię statusu co M/S:
   częściowo zwalidowana empirycznie (realne dane, dwa honest negative +
@@ -368,7 +379,9 @@ tabelę.
   SUPPORTED), `docs/PREREG_K_MARS_DAS_v0.2.md` + `RESULT_K_MARS_DAS_v0.2.md`
   (bliskie kanały, NOT SUPPORTED mocniej), `docs/PREREG_K_GRID_FREQ_v0.1.md`
   + `RESULT_K_GRID_FREQ_v0.1.md` (sieć elektroenergetyczna PT-TR,
-  INCONCLUSIVE, zdegenerowana kalibracja).
+  INCONCLUSIVE, zdegenerowana kalibracja), `docs/PREREG_K_GRID_FREQ_v0.2.md`
+  + `RESULT_K_GRID_FREQ_v0.2.md` (poprawka zero-padding, przewidywanie
+  sfałszowane, wciąż INCONCLUSIVE).
   Most `MC_{K↔G}` (widmo Laplasjanu Möbiusa jako reguła selekcji
   `ω1`) testowany na realnych danych 2026-09-17 i **odrzucony w
   obecnej formie** (artefakt geometrii kratownicy, nie sygnał) — pełny
@@ -607,7 +620,7 @@ zaprzeczenia drugiego.
 | "Skręt" | odwrócenie trendu (regresja) | zmiana normalnej \(T_S\), związana z krzywizną (G8-G9) | *(nieużywane w tej gałęzi)* | τ = tempo zmiany defektu/anomalii w czasie (transformacja) — INNY obiekt niż τ topologiczne G ani τ TRM, mimo wspólnego symbolu |
 | "Anomalia" | \(\mathbb{1}[\lvert x_i-\mu_i\rvert>2\sigma_i]\) | *(nieużywane w tej gałęzi)* | *(nieużywane w tej gałęzi)* | ρ — frakcja komórek/elementów ponad próg anomalii (mediana+k·MAD) |
 | Liczba aksjomatów | 13 | 10 | 10 | 0 (działający kod w 6 domenach + 1 uniwersalny walidator, brak spisanych aksjomatów — jawna luka) |
-| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3); B4-Kitchen: SUPPORTED wewnątrz-osobniczo (2/2 przepisów S13), NIE ustalone międzyosobniczo | częściowo zwalidowana empirycznie: Ridgecrest sejsmometryczny (niejednoznaczny, mała próba); MARS DAS światłowodowy v0.1+v0.2 (NOT SUPPORTED, uczciwy negatyw, spójny po poprawce); sieć elektroenergetyczna PT-TR (INCONCLUSIVE, zdegenerowana kalibracja eps_f, zdiagnozowana) — wciąż BEZ jednoznacznego SUPPORTED | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
+| Status | częściowo zwalidowana empirycznie (realne dane, honest negative/inconclusive) | koncepcyjna, związek skrętu z krzywizną domknięty analitycznie, operator G-Rezonans domknięty numerycznie (N=3); B4-Kitchen: SUPPORTED wewnątrz-osobniczo (2/2 przepisów S13), NIE ustalone międzyosobniczo | częściowo zwalidowana empirycznie: Ridgecrest sejsmometryczny (niejednoznaczny, mała próba); MARS DAS światłowodowy v0.1+v0.2 (NOT SUPPORTED, uczciwy negatyw, spójny po poprawce); sieć elektroenergetyczna PT-TR v0.1+v0.2 (INCONCLUSIVE dwukrotnie — poprawka zero-padding nie naprawiła degeneracji kalibracji, wymaga przeprojektowania statystyki) — wciąż BEZ jednoznacznego SUPPORTED | mechanizm potwierdzony (Mann-Whitney, p=7.3e-136 w Quantum-Lattice), progi klasyfikacji fazy nieskalibrowane w żadnej z 6 domen |
 | Plik źródłowy | `Axioms_S_TIMDR_Signal.md` | `Axioms_G_TIMDR_Geometry.md` | `Axioms_K_TIMDR.md` | `TIMDR-META-DYNAMICS/core_meta/meta_state.py` + `meta_operator_M.py` |
 
 **Pozostałe puste komórki są zamierzone**, nie przeoczeniem: brak
