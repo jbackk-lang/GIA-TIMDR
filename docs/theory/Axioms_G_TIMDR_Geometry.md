@@ -512,13 +512,17 @@ G3d/G6c dla skrętu, stosowany tu do rezonansu).
   `TIMDR-Geometry-Formalism`** (moduł `timdr_geometry/weingarten.py`:
   normalne wierzchołkowe, dyskretny operator kształtu metodą MNK na
   1-ringu, testy na płaszczyźnie/sferze/walcu/zbieżności siatki) — testy
-  tego repo NIE były uruchomione w sesji, w której powstały (patrz
-  zastrzeżenie w jego README), więc status pozostaje
-  "zaimplementowane, nie potwierdzone wykonaniem", (2) formalnej przestrzeni powierzchni — otwarte, (3) testów
-  empirycznych — otwarte (żaden z powyższych wzorów nie był
-  uruchomiony na rzeczywistych danych geometrycznych; kontrast z
-  gałęzią sygnałową M, gdzie realna walidacja już się odbyła —
-  `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`), (4)
+  tego repo zostały odtąd faktycznie uruchomione (2026-09-19, `pytest
+  tests/ -v`) i ZWERYFIKOWANE: **102/102** (98/98 testy śledzone w repo +
+  4/4 `test_b4_bearing_data_gate.py`, dopisany osobno tego samego dnia po
+  przeczytaniu w całości i niezależnym uruchomieniu), status "zaimplementowane
+  i potwierdzone wykonaniem", (2) formalnej przestrzeni powierzchni — wciąż
+  otwarte, (3) testów empirycznych — **częściowo domknięte**: pierwszy
+  realny (nie syntetyczny) test na danych geometrycznych istnieje —
+  patrz dopisek "B4-Kitchen" niżej — ale to JEDNA sesja nagraniowa, bez
+  repliki, więc kontrast z gałęzią sygnałową M (gdzie realna walidacja
+  ma wiele dni danych pogodowych — `TIMDR-Math-Formalism/docs/REAL_DATA_VALIDATION.md`)
+  pozostaje w mocy co do SKALI walidacji, nie co do jej istnienia, (4)
   niezależnej walidacji — otwarte. *(Wyjątek częściowy: operator
   \(\mathcal{R}_G\) z G5 JEST zaimplementowany i przetestowany
   numerycznie w tym repo, w odróżnieniu od \(W_S\) powyżej — ale nadal
@@ -690,6 +694,55 @@ Fouriera — świadomie NIE osiągnięte tym podniesieniem statusu.
 | G7 | Ostrzeżenie na początku README ("model koncepcyjny / narzędzie do myślenia, nie teoria naukowa") |
 | G8-G9 | Domykają analitycznie związek \(T_S = F(W_S)\) nazwany w G4 — patrz też `TIMDR_Branch_Specification.md` (gałąź G, sekcja operatorów) |
 | G10 | Parametr redukcji/rozwinięcia \((P,Q)\) obwiedni trójkąta — nowy obiekt (krzywizna krzywej, nie powierzchni), powiązany z G2 (trójkąt; \(Q_{\max}=1\) dla KAŻDEGO trójkąta, poprawka G10e — symetria wpływa na bezwzględny \(R_{\max}=r_{\text{in}}\) przy ustalonym obwodzie, nie na osiągalność \(Q=1\)) i z rzutem G Chronoprocesu (`TIMDR_Chronoprocess.md` §3 — jeden generator \(\gamma_s\) rodziny \(\Gamma\) jako obwiednia) |
+
+## Dopisek: B4-Kitchen — pierwszy realny test operatora Weingartena na danych geometrycznych (2026-09-19, nie nowy aksjomat)
+
+Odpowiedź na lukę (3) z Aksjomatu G7c ("żaden z powyższych wzorów nie był
+uruchomiony na rzeczywistych danych geometrycznych") — pierwszy test
+`W_S`/`T_S` (G8-G9) na realnej, nie-syntetycznej geometrii: sesja **CMU
+Kitchen Capture, Subject 13, Brownie** (mocap + audio), czworościan
+tułowia (`pelvis`/`lclavicle`/`rclavicle`/`LowerNeck`) jako zamrożona
+siatka, 82 219 klatek geometrii sparowanych z głośnością audio (proxy
+sygnału META, `Λ_META,disp`) na tej samej osi czasu. Test koincydencji:
+czy blokowa dyspersja krzywizny (`Λ_G`, z operatora Weingartena, gałąź G)
+koreluje rangowo z blokową dyspersją głośności (`Λ_META,disp`, gałąź
+META-DYNAMICS) — **most między gałęzią geometryczną a META-DYNAMICS**, nie
+formalny most między G/M/S/K opisany gdzie indziej w tym pliku.
+
+**Trzy iteracje metodologiczne, ta sama, niezmieniona geometria i dane:**
+
+| wersja | metoda null-distribution | kontrola negatywna | werdykt |
+|---|---|---|---|
+| v0.1 | pełna permutacja | p=0.0002 (NIE przeszła) | INCONCLUSIVE |
+| v0.2 | permutacja blokowa L=12 | p=0.0173 (NIE przeszła, ~86× lepiej) | INCONCLUSIVE |
+| v0.3 | Spearman + korekta n_eff AR(1) | p=0.6763 (przeszła) | **SUPPORTED** (rho=0.0708, p=0.0093) |
+
+Diagnoza między v0.1 i v0.2: pełna permutacja jest niepoprawna dla
+autoskorelowanych szeregów (niszczy autokorelację wewnątrz serii,
+zawężając rozkład null). Diagnoza między v0.2 i v0.3
+(`docs/geometry/B4_KITCHEN_v03_METHOD_SELECTION.md`): żadna z 10
+wypróbowanych metod (4 długości bloku, 5 przepustowości HAC, korekta
+n_eff) nie przeszła TEJ SAMEJ, pojedynczej pary ziaren kontrolnych — ale
+kalibracja na 300 NIEZALEŻNYCH losowaniach syntetycznych AR(1) pokazała,
+że korekta n_eff i korekta HAC są obie statystycznie zgodne z poprawną
+kalibracją (4.33% i 5.33% fałszywych alarmów, oba przedziały ufności
+zawierają nominalne 5%) — wybrana dla v0.3 metoda n_eff, z NOWĄ,
+niesprawdzoną przed zamrożeniem parą ziaren kontroli negatywnej.
+
+**Status: NIE ustalony (wstępny sygnał pozytywny, jedna sesja, bez
+repliki)** — mimo werdyktu "SUPPORTED" w v0.3, to jest jedna domena (jedna
+sesja nagraniowa), bez testu przenośności międzydomenowej i bez
+niezależnej repliki, w dodatku po trzech iteracjach metodologicznych na
+tym samym zbiorze — rozmiar efektu mały (`rho=0.0708`). Pełne omówienie
+ryzyka wielokrotnego próbowania i uczciwe zastrzeżenia:
+`docs/geometry/RESULT_B4_KITCHEN_v0.3.md`. Prerejestracje i pełne wyniki:
+`docs/geometry/PREREG_B4_KITCHEN_v0.2.md`/`v0.3.md`,
+`docs/geometry/B4_KITCHEN_RESULT_v0.1/v0.2/v0.3.json`. Dane źródłowe:
+`docs/geometry/b4_kitchen_manifest_template.json` (hashe SHA-256
+archiwów i triangulacji). Kod: `core/b4_kitchen_run.py` (v0.1),
+`core/b4_kitchen_run_v0_2.py` (v0.2), `core/_kitchen_v03_candidate_methods_synthetic_only.py`
++ `core/_kitchen_v03_calibration_check_synthetic_only.py` (dobór metody
+v0.3, wyłącznie na syntetykach).
 
 Powiązane: [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md) (gałąź modalna),
 [`Axioms_S_TIMDR_Signal.md`](./Axioms_S_TIMDR_Signal.md) (gałąź

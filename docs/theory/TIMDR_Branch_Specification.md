@@ -221,17 +221,26 @@ tabelę.
   wcześniej jawnie stwierdzał brak), G6 rozdziela od M/K, G7 ustala
   status, G8-G9 domykają analitycznie związek skrętu z krzywizną, G10
   formalizuje parametr redukcji/rozwinięcia obwiedni trójkąta).
-- **Status empiryczny:** koncepcyjna (Aksjomat G7) — brak
-  zaimplementowanej numerycznie wersji \(W_S\) na rzeczywistej siatce
-  3D i brak walidacji empirycznej dla żadnego operatora gałęzi
-  (włącznie z \(\mathcal{R}_G\), mimo że TEN jest już zaimplementowany
-  i przetestowany numerycznie dla \(N=3\) — patrz G5f); wymagania do
-  pełnej teorii matematycznej wypisane wprost w G7c.
+- **Status empiryczny:** koncepcyjna (Aksjomat G7) — \(W_S\) jest teraz
+  zaimplementowana numerycznie i przetestowana (`TIMDR-Geometry-Formalism`,
+  102/102 testów zweryfikowanych 2026-09-19, patrz G7c) na siatkach o znanej
+  analitycznie krzywiźnie (płaszczyzna/sfera/walec); pierwszy test na
+  REALNEJ (nie syntetycznej) geometrii — B4-Kitchen (dopisek w
+  `Axioms_G_TIMDR_Geometry.md`) — dał werdykt SUPPORTED w trzeciej
+  iteracji metodologicznej (v0.3), ale sklasyfikowany jako **NIE
+  ustalony** (jedna domena/sesja, bez repliki, mały rozmiar efektu) —
+  brak walidacji empirycznej pozostaje w mocy dla \(\mathcal{R}_G\)
+  (mimo że jest już zaimplementowany i przetestowany numerycznie dla
+  \(N=3\) — patrz G5f); wymagania do pełnej teorii matematycznej
+  wypisane wprost w G7c.
 - **Pliki źródłowe:** `Axioms_G_TIMDR_Geometry.md`,
   `Resonance_M_Operator_Empiryczny.md` §6, `TIMDR_Twists.md` (definicja
   skrętu powierzchniowego wśród pięciu), główny `README.md` sekcje
   o modelu trójkąta / Möbius / tetroidzie, `core/geometric_resonance_operator.py`
-  + `core/trefoil_resonance_model.py` + `TIMDR_GResonance_Operator.md`
+  + `core/trefoil_resonance_model.py` + `TIMDR_GResonance_Operator.md`,
+  `core/b4_kitchen_run*.py` + `docs/geometry/PREREG_B4_KITCHEN_v0.2/v0.3.md`
+  + `docs/geometry/RESULT_B4_KITCHEN_v0.2/v0.3.md` (pierwszy realny test
+  \(W_S\), patrz dopisek "B4-Kitchen" w `Axioms_G_TIMDR_Geometry.md`)
   (operator G-Rezonans, G5), osobne repo `TIMDR-Geometry-Formalism`
   (`timdr_geometry/weingarten.py` — numeryczna implementacja G8-G9:
   dyskretny operator kształtu, testy na płaszczyźnie/sferze/walcu/
