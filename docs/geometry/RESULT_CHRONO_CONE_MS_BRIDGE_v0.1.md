@@ -157,3 +157,11 @@ udokumentowanym tutaj.
   korelacja mimo podobnej/słabszej mocy) czy redundantne — NIE
   policzone w tej sesji, naturalny następny krok, jeśli konstrukcja
   miałaby być kontynuowana.
+
+**Kontynuacja (2026-09-21)**: hipoteza, że niestabilność znaku wynika z
+monotonicznego (zawsze w jedną stronę) kierunku θ, przetestowana w
+`PREREG_CHRONO_CONE_MS_BRIDGE_v0.2.md` /
+`RESULT_CHRONO_CONE_MS_BRIDGE_v0.2.md` — na metryce promienia identycznej
+z tą powyżej niestabilność NIE zniknęła (zgodnie z przewidywaniem
+mechanizmu zapisanym przed testem), ale eksploracyjna metryka oparta
+wprost na wartości θ pokazuje obiecującą poprawę stabilności.
