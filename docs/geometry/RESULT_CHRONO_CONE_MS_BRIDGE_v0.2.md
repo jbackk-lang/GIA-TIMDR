@@ -177,3 +177,12 @@ wynikiem na metryce sekundarnej, oba udokumentowane tutaj w pełni.
 - Czy stabilność znaku `net_turn` na 4/5 anchorach przetrwa formalny
   test na całej siatce 55 komórek (nie tylko `sigma=0.0`) i na
   niezależnie wybranej czwartej domenie — NIE sprawdzone tutaj.
+
+**Kontynuacja (2026-09-21)**: hipoteza użytkownika o "sile odśrodkowej"
+(nagromadzony `θ_unwrapped²` wzmacniający promień, `r_total=r_anomalia·
+(1+k·θ_unwrapped²)`) przetestowana w `PREREG_CHRONO_CONE_MS_BRIDGE_v0.3.md`
+/ `RESULT_CHRONO_CONE_MS_BRIDGE_v0.3.md` — ZATRZYMANA już na etapie
+kontroli syntetycznej: człon odśrodkowy generuje statystycznie istotny,
+duży, systematyczny fałszywy "lej" z samego szumu białego na
+wszystkich pięciu testowanych rozmiarach okna, więc realne dane NIE
+zostały dotknięte tą konstrukcją.
