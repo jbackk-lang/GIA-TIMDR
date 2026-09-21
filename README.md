@@ -283,6 +283,68 @@ BTC). Status wg słownika w
   sam wzorzec domenowy w innych mostach, więc wynik NIE jest niezależnym
   dowodem koincydencji `Z0`↔`ω1`.
 
+**Seria eksperymentów 2026-09-21** testowała siedem dalszych
+konstrukcji na bazie Chronoprocesu, z tą samą dyscypliną
+pre-rejestracji. Kluczowa lekcja metodologiczna: konstrukcje 1-3
+(`chrono_cone`/`chrono_pendulum`/`chrono_centrifugal`) budowały obiekt
+gałęzi G z JEDNEGO sygnału — "trywialnej rodziny jednoelementowej"
+zamiast prawdziwej rodziny Chronoprocesu `Γ:T×I→ℝ³`
+(`docs/theory/TIMDR_Chronoprocess.md`) — i wszystkie trzy dały ten sam
+objaw: niestabilny albo fałszywy sygnał. Konstrukcja 4
+(`chrono_membrane`) użyła PRAWDZIWEJ rodziny (wiele jednoczesnych
+kanałów DE/FE/BA łożysk CWRU) i od razu dała stabilny, silny efekt
+(choć w kierunku przeciwnym do pierwotnej hipotezy) — odtwarzając w
+praktyce dokładnie warunek z definicji Chronoprocesu (G czyta rodzinę
+`{γ_s}`, nie pojedynczą trajektorię). Teoria była właściwa od początku;
+wcześniejsze implementacje jej po prostu nie spełniały.
+
+- **`chrono_cone_bridge` v0.1** (`Z0` peak-phase ↔ promień anomalii,
+  rodzina jednoelementowa, 2026-09-21) — **NIE ustalony, odrzucony**:
+  kontrole syntetyczne przeszły czysto, ale na realnych danych (łożyska
+  11/30, sejsmika 5/20, BTC 2/5 formalnie SUPPORTED) znak efektu
+  niestabilny między rozmiarami okna dla tego samego sygnału (np.
+  `or6_0021`: r=−0.189→+0.267), globalnie 56%/44%, blisko poziomu
+  losowego.
+- **`chrono_pendulum_ratio` v0.2** (θ zależne od trendu
+  wznoszenie/opadanie, 2026-09-21) — metryka prymarna: **NIE ustalony**
+  (identyczne liczby co v0.1, niestabilność znaku bez zmian); metryka
+  sekundarna `chrono_pendulum_net_turn`: **eksploracyjny, nie
+  promowany** — 4/5 kotwic ustabilizowało znak, w tym wszystkie 3
+  wcześniej niestabilne, ale niższa moc klasyfikacyjna (7/55 SUPPORTED)
+  i mała próba.
+- **`chrono_centrifugal_ratio` v0.3** (człon odśrodkowy θ² w promieniu,
+  2026-09-21) — **kontrola nie przeszła, dane nietknięte**: Kontrola #0
+  (ryzyko fałszywego sygnału z czystego szumu) NIE przeszła na 5/5
+  rozmiarów okna (p=3.05e-5–2.37e-3, |r_eff|=0.62–0.81) — sesja
+  zatrzymana zgodnie z pre-rejestrowanym protokołem, realne dane
+  (łożyska/sejsmika/BTC) nie zostały dotknięte tą konstrukcją.
+- **`chrono_membrane_bridge` v0.1** (widmo macierzy korelacji,
+  prawdziwa rodzina DE/FE/BA łożysk CWRU, 2026-09-21) — **NIE ustalony,
+  odrzucony (kierunek przeciwny do przewidywania)**:
+  `spectral_concentration` odróżnia normal/fault z p~1e-7–1e-10, dużym
+  efektem, znak stabilny na 6/6 komórek (128/256/512 × IR/OR6) — ale
+  fault < normal, przeciwnie do pre-rejestrowanej hipotezy, więc
+  formalnie NOT_SUPPORTED mimo siły efektu.
+- **`chrono_membrane_bridge` v0.2** (odwrócony kierunek, test na
+  czasowo odosobnionej drugiej połowie tych samych nagrań, 2026-09-21)
+  — **częściowo ustalony**: SUPPORTED 6/6 komórek na drugiej połowie,
+  znak stabilny; NIE liczy się jako niezależna replikacja (te same trzy
+  pliki co v0.1, ten sam fizyczny przebieg podzielony na pół).
+- **`chrono_membrane_bridge` — niezależne potwierdzenie** (nowe
+  archiwum CWRU, RPM 1730/1750, typy B/IR/OR@3/OR@6, rozmiary 7/14/21
+  mils, 2026-09-21) — **częściowo ustalony**: kierunek `normal>fault`
+  replikuje się na prawdziwie nowych danych (znak dodatni na wszystkich
+  oknach, 5/6 plików fault formalnie SUPPORTED), ale ściśle wg
+  zamrożonego kryterium tylko 2/3 okien połączonego testu przechodzi
+  próg istotności (okno=256: p=0.068), ściągane w dół przez jeden plik
+  (kulka 14 mils, 1730 RPM).
+- **`chrono_trumpet_spectrum` v0.1** (widmo zwinięte w trąbkę,
+  krzywizna Weingartena, 2026-09-21) — **eksploracyjny, nie promowany**:
+  5/8 testowanych kolumn widma pokazuje odchylenie od losowości (test
+  serii na znaku krzywizny Gaussa), ale kierunek niespójny między
+  indeksami widma i plikami (N=2-3 punktów na obwodzie, jawnie za mało
+  do weryfikacji) — jawnie NIE promowany do statusu potwierdzonego.
+
 Pełne PREREG/RESULT każdego mostu: `docs/geometry/`. Podsumowanie i
 pełna definicja statusów: `TIMDR_Branch_Specification.md`, sekcja
 "Mosty kandydujące między gałęziami".

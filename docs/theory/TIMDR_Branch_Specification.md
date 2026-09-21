@@ -661,6 +661,29 @@ wcześniej przyznanego statusu poza jawnie wymienionym niżej:
 - **częściowo ustalony** — częściowy/niespójny wynik na realnych
   danych, bez jeszcze udokumentowanej metodologicznej kompletności
   procesu (patrz niżej).
+- **kontrola nie przeszła, dane nietknięte** — NOWY tier (dodany
+  2026-09-21): kandydat, którego konstrukcja NIE przeszła nawet etapu
+  kontroli syntetycznej (pozytywnej/negatywnej/ryzyka) zdefiniowanej w
+  PREREG PRZED uruchomieniem — sesja zatrzymana zgodnie z
+  pre-rejestrowanym protokołem, realne dane NIE zostały dotknięte tą
+  konkretną konstrukcją. Odróżnia się od "NIE ustalony" tym, że tam test
+  na realnych danych faktycznie się odbył i nie przeszedł, a tutaj do
+  realnych danych nigdy nie doszło. Przykład: `chrono_centrifugal_ratio`
+  v0.3 (`docs/geometry/RESULT_CHRONO_CONE_MS_BRIDGE_v0.3.md`) — Kontrola
+  #0 (fałszywy sygnał z czystego szumu) nie przeszła na 5/5 rozmiarów
+  okna.
+- **eksploracyjny, nie promowany** — NOWY tier (dodany 2026-09-21):
+  metryka lub obserwacja jawnie NIE pre-rejestrowana jako główna,
+  klasyfikująca metryka (albo test z jawnym PREREG-owym zastrzeżeniem o
+  zbyt małej liczbie punktów/mocy), pokazująca obiecujący lub częściowo
+  spójny wzorzec, ale świadomie NIE podnoszona do statusu formalnie
+  potwierdzonego wyniku — pozostaje kandydatem do OSOBNEJ, przyszłej
+  pre-rejestracji. Przykłady: `chrono_pendulum_net_turn` (metryka
+  sekundarna, `docs/geometry/RESULT_CHRONO_CONE_MS_BRIDGE_v0.2.md` §4:
+  4/5 kotwic stabilnych) i `chrono_trumpet_spectrum` v0.1
+  (`docs/geometry/RESULT_CHRONO_TRUMPET_SPECTRUM_v0.1.md`: wzorzec
+  obecny, ale znak niespójny między indeksami widma/plikami, N=2-3 zbyt
+  małe do weryfikacji).
 - **USTALONY (diagnostyka)** — NOWY, węższy tier (wprowadzony tym
   dopiskiem, 2026-09-18): kandydat spełniający WSZYSTKIE z sześciu: (1)
   pre-rejestracja progów/wag PRZED dotknięciem danych testowych, (2)
@@ -713,6 +736,66 @@ dowodem koincydencji `Z0`↔`ω1` — pełny opis:
 szczegółowo opisane w sekcji "Gałąź G" wyżej; jedyny wcześniej
 sankcjonowany most (Fourier M/S↔K) pozostaje odrębny — patrz sekcja
 "Gałąź M/S" i `TIMDR_Chronoprocess.md` §5.
+
+**Siedem dalszych kandydatów, seria 2026-09-21** (rodzina konstrukcji
+opartych na Chronoprocesie, pliki w `docs/geometry/`, kod w
+`core/chrono_*`): `chrono_cone_bridge` v0.1
+(`PREREG_CHRONO_CONE_MS_BRIDGE_v0.1.md`/`RESULT_..._v0.1.md`) —
+**status: NIE ustalony, odrzucony** (kontrole syntetyczne czyste, ale
+znak efektu na realnych danych niestabilny między rozmiarami okna,
+56%/44% na 55 komórkach realnych; konstrukcja z pojedynczego sygnału,
+"trywialna rodzina jednoelementowa", zamiast prawdziwej rodziny
+Chronoprocesu); `chrono_pendulum_ratio` v0.2
+(`PREREG_..._v0.2.md`/`RESULT_..._v0.2.md`) — metryka prymarna
+**status: NIE ustalony** (liczby identyczne z v0.1, niestabilność bez
+zmian), metryka sekundarna `chrono_pendulum_net_turn` **status:
+eksploracyjny, nie promowany** (4/5 kotwic ustabilizowało znak, w tym
+wszystkie 3 wcześniej niestabilne, ale metryka nie była
+pre-rejestrowana jako klasyfikująca); `chrono_centrifugal_ratio` v0.3
+(`PREREG_..._v0.3.md`/`RESULT_..._v0.3.md`) — **status: kontrola nie
+przeszła, dane nietknięte** (Kontrola #0, ryzyko fałszywego sygnału z
+czystego szumu, NIE przeszła na 5/5 rozmiarów okna; sesja zatrzymana
+przed dotknięciem realnych danych); `chrono_membrane_bridge` v0.1
+(`PREREG_CHRONO_MEMBRANE_BEARING_v0.1.md`/`RESULT_..._v0.1.md`) —
+**status: NIE ustalony, odrzucony (kierunek przeciwny do
+przewidywania)** (pierwsza konstrukcja tej serii z PRAWDZIWĄ rodziną
+Chronoprocesu `{γ_s}` — wiele jednoczesnych kanałów DE/FE/BA łożysk
+CWRU — silny, stabilny efekt, p~1e-7–1e-10, znak identyczny na 6/6
+komórek, ale `fault<normal`, przeciwnie do pre-rejestrowanej hipotezy);
+`chrono_membrane_bridge` v0.2 (`PREREG_..._v0.2.md`/`RESULT_..._v0.2.md`)
+— **status: częściowo ustalony** (odwrócony kierunek, SUPPORTED 6/6 na
+czasowo odosobnionej drugiej połowie tych samych trzech nagrań, znak
+stabilny, ale NIE niezależna replikacja — te same pliki, ten sam
+fizyczny przebieg podzielony na pół); `chrono_membrane_bridge`,
+niezależne potwierdzenie
+(`RESULT_CHRONO_MEMBRANE_BEARING_INDEPENDENT_CONFIRMATION.md`) —
+**status: częściowo ustalony** (kierunek `normal>fault` replikuje się
+na prawdziwie nowych danych — inne archiwum, RPM 1730/1750, typy
+B/IR/OR@3/OR@6, rozmiary 7/14/21 mils — znak dodatni na wszystkich
+oknach połączonego testu i 5/6 plików fault formalnie SUPPORTED, ale
+tylko 2/3 okien połączonego testu przechodzi ścisły, zamrożony próg
+istotności, okno=256: p=0.068, ściągane w dół przez jeden plik, kulka
+14 mils przy 1730 RPM); `chrono_trumpet_spectrum` v0.1
+(`PREREG_CHRONO_TRUMPET_SPECTRUM_v0.1.md`/`RESULT_..._v0.1.md`) —
+**status: eksploracyjny, nie promowany** (krzywizna Weingartena na
+widmie macierzy korelacji zwiniętym w "trąbkę"; 5/8 testowanych kolumn
+widma odchyla się od losowości w teście serii, ale kierunek niespójny
+między indeksami widma i plikami, `N=2-3` punktów na obwodzie, jawnie
+za mało do weryfikacji).
+
+**Kluczowa lekcja meta tej serii**: konstrukcje 1-3
+(`chrono_cone`/`chrono_pendulum`/`chrono_centrifugal`) próbowały
+zbudować obiekt gałęzi G z JEDNEGO sygnału — "trywialnej rodziny
+jednoelementowej" zamiast prawdziwej rodziny Chronoprocesu
+`Γ:T×I→ℝ³` (`TIMDR_Chronoprocess.md`) — i wszystkie trzy dały ten sam
+objaw: niestabilny albo (przy próbie wzmocnienia w v0.3) wprost
+fałszywy sygnał. Konstrukcja 4 (`chrono_membrane_bridge`) użyła
+PRAWDZIWEJ rodziny (wiele jednoczesnych kanałów) i od razu dała
+stabilny, silny efekt (choć w kierunku przeciwnym do pierwotnej
+hipotezy) — odtwarzając w praktyce dokładnie warunek z definicji
+Chronoprocesu (G czyta rodzinę `{γ_s}`, nie pojedynczą trajektorię).
+Teoria była właściwa od początku; wcześniejsze implementacje jej po
+prostu nie spełniały.
 
 ---
 
