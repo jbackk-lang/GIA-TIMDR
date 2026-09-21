@@ -298,6 +298,23 @@ praktyce dokładnie warunek z definicji Chronoprocesu (G czyta rodzinę
 `{γ_s}`, nie pojedynczą trajektorię). Teoria była właściwa od początku;
 wcześniejsze implementacje jej po prostu nie spełniały.
 
+**Pochodzenie intuicji "lejowatego kształtu"**: fizyczna intuicja
+napędzająca całą tę serię (trajektoria w przestrzeni fazowej, która się
+rozszerza lub zwęża — "lej") nie powstała w tym repo. Została najpierw
+niezależnie zaobserwowana w zupełnie innym, NIE-GIA-TIMDR projekcie —
+`TIMDR-fusion-tools` (klasyfikacja zakłóceń plazmy tokamaka TCABR),
+funkcja `phasespace_funnel_ratio()` na portrecie fazowym (I_plazma,
+V_pętli), zwalidowana na danych held-out (12/14 czułości, 5/5
+swoistości). To WYŁĄCZNIE inspiracja koncepcyjna, nie ten sam obiekt
+matematyczny ani ten sam kod — inna domena fizyczna, inne repo, inny
+zbiór danych, i (celowo) inna nazwa metryki (`chrono_cone_ratio` /
+`chrono_pendulum_ratio` / `membrane_spectral_ratio`, nigdy
+`funnel_ratio`), żeby nie sugerować tożsamości dwóch niezależnych
+konstrukcji. `TIMDR-fusion-tools` samo w sobie NIE jest częścią
+formalnych gałęzi TIMDR (patrz `docs/GLOSSARY_EN_PL.md`) — ten akapit
+istnieje wyłącznie po to, żeby uczciwie oddać skąd wzięła się intuicja,
+nie żeby połączyć oba projekty formalnie.
+
 - **`chrono_cone_bridge` v0.1** (`Z0` peak-phase ↔ promień anomalii,
   rodzina jednoelementowa, 2026-09-21) — **NIE ustalony, odrzucony**:
   kontrole syntetyczne przeszły czysto, ale na realnych danych (łożyska
