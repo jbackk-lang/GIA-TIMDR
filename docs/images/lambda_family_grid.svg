@@ -1,47 +1,59 @@
-<svg width="100%" viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img">
-<title>Rodzina sygnałów Λ/τ/ρ/J w czterech gałęziach TIMDR</title>
-<desc>Siatka 4x4: wiersze to cztery typy sygnałów (dyspersja Λ, tempo τ, gęstość ρ, sprzężenie J), kolumny to cztery gałęzie TIMDR (M/S, G, K, META-DYNAMICS). Teal = zbudowane 2026-09-10 (Λ_G, Λ_K, τ_K), zielony = istniało wcześniej, szary = jeszcze nie istnieje.</desc>
+<svg width="100%" viewBox="0 0 1000 1110" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<title id="title">TIMDR — aktualna mapa pokrycia operatorów i wyników, 2026-09-22</title>
+<desc id="desc">Siatka czterech gałęzi M/S, G, K i META-DYNAMICS oraz czterech rodzin pytań Λ, τ, ρ, J. Turkusowe kafle oznaczają operatory dodane 10 września; zielone własne kanały META; niebieskie wcześniejsze, pokrewne, ale odrębne znaczenia; szare brak osobnego operatora. Osobne karty pod siatką pokazują aktualne wyniki empiryczne i ograniczenia.</desc>
 <style>
-  text { font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif; fill: #1a1a1a; }
-  .th { font-size: 13px; font-weight: 600; }
-  .ts { font-size: 11px; fill: #4a4a4a; }
-  .t { font-size: 13px; font-weight: 600; }
+ text { font-family: Segoe UI, Arial, sans-serif; fill:#0f172a; }
+ .title { font-size:27px; font-weight:700; }
+ .subtitle { font-size:14px; fill:#475569; }
+ .heading { font-size:18px; font-weight:700; }
+ .legend { font-size:13px; fill:#334155; }
+ .col { font-size:17px; font-weight:700; }
+ .row-label { font-size:14px; font-weight:700; }
+ .row-symbol { font-size:20px; font-weight:700; fill:#475569; }
+ .tile-title { font-size:16px; font-weight:700; }
+ .tile-sub { font-size:12.5px; fill:#334155; }
+ .card-title { font-size:17px; font-weight:700; }
+ .card-text { font-size:14px; fill:#334155; }
+ .footer { font-size:13px; fill:#475569; }
 </style>
-<rect width="680" height="400" fill="#ffffff"/>
-
-<text class="th" x="205" y="60" text-anchor="middle">M/S</text>
-<text class="th" x="325" y="60" text-anchor="middle">G</text>
-<text class="th" x="445" y="60" text-anchor="middle">K</text>
-<text class="th" x="565" y="60" text-anchor="middle">META-DYN</text>
-
-<text class="t" x="40" y="108">dyspersja (Λ)</text>
-<g><rect x="150" y="75" width="110" height="58" rx="8" fill="#e5e7eb"/><text class="th" x="205" y="99" text-anchor="middle">—</text><text class="ts" x="205" y="117" text-anchor="middle">brak</text></g>
-<g><rect x="270" y="75" width="110" height="58" rx="8" fill="#5eead4"/><text class="th" x="325" y="99" text-anchor="middle">Λ_G</text><text class="ts" x="325" y="117" text-anchor="middle">nowe dziś</text></g>
-<g><rect x="390" y="75" width="110" height="58" rx="8" fill="#5eead4"/><text class="th" x="445" y="99" text-anchor="middle">Λ_K</text><text class="ts" x="445" y="117" text-anchor="middle">nowe dziś</text></g>
-<g><rect x="510" y="75" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="565" y="99" text-anchor="middle">Λ</text><text class="ts" x="565" y="117" text-anchor="middle">istniało</text></g>
-
-<text class="t" x="40" y="176">tempo (τ)</text>
-<g><rect x="150" y="143" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="205" y="167" text-anchor="middle">skręt sygn.</text><text class="ts" x="205" y="185" text-anchor="middle">istniało</text></g>
-<g><rect x="270" y="143" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="325" y="167" text-anchor="middle">torsja F-S</text><text class="ts" x="325" y="185" text-anchor="middle">istniało</text></g>
-<g><rect x="390" y="143" width="110" height="58" rx="8" fill="#5eead4"/><text class="th" x="445" y="167" text-anchor="middle">τ_K</text><text class="ts" x="445" y="185" text-anchor="middle">nowe dziś</text></g>
-<g><rect x="510" y="143" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="565" y="167" text-anchor="middle">τ</text><text class="ts" x="565" y="185" text-anchor="middle">istniało</text></g>
-
-<text class="t" x="40" y="244">gęstość (ρ)</text>
-<g><rect x="150" y="211" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="205" y="235" text-anchor="middle">anomalia</text><text class="ts" x="205" y="253" text-anchor="middle">istniało</text></g>
-<g><rect x="270" y="211" width="110" height="58" rx="8" fill="#e5e7eb"/><text class="th" x="325" y="235" text-anchor="middle">—</text><text class="ts" x="325" y="253" text-anchor="middle">brak</text></g>
-<g><rect x="390" y="211" width="110" height="58" rx="8" fill="#e5e7eb"/><text class="th" x="445" y="235" text-anchor="middle">—</text><text class="ts" x="445" y="253" text-anchor="middle">brak</text></g>
-<g><rect x="510" y="211" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="565" y="235" text-anchor="middle">ρ</text><text class="ts" x="565" y="253" text-anchor="middle">istniało</text></g>
-
-<text class="t" x="40" y="312">sprzężenie (J)</text>
-<g><rect x="150" y="279" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="205" y="303" text-anchor="middle">rezonans M</text><text class="ts" x="205" y="321" text-anchor="middle">istniało</text></g>
-<g><rect x="270" y="279" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="325" y="303" text-anchor="middle">G-Rezonans</text><text class="ts" x="325" y="321" text-anchor="middle">istniało</text></g>
-<g><rect x="390" y="279" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="445" y="303" text-anchor="middle">modalny</text><text class="ts" x="445" y="321" text-anchor="middle">istniało</text></g>
-<g><rect x="510" y="279" width="110" height="58" rx="8" fill="#86efac"/><text class="th" x="565" y="303" text-anchor="middle">J</text><text class="ts" x="565" y="321" text-anchor="middle">istniało</text></g>
-
-<rect x="150" y="357" width="14" height="14" rx="3" fill="#5eead4"/>
-<text class="ts" x="172" y="368">zbudowane 2026-09-10</text>
-<rect x="340" y="357" width="14" height="14" rx="3" fill="#86efac"/>
-<text class="ts" x="362" y="368">istniało wcześniej</text>
-<rect x="520" y="357" width="14" height="14" rx="3" fill="#e5e7eb"/>
-<text class="ts" x="542" y="368">jeszcze nie istnieje</text>
+<rect width="1000" height="1110" fill="#ffffff"/>
+<text class="title" x="20" y="38">TIMDR — aktualna mapa pokrycia</text>
+<text class="subtitle" x="20" y="65">Stan 2026-09-22 · kolor opisuje typ operatora; wyniki testów są w osobnych kartach</text>
+<rect x="20" y="83" width="15" height="15" rx="3" fill="#ccfbf1" stroke="#0f766e"/>
+<text class="legend" x="43" y="96">operator od 10.09</text>
+<rect x="220" y="83" width="15" height="15" rx="3" fill="#dcfce7" stroke="#15803d"/>
+<text class="legend" x="243" y="96">własny kanał META</text>
+<rect x="453" y="83" width="15" height="15" rx="3" fill="#e0f2fe" stroke="#0284c7"/>
+<text class="legend" x="476" y="96">pokrewny, odrębny obiekt</text>
+<rect x="760" y="83" width="15" height="15" rx="3" fill="#f1f5f9" stroke="#94a3b8"/>
+<text class="legend" x="783" y="96">brak operatora</text>
+<text class="col" x="238" y="143" text-anchor="middle">M/S · sygnał</text>
+<text class="col" x="454" y="143" text-anchor="middle">G · geometria</text>
+<text class="col" x="670" y="143" text-anchor="middle">K · modalność</text>
+<text class="col" x="886" y="143" text-anchor="middle">META-DYNAMICS</text>
+<text class="row-label" x="18" y="199">DYSPERSJA</text><text class="row-symbol" x="18" y="225">Λ</text><g><rect x="136" y="164" width="204" height="92" rx="11" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/><text class="tile-title" x="238" y="189" text-anchor="middle">Brak Λ_M/S</text><text class="tile-sub" x="238" y="214" text-anchor="middle">anomalia sygnału</text><text class="tile-sub" x="238" y="233" text-anchor="middle">to inny obiekt</text></g>
+<g><rect x="352" y="164" width="204" height="92" rx="11" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/><text class="tile-title" x="454" y="189" text-anchor="middle">Λ_G</text><text class="tile-sub" x="454" y="214" text-anchor="middle">dyspersja krzywizny H</text><text class="tile-sub" x="454" y="233" text-anchor="middle">kod + testy; B4: most</text></g>
+<g><rect x="568" y="164" width="204" height="92" rx="11" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/><text class="tile-title" x="670" y="189" text-anchor="middle">Λ_K</text><text class="tile-sub" x="670" y="214" text-anchor="middle">dyspersja fazowa</text><text class="tile-sub" x="670" y="233" text-anchor="middle">kod + testy syntetyczne</text></g>
+<g><rect x="784" y="164" width="204" height="92" rx="11" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/><text class="tile-title" x="886" y="189" text-anchor="middle">Λ_META</text><text class="tile-sub" x="886" y="214" text-anchor="middle">struktura agregatu</text><text class="tile-sub" x="886" y="233" text-anchor="middle">6 domen; progi otwarte</text></g>
+<text class="row-label" x="18" y="304">TEMPO</text><text class="row-symbol" x="18" y="330">τ</text><g><rect x="136" y="269" width="204" height="92" rx="11" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text class="tile-title" x="238" y="294" text-anchor="middle">Skręt sygnału</text><text class="tile-sub" x="238" y="319" text-anchor="middle">zmiana trendu</text><text class="tile-sub" x="238" y="338" text-anchor="middle">pokrewny, osobny τ</text></g>
+<g><rect x="352" y="269" width="204" height="92" rx="11" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text class="tile-title" x="454" y="294" text-anchor="middle">Torsja F–S</text><text class="tile-sub" x="454" y="319" text-anchor="middle">krzywa trójwęzła</text><text class="tile-sub" x="454" y="338" text-anchor="middle">pokrewna, osobny τ</text></g>
+<g><rect x="568" y="269" width="204" height="92" rx="11" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/><text class="tile-title" x="670" y="294" text-anchor="middle">τ_K</text><text class="tile-sub" x="670" y="319" text-anchor="middle">tempo zmian Λ_K</text><text class="tile-sub" x="670" y="338" text-anchor="middle">kod; test analityczny</text></g>
+<g><rect x="784" y="269" width="204" height="92" rx="11" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/><text class="tile-title" x="886" y="294" text-anchor="middle">τ_META</text><text class="tile-sub" x="886" y="319" text-anchor="middle">transformacja agregatu</text><text class="tile-sub" x="886" y="338" text-anchor="middle">odrębna definicja</text></g>
+<text class="row-label" x="18" y="409">GĘSTOŚĆ</text><text class="row-symbol" x="18" y="435">ρ</text><g><rect x="136" y="374" width="204" height="92" rx="11" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text class="tile-title" x="238" y="399" text-anchor="middle">Anomalia M/S</text><text class="tile-sub" x="238" y="424" text-anchor="middle">detekcja progowa</text><text class="tile-sub" x="238" y="443" text-anchor="middle">pokrewna, osobny ρ</text></g>
+<g><rect x="352" y="374" width="204" height="92" rx="11" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/><text class="tile-title" x="454" y="399" text-anchor="middle">Brak ρ_G</text><text class="tile-sub" x="454" y="424" text-anchor="middle">osobny operator</text><text class="tile-sub" x="454" y="443" text-anchor="middle">niezbudowany</text></g>
+<g><rect x="568" y="374" width="204" height="92" rx="11" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/><text class="tile-title" x="670" y="399" text-anchor="middle">Brak ρ_K</text><text class="tile-sub" x="670" y="424" text-anchor="middle">osobny operator</text><text class="tile-sub" x="670" y="443" text-anchor="middle">niezbudowany</text></g>
+<g><rect x="784" y="374" width="204" height="92" rx="11" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/><text class="tile-title" x="886" y="399" text-anchor="middle">ρ_META</text><text class="tile-sub" x="886" y="424" text-anchor="middle">anomalia agregatu</text><text class="tile-sub" x="886" y="443" text-anchor="middle">6 domen</text></g>
+<text class="row-label" x="18" y="514">SPRZĘŻENIE</text><text class="row-symbol" x="18" y="540">J</text><g><rect x="136" y="479" width="204" height="92" rx="11" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text class="tile-title" x="238" y="504" text-anchor="middle">Rezonans M</text><text class="tile-sub" x="238" y="529" text-anchor="middle">koincydencja progów</text><text class="tile-sub" x="238" y="548" text-anchor="middle">pokrewny, osobny J</text></g>
+<g><rect x="352" y="479" width="204" height="92" rx="11" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text class="tile-title" x="454" y="504" text-anchor="middle">G-Rezonans</text><text class="tile-sub" x="454" y="529" text-anchor="middle">numerycznie N≥3</text><text class="tile-sub" x="454" y="548" text-anchor="middle">bez realnej krzywej</text></g>
+<g><rect x="568" y="479" width="204" height="92" rx="11" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/><text class="tile-title" x="670" y="504" text-anchor="middle">Rezonans K</text><text class="tile-sub" x="670" y="529" text-anchor="middle">wyrównanie f i fazy</text><text class="tile-sub" x="670" y="548" text-anchor="middle">Grid: inna statystyka</text></g>
+<g><rect x="784" y="479" width="204" height="92" rx="11" fill="#dcfce7" stroke="#15803d" stroke-width="1.5"/><text class="tile-title" x="886" y="504" text-anchor="middle">J_META</text><text class="tile-sub" x="886" y="529" text-anchor="middle">kanał punktowy</text><text class="tile-sub" x="886" y="548" text-anchor="middle">progi nieskalibrowane</text></g>
+<line x1="20" y1="590" x2="980" y2="590" stroke="#cbd5e1"/>
+<text class="heading" x="20" y="616">Wyniki na danych — osobna warstwa dowodowa</text>
+<g><rect x="22" y="642" width="464" height="128" rx="13" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.6"/><text class="card-title" x="40" y="671">B4 Kitchen — G ↔ META</text><text class="card-text" x="40" y="704">SUPPORTED: 2/2 przepisy, Subject 13</text><text class="card-text" x="40" y="730">replika wewnątrz osoby; międzyosobnicza otwarta</text></g>
+<g><rect x="514" y="642" width="464" height="128" rx="13" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.6"/><text class="card-title" x="532" y="671">Gałąź K — Grid v0.3</text><text class="card-text" x="532" y="704">SUPPORTED: PT–TR, korelacja krzyżowa</text><text class="card-text" x="532" y="730">MARS DAS v0.2: NOT SUPPORTED</text></g>
+<g><rect x="22" y="787" width="464" height="128" rx="13" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.6"/><text class="card-title" x="40" y="816">Most M/S ↔ G #1</text><text class="card-text" x="40" y="849">USTALONY jako diagnostyka: 140/240</text><text class="card-text" x="40" y="875">łożyska mocne; BTC bez efektu</text></g>
+<g><rect x="514" y="787" width="464" height="128" rx="13" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/><text class="card-title" x="532" y="816">Most M/S ↔ K #2</text><text class="card-text" x="532" y="849">częściowy: 43/60 i 38/60</text><text class="card-text" x="532" y="875">brak niezależnej kontroli kombinacji</text></g>
+<g><rect x="22" y="932" width="464" height="128" rx="13" fill="#fffbeb" stroke="#d97706" stroke-width="1.6"/><text class="card-title" x="40" y="961">Chrono membrane — świeże CWRU</text><text class="card-text" x="40" y="994">kierunek stały; pełny próg w 2/3 okien</text><text class="card-text" x="40" y="1020">wynik formalnie częściowy; B_14 odstaje</text></g>
+<g><rect x="514" y="932" width="464" height="128" rx="13" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.6"/><text class="card-title" x="532" y="961">Modal band energy v0.2 — M/S ↔ K</text><text class="card-text" x="532" y="994">SUPPORTED: 3/3 pary dopasowane</text><text class="card-text" x="532" y="1020">specyficzność opisowa tylko dla IR i OR</text></g>
+<text class="footer" x="22" y="1093">Odrzucone lub niestabilne są m.in. MC K↔G, chrono_sphere i chrono_modal_geometry.</text>
 </svg>
