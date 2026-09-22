@@ -95,41 +95,16 @@ def band_edges(center_hz: float, relative_width: float = BAND_RELATIVE_WIDTH) ->
 # ---------------------------------------------------------------------
 
 
-def bandpass_fft(signal: np.ndarray, fs: float, f_lo: float, f_hi: float) -> np.ndarray:
-    """Maskowanie w dziedzinie czestotliwosci (zera poza pasmem),
-    odwrotna FFT -- unika wyboru rzedu filtru IIR/FIR (SS3.2 PREREG)."""
-    n = len(signal)
-    spectrum = np.fft.rfft(signal)
-    freqs = np.fft.rfftfreq(n, d=1.0 / fs)
-    mask = (freqs >= f_lo) & (freqs <= f_hi)
-    spectrum_masked = spectrum * mask
-    return np.fft.irfft(spectrum_masked, n=n)
-
-
-def hilbert_envelope(signal: np.ndarray) -> np.ndarray:
-    """|analytic signal| przez FFT (rownowazne scipy.signal.hilbert,
-    bez zaleznosci od scipy.signal dla tej jednej operacji)."""
-    n = len(signal)
-    spectrum = np.fft.fft(signal)
-    h = np.zeros(n)
-    if n % 2 == 0:
-        h[0] = h[n // 2] = 1
-        h[1 : n // 2] = 2
-    else:
-        h[0] = 1
-        h[1 : (n + 1) // 2] = 2
-    analytic = np.fft.ifft(spectrum * h)
-    return np.abs(analytic)
-
-
-def decimate_simple(signal: np.ndarray, factor: int) -> np.ndarray:
-    """Decymacja z filtrem antyaliasingowym (usrednianie w oknie
-    `factor`, potem co-`factor`-ta probka) -- prostsze i bez
-    zaleznosci od scipy.signal.decimate, wystarczajace bo obwiednia
-    jest juz gladka (SS3.2 PREREG: pasmo << Nyquist docelowy)."""
-    n_out = len(signal) // factor
-    trimmed = signal[: n_out * factor]
-    return trimmed.reshape(n_out, factor).mean(axis=1)
+# bandpass_fft/hilbert_envelope/decimate_simple: WYDZIELONE do
+# timdr_formalism.envelope_demodulation (2026-09-22, po potwierdzonym
+# wyniku modal_band_energy_bridge v0.2) jako domenowo-agnostyczny rdzen
+# M/S->K, reuzywany rowniez przez core/modal_band_energy_bridge.py.
+# Importowane ponizej, NIE redefiniowane -- zachowuje identyczne API.
+from timdr_formalism.envelope_demodulation import (  # noqa: E402
+    bandpass_fft,
+    hilbert_envelope,
+    decimate_simple,
+)
 
 
 def channel_to_envelope(x_de: np.ndarray, fs: float, center_hz: float) -> np.ndarray:
