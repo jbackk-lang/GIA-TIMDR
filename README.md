@@ -87,6 +87,18 @@ operatorów zamiast jednej wielkości).
 > Poniższy opis odnosi się do tych samych czterech gałęzi merytorycznie
 > — zmieniła się tylko fizyczna granica repozytoriów, nie treść czy
 > niezależność matematyczna gałęzi.
+>
+> **Dodatkowo (2026-09-22, zwykła kopia dwóch plików, NIE `git subtree` —
+> bez osobnej historii commitów, bez testów/danych/dokumentacji):**
+> [`MAGE-IN-IMAGE-DECODER/`](MAGE-IN-IMAGE-DECODER) zawiera WYŁĄCZNIE kod
+> dwóch eksperymentalnych gałęzi z siostrzanego repo aplikacyjnego
+> `MAGE-IN-IMAGE-DECODER` (ogólny detektor obrazu/wideo, NIE formalny
+> fundament TIMDR jak cztery gałęzie wyżej) — `meta_dynamics_v1.py`
+> (Λ-τ-ρ na polu ruchu wideo) i `contour_curvature.py` (krzywizna
+> konturów 2D, G-branch, hipoteza detekcji splicingu); żaden nie zależy
+> od reszty repo źródłowego. Testy, skrypty real-data, dane i wyniki
+> PREREG/RESULT (ρ NOT SUPPORTED, Λ częściowy trop; CONTOUR_CURVATURE
+> częściowo supported przy N=4) zostają wyłącznie w repo źródłowym.
 
 > **Adnotacja:** poniższe jest streszczeniem. Pełna, formalna
 > specyfikacja czterech gałęzi (obiekty, operatory, aksjomaty, pliki
