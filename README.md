@@ -239,9 +239,12 @@ instancje NIE są osobnymi gałęziami" po pełne uzasadnienie tej decyzji.
 ![Siatka 4x4: rodzina sygnałów Λ/τ/ρ/J w czterech gałęziach TIMDR](docs/images/lambda_family_grid.svg)
 
 Turkusowy = operatory dodane 2026-09-10 (Λ_G, Λ_K, τ_K), zielony =
-wcześniejsze odpowiedniki, szary = brak osobnego operatora. Mapa pokazuje
-odnotowane odpowiedniki oraz dodane operatory, nie status walidacji empirycznej ani wyniki
-mostów między gałęziami. Pełne uzasadnienie każdej komórki — sekcja "Runda 2" w
+własne kanały META-DYNAMICS, niebieski = wcześniejsze, pokrewne znaczenia
+w pozostałych gałęziach (bez utożsamiania obiektów), szary = brak osobnego
+operatora. Każdy kafel ma łamany opis aktualnego zakresu. Karty pod siatką
+pokazują wybrane wyniki na danych i ich ograniczenia; wynik mostu nie
+zmienia automatycznie statusu operatora w pojedynczej gałęzi. Pełne
+uzasadnienie pól siatki — sekcja "Runda 2" w
 [`docs/theory/TIMDR_Branch_Specification.md`](docs/theory/TIMDR_Branch_Specification.md).
 
 ### Tabela porównawcza (kanoniczna)
