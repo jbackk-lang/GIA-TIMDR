@@ -2,6 +2,38 @@
 
 GIA-TIMDR to rozwijany przez J. S. Kielicha program badawczo-inżynierski: od pomysłu analizy zmiany przeszedł do czterech sformalizowanych gałęzi, działającego kodu, prerejestrowanych testów i zastosowań na rzeczywistych danych. Obejmuje **M/S** (sygnał), **G** (geometria), **K** (modalność) i **META-DYNAMICS** (agregat Λ–τ–ρ–J). Chronoproces daje trzem pierwszym wspólny nośnik czasu, zachowując odrębność operatorów. Starsza warstwa GIA/TRM pozostaje ważną częścią historii idei projektu.
 
+## Architektura TIMDR
+
+**TIMDR jest frameworkiem konstrukcyjnym rozwijanym z idei TRM/GIA.** Cztery gałęzie dostarczają odrębnych języków matematycznych do opisu sygnału, geometrii, modalności i dynamiki agregatowej. Chronoproces umożliwia wspólny opis czasowy M/S, G i K, a narzędzia domenowe wykorzystują wybrane operatory do konkretnych zadań.
+
+TRM/GIA stanowią źródło idei i konstrukcji całego ekosystemu. Strzałki „rozwój formalny” na diagramie pokazują tę genealogię. Ścisłe przedstawienie gałęzi jako instancji jednego modelu wymaga dodatkowo jawnych odwzorowań między obiektami TRM/GIA a obiektami każdej gałęzi; obecna specyfikacja opisuje je osobno.
+
+```mermaid
+flowchart TB
+    ROOT["TRM / GIA<br/>źródło idei i konstrukcji"]
+    ROOT -->|"rozwój formalny"| MS["M/S — sygnał"]
+    ROOT -->|"rozwój formalny"| G["G — geometria"]
+    ROOT -->|"rozwój formalny"| K["K — modalność"]
+    ROOT -->|"rozwój formalny"| META["META-DYNAMICS"]
+
+    TIME["Chronoproces<br/>wspólny indeks czasu T"]
+    TIME -.-> MS
+    TIME -.-> G
+    TIME -.-> K
+
+    MS --> TOOLS["TOOLS<br/>aplikacje i adaptery domenowe"]
+    G --> TOOLS
+    K --> TOOLS
+    META --> TOOLS
+
+    TEST["Protokół badań<br/>kalibracja → zamrożenie → kontrole → test"]
+    TEST -.-> TOOLS
+```
+
+W [Chronoprocesie Ξ=(T,x,Γ,φ)](docs/theory/TIMDR_Chronoprocess.md) φ opisuje reprezentację modalną w czasie. Chronoproces koordynuje M/S, G i K; aplikacja korzystająca z jednej gałęzi może używać jej bezpośrednio. Własności operatora GIA, takie jak monotoniczność, stabilność i zbieżność, wymagają określenia mierzonej wielkości oraz warunków ich zachodzenia.
+
+Pełny autorski szkic warstw i zastosowań: [ARCHITEKTURA_TIMDR.md](https://github.com/jbackk-lang/GIA-TIMDR/blob/main/ARCHITEKTURA_TIMDR.md).
+
 ## Co już powstało
 
 - Cztery gałęzie opisane definicjami i aksjomatami (13 M/S, 10 G, 10 K, 9 META), cztery formalne repozytoria włączone tutaj z zachowaniem historii oraz kod geometrii, sygnału, fazy i dynamiki.
