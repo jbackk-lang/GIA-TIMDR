@@ -1,5 +1,7 @@
 # ARCHITEKTURA TIMDR — SZKIC TECHNICZNY
 
+Rozwinięcie techniczne tego szkicu: [TRM/GIA → gałęzie, konstrukcja v0.1](docs/theory/TIMDR_EventGraph_Branch_Construction.md). Zawiera graf z wagami (energia, czas, pozycja), zamrożoną selekcję GIA, odwzorowania do czterech reprezentacji i testy własności. Osobno opisano [sygnał z grafu](docs/theory/TIMDR_Signal_From_EventGraph.md) oraz [krzywą i powierzchnie pomocnicze](docs/theory/TIMDR_Geometry_From_EventGraph.md).
+
 ## 1. Warstwa źródłowa: TRM / GIA
 TRM i GIA definiują pierwotny model zmiany oraz sposób budowy grafu zdarzeń.
 
