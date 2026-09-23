@@ -1,0 +1,10 @@
+# Stable text line endings independent of the user's Windows Git settings.
+* text=auto eol=lf
+
+*.png binary
+*.PNG binary
+*.pdf binary
+*.docx binary
+*.npz binary
+*.npy binary
+*.pkl binary

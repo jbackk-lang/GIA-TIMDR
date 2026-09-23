@@ -47,7 +47,9 @@ kolizji symbolu τ w sumie. Kanoniczna lista: `docs/GLOSSARY_EN_PL.md`,
 ## 3. Protokół formalizmu (anty-numerologia)
 
 9 zasad, najważniejsze: preregistracja definicji/progów przed danymi
-(zero tuningu po fakcie) · testy na tle losowym, nie na "czy sygnał
+**testu końcowego** (zero tuningu do wyniku holdoutu; jawna kalibracja
+na rozłącznych `train/calibration` jest dozwolona — szczegóły:
+`docs/theory/TIMDR_CALIBRATION_FREEZE_RULE.md`) · testy na tle losowym, nie na "czy sygnał
 odpala gdy wzorzec już jest" · Mann-Whitney U + rozmiar efektu r
 (obowiązkowy, nie opcjonalny) · kontrolka pozytywna I negatywna przed
 testem głównym · moc testu: wysokie p ≠ brak efektu, jeśli zero zdarzeń
