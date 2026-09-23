@@ -1,6 +1,8 @@
 # Historia README — GIA-TIMDR / TRM
 
-Ten plik zachowuje dawny, rozbudowany opis repozytorium w stanie sprzed uporządkowania 23 września 2026 r. Zawiera także opisy koncepcyjne i późniejsze dopiski o eksperymentach, dlatego nie jest jednolitą, aktualną specyfikacją ani samodzielnym źródłem werdyktu. Aktualny punkt wejścia: [README.md](README.md), [mapa repozytorium](REPOZYTORIUM.md) i właściwe dokumenty PREREG/RESULT.
+Ten plik zachowuje dawny, rozbudowany opis repozytorium w stanie sprzed uporządkowania 23 września 2026 r. To zapis drogi, dzięki której z koncepcji GIA/TRM wyrosły cztery formalne gałęzie TIMDR, kod, mosty, eksperymenty i aplikacje. Wartość archiwum polega zarówno na oryginalnych pomysłach, jak i na możliwości prześledzenia ich rozwoju. Poniższy dawny wstęp i późniejsze dopiski mają różne daty i statusy; aktualny stan osiągnięć oraz wyników pokazują [README.md](README.md), [podsumowanie projektu](PODSUMOWANIE_PROJEKTU_2026-09-23.md), [mapa repozytorium](REPOZYTORIUM.md) i właściwe dokumenty PREREG/RESULT.
+
+**Stan obecny, dopisek redakcyjny (23 września 2026):** projekt ma cztery opisane aksjomatycznie gałęzie M/S, G, K i META-DYNAMICS, wyniki mostów na danych realnych, dwa wyniki SUPPORTED B4-Kitchen w różnych sesjach jednego uczestnika oraz osobne narzędzia dla m.in. plazmy, pogody, łożysk, sejsmiki i sieci energetycznej. W archiwalnym tekście poniżej pozostawiono pierwotną ambitną narrację; nie zastępuje ona szczegółowych raportów z testów. Zachowanie tej różnicy dokumentuje rozwój projektu, a nie umniejsza jego późniejszych osiągnięć.
 
 > **Uwaga: to jest model koncepcyjny / narzędzie do myślenia, nie teoria naukowa ani model empiryczny.**
 > Poniższy opis nie przedstawia ustalonej, zweryfikowanej fizyki, biologii ani historii — to autorska metafora

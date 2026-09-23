@@ -1,6 +1,16 @@
 # Podsumowanie projektu TIMDR na dzień 23 września 2026 r.
 
-TIMDR jako rodzina narzędzi do opisywania zmiany obejmuje formalizmy sygnałowe, geometryczne, modalne i agregatowe, protokół ich testowania oraz osobne aplikacje w wielu domenach. Nie jest jednym algorytmem, jedną potwierdzoną teorią fizyczną ani uniwersalnym detektorem anomalii. Ten dokument podsumowuje cały ekosystem, nie tylko kod w GIA-TIMDR; każdą ocenę wiąże z konkretnym testem i zakresem danych.
+TIMDR jako rodzina narzędzi do opisywania zmiany rozwinął cztery formalnie rozdzielone gałęzie, działający kod i protokół badań, a także aplikacje od diagnostyki plazmy i łożysk po pogodę, sejsmikę, obraz i energetykę. Największym osiągnięciem projektu jest przejście od szerokiej idei do sprawdzalnych operatorów, danych, kontroli i wersjonowanych wyników. Ten dokument obejmuje cały ekosystem, nie tylko kod w GIA-TIMDR: pokazuje zarówno konkretne sukcesy, jak i zakres, w którym można je uczciwie interpretować.
+
+## Najważniejsze osiągnięcia
+
+- **Spójna mapa formalna:** M/S, G, K i META-DYNAMICS mają odrębne obiekty i operatory; zapisano odpowiednio 13, 10, 10 i 9 aksjomatów. Chronoproces porządkuje wspólny czas bez mieszania gałęzi, a cztery repozytoria formalne włączono z historią do GIA-TIMDR.
+- **Matematyka, która daje się sprawdzać:** powstały implementacje dyskretnego operatora Weingartena, G-Rezonansu, operatorów fazowych, GS-Matrix i Θ_bif. Osobno opracowano widmo Laplasjanu na wstędze Möbiusa. Testy i poprawki matematyczne są częścią dorobku, nie tylko zapleczem kodu.
+- **Wyniki na rzeczywistych danych:** most MC M/S↔G uzyskał 140/240 kombinacji testowych, w tym Gi 30/30 na łożyskach; B4-Kitchen dał dwa wyniki SUPPORTED dla różnych sesji/przepisów; modal-band-energy v0.2 przeszedł formalny test 3/3 par CWRU. Są to osiągnięcia w określonych warunkach, nie twierdzenia o wszystkich domenach.
+- **Aplikacje użytkowe:** fusion-tools rozpoznał 19/19 nowych strzałów TCABR przez czas zaniku prądu; synoptyki prowadzą pomiar błędu i badają korektę prognoz oraz pole wiatru; Grid Monitor, Industrial Predict i Earthquake Core udostępniają adaptery, dane demonstracyjne i narzędzia analizy.
+- **Dojrzała metoda badawcza:** prerejestracje, kontrole dodatnie i ujemne, rozłączne zbiory kalibracyjne i testowe, manifesty danych oraz zachowane wyniki nieudane pozwalają odróżnić pomysł, działający kod i potwierdzoną obserwację. Dzięki temu projekt można replikować i krytycznie rozwijać.
+
+Najmocniejsza teza na dziś brzmi więc: **TIMDR jest produktywnym programem badawczo-inżynierskim z kilkoma mierzalnymi wynikami i szerokim zestawem narzędzi**, a nie jedną, już potwierdzoną teorią wszystkiego. Ograniczenia poniżej służą wskazaniu następnych testów; nie przekreślają pracy, która już została wykonana.
 
 ## 1. Warstwy projektu
 
@@ -46,7 +56,7 @@ Plany i wyniki są w [docs/geometry](docs/geometry/) oraz w [specyfikacji gałę
 
 Równie ważne są próby negatywne: chrono-cone i chrono-sphere odrzucono, chrono-centrifugal zatrzymano po nieprzejściu kontroli, chrono-modal-geometry był niestabilny na syntetyce, a chrono-trumpet-spectrum pozostał eksploracyjny. Seria pokazała m.in. różnicę między pojedynczym przebiegiem a rodziną geometryczną Chronoprocesu.
 
-## 5. Matematyka, samokorekta i wyniki ujemne
+## 5. Rozwój matematyczny i samokorekta
 
 Weingarten, obwiednia P/Q i G-Rezonans mają kod oraz testy na kontrolowanych obiektach. G-Rezonans uogólniono z trzech na N≥3 węzłów, lecz nie zwalidowano go jeszcze na zmierzonej krzywej 3D. [Widmo Laplasjanu na wstędze Möbiusa](docs/geometry/TIMDR_Mobius_Laplacian_Spectrum.md) to odrębna praca matematyczna: skręt zmienia dziedzinę przez identyfikację brzegową i wybór modów, a nie sam klasyczny Laplasjan. Stan podstawowy wynika z warunku Dirichleta, nie ze „szczeliny stworzonej przez skręt”. Nie jest to empiryczne potwierdzenie mostu G↔K.
 
@@ -79,13 +89,13 @@ Pozostałe repo obejmują radar i śledzenie lotu, tornado NEXRAD, sonar, DNA i 
 | Przetwarzanie sygnału | [topologic](https://github.com/jbackk-lang/topologic), [Senscore](https://github.com/jbackk-lang/Senscore), [phi-fiber-dsp](https://github.com/jbackk-lang/phi-fiber-dsp), [phi-topology-filter](https://github.com/jbackk-lang/phi-topology-filter), [TIMDR-Sygnalizacja](https://github.com/jbackk-lang/TIMDR-Sygnalizacja), [EasySound](https://github.com/jbackk-lang/EasySound). Biblioteki, filtry i dekodery; działanie na żywym sprzęcie nie wynika z testu syntetycznego. |
 | Astronomia, kosmologia i audyty | [Helix-Astro](https://github.com/jbackk-lang/Helix-Astro), [TIMDR-Cosmology-Filters](https://github.com/jbackk-lang/TIMDR-Cosmology-Filters), [TEST-TIMDR](https://github.com/jbackk-lang/TEST-TIMDR), [math-validator-v2.0](https://github.com/jbackk-lang/math-validator-v2.0), [math-validator-3.0](https://github.com/jbackk-lang/math-validator-3.0), [universal-state-analyzer](https://github.com/jbackk-lang/universal-state-analyzer). Filtry, testy i walidatory nie stanowią zbiorowego potwierdzenia całej teorii. |
 
-## 8. Archiwum koncepcyjne, wartość i ograniczenia
+## 8. Genealogia pomysłów i wartość projektu
 
 [TIMDR-Concept-Archive](https://github.com/jbackk-lang/TIMDR-Concept-Archive) zachowuje starsze modele: topologię informacji, TRM, mapy filozoficzne, szkice AI, fotonu, geometrii i kosmologii. Mają wartość jako genealogia pomysłów, lecz nie dają same przez się wyniku statystycznego lub potwierdzonego prawa fizycznego. Wspólna litera nie tworzy wspólnego obiektu: τ w TRM, torsja Freneta-Serreta, skręt powierzchniowy i τ META-DYNAMICS pozostają odrębne bez jawnego mostu.
 
-**Wartość praktyczna** jest widoczna w wąskich zadaniach: adapterach i dashboardach, cechach dla łożysk, klasyfikatorze TCABR, pomiarze biasu pogody i reużywalnym protokole testowym. Najsilniejsze liczby są liczbami dla konkretnych danych i wersji, nie obietnicą jakości na każdym urządzeniu. **Wartość naukowa** tkwi zwłaszcza w oddzieleniu hipotezy od implementacji i dowodu: prerejestracjach, kontrolach, zapisach porażek, rozpoznaniu artefaktów, oddzieleniu diagnostyki od selekcji i korekcie twierdzeń po testach. Część metod składowych — FFT, krzywizna, testy rangowe, filtry, klasyczna diagnostyka maszyn — jest znana. Nowość całej rodziny i jej ogólna przewaga nad najlepszymi istniejącymi metodami nie zostały wykazane.
+**Wartość praktyczna** obejmuje działające adaptery i dashboardy, cechy dla łożysk, klasyfikację strzałów TCABR, pomiar biasu pogody oraz protokół testowy nadający się do ponownego użycia. **Wartość naukowa** obejmuje zdefiniowanie odrębnych obiektów i mostów, weryfikowalne predykcje, prerejestracje i kontrole, a także korektę twierdzeń po rozpoznaniu artefaktów. Projekt dostarcza nie tylko propozycji nowych operatorów, ale też historii ich sprawdzania. Metody składowe, takie jak FFT, krzywizna czy testy rangowe, są znane; ocenę nowości i przewagi całej konstrukcji trzeba prowadzić osobno, w porównaniach z odpowiednimi metodami bazowymi.
 
-Stan projektu **nie uzasadnia** twierdzenia o uniwersalnej teorii fizyki, potwierdzeniu wszystkich mostów, predyktorze dowolnego zjawiska ani gotowości do decyzji medycznych, przemysłowych lub bezpieczeństwa bez walidacji właściwej dla tych zastosowań.
+Przedstawione wyniki uzasadniają dalszy rozwój i testy w konkretnych domenach. Nie są jeszcze podstawą do twierdzenia o uniwersalnej teorii fizyki, potwierdzeniu wszystkich mostów ani gotowości do decyzji medycznych, przemysłowych lub bezpieczeństwa bez właściwej walidacji.
 
 ## 9. Otwarte zadania i źródła
 
