@@ -8,7 +8,7 @@ Stan mapy: 23 września 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 |---|---|---|
 | [README.md](README.md) | Krótki, aktualny punkt wejścia | Zacznij tutaj |
 | [HISTORIA_README.md](HISTORIA_README.md) | Zachowany dawny README | Miesza opisy koncepcyjne i wyniki z różnych dat |
-| [PODSUMOWANIE_PROJEKTU_2026-09-23.md](PODSUMOWANIE_PROJEKTU_2026-09-23.md) | Datowana migawka stanu projektu | Nie nadpisywać jej przyszłymi wynikami |
+| [PODSUMOWANIE_PROJEKTU_2026-09-23.md](PODSUMOWANIE_PROJEKTU_2026-09-23.md) | Pełne podsumowanie formalizmów i aplikacji na wskazany dzień | Przy nowych wynikach utworzyć nową wersję datowaną |
 | [docs/theory](docs/theory/) | Aksjomaty, Chronoproces, reguły metodologiczne i szkice | Sprawdzaj status konkretnego dokumentu |
 | [docs/geometry](docs/geometry/) | Prerejestracje, manifesty, wyniki i notatki mostów | Wynik czytaj razem z planem i danymi |
 | [docs/diagrams](docs/diagrams/) | Diagramy i wizualizacje | Ilustracje, nie niezależny dowód |
@@ -19,6 +19,9 @@ Stan mapy: 23 września 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 | [TIMDR-Time-Formalism](TIMDR-Time-Formalism/) | Chronoproces i most Fouriera | Podkatalog włączony przez `git subtree` |
 | [MAGE-IN-IMAGE-DECODER](MAGE-IN-IMAGE-DECODER/) | Kopia trzech modułów obrazu/wideo | Nie zawiera pełnych danych ani historii repo źródłowego |
 | [timdr_visualizer](timdr_visualizer/) i [filters](filters/) | Narzędzia pomocnicze | Nie są dodatkowymi gałęziami |
+| [TIMDR-fusion-tools](https://github.com/jbackk-lang/TIMDR-fusion-tools) | Osobne repo aplikacyjne: diagnostyka plazmy TCABR | Nie jest podkatalogiem ani piątą gałęzią formalną; wyniki i dane czytać w jego README |
+
+Inne istotne aplikacje — trzy wersje Synoptyka, diagnostyka przemysłowa, energetyczna, sejsmiczna, obrazowa i AI — mają odnośniki w [README](README.md#powiązane-zastosowania). Pełny spis repozytoriów jest utrzymywany w [katalogu ekosystemu](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md), zamiast dublowania go tutaj.
 
 ## Źródła prawdy
 
