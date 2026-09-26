@@ -52,3 +52,27 @@ z dokładnością 0,01%. Na szumie naprawa jest ograniczona, a Q pozostaje przy 
   (b) wielkość naprawy i przyrost Q niosą informację diagnostyczną. Rozwój: Paderborn, pomiary 1–15; rezerwa 16–20.
 - Most łączy: Chronoproces (wspólny czas, rury), K (zgodność częstotliwości i fazy modalności z modelem) i samokorektę
   sita (oczka ustalane przez rezonans).
+
+## 6. Samonaprawa w czasie — zmienna prędkość (turbiny wiatrowe)
+
+Kod: `core/modal_speed_tracking.py`, testy: `tests/test_modal_speed_tracking.py` (4/4).
+
+Gdy prędkość pływa w trakcie nagrania, jedna stała korekta s nie wystarcza. Model (rzędy uszkodzeń, np. BPFO = 3,05
+obrotu) zostaje stały, a **naprawiana jest oś czasu**:
+
+1. **Śledzenie prędkości z samych drgań:** w ramkach 2 s (krok 0,25 s) wybierane jest f maksymalizujące sumę widma przy
+   k·f dla rzędów odniesienia k (domyślnie 1, 2, 3: wał, jego harmoniczne, przejście łopat). Pierwsza ramka przeszukuje
+   cały zakres [f_lo, f_hi], każda następna tylko ±5% wokół poprzedniego oszacowania — samonaprawa krok po kroku.
+2. **Oś kątowa:** θ(t) = ∫ f_r dt; obwiednie rur pasm nośnych (pasma w Hz, bo rezonanse konstrukcji są stałe w Hz)
+   przeliczone na równe kroki kąta.
+3. **Sito w rzędach:** mapa rezonansu R_b(rząd) i sito samokorygujące przy rzędzie uszkodzenia (cechy QO_k).
+
+Tachometr nie jest wejściem metody — służy wyłącznie do oceny śledzenia.
+
+Sprawdzenie syntetyczne (prędkość rośnie 5 → 7,5 obr/s w 10 s, wał 1× i 3× + uderzenia co 1/3,5 obrotu, szum):
+średni błąd śledzenia prędkości **0,74%**; sito w osi kątowej 3,35 wobec 2,44 dla modelu o stałej prędkości (szczyt
+~2,5× wyższy) i 1,25 dla turbiny zdrowej.
+
+Plan testu: Fraunhofer LBF (prawdziwa turbina 750 W, prędkość zmienna, tachometr, uszkodzenia łożyska) —
+(a) dokładność śledzenia względem tachometru, (b) czy sito w osi kątowej rozpoznaje uszkodzenie lepiej niż sito
+o stałej prędkości i klasyczne cechy. Rozwój na części nagrań, zamrożenie, jedna ocena na reszcie.
