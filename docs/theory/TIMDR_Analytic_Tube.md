@@ -61,3 +61,34 @@ sita ważą rury według siły tego oddychania. Uszkodzenie łożyska = okresowe
   ponad samo widmo oddychania. Test wymaga pre-rejestracji; rezerwa: Paderborn, pomiary 16–20.
 - Znane ograniczenia: efekty brzegowe transformaty Hilberta (w testach pomijane 10% brzegów), niejednoznaczność
   częstotliwości chwilowej dla sygnałów wieloskładnikowych (dlatego wiązka rur pasmami, a nie jedna rura).
+
+## 6. Rura zgięta i skręcona — sygnał dwuskalowy (idea J. Kielicha, 2026-09-27)
+
+Kod: `core/bent_tube.py`, testy: `tests/test_bent_tube.py` (5/5).
+
+Dotąd oś rury była prosta (oś czasu). W sygnale dwuskalowym **oś sama jest krzywą**:
+
+\[
+C(t) = \big(v t,\ \mathrm{Re}\,z_L(t),\ \mathrm{Im}\,z_L(t)\big),\qquad
+X(t,\theta) = C(t) + A_H(t)\big(\cos\theta\,N(t) + \sin\theta\,B(t)\big),
+\]
+
+gdzie z_L — sygnał analityczny części wolnej (pasmo niskie, np. linie wirnika), A_H — obwiednia części szybkiej
+(pasmo wysokie, np. dzwonienie uderzeń), (N, B) — ramka Freneta osi.
+
+| Deformacja rury | Wielkość | Sens w sygnale |
+|---|---|---|
+| zgięcie poprzeczne | krzywizna osi κ_a, promień zgięcia \|z_L\| | wolny ruch modalny (np. niewyważenie 1×) |
+| skręt | torsja osi τ_a | tempo obrotu części wolnej, sprzężenie faz |
+| rozciąganie / ściskanie wzdłużne | prędkość osi \|C′(t)\| (zmienność) | zmiana prędkości maszyny; śledzenie + oś kątowa = **prostowanie rury wzdłuż** |
+| oddech promienia | zmienność A_H | modulacja przez uderzenia (to czyta sito) |
+
+Dla części wolnej będącej tonem (a, Ω) oś jest helisą: κ_a = aΩ²/(v² + a²Ω²), τ_a = vΩ/(v² + a²Ω²) (test).
+Testy: skale się rozdzielają (zgięcie = amplituda części wolnej, oddech = głębokość modulacji części szybkiej);
+zmiana prędkości części wolnej rozciąga rurę (zmienność |C′| ≥ 5× większa niż przy stałej); brak części wolnej → rura prosta.
+
+**Związek z resztą:** sygnał modalny (krok 0) wygina i rozciąga oś, polowy/pakiet falowy nadaje rurze oddech.
+Turbina ma oba: samonaprawa w czasie prostuje rurę wzdłuż, sito czyta oddech. **Hipoteza do sprawdzenia:** zgięcie
+i skręt osi niosą informację o uszkodzeniach „wolnych” (niewyważenie, błędy łopat) — zbiór Fraunhofer LBF ma takie klasy
+(Imbalance_*, Aerodynamic_*), które nadają się do testu. Jak dotąd dodatkowe wielkości geometryczne rury nie wnosiły
+informacji ponad sito dla uszkodzeń łożysk (Paderborn) — to zastrzeżenie dotyczy także tej konstrukcji.
