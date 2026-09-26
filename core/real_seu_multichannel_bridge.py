@@ -47,7 +47,7 @@ def load(name: str) -> np.ndarray:
         started = False
         for line in f:
             if not started:
-                if line.strip() == "Data":
+                if line.replace(",", " ").strip() == "Data":
                     started = True
                 continue
             parts = [x for x in line.replace(",", "\t").split("\t") if x.strip()]
