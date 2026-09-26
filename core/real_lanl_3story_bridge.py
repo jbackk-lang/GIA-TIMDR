@@ -92,7 +92,10 @@ def evaluate():
     clean = X[te]; spiked = clean.copy()
     for r in spiked:
         pos = rng.choice(np.arange(100, 8000), 5, replace=False); r[3, pos] += 5 * r[3].std()
-    Fc = np.array([[features(r)[n] for n in sets["BT"]] for r in clean]); Fs = np.array([[features(r)[n] for n in sets["BT"]] for r in spiked])
+    def _row(r):
+        f = features(r)  # liczone raz na pomiar (poprawka wydajnosci, bez zmiany metody)
+        return [f[n] for n in sets["BT"]]
+    Fc = np.array([_row(r) for r in clean]); Fs = np.array([_row(r) for r in spiked])
     pos_auc = auc(novelty(M["BT"][tr], Fc), novelty(M["BT"][tr], Fs))
     sc = novelty(M["BT"][tr], M["BT"][te | dam]); lab = dam[te | dam]; perm = rng.permutation(lab)
     neg_auc = auc(sc[~perm], sc[perm])
