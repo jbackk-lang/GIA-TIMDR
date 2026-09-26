@@ -12,6 +12,7 @@ from scipy.ndimage import median_filter
 from scipy.signal import welch
 
 L_MODAL, M_FIELD = 0.5, 8.0
+P_PARTICLE = 0.3   # szum gaussowski daje ok. 0,20; ton ok. 0,05
 
 
 def line_fraction(x: np.ndarray, fs: float) -> float:
@@ -31,7 +32,28 @@ def modulation_strength(x: np.ndarray, fs: float, n_seg: float = 2.0) -> float:
     return float(np.median(vals)) if vals else float("nan")
 
 
+def particle_index(x: np.ndarray, fs: float, top: float = 0.05, hp: float = 1000.0) -> float:
+    """Czasteczkowosc: udzial energii obwiedni w najsilniejszych 5% chwil. Liczone powyzej 1 kHz (jesli fs pozwala),
+    bo uderzenia pobudzaja rezonanse wysokoczestotliwosciowe, a linie wirnika leza nizej."""
+    x = np.asarray(x, float) - np.mean(x); N = len(x); X = np.fft.fft(x); f = np.fft.fftfreq(N, 1 / fs)
+    Z = np.zeros_like(X); m = (f >= (hp if fs / 2 > 2 * hp else 0.0)); Z[m] = 2 * X[m]
+    e2 = np.abs(np.fft.ifft(Z)) ** 2; k = max(1, int(top * N))
+    return float(np.sort(e2)[-k:].sum() / e2.sum())
+
+
+def duality(L: float, P: float, M: float) -> str:
+    """Mapa dualnosci (analogia z Gaborem: dt*df >= 1/4pi, nie twierdzenie o fizyce kwantowej)."""
+    wave, particle, rhythm = L >= L_MODAL, P >= P_PARTICLE, (M >= M_FIELD)
+    if particle and rhythm:
+        return "mieszany (fala + pakiet)" if wave else "pakiet falowy"
+    if particle:
+        return "czasteczkowy"
+    if wave:
+        return "falowy"
+    return "polowy (modulowany szum)" if rhythm else "szumowy"
+
+
 def signal_character(x: np.ndarray, fs: float) -> dict:
-    L = line_fraction(x, fs); M = modulation_strength(x, fs)
+    L = line_fraction(x, fs); M = modulation_strength(x, fs); P = particle_index(x, fs)
     label = "modalny" if L >= L_MODAL else ("polowy" if M >= M_FIELD else "nieokreslony")
-    return {"L": L, "M": M, "typ": label}
+    return {"L": L, "M": M, "P": P, "typ": label, "dualnosc": duality(L, P, M)}

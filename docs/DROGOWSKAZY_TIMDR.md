@@ -32,6 +32,32 @@ sygnału). Budynek LANL: L = 0,02 — wbrew wcześniejszemu opisowi „modalny�
 widzi jako niemodalne, a próbkowanie 322 Hz nie pozwala policzyć M → nieokreślony. Przewidywanie zapisane przed danymi:
 drgania łożyskowe turbiny Fraunhofer LBF — mieszane (linie wirnika + modulacje pasm przy uszkodzeniu).
 
+## Krok 0 rozszerzony — mapa dualności (hipoteza, 2026-09-27)
+
+Analogia z przejściem fotonu przez szczelinę (J. Kielich), oparta na tej samej matematyce Fouriera (Δt·Δf ≥ 1/4π,
+most Fouriera M/S↔K) — **nie** twierdzenie o fizyce kwantowej. Trzy osie w `core/signal_character.py`:
+**falowość** L (moc w wąskich liniach), **cząsteczkowość** P (udział energii obwiedni powyżej 1 kHz w najsilniejszych 5%
+chwil; szum ≈ 0,20, ton ≈ 0,05; próg 0,3), **rytm** M (modulacja pasm nośnych; próg 8).
+
+| Etykieta | Warunek | Znaczenie |
+|---|---|---|
+| falowy | L ≥ 0,5, P < 0,3 | linie widma, faza — pracuj na liniach (K) |
+| cząsteczkowy | P ≥ 0,3, M < 8 | pojedyncze, nieregularne uderzenia |
+| pakiet falowy | P ≥ 0,3, M ≥ 8, L < 0,5 | cząstki w rytmie — tu sito ma działać najlepiej |
+| mieszany (fala + pakiet) | P ≥ 0,3, M ≥ 8, L ≥ 0,5 | linie + rytmiczne uderzenia (np. turbina) |
+| polowy (modulowany szum) / szumowy | P < 0,3 | modulacje bez wyraźnych cząstek / brak struktury |
+
+Właściwość sprawdzona testem: **ściśle okresowy** ciąg uderzeń ma widmo z samych linii, więc jest jednocześnie falą
+i pakietem; poślizg 1% (jak w łożysku) rozmywa linie i zostaje czysty pakiet falowy.
+
+Sprawdzenie wsteczne (po fakcie): CWRU zdrowe → **falowy** (P 0,15); bieżnia wewnętrzna → mieszany (P 0,41);
+zewnętrzna → **pakiet falowy** (P 0,69); kulka → pakiet falowy (P 0,35) — uszkodzenie zamienia falę w pakiet cząstek.
+Paderborn drgania (zdrowe i naturalnie uszkodzone) → polowy, P 0,26–0,29 tuż pod progiem — uszkodzenia naturalne nie dają
+wyraźnych cząstek, co zgadza się z trudnością tego zbioru. Paderborn prądy → mieszany, ale cząsteczkowość prądu to
+najpewniej przełączanie falownika (PWM) powyżej 1 kHz, nie łożysko — uwaga na źródła cząstek niezwiązane z usterką.
+Przewidywanie przed danymi dla turbiny Fraunhofer LBF: drgania łożyskowe **mieszane (fala + pakiet)** przy uszkodzeniu,
+**falowe lub polowe** przy stanie zdrowym.
+
 ## Przykład: sito rezonansowe dla łożysk (Paderborn, uszkodzenia naturalne)
 
 Ścieżka pokazuje, że drogowskazy prowadzą, ale nie gwarantują — liczą się także ślepe uliczki:
