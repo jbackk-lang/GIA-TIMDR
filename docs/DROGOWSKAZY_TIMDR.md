@@ -12,7 +12,7 @@ najtrudniejszych danych (niżej).
 | 1. Pole | W jakiej przestrzeni sygnał ma strukturę? Czas × pasmo? Czas × kanał? | membrana = pole | spektrogram, bank filtrów |
 | 2. Rezonans | Gdzie w polu coś powtarza się okresowo lub zgadza się między częściami pola? | rezonans (K: częstotliwość, faza) | widmo obwiedni, korelacja widmowa |
 | 3. Sito | Co przepuścić, co odrzucić? | sito, którego oczka ustala rezonans | wybór pasma (kurtogram) |
-| 4. Samokorekta | Czy sito ma się dopasować do hipotezy? | samokorekta; osobne oczka dla każdej hipotezy | filtr dopasowany |
+| 4. Samokorekta | Czy sito ma się dopasować do hipotezy? Czy model ma się sam przestroić do sygnału ([samonaprawa modelu modalnego](theory/TIMDR_Modal_Self_Repair.md))? | samokorekta; osobne oczka dla każdej hipotezy; most K ↔ Chronoproces | filtr dopasowany, śledzenie rzędów, PLL |
 | 5. Geometria | Czy kształt pola (grzbiet, krzywizna, rozciągłość) coś dodaje? Zwiń pole w rurę: promień = obwiednia, kąt = faza, skręt = częstotliwość ([rura analityczna](theory/TIMDR_Analytic_Tube.md)) | gałąź G, Chronoproces | sygnał analityczny (Gabor), cechy kształtu |
 | 6. Test | Czy to działa na danych, których nie widziałeś? | protokół: rozwój → zamrożenie → jeden test | walidacja krzyżowa, holdout |
 
