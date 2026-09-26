@@ -1,6 +1,6 @@
 # Wynik — TIMDR na drganiach budynku (rama trzykondygnacyjna LANL), v0.1 (2026-09-26)
 
-Pre-rejestracja: `PREREG_LANL_3STORY_v0.1.md` (commit e2afd26). Liczby: `RESULT_LANL_3STORY_v0.1.json`.
+Pre-rejestracja: `PREREG_LANL_3STORY_v0.1.md` (commit 0b243b5 — przed rebase e2afd26). Liczby: `RESULT_LANL_3STORY_v0.1.json`.
 **Poprawka techniczna po zamrożeniu:** w kontrolach cechy liczyły się osobno dla każdej nazwy cechy (41× za dużo pracy),
 co przekroczyło limit czasu przed zapisaniem czegokolwiek; zmieniono tylko to, by liczyć je raz na pomiar.
 

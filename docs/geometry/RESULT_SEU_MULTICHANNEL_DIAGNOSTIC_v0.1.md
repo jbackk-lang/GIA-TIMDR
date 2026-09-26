@@ -1,6 +1,6 @@
 # Wynik — diagnostyka wielokanałowa TIMDR na SEU (bearingset), v0.1 (2026-09-26)
 
-Pre-rejestracja: `PREREG_SEU_MULTICHANNEL_DIAGNOSTIC_v0.1.md` (commit a361e8d, przed obliczeniem cech). Liczby:
+Pre-rejestracja: `PREREG_SEU_MULTICHANNEL_DIAGNOSTIC_v0.1.md` (commit fe95894 — przed rebase a361e8d — przed obliczeniem cech). Liczby:
 `RESULT_SEU_MULTICHANNEL_DIAGNOSTIC_v0.1.json`; analizy po fakcie: `POSTHOC_SEU_MULTICHANNEL_v0.1.json`
 (`core/real_seu_multichannel_posthoc.py`).
 
