@@ -74,6 +74,25 @@ Na łożyskach CWRU mosty i metryki topologiczne dały silny sygnał diagnostycz
 
 W osobnym projekcie aplikacyjnym [TIMDR-fusion-tools](https://github.com/jbackk-lang/TIMDR-fusion-tools) klasyfikator czasu zaniku prądu `is_fast_quench()` poprawnie rozpoznał 19/19 nowych strzałów tokamaka TCABR. Metryka portretu fazowego `phasespace_funnel_ratio()` osiągnęła na tych samych danych czułość 12/14 i swoistość 5/5. To konkretne wyniki dla TCABR, nie walidacja wszystkich gałęzi TIMDR ani dowód skuteczności na innym tokamaku: próby MAST bez etykiet pozwoliły opisać rozkład sygnału, lecz nie ocenić trafności klasyfikacji. Lej fazowy z fusion-tools był inspiracją dla późniejszych konstrukcji chronogeometrycznych, ale nie jest tym samym operatorem.
 
+## Czym TIMDR jest, a czym nie jest (stan 2026-09-26)
+
+**TIMDR to rama opisu i protokół badania sygnałów dynamicznych, a nie detektor.** Analizę sygnału wykonują ustalone metody
+(np. modele AR, kurtoza, widmo, metoda wektora Parka); wkład TIMDR to struktura opisu (gałęzie, Chronoproces),
+pre-rejestracja, kontrole i audytowalność wyników. Operatory TIMDR testowane jako cechy diagnostyczne na pięciu
+stanowiskach nie dały przewagi nad klasycznymi metodami:
+
+| Stanowisko | Sygnał | TIMDR | Klasyczne metody | Wynik |
+|---|---|---|---|---|
+| Łożyska CWRU | drgania, kilka kanałów | silny efekt membrany i topologii | nie porównywano z mocnym baseline'em | kierunek powtarzalny, przewaga niezbadana |
+| Przekładnia SEU | drgania x/y/z | macro-F1 0,70 / 0,67 przy zmianie warunków pracy | 0,66 / 0,79 (standaryzacja per warunek) | remis; razem 0,95 / 0,81 — mieszane, po fakcie ([wynik](docs/geometry/RESULT_SEU_MULTICHANNEL_DIAGNOSTIC_v0.1.md)) |
+| Budynek LANL (rama 3-kondygnacyjna) | drgania 4 poziomów | AUC 0,45 / 0,53 (losowo) | AUC 0,99 | brak wartości ([wynik](docs/geometry/RESULT_LANL_3STORY_v0.1.md)) |
+| Silnik Paderborn | orbita prądów α–β | macro-F1 0,29 (losowo) | 0,74 (wektor Parka) | brak wartości ([wynik](docs/geometry/RESULT_PADERBORN_CURRENT_ORBIT_v0.1.md)) |
+| Wideo UCSD Ped2 | ρ per region (META-DYNAMICS) | wykrycie 0,40 przy 0,46 fałszywych alarmów | — | NOT SUPPORTED ([MAGE](https://github.com/jbackk-lang/MAGE-IN-IMAGE-DECODER/blob/main/RESULT_META_DYNAMICS_v0.3.md)) |
+
+Hipoteza, że TIMDR działa tylko przy sygnale wirującym, została sprawdzona bezpośrednio na orbicie prądów silnika
+i się nie potwierdziła. Twierdzenia o wykrywaniu lub przewidywaniu przez operatory TIMDR wymagają odtąd nowej
+pre-rejestracji z mocnym baseline'em i danymi z więcej niż jedną jednostką na klasę.
+
 ## Powiązane zastosowania
 
 To osobne projekty, nie kolejne gałęzie formalne. Ich wyniki, dane i ograniczenia opisują ich własne repozytoria:
