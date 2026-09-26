@@ -18,7 +18,7 @@ RESULT = _REPO / "docs" / "geometry" / "RESULT_PADERBORN_RESONANCE_SIEVE_v0.1.js
 FS2, N2 = 32000, 64000                      # decymacja x2, 2 s
 BANDS = [(1000.0 * i, 1000.0 * (i + 1)) for i in range(1, 16)]   # 15 pasm nosnych 1-16 kHz
 AMIN, AMAX = 5.0, 500.0
-SETS = {"dev": range(1, 6), "eval": range(6, 11)}
+SETS = {"dev": range(1, 6), "eval": range(6, 11), "rep": range(11, 16)}
 
 
 def measurements(which):
@@ -89,6 +89,26 @@ def rs_feats(x, r, keep=None):
     return f
 
 
+def kurt_feats(x, r):
+    """Baseline typu kurtogram (uproszczony): pasmo o najwiekszej kurtozie widmowej K = E|z|^4/(E|z|^2)^2 - 2
+    sposrod tych samych 15 pasm; widmo obwiedni tego pasma przy BPFO/BPFI/BSF (1x + 2x) + wartosc K."""
+    N = len(x); X = np.fft.fft(x); f = np.fft.fftfreq(N, 1 / FS2)
+    alpha = np.fft.rfftfreq(N, 1 / FS2); am = (alpha >= AMIN) & (alpha <= AMAX); best = (-np.inf, None)
+    for lo, hi in BANDS:
+        Z = np.zeros_like(X); m = (f >= lo) & (f < hi); Z[m] = 2 * X[m]; z = np.fft.ifft(Z); p2 = np.abs(z) ** 2
+        K = float(np.mean(p2 ** 2) / np.mean(p2) ** 2 - 2)
+        if K > best[0]:
+            best = (K, np.abs(z))
+    e = best[1] - best[1].mean(); E = np.abs(np.fft.rfft(e * np.hanning(N)))[am]; E = E / (np.median(E) + 1e-12)
+    al = alpha[am]; out = {"K_max": best[0]}
+    for k, mlt in MULT.items():
+        a = 0.0
+        for h in (1, 2):
+            fc = h * mlt * r / 60; band = (al >= 0.97 * fc) & (al <= 1.03 * fc); a += float(E[band].max())
+        out[f"K_{k}"] = float(np.log(a))
+    return out
+
+
 def extract(which, lo, hi):
     from unrar.cffi import rarfile
     from scipy.io import loadmat
@@ -101,8 +121,10 @@ def extract(which, lo, hi):
         v = np.asarray({e.Name: e.Data for e in s.Y}["vibration_1"], float)
         x2 = decimate(v, 2, ftype="fir", zero_phase=True)[:N2]; x2 = x2 - x2.mean()
         f = rs_feats(x2, rpm(m["cond"]))
-        if which == "eval":
+        if which in ("eval", "rep"):
             x4 = decimate(v, 4, ftype="fir", zero_phase=True)[:SEGN]; f.update(ab_feats(x4 - x4.mean(), rpm(m["cond"])))
+        if which == "rep":
+            f.update(kurt_feats(x2, rpm(m["cond"])))
         (d / f"{k:03d}.json").write_text(json.dumps({**m, "f": f}))
     print("ok", which, lo, hi)
 
@@ -122,6 +144,8 @@ def score(which, seed=20260926):
     sets = {"B": [n for n in names if n.startswith("B_")], "R": [n for n in names if n.startswith("R_")]}
     sets["G"] = [n for n in names if n.startswith("G_")]; sets["Q"] = [n for n in names if n.startswith("Q_")]
     sets["ENV"] = [n for n in names if n.startswith("B_env")]
+    if any(n.startswith("K_") for n in names):
+        sets["KURT"] = [n for n in names if n.startswith("K_")]
     sets["B+Q"] = sets["B"] + sets["Q"]; sets["B+Q+G"] = sets["B"] + sets["Q"] + sets["G"]
     sets["B+R"] = sets["B"] + sets["R"]; sets["B+G"] = sets["B"] + sets["G"]; sets["B+R+G"] = sets["B"] + sets["R"] + sets["G"]
     M = {s: np.array([[m["f"][n] for n in c] for m in ms]) for s, c in sets.items()}
@@ -155,9 +179,28 @@ def final():
     return r
 
 
+def final_rep():
+    """Replikacja na pomiarach 11-15 wg PREREG_PADERBORN_RESONANCE_SIEVE_REPLICATION_v0.2 (sito Q bez zmian)."""
+    r = score("rep"); f = r["f1"]
+    def crit(a, b):
+        d = np.array(f[a]) - np.array(f[b])
+        v = "SUPPORTED" if d.mean() >= 0.05 and (d > 0).sum() >= 3 else ("NOT SUPPORTED" if d.mean() <= 0 else "MIESZANY")
+        return {"delta": d.tolist(), "mean_delta": float(d.mean()), "verdict": v}
+    r["H1_Q_vs_B"] = crit("Q", "B"); r["H2_Q_vs_ENV"] = crit("Q", "ENV"); r["H3_Q_vs_KURT"] = crit("Q", "KURT")
+    r["controls_passed"] = r["neg_mean"] <= 0.45
+    if not r["controls_passed"]:
+        for h in ("H1_Q_vs_B", "H2_Q_vs_ENV", "H3_Q_vs_KURT"):
+            r[h]["verdict"] = "INCONCLUSIVE (kontrole)"
+    r["prereg"] = "PREREG_PADERBORN_RESONANCE_SIEVE_REPLICATION_v0.2.md"
+    (RESULT.parent / "RESULT_PADERBORN_RESONANCE_SIEVE_REPLICATION_v0.2.json").write_text(json.dumps(r, indent=1, ensure_ascii=False), encoding="utf-8")
+    return r
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "extract":
         extract(sys.argv[2], int(sys.argv[3]), int(sys.argv[4]))
+    elif sys.argv[1] == "final_rep":
+        r = final_rep(); print(json.dumps({k: r[k] for k in ("mean", "H1_Q_vs_B", "H2_Q_vs_ENV", "H3_Q_vs_KURT", "neg_mean", "controls_passed")}, indent=1))
     elif sys.argv[1] == "final":
         r = final(); print(json.dumps({k: r[k] for k in ("mean", "H1_Q_vs_B", "H2_Q_vs_ENV", "neg_mean", "controls_passed")}, indent=1))
     else:
