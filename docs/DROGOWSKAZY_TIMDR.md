@@ -9,6 +9,7 @@ najtrudniejszych danych (niżej).
 
 | Krok | Pytanie | Pojęcie TIMDR | Znany odpowiednik (do porównania) |
 |---|---|---|---|
+| 0. Typ sygnału (hipoteza) | Czy sygnał sam jest widmem (wyraźne linie — **modalny**), czy informacja siedzi w widmie pola (modulacje pasm nośnych — **polowy**)? Modalny → pracuj na liniach (K, śledzenie, samonaprawa); polowy → buduj pole i sito; mieszany (np. turbina) → modalne ustawia zegar, polowe niesie uszkodzenie. Wskaźnik: `core/signal_character.py` | membrana / modalność | płaskość widma, analiza obwiedni |
 | 1. Pole | W jakiej przestrzeni sygnał ma strukturę? Czas × pasmo? Czas × kanał? | membrana = pole | spektrogram, bank filtrów |
 | 2. Rezonans | Gdzie w polu coś powtarza się okresowo lub zgadza się między częściami pola? | rezonans (K: częstotliwość, faza) | widmo obwiedni, korelacja widmowa |
 | 3. Sito | Co przepuścić, co odrzucić? | sito, którego oczka ustala rezonans | wybór pasma (kurtogram) |
@@ -20,6 +21,16 @@ Zasady protokołu (z doświadczenia 2026-09): punkt odniesienia musi być **mocn
 nie same statystyki); test na **innych jednostkach** niż uczenie (inne łożyska, maszyny); sprawdź **ślady akwizycji**
 (np. inne przesunięcie DC w części plików SEU); przy **suficie** baseline'u wynik jest nierozstrzygnięty; kryteria i reguła
 sufitu zapisane **przed** danymi; rozwój wolno robić na części danych, ocenę — raz, na części nieotwieranej.
+
+## Krok 0 — status hipotezy
+
+Wskaźnik (`core/signal_character.py`): L = udział mocy w wąskich liniach widma, M = siła modulacji pasm nośnych;
+modalny gdy L ≥ 0,5, polowy gdy L < 0,5 i M ≥ 8 (progi wstępne, ustalone 2026-09-27 przed testem turbiny).
+Sprawdzenie wsteczne (po fakcie, nie dowód): drgania Paderborn → polowy (L 0,03–0,26), prądy silnika Paderborn → modalny
+(L = 1,0), CWRU zdrowe → modalny (L 0,75), CWRU z uszkodzeniem bieżni → polowy (L 0,23; uszkodzenie zmienia charakter
+sygnału). Budynek LANL: L = 0,02 — wbrew wcześniejszemu opisowi „modalny” szerokie rezonanse konstrukcji wskaźnik
+widzi jako niemodalne, a próbkowanie 322 Hz nie pozwala policzyć M → nieokreślony. Przewidywanie zapisane przed danymi:
+drgania łożyskowe turbiny Fraunhofer LBF — mieszane (linie wirnika + modulacje pasm przy uszkodzeniu).
 
 ## Przykład: sito rezonansowe dla łożysk (Paderborn, uszkodzenia naturalne)
 
