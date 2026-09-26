@@ -13,7 +13,7 @@ najtrudniejszych danych (niżej).
 | 2. Rezonans | Gdzie w polu coś powtarza się okresowo lub zgadza się między częściami pola? | rezonans (K: częstotliwość, faza) | widmo obwiedni, korelacja widmowa |
 | 3. Sito | Co przepuścić, co odrzucić? | sito, którego oczka ustala rezonans | wybór pasma (kurtogram) |
 | 4. Samokorekta | Czy sito ma się dopasować do hipotezy? | samokorekta; osobne oczka dla każdej hipotezy | filtr dopasowany |
-| 5. Geometria | Czy kształt pola (grzbiet, krzywizna, rozciągłość) coś dodaje? | gałąź G, Chronoproces | cechy kształtu |
+| 5. Geometria | Czy kształt pola (grzbiet, krzywizna, rozciągłość) coś dodaje? Zwiń pole w rurę: promień = obwiednia, kąt = faza, skręt = częstotliwość ([rura analityczna](theory/TIMDR_Analytic_Tube.md)) | gałąź G, Chronoproces | sygnał analityczny (Gabor), cechy kształtu |
 | 6. Test | Czy to działa na danych, których nie widziałeś? | protokół: rozwój → zamrożenie → jeden test | walidacja krzyżowa, holdout |
 
 Zasady protokołu (z doświadczenia 2026-09): punkt odniesienia musi być **mocny** (dla łożysk: widmo obwiedni i kurtogram,
