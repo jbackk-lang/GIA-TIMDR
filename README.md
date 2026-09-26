@@ -76,7 +76,7 @@ W osobnym projekcie aplikacyjnym [TIMDR-fusion-tools](https://github.com/jbackk-
 
 ## Czym TIMDR jest, a czym nie jest (stan 2026-09-26)
 
-**TIMDR to rama opisu i protokół badania sygnałów dynamicznych, a nie detektor.** Analizę sygnału wykonują ustalone metody
+**TIMDR to model do budowania programów analizujących sygnały: rama opisu, drogowskazy konstrukcji (pole, rezonans, sito, samokorekta) i protokół badania — a nie gotowy detektor.** Analizę sygnału wykonują ustalone metody
 (np. modele AR, kurtoza, widmo, metoda wektora Parka); wkład TIMDR to struktura opisu (gałęzie, Chronoproces),
 pre-rejestracja, kontrole i audytowalność wyników. Operatory TIMDR testowane jako cechy diagnostyczne na pięciu
 stanowiskach nie dały samodzielnej przewagi nad klasycznymi metodami; jako **uzupełnienie** klasycznych cech drgań topologia TIMDR (winding, crossing, phase winding) przeszła pre-rejestrowany test na łożyskach Paderborn ze sztucznym uszkodzeniem, ale nie przeniosła się na uszkodzenia naturalne i łożyska spoza uczenia. Na tych samych, najtrudniejszych danych przeszła natomiast konstrukcja z idei „membrana = pole, rezonans ustala oczka sita” — lepsza od klasycznych cech i od zwykłej obwiedni (mechanizm pokrewny analizie cyklostacjonarnej):
@@ -90,6 +90,7 @@ stanowiskach nie dały samodzielnej przewagi nad klasycznymi metodami; jako **uz
 | Łożyska CWRU, test na niewidzianych łożyskach | drgania DE, baseline z widmem obwiedni | razem 0,98 / 0,98 / 1,00 / 1,00; sam TIMDR 0,29–0,56 | 1,00 / 0,92 / 0,94 / 1,00 | MIESZANY: zysk tylko tam, gdzie baseline poniżej sufitu ([wynik](docs/geometry/RESULT_CWRU_CROSS_BEARING_ENVELOPE_v0.1.md)) |
 | **Łożyska Paderborn, uszkodzenia naturalne, niewidziane łożyska (15 łożysk)** | drgania + 2 prądy | topologia: zysk +0,01; sito z nałożenia pól 0,37 (samo pole drgań 0,54) | 0,58 (z widmem obwiedni) | A MIESZANY (brak efektu), pole/rezonans/sito NOT SUPPORTED ([wynik](docs/geometry/RESULT_PADERBORN_REAL_DAMAGE_v0.1.md)) |
 | **Łożyska Paderborn, uszkodzenia naturalne — sito samokorygujące** | drgania: pole pasm nośnych, rezonans ustala oczka sita | **0,68** (niewidziane łożyska i pomiary) | 0,56 klasyczne, 0,61 sama obwiednia | **SUPPORTED** (H1 +0,12, 4/5; H2 +0,075, 3/5) ([wynik](docs/geometry/RESULT_PADERBORN_RESONANCE_SIEVE_v0.1.md)) |
+| Łożyska Paderborn — replikacja sita (pomiary 11–15) + kurtogram | drgania | **0,65** | 0,56 klasyczne, 0,61 obwiednia, 0,55 kurtogram | replikacja częściowa: vs klasyczne SUPPORTED, vs kurtogram SUPPORTED, vs obwiednia MIESZANY ([wynik](docs/geometry/RESULT_PADERBORN_RESONANCE_SIEVE_REPLICATION_v0.2.md)) |
 | Budynek LANL (rama 3-kondygnacyjna) | drgania 4 poziomów | AUC 0,45 / 0,53 (losowo) | AUC 0,99 | brak wartości ([wynik](docs/geometry/RESULT_LANL_3STORY_v0.1.md)) |
 | Silnik Paderborn | orbita prądów α–β | macro-F1 0,29 (losowo) | 0,74 (wektor Parka) | brak wartości ([wynik](docs/geometry/RESULT_PADERBORN_CURRENT_ORBIT_v0.1.md)) |
 | Wideo UCSD Ped2 | ρ per region (META-DYNAMICS) | wykrycie 0,40 przy 0,46 fałszywych alarmów | — | NOT SUPPORTED ([MAGE](https://github.com/jbackk-lang/MAGE-IN-IMAGE-DECODER/blob/main/RESULT_META_DYNAMICS_v0.3.md)) |
