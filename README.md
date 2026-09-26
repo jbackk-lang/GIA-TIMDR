@@ -79,13 +79,14 @@ W osobnym projekcie aplikacyjnym [TIMDR-fusion-tools](https://github.com/jbackk-
 **TIMDR to rama opisu i protokół badania sygnałów dynamicznych, a nie detektor.** Analizę sygnału wykonują ustalone metody
 (np. modele AR, kurtoza, widmo, metoda wektora Parka); wkład TIMDR to struktura opisu (gałęzie, Chronoproces),
 pre-rejestracja, kontrole i audytowalność wyników. Operatory TIMDR testowane jako cechy diagnostyczne na pięciu
-stanowiskach nie dały samodzielnej przewagi nad klasycznymi metodami; na świeżych danych kół zębatych SEU wniosły informację uzupełniającą:
+stanowiskach nie dały samodzielnej przewagi nad klasycznymi metodami; jako **uzupełnienie** klasycznych cech drgań topologia TIMDR (winding, crossing, phase winding) przeszła pre-rejestrowany test na łożyskach Paderborn, po wskazaniu na kołach zębatych SEU:
 
 | Stanowisko | Sygnał | TIMDR | Klasyczne metody | Wynik |
 |---|---|---|---|---|
 | Łożyska CWRU | drgania, kilka kanałów | silny efekt membrany i topologii | nie porównywano z mocnym baseline'em | kierunek powtarzalny, przewaga niezbadana |
 | Przekładnia SEU | drgania x/y/z | macro-F1 0,70 / 0,67 przy zmianie warunków pracy | 0,66 / 0,79 (standaryzacja per warunek) | remis; razem 0,95 / 0,81 — mieszane, po fakcie ([wynik](docs/geometry/RESULT_SEU_MULTICHANNEL_DIAGNOSTIC_v0.1.md)) |
 | Przekładnia SEU, koła zębate (świeże dane) | drgania x/y/z | razem z klasycznymi 0,57 / 0,60 przy zmianie warunków; 0,86 / 0,80 w obrębie warunku | 0,52 / 0,59; w obrębie warunku 0,70 / 0,66 | MIESZANY: zysk mały przy zmianie warunków, duży w obrębie warunku ([wynik](docs/geometry/RESULT_SEU_GEARSET_CONFIRM_v0.2.md)) |
+| **Łożyska Paderborn, drgania** | 1 kanał drgań | razem z klasycznymi 1,00 / 0,86 / 0,99 / 0,97 w obrębie warunku | 0,81 / 0,78 / 0,96 / 0,91 | **SUPPORTED**: zysk +0,09 (95% CI +0,05…+0,13), 4/4 warunki ([wynik](docs/geometry/RESULT_PADERBORN_VIBRATION_COMPLEMENT_v0.1.md)) |
 | Budynek LANL (rama 3-kondygnacyjna) | drgania 4 poziomów | AUC 0,45 / 0,53 (losowo) | AUC 0,99 | brak wartości ([wynik](docs/geometry/RESULT_LANL_3STORY_v0.1.md)) |
 | Silnik Paderborn | orbita prądów α–β | macro-F1 0,29 (losowo) | 0,74 (wektor Parka) | brak wartości ([wynik](docs/geometry/RESULT_PADERBORN_CURRENT_ORBIT_v0.1.md)) |
 | Wideo UCSD Ped2 | ρ per region (META-DYNAMICS) | wykrycie 0,40 przy 0,46 fałszywych alarmów | — | NOT SUPPORTED ([MAGE](https://github.com/jbackk-lang/MAGE-IN-IMAGE-DECODER/blob/main/RESULT_META_DYNAMICS_v0.3.md)) |

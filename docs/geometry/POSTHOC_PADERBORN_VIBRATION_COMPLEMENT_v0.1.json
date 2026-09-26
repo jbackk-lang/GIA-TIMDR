@@ -1,0 +1,8 @@
+{
+ "bootstrap_mean_gain_ci95": [
+  0.05097407867259827,
+  0.12580641526707548
+ ],
+ "p_gain_le_0": 0.0,
+ "n_test_measurements": 48
+}
