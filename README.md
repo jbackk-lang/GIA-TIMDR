@@ -47,6 +47,7 @@ To konkretne osiągnięcia w opisanych danych i wersjach. GIA-TIMDR nie przedsta
 
 ## Zacznij tutaj
 
+- [Drogowskazy TIMDR — jak zbudować program analizujący sygnał](docs/DROGOWSKAZY_TIMDR.md) — kroki pole → rezonans → sito → samokorekta → geometria → test, z przykładem sita rezonansowego dla łożysk.
 - [Mapa repozytorium](REPOZYTORIUM.md) — gdzie znajduje się kod, dokumentacja, prerejestracje i wyniki.
 - [Pełne podsumowanie całego ekosystemu na 23 września 2026 r.](PODSUMOWANIE_PROJEKTU_2026-09-23.md) — osiągnięcia, formalizmy, mosty, zastosowania i granice poszczególnych wyników.
 - [Specyfikacja czterech gałęzi](docs/theory/TIMDR_Branch_Specification.md) i [słownik](docs/GLOSSARY_EN_PL.md) — właściwe definicje oraz granice między obiektami.
