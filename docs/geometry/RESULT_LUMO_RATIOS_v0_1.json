@@ -1,0 +1,47 @@
+{
+ "prereg": "PREREG_LUMO_RATIOS_v0_1.md",
+ "n_test_zdrowe": 25,
+ "n_test_uszk": 25,
+ "T_test_zakres": [
+  -3.6664233207702637,
+  40.39934158325195
+ ],
+ "warianty": {
+  "surowe": {
+   "AUC_wszystkie": 0.9888,
+   "AUC_dam3_010": 1.0,
+   "AUC_dam3_111": 0.992,
+   "AUC_dam4_010": 0.992,
+   "AUC_dam4_111": 0.992,
+   "AUC_dam6_010": 0.968,
+   "falszywe_alarmy_p95": 0.52
+  },
+  "stosunki": {
+   "AUC_wszystkie": 0.9616,
+   "AUC_dam3_010": 0.968,
+   "AUC_dam3_111": 0.968,
+   "AUC_dam4_010": 0.928,
+   "AUC_dam4_111": 0.984,
+   "AUC_dam6_010": 0.96,
+   "falszywe_alarmy_p95": 0.2
+  },
+  "termometr": {
+   "AUC_wszystkie": 0.8752,
+   "AUC_dam3_010": 0.936,
+   "AUC_dam3_111": 1.0,
+   "AUC_dam4_010": 0.824,
+   "AUC_dam4_111": 0.84,
+   "AUC_dam6_010": 0.776,
+   "falszywe_alarmy_p95": 0.88
+  }
+ },
+ "H1": {
+  "dAUC_stosunki-surowe": -0.027200000000000002,
+  "verdict": "NOT SUPPORTED"
+ },
+ "H2": {
+  "pojedyncze_prety_stosunki>surowe": 0,
+  "verdict": "NOT SUPPORTED"
+ },
+ "opisowo_rho_s_T_test_zdrowe": -0.2946153846153846
+}
