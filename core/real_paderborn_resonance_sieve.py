@@ -18,7 +18,7 @@ RESULT = _REPO / "docs" / "geometry" / "RESULT_PADERBORN_RESONANCE_SIEVE_v0.1.js
 FS2, N2 = 32000, 64000                      # decymacja x2, 2 s
 BANDS = [(1000.0 * i, 1000.0 * (i + 1)) for i in range(1, 16)]   # 15 pasm nosnych 1-16 kHz
 AMIN, AMAX = 5.0, 500.0
-SETS = {"dev": range(1, 6), "eval": range(6, 11), "rep": range(11, 16)}
+SETS = {"dev": range(1, 6), "eval": range(6, 11), "rep": range(11, 16), "res": range(16, 21)}
 
 
 def measurements(which):
@@ -121,9 +121,9 @@ def extract(which, lo, hi):
         v = np.asarray({e.Name: e.Data for e in s.Y}["vibration_1"], float)
         x2 = decimate(v, 2, ftype="fir", zero_phase=True)[:N2]; x2 = x2 - x2.mean()
         f = rs_feats(x2, rpm(m["cond"]))
-        if which in ("eval", "rep"):
+        if which in ("eval", "rep", "res"):
             x4 = decimate(v, 4, ftype="fir", zero_phase=True)[:SEGN]; f.update(ab_feats(x4 - x4.mean(), rpm(m["cond"])))
-        if which == "rep":
+        if which in ("rep", "res"):
             f.update(kurt_feats(x2, rpm(m["cond"])))
         (d / f"{k:03d}.json").write_text(json.dumps({**m, "f": f}))
     print("ok", which, lo, hi)
@@ -196,11 +196,39 @@ def final_rep():
     return r
 
 
+def final_res():
+    """Trzecie potwierdzenie na pomiarach 16-20 wg PREREG_PADERBORN_RESONANCE_SIEVE_CONFIRM_v0.3 (sito Q bez zmian)."""
+    r = score("res"); f = r["f1"]
+    def crit(a, b):
+        d = np.array(f[a]) - np.array(f[b])
+        v = "SUPPORTED" if d.mean() >= 0.05 and (d > 0).sum() >= 3 else ("NOT SUPPORTED" if d.mean() <= 0 else "MIESZANY")
+        return {"delta": d.tolist(), "mean_delta": float(d.mean()), "verdict": v}
+    r["H1_Q_vs_B"] = crit("Q", "B"); r["H2_Q_vs_ENV"] = crit("Q", "ENV"); r["H3_Q_vs_KURT"] = crit("Q", "KURT")
+    # laczne: 15 foldow z trzech prob (6-10, 11-15, 16-20)
+    pooled = {}
+    prev = [json.loads((RESULT.parent / n).read_text(encoding="utf-8")) for n in
+            ("RESULT_PADERBORN_RESONANCE_SIEVE_v0.1.json", "RESULT_PADERBORN_RESONANCE_SIEVE_REPLICATION_v0.2.json")]
+    for h, (a, b) in {"Q_vs_B": ("Q", "B"), "Q_vs_ENV": ("Q", "ENV")}.items():
+        d = np.concatenate([np.array(p["f1"][a]) - np.array(p["f1"][b]) for p in prev] + [np.array(f[a]) - np.array(f[b])])
+        v = "SUPPORTED" if d.mean() >= 0.05 and (d > 0).sum() >= 9 else ("NOT SUPPORTED" if d.mean() <= 0 else "MIESZANY")
+        pooled[h] = {"mean_delta": float(d.mean()), "n_pos": int((d > 0).sum()), "n": int(len(d)), "verdict": v}
+    r["pooled_15_folds"] = pooled
+    r["controls_passed"] = r["neg_mean"] <= 0.45
+    if not r["controls_passed"]:
+        for h in ("H1_Q_vs_B", "H2_Q_vs_ENV", "H3_Q_vs_KURT"):
+            r[h]["verdict"] = "INCONCLUSIVE (kontrole)"
+    r["prereg"] = "PREREG_PADERBORN_RESONANCE_SIEVE_CONFIRM_v0.3.md"
+    (RESULT.parent / "RESULT_PADERBORN_RESONANCE_SIEVE_CONFIRM_v0.3.json").write_text(json.dumps(r, indent=1, ensure_ascii=False), encoding="utf-8")
+    return r
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "extract":
         extract(sys.argv[2], int(sys.argv[3]), int(sys.argv[4]))
     elif sys.argv[1] == "final_rep":
         r = final_rep(); print(json.dumps({k: r[k] for k in ("mean", "H1_Q_vs_B", "H2_Q_vs_ENV", "H3_Q_vs_KURT", "neg_mean", "controls_passed")}, indent=1))
+    elif sys.argv[1] == "final_res":
+        r = final_res(); print(json.dumps({k: r[k] for k in ("mean", "H1_Q_vs_B", "H2_Q_vs_ENV", "H3_Q_vs_KURT", "pooled_15_folds", "neg_mean", "controls_passed")}, indent=1))
     elif sys.argv[1] == "final":
         r = final(); print(json.dumps({k: r[k] for k in ("mean", "H1_Q_vs_B", "H2_Q_vs_ENV", "neg_mean", "controls_passed")}, indent=1))
     else:
