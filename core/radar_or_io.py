@@ -2,7 +2,7 @@
 
 Podzial ustalony PRZED jakimikolwiek cechami: w kazdej klasie slady sortowane po czasie
 pierwszej klatki; pierwsze 60% -> dev, reszta -> eval (inne przeloty/sesje, jak w tescie turbiny).
-Z kazdego sladu zapisujemy do 20 ciaglych kawalkow po 10 klatek (0,5 s), rowno rozlozonych
+Z kazdego sladu zapisujemy do 5 ciaglych kawalkow po 40 klatek (2 s), rowno rozlozonych
 (cap 200 klatek), plus kinematyke trackera (|v|, zasieg, SNR) dla kontroli akwizycji.
 """
 import json, os, sys
@@ -11,7 +11,7 @@ import numpy as np
 DATA = os.path.join(os.path.dirname(__file__), '..', '..', 'DATA', 'open_radar')
 CLASSES = ['person', 'bicycle', 'uav', 'vehicle']
 DEV_FRAC = 0.6
-CHUNK, NCHUNK = 10, 20
+CHUNK, NCHUNK = 40, 5   # v0.1-dev: zmienione z 10x20 (kadencja chodu wymaga >= 2 s)
 
 
 def chunk_starts(n):
@@ -21,7 +21,7 @@ def chunk_starts(n):
     return sorted(set(np.linspace(0, n - CHUNK, k).round().astype(int).tolist()))
 
 
-def build():
+def build(force=False):
     sys.path.insert(0, DATA)
     from load_safe import load
     S = load(os.path.join(DATA, 'moving_target_dataset.npy'))
@@ -35,6 +35,7 @@ def build():
         for i in split[part]:
             fn = os.path.join(DATA, part, f'track_{i:03d}.npz')
             try:
+                if force: raise ValueError
                 np.load(fn)['cls']; continue          # juz poprawnie zapisany
             except Exception:
                 pass
@@ -60,4 +61,4 @@ def tracks(part):
 
 
 if __name__ == '__main__':
-    build()
+    build(force='--force' in sys.argv)
