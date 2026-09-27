@@ -84,3 +84,26 @@ def order_sieve(Rz: np.ndarray, orders: np.ndarray, fault_orders: Dict[str, floa
             band = (orders >= (1 - tol) * h * o) & (orders <= (1 + tol) * h * o); a += float(S[band].max())
         out[f"QO_{k}"] = float(np.log(a))
     return out
+
+
+def track_speed_viterbi(x: np.ndarray, fs: float, f_lo: float, f_hi: float, ref_orders: Sequence[float] = (1, 2, 3),
+                        frame_s: float = 8.0, hop_s: float = 1.0, max_step: float = 0.05, penalty: float = 20.0,
+                        n_grid: int = 600) -> SpeedTrack:
+    """Sledzenie predkosci jako globalna sciezka (Viterbi) przez mape grzebienia: kazda ramka ocenia kandydatow f
+    (srednia widma przy k*f), przejscie miedzy ramkami ograniczone do +-max_step i karane penalty*|dlog f|.
+    Samonaprawa calej sciezki naraz zamiast krok po kroku (odporna na slabe linie)."""
+    x = np.asarray(x, float) - np.mean(x)
+    nper = int(frame_s * fs); f, tt, Z = stft(x, fs, nperseg=nper, noverlap=nper - int(hop_s * fs), padded=False, boundary=None)
+    P = np.abs(Z); P = P / (np.median(P, axis=0, keepdims=True) + 1e-12)
+    cand = np.exp(np.linspace(np.log(f_lo), np.log(f_hi), n_grid)); lc = np.log(cand)
+    S = np.stack([np.mean([np.interp(k * cand, f, P[:, j]) for k in ref_orders], axis=0) for j in range(P.shape[1])])
+    dl = np.abs(lc[:, None] - lc[None, :]); allowed = dl <= np.log(1 + max_step)
+    cost = np.where(allowed, penalty * dl, np.inf)
+    acc = np.log(S[0] + 1e-12); back = np.zeros((len(tt), n_grid), int)
+    for j in range(1, len(tt)):
+        tot = acc[None, :] - cost          # [nowy, stary]
+        back[j] = np.argmax(tot, axis=1); acc = tot[np.arange(n_grid), back[j]] + np.log(S[j] + 1e-12)
+    path = np.zeros(len(tt), int); path[-1] = int(np.argmax(acc))
+    for j in range(len(tt) - 1, 0, -1):
+        path[j - 1] = back[j, path[j]]
+    return SpeedTrack(tt, cand[path], S[np.arange(len(tt)), path])
