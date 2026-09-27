@@ -24,3 +24,9 @@ i przeciwfazę dalekich połówek, a swobodne machanie rozprzęga bliskie połó
 (0,89 vs 0,81), razem 0,93 — przewaga na granicy istotności przy 27 nagraniach testowych.
 Zastrzeżenia: przypisanie nagrań do osób nieznane (możliwy przeciek osób między rozwojem i testem); wada zbioru
 (nagrania 5–8 zduplikowane) wykluczona; mała próba.
+
+## Odtworzenie
+Surowe archiwa i pliki pośrednie (`DATA/mmwave/proc/*.npz`) zostały usunięte po teście (miejsce na dysku). Odtworzenie:
+pobrać część 2 zbioru (Zenodo 10.5281/zenodo.3897234: HidingBottle, Limping, SlowWalk_SwingingHands), uruchomić
+`core/mmwave_extract.py` (odczyt strumieniowy, wykluczyć nagrania 5–8 z Limping i SlowWalk_SwingingHands), potem
+`core/mmwave_mirror.py`.

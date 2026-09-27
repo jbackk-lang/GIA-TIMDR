@@ -20,3 +20,7 @@ Warunek fizyczny stosunków potwierdzony trzeci raz, tym razem po stronie poraż
 stali, do 40 °C) przesuwa mody w różne strony, wspólny czynnik skali nie znosi zmiany. Termometr z krótkiej bazy
 ekstrapoluje najgorzej. Reguła: przed użyciem stosunków sprawdzić na danych bazowych, czy mody idą z temperaturą w tę
 samą stronę (znaki ρ) — to jest liczba do reguły wykonalności.
+
+## Odtworzenie
+Paczki przykładowe LUMO usunięte po teście; widma zapisane w `DATA/lumo/lumo_spectra.npz` (wystarczają do `lumo_ratios.py`).
+Pełne odtworzenie: pobrać paczki z data.uni-hannover.de/dataset/lumo i uruchomić `core/lumo_io.py`.
