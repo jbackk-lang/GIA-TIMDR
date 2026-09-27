@@ -1,0 +1,227 @@
+{
+ "prereg": "PREREG_HBTA_ANTIRESONANCE_v0_4.md",
+ "P2_rozwoj": {
+  "n_zer": 74,
+  "zer_razem": 200,
+  "null": {
+   "zera": 0.0073000442971494165,
+   "bieguny": 0.012267443374456547
+  },
+  "DS": {
+   "DS1": {
+    "zera_do_null": 2.1266997424071197,
+    "bieguny_do_null": 1.0271962577369997,
+    "max_zero": {
+     "czujnik": "AL02",
+     "odcinek_Hz": [
+      6.86,
+      7.42
+     ],
+     "przesuniecie_wzgl": NaN
+    }
+   },
+   "DS2": {
+    "zera_do_null": 4.589686601617129,
+    "bieguny_do_null": 3.281842367374632,
+    "max_zero": {
+     "czujnik": "AL02",
+     "odcinek_Hz": [
+      6.86,
+      7.42
+     ],
+     "przesuniecie_wzgl": NaN
+    }
+   },
+   "DS3": {
+    "zera_do_null": 1.5434966808031967,
+    "bieguny_do_null": 0.6704163520573232,
+    "max_zero": {
+     "czujnik": "AL02",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.5141716725247718
+    }
+   },
+   "DS4": {
+    "zera_do_null": 1.146965476102154,
+    "bieguny_do_null": 1.0715171060063362,
+    "max_zero": {
+     "czujnik": "AL02",
+     "odcinek_Hz": [
+      6.86,
+      7.42
+     ],
+     "przesuniecie_wzgl": NaN
+    }
+   },
+   "DS5": {
+    "zera_do_null": 0.7813163861950851,
+    "bieguny_do_null": 0.40120292357850706,
+    "max_zero": {
+     "czujnik": "AL02",
+     "odcinek_Hz": [
+      6.86,
+      7.42
+     ],
+     "przesuniecie_wzgl": NaN
+    }
+   },
+   "DS6": {
+    "zera_do_null": 1.74354546703188,
+    "bieguny_do_null": 0.7402858137726258,
+    "max_zero": {
+     "czujnik": "AL01",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.350252827879455
+    }
+   },
+   "DS7": {
+    "zera_do_null": 1.537235218677097,
+    "bieguny_do_null": 0.6422680603044757,
+    "max_zero": {
+     "czujnik": "AL04",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.5774859223784801
+    }
+   },
+   "DS8": {
+    "zera_do_null": 4.267327395245587,
+    "bieguny_do_null": 1.580732433661367,
+    "max_zero": {
+     "czujnik": "AL11",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.5760872768590204
+    }
+   }
+  }
+ },
+ "P1_test": {
+  "n_zer": 100,
+  "zer_razem": 200,
+  "null": {
+   "zera": 0.008717119356087068,
+   "bieguny": 0.00546852661999651
+  },
+  "DS": {
+   "DS1": {
+    "zera_do_null": 0.7935527606395261,
+    "bieguny_do_null": 1.0374276438344407,
+    "max_zero": {
+     "czujnik": "AL02",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.2645548309215217
+    }
+   },
+   "DS2": {
+    "zera_do_null": 0.9261895437679334,
+    "bieguny_do_null": 2.7599739204248546,
+    "max_zero": {
+     "czujnik": "AL24",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.30705229798855865
+    }
+   },
+   "DS3": {
+    "zera_do_null": 0.9263535534330863,
+    "bieguny_do_null": 0.55630169752541,
+    "max_zero": {
+     "czujnik": "AL24",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.30061695552707746
+    }
+   },
+   "DS4": {
+    "zera_do_null": 0.7875113210235445,
+    "bieguny_do_null": 0.6848954676235567,
+    "max_zero": {
+     "czujnik": "AL22",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.3115673261811669
+    }
+   },
+   "DS5": {
+    "zera_do_null": 0.7326035887209953,
+    "bieguny_do_null": 1.8552897043033338,
+    "max_zero": {
+     "czujnik": "AL24",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.3278933914574731
+    }
+   },
+   "DS6": {
+    "zera_do_null": 0.8394619807642469,
+    "bieguny_do_null": 1.4534233088062516,
+    "max_zero": {
+     "czujnik": "AL21",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.3152790663267009
+    }
+   },
+   "DS7": {
+    "zera_do_null": 0.5941693788691802,
+    "bieguny_do_null": 1.3546304038454915,
+    "max_zero": {
+     "czujnik": "AL21",
+     "odcinek_Hz": [
+      7.42,
+      17.26
+     ],
+     "przesuniecie_wzgl": 0.31693750487815525
+    }
+   },
+   "DS8": {
+    "zera_do_null": 0.661115913267868,
+    "bieguny_do_null": 2.6346311982594646,
+    "max_zero": {
+     "czujnik": "AL02",
+     "odcinek_Hz": [
+      6.86,
+      7.42
+     ],
+     "przesuniecie_wzgl": NaN
+    }
+   }
+  }
+ },
+ "H1": {
+  "zera>null": 0,
+  "verdict": "NOT SUPPORTED"
+ },
+ "H2": {
+  "zera>bieguny": 2,
+  "verdict": "NOT SUPPORTED"
+ },
+ "H3": {
+  "stezenia_zera>null": 0,
+  "verdict": "NOT SUPPORTED"
+ }
+}
