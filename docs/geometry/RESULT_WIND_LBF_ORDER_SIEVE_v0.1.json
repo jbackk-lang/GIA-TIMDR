@@ -1,0 +1,33 @@
+{
+ "prereg": "PREREG_WIND_LBF_ORDER_SIEVE_v0.1.md",
+ "excluded_nan_segments": 3,
+ "n_segments": {
+  "Healthy": 57,
+  "OuterRace": 6,
+  "InnerRace": 33,
+  "RollerElement": 20
+ },
+ "H1": {
+  "AUC_QO_BPFO_OR_vs_H": 1.0,
+  "verdict": "SUPPORTED",
+  "day_control_AUC_QO_BPFI": 0.5818713450292398,
+  "day_control_ok": true
+ },
+ "H2": {
+  "AUC_sw_QO": 1.0,
+  "AUC_sw_QH": 0.8454545454545455,
+  "diff": 0.15454545454545454,
+  "verdict": "SUPPORTED"
+ },
+ "descriptive": {
+  "AUC_QH_BPFO_OR_vs_H": 0.8538011695906432,
+  "AUC_QO_BPFI_IR_vs_H": 0.43965975544922914,
+  "AUC_QO_BSF2_RE_vs_H": 0.23859649122807017,
+  "AUC_KURT_OR_vs_H": 0.0,
+  "AUC_sw_KURT": 0.2818181818181818,
+  "AUC_RMS_OR_vs_H": 0.0,
+  "AUC_sw_RMS": 0.08787878787878788,
+  "median_QO_BPFO_minus_BPFI_OR": 1.717536475707358,
+  "median_QO_BPFO_minus_BPFI_H": -0.04056275666523512
+ }
+}

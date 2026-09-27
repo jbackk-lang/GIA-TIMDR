@@ -30,10 +30,11 @@ def auc(pos, neg):
 
 
 def evaluate():
-    rows = [r for i in range(len(jobs())) for r in json.loads((OUT / f"{i:03d}.json").read_text())]
+    rows_all = [r for i in range(len(jobs())) for r in json.loads((OUT / f"{i:03d}.json").read_text())]
+    rows = [r for r in rows_all if np.isfinite(r["RMS"])]   # poprawka po ocenie: segmenty z brakami (NaN) w surowym sygnale
     g = lambda c, k: [r[k] for r in rows if r["cls"] == c]
     non_or = lambda k: [r[k] for r in rows if r["cls"] != "OuterRace"]
-    res = {"prereg": "PREREG_WIND_LBF_ORDER_SIEVE_v0.1.md", "n_segments": {c: len(g(c, "QO_BPFO")) for c in EVAL_CLASSES}}
+    res = {"prereg": "PREREG_WIND_LBF_ORDER_SIEVE_v0.1.md", "excluded_nan_segments": len(rows_all) - len(rows), "n_segments": {c: len(g(c, "QO_BPFO")) for c in EVAL_CLASSES}}
     a_qo = auc(g("OuterRace", "QO_BPFO"), g("Healthy", "QO_BPFO"))
     sw_qo = auc(g("OuterRace", "QO_BPFO"), non_or("QO_BPFO")); sw_qh = auc(g("OuterRace", "QH_BPFO"), non_or("QH_BPFO"))
     ctrl = auc(g("OuterRace", "QO_BPFI"), g("Healthy", "QO_BPFI"))
