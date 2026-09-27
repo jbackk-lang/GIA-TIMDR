@@ -1,0 +1,119 @@
+{
+ "prereg": "PREREG_MMWAVE_MIRROR_v0_4.md",
+ "n_dev": {
+  "HidingBottle": 11,
+  "Limping": 7,
+  "SlowWalk_SwingingHands": 7
+ },
+ "n_test": {
+  "HidingBottle": 9,
+  "Limping": 9,
+  "SlowWalk_SwingingHands": 9
+ },
+ "zestawy": {
+  "C": {
+   "macroF1": 0.8126902935087079,
+   "AUC_HidingBottle": 0.9938271604938271,
+   "AUC_Limping": 1.0,
+   "AUC_SlowWalk_SwingingHands": 0.9876543209876543
+  },
+  "M": {
+   "macroF1": 0.8882352941176471,
+   "AUC_HidingBottle": 0.9938271604938271,
+   "AUC_Limping": 0.9382716049382716,
+   "AUC_SlowWalk_SwingingHands": 1.0
+  },
+  "C+M": {
+   "macroF1": 0.9274509803921568,
+   "AUC_HidingBottle": 0.9691358024691358,
+   "AUC_Limping": 0.9753086419753086,
+   "AUC_SlowWalk_SwingingHands": 1.0
+  }
+ },
+ "H1": {
+  "dF1_(C+M)-C": 0.11476068688344887,
+  "CI95": [
+   -1.1102230246251565e-16,
+   0.2617441382147263
+  ],
+  "verdict": "MIXED"
+ },
+ "H2": {
+  "dAUC_ukryta_butelka_M-C": 0.0,
+  "CI95": [
+   -0.024691358024691357,
+   0.024691358024691357
+  ],
+  "verdict": "NOT SUPPORTED"
+ },
+ "H3": {
+  "R_all_butelka>reszta": {
+   "med_a": 0.6073900792272051,
+   "med_b": 0.5681166987732751,
+   "p": 0.0007801753945566115
+  },
+  "cos_far_butelka<machanie": {
+   "med_a": -0.808608571422407,
+   "med_b": -0.08394401063605483,
+   "p": 0.002359099364057514
+  },
+  "coh_near_machanie<reszta": {
+   "med_a": 0.1759466280316698,
+   "med_b": 0.4569351905108575,
+   "p": 9.61214822272696e-05
+  },
+  "verdict": "SUPPORTED"
+ },
+ "H4": {
+  "utykanie_alfa<1,2Hz": 8,
+  "pozostale_alfa>1,2Hz": 18,
+  "verdict": "SUPPORTED"
+ },
+ "mediany_test": {
+  "coh_near": {
+   "HidingBottle": 0.5000083281650074,
+   "Limping": 0.37426047707322685,
+   "SlowWalk_SwingingHands": 0.1759466280316698
+  },
+  "cos_near": {
+   "HidingBottle": -0.5261059957316868,
+   "Limping": -0.599705805226846,
+   "SlowWalk_SwingingHands": -0.3134853139103594
+  },
+  "R_near": {
+   "HidingBottle": 0.6652240452691843,
+   "Limping": 0.6448494370150696,
+   "SlowWalk_SwingingHands": 0.5875783094291691
+  },
+  "coh_far": {
+   "HidingBottle": 0.1967963779484035,
+   "Limping": 0.2369567616304687,
+   "SlowWalk_SwingingHands": 0.49205709176389045
+  },
+  "cos_far": {
+   "HidingBottle": -0.808608571422407,
+   "Limping": -0.5064235560103916,
+   "SlowWalk_SwingingHands": -0.08394401063605483
+  },
+  "R_far": {
+   "HidingBottle": 0.6729508329357143,
+   "Limping": 0.5974662378756892,
+   "SlowWalk_SwingingHands": 0.4229996516589825
+  },
+  "R_all": {
+   "HidingBottle": 0.6073900792272051,
+   "Limping": 0.5733156373701407,
+   "SlowWalk_SwingingHands": 0.5629177601764095
+  },
+  "Q": {
+   "HidingBottle": 2.2763187458977283,
+   "Limping": 1.518561580674517,
+   "SlowWalk_SwingingHands": 2.0786839415499103
+  },
+  "alpha": {
+   "HidingBottle": 1.7578125,
+   "Limping": 0.78125,
+   "SlowWalk_SwingingHands": 1.5625
+  }
+ }
+}
