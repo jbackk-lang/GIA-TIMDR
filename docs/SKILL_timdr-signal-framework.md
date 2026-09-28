@@ -95,8 +95,8 @@ Licz PRZED testem i zapisz przewidywanie.
   kierunek pomiaru HBTA (MIXED); niewyważenie turbiny; MC K↔G Möbius; topologia na uszkodzeniach naturalnych.
 - Obraz: TIMDR wygrywa, gdy rytm jest zakotwiczony w fizyce, reguła wykonalności spełniona, a każde zakłócenie ma
   odniesienie z tego samego ośrodka.
-- Otwarte: lustro na niezależnych osobach; stosunki z regułą znaków przewidującą z góry (Z24: mróz + stopniowe
-  uszkodzenia); przerwa ciągłości na drugim obiekcie; Λ i J w META.
+- Otwarte: lustro na niezależnych osobach; stosunki z regułą znaków przewidującą z góry (most z mrozem
+  i stopniowymi uszkodzeniami); przerwa ciągłości na drugim obiekcie; Λ i J w META.
 
 ## 9. Narzędzia (zgodne 1:1 z walidacją, testy wzorcowe)
 
