@@ -72,13 +72,15 @@ Licz PRZED testem i zapisz przewidywanie.
 
 ## 7. Mosty (kod + testy w GIA-TIMDR)
 
-- **Pole + sito** (`real_paderborn_resonance_sieve.py`); **kotwica K → zegar kątowy** (`modal_speed_tracking.py`, `wind_lbf_*`).
+- **Pole + sito** (`real_paderborn_resonance_sieve.py`): oczka per hipoteza (BPFO/BPFI) wg rezonansu.
+- **Kotwica K → zegar kątowy** (`modal_speed_tracking.py`, `wind_lbf_*`): prostowanie rury tachometrem.
 - **Reżim D (K → META)** (`transition_params.py`, `pronostia_*`).
 - **K → G → M/S, przerwa ciągłości** (`hbta_modal_curvature.py`, `hbta_discontinuity.py`): faza → kształt modu → skok
-  w przestrzeni; MAKSIMUM, nie suma.
+  w przestrzeni (wzdłuż: gapped smoothing; w poprzek: sąsiednie linie); MAKSIMUM, nie suma.
 - **Lustro i cień** (`radar_or_mirror*.py`, `mmwave_*.py`): połówki ±d wokół linii ciała, S = (E₊+E₋)/2, A = cień.
 - **Stosunki częstotliwości** (`hbta_lateral.py`, `kw51_ratios.py`, `lumo_ratios.py`): f / (mediana f/f_ref).
-- Bez zysku: rura analityczna przy stałej prędkości, samonaprawa modalna, antyrezonanse surowe (`hbta_antiresonance.py`).
+- Bez zysku: rura analityczna (`analytic_tube.py`, `bent_tube.py`) i samonaprawa modalna przy stałej prędkości, antyrezonanse
+  surowe (`hbta_antiresonance.py`). **Fourier M/S↔K:** ważny tylko dla pojedynczego modu gaussowskiego.
 
 ## 8. Stan wyników (pre-rejestrowane)
 
@@ -86,8 +88,9 @@ Licz PRZED testem i zapisz przewidywanie.
   (AUC 1,00); PRONOSTIA (D spada 9/11, powrót 7/11; ≈ kurtoza); LANL kotwica (ρ −0,57 → +0,98); KW51 kotwica (AUC 1,00 = SSI);
   ORION-AE linie K; HBTA przerwa ciągłości (pionowe 0,93–0,94); **radar mmWave lustro/cień** (stereoskopia 3/3, rytm
   utykania; macro-F1 0,89 vs klasyka 0,81, most +0,11 MIXED; możliwy przeciek osób); **stosunki częstotliwości**
-  (KW51 15 mies.: |ρ z T| 0,48 → 0,16, lepiej niż termometr 5/6; HBTA P1: null ↓ 4/4, zera 0/8 → 7/8).
-- **NOT SUPPORTED / bez przewagi:** operatory wprost; Open Radar (pole, rura, lustro — za krótkie ślady); HBTA sama kotwica
+  (KW51 15 mies.: |ρ z T| 0,48 → 0,16, lepiej niż termometr 5/6; HBTA P1: null ↓ 4/4, zera 0/8 → 7/8). Też: MC_M/S↔G
+  diagnostyka na łożyskach (nie selektor); K: częstotliwość sieci (walidacja potoku).
+- **NOT SUPPORTED / bez przewagi:** operatory wprost (LANL, prądy silnika, wideo ρ, MARS DAS, BTC, sejsmika częściowo); Open Radar (pole, rura, lustro — za krótkie ślady); HBTA sama kotwica
   0,65, krzywizna 0,72, antyrezonanse surowe 0/8; LUMO stosunki (mody idą z temperaturą w różne strony — przewidziane);
   kierunek pomiaru HBTA (MIXED); niewyważenie turbiny; MC K↔G Möbius; topologia na uszkodzeniach naturalnych.
 - Obraz: TIMDR wygrywa, gdy rytm jest zakotwiczony w fizyce, reguła wykonalności spełniona, a każde zakłócenie ma
@@ -99,7 +102,7 @@ Licz PRZED testem i zapisz przewidywanie.
 
 - `TIMDR-Industrial-Predict`: `bearing_resonance_sieve.py analyze | analyze-orders`, `bearing_health_trend.py trend`.
 - `TIMDR-Structural-Health`: `timdr_shm.py` (kotwica, linie, reżim, `mode_shapes`, `DiscontinuityBaseline`), dashboard
-  `run.bat`, podstrona `jak-widzi-timdr.html`.
+  `run.bat` (127.0.0.1:8765, zakładka „Jak widzi TIMDR”), `export_view_page.py` → podstrona `jak-widzi-timdr.html`.
 - `TIMDR-Modal-Formalism`: `timdr_modal/modal_anchor.py` (kotwica, K→G, `anchor_coherence`, wykonalność).
 - `TIMDR-META-DYNAMICS`: `analysis/meta_measure.py` (τ, ρ = D, reżim, `measured_state`, `feasibility`).
 - Strona: diagram `timdr-branches-diagram.svg` generuje `docs/rysuj_diagram_galezi.py` (aktualizuj po wynikach).
@@ -108,14 +111,16 @@ Licz PRZED testem i zapisz przewidywanie.
 
 - Hipoteza, cechy, progi, przewidywania w commicie **przed** danymi testowymi; jedno uruchomienie; poprawki po zamrożeniu
   i wszystko obejrzane przed zamrożeniem — ujawnione; zero strojenia po fakcie.
-- Mocny punkt odniesienia z dziedziny, nie same statystyki; test na jednostkach spoza uczenia; kontrola negatywna i pozytywna.
+- Mocny punkt odniesienia z dziedziny, nie same statystyki; test na jednostkach spoza uczenia; kontrola negatywna
+  (permutacja) i pozytywna (syntetyka); Mann-Whitney + rozmiar efektu.
 - Sprawdzaj ślady akwizycji, sufit, moc testu, **duplikaty i wady zbioru** (rozmiary plików, identyczne nagrania);
   ponowne użycie danych ujawnij (wynik rozpoznawczy). „Poprawne na syntetyce” ≠ „użyteczne”; selektor ≠ diagnostyka.
-- Wynik negatywny jest wynikiem — wszystko do README; dla usuniętych danych surowych zapisz instrukcję odtworzenia.
+- Wynik negatywny jest wynikiem — wszystko do README; dla usuniętych danych surowych zapisz instrukcję odtworzenia;
+  twierdzenia sprawdzalne przez `claim_audit` (`TIMDR-AI-Core`).
 - Commit lokalnie (Jacek, jbackk@gmail.com), wypycha użytkownik.
 
 ## 11. Czego nie robić
 
 Nie ogłaszać TIMDR detektorem; nie stroić po wyniku; nie dopisywać aksjomatów bez testu; nie łączyć gałęzi bez znanej
-transformaty; nie szukać „czy TIMDR wykryje X” na ślepo — najpierw reguła wykonalności; przy propozycji łamiącej zasadę
+transformaty (odrzucone: tensor grawitacji, MöbiusCoherence); nie szukać „czy TIMDR wykryje X” na ślepo — najpierw reguła wykonalności; przy propozycji łamiącej zasadę
 ramy — nazwać konflikt i zapytać.
