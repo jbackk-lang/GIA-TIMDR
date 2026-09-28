@@ -9,7 +9,8 @@ Stan mapy: 23 września 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 | [README.md](README.md) | Krótki, aktualny punkt wejścia | Zacznij tutaj |
 | [Konstrukcja TRM/GIA → gałęzie](docs/theory/TIMDR_EventGraph_Branch_Construction.md) | Graf zdarzeń, selekcja GIA, sygnał, geometria, modalność i META | Kod w `core/trm_gia_projections.py`; 17 kontroli syntetycznych w `tests/test_trm_gia_projections.py` |
 | [HISTORIA_README.md](HISTORIA_README.md) | Zachowany dawny README | Miesza opisy koncepcyjne i wyniki z różnych dat |
-| [PODSUMOWANIE_PROJEKTU_2026-09-23.md](PODSUMOWANIE_PROJEKTU_2026-09-23.md) | Pełne podsumowanie formalizmów i aplikacji na wskazany dzień | Przy nowych wynikach utworzyć nową wersję datowaną |
+| [STAN_PROJEKTU.md](STAN_PROJEKTU.md) | Bieżący stan: zasady z testów, najmocniejsze wyniki, zastosowania, bilans wszystkich testów | Po teście: wiersz w README, potem `python scripts/stan_projektu.py` (albo `aktualizuj_stan.bat`) |
+| [docs/archiwum/](docs/archiwum/) | Poprzednie datowane podsumowania | Tylko do wglądu |
 | [docs/theory](docs/theory/) | Aksjomaty, Chronoproces, reguły metodologiczne i szkice | Sprawdzaj status konkretnego dokumentu |
 | [docs/geometry](docs/geometry/) | Prerejestracje, manifesty, wyniki i notatki mostów | Wynik czytaj razem z planem i danymi |
 | [docs/diagrams](docs/diagrams/) | Diagramy i wizualizacje | Ilustracje, nie niezależny dowód |
