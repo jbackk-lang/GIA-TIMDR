@@ -1,0 +1,414 @@
+{
+  "date": "2026-09-30",
+  "scope": "Selected local source snapshots, including uncommitted working-tree changes; hashes identify actual contents, HEAD alone does not.",
+  "files": [
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "docs/INSTRUMENTS.md",
+      "sha256": "9048ebc9b9f7d715d7962b2906eb97999172ef2e15d6a1c39b4a690dd9ae2296",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "docs/PHOTOMETRY.md",
+      "sha256": "1d60b97d277eda4f6cd188fc6a457814fe220e77efdb66badd54be1bca8f2adb",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "docs/VALIDATION_PLAN.md",
+      "sha256": "cf376c869c92309f0594479e7bb6e41937ed7d7063b138dfd706f83f808bdb24",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "docs/VALIDATION_RESULTS.md",
+      "sha256": "3381398823795d6d136b8e72076282d447ca87e3e98fd57ad57f39e33ccf676e",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "model.json",
+      "sha256": "3848cd96233dc0855929b7c78ad6e7c521a0f06e01f3047db3ed56ce43e8518e",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "pyproject.toml",
+      "sha256": "83dd41efaaecf9b7a387c488ed596eeaac11a31b72bf11fdffb9460b75a4b9c2",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "README.md",
+      "sha256": "8f3d4f858c31c74348d9845da0dc34d69567778219b7f9cea9c33234f03e2b0f",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "scripts/run_app.py",
+      "sha256": "2d23d41c6e6d88c945046c4d3a100b9d4bc4cad744924488feddfac4283749be",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "scripts/run_demo.py",
+      "sha256": "71c2c3acaeae2f50ecc1fdb24d0d925942c8dda096b3bca32df644ff807352d2",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "scripts/validate_tracking.py",
+      "sha256": "4800d2ae7c191693ceb45cecaf01ec9f9069094e062de23079116d9e952cea82",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "tests/test_inputs.py",
+      "sha256": "fc1189ab065f1e11592357d9eef6185e046b1a157847f0eb8b36467eb9cfee7d",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "tests/test_tracker.py",
+      "sha256": "7158612594f02b95825a48e85e1ec0514d8405167d141ec709431b132c89115b",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/__init__.py",
+      "sha256": "645a4497d65f776f7bbb3716b1fa334d7333ba7e4156ac26b986b6539ea8bf61",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/bluetooth.py",
+      "sha256": "8b4ffa8d6e4412ca9af1fafe7a29b9f4b88c3466641c003030536e7d0da8d8ff",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/catalog.py",
+      "sha256": "4eac7f30fa09841aa7a8ab8d2299eb69074ca49fab95666bca509decbff30935",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/cli.py",
+      "sha256": "7c7f29488ceae33baf83c3411a1f092f13aa209420a2af87caebb460908fcfca",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/console.html",
+      "sha256": "c0d0c23821b79b6b75bd118eb6bdc949acff177fa4cc80df49e8f7a91e9d1068",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/dashboard.html",
+      "sha256": "795212568d53fae320a17485e65f5630520e1e4320b8022632114671d14f1f90",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/observations.py",
+      "sha256": "c60f222b7353d936d7e32e96beee30fc41a4e71091c83d9295323ca1a112d90f",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/orbit.py",
+      "sha256": "25c0ea0eac3fb09b41289c82cdf3e86912ab8265f97524c957e239931de5e3dd",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/report.py",
+      "sha256": "c45e7f10c206348fac121b3f88d4b4fc010a9e33288d598d2f1b7f9a124eef0b",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/rotation_clock.py",
+      "sha256": "db76c9a2f87aa8715d72b9c0617f15a62ce3ada4bb7b4f06fa97df71415eaba4",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/server.py",
+      "sha256": "5aabedb9358e33fcb4e6c4c74107b2216c5db5b217edfceedc63fff04a6b4e08",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "timdr_orbit/storage.py",
+      "sha256": "5dd90bf88540a0c1e0aa1d3cacfc9c1f9497c76eec6d7f49d5f17341f109bdf6",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "URUCHOM_APLIKACJE.cmd",
+      "sha256": "fb2446e1faa6423d14bb6dc4fc29c21377ac35a5a164d1f45f427897186454e7",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-orbital-tracker",
+      "path": "URUCHOM_DEMO.cmd",
+      "sha256": "285a440c9c4af2ff2eac8d043ca676023dde65d8304e5ae40fa43ffcdfbb3430",
+      "source_head": "b678e6d9ca0bd2e26bf26d2ee7ca165d26cb24d8"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "ASTROMER_EXTENSION.md",
+      "sha256": "ba9a38d444717f81cb9fca349972a76b6c32e4a56b987a498704729762fe0410",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "astromer_extension.py",
+      "sha256": "52a347a33666f2ddde00d09cc5873df5c3c07860809af03bb59958ca31604dfa",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "benchmark.py",
+      "sha256": "6b4c4d4bec4d85e17268bbb33f2a4c3215e8b7ec112b81f2c2c5e3d9e9b16b62",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "build_ui_references.py",
+      "sha256": "be71c4c6415acdfccc236e56da42739f317065f15250431cfa2de2874334484f",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/audit.json",
+      "sha256": "cef1e8abcd00a302d6c1f1c1a8f44ac4b5af33e7aac225cae4a1ac43d1f74fe7",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/download_subset.py",
+      "sha256": "ff0330f4ee80afa6fd40421b944fe58ce54a32a1501c6adf750fefb83259caac",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/estimated_periods.json",
+      "sha256": "33bacee1348038b0c7f0aae743491b636dfc3c8f299198175a0bc316b0279db1",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/make_report.py",
+      "sha256": "9f8ce8e1e6d3c9c0ec097578fd9f61288fbd3a7d8de04427ea4f62b5a506f7f2",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/overlap.json",
+      "sha256": "e17c0bdf293b07311a4a04c683a3a47cbe6a023d926e590ce6cb60078fc726f9",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/PROTOCOL.md",
+      "sha256": "62e492fb5f9bf6638a088fc5276992f88fc97860e4d1df08c353805d32d5fb03",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/RAPORT.md",
+      "sha256": "2d12bfd880de5c0d4374816cc7fcdc719dd9b4a292f3df87cf37ec9621dbe669",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/run_pilot.py",
+      "sha256": "898c12bf961eb5816ef10aa89c941a855b783886c5909ce007bd8fa454c938b0",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/scores.json",
+      "sha256": "2cfc11303efc4184e6a8207d728305b11205ab64afd29721906dce4f3eb021c6",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/SOURCES.md",
+      "sha256": "32fdbb091972f21b56f125570b3ecdc038c7dc31f1a43f54218a9d035aaaa5c5",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "experiments/atlas_budget/summary.json",
+      "sha256": "f57f133c3f984bd031aab60550b9c633c45fd11e7d54f6fd90fd93b03f568f68",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "features.py",
+      "sha256": "bffa1ebad6cd030de028445f55b41747f8c108a0603481a0b48124dd3505b2bb",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "INTERFEJS.md",
+      "sha256": "b879b8e8275f2a3b928b3eee1bf73f1fa95cd6ff8ef16479e49ed30e2c98dc7a",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "make_report.py",
+      "sha256": "710cc0e8b9e09e49c460d1e1b76f263e689d0bb3f25d54d6bcf5a5657ad39487",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "predict.py",
+      "sha256": "fd85437ff1e3ad6287e393552d13623c65f145170be0847b2b59bdbccdf73445",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "prepare.py",
+      "sha256": "97d9b0f56b0f57f5d2cbc89a02cd194bc642e21f2772f575f4c68a3a1db7a8cf",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "PROTOCOL.md",
+      "sha256": "fdc154a853d8168e6efd525cf40394d23d75da9abc09d02bfc5e0b0367f26fc1",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "README.md",
+      "sha256": "ed7dea16b1a31c047b0ae6717926f5ec8f861ba7e07e3cf530ba004807cabc83",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "requirements-astromer.txt",
+      "sha256": "172ba316cfd57a9c199b7338fcd9ffa7e476650c40f11811f8c0ed2aec9fd70a",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "requirements-lock.txt",
+      "sha256": "3ca4677395c01da49aa896914f6684ca397e5bc8af3455097deb5a436005f4a5",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "requirements.txt",
+      "sha256": "2acb17e6e3be3a3cddbb784cf3c3c67c4e5f220fa3f54a7cc1ee2b210b98368a",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "RESULTS.md",
+      "sha256": "58952debeeb90215c16a65a996fb0ec4e8119fcdf22f1bd776915be5080bfeb3",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "SETUP.cmd",
+      "sha256": "3cda31cdfb83e79214197b5788f83c87ad693ce23ab287f7e0d8826b8fb4dbf8",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "sky_images.py",
+      "sha256": "2d46291e906b9b2b47803d72c5ede97be1836e2a3b7a05262b895a032d19bc87",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "START.cmd",
+      "sha256": "a44b96de53c4c580f756002cd28bea4772925d627fae645ac767d473f16cbb84",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "test_pipeline.py",
+      "sha256": "8f0d250754ef40857ff77013165b2c90ace95214a5bbb9d78f6a5257e997bc0e",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "test_sky_images.py",
+      "sha256": "ec311e5063870d32af78af3fc7b4640a34033f046f22c7faacb9618363b40c04",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "test_ui.py",
+      "sha256": "54f92e93f40f228d24c41ce69082d489bf3354207b8d55ad0d33e2e1e92f4e33",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "ui_analysis.py",
+      "sha256": "bbe456ec76cda90bcbe03caaa3e6cc79ea13ed98beaf6e7d46b9aa3548a2b2d3",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "ui_import.py",
+      "sha256": "5545a7914b45cc0bdb3d3dc2f1f1c23f3812de4017404bd9d829bc70138e6995",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "ui_server.py",
+      "sha256": "aea4ee010a98ef655434dba91f462b9ccb815a8dec6bfa1fe6a51b31b1018775",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "verify_results.py",
+      "sha256": "1a3352c09f154eb8009f42176590b2416b337392328f3d019a95165be60e965b",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "web/app.js",
+      "sha256": "ad152a616eb01a34ca52a2aec385bf4a82d5c6e0dab24c0fb3aebff7ac06e9e2",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "web/images.html",
+      "sha256": "7dd7a2a08d957510b73459b24cb2174e7e107e5d947f0a79079007ab2957e924",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "web/images.js",
+      "sha256": "7e304bab3e7be34c13ae002fa37af20f0945a79a58c2c6e131d26d6d951303bc",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "web/index.html",
+      "sha256": "f1f5caaea09966ea5ba909367d59739aaee9ccfab1cbb6823ae83a45db919282",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "web/style.css",
+      "sha256": "c66e90e86b8ee50e9b022cf736133595a20452c58d8a2941195f00d4f10ddf02",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    },
+    {
+      "repo": "TIMDR-lightcurve-fewshot",
+      "path": "ZDJECIA_NIEBA.md",
+      "sha256": "796be8d40bfd61656aed305df49f221607482007fb879c03ab71267731829e96",
+      "source_head": "073f6c20571bde261b9d5db037cb5dd90a70ca4c"
+    }
+  ]
+}

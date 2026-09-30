@@ -1,8 +1,12 @@
 # Stan projektu TIMDR
 
-_Stan na: 2026-09-28_
+_Stan na: 2026-09-30_
 
 Dokument żywy: zamiast kolejnych datowanych podsumowań jest jeden stan bieżący. Część **automatyczna** (bilans i lista testów) odświeża się jednym poleceniem — `python scripts/stan_projektu.py` albo dwuklik na `aktualizuj_stan.bat` — z tabeli wyników w [README](README.md). Część **ręczna** (poniżej, do linii z bilansem) zmienia się tylko wtedy, gdy zmienia się obraz całości. Poprzednie podsumowanie: [archiwum, 23.09.2026](docs/archiwum/PODSUMOWANIE_PROJEKTU_2026-09-23.md).
+
+## Aktualizacja: astronomia
+
+Dodano dwa prototypy i kopie wybranych źródeł: [orbity, krzywe blasku i zdjęcia](docs/astronomy/ASTRONOMIA_2026-09-30.md). Wyniki małoetykietowe z innych dziedzin nie przenoszą się automatycznie na astronomię: OGLE i tani pilot ATLAS nie potwierdziły przewagi obecnej adaptacji sita nad lasem losowym. Fotometria zdjęć ma testy syntetyczne; śledzenie orbit nie ma niezależnej walidacji na rzeczywistych pomiarach pozycji. Ta aktualizacja nie zmienia historycznych tabel automatycznych poniżej.
 
 ## Czym TIMDR jest dziś
 

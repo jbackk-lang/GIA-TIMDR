@@ -123,12 +123,20 @@ Hipoteza, że TIMDR działa tylko przy sygnale wirującym, została sprawdzona b
 i się nie potwierdziła. Twierdzenia o wykrywaniu lub przewidywaniu przez operatory TIMDR wymagają odtąd nowej
 pre-rejestracji z mocnym baseline'em i danymi z więcej niż jedną jednostką na klasę.
 
+## Astronomia i obserwacje — nowe aplikacje
+
+[Podsumowanie wyników, zakres i kod](docs/astronomy/ASTRONOMIA_2026-09-30.md) · [snapshoty źródeł](applications/astronomy/README.md).
+
+**TIMDR-orbital-tracker**: katalogowe orbity SGP4, pomiary i prototyp śledzenia. **TIMDR-lightcurve-fewshot**: mało etykiet, diagnostyka krzywych oraz zdjęcia FITS → fotometria → analiza. To konstrukcje aplikacyjne TIMDR, nie nowe prawa orbitalne. Pilot ATLAS: TIMDR 84,82%, bez sita 85,78%, klasyczne + RF 91,35% macro-F1; obecna adaptacja nie wykazała przewagi. Fotometria sprawdzona na symulacji; walidacja na rzeczywistych zdjęciach pozostaje otwarta.
+
 ## Powiązane zastosowania
 
 To osobne projekty, nie kolejne gałęzie formalne. Ich wyniki, dane i ograniczenia opisują ich własne repozytoria:
 
 | Projekt | Rola i obecna granica |
 |---|---|
+| [TIMDR-orbital-tracker](https://github.com/jbackk-lang/TIMDR-orbital-tracker) | Astronomia / śledzenie: SGP4 i kojarzenie pomiarów, publiczne elementy orbitalne; niezależne rzeczywiste pomiary pozycji jeszcze niezwalidowane |
+| [TIMDR-lightcurve-fewshot](https://github.com/jbackk-lang/TIMDR-lightcurve-fewshot) | Astronomia / fotometria i klasyfikacja: OGLE, pilot ATLAS, interfejs zdjęć; brak przewagi obecnego sita, zdjęcia zwalidowane tylko syntetycznie |
 | [synoptyk-v2.0](https://github.com/jbackk-lang/synoptyk-v2.0) | Korekta prognozy Open-Meteo, filtr falkowy i lokalny bias; nie tworzy własnego modelu pogody |
 | [SYNOPTYK-ARCTIC](https://github.com/jbackk-lang/SYNOPTYK-ARCTIC) | Stacje polarne, backtest i pomiar bias/MAE; test proxy „rezonansu” nie miał jeszcze dostatecznej liczby zdarzeń |
 | [Synoptyk-v3](https://github.com/jbackk-lang/Synoptyk-v3) | Pogoda jako pole przestrzenne z wektorami wiatru; wstępny pomiar bias/MAE opiera się na krótkim oknie i małej próbie |

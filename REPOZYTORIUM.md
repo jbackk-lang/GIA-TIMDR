@@ -1,6 +1,6 @@
 # Mapa repozytorium GIA-TIMDR
 
-Stan mapy: 23 września 2026 r. Ten plik służy do nawigacji, nie nadaje nowego statusu hipotezom.
+Stan mapy: 30 września 2026 r. Ten plik służy do nawigacji, nie nadaje nowego statusu hipotezom.
 
 ## Gdzie szukać
 
@@ -33,3 +33,8 @@ Inne istotne aplikacje — trzy wersje Synoptyka, diagnostyka przemysłowa, ener
 - Opisy trójkąta i TRM zachowane w historii README są warstwą koncepcyjną. Nie przenoszą automatycznie swoich twierdzeń na wyniki testów gałęzi formalnych.
 
 Przy nowym eksperymencie dodaj osobny PREREG, zamroź kod i kryteria, a po teście zapisz nowy RESULT. Nie zastępuj historycznego werdyktu. Przed commitem sprawdź `git status --short` i dodaj tylko pliki odpowiadające danemu tematowi.
+
+## Astronomia
+
+- [Podsumowania nowych aplikacji](docs/astronomy/ASTRONOMIA_2026-09-30.md).
+- [Wybrane źródła, pochodzenie i sumy kontrolne](applications/astronomy/README.md).

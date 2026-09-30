@@ -7,6 +7,8 @@ Kanoniczna, aktualizowana lista kategorii repozytoriów (w tym sekcja
 
 **[jbackk-lang.github.io/KATEGORIE.md](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md)**
 
+Aktualizacja 30.09.2026: [astronomia i obserwacje — podsumowania oraz kod](docs/astronomy/ASTRONOMIA_2026-09-30.md). Dwa nowe projekty dodano do kanonicznego katalogu jako narzędzia inżynierskie / prototypy badawcze.
+
 Treść poniżej zachowana dla historii (stan sierpień 2026, dwie
 kategorie, bez Synoptyk-v3 i bez sekcji powiązań kodu) — NIE aktualizuj
 jej dalej, tylko plik w jbackk-lang.github.io.
