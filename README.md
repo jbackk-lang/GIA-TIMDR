@@ -47,6 +47,8 @@ To konkretne osiągnięcia w opisanych danych i wersjach. GIA-TIMDR nie przedsta
 
 ## Zacznij tutaj
 
+- [Lokalny prototyp AI inspirowany TIMDR — wyniki z 2 października 2026](docs/TIMDR_AI_WYNIKI_2026-10-02.md) — składanie relacji, braki i konflikty oraz uczenie potwierdzonych korekt; opis bez kodu, w ograniczonej domenie syntetycznej.
+
 - [Notatki i spostrzeżenia z 26–27 września 2026](docs/NOTATKI_2026-09-27.md) — idee autora, wyniki i przewidywania zapisane przed testem turbiny.
 - [Drogowskazy TIMDR — jak zbudować program analizujący sygnał](docs/DROGOWSKAZY_TIMDR.md) — kroki pole → rezonans → sito → samokorekta → geometria → test, z przykładem sita rezonansowego dla łożysk.
 - [Mapa repozytorium](REPOZYTORIUM.md) — gdzie znajduje się kod, dokumentacja, prerejestracje i wyniki.
