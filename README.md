@@ -45,6 +45,12 @@ Szczegóły nowych odwzorowań: [sygnał — binning, normalizacja i wygładzani
 
 To konkretne osiągnięcia w opisanych danych i wersjach. GIA-TIMDR nie przedstawia jeszcze jednej potwierdzonej teorii wszystkich zjawisk; szczegółowy stan i zakres wyników podaje [stan projektu](STAN_PROJEKTU.md).
 
+## Lokalny prototyp SI: negacja i kontrola wyników
+
+TIMDR służy tu jako inspiracja do konstrukcji uczonych składników SI; graf i kalkulator pozostają jego narzędziami kontroli. Rozszerzenie negacji zachowało wcześniejsze umiejętności: **1440/1440 nowych grafów oraz 720/720 regresji** w trzech przebiegach. Na 24 nowych rachunkach Bielik uzyskał **3/24**, układ SI z dokładnym kalkulatorem i walidatorem **24/24**. Wynik rachunków pochodzi z narzędzia, nie z neuronowej arytmetyki.
+
+[Pełny opis, nieudany pierwszy kandydat i ograniczenia](docs/SI_NEGACJA_WALIDACJA_2026-10-02.md). To eksperyment rozwojowy w ograniczonej domenie, nie ogólny ranking SI. Dobór narzędzi i interpretacja całego zadania wymagają dalszych testów. **Publikujemy wyniki i opis bez kodu, wag i pamięci prywatnego SI.**
+
 ## Zacznij tutaj
 
 - [Lokalny prototyp AI inspirowany TIMDR — wyniki z 2 października 2026](docs/TIMDR_AI_WYNIKI_2026-10-02.md) — składanie relacji, braki i konflikty oraz uczenie potwierdzonych korekt; opis bez kodu, w ograniczonej domenie syntetycznej.

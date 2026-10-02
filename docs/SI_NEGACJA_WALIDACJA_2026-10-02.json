@@ -1,0 +1,149 @@
+{
+  "date": "2026-10-02",
+  "scope": "Synthetic development domain, 40 known entities, explicit relations; not general SI benchmark.",
+  "training": {
+    "examples": 1440,
+    "test_examples": 720,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "train_entities": "0-23",
+    "test_entities": "24-39"
+  },
+  "first_candidate": {
+    "old_correct": 600,
+    "new_correct_per_seed": [
+      719,
+      719,
+      719
+    ],
+    "n": 720,
+    "wrong_accepted_per_seed": [
+      1,
+      1,
+      1
+    ],
+    "standalone_activation_gate_passed": false
+  },
+  "extension": {
+    "fresh_cases": 1440,
+    "regression_cases": 720,
+    "runs": [
+      {
+        "seed": 42,
+        "fresh": {
+          "n": 1440,
+          "correct": 1440,
+          "wrong_accepted": 0,
+          "false_abstentions": 0
+        },
+        "regression": {
+          "n": 720,
+          "correct": 720,
+          "wrong_accepted": 0,
+          "false_abstentions": 0
+        }
+      },
+      {
+        "seed": 43,
+        "fresh": {
+          "n": 1440,
+          "correct": 1440,
+          "wrong_accepted": 0,
+          "false_abstentions": 0
+        },
+        "regression": {
+          "n": 720,
+          "correct": 720,
+          "wrong_accepted": 0,
+          "false_abstentions": 0
+        }
+      },
+      {
+        "seed": 44,
+        "fresh": {
+          "n": 1440,
+          "correct": 1440,
+          "wrong_accepted": 0,
+          "false_abstentions": 0
+        },
+        "regression": {
+          "n": 720,
+          "correct": 720,
+          "wrong_accepted": 0,
+          "false_abstentions": 0
+        }
+      }
+    ],
+    "gate_passed": true,
+    "runtime_activation_verified_by_integration_tests": true
+  },
+  "three_way_comparison": {
+    "relation": {
+      "bielik": {
+        "n": 24,
+        "correct": 0,
+        "wrong_accepted": 1,
+        "abstentions": 23
+      },
+      "bielik_validated": {
+        "n": 24,
+        "correct": 0,
+        "wrong_accepted": 0,
+        "abstentions": 24
+      },
+      "si_validated": {
+        "n": 24,
+        "correct": 24,
+        "wrong_accepted": 0,
+        "abstentions": 0
+      }
+    },
+    "math": {
+      "bielik": {
+        "n": 24,
+        "correct": 3,
+        "wrong_accepted": 21,
+        "abstentions": 0
+      },
+      "bielik_validated": {
+        "n": 24,
+        "correct": 3,
+        "wrong_accepted": 0,
+        "abstentions": 21
+      },
+      "si_validated": {
+        "n": 24,
+        "correct": 24,
+        "wrong_accepted": 0,
+        "abstentions": 0
+      }
+    }
+  },
+  "comparison_candidate": "First candidate, before extension architecture change; not replaced post hoc.",
+  "simple_baselines": {
+    "graph_correct": 720,
+    "graph_n": 720,
+    "exact_calculator_correct": 24,
+    "exact_calculator_n": 24
+  },
+  "verification": {
+    "tests_passed": 30,
+    "final_integration_and_learning_tests_passed": 9,
+    "old_tests_frozen": true,
+    "no_evaluator_changes_after_outputs": true
+  },
+  "size_bytes": {
+    "bielik_weights": 1699568288,
+    "new_negation_checkpoint": 7557,
+    "exact_calculator_source": 1859,
+    "validator_source": 1911
+  },
+  "source_report_sha256": {
+    "comparison": "f488357268320560cdb71e5187e44bdf1da95f3a01796b6a64d2639e33df1ecc",
+    "extension": "522b7b14568c2a0e037173315bdb048c2f2e8dea1f368377fdfc73e06f19e0b3"
+  },
+  "publication": "Results and explanatory documentation only; no SI source, weights, checkpoints or user memory."
+}
