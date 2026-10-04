@@ -162,6 +162,63 @@ def compute_video_meta_states(
     return states
 
 
+# ---------------------------------------------------------------------------
+# v0.3: rho per region (PREREG_META_DYNAMICS_v0.3.md)
+#
+# Diagnoza v0.1/v0.2: rho liczone z GLOBALNYCH Lambda i E nie zadzialalo,
+# bo klipy testowe sa ogolnie "ruchliwsze" niz referencja, a prog globalny
+# nie odroznia "wiecej pieszych" od "cos nietypowego w jednym miejscu".
+# Kamera w Ped2 jest stala, wiec kazdy region siatki ma wlasny, typowy
+# poziom ruchu. v0.3: rho(t) = 1, gdy energia ruchu W KTORYMKOLWIEK regionie
+# przekracza WLASNY prog tego regionu: mediana_i + k * 1.4826 * MAD_i z
+# referencji zdrowej. Stare rho (v0.1/v0.2) zostaje bez zmian obok.
+# ---------------------------------------------------------------------------
+
+RHO_V3_K = 5.0      # z kalibracji na zbiorze deweloperskim (PREREG v0.3, sekcja 3)
+MAD_FLOOR = 1e-6    # region bez zmiennosci w referencji -> minimalny rozrzut, nie dzielenie przez 0
+
+
+@dataclass
+class RegionReference:
+    median: np.ndarray   # [n_regions]
+    mad: np.ndarray      # [n_regions], juz przeskalowane * MAD_TO_STD
+    k: float
+    grid: Tuple[int, int]
+
+    @property
+    def thresholds(self) -> np.ndarray:
+        return self.median + self.k * self.mad
+
+
+def compute_region_reference(clips, grid: Tuple[int, int] = DEFAULT_GRID, k: float = RHO_V3_K) -> RegionReference:
+    """Referencja per region z jednego klipu (lista Frame) albo z listy klipow.
+    Energia liczona osobno w kazdym klipie (roznice klatek nie przechodza
+    przez granice klipow), potem laczona."""
+    if len(clips) and hasattr(clips[0], "M"):
+        clips = [clips]
+    return region_reference_from_energies([region_energy_series(c, grid) for c in clips], grid=grid, k=k)
+
+
+def region_reference_from_energies(energies, grid: Tuple[int, int] = DEFAULT_GRID, k: float = RHO_V3_K) -> RegionReference:
+    """Jak compute_region_reference, ale z gotowych macierzy energii [n_frames, n_regions] per klip - pozwala liczyc
+    dlugie zbiory klip po klipie bez trzymania wszystkich klatek w pamieci."""
+    E = np.concatenate([np.asarray(e, dtype=np.float64) for e in energies], axis=0)
+    med = np.median(E, axis=0)
+    mad = np.maximum(MAD_TO_STD * np.median(np.abs(E - med), axis=0), MAD_FLOOR)
+    return RegionReference(median=med, mad=mad, k=float(k), grid=grid)
+
+
+def rho_from_energies(E: np.ndarray, ref: RegionReference) -> Tuple[np.ndarray, np.ndarray]:
+    exceed = np.asarray(E) > ref.thresholds
+    return exceed.any(axis=1).astype(int), exceed
+
+
+def region_rho_series(frames, ref: RegionReference) -> Tuple[np.ndarray, np.ndarray]:
+    """(rho [n_frames] 0/1, exceed [n_frames, n_regions] bool) - ktore regiony
+    przekroczyly wlasny prog w danej klatce."""
+    return rho_from_energies(region_energy_series(frames, ref.grid), ref)
+
+
 __all__ = [
     "VideoMetaState",
     "ReferenceThresholds",
@@ -172,4 +229,10 @@ __all__ = [
     "energy_trend",
     "compute_reference_thresholds",
     "compute_video_meta_states",
+    "RHO_V3_K",
+    "RegionReference",
+    "compute_region_reference",
+    "region_rho_series",
+    "region_reference_from_energies",
+    "rho_from_energies",
 ]
