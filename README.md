@@ -36,6 +36,18 @@ Pełny autorski szkic warstw i zastosowań: [ARCHITEKTURA_TIMDR.md](https://gith
 
 Szczegóły nowych odwzorowań: [sygnał — binning, normalizacja i wygładzanie](docs/theory/TIMDR_Signal_From_EventGraph.md) oraz [geometria — krzywa, wstęga i rura](docs/theory/TIMDR_Geometry_From_EventGraph.md). Przykład uruchomisz z katalogu repo poleceniem `python -m core.trm_gia_projections` (Python z NumPy).
 
+## TIMDR jako zasada: od rdzenia do systemu
+
+TIMDR to zasada budowania małego rdzenia, z którego można wyprowadzić mechanizm interpretacji, działania i samokorekty. Cztery gałęzie formalne są jej matematycznym zapisem, a pozostałe projekty ekosystemu powstały z tej samej zasady w różnych dziedzinach. Najdalej rozwija ją system złożony z trzech warstw:
+
+| Warstwa | Rola |
+|---|---|
+| **TIMDR** (to repozytorium) | Dostarcza zasady: rdzeń, protokół badań, kryteria prawdziwości wyniku |
+| [**AI-SI**](https://github.com/jbackk-lang/AI-SI) | Interpretuje i weryfikuje: łączy język, pamięć, matematykę i programowanie, sprawdza wyniki i wykorzystuje zdobyte doświadczenia |
+| [**TIMeDR-MUZ**](https://github.com/jbackk-lang/TIMeDR-MUZ) | Realizuje: przekłada zweryfikowaną decyzję na plan działania, wymaga zatwierdzenia i zapisuje przebieg |
+
+To opis podziału ról i obecnego prototypu, nie dowód skuteczności całego układu. Wyniki każdej warstwy podają jej własne repozytoria; MUZ jest prototypem, który pomaga zarządzać budżetem i przygotowuje pisma, a nic nie przenosi pieniędzy.
+
 ## Co już powstało
 
 - Cztery gałęzie opisane definicjami i aksjomatami (13 M/S, 10 G, 10 K, 9 META), cztery formalne repozytoria włączone tutaj z zachowaniem historii oraz kod geometrii, sygnału, fazy i dynamiki.
