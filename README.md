@@ -139,7 +139,7 @@ pre-rejestracji z mocnym baseline'em i danymi z więcej niż jedną jednostką n
 
 ## Powiązane zastosowania
 
-To osobne projekty, nie kolejne gałęzie formalne. Ich wyniki, dane i ograniczenia opisują ich własne repozytoria:
+To projekty zbudowane według zasady TIMDR: z małego rdzenia wyprowadzić mechanizm interpretacji, działania i samokorekty. Nie są kolejnymi gałęziami formalnymi. Ich wyniki, dane i ograniczenia opisują ich własne repozytoria:
 
 | Projekt | Rola i obecna granica |
 |---|---|
@@ -154,11 +154,11 @@ To osobne projekty, nie kolejne gałęzie formalne. Ich wyniki, dane i ogranicze
 | [TIMDR-Earthquake-Core](https://github.com/jbackk-lang/TIMDR-Earthquake-Core) | Analiza sejsmiczna; wyniki pozytywne i negatywne dokumentowane w repo domenowym |
 | [MAGE-IN-IMAGE-DECODER](https://github.com/jbackk-lang/MAGE-IN-IMAGE-DECODER) | Obraz i wideo; trzy moduły skopiowano tu pomocniczo, pełny projekt pozostaje osobno |
 | [TIMDR-AI-Core](https://github.com/jbackk-lang/TIMDR-AI-Core) | Protokół epistemiczny i eksperymenty aktywacji; linia HARTH zamknięta bez przyrostu nad baseline'em w badanym ustawieniu |
-| [AI-SI](https://github.com/jbackk-lang/AI-SI) | Koordynator ekosystemu: uczony sterownik wybiera przebiegi współpracy modeli i narzędzi; TIMDR był punktem wyjścia jego konstrukcji. Publiczne repo zawiera interfejs, narzędzia i wyniki, bez prywatnego rdzenia i wag |
-| [TIMeDR-MUZ](https://github.com/jbackk-lang/TIMeDR-MUZ) | Lokalny, audytowalny agent wykonawczy: sygnał → decyzja → wykonanie z podpisanym zatwierdzeniem; prototyp, nic nie przenosi pieniędzy |
-| [RADAR-TRACKING](https://github.com/jbackk-lang/RADAR-TRACKING) | Śledzenie obiektów i wykrywanie zmiany ruchu; tylko symulacja, bez potwierdzenia na sprzęcie, TIMDR nie jest zawsze najlepszy |
-| [TIMDR-Radar-Module](https://github.com/jbackk-lang/TIMDR-Radar-Module) | Analiza trajektorii (twisty, redukcja szumu) i dokładny przekrój radarowy kuli (szereg Mie); wynik pola częstotliwości umiarkowany, dla dronów gorszy |
-| [TIMDR-Structural-Health](https://github.com/jbackk-lang/TIMDR-Structural-Health) | Monitorowanie konstrukcji: kotwica modalna i detektor nowości; testy na danych wzorcowych, bez walidacji na rzeczywistej konstrukcji |
+| [AI-SI](https://github.com/jbackk-lang/AI-SI) | Najdalsze rozwinięcie zasady TIMDR: system łączący język, pamięć, matematykę i programowanie, który sprawdza własne wyniki i wykorzystuje zdobyte doświadczenia. Uczony koordynator wybiera przebiegi współpracy modeli i narzędzi, a odpowiedzi przechodzą kontrolę (walidator, testy kodu, odrzucanie nieprzechodzących kandydatów). Publiczne repo: interfejs, narzędzia, wyniki; bez prywatnego rdzenia i wag |
+| [TIMeDR-MUZ](https://github.com/jbackk-lang/TIMeDR-MUZ) | Zasada TIMDR w działaniu: sygnał → interpretacja (decyzja) → wykonanie, z podpisanym zatwierdzeniem i dziennikiem audytu jako samokontrolą. Prototyp; nic nie przenosi pieniędzy |
+| [RADAR-TRACKING](https://github.com/jbackk-lang/RADAR-TRACKING) | Mały rdzeń śledzenia z oceną zmiany ruchu i porównaniem trzech wariantów; tylko symulacja, TIMDR nie jest zawsze najlepszy |
+| [TIMDR-Radar-Module](https://github.com/jbackk-lang/TIMDR-Radar-Module) | Rdzeń analizy trajektorii (twisty, redukcja szumu) i dokładny przekrój radarowy kuli (Mie); wynik pola częstotliwości umiarkowany (−7,6% błędu), dla dronów gorszy |
+| [TIMDR-Structural-Health](https://github.com/jbackk-lang/TIMDR-Structural-Health) | Rdzeń monitorowania konstrukcji (kotwica modalna, detektor nowości); testy wzorcowe, bez walidacji na rzeczywistej konstrukcji |
 
 Pełniejszy spis, także projektów koncepcyjnych, jest w [katalogu ekosystemu](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md). Tabela nie rości sobie prawa do wyliczenia wszystkich repozytoriów.
 
