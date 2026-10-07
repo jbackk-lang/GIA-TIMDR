@@ -3,7 +3,7 @@ name: timdr-signal-framework
 description: Zwięzła ściąga GIA-TIMDR: czym jest TIMDR, gałęzie, drogowskazy budowy analizy, mosty, zasada odniesienia, parametry przejść, protokół testów i aktualny stan wyników. Używaj przy każdej pracy nad teorią, kodem lub testami TIMDR.
 ---
 
-# TIMDR — ściąga (stan 2026-09-28)
+# TIMDR — ściąga (stan 2026-10-07)
 
 Szczegóły zawsze w repo `jbackk-lang/GIA-TIMDR` (README: tabela wyników; `docs/theory/*`; pary `PREREG_*`/`RESULT_*`
 w `docs/geometry/`; notatki `docs/NOTATKI_2026-09-27.md`; kopia tej ściągi: `docs/SKILL_timdr-signal-framework.md`).
@@ -124,3 +124,24 @@ Licz PRZED testem i zapisz przewidywanie.
 Nie ogłaszać TIMDR detektorem; nie stroić po wyniku; nie dopisywać aksjomatów bez testu; nie łączyć gałęzi bez znanej
 transformaty (odrzucone: tensor grawitacji, MöbiusCoherence); nie szukać „czy TIMDR wykryje X” na ślepo — najpierw reguła wykonalności; przy propozycji łamiącej zasadę
 ramy — nazwać konflikt i zapytać.
+
+## 12. TIMDR w uczeniu SI (AI-SI, 6–7.10.2026; opis: `docs/SI_ZASADY_TIMDR_2026-10-07.md`)
+
+- **Zasada odniesienia w języku:** liczby → znaczniki N1..Nk (parser czyta strukturę, dokładne narzędzie wstawia liczby);
+  znane wzory 249 → 296/300.
+- **Sito = koincydencja kanałów:** potwierdzenie tylko gdy zgodne parsery + ugruntowanie liczb + kalkulator + kanał
+  operacji (słowa specyficzne) + kanał nowości (odniesienie do znanego obszaru zdań); 0 błędnych potwierdzeń.
+- **Mosty:** WordNet dla nieznanych czasowników (tylko gdy wszystkie znaczenia zgodne; nowy test 208 → 286/300) i most
+  pytań (nieznane pytanie → znane tej samej klasy; 247 → 272/300).
+- **Sprawdzian na prawdziwych danych obowiązkowy:** na 1730 zadaniach SVAMP/ASDiv parser był prawie losowy (10%) — mosty
+  działały tylko we własnym świecie szablonów. Zmiana podejścia (ranking kandydatów + wskazówki ról liczb: wynik /
+  stan początkowy / porównanie / grupy): 49% czysto, w SI 925/1730; połowa nieoglądana 451 → 497.
+- **Pętla z nauczycielem:** bez niezależnego odniesienia utrwala błędy; Qwen tylko proponuje (etykieta z konstrukcji
+  schematu lub z osobnego rozwiązania), sito przesiewa, wagi Qwena nietrenowane.
+- **Automat rośnięcia pojemności:** przepełnienie (strata stoi) → powiększ; przeuczenie (strata spada, wynik
+  rozwojowy nie) → stop; najlepszy rozmiar potwierdzany na 3 ziarnach. Przy cechach bez kolejności więcej neuronów nie
+  pomogło (liniowy 1,7 ms ≈ 256 neuronów 3,4 ms) — wąskim gardłem była reprezentacja, nie pojemność.
+- **Koordynator nauki:** moduły jako wtyczki (źródło → sito → automat → podmiana tylko po poprawie, z kopią).
+- **Lekcje:** kanały z tej samej rodziny modeli nie są niezależne (kalibracja potwierdzeń nieudana, ok. 10% błędów);
+  test użyty do wyboru wersji staje się rozwojowy; wynik pierwszej wersji raportuj jako czysty.
+
