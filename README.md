@@ -74,6 +74,8 @@ W lokalnym SI zastosowano zasadę odniesienia (liczby jako znaczniki, liczby wst
 
 **Wynik negatywny:** na 1730 prawdziwych zadaniach (SVAMP/ASDiv) parser trafiał tylko 10%, czyli mosty działały wyłącznie w świecie własnych szablonów. Ranking kandydatów ze wskazówkami ról liczb dał 49% w czystym pomiarze, a w SI 925/1730. Odpowiedzi tego modelu zawsze wymagają potwierdzenia. Dodano automat rośnięcia pojemności (zasada przepełnienia i przeuczenia) oraz koordynator nauki dla modułów; podmiana wag następuje tylko po poprawie.
 
+Wieczorem: czytnik kontekstu połączony z modelem ról (prawdziwe zadania 944/1730), polski maper z katalogiem sprawdzonych zdań (zamrożony test 44→64/72) i lokalny tłumacz PL→EN pod kontrolą SI (polskie zadania słowne 24→51/150).
+
 [Opis zasad, wyników i ograniczeń](docs/SI_ZASADY_TIMDR_2026-10-07.md). **Bez kodu, wag i pamięci prywatnego SI.**
 
 ## Zacznij tutaj

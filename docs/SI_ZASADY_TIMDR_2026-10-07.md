@@ -34,6 +34,12 @@ Wniosek dla ramy: **reguła wykonalności i odniesienie trzeba sprawdzić na dan
 - **Wynik:** przy cechach typu „worek słów” więcej neuronów nie pomogło. 256 neuronów dało średnio tyle samo co model liniowy, a odpowiedź trwała 3,4 ms wobec 1,7 ms. Wąskim gardłem była reprezentacja, a nie pojemność.
 - **Koordynator nauki:** jedna pętla dla modułów jako wtyczek. Każdy moduł przechodzi drogę źródło → sito → automat → podmiana wag tylko po poprawie na teście rozwojowym bez pogorszenia straży, z kopią zapasową. Podpięte są zadania słowne i polski maper pytań. W pierwszej próbie mapera kandydat nie przeszedł progu i czynne wagi zostały.
 
+## Wieczór: mosty między modułami i tłumacz pod kontrolą
+
+- **Most model ról ↔ czytnik kontekstu:** model, który czyta zadanie słowo po słowie, jest słaby sam (445 na połowie zestawu nieużywanej do strojenia). Połączony z modelem ról podnosi wynik 497 → 512; w SI prawdziwe zadania 925 → 944/1730. Gałąź użyta sama daje minus, a most daje plus, tak jak w obserwacji „klocków i trybików” TIMDR.
+- **Polski maper:** katalog sprawdzonych zdań z etykietami ustalonymi przez autora (nauczyciel nie wymyśla etykiet) i czytnik kontekstu po formach SJP.PL. Zamrożony test 44 → 64/72.
+- **Tłumacz neuronowy jako odniesienie zewnętrzne:** Opus-MT PL→EN (218 MB) proponuje tłumaczenie, a SI sprawdza, czy liczby i przeczenia przeszły bez zmian. Polskie zadania słowne 24 → 51/150. Tłumacz EN→PL halucynował, więc odpowiedzi po polsku zostają z ustalonych zdań.
+
 ## Ograniczenia
 
 To eksperymenty rozwojowe w wąskiej domenie: proste zadania jednodziałaniowe po angielsku, z polskim tylko przez translator. Część liczb jest rozwojowa, bo wersje wybierano na tych samych testach; czyste pomiary są oznaczone. Nie jest to ogólny ranking SI ani dowód skuteczności całej ramy TIMDR.
