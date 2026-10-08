@@ -1079,3 +1079,32 @@ WARSTWA TOPOLOGICZNA
 - **GAITIMDR** — wykrywa, jak stabilna jest funkcja i gdzie ma punkty krytyczne.
 
 Razem tworzą pełny model topologiczny sygnału: **zmiana → spójność → kierunek → stabilność**.
+
+---
+
+## Kronika lokalnego SI (2–7 października 2026)
+
+Zapis przeniesiony z README 8 października 2026; aktualny stan podaje [README](README.md).
+
+- [Lokalny prototyp AI inspirowany TIMDR — wyniki z 2 października 2026](docs/TIMDR_AI_WYNIKI_2026-10-02.md) — składanie relacji, braki i konflikty oraz uczenie potwierdzonych korekt; opis bez kodu, w ograniczonej domenie syntetycznej.
+
+### Lokalny prototyp SI: negacja i kontrola wyników
+
+TIMDR służy tu jako inspiracja do konstrukcji uczonych składników SI; graf i kalkulator pozostają jego narzędziami kontroli. Rozszerzenie negacji zachowało wcześniejsze umiejętności: **1440/1440 nowych grafów oraz 720/720 regresji** w trzech przebiegach. Na 24 nowych rachunkach Bielik uzyskał **3/24**, układ SI z dokładnym kalkulatorem i walidatorem **24/24**. Wynik rachunków pochodzi z narzędzia, nie z neuronowej arytmetyki.
+
+[Pełny opis, nieudany pierwszy kandydat i ograniczenia](docs/SI_NEGACJA_WALIDACJA_2026-10-02.md). To eksperyment rozwojowy w ograniczonej domenie, nie ogólny ranking SI. Dobór narzędzi i interpretacja całego zadania wymagają dalszych testów. **Publikujemy wyniki i opis bez kodu, wag i pamięci prywatnego SI.**
+
+### Zasady TIMDR w uczeniu SI (6–7 października 2026)
+
+W lokalnym SI zastosowano zasadę odniesienia (liczby jako znaczniki, liczby wstawia dokładne narzędzie), koincydencję kanałów (odpowiedź potwierdzona tylko przy zgodności kilku niezależnych kontroli) i mosty (WordNet dla nieznanych czasowników, most pytań). Zadania słowne:
+
+- znane wzory 249 → 296/300;
+- nowe czasowniki 208 → 286/300;
+- nowe pytania 247 → 272/300;
+- 0 błędnych potwierdzeń.
+
+**Wynik negatywny:** na 1730 prawdziwych zadaniach (SVAMP/ASDiv) parser trafiał tylko 10%, czyli mosty działały wyłącznie w świecie własnych szablonów. Ranking kandydatów ze wskazówkami ról liczb dał 49% w czystym pomiarze, a w SI 925/1730. Odpowiedzi tego modelu zawsze wymagają potwierdzenia. Dodano automat rośnięcia pojemności (zasada przepełnienia i przeuczenia) oraz koordynator nauki dla modułów; podmiana wag następuje tylko po poprawie.
+
+Wieczorem: czytnik kontekstu połączony z modelem ról (prawdziwe zadania 944/1730), polski maper z katalogiem sprawdzonych zdań (zamrożony test 44→64/72) i lokalny tłumacz PL→EN pod kontrolą SI (polskie zadania słowne 24→51/150).
+
+[Opis zasad, wyników i ograniczeń](docs/SI_ZASADY_TIMDR_2026-10-07.md). **Bez kodu, wag i pamięci prywatnego SI.**

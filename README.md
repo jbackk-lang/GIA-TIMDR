@@ -57,31 +57,27 @@ To opis podziału ról i obecnego prototypu, nie dowód skuteczności całego uk
 
 To konkretne osiągnięcia w opisanych danych i wersjach. GIA-TIMDR nie przedstawia jeszcze jednej potwierdzonej teorii wszystkich zjawisk; szczegółowy stan i zakres wyników podaje [stan projektu](STAN_PROJEKTU.md).
 
-## Lokalny prototyp SI: negacja i kontrola wyników
+## Lokalne SI zbudowane według zasad TIMDR — stan 8 października 2026
 
-TIMDR służy tu jako inspiracja do konstrukcji uczonych składników SI; graf i kalkulator pozostają jego narzędziami kontroli. Rozszerzenie negacji zachowało wcześniejsze umiejętności: **1440/1440 nowych grafów oraz 720/720 regresji** w trzech przebiegach. Na 24 nowych rachunkach Bielik uzyskał **3/24**, układ SI z dokładnym kalkulatorem i walidatorem **24/24**. Wynik rachunków pochodzi z narzędzia, nie z neuronowej arytmetyki.
+Prywatne SI autora jest małym, lokalnym systemem: 14 własnych sieci (razem **2,81 mln parametrów, 11,20 MB**) oraz dokładne narzędzia. Zasady TIMDR są w nim zasadami działania:
 
-[Pełny opis, nieudany pierwszy kandydat i ograniczenia](docs/SI_NEGACJA_WALIDACJA_2026-10-02.md). To eksperyment rozwojowy w ograniczonej domenie, nie ogólny ranking SI. Dobór narzędzi i interpretacja całego zadania wymagają dalszych testów. **Publikujemy wyniki i opis bez kodu, wag i pamięci prywatnego SI.**
+| Zasada TIMDR | Jak działa w SI | Wynik |
+|---|---|---|
+| **Odniesienie** | Liczby i daty podaje dokładne narzędzie albo niezależne źródło (kalkulator, kalendarz, Wikidane), a nie pamięć sieci | Tabele 15/15, dokumenty 15/16, daty 9/11 (pozostałe poprawnie niepotwierdzone) |
+| **Koincydencja kanałów** | Fakt jest potwierdzony tylko wtedy, gdy zgadzają się co najmniej dwa niezależne źródła (Wikipedia pl i en, Wikidane, Biblioteka Narodowa) i żadne nie przeczy; trzy stany: potwierdzone / odrzucone / do potwierdzenia | 0 fałszywych potwierdzeń na zamrożonych testach; fakty z Wikipedii 66/126 potwierdzonych |
+| **Mosty** | SI sama uczy się czytać Wikipedię: mosty słów („birth” = „born”) i wzorce zapisu dat i liczb; sędzią jest Wikidata | Zamrożone hasła: angielskie 0 → 83/215, polskie 0 → 87/287, 0 błędów czytania |
+| **Sito i zamrożony test** | Zmiana wchodzi tylko po poprawie na zamrożonych danych, bez pogorszenia i bez nowych potwierdzeń błędnych; z kopią zapasową | Każda podmiana z zapisem przed/po |
+| **Samokorekta** | Gdy źródła się różnią, SI szuka wyjaśnienia w tekście (kalendarz juliański, data chrztu, dwie możliwe daty) albo rozpoznaje własny błąd czytania i odsyła artykuł do nauki | Spory wyjaśniane z cytatem |
+| **Ciekawość i nagroda za postęp** | Ciekawość: SI sama zadaje sobie pytania z dziur na mapie wiedzy, z powiązań haseł i ze sporów; wybiera to, w czym najszybciej robi postęp; uczy się, gdy komputer jest bezczynny | Pierwszy dzień: 973 własne pytania, 543 odpowiedzi potwierdzone; mapa wiedzy 997 faktów (ok. 340 B na fakt) |
+| **Przepełnienie i wzrost** | Automat rośnięcia: przy zastoju sieć albo okno wzorców się powiększa | Zadania słowne na 1730 prawdziwych zadaniach: 944 (zawsze z prośbą o potwierdzenie) |
 
-## Zasady TIMDR w uczeniu SI (6–7 października 2026)
+W rozmowie SI poprawia literówki, mówi, co potrafi i jak używać jej modułów, sama sprawdza swoje moduły („sprawdź się”) oraz opowiada, czego się dowiedziała i co ciekawi ją teraz.
 
-W lokalnym SI zastosowano zasadę odniesienia (liczby jako znaczniki, liczby wstawia dokładne narzędzie), koincydencję kanałów (odpowiedź potwierdzona tylko przy zgodności kilku niezależnych kontroli) i mosty (WordNet dla nieznanych czasowników, most pytań). Zadania słowne:
-
-- znane wzory 249 → 296/300;
-- nowe czasowniki 208 → 286/300;
-- nowe pytania 247 → 272/300;
-- 0 błędnych potwierdzeń.
-
-**Wynik negatywny:** na 1730 prawdziwych zadaniach (SVAMP/ASDiv) parser trafiał tylko 10%, czyli mosty działały wyłącznie w świecie własnych szablonów. Ranking kandydatów ze wskazówkami ról liczb dał 49% w czystym pomiarze, a w SI 925/1730. Odpowiedzi tego modelu zawsze wymagają potwierdzenia. Dodano automat rośnięcia pojemności (zasada przepełnienia i przeuczenia) oraz koordynator nauki dla modułów; podmiana wag następuje tylko po poprawie.
-
-Wieczorem: czytnik kontekstu połączony z modelem ról (prawdziwe zadania 944/1730), polski maper z katalogiem sprawdzonych zdań (zamrożony test 44→64/72) i lokalny tłumacz PL→EN pod kontrolą SI (polskie zadania słowne 24→51/150).
-
-[Opis zasad, wyników i ograniczeń](docs/SI_ZASADY_TIMDR_2026-10-07.md). **Bez kodu, wag i pamięci prywatnego SI.**
+[Opis zasad i wyników — 8 października 2026](docs/SI_ZASADY_TIMDR_2026-10-08.md) · [publiczne repozytorium AI-SI](https://github.com/jbackk-lang/AI-SI) · [wcześniejsze etapy](HISTORIA_README.md#kronika-lokalnego-si-27-października-2026). **Bez kodu, wag i pamięci prywatnego SI.**
 
 ## Zacznij tutaj
 
-- [Lokalny prototyp AI inspirowany TIMDR — wyniki z 2 października 2026](docs/TIMDR_AI_WYNIKI_2026-10-02.md) — składanie relacji, braki i konflikty oraz uczenie potwierdzonych korekt; opis bez kodu, w ograniczonej domenie syntetycznej.
-
+- [Lokalne SI według zasad TIMDR — stan 8 października 2026](docs/SI_ZASADY_TIMDR_2026-10-08.md) — odniesienie, koincydencja kanałów, mosty, samokorekta i ciekawość w działającym systemie.
 - [Notatki i spostrzeżenia z 26–27 września 2026](docs/NOTATKI_2026-09-27.md) — idee autora, wyniki i przewidywania zapisane przed testem turbiny.
 - [Drogowskazy TIMDR — jak zbudować program analizujący sygnał](docs/DROGOWSKAZY_TIMDR.md) — kroki pole → rezonans → sito → samokorekta → geometria → test, z przykładem sita rezonansowego dla łożysk.
 - [Mapa repozytorium](REPOZYTORIUM.md) — gdzie znajduje się kod, dokumentacja, prerejestracje i wyniki.
