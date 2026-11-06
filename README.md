@@ -43,10 +43,10 @@ TIMDR to zasada budowania małego rdzenia, z którego można wyprowadzić mechan
 | Warstwa | Rola |
 |---|---|
 | **TIMDR** (to repozytorium) | Dostarcza zasady: rdzeń, protokół badań, kryteria prawdziwości wyniku |
-| [**AI-SI**](https://github.com/jbackk-lang/AI-SI) | Interpretuje i weryfikuje: łączy język, pamięć, matematykę i programowanie, sprawdza wyniki i wykorzystuje zdobyte doświadczenia |
-| [**TIMeDR-MUZ**](https://github.com/jbackk-lang/TIMeDR-MUZ) | Realizuje: przekłada zweryfikowaną decyzję na plan działania, wymaga zatwierdzenia i zapisuje przebieg |
+| [**AI-SI-TSI**](https://github.com/jbackk-lang/AI-SI-TSI) | Interpretuje dane, dobiera narzędzie i weryfikuje wyniki w obsługiwanych zadaniach |
+| [**Aplikacje TSI**](#tsi-i-zastosowania-timdr) | Stosują wspólne mechanizmy w zadaniach domenowych, od matematyki i budżetu po eksperymentalną analizę sygnałów |
 
-To opis podziału ról i obecnego prototypu, nie dowód skuteczności całego układu. Wyniki każdej warstwy podają jej własne repozytoria; MUZ jest prototypem, który pomaga zarządzać budżetem i przygotowuje pisma, a nic nie przenosi pieniędzy.
+Skuteczność oceniamy osobno dla każdej aplikacji i zadania. Wyniki i zakres zastosowania podają repozytoria domenowe.
 
 ## Co już powstało
 
@@ -57,27 +57,27 @@ To opis podziału ról i obecnego prototypu, nie dowód skuteczności całego uk
 
 To konkretne osiągnięcia w opisanych danych i wersjach. GIA-TIMDR nie przedstawia jeszcze jednej potwierdzonej teorii wszystkich zjawisk; szczegółowy stan i zakres wyników podaje [stan projektu](STAN_PROJEKTU.md).
 
-## Lokalne SI zbudowane według zasad TIMDR — stan 8 października 2026
+## TSI i zastosowania TIMDR
 
-Prywatne SI autora jest małym, lokalnym systemem: 14 własnych sieci (razem **2,81 mln parametrów, 11,20 MB**) oraz dokładne narzędzia. Zasady TIMDR są w nim zasadami działania:
+[AI-SI-TSI](https://github.com/jbackk-lang/AI-SI-TSI) to lokalny system łączący własny model językowy, gramatykę GF, pamięć, reguły logiczne i narzędzia do obliczeń oraz analizy sygnałów. W projektach domenowych może działać jako mały wykonawca z własnym wejściem i określonym zakresem decyzji. Wdrożony moduł odpowiedzi ma **9,07 mln parametrów**. Konsultacja z zewnętrznym AI jest opcjonalna.
 
-| Zasada TIMDR | Jak działa w SI | Wynik |
-|---|---|---|
-| **Odniesienie** | Liczby i daty podaje dokładne narzędzie albo niezależne źródło (kalkulator, kalendarz, Wikidane), a nie pamięć sieci | Tabele 15/15, dokumenty 15/16, daty 9/11 (pozostałe poprawnie niepotwierdzone) |
-| **Koincydencja kanałów** | Fakt jest potwierdzony tylko wtedy, gdy zgadzają się co najmniej dwa niezależne źródła (Wikipedia pl i en, Wikidane, Biblioteka Narodowa) i żadne nie przeczy; trzy stany: potwierdzone / odrzucone / do potwierdzenia | 0 fałszywych potwierdzeń na zamrożonych testach; fakty z Wikipedii: 68/126 po angielsku i 70/126 po polsku potwierdzonych |
-| **Mosty** | SI sama uczy się czytać Wikipedię: mosty słów („birth” = „born”) i wzorce zapisu dat i liczb; sędzią jest Wikidata | Zamrożone hasła: angielskie 0 → 83/215, polskie 0 → 87/287, 0 błędów czytania |
-| **Sito i zamrożony test** | Zmiana wchodzi tylko po poprawie na zamrożonych danych, bez pogorszenia i bez nowych potwierdzeń błędnych; z kopią zapasową | Każda podmiana z zapisem przed/po |
-| **Samokorekta** | Gdy źródła się różnią, SI szuka wyjaśnienia w tekście (kalendarz juliański, data chrztu, dwie możliwe daty) albo rozpoznaje własny błąd czytania i odsyła artykuł do nauki | Spory wyjaśniane z cytatem |
-| **Ciekawość i nagroda za postęp** | Ciekawość: SI sama zadaje sobie pytania z dziur na mapie wiedzy, z powiązań haseł, ze sporów i ze świeżych wydarzeń; fakty, które się zmieniają (kto pełni urząd, liczba mieszkańców), sprawdza ponownie i zapisuje zmiany świata; wybiera to, w czym najszybciej robi postęp; uczy się, gdy komputer jest bezczynny | Pierwszy dzień: 973 własne pytania, 543 odpowiedzi potwierdzone; mapa wiedzy 997 faktów (ok. 340 B na fakt) |
-| **Przepełnienie i wzrost** | Automat rośnięcia: przy zastoju sieć albo okno wzorców się powiększa | Zadania słowne na 1730 prawdziwych zadaniach: 944 (zawsze z prośbą o potwierdzenie) |
+| Projekt | Zastosowanie |
+|---|---|
+| [TSI Math Validator](https://github.com/jbackk-lang/TSI-math-validator-5) | Nauka matematyki, przeliczenia, zadania i audyt kroków rozwiązania. |
+| [TSI-MUZ](https://github.com/jbackk-lang/TSI-MUZ) | Budżet, odczyt dokumentów, przypomnienia i raporty. |
+| [TSI Predikt Motor](https://github.com/jbackk-lang/TSI-Predikt-Motor) | Wersja badawcza analizy OBD-II i nagrań pracy silnika. Na FordA profil wykrył 618/639 przypadków klasy dodatniej i wskazał 29/681 przebiegów klasy kontrolnej. |
+| [TIMDR-Grid-Monitor](https://github.com/jbackk-lang/TIMDR-Grid-Monitor) | W odtworzeniu symulacji PROTECT-90 profil wskazał 505/512 zwarć w ciągu 80 ms, a reguła spadku napięcia 501/512. |
+| [TIMDR-Earthquake-Core](https://github.com/jbackk-lang/TIMDR-Earthquake-Core) | Sejsmika i badania detekcji nadejścia fali P |
+| [TIMDR-Tornado-NEXRAD](https://github.com/jbackk-lang/TIMDR-Tornado-NEXRAD) | Rotacja w skanach Dopplera i próby lokalizacji wiru przy ograniczonej ilości danych |
+| [TSI Predikt Motor](https://github.com/jbackk-lang/TSI-Predikt-Motor) i [TIMDR EV Predict](https://github.com/jbackk-lang/TIMDR-EV-Predict) | Diagnostyka sygnałów z napędu i badania kondycji akumulatora |
+| [TIMDR Solar PV](https://github.com/jbackk-lang/TIMDR-Solar-PV) | Analiza pracy instalacji fotowoltaicznych |
+| [TIMDR-Tornado-NEXRAD](https://github.com/jbackk-lang/TIMDR-Tornado-NEXRAD) | Badanie rotacji w danych Dopplera. Przy wejściu 68 KiB wir znalazł się wśród trzech pierwszych kandydatów w 1/6 przypadków bez podania lokalizacji. |
 
-W rozmowie SI poprawia literówki, mówi, co potrafi i jak używać jej modułów, sama sprawdza swoje moduły („sprawdź się”) oraz opowiada, czego się dowiedziała i co ciekawi ją teraz.
-
-[Opis zasad i wyników — 8 października 2026](docs/SI_ZASADY_TIMDR_2026-10-08.md) · [publiczne repozytorium AI-SI](https://github.com/jbackk-lang/AI-SI) · [wcześniejsze etapy](HISTORIA_README.md#kronika-lokalnego-si-27-października-2026). **Bez kodu, wag i pamięci prywatnego SI.**
+Wyniki dotyczą podanych zbiorów i wersji. Sejsmika i radar pogodowy pozostają pracami badawczymi. Odrębny kierunek analizy obrazu i wideo rozwija [MAGE-IN-IMAGE-DECODER](https://github.com/jbackk-lang/MAGE-IN-IMAGE-DECODER). Dokumentacja TSI jest publiczna. Aktualny kod, wagi i prywatna pamięć TSI pozostają lokalnie. [Wcześniejszy etap AI-SI](HISTORIA_README.md#dawne-lokalne-ai-si--stan-z-8-października-2026)
 
 ## Zacznij tutaj
 
-- [Lokalne SI według zasad TIMDR — stan 8 października 2026](docs/SI_ZASADY_TIMDR_2026-10-08.md) — odniesienie, koincydencja kanałów, mosty, samokorekta i ciekawość w działającym systemie.
+- [TSI i zastosowania TIMDR](#tsi-i-zastosowania-timdr) — lokalny system, walidator matematyczny, MUZ i badania sygnałów.
 - [Notatki i spostrzeżenia z 26–27 września 2026](docs/NOTATKI_2026-09-27.md) — idee autora, wyniki i przewidywania zapisane przed testem turbiny.
 - [Drogowskazy TIMDR — jak zbudować program analizujący sygnał](docs/DROGOWSKAZY_TIMDR.md) — kroki pole → rezonans → sito → samokorekta → geometria → test, z przykładem sita rezonansowego dla łożysk.
 - [Mapa repozytorium](REPOZYTORIUM.md) — gdzie znajduje się kod, dokumentacja, prerejestracje i wyniki.
@@ -174,8 +174,8 @@ To projekty zbudowane według zasady TIMDR: z małego rdzenia wyprowadzić mecha
 | [TIMDR-Earthquake-Core](https://github.com/jbackk-lang/TIMDR-Earthquake-Core) | Analiza sejsmiczna; wyniki pozytywne i negatywne dokumentowane w repo domenowym |
 | [MAGE-IN-IMAGE-DECODER](https://github.com/jbackk-lang/MAGE-IN-IMAGE-DECODER) | Obraz i wideo; trzy moduły skopiowano tu pomocniczo, pełny projekt pozostaje osobno |
 | [TIMDR-AI-Core](https://github.com/jbackk-lang/TIMDR-AI-Core) | Protokół epistemiczny i eksperymenty aktywacji; linia HARTH zamknięta bez przyrostu nad baseline'em w badanym ustawieniu |
-| [AI-SI](https://github.com/jbackk-lang/AI-SI) | Najdalsze rozwinięcie zasady TIMDR: system łączący język, pamięć, matematykę i programowanie, który sprawdza własne wyniki i wykorzystuje zdobyte doświadczenia. Uczony koordynator wybiera przebiegi współpracy modeli i narzędzi, a odpowiedzi przechodzą kontrolę (walidator, testy kodu, odrzucanie nieprzechodzących kandydatów). Publiczne repo: interfejs, narzędzia, wyniki; bez prywatnego rdzenia i wag |
-| [TIMeDR-MUZ](https://github.com/jbackk-lang/TIMeDR-MUZ) | Warstwa wykonawcza: przekłada zweryfikowaną decyzję na konkretny plan działania, wymaga zatwierdzenia i zapisuje przebieg. W podziale ról TIMDR dostarcza zasady, AI-SI interpretuje i weryfikuje, MUZ realizuje zatwierdzony plan. Prototyp: pomaga zarządzać budżetem i przygotowuje pisma; nic nie przenosi pieniędzy |
+| [AI-SI-TSI](https://github.com/jbackk-lang/AI-SI-TSI) | Lokalny system języka, pamięci, narzędzi i oceny odpowiedzi. Dawne AI-SI opisano w historii |
+| [TSI-MUZ](https://github.com/jbackk-lang/TSI-MUZ) i [TSI Math Validator](https://github.com/jbackk-lang/TSI-math-validator-5) | Aplikacje wykorzystujące wspólną obsługę TSI w budżecie i nauce matematyki |
 | [RADAR-TRACKING](https://github.com/jbackk-lang/RADAR-TRACKING) | Mały rdzeń śledzenia z oceną zmiany ruchu i porównaniem trzech wariantów; tylko symulacja, TIMDR nie jest zawsze najlepszy |
 | [TIMDR-Radar-Module](https://github.com/jbackk-lang/TIMDR-Radar-Module) | Rdzeń analizy trajektorii (twisty, redukcja szumu) i dokładny przekrój radarowy kuli (Mie); wynik pola częstotliwości umiarkowany (−7,6% błędu), dla dronów gorszy |
 | [TIMDR-Structural-Health](https://github.com/jbackk-lang/TIMDR-Structural-Health) | Rdzeń monitorowania konstrukcji (kotwica modalna, detektor nowości); testy wzorcowe, bez walidacji na rzeczywistej konstrukcji |
