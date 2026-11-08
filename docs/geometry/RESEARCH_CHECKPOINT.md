@@ -61,3 +61,7 @@ This is a communications-model hypothesis, not proof that astronomical or generi
 ## 2026-11-08 17:59+ UTC — phase drift and coherent reflection
 
 Helix-Lock adds `experiments/helix_chiral_signal_channel.py`, `tests/test_helix_chiral_signal_channel.py`, `docs/HELIX_CHIRAL_SIGNAL_CHANNEL.md`. Synthetic common phase drift (single-snapshot Doppler proxy) and opposite-winding coherent echo with amplitudes 0/0.3/0.8/1.2. A strong reflected field can invert decoded winding. CI run https://github.com/jbackk-lang/Helix-Lock/actions/runs/42507707647 was pending at checkpoint. Previous phase-signal CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42507351434 completed successfully on Python 3.11 and 3.12. No empirical signal measurements or time-resolved Doppler yet.
+
+## 2026-11-08 — user directive: Helix is for TSI
+
+User explicitly chose to develop **Helix for TSI**, using helical signal phase/chirality research as input to intelligent Helix capabilities: signal fingerprinting, directional memory, adaptive decoding, anomaly detection and uncertainty-aware abstention. The durable implementation directive is https://github.com/jbackk-lang/Helix-Lock/blob/experiment/chiral-memory-retention/docs/TSI_HELIX_DEVELOPMENT_DIRECTIVE.md (commit `3a5ed0f0f70f0c6e00eb1088e165c1757b24e9e5`). Develop a separate prototype first, preserving existing security behavior. Chirality alone is not authentication and synthetic experiments do not establish physical TSI.
