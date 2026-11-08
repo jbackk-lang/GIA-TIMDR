@@ -44,3 +44,12 @@ A positive result for frequency tracking is not evidence of phase self-repair. A
 
 ## Next formal step
 If a phase-adaptive mechanism is proposed, specify its state variables, update rule, stability conditions, lock-loss detection, and a control against false locking before implementation. Do not modify the K axioms merely to accommodate a desired result.
+
+
+## Whole triple-loop requirement (user clarification, 2026-11-08)
+
+The phase-transition object under study is the **entire three-loop state** `Psi=(psi1,psi2,psi3)^T), including inter-loop relations and the full traversal. Single-channel phase-step tests are auxiliary controls only; they cannot stand in for a complete triple-loop transition.
+
+The proposed three-loop extension defines a candidate holonomy `H=P`, where `P` cyclically permutes the three channels and `P^3=I`. The new probe `experiments/triple_loop_transition_probe.py` tests one through six complete traversals and compares `H=I`, `H=P`, and `H=-I` as distinct model hypotheses.
+
+Important result of the algebraic control: after three `P)-traversals the state returns to the *disturbed* state, not the original undisturbed state. Thus `P^3=I` proves cycle closure for the chosen holonomy, **not self-repair** and not recovery of lost information. A repair claim requires an independently specified coupled recovery dynamic and a reference criterion that cannot be rewritten by the repair process itself.
