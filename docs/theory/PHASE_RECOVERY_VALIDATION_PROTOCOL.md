@@ -76,3 +76,29 @@ Key distinction built into this test:
 - The test demonstrates time-history dependence and phase memory, not autonomous self-repair or information reconstruction.
 
 A true Chronoprocess-based recovery model would require a separately specified coupling/evolution law across the three projections. It must not be smuggled into the current `Chronoprocess` class, whose documented contract is orchestration only.
+
+
+## Candidate time-coupled recovery law — preregistered engineering probe
+
+A new *candidate* K-branch evolution law is tested in `experiments/chronoprocess_coupled_phase_recovery.py`:
+
+`dθᵢ/dt = ωᵢ(t) + (K/3) Σⱼ sin(θⱼ−θᵢ)`.
+
+This is a symmetric Kuramoto-type coupling added for falsification testing. It is NOT present in the current `phase_sync.py`, current Chronoprocess, or established K axioms. It must remain clearly labelled as a candidate until independently justified.
+
+Design:
+- Shared time carrier `T), with the complete three-phase state `(θ₁,θ₂,θ₃)`.
+- A finite frequency detuning window is imposed on one loop, two loops, or all three loops.
+- Coupling strengths `K∈{0,0.2,0.8,1.6}` are compared.
+- The primary metric is the Kuramoto order parameter `R=|Σ exp(iθᵢ)|/3`; recovery time is the first post-disturbance time at which `R≥0.99`.
+- Controls include `K=0` (no coupling) and equal detuning of all loops (common-mode control).
+
+Preliminary reference run (RK4, 500 Hz, base frequency 4 Hz, +5% detuning for 2 s) showed:
+- `K=0`, differential detuning: persistent phase offset; post-window mean R ≈ 0.443.
+- `K=0.8`, differential detuning: post-window mean R ≈ 0.984; threshold crossing R≥0.99 at ≈2.17 s after detuning ends.
+- `K=1.6`, differential detuning: post-window mean R ≈ 0.999; threshold crossing at ≈0.656 s.
+- Equal detuning of all three loops preserves relative coherence even at `K=0`; this is a common-mode control, not self-repair.
+
+Interpretation is deliberately narrow: the candidate coupling law can restore *relative phase coherence* in this idealized model, and stronger coupling shortens recovery time in the sampled conditions. This is not yet evidence that the original TIMDR Chronoprocess self-repairs, nor that waveform or encoded information is reconstructed.
+
+Required next validation before stronger claims: run the committed tests in the user's full multi-repository environment; repeat at finer time steps (250/500/1000/2000 Hz) for convergence; sweep detuning duration/amplitude and frequency mismatch; test asymmetric and missing coupling links; compare against randomized-phase and no-coupling controls; pre-register a held-out parameter grid. Any extension to real information recovery must carry an independent payload and digest through the process.
