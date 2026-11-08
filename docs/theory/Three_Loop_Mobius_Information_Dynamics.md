@@ -8,6 +8,8 @@
 
 > **Grafika źródłowa użytkownika:** „Topologiczne domknięcie strumienia informacji w strukturze toroidalnej” (PNG, przekazana w rozmowie). Plik źródłowy nie został jeszcze zapisany w repozytorium; po przesłaniu do `docs/theory/images/topologiczne_domkniecie_strumienia.png` należy osadzić go w tym miejscu. Schemat SVG powyżej jest odrębną ilustracją pomocniczą, nie kopią grafiki źródłowej.
 
+**Dalsza formalizacja:** [twierdzenie o kontrakcji, holonomia wiązki i modele falsyfikacyjne](Three_Loop_Mobius_Spectral_And_Bundle_Extension.md).
+
 ## 1. Stan i przestrzeń fazowa
 
 Dla dyskretnego kroku n∈ℤ definiujemy Ψ_n=(ψ₁,n,ψ₂,n,ψ₃,n)^T∈ℂ³ z normą ||Ψ||²=Σ|ψ_k|². ψ_k=a_k exp(iφ_k), a_k≥0. Przestrzeń ℂ³ jest **przestrzenią amplitud trzech kanałów**, a nie automatycznie przestrzenią Hilberta funkcji na taśmie Möbiusa. Nazwa H_Möbius wymagałaby osobnej definicji bazy, miary i warunków sklejenia.
