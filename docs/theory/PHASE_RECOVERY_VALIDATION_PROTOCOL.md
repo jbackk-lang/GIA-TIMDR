@@ -53,3 +53,12 @@ The phase-transition object under study is the **entire three-loop state** `Psi=
 The proposed three-loop extension defines a candidate holonomy `H=P`, where `P` cyclically permutes the three channels and `P^3=I`. The new probe `experiments/triple_loop_transition_probe.py` tests one through six complete traversals and compares `H=I`, `H=P`, and `H=-I` as distinct model hypotheses.
 
 Important result of the algebraic control: after three `P)-traversals the state returns to the *disturbed* state, not the original undisturbed state. Thus `P^3=I` proves cycle closure for the chosen holonomy, **not self-repair** and not recovery of lost information. A repair claim requires an independently specified coupled recovery dynamic and a reference criterion that cannot be rewritten by the repair process itself.
+
+
+## Coupled three-loop perturbation test
+
+Added `experiments/triple_loop_coupled_perturbation.py` and `tests/test_triple_loop_coupled_perturbation.py`. The probe applies the proposed full matrix `J(Λ)` to one coupled vector `Ψ∈R³`, comparing an undisturbed reference trajectory with disturbances injected into one, two, or all three components. It samples Λ = 0, 0.2, 0.5, 1.0 and also tests the spectrally normalized operator `J/ρ(J)`.
+
+The linearity gives a decisive diagnostic: the difference δΨ between perturbed and reference trajectories obeys δΨₙ₊₁=JδΨₙ (or the normalized operator), so the operator has no mechanism to identify and remove the disturbance. Spectral normalization scales both trajectories and does not reconstruct the reference state. This is not evidence against every possible nonlinear transition mechanism; it shows that the currently specified linear operator alone does not establish self-repair.
+
+The model extension states that for real Λ≠0, ρ(J)>1; at Λ=0, ρ(J)=1. Thus the original J is not a contraction for real Λ. Any recovery mechanism needs additional, independently justified dynamics and must be tested against matched controls.
