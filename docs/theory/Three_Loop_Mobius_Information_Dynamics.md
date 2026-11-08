@@ -81,3 +81,15 @@ Przykładowa, falsyfikowalna hipoteza H1: przy identycznym wymuszeniu i normowan
 ## 7. Granice twierdzeń i integracja
 
 Ten dokument rozwija **propozycję** użytkownika, ale nie stanowi dowodu „topologicznego domknięcia strumienia informacji”, zachowania energii ani związku z entropią fizyczną. W szczególności trzy kule na wizualizacji nie wyznaczają liczby składowych przestrzeni stanów bez niezależnego założenia. Dokument jest przypisany do **G / geometrii i topologii**, a operator ewolucji ma interfejs do **META-DYNAMICS**. Nie zastępuje obowiązujących aksjomatów ani istniejącej implementacji geometrycznej.
+
+
+## 8. Test całego przejścia trójpętlowego (2026-11-08)
+
+Zgodnie z warunkiem badawczym, obiektem testu jest cały wektor `Ψ=(ψ₁,ψ₂,ψ₃)ᵀ` i relacje między jego składowymi podczas pełnego obiegu. Test pojedynczej składowej jest wyłącznie kontrolą pomocniczą.
+
+- Protokół: [PHASE_RECOVERY_VALIDATION_PROTOCOL.md](PHASE_RECOVERY_VALIDATION_PROTOCOL.md)
+- Eksperyment holonomii: [triple_loop_transition_probe.py](../../experiments/triple_loop_transition_probe.py)
+- Testy: [test_triple_loop_transition_probe.py](../../tests/test_triple_loop_transition_probe.py)
+
+W modelu kandydującym `H=P`, `P³=I`: po trzech obiegach kanały wracają do pierwotnego uporządkowania. Test numeryczny daje błąd domknięcia 0 w arytmetyce macierzowej. Jednak zaburzenie wprowadzone do stanu początkowego pozostaje po trzech obiegach (norma różnicy od stanu pierwotnego w przykładowym przebiegu: ok. 0,9142). **Domknięcie cyklu nie jest samonaprawą.** Wynik ten nie potwierdza jeszcze odzyskiwania sygnału ani informacji.
+
