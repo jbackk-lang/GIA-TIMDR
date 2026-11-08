@@ -116,3 +116,14 @@ For the `K=1.6`, one-loop detuning case, with total duration 8 s and the same 2 
 | 2000 Hz | 0.993937 | 0.656 s |
 
 The recovery-threshold time is stable to the reported precision across this step-size sweep. This is a numerical convergence check for this specific idealized case, not an empirical validation of TIMDR or a proof of information recovery.
+
+
+## Duration-window sweep for the full triple loop
+
+Added `experiments/chronoprocess_triple_loop_duration_sweep.py` and its tests. It integrates one coupled three-phase state with a transient frequency pulse applied to one, two, or all three loops. Coupling strengths are K={0, 0.2, 0.4, 0.8, 1.6}; pulse durations are {0.1, 0.25, 0.5, 1, 2, 4} seconds. Recovery is operationally defined as whole-state Kuramoto coherence R≥0.99 maintained for 0.5 seconds after the pulse ends. Relative phase residual is reported independently.
+
+Exploratory result from a local double-precision RK4 simulation (dt=0.002 s, intrinsic frequency 4 Hz, pulse amplitude 1.2 rad/s): with K=0.2, final coherence after a 1 s single-loop pulse is about 0.9955; with K=0.8 it is about 1.0000. For a 2 s pulse, K=0.2 ends around 0.9490, while K=0.8 ends around 1.0000. With K=0 and a 2 s single-loop pulse, the system does not meet the recovery threshold within the 12 s horizon. An equal common-mode pulse on all three loops leaves relative coherence unchanged even at K=0; this is a control, not repair.
+
+Interpretation boundary: these are results of the newly proposed all-to-all Kuramoto model. The model contains explicit coupling and time evolution not present in the current TIMDR K axioms or Chronoprocess implementation. The experiment demonstrates that a time-dependent coupling model can exhibit relaxation of relative phase errors. It does **not** establish that the original TIMDR equations or Helix-Lock already possess this property, nor that information payload is reconstructed.
+
+A next validation should sweep pulse amplitude and initial phase configuration, use non-identical intrinsic frequencies, compare against a PLL and uncoupled controls, test multiple random initial states, and add a payload-integrity/reconstruction experiment kept independent of phase coherence.
