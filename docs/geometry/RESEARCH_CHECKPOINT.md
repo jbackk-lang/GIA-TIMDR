@@ -37,3 +37,9 @@ Helix-Lock now has a follow-up synthetic experiment `experiments/helix_chiral_me
 Mid-history reversal Helix-Lock CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42505958517 passed 177 tests on both Python 3.11 and 3.12. At midpoint reversal, correctly labeled per-sample normalization yielded 100% two-symbol recovery and 0.01900644 rad mean reference error across 100 seeds. Labels were supplied as oracle metadata.
 
 A new `shuffled_labels` control checks whether incorrect label/sample alignment degrades memory reconstruction. CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42506116845 was pending at checkpoint; verify before claiming results.
+
+## 2026-11-08 17:41+ UTC — new inference experiment
+
+Shuffled-label Helix-Lock CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42506116845 passed 179 tests on Python 3.11 and 3.12. At midpoint reversal and 100 seeds, correct per-sample labels yield 100% payload recovery (0.01900644 rad error); shuffled labels yield 5% (0.93366167 rad); final-only labels yield 5% (0.85110901 rad).
+
+Added a synthetic phase-continuity Viterbi inference experiment on Helix-Lock branch `experiment/chiral-memory-retention`, module `experiments/helix_chiral_memory_inference.py`. It does not receive per-sample labels or flip boundary; it optionally receives the first-sample orientation as an external anchor. Without such an anchor, global sign symmetry makes absolute handedness/payload unidentifiable. CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42506276081 was pending at checkpoint.
