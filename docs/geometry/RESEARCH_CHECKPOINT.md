@@ -57,3 +57,7 @@ For TSI, distinguish decoding a synthetic phase history from physical informatio
 New Helix-Lock `experiments/helix_chiral_signal.py` simulates QPSK information on spatial helical phase winding `m*theta`, `m=+/-1`. It tests whether an angular receiver array can jointly identify winding and payload under noise and common-phase miscalibration. One receiver cannot identify winding; with multiple sensors a calibrated model can. A common phase offset can corrupt payload without corrupting winding. New CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42507351434 pending at checkpoint.
 
 This is a communications-model hypothesis, not proof that astronomical or generic signals have helical trajectories. Follow-up: model Doppler, multipath, geometric axis calibration, moving source and mirror-paired physical controls before relating to TSI hardware.
+
+## 2026-11-08 17:59+ UTC — phase drift and coherent reflection
+
+Helix-Lock adds `experiments/helix_chiral_signal_channel.py`, `tests/test_helix_chiral_signal_channel.py`, `docs/HELIX_CHIRAL_SIGNAL_CHANNEL.md`. Synthetic common phase drift (single-snapshot Doppler proxy) and opposite-winding coherent echo with amplitudes 0/0.3/0.8/1.2. A strong reflected field can invert decoded winding. CI run https://github.com/jbackk-lang/Helix-Lock/actions/runs/42507707647 was pending at checkpoint. Previous phase-signal CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42507351434 completed successfully on Python 3.11 and 3.12. No empirical signal measurements or time-resolved Doppler yet.
