@@ -44,9 +44,15 @@ def estimate_phase(signal: np.ndarray) -> np.ndarray:
 
 def summarize(t, signal, phase_truth, nominal_phase, true_frequency):
     phase_hat = estimate_phase(signal)
+    # Calibrate the arbitrary Hilbert-transform phase origin on the pre-event
+    # interval; otherwise a sine carrier contributes a constant -pi/2 offset.
+    pre = (t >= 0.5) & (t < 1.8)
+    offset = np.angle(np.mean(np.exp(1j * (phase_hat[pre] - phase_truth[pre]))))
+    phase_hat = phase_hat - offset
     phase_error = circular_error(phase_hat, phase_truth)
     # Derivative of unwrapped analytic phase estimates instantaneous frequency.
-    freq_hat = np.gradient(phase_hat) * (len(t) / (t[-1] - t[0])) / (2 * np.pi)
+    fs = 1.0 / (t[1] - t[0])
+    freq_hat = np.gradient(phase_hat) * fs / (2 * np.pi)
     windows = {
         "before": (t >= 0.5) & (t < 1.8),
         "during": (t >= 2.2) & (t < 3.8),
