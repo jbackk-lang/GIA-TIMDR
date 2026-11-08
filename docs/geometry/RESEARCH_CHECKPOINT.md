@@ -27,3 +27,7 @@
 ## Next research
 
 Investigate a chirality flip during history acquisition, with per-sample orientation-aware canonicalization versus orientation-blind averaging; test pre/post flip history, matched noise, payload recovery, and phase error. Keep G5 axioms unchanged unless a justified new mechanism emerges. Link future results here and in Helix-Lock.
+
+## Continuation: reversal control
+
+Helix-Lock now has a follow-up synthetic experiment `experiments/helix_chiral_memory_reversal.py` and tests on branch `experiment/chiral-memory-retention`. It tests phase-coordinate handedness reversal mid-history using per-sample versus final-only versus blind normalization. CI run: https://github.com/jbackk-lang/Helix-Lock/actions/runs/42505958517 . Check the run before claiming validation. The experiment does not establish physical chirality-dependent storage.
