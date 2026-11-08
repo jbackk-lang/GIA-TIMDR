@@ -65,3 +65,7 @@ Helix-Lock adds `experiments/helix_chiral_signal_channel.py`, `tests/test_helix_
 ## 2026-11-08 — user directive: Helix is for TSI
 
 User explicitly chose to develop **Helix for TSI**, using helical signal phase/chirality research as input to intelligent Helix capabilities: signal fingerprinting, directional memory, adaptive decoding, anomaly detection and uncertainty-aware abstention. The durable implementation directive is https://github.com/jbackk-lang/Helix-Lock/blob/experiment/chiral-memory-retention/docs/TSI_HELIX_DEVELOPMENT_DIRECTIVE.md (commit `3a5ed0f0f70f0c6e00eb1088e165c1757b24e9e5`). Develop a separate prototype first, preserving existing security behavior. Chirality alone is not authentication and synthetic experiments do not establish physical TSI.
+
+## 2026-11-08 — IMPORTANT CORRECTION: HELIX FOR HELIX, TSI DEFERRED
+
+The user explicitly corrected the preceding directive: **develop Helix for Helix itself now; do NOT develop for TSI. TSI work is postponed until access becomes available.** This entry supersedes the earlier "Helix for TSI" note in this checkpoint. Continue independent Helix signal intelligence research and testing. The corrected source of truth is https://github.com/jbackk-lang/Helix-Lock/blob/experiment/chiral-memory-retention/docs/TSI_HELIX_DEVELOPMENT_DIRECTIVE.md (correction commit `c175fc49ee336ad8d1e5b358ec6913a9e312d3c6`).
