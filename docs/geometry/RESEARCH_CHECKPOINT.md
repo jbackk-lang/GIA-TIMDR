@@ -51,3 +51,9 @@ Helix-Lock CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42506276081
 **Do not misinterpret unanchored 100% in the start=+1 benchmark**: the algorithm's deterministic tie-breaking selects a global sign. A globally mirrored latent trajectory yields identical measurements, so absolute chirality and canonical payload are not identifiable without an external sign reference. New mirror-pair tests are pending CI after commit `ceaa942d16695b3bcb67eed3549c4aa7c03f50b2`.
 
 For TSI, distinguish decoding a synthetic phase history from physical information storage in a helical system. A future educational simulator should explicitly expose this global-sign ambiguity and show both mirror-equivalent reconstructions.
+
+## 2026-11-08 17:54+ UTC — signal handedness experiment
+
+New Helix-Lock `experiments/helix_chiral_signal.py` simulates QPSK information on spatial helical phase winding `m*theta`, `m=+/-1`. It tests whether an angular receiver array can jointly identify winding and payload under noise and common-phase miscalibration. One receiver cannot identify winding; with multiple sensors a calibrated model can. A common phase offset can corrupt payload without corrupting winding. New CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42507351434 pending at checkpoint.
+
+This is a communications-model hypothesis, not proof that astronomical or generic signals have helical trajectories. Follow-up: model Doppler, multipath, geometric axis calibration, moving source and mirror-paired physical controls before relating to TSI hardware.
