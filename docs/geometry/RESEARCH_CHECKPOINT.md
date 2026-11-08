@@ -31,3 +31,9 @@ Investigate a chirality flip during history acquisition, with per-sample orienta
 ## Continuation: reversal control
 
 Helix-Lock now has a follow-up synthetic experiment `experiments/helix_chiral_memory_reversal.py` and tests on branch `experiment/chiral-memory-retention`. It tests phase-coordinate handedness reversal mid-history using per-sample versus final-only versus blind normalization. CI run: https://github.com/jbackk-lang/Helix-Lock/actions/runs/42505958517 . Check the run before claiming validation. The experiment does not establish physical chirality-dependent storage.
+
+## New CI and negative control (2026-11-08 17:39+ UTC)
+
+Mid-history reversal Helix-Lock CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42505958517 passed 177 tests on both Python 3.11 and 3.12. At midpoint reversal, correctly labeled per-sample normalization yielded 100% two-symbol recovery and 0.01900644 rad mean reference error across 100 seeds. Labels were supplied as oracle metadata.
+
+A new `shuffled_labels` control checks whether incorrect label/sample alignment degrades memory reconstruction. CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42506116845 was pending at checkpoint; verify before claiming results.
