@@ -102,3 +102,17 @@ Preliminary reference run (RK4, 500 Hz, base frequency 4 Hz, +5% detuning for 2 
 Interpretation is deliberately narrow: the candidate coupling law can restore *relative phase coherence* in this idealized model, and stronger coupling shortens recovery time in the sampled conditions. This is not yet evidence that the original TIMDR Chronoprocess self-repairs, nor that waveform or encoded information is reconstructed.
 
 Required next validation before stronger claims: run the committed tests in the user's full multi-repository environment; repeat at finer time steps (250/500/1000/2000 Hz) for convergence; sweep detuning duration/amplitude and frequency mismatch; test asymmetric and missing coupling links; compare against randomized-phase and no-coupling controls; pre-register a held-out parameter grid. Any extension to real information recovery must carry an independent payload and digest through the process.
+
+
+### Numerical step-size check (local independent rerun)
+
+For the `K=1.6`, one-loop detuning case, with total duration 8 s and the same 2 s detuning interval, the independently rerun RK4 integration gave:
+
+| Sample rate | Post-window mean R | First R≥0.99 |
+|---:|---:|---:|
+| 250 Hz | 0.993910 | 0.656 s |
+| 500 Hz | 0.993925 | 0.656 s |
+| 1000 Hz | 0.993933 | 0.656 s |
+| 2000 Hz | 0.993937 | 0.656 s |
+
+The recovery-threshold time is stable to the reported precision across this step-size sweep. This is a numerical convergence check for this specific idealized case, not an empirical validation of TIMDR or a proof of information recovery.
