@@ -62,3 +62,17 @@ Added `experiments/triple_loop_coupled_perturbation.py` and `tests/test_triple_l
 The linearity gives a decisive diagnostic: the difference δΨ between perturbed and reference trajectories obeys δΨₙ₊₁=JδΨₙ (or the normalized operator), so the operator has no mechanism to identify and remove the disturbance. Spectral normalization scales both trajectories and does not reconstruct the reference state. This is not evidence against every possible nonlinear transition mechanism; it shows that the currently specified linear operator alone does not establish self-repair.
 
 The model extension states that for real Λ≠0, ρ(J)>1; at Λ=0, ρ(J)=1. Thus the original J is not a contraction for real Λ. Any recovery mechanism needs additional, independently justified dynamics and must be tested against matched controls.
+
+
+## Chronoprocess time-history probe
+
+Source audit of `TIMDR-Time-Formalism/timdr_time/chronoprocess.py` and `docs/theory/TIMDR_Chronoprocess.md` confirms that the current Chronoprocess uses one ordered carrier `T), but deliberately keeps M/S, G, and K as independent projections. In K, modalities have constant `(f, phi, A)`; `phase_sync.py` implements an affine local/global time map, not coupled phase dynamics. Therefore the current Chronoprocess does not itself implement a three-loop repair mechanism.
+
+Added `experiments/chronoprocess_triple_loop_time_history.py`: three loop clocks share T; temporary frequency detuning is integrated over time; frequencies then return to nominal. One-, two-, and three-loop detunings are compared using whole-state relative phase and coherence.
+
+Key distinction built into this test:
+- Detuning one or two loops creates a lasting relative-phase offset after the frequencies return.
+- Equal detuning of all three loops is a common-mode phase shift: absolute phase changes, but relative three-loop coherence remains. This is not recovery; the loops simply experienced the same accumulated shift.
+- The test demonstrates time-history dependence and phase memory, not autonomous self-repair or information reconstruction.
+
+A true Chronoprocess-based recovery model would require a separately specified coupling/evolution law across the three projections. It must not be smuggled into the current `Chronoprocess` class, whose documented contract is orchestration only.
