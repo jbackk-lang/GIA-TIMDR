@@ -43,3 +43,11 @@ A new `shuffled_labels` control checks whether incorrect label/sample alignment 
 Shuffled-label Helix-Lock CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42506116845 passed 179 tests on Python 3.11 and 3.12. At midpoint reversal and 100 seeds, correct per-sample labels yield 100% payload recovery (0.01900644 rad error); shuffled labels yield 5% (0.93366167 rad); final-only labels yield 5% (0.85110901 rad).
 
 Added a synthetic phase-continuity Viterbi inference experiment on Helix-Lock branch `experiment/chiral-memory-retention`, module `experiments/helix_chiral_memory_inference.py`. It does not receive per-sample labels or flip boundary; it optionally receives the first-sample orientation as an external anchor. Without such an anchor, global sign symmetry makes absolute handedness/payload unidentifiable. CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42506276081 was pending at checkpoint.
+
+## 2026-11-08 17:42+ UTC — phase-history inference CI and TSI boundary
+
+Helix-Lock CI https://github.com/jbackk-lang/Helix-Lock/actions/runs/42506276081 passed 183 tests on Python 3.11 and 3.12. With 100 seeds, midpoint flip, and 0.08 rad phase noise, first-sample anchored phase-continuity inference reached 100% label and two-symbol payload accuracy, mean phase error 0.01900645 rad. At 0.4 rad noise, label accuracy fell to 93.25%, payload accuracy to 92%, mean error 0.13252048 rad.
+
+**Do not misinterpret unanchored 100% in the start=+1 benchmark**: the algorithm's deterministic tie-breaking selects a global sign. A globally mirrored latent trajectory yields identical measurements, so absolute chirality and canonical payload are not identifiable without an external sign reference. New mirror-pair tests are pending CI after commit `ceaa942d16695b3bcb67eed3549c4aa7c03f50b2`.
+
+For TSI, distinguish decoding a synthetic phase history from physical information storage in a helical system. A future educational simulator should explicitly expose this global-sign ambiguity and show both mirror-equivalent reconstructions.
