@@ -606,3 +606,17 @@ Te kąty brył nie są automatycznie kątem obrotu modułu, torsją osi, twistem
 Zapisana hipoteza autora: punkty kardynalne mogą odpowiadać zdarzeniom, w których kąt skrętu przekracza 90°. To wymaga definicji ciągłej funkcji kąta `theta(s)` i testu stabilności zdarzeń `theta(s)>90°`; nie utożsamiamy tego z kątem dwuściennym sześcianu.
 
 Specyfikacja i plan dowodowy: `docs/geometry/TETRAHEDRON_CUBE_TWIST_ANGLE_PROOF_2026-11-09.md`. Do czasu wyprowadzenia operatora przejścia 90° pozostaje punktem odniesienia, a nie potwierdzonym parametrem helisy TIMDR.
+
+
+## 31. Druga droga redukcji: π, idealna konstrukcja koła oraz √2 + √3
+
+Autor przypomniał niezależną ścieżkę analizy redukcji przez analogię do π i idealnej konstrukcji koła z udziałem sumy pierwiastków √2 i √3. Ścieżka ta ma być zachowana równolegle do drogi trójkąt→bryły→węzeł; nie łączymy ich bez dowodu wspólnego operatora lub niezmiennika.
+
+Kontrola liczbowa:
+- √2 + √3 ≈ 3.1462643699419726;
+- π ≈ 3.1415926535897932;
+- różnica ≈ 0.0046717163521794 (względnie ok. 0.1487%).
+
+Suma nie jest równa π: √2+√3 jest algebraiczna, a π przestępne. W geometrii koła jednostkowego √2 jest długością cięciwy kąta środkowego 90°, a √3 cięciwy 120°. To interesujące punkty konstrukcyjne, ale nie odtwarzają jeszcze źródłowej konstrukcji autora ani nie dowodzą reguły redukcji.
+
+Dokument roboczy: `docs/geometry/PI_CIRCLE_SQRT2_SQRT3_REDUCTION_PATH_v0.1.md`. W przeszukanym drzewie bieżącego GIA-TIMDR nie odnaleziono jeszcze pierwotnego rysunku/notatki tej konstrukcji. Należy odzyskać dokładną kolejność konstrukcji, normalizację długości, rolę π (wartość, granica czy normalizacja) i operator redukcji. Nie utożsamiać sumy pierwiastków z π i nie zakładać, że to ta sama redukcja co redukcja grafowa.
