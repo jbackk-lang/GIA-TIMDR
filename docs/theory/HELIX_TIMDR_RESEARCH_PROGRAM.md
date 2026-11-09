@@ -760,3 +760,21 @@ Istnieje już syntetyczny proof-of-integration `experiments/helix_signal_respons
 Kontynuować istniejący probe: (1) zamrozić kontrakt sygnału wejściowego i jednostki/normalizację; (2) porównać prosty baseline, κ i podpisane τ; (3) wykonać kontrolę szumu oraz odbicia lustrzanego; (4) użyć prerejestracji i niedegenerujących kontroli; (5) nie rozszerzać modelu o fizyczne twierdzenia bez niezależnego uzasadnienia kanału. Nie powtarzać zakończonych testów bez jawnej replikacji lub rozszerzenia.
 
 **Reguła ciągłości:** przed każdą kolejną sesją dotyczącą helisy sprawdzić ten program, oba audyty w `docs/handoffs/` i raport minimalnego probe. Po każdym zadaniu zapisać wynik, commit, status (MEASURED/DEFINED/HYPOTHESIS/UNKNOWN), ograniczenia i dokładny następny krok. To jest kanoniczne miejsce kontynuacji badań; nie zaczynać od ponownego katalogowania znanych własności.
+
+
+
+## 30. Dokładny wzorzec Boerdijk–Coxeter i wynik porównania (2026-11-09)
+
+Zgodnie ze wskazówką z §12 `timdr-signal-framework-SKILL.md` utworzono dokładną, wymierną implementację tetrahelisy Boerdijka–Coxetera: `core/boerdijk_coxeter_tetrahelix.py`, testy `experiments/helix_characterization/tests/test_boerdijk_coxeter_tetrahelix.py`, workflow `.github/workflows/boerdijk-coxeter-reference.yml` i raport `docs/geometry/BOERDIJK_COXETER_EXACT_REFERENCE_2026-11-09.md`. CI run **42588917531 SUCCESS**, 6/6 testów. Workflow HC-01 uruchomiony równolegle po dodaniu testu BC: **42588907910 SUCCESS**.
+
+Dla ustalonej konwencji współrzędnych jedna dokładna transformacja śrubowa przewiduje każdy następny wierzchołek; zachowuje regularność czworościanów, a centroidy kolejnych modułów są przenoszone przez tę samą transformację. Wierzchołki BC leżą dokładnie na dyskretnej próbce helisy kołowej HC-01. Szczegóły i wyprowadzone parametry znajdują się w dwóch raportach geometrycznych.
+
+**Terminologia:** kąt dwuścienny regularnego czworościanu (α=acos(1/3)) to około 70.5288°, natomiast kąt obrotu transformacji śrubowej BC (θ=acos(-2/3)) to około 131.8103°. Nie są to te same wielkości i żadna nie jest automatycznie ciągłą torsją Freneta–Serreta.
+
+**Wynik porównania z TIMDR:** BC ↔ HC-01 jest zgodne jako dyskretne punkty na ciągłej helisie. BC ↔ TIMDR pozostaje NIEUSTALONE. Aksjomaty G2–G4/G9 opisują trójkąt, asymetrię i zmianę pola normalnych/operator Weingartena, lecz nie definiują jeszcze operatora odbicia i sklejenia trójkątnego modułu, który generuje kolejne moduły/osi helisy. Nie istnieje więc jeszcze wyprowadzona macierz (S_{TIMDR}). BC pokazuje standard wymagany od kompletnej konstrukcji, nie zastępuje brakującej definicji TIMDR.
+
+**Zgodność domen:** G5 wymaga zamkniętej krzywej i cyklicznego pierścienia; BC jest otwartym łańcuchem. Bez jawnych warunków brzegowych/domknięcia nie wolno traktować go jako bezpośredniego wejścia G5. G5 używa (|τ|), więc obecna implementacja nie rozróżnia chiralności. Poprawny model chiralny wymaga zorientowanej ramy i jawnego transportu przekroju; samo podpisanie skalarnego sprzężenia nie jest jeszcze fizycznym uzasadnieniem.
+
+### 30.1. Następny krok, który zapobiega zapętleniu
+
+Przed kolejnym eksperymentem trzeba rozstrzygnąć z definicji źródłowej TIMDR: co jest odbijane (wierzchołki, cały moduł, orientacja czy stan), względem jakiej płaszczyzny, po której stronie, przez jaki interfejs moduły są sklejane i jaka jest reguła przyrostu fazy. Dopiero po zapisaniu tych danych można wyprowadzić (S_{TIMDR}), sprawdzić czy jest stały i czy przewiduje moduły niewykorzystane do wyznaczenia operatora. Test lustrzany musi zachować podpisane wielkości. Nie kontynuować teraz sweepów promienia/torsji ani hipotezy 5→6/kuli — operator bazowy jest brakujący.
