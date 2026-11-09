@@ -687,3 +687,22 @@ Karta pomiarowa obejmuje geometrię lokalną, ramę i tunel, chiralność, domkn
 Kolejność: walidacja wzorów analitycznych → testy niezmienniczości i zbieżności → sweep promienia/skoku/fazy/orientacji → porównanie rodzin → pomiary tunelu i odległości między zwojami → perturbacje i szum → dopiero na końcu ocena potencjalnych zastosowań względem geometrii kontrolnych.
 
 Kryterium sukcesu to rzetelny, odtwarzalny atlas właściwości wraz z zakresem wiarygodności i ograniczeniami. Nie oczekujemy konkretnego progu ani redukcji. Wyniki mogą potwierdzić, zmienić lub obalić hipotezy TIMDR.
+
+
+## 36. Korekta metodologii: nadrzędny obraz całości helisy TIMDR
+
+Autor zwrócił uwagę, że nadmierne uszczegóławianie pojedynczych pomiarów grozi utratą ogólnego obrazu. Od tej chwili wszystkie eksperymenty HC-01, HC-01-TUBE i kolejne mają być podporządkowane jednej mapie właściwości i pytaniu o przydatność helisy jako całości. Nie mnożyć eksperymentów bez wskazania, jaką część ogólnego obrazu wyjaśniają.
+
+Nadrzędne pytanie: **jakie możliwości i ograniczenia wynikają z geometrii helisy TIMDR jako całości oraz czy daje ona przewagę względem prostszych struktur w określonym zadaniu?**
+
+Mapa badań ma cztery poziomy:
+1. **Konstrukcja:** oś, tunel, przebieg helisy, przekrój, geometria przestrzenna i punkty charakterystyczne.
+2. **Zachowanie:** skręt, faza, chiralność, ciągłość, stabilność, reakcja na zmianę parametrów i zaburzenia.
+3. **Właściwości emergentne:** sprzężenia, synchronizacja, węzły, transport i zachowanie informacji; badać jako wynik, nie założenie.
+4. **Przydatność:** konkretne zadania, ograniczenia, koszt geometryczny/obliczeniowy i porównanie z prostszymi geometriami.
+
+Każdy wynik cząstkowy musi być przypisany do jednej z tych warstw oraz opisywać konsekwencję dla całości. Raportować syntetycznie: co ustalono, czego nie ustalono, jaki jest wpływ na model ogólny i jaki następny eksperyment ma największą wartość informacyjną.
+
+Nie traktować redukcji 4→3, progu 90°, √2/√3 ani archiwalnych interpretacji TRM jako osi badań. Pozostają hipotezami wtórnymi, dopóki niezależna charakterystyka nie wykaże ich znaczenia.
+
+**Zasada organizacyjna:** utrzymywać jeden nadrzędny model/diagram helisy i aktualizować go po każdym istotnym wyniku. Szczegółowe pomiary są podporządkowane mapie, nie odwrotnie. Nie tworzyć kolejnych wariantów dokumentów dla drobnych obserwacji, jeśli można je dopisać do wspólnego raportu HC.
