@@ -72,18 +72,36 @@ def reflect_point_in_plane(point: Vector, a: Vector, b: Vector, c: Vector) -> Ve
     return _sub(point, _scale(signed_factor, normal))
 
 
-def generate_vertices(count: int) -> tuple[Vector, ...]:
-    """Generate count consecutive vertices; at least four are required."""
+def generate_tetrahedral_chain(
+    initial_vertices: Sequence[Vector], count: int
+) -> tuple[Vector, ...]:
+    """Generate a face-reflected chain from any non-degenerate tetrahedron.
+
+    The ordered rolling window contains four vertices. At each step the
+    oldest vertex is reflected through the plane of the other three, then
+    appended. This preserves the six edge lengths of every consecutive
+    tetrahedron exactly. It does NOT imply a constant screw transform for
+    an arbitrary starting tetrahedron.
+    """
+    if len(initial_vertices) != 4:
+        raise ValueError("initial_vertices must contain exactly four points")
     if count < 4:
         raise ValueError("count must be at least 4")
-    vertices = list(INITIAL_VERTICES)
+    vertices = list(initial_vertices)
+    # Reject a degenerate starting tetrahedron (coplanar four points).
+    normal = _cross(_sub(vertices[2], vertices[1]), _sub(vertices[3], vertices[1]))
+    if _dot(_sub(vertices[0], vertices[1]), normal) == 0:
+        raise ValueError("initial tetrahedron must be non-degenerate")
     while len(vertices) < count:
-        # Reflect the oldest vertex of the current tetrahedron through the
-        # opposite face; this appends a congruent tetrahedron to the chain.
         vertices.append(
             reflect_point_in_plane(vertices[-4], vertices[-3], vertices[-2], vertices[-1])
         )
     return tuple(vertices)
+
+
+def generate_vertices(count: int) -> tuple[Vector, ...]:
+    """Generate the regular BC reference chain; at least four are required."""
+    return generate_tetrahedral_chain(INITIAL_VERTICES, count)
 
 
 def screw_step(point: Vector) -> Vector:
