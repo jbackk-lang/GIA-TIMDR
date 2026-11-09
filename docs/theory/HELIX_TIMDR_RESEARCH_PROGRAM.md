@@ -794,3 +794,10 @@ Nie kopiować testu chiralności standardowej helisy do GIA-TIMDR. W `jbackk-lan
 ### 30.3. Rozdzielenie asymetrii modułu i globalnego transportu
 
 W BC ściany wszystkich tetraedrów są trójkątami równobocznymi, a mimo to łańcuch ma niezerowy obrót śrubowy. Lokalna asymetria trójkąta (G2) i globalna holonomia/obrót wynikające z reguły sklejenia to dwa odrębne mechanizmy. Dalszy model TIMDR powinien testować je niezależnie: najpierw zmiana kształtu modułu przy stałym sklejeniu, następnie zmiana sklejenia przy stałym module. Nie utożsamiać ich bez dowodu.
+
+
+### 30.4. Kontrola archiwalnych źródeł trójkąta i brakującego operatora
+
+Bezpośrednio otwarto `TIMDR-Concept-Archive/TRM-Geometry-Core/docs/triangle.md`, `docs/core.md`, `docs/transitions.md`, `src/triangle.py`, `Topological-Reduction-Model-TRM/core/topological-wave.md`, `core/twist-reduction-law.md`, a także `TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py`, `THE_TIMDR_Hyperflow_Engine/the_geo_pro_4d.py` i `TIMDR-META-DYNAMICS/models/evolution_helix.py` / `analysis/meta_torsion.py`. Trójkąt jest opisany jako trzy stany i bok (a=r√3), a kod liczy jedynie bok. TRM τ jest skalarem w równaniu fali/progu. Weingarten liczy operator kształtu dla zadanej siatki; Hyperflow liczy κ/τ z zadanej trajektorii; META-DYNAMICS oddziela wejściowe `MetaState.tau` od geometrycznej torsji trajektorii. W sprawdzonych źródłach nie znaleziono jawnego generatora 3D trójkąt→moduł→helisa ani macierzy (S_{TIMDR}). Zakres tej kontroli jest ukierunkowany, nie jest pełnym przeglądem wszystkich 72 repozytoriów. Szczegóły: `docs/geometry/COMPARISON_BC_HC01_TIMDR_2026-11-09.md` §12.
+
+**Decyzja:** brakujący operator musi zostać jawnie zdefiniowany (co jest odbijane, względem jakiej płaszczyzny, jaka strona, jaki interfejs sklejenia i jaki transport orientacji). Nie wyprowadzać go z samego (√3), symbolu τ ani deklaracji „bez utraty informacji”.
