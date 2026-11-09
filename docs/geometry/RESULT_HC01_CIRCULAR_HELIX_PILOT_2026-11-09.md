@@ -89,3 +89,31 @@ Dla torsji błąd jest znacznie mniejszy, ale przy dużej liczbie próbek pojawi
 GitHub Actions: **success** — run `42570850539`, commit `9667eebe6085cbbd1b692f584e1075c7d5a3311d`. Testy jednostkowe HC-01, pełny sweep parametrów i zapis artefaktów zakończyły się powodzeniem. Artefakt: `hc01-circular-helix-characterization` (artifact ID `13652688302`).
 
 Pierwsze uruchomienie CI ujawniło błąd ścieżki importu w teście; poprawiono ścieżkę, po czym ponowne uruchomienie przeszło pomyślnie. Nie ukrywamy tej korekty — jest częścią historii reprodukowalności.
+
+
+## 9. HC-01-TUBE — pilot geometrii tunelu
+
+Dodano `experiments/helix_characterization/hc01_tube.py` i testy `tests/test_hc01_tube.py`. Dla idealnej helisy kołowej badane są dwa niezależne ograniczenia promienia rurkowego otoczenia osi:
+- lokalne: promień krzywizny (1/\kappa=(a^2+h^2)/a);
+- globalne: połowa odległości pary punktów doubly-critical, gdzie cięciwa jest prostopadła do stycznych w obu końcach.
+
+Dla parametrycznej różnicy (Delta) warunek pary doubly-critical redukuje się do:
+`sin(Δ)+(h/a)^2 Δ=0`.
+Odległość cięciwy:
+`d²=2a²(1-cos Δ)+h²Δ²`.
+Kod numerycznie lokalizuje niezerowe pierwiastki na skończonym przedziale kilku obrotów i porównuje połowę najmniejszej znalezionej odległości z lokalnym promieniem krzywizny. Wynik jest numerycznym oszacowaniem dla idealnej osi, nie modelem materiału.
+
+Przykładowe wyniki dla (a=1):
+| h/a | lokalny promień krzywizny | globalny półdystans (najmniejszy znaleziony) | ograniczenie |
+|---:|---:|---:|---|
+| 0.2 | 1.04 | 0.6161 | globalne |
+| 0.3 | 1.09 | 0.9018 | globalne |
+| 0.4 | 1.16 | 1.1603 | lokalne (1.16) |
+| 0.6 | 1.36 | brak niezerowej pary w przeszukanym zakresie | lokalne |
+| 1.0 | 2.00 | brak niezerowej pary w przeszukanym zakresie | lokalne |
+
+Interpretacja: przy mniejszym skoku globalne zbliżenie odległych części osi może ograniczać grubość tunelu wcześniej niż lokalna krzywizna. Przy większym skoku w tym badaniu ograniczeniem jest lokalny promień krzywizny. To wynik geometrii standardowej helisy; nie stanowi progu redukcji ani automatycznej własności wszystkich rodzin helikalnych.
+
+**CI:** run `42571021232` zakończony sukcesem. Testy HC-01 i HC-01-TUBE, sweep HC-01 i upload artefaktu przeszły. Link do uruchomienia: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42571021232
+
+Ograniczenie metody: przeszukiwanie pierwiastków jest numeryczne i ograniczone do zadanej liczby obrotów. Przed publikacją wartości jako ścisłego reach należy wykazać, że nie pominięto globalnie mniejszej pary; w następnym kroku zwiększyć zakres, sprawdzić zbieżność siatki i porównać z niezależnym algorytmem odległości.
