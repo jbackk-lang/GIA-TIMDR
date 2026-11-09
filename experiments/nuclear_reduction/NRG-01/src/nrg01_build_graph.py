@@ -144,7 +144,10 @@ def build_graph(seeds=SEEDS, max_depth=80, delay=0.15):
             })
             if daughter_label.lower() not in seen and depth < max_depth:
                 queue.append((daughter_label.lower(), depth+1))
-        if node["decay_modes"]:\n            node["stability_status"] = "decay_mode_listed"\n        else:\n            node["stability_status"] = "no_decay_mode_listed_not_assumed_stable"
+        if node["decay_modes"]:
+            node["stability_status"] = "decay_mode_listed"
+        else:
+            node["stability_status"] = "no_decay_mode_listed_not_assumed_stable"
         nodes[canonical] = node
         sources.append({"nuclide": canonical, "raw_sha256": row["_raw_sha256"]})
         time.sleep(delay)
@@ -156,6 +159,7 @@ def build_graph(seeds=SEEDS, max_depth=80, delay=0.15):
         "scope_note": "Ground-state decay-mode graph; unsupported channels are unresolved, not guessed.",
         "nodes": list(nodes.values()), "edges": edges,
         "unresolved_edges": unresolved, "source_records": sources,
+        "raw_csv": raw_csv,
         "metrics": graph_metrics(nodes, edges, unresolved),
     }
 
@@ -200,6 +204,12 @@ def main():
     graph = build_graph(args.seeds, args.max_depth, args.delay)
     target = Path(args.out)
     target.parent.mkdir(parents=True, exist_ok=True)
+    raw_dir = target.parent / "source_csv"
+    raw_dir.mkdir(parents=True, exist_ok=True)
+    raw_csv = graph.pop("raw_csv")
+    for label, payload in raw_csv.items():
+        (raw_dir / f"{label}.csv").write_text(payload, encoding="utf-8")
+    graph["source_csv_files"] = [str(raw_dir / f"{label}.csv") for label in sorted(raw_csv)]
     target.write_text(json.dumps(graph, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps(graph["metrics"], indent=2))
     print(f"Wrote {target}")
