@@ -60,7 +60,7 @@ def surface_metric(theta, radius=1.0, axial_scale=1.0, egg=0.0, h=1e-6):
           surface(theta - h, 0.0, radius, axial_scale, egg)) / (2*h)
     pp = (surface(theta, h, radius, axial_scale, egg) -
           surface(theta, -h, radius, axial_scale, egg)) / (2*h)
-    return float(pt @ pt), float(pt @ pp), float(pp @ pp)
+    return np.sum(pt * pt, axis=-1), np.sum(pt * pp, axis=-1), np.sum(pp * pp, axis=-1)
 
 
 def signed_torsion(points):
