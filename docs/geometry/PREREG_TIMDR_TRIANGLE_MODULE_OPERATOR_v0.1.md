@@ -1,7 +1,7 @@
 # Prerejestracja: operator trójkątny TIMDR → następny moduł → helisa (v0.1)
 
 **Data:** 2026-11-09  
-**Status:** protokół gotowy, ale eksperyment ZABLOKOWANY do czasu uzupełnienia definicji źródłowej przez autora.  
+**Status:** CZĘŚCIOWO ODBLOKOWANY — autor wskazał, że obiektem są wierzchołki reprezentujące czworościan. Pozostałe parametry przejścia wymagają jawnego ustalenia lub testu wariantów.  
 **Cel:** zdefiniować i przetestować operator generujący moduł helikalny z pierwotnego obiektu trójkątnego TIMDR, bez dopasowania wyniku po fakcie.  
 **Punkt odniesienia:** BC exact reference oraz HC-01; nie są one założeniem wyniku TIMDR.
 
@@ -15,8 +15,8 @@ Dlatego nie wpisujemy do prerejestracji wartości ani geometrii, których nie ma
 
 | Pole | Wartość / status |
 |---|---|
-| Obiekt odbijany | **OPEN — decyzja autora**: trzy wierzchołki, cała figura/moduł, orientacja/ramka czy stan |
-| Współrzędne modułu bazowego | OPEN: trzy punkty w R³, skala i jednostki |
+| Obiekt reprezentowany | **USTALONE PRZEZ AUTORA:** wierzchołki jako reprezentacja czworościanu (cztery punkty definiujące bryłę), nie sam trójkąt ani sama rama |
+| Współrzędne modułu bazowego | OPEN: cztery punkty w R³, kolejność/indeksacja, skala i jednostki |
 | Czy moduł jest równoboczny czy asymetryczny | OPEN: parametry boków/kątów; nie zakładać asymetrii ani symetrii |
 | Płaszczyzna odbicia | OPEN: trzy punkty/normalna i offset albo jawna reguła wyznaczenia |
 | Strona odbicia | OPEN: reguła znaku/orientacji; nie wybierać po wyniku |
@@ -27,7 +27,9 @@ Dlatego nie wpisujemy do prerejestracji wartości ani geometrii, których nie ma
 | Warunki szwu | OPEN: pozycja, styczna, rama, faza, indeks gałęzi |
 | Jednostki / normalizacja | OPEN: jawne dla każdej długości, kąta i parametru |
 
-**Bloker:** bez zdefiniowania pierwszych siedmiu pól nie istnieje jednoznaczna funkcja przejścia S_TIMDR, więc nie wolno generować „wynikowej helisy” arbitralną konwencją.
+**Ważne doprecyzowanie:** obiekt bazowy jest już określony jako czwórka wierzchołków reprezentująca czworościan. Kandydatem referencyjnym dla przejścia jest reguła BC: dla uporządkowanej czwórki (vₙ,vₙ₊₁,vₙ₊₂,vₙ₊₃) odbić vₙ względem płaszczyzny (vₙ₊₁,vₙ₊₂,vₙ₊₃), otrzymując vₙ₊₄, a następnie przesunąć okno o jeden wierzchołek. To jest jawna hipoteza operatora do przetestowania, nie automatycznie prawo TIMDR. Nie zakładamy jeszcze, że czworościan jest foremny. Wariant foremny daje znany wzorzec BC; wariant ogólny należy zbadać osobno.
+
+**Pozostałe otwarte parametry:** współrzędne i metryka czworościanu bazowego, wybór/porządek wierzchołków (czy istnieje wyróżniony wierzchołek), oraz czy przejście ma być dokładnie odbiciem BC czy inną regułą wyprowadzoną z TIMDR.
 
 ## 3. Hipotezy do rozdzielenia
 
@@ -48,7 +50,7 @@ BC jest przykładem H-G w innym obiekcie: jego ściany są równoboczne, a obró
 
 ## 5. Protokół po uzupełnieniu definicji
 
-1. Zbudować 4 moduły z definicji bazowej.
+1. Zbudować bazowy czworościan z czterech uporządkowanych wierzchołków.
 2. Wyznaczyć operator S_TIMDR wyłącznie z minimalnego prefiksu (np. pierwszych 3–4 modułów).
 3. Zamrozić operator i przewidzieć kolejne co najmniej 20 modułów bez ponownego dopasowania.
 4. Zmierzyć błąd predykcji, zachowanie długości/kątów, ciągłość szwów, fazę i orientację.
@@ -82,8 +84,8 @@ Kryterium „helisa” nie może być jedynie wizualne. Co najmniej: operator ma
 - nie podawać otwartego łańcucha do cyklicznego G5 przez sztuczne połączenie końców;
 - nie interpretować wyniku geometrycznego jako dowodu fizycznego sprzężenia lub pamięci informacji.
 
-## 8. Decyzja i warunek wznowienia
+## 8. Decyzja i następny krok
 
-Protokół jest zapisany i gotowy. Eksperyment pozostaje **BLOCKED** do czasu wskazania, co dokładnie jest odbijane i jak moduły są sklejane. To jedyny brakujący element, którego nie można uczciwie odgadnąć z aktualnych źródeł.
+Autor ustalił, że czworościan jest reprezentowany przez swoje wierzchołki. W następnym kroku testujemy jawnie wariant BC: odbicie jednego wierzchołka przez płaszczyznę przeciwległej ściany i przesunięcie uporządkowanego okna o jeden punkt. Równolegle nie zakładamy foremności: należy porównać czworościan foremny z ogólnym czworościanem i sprawdzić, kiedy istnieje stała transformacja śrubowa.
 
-Po otrzymaniu definicji należy najpierw uzupełnić tabelę w sekcji 2, zamrozić ją w commicie, a dopiero potem implementować generator i uruchamiać testy.
+Eksperyment jest odblokowany dla tego wariantu referencyjnego. Wynik BC nie może być przedstawiony jako wynik TIMDR, dopóki autor nie potwierdzi, że właśnie ta reguła odbicia/sklejania jest zamierzona. Pozostałe parametry geometryczne należy zamrozić przed testem holdout.
