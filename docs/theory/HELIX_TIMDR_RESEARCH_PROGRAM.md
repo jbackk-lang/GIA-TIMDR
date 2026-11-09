@@ -560,3 +560,10 @@ Specyfikacja: `docs/geometry/SIXTH_ELEMENT_OVERLOAD_FOUR_NODE_TO_TREFOIL_v0.1.md
 „Pięciościan” i „sześciościan” oznaczają tu bryły o pięciu i sześciu ŚCIANACH (F=5 i F=6), a nie konstrukcje z pięcioma/sześcioma wierzchołkami. Czworościan ma F=4. Liczba ścian nie wyznacza jednoznacznie typu kombinatorycznego bryły: pięciościan i sześciościan mogą mieć różne grafy incydencji. Specyfikację skorygowano odpowiednio w `docs/geometry/SIXTH_ELEMENT_OVERLOAD_FOUR_NODE_TO_TREFOIL_v0.1.md`.
 
 Właściwy test ma zatem porównać konkretny typ pięciościanu z konkretnym typem sześciościanu, zachowując jawne V, E, F i macierze incydencji. Hipoteza brzmi: konfiguracja F=5 mieści się w 4-węźle, a wybrana konfiguracja F=6 wymusza przeciążenie i reorganizację do trójwęzła. Nie wolno sprowadzać tego do samego licznika wierzchołków.
+
+
+### Korekta semantyki elementu: moduły odbiciowe helisy, nie ściany wielościanu
+
+Autor doprecyzował, że „elementy” to moduły generujące helisę — analogiczne do trójkąta w odbiciu. Interpretacja pięcio- i sześciościanu jako brył o F=5/F=6 ścianach była błędna i zostaje wycofana. W aktualnym modelu liczymy kolejne moduły helikalne: cztery tworzą konfigurację czterowęzłową, piąty nadal mieści się w jej warunkach brzegowych, a szósty ma wywołać konflikt / przeciążenie i reorganizację do trzech gałęzi.
+
+Specyfikację skorygowano w `docs/geometry/SIXTH_ELEMENT_OVERLOAD_FOUR_NODE_TO_TREFOIL_v0.1.md`. Do dalszego modelowania należy jawnie zdefiniować trójkątny moduł bazowy, operator odbicia, orientację przed/po odbiciu, regułę sklejenia sąsiednich modułów, przyrost fazy/obrotu wokół osi oraz znak skrętu. Licznik modułów jest odrębny od liczby ścian, wierzchołków, gałęzi i cykli grafu.
