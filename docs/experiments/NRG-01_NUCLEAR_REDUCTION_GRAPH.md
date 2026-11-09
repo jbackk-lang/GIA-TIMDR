@@ -180,3 +180,62 @@ Dodano wykonywalny szkielet pobierania i budowy grafu:
 Na tym etapie program automatycznie wyznacza córki wyłącznie dla jednoznacznych reguł bilansu α, β⁻, β⁺ i EC. IT, SF, emisje p/n, rozpady klastrowe, podwójne beta i inne niejednoznaczne kanały pozostają jawnie nierozwiązane. Brak wpisanego kanału rozpadu nie jest automatycznie interpretowany jako stabilność.
 
 **Status wykonania:** kod i testy jednostkowe dodane do repozytorium; zdalnego pobrania danych, utworzenia grafu i uruchomienia testów nie potwierdzono w tej sesji. Nie publikujemy jeszcze liczby nuklidów ani wyników eksperymentu.
+
+
+## 13. Rozszerzenie: orientacja skrętu, chiralność i hipoteza antycząstki
+
+**Uwaga badawcza (2026-11-09):** w analizie geometrii helisy należy zachować znak skrętu, a nie tylko jego wartość bezwzględną. Lewoskrętność i prawoskrętność mogą być odrębnymi klasami geometrycznymi i potencjalnie niosą informację o chiralności. Jest to kandydat na obserwablę do testowania, nie dowód, że przeciwne skręty oznaczają cząstkę i antycząstkę.
+
+### 13.1. Rozdzielenie pojęć
+
+Nie utożsamiać:
+- **skrętności geometrycznej** krzywej/helisy (orientowany znak skręcenia);
+- **chiralności** reprezentacji fermionowej w teorii pola;
+- **heliczności** (projekcja spinu na kierunek pędu; dla cząstek masywnych zależy od układu odniesienia);
+- **parzystości P** (odwrócenie przestrzeni);
+- **sprzężenia ładunkowego C** (zamiana cząstki na antycząstkę).
+
+Odbicie przestrzenne P odwraca orientację obiektów chiralnych, ale samo nie wykonuje sprzężenia ładunkowego C. Antycząstka nie jest ogólnie „tą samą cząstką o przeciwnym skręcie”. W oddziaływaniach słabych występuje szczególna relacja między obserwowaną helicznością neutrin i antyneutrin (odpowiednio lewą i prawą w granicy ultrarelatywistycznej), lecz nie wolno uogólniać jej na wszystkie cząstki ani utożsamiać z geometrią helisy TIMDR.
+
+### 13.2. Definicja znaku geometrycznego
+
+Dla regularnej krzywej parametryzowanej długością łuku (s), z krzywizną (kappa(s)>0), użyć podpisanej torsji Freneta–Serreta:
+[
+\tau_g(s)=\frac{(r'(s)\times r''(s))\cdot r'''(s)}
+{\lVert r'(s)\times r''(s)\rVert^2}.
+]
+Znak zależy od orientacji przestrzeni i kierunku parametryzacji. Dlatego zapis eksperymentu musi jawnie ustalić: orientację osi (x,y,z), kierunek przebiegu parametru, regułę prawej dłoni, jednostki i konwencję normalną/binormalną. Odwrócenie parametryzacji lub odbicie układu współrzędnych może zmienić znak; nie wolno interpretować zmiany znaku bez kontroli konwencji.
+
+Dla helisy o osi i skoku należy ponadto rejestrować oddzielnie:
+- znak torsji geometrycznej;
+- znak i wartość skoku na obrót;
+- orientację osi;
+- liczbę zwojów i fazę;
+- lokalne osobliwości / punkty, w których (kappa=0) i klasyczna rama Freneta przestaje być określona;
+- zachowanie znaku w węźle trójhelikalnym i na warunkach brzegowych.
+
+### 13.3. Test hipotezy „przeciwna ręczność = antycząstka”
+
+Sformułować jako hipotezę eksploracyjną H-CH, nie jako założenie:
+- H-CH0 (null): zmiana znaku skrętu jest wyłącznie transformacją P / zmianą orientacji geometrii i nie niesie informacji o C ani tożsamości antycząstki.
+- H-CH1 (kandydat TIMDR): po ustaleniu niezmienniczej konwencji geometrycznej istnieje dwuwartościowa cecha orientacji, która koreluje z niezależnie zmierzonymi liczbami kwantowymi cząstek/antycząstek ponad przypadek i znane symetrie.
+- H-CH2 (silna hipoteza): mapowanie orientacji helisy na C jest jednoznaczne i zachowuje się poprawnie w procesach, gdzie zachodzą jednocześnie P, C i CP. To wymaga znacznie mocniejszych danych i nie wynika z samej geometrii.
+
+Minimalne kryteria testu:
+1. Zdefiniować geometrię i konwencję orientacji przed obejrzeniem etykiet cząstek.
+2. Zmierzyć podpisaną torsję / orientację dla obu klas i dla odbicia lustrzanego.
+3. Wykonać osobno transformacje P, odwrócenie parametryzacji oraz zmianę osi; sporządzić tabelę transformacji znaku.
+4. Porównać wynik z niezależnymi etykietami C, P, CP, ładunkiem, spinem, masą i helicznością, nie dopasowując mapy po fakcie.
+5. Uwzględnić cząstki neutralne będące własnymi antycząstkami (np. foton) jako przypadki kontrolne; prosty model dwóch skrętów nie może ich arbitralnie klasyfikować jako pary odrębnych obiektów.
+6. Sprawdzić stabilność mapowania w różnych układach odniesienia i dla masywnych oraz bezmasowych przypadków.
+7. Z góry zapisać obserwacje, które obalą H-CH1/H-CH2.
+
+### 13.4. Zakres NRG-01
+
+Dane rozpadu nuklidów nie zawierają bezpośrednio geometrycznego skrętu jądra ani etykiety cząstka/antycząstka. Dlatego:
+- nie dodawać znaku skrętu do węzła nuklidowego jako wartości zmierzonej;
+- zachować kanały rozpadu i dane spin/parity, jeśli dostępne w ocenionym źródle, jako oddzielne atrybuty;
+- utworzyć osobny eksperyment geometrii/chiralności TIMDR, a wyniki porównywać z NRG-01 dopiero po niezależnej walidacji;
+- nie traktować różnicy znaku `τ_g` jako dowodu istnienia antymaterii.
+
+**Wniosek:** znak skrętu jest ważnym kandydatem na cechę kardynalną helisy i należy go zachować w pełnym zapisie. Może kodować chiralność geometryczną. Czy ma jakikolwiek związek z antycząstkami, pozostaje osobną, falsyfikowalną hipotezą wymagającą mostu do symetrii C/P/CP i danych fizycznych.
