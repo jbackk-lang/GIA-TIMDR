@@ -110,3 +110,46 @@ Nie estymować wymiaru fraktalnego dla HC-01 ani BC regularnego jako głównego 
 - docs/theory/HELIX_TIMDR_RESEARCH_PROGRAM.md
 
 **Konkluzja:** geometria HC-01 i BC nie jest fraktalna sama z siebie. Matematycznie interesujący kierunek pozostaje jednak otwarty: sprawdzić, czy szersza struktura TIMDR zawiera niezależny, rekurencyjny lub wieloskalowy mechanizm, którego helisa jest tylko jednym rzutem.
+
+
+## 9. Liczby dla dokładnego wzorca BC — kontrola ilościowa
+
+Dla dokładnego operatora BC:
+\[
+\theta=\arccos(-2/3)\approx2.3005239830\ \mathrm{rad}
+=131.8103148958^\circ,
+\]
+\[
+a=\frac{3\sqrt6}{5}\approx1.4696938457,\qquad
+\Delta z=-\frac{2}{\sqrt5}\approx-0.8944271910.
+\]
+Ciągły parametr helisy odpowiadającej próbkowaniu BC:
+\[
+h=\frac{\Delta z}{\theta}\approx-0.3887928131.
+\]
+
+| Wielkość | Wartość | Znaczenie |
+|---|---:|---|
+| \(\eta=h/a\) | \(-0.2645400022\) | bezwymiarowy kształt helisy |
+| \(\alpha=\arctan(\eta)\) | \(-14.8175977181^\circ\) | podpisany kąt nachylenia stycznej względem płaszczyzny poprzecznej |
+| \(a\kappa=1/(1+\eta^2)\) | \(0.9345956744\) | bezwymiarowa krzywizna |
+| \(a\tau_{FS}=\eta/(1+\eta^2)\) | \(-0.2472379417\) | bezwymiarowa, podpisana torsja |
+| \(\kappa\) | \(0.6359118106\) | krzywizna w jednostkach odwrotnych do przyjętej długości |
+| \(\tau_{FS}\) | \(-0.1682241117\) | podpisana torsja w tych samych jednostkach |
+| \(p=2\pi h\) | \(-2.4428572909\) | podpisany skok na pełny obrót |
+| \(L_{1\,turn}\) | \(9.5520120273\) | długość jednego pełnego obrotu |
+
+Promień centroidowej helisy jest dokładnie \(r_c=2/5=0.4\), podczas gdy promień helisy wierzchołków wynosi \(r_v=3\sqrt6/5\). Ich stosunek:
+\[
+\frac{r_c}{r_v}=\frac{\sqrt6}{9}\approx0.2721655270.
+\]
+To jest dokładna relacja dwóch orbit geometrycznych tej samej konstrukcji BC, nie wymiar fraktalny ani dowód hierarchii nieskończenie wielu skal.
+
+### 9.1. Co te liczby mówią o fraktalności
+
+1. \(\eta\), \(a\kappa\) i \(a\tau_{FS}\) są niezmiennikami jednorodnej zmiany skali HC-01. Potwierdzają, że porównanie należy prowadzić bezwymiarowo.
+2. BC ma jeden stały przyrost fazy \(\theta\) i jeden stały przyrost osiowy \(\Delta z\) na krok. To regularność śrubowa, nie skalowanie rekurencyjne.
+3. Dwa promienie (wierzchołków i centroidów) nie wystarczają do uznania konstrukcji za wieloskalową: są dwoma wyróżnionymi orbitami o stałym stosunku, a nie rodziną poziomów samopodobieństwa.
+4. Wartości liczbowe nie dają podstaw do estymacji niecałkowitego wymiaru. Dla HC-01 znana jest gładka krzywa 1D; dla BC mamy dyskretny łańcuch modułów stałej skali.
+
+**Status liczb:** wartości wynikają analitycznie z dokładnego operatora BC i wzorów HC-01; są kontrolą geometryczną. Nie są pomiarem fraktalności struktury TIMDR.
