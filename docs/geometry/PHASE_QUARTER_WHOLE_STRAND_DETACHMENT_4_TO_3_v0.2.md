@@ -113,3 +113,25 @@ Następny etap: zdefiniować energię deformacji i warunki brzegowe, dopuścić 
 ## 8. Zasada badawcza
 
 **Kula jest geometrią bazową; podział ćwiartkowy jest fazowy; odłącza się cała helisa; trzy pozostałe dostosowują się do nowych warunków brzegowych.** Jajo pozostaje wariantem kontrolnym, w którym porównujemy podział fazowy z podziałem długościowym, bez arbitralnego utożsamiania tych dwóch miar.
+
+
+## 9. Wynik uruchomienia CI
+
+Workflow [42565302887](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42565302887) zakończył sukcesem testy i obliczenia dla kuli oraz jaja. Artefakt `helix-four-to-three-phase-locked-v02`, ID `13650114967`, SHA-256 `52e8a5393cddb19a49e26c5582ab743583090beb6242ef1a8b8713b5eb5f0855`.
+
+| Wynik | Kula | Jajo |
+|---|---:|---:|
+| Podział początkowy | 90° | 90° |
+| Podział końcowy | 120° | 120° |
+| Liczba ocalałych helis | 3 | 3 |
+| Długość każdej ocalałej krzywej w modelu | 6.502990 | 6.571573 |
+| Znak obiegu fazowego zachowany | tak | tak |
+| Jedna helisa wybrana jako pierwsza przez symetryczny próg | nie | nie |
+
+Wynik potwierdza spójność księgowania fazowego 90°→120° oraz zachowanie znaku kierunku obiegu w implementacji. **Nie potwierdza fizycznego mechanizmu selektywnego odpadnięcia**: w tej rodzinie krzywych wszystkie cztery przebiegi mają ten sam profil geometryczny z przesunięciem fazowym, więc próg graniczny jest zdegenerowany. Samo jednorodne rozszerzanie/kurczenie nie wskazuje jednej helisy.
+
+### 9.1. Granica obecnego modelu topologicznego
+
+W v0.2 cztery przebiegi są reprezentowane jako cztery zamknięte krzywe, a operacja usuwa jedną całą krzywą z listy. To formalizuje liczbę helis i podział fazowy, ale **nie koduje jeszcze połączeń/węzłów między nimi**. Nie oblicza typu węzła, liczby splątania ani tego, czy dwie granice odcięcia jednej helisy rzeczywiście pasują do wspólnych punktów węzła.
+
+Następna wersja musi reprezentować cały obiekt jako połączony graf przestrzenny (węzły połączeń + skierowane łuki helikalne osadzone w 3D). Dwie granice odłączenia mają być wyznaczone przez ćwiartki globalnej fazy i muszą spełnić zgodność pozycji oraz stycznych po dopasowaniu. Dopiero wtedy wolno stwierdzić, że jedna helisa rzeczywiście odpada z czterowęzła, a pozostałe zamykają się w trójwęzeł.
