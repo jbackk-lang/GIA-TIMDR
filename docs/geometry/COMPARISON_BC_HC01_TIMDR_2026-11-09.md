@@ -148,3 +148,10 @@ Sprawdzono bezpośrednio wskazane źródła, a nie tylko ich streszczenie w GIA:
 - `TIMDR-META-DYNAMICS/models/evolution_helix.py` klasyfikuje stany po wejściowym `MetaState.tau`; jego własny docstring określa progi jako arbitralne. `analysis/meta_torsion.py` liczy oddzielną torsję Freneta trajektorii ((Λ,τ,ρ)). To odrębne wielkości, nie generator helisy.
 
 **Wniosek po kontroli źródeł:** w tych wskazanych repozytoriach i plikach nie znaleziono brakującego (S_{TIMDR}). Zapis „trójkąt → helisa” jest kierunkiem/hipotezą, nie gotowym algorytmem. Nie należy konstruować go przez sklejanie samych współczynników (√3), (√2), τ lub przez zmianę etykiet. Potrzebne są jawne współrzędne, operator odbicia, interfejs sklejenia i orientacja.
+
+
+## 10. Uzupełnienie: ogólny czworościan ma operator śrubowy co cztery kroki
+
+Późniejszy dowód w `GENERAL_TETRAHEDRON_FOUR_STEP_SCREW_THEOREM_v0.1.md` doprecyzowuje wcześniejszą lukę z §6–7. Dla dowolnego niekoplanarnego czworościanu nie musi istnieć izometria przenosząca uporządkowane okno o jeden krok, ale istnieje stała właściwa izometria `T` przenosząca je o cztery kroki: `T(v_n)=v_{n+4}`. Wynika to z czterookresowej permutacji sześciu uporządkowanych kwadratów krawędzi oraz ekwiwariantności odbicia względem izometrii.
+
+Zatem ogólny łańcuch BC nie jest na ogół jedną próbkowaną helisą jednokrokową. Jest sumą czterech przeplatanych orbit tej samej izometrii; w przypadku niezerowego obrotu i postępu osiowego są to cztery dyskretne helisy o wspólnej osi. To nie dowodzi fraktalności i nadal nie ustanawia równoważności BC z TIMDR.
