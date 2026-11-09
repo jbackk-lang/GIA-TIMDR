@@ -3,8 +3,10 @@ import unittest
 from pathlib import Path
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "experiments" / "helix_signal_response"))
+ROOT = Path(__file__).resolve().parents[3]
+MODULE_DIR = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(MODULE_DIR))
 import minimal_coupling_probe as probe
 
 
