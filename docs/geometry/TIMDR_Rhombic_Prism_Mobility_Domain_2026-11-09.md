@@ -197,3 +197,70 @@ Dla dodatniego punktu ten wynik 292 map jest dodatkowo zgodny z wcześniejszym d
 - W pobliżu tych miejsc widmo wraca do wartości typowej; nie jest to ciągły spadek liczby transformacji.
 
 To jest mocniejszy obraz niż hipoteza o pojedynczym „rezonansie”: w przestrzeni kształtów widać co najmniej dwie rodziny loci symetrii i dodatkowe punkty szczególne. Nadal nie jest to pełna klasyfikacja wszystkich rezonansów ani całej nieskończonej grupy odbić.
+
+
+## 11. Mapa loci szczególnych — rozszerzenie skanu 2D
+
+Rozszerzono skan o wszystkie sześć prostych równości kątów oraz kandydacką elipsę:
+[
+u^2+4v^2=1.
+]
+Na tej elipsie, z warunku (u^2+v^2+w^2=1), wynika:
+[
+w^2=3v^2,qquad w=\sqrt3|v|.
+]
+
+### A. Linie równych kątów
+
+Ponieważ:
+[
+c_1=u,quad c_2=(-u+\sqrt3v)/2,quad c_3=(-u-\sqrt3v)/2,
+]
+warunki (|c_i|=|c_j|) rozkładają się na sześć prostych:
+
+- (c_i=c_j): (v=0), (v=\sqrt3u), (v=-\sqrt3u);
+- (c_i=-c_j): (u=0), (v=u/\sqrt3), (v=-u/\sqrt3).
+
+W próbkach poza przecięciami:
+- gałęzie (c_i=c_j): 161 różnych map długości 4;
+- gałęzie (c_i=-c_j): 245 różnych map długości 4.
+
+### B. Nowa elipsa degeneracji
+
+Dla punktów:
+[
+(u,v)=\left(u,\pm\frac{\sqrt{1-u^2}}{2}\right)
+]
+sprawdzono dziewięć wartości (u=0.1,0.2,\ldots,0.9), a także próbki po obu stronach elipsy z przesunięciem (v\mapsto v\pm10^{-5}).
+
+W ośmiu punktach poza szczególnym (u=0.5) otrzymano:
+- 290 różnych map;
+- 210 obrotów;
+- 72 ruchy śrubowe;
+- 8 translacji.
+
+Dla (u=0.5), (v=\pm\sqrt3/4), otrzymano 280 map: 200 obrotów, 72 śruby i 8 translacji.
+
+W każdym zbadanym punkcie po obu stronach elipsy liczba map wracała do 302: 222 obroty, 72 śruby i 8 translacji. To wspiera interpretację elipsy jako szczególnego locus, a nie szerokiego obszaru.
+
+Przecięcia elipsy z innymi loci są bardziej zdegenerowane:
+- ((u,v)=(0,\pm1/2)): 229 map (160 obrotów, 60 śrub, 8 translacji i identyczność);
+- ((u,v)=(\pm1/2,\pm\sqrt3/4)): 280 map w zbadanych znakowych wariantach.
+
+### C. Dodatkowy punkt rezonansowy
+
+Punkt ((u,v)=(1/2,1/\sqrt3)) oraz jego odbicia znakowe dają 292 mapy (212 obrotów, 72 śruby i 8 translacji). Próbki przesunięte o (10^{-5}) w kierunku (v) dają 302 mapy. Punkt ten leży poza elipsą (u^2+4v^2=1) i poza prostymi równych kątów.
+
+### D. Uwaga o dokładności numerycznej
+
+Deduplikacja map wykorzystuje zaokrąglenie współczynników do 7 miejsc po przecinku. Wcześniejsza wersja używała 10 miejsc; dla wyrażeń z (\sqrt3) powodowało to niestabilność rozpoznawania teoretycznie identycznych map przy niektórych wejściach zmiennoprzecinkowych. Kontrole po obu stronach loci ((10^{-5})) pozostają od nich wyraźnie oddzielone.
+
+Z tego powodu liczby z tego skanu są **wynikami numerycznymi z ustaloną tolerancją**, a nie dowodem dokładnych relacji grupowych. Następny etap powinien wyprowadzić równości transformacji symbolicznie, w pierścieniu algebraicznym z relacją (w^2=1-u^2-v^2).
+
+### E. Reprodukcja
+
+Rozszerzony skan i CI:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42629227737
+
+Kod:
+`experiments/rhombic_prism_mobility_screw_coupling.py`
