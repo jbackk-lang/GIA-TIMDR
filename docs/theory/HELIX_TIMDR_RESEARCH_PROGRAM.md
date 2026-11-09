@@ -897,3 +897,14 @@ Autor zasugerował, że cztery przeplatane orbity mogą tworzyć helisę skrętn
 Dla operatora śrubowego `T` z niezerowym postępem osiowym cztery klasy reszt modulo 4 są czterema nieskończonymi nićmi helikalnymi o wspólnej osi. Jest to kandydat na geometrię plecionkową, ale nie zamknięty węzeł ani splot. Węzeł/splot wymaga jawnego domknięcia krzywych; przy zerowym postępie osiowym orbity mogą zamknąć się tylko przy wymiernym kącie obrotu względem `2π`. Po domknięciu trzeba sprawdzić rozłączność i niezmienniki topologiczne.
 
 **Następny test geometryczny:** wyznaczyć dla rodziny czworościanów parametry operatora `T` (kąt, oś, składową osiową, cztery promienie i fazy), sprawdzić przecięcia oraz minimalne odległości między nićmi, a następnie ustalić warunki degeneracji/domknięcia. Nie przypisywać typu węzła na podstawie samej wizualizacji.
+
+
+### 30.17. Wspólny początek i sprzężenie czterech orbit — 2026-11-09
+
+Autor doprecyzował, że cztery orbity należy powiązać tak, jakby wszystkie rozpoczęły ruch jednocześnie i pozostawały ze sobą związane przez wspólną więź/oddziaływanie, być może analogiczne do grawitacji. Zapisano rozróżnienie w `docs/geometry/GENERAL_TETRAHEDRON_FOUR_STEP_SCREW_THEOREM_v0.1.md` §10.
+
+Najpierw model kinematyczny: cztery punkty początkowe tworzą jeden czworościan, mają wspólny parametr ewolucji i są przenoszone przez ten sam jednoparametrowy ruch śrubowy `exp(sΞ)`. Wtedy wszystkie sześć odległości pozostaje stałych, a czworościan jest współporuszającym się motywem. To wynika z ruchu sztywnego i nie wymaga postulowania siły.
+
+Osobno model dynamiczny: trajektorie mogą oddziaływać wzajemnie przez jawne człony `F_ij` lub potencjał wiążący. To już zmienia dynamikę i może naruszyć dokładny ruch śrubowy; należy sprawdzić, czy symetryczne sprzężenie stabilizuje strukturę czteroniciową bez narzucania jej z góry. Nazwa robocza „pole więzi/sprzężenia” jest dopuszczalna, ale „grawitacja” pozostaje analogią, dopóki nie ma równań pola, źródeł, jednostek, symetrii i testowalnych predykcji.
+
+Minimalny następny eksperyment: wspólny start czterech punktów; porównanie (A) wspólnego ruchu sztywnego i (B) sprzężenia dynamicznego z kontrolą bez sprzężenia; pomiar sześciu odległości, faz, osi i stabilności plecionki. Nie utożsamiać kinematycznego zachowania odległości z wykryciem fizycznej siły.
