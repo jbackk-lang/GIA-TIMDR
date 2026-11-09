@@ -669,3 +669,21 @@ Najważniejsze wskazówki:
 5. Brak uniwersalnego liczbowego maksimum κ/τ bez skali, promienia i skoku. Obecny warunek dodatniej określoności G5 nie wyznacza górnego limitu (|τ|). Zatem próg redukcji musi wynikać z jawnego warunku geometrycznego/dynamicznego, nie z arbitralnej liczby.
 
 Audyt i plan testów: `docs/geometry/CONCEPT_ARCHIVE_AUDIT_AXIS_TUNNEL_REDUCTION_2026-11-09.md`. Nowy priorytet: modelować przekrój tunelu przez granice wpisaną/opisaną, obwiednię przestrzenną i chiralną ramę; mierzyć luz, kolizje, holonomię, fazę i ρ oddzielnie. Punkt J należy zdefiniować jako wykrywalne zdarzenie przejścia po naruszeniu jawnego warunku brzegowego. Dopiero potem testować, czy występuje reorganizacja 4→3.
+
+
+## 35. Priorytet nadrzędny: niezależna charakterystyka rzeczywistych właściwości helisy
+
+Po korekcie kierunku badania celem nie jest ustalenie ani zmiana warunków redukcji, lecz poznanie rzeczywistych właściwości, ograniczeń i przydatności helisy. Redukcja, próg 90°, model π–√2–√3 i interpretacje TRM nie mogą być założeniami eksperymentu ani kryteriami sukcesu.
+
+Nowy protokół: `docs/geometry/HELIX_CHARACTERIZATION_PROTOCOL_HC01_v0.1.md`.
+
+Badanie rozdziela rodziny: helisa kołowa HC-01 (analityczny przypadek kontrolny), helisa zmiennoskokowa HC-02, stożkowa HC-03, helisa na zakrzywionej osi HC-04, krzywa zamknięta o lokalnej helikalności HC-05 oraz trefoil HC-06. Wyników trefoila nie wolno przenosić na helisę kołową.
+
+Dla HC-01 punktem odniesienia są dokładne wzory:
+`κ=a/(a²+h²)`, `τ_FS=h/(a²+h²)`, `τ_FS/κ=h/a`, `p=2πh`, `L_turn=2π√(a²+h²)`. Badania należy prowadzić również w parametrach bezwymiarowych, aby oddzielić zmianę kształtu od zmiany skali.
+
+Karta pomiarowa obejmuje geometrię lokalną, ramę i tunel, chiralność, domknięcie/topologię oraz odporność numeryczną. Skręt raportować jako odrębne wielkości (torsja Freneta, obrót ramy, twist pasma, writhe/linking, faza), nigdy nie zastępować ich jednym symbolem. Zachowywać znak orientacji i wartości unwrapped.
+
+Kolejność: walidacja wzorów analitycznych → testy niezmienniczości i zbieżności → sweep promienia/skoku/fazy/orientacji → porównanie rodzin → pomiary tunelu i odległości między zwojami → perturbacje i szum → dopiero na końcu ocena potencjalnych zastosowań względem geometrii kontrolnych.
+
+Kryterium sukcesu to rzetelny, odtwarzalny atlas właściwości wraz z zakresem wiarygodności i ograniczeniami. Nie oczekujemy konkretnego progu ani redukcji. Wyniki mogą potwierdzić, zmienić lub obalić hipotezy TIMDR.
