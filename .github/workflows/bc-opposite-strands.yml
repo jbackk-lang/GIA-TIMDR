@@ -5,6 +5,7 @@ on:
     paths:
       - "core/boerdijk_coxeter_tetrahelix.py"
       - "experiments/bc_opposite_direction_pair.py"
+      - "experiments/bc_opposite_chirality_pair.py"
       - ".github/workflows/bc-opposite-strands.yml"
   workflow_dispatch:
 permissions:
@@ -19,3 +20,5 @@ jobs:
           python-version: "3.11"
       - name: Run exact opposite-direction BC strand experiment
         run: python experiments/bc_opposite_direction_pair.py
+      - name: Run exact opposite-chirality BC strand experiment
+        run: python experiments/bc_opposite_chirality_pair.py
