@@ -3,8 +3,8 @@ import numpy as np
 
 from rhombic_prism_axis_limit_study import enumerate_depths
 
-RADII = (0.10, 0.30, 0.60, 0.80)
-DIRECTIONS_DEG = (0.0, 22.5, 45.0)
+RADII = (0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80)
+DIRECTIONS_DEG = (0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0)
 
 
 def spectrum(r, phi_deg):
