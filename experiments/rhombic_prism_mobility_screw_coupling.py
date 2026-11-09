@@ -151,6 +151,33 @@ def main():
                 (uu-1e-5*st, vv+1e-5*ct),
                 (uu+1e-5*st, vv-1e-5*ct),
             ])
+    # Side-face/side-face Coxeter loci. For a radial direction d=(cos θ,sin θ),
+    # c_i=r a, c_j=r b. m=2 requires r²=-1/(2ab);
+    # m=3 requires r²=-(a²+4ab+b²)/(3a²b²).
+    for i, j in ((0, 1), (0, 2), (1, 2)):
+        for m in (2, 3):
+            found = 0
+            for theta in np.linspace(0.13, 6.15, 180):
+                direction = np.array([np.cos(theta), np.sin(theta)])
+                a = float(EDGES[i][:2] @ direction)
+                b = float(EDGES[j][:2] @ direction)
+                if abs(a*b) < 1e-10:
+                    continue
+                if m == 2:
+                    r2 = -1.0/(2.0*a*b)
+                else:
+                    r2 = -(a*a + 4*a*b + b*b)/(3.0*a*a*b*b)
+                if 1e-5 < r2 < 0.95:
+                    radius = np.sqrt(r2)
+                    uu, vv = radius*direction
+                    samples.extend([
+                        (uu, vv),
+                        ((radius+1e-5)*direction[0], (radius+1e-5)*direction[1]),
+                        ((radius-1e-5)*direction[0], (radius-1e-5)*direction[1]),
+                    ])
+                    found += 1
+                    if found == 3:
+                        break
     print("u,v,w,volume,acute_angles_deg,distinct_length4_maps,rotations,screws,translations,identities")
     for u, v in samples:
         result = length_four_spectrum(u, v)
