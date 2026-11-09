@@ -124,3 +124,18 @@ To jest wynik geometryczny modelu odbić. Nie dowodzi jeszcze fizycznej siły wi
 
 Kod: `experiments/truncated_tetrahedron_reflections.py`  
 Workflow: `.github/workflows/truncated-tetrahedron-reflections.yml`
+
+
+## 7. Walidacja CI
+
+Dedykowany workflow zakończył się powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42605654030
+
+Uruchomienie potwierdziło:
+- geometrię pięciu ścian i incydencję wierzchołków;
+- 9 obrotów o cosinusie (-7/9) i jedną translację dla par ścian;
+- dokładne liczności map i kolizji słów do długości 8;
+- typy izometrii dla długości parzystych;
+- wszystkie wymienione wymierne rezonanse zerowego skoku na długościach 6 i 8.
+
+Wynik CI: **success**.
