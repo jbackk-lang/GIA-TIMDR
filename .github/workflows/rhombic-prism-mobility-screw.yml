@@ -5,6 +5,7 @@ on:
     paths:
       - "experiments/rhombic_prism_mobility_screw_coupling.py"
       - "experiments/rhombic_prism_ellipse_braid_relation.py"
+      - "experiments/rhombic_prism_exceptional_affine_relations.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -22,3 +23,5 @@ jobs:
         run: python experiments/rhombic_prism_mobility_screw_coupling.py
       - name: Prove exact braid relations on candidate ellipse
         run: python experiments/rhombic_prism_ellipse_braid_relation.py
+      - name: Verify exceptional affine relations and glide conjugacy
+        run: python experiments/rhombic_prism_exceptional_affine_relations.py
