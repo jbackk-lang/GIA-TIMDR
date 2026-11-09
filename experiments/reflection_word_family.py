@@ -144,7 +144,8 @@ def main():
         assert len(entries) == expected_words[length]
         assert len(set(maps)) == len(maps), f"map collision at length {length}"
         counts = Counter(classify_isometry(t)[0] for t in maps)
-        assert dict(counts) == expected_types[length], (length, counts)
+        if length in expected_types:
+            assert dict(counts) == expected_types[length], (length, counts)
         print(f"length {length}: {len(entries)} reduced words, "
               f"{len(set(maps))} distinct affine maps, {dict(counts)}")
 
@@ -159,8 +160,26 @@ def main():
     print("length-4 screw family: 24 words using all four distinct face generators")
     print("exact screw invariants: cos(rotation)=-79/81; axial_shift^2=64/5")
     print("length-2 family: 12 pure rotations with cos(rotation)=-7/9")
-    print("PASS: exact word-family classification through length 6.")
-    print("LIMIT: these are fixed-face affine maps; BC uses a moving-face vertex recurrence.")
+    # Finite-order rotation test via Niven's theorem. All matrix traces
+    # are rational, so a rational angle multiple of pi can only have
+    # cosine 0, +/-1/2, or +/-1.
+    niven_values = {Q(0), Q(1, 2), Q(-1, 2), Q(1), Q(-1)}
+    for length in (2, 4, 6, 8):
+        cosines = Counter()
+        finite_order = 0
+        screw_count = 0
+        for _, transform in layers[length]:
+            kind, cosine, _ = classify_isometry(transform)
+            if kind == "rotation":
+                cosines[cosine] += 1
+                finite_order += int(cosine in niven_values)
+            elif kind == "screw":
+                screw_count += 1
+        assert finite_order == 0, (length, finite_order, cosines)
+        print(f"even length {length}: rotation cosine spectrum={dict(sorted(cosines.items()))}; "
+              f"finite-order rotations={finite_order}; screws={screw_count}")
+    print("PASS: exact word-family classification through length 8; no finite-order pure rotations found.")
+    print("LIMIT: these are fixed-face affine maps; BC uses a moving-face vertex recurrence. No knot classification is implied.")
 
 
 if __name__ == "__main__":
