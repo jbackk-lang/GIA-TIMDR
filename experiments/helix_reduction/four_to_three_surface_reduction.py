@@ -74,7 +74,7 @@ def signed_torsion(points):
     den = np.sum(cross*cross, axis=1)
     num = np.sum(cross*d3, axis=1)
     out = np.full(len(p), np.nan)
-    good = den > 1e-12
+    good = den > max(float(np.nanmax(den)) * 1e-12, 1e-30)
     out[good] = num[good] / den[good]
     return out
 
