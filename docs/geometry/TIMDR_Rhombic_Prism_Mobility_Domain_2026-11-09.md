@@ -103,3 +103,11 @@ Podobnie romb zachowuje długości boków, ale jego pole i kąty zmieniają się
 ## 7. Reprodukcja
 
 `python experiments/rhombic_prism_mobility_domain.py`
+
+
+## 8. Walidacja
+
+Dokładne sprawdzenia symboliczne przeszły w GitHub Actions:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42626682712
+
+Zweryfikowano relacje między trzema kątami, dwuwymiarowość przestrzeni konfiguracji, pola rombów, stałe pole trójkątów oraz wzór na objętość.
