@@ -957,3 +957,47 @@ W chwili zapisu dokumentacji wszystkie wcześniejsze kroki workflow zakończyły
 4. Czy największe luki widma są stabilne względem promienia i kierunku, czy znikają po zagęszczeniu siatki?
 
 Ograniczenie: stały próg 5° jest narzędziem diagnostycznym, nie matematyczną granicą widma. W analizie końcowej należy zachować surowe wartości kątów i porównywać widma bez progu, a także wykonać test zbieżności po długości słowa.
+
+
+## 23. Wyniki siatki 56-punktowej — anizotropia i symetria dihedralna
+
+Skan zakończył się powodzeniem w GitHub Actions 42641203910. Wszystkie 56 punktów zostało policzonych dla zredukowanych słów długości 8.
+
+### 23.1. Liczba kątów poniżej 5°
+
+| \(r\backslash\phi\) | 0° | 10° | 20° | 30° | 40° | 50° | 60° |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0.1 | 1134 | 4182 | 1758 | 1202 | 1758 | 4182 | 1134 |
+| 0.2 | 1024 | 1692 | 1692 | 1124 | 1692 | 1692 | 1024 |
+| 0.3 | 32 | 574 | 574 | 0 | 574 | 574 | 32 |
+| 0.4 | 0 | 54 | 520 | 0 | 520 | 54 | 0 |
+| 0.5 | 0 | 16 | 112 | 0 | 112 | 16 | 0 |
+| 0.6 | 0 | 112 | 0 | 0 | 0 | 112 | 0 |
+| 0.7 | 2 | 2 | 8 | 160 | 8 | 2 | 2 |
+| 0.8 | 0 | 162 | 122 | 0 | 122 | 162 | 0 |
+
+Wartość 0 oznacza, że żadna z właściwych części liniowych w skończonym zbiorze długości 8 nie ma kąta poniżej \(5^\circ\). Nie oznacza to dodatniej luki dla całej nieskończonej grupy.
+
+### 23.2. Luka przy progu 5° może być bardzo mała
+
+Najmniejsza różnica między największym kątem poniżej \(5^\circ\) a najmniejszym kątem powyżej \(5^\circ\) w całej siatce występuje dla \(r=0.4,\phi=20^\circ\) i wynosi zaledwie około \(0.1234^\circ\). Dla \(r=0.8,\phi=20^\circ\) jest to około \(0.5590^\circ\). Są to przykłady, dlaczego nie wolno interpretować progu 5° jako naturalnej granicy widma.
+
+Największa luka przy progu 5° wśród punktów, w których występują kąty po obu stronach progu, wynosi około \(27.97^\circ\) dla \(r=0.7,\phi=0^\circ\) i symetrycznego punktu \(\phi=60^\circ\).
+
+### 23.3. Symetria względem \(\phi=30^\circ\)
+
+Dla każdego promienia wyniki w parach:
+\[
+0^\circ\leftrightarrow60^\circ,\quad
+10^\circ\leftrightarrow50^\circ,\quad
+20^\circ\leftrightarrow40^\circ
+\]
+są identyczne w tabeli liczby kątów poniżej \(5^\circ\). To jest zgodne z odbiciową symetrią równobocznej podstawy, która działa na dysku parametrów jako odbicie względem osi \(\phi=30^\circ\). Punkty na osi symetrii mają dodatkowy stabilizator, co w niektórych promieniach zmienia liczbę różnych map.
+
+To ważny test kontrolny: rozkład nie jest dowolną anizotropią numeryczną, lecz wykazuje wzór zgodny z grupą symetrii \(D_3\) trójkąta. Następny test powinien porównać całe multizbiory kątów dla par odbitych, nie tylko liczbę wartości poniżej progu.
+
+### 23.4. Wniosek
+
+W skończonej głębokości widmo kątowe jest wyraźnie zależne od parametrów i kierunku, a jego statystyki respektują symetrię trójkąta. Widzimy sektory bez małych kątów, sektory z dużą liczbą małych kątów oraz obszary, w których próg 5° przecina widmo niemal bez przerwy.
+
+To jest dowód na bogatą strukturę skończonego widma, nie na fraktalność. Kluczowy następny eksperyment: sprawdzenie pełnej symetrii widm oraz porównanie głębokości 4, 6 i 8 w tych samych punktach parametrów.
