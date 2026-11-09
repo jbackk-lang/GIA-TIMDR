@@ -1,0 +1,21 @@
+name: Rhombic prism mobility domain
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/rhombic_prism_mobility_domain.py"
+      - ".github/workflows/rhombic-prism-mobility.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-mobility-domain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install sympy
+      - name: Verify exact mobility constraints
+        run: python experiments/rhombic_prism_mobility_domain.py
