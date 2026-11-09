@@ -589,3 +589,20 @@ Oś jest elementem pierwotnym, ale jej źródłowa parametryzacja oraz punkty ka
 Aksjomaty G2–G4 wskazują na trójkąt/asymetrię oraz zmianę pola normalnych powierzchni jako obiekty gałęzi geometrycznej; nie ustanawiają kuli jako źródła helisy. Obecne skrypty 4→3 są jawnie kinematycznymi modelami zadanych krzywych: wybierają/wycinają gałąź, budują mostek lub usuwają całą krzywą, a następnie ustawiają trzy pozostałe fazy na 120°. Nie wyprowadzają modułów z odbicia trójkąta, nie wyprowadzają wyboru gałęzi ani nie dowodzą węzła lub progu 5→6.
 
 **Decyzja:** wstrzymać rozbudowę hipotezy „kula generuje spiralną oś i węzeł” do czasu odtworzenia operatora trójkąt→odbicie→obrót→sklejenie. Najpierw odtworzyć moduł źródłowy, z niego wyprowadzić oś i gałęzie, zmierzyć właściwości i dopiero później dodać kulę jako kontrolowany warunek. Zachować znak orientacji, fazę, kolejność zdarzeń i warunki brzegowe w każdej redukcji.
+
+
+## 30. Dowodowe rozstrzygnięcie kąta czworościan → sześcian (problem otwarty)
+
+Autor skorygował wcześniejsze przypomnienie: nie traktujemy 720° ani fazy 1–0–1 jako ustalonych danych. Kąt skrętu ma zostać rozstrzygnięty dowodem matematycznym.
+
+Punkty odniesienia geometrii klasycznej:
+- regularny czworościan: kąt dwuścienny wewnętrzny `acos(1/3) = 70.528779°`;
+- kąt między zewnętrznymi normalnymi sąsiednich ścian: `acos(-1/3) = 109.471221°`;
+- sześcian: kąt dwuścienny wewnętrzny `90°`;
+- różnica wartości bezwzględnej względem 90° wynosi `19.471221°`, ale znak zależy od tego, czy porównujemy kąty wewnętrzne czy normalne zewnętrzne.
+
+Te kąty brył nie są automatycznie kątem obrotu modułu, torsją osi, twistem ramy ani fazą helisy. Aby rozstrzygnąć mechanizm TIMDR, trzeba wyprowadzić zorientowane macierze przejścia moduł→moduł `R_n ∈ SO(3)` z geometrii wspólnej krawędzi, normalnych, odbicia i konwencji znaku, a następnie obliczyć holonomię `R_loop = R_0 R_1 ... R_(m-1)`. Obroty 3D nie muszą komutować, więc suma kątów nie zastępuje iloczynu macierzy.
+
+Zapisana hipoteza autora: punkty kardynalne mogą odpowiadać zdarzeniom, w których kąt skrętu przekracza 90°. To wymaga definicji ciągłej funkcji kąta `theta(s)` i testu stabilności zdarzeń `theta(s)>90°`; nie utożsamiamy tego z kątem dwuściennym sześcianu.
+
+Specyfikacja i plan dowodowy: `docs/geometry/TETRAHEDRON_CUBE_TWIST_ANGLE_PROOF_2026-11-09.md`. Do czasu wyprowadzenia operatora przejścia 90° pozostaje punktem odniesienia, a nie potwierdzonym parametrem helisy TIMDR.
