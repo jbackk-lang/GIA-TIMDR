@@ -114,3 +114,12 @@ Audyt zapisany w `docs/handoffs/AUDIT_SIGNAL_TO_HELIX_RESPONSE_PATH_2026-11-09.m
 Dodano `experiments/helix_signal_response/minimal_coupling_probe.py` i testy. CI run `42572283596` zakończył się PASS (3/3 testy); skrypt wykonał porównanie odpowiedzi na identyczny sygnał dla stanu zerowego i stanu po wcześniejszym impulsie. RMS odpowiedzi: 0.0311099 vs 0.0838454; RMS różnicy: 0.0748333; max różnicy: 0.1739572. Wynik dowodzi zależności od stanu w abstrakcyjnym liniowym modelu pierścienia G. **Nie** dowodzi fizycznego sprzężenia informacji z rzeczywistą helisą: wejście znormalizowane do siły przez arbitralny gain, bez kalibracji jednostek. Raport: `docs/handoffs/RESULT_MINIMAL_SIGNAL_HELIX_RESPONSE_PROBE_2026-11-09.md`.
 
 Następny i jedyny priorytet: ustalić na podstawie wcześniejszych badań i repozytoriów, jaki jest rzeczywisty fizyczny/operacyjny kanał oddziaływania informacji na helisę. Nie rozszerzać modelu ani nie mnożyć sweepów, dopóki kanał nie zostanie uzasadniony.
+
+
+## 11. Audyt wcześniejszych kandydatów sprzężenia G↔S
+
+W kolejnym przeglądzie znaleziono istniejący operator, który trzeba uwzględnić: `TIMDR-Math-Formalism/timdr_formalism/gs_matrix.py`, z dynamiką `dV/dt=KV`, `V=[G,S]^T` i rozkładem K na część antysymetryczną (zachowawcze mieszanie stanów) oraz symetryczną (wzrost/zanik). To korekta wcześniejszego stwierdzenia, że w całym repo nie ma żadnego operatora G↔S. GS-Matrix jest abstrakcyjnym kandydatem obliczeniowym, ale nie ma jeszcze kalibracji jednostek ani mapowania składowych na mierzalne stopnie swobody helisy.
+
+Dodatkowo `signal_meta_bridge.py` łączy sygnał → SG-Coupling → Θ_bif → klasy I/II/III → MetaState → faza, ale nie sprzęga mechanicznie z helisą. `modal_band_energy_bridge.py` daje obserwable pasmowe sygnału, nie pomiar energii przekazanej do helisy. Modele T/U pozostają szkicami pola/przepływu informacji, bez kompletnego, wymiarowo określonego prawa oddziaływania.
+
+Pełny audyt kandydatów: `docs/handoffs/AUDIT_CANDIDATE_PHYSICAL_SIGNAL_HELIX_CHANNELS_2026-11-09.md`. Kolejny priorytet: audyt pozostałych repozytoriów, zwłaszcza TSI, ponieważ lokalny katalog `C:\Users\jback\Downloads\a` nie jest dostępny bezpośrednio w sesji; potrzebne jest udostępnienie archiwum lub repozytoriów na GitHub.
