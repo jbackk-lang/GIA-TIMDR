@@ -810,3 +810,8 @@ Zapisano `docs/geometry/PREREG_TIMDR_TRIANGLE_MODULE_OPERATOR_v0.1.md`. Protokó
 **Status: BLOCKED** do czasu decyzji autora, co dokładnie jest odbijane i jak są łączone kolejne moduły. Nie rozpoczynać implementacji generatora przed zamrożeniem tej definicji.
 
 **Aktualizacja BC:** siódmy test potwierdza dokładne promienie względem wspólnej osi: wierzchołki (3√6/5), centroidy (2/5). GitHub Actions run **42589832124 SUCCESS**, 7/7 testów.
+
+
+### 30.6. Decyzja autora: czworościan reprezentowany przez wierzchołki
+
+Autor doprecyzował, że obiektem są wierzchołki, ale rozumiane jako reprezentacja czworościanu. Prerejestracja została zaktualizowana: moduł bazowy to cztery uporządkowane punkty w R³. Jako pierwszy wariant operacyjny badamy regułę BC: odbicie najstarszego wierzchołka względem płaszczyzny trzech pozostałych, dopisanie nowego punktu i przesunięcie okna o jeden. Nie zakładamy z góry, że czworościan TIMDR jest foremny ani że reguła BC jest jego prawem; testujemy przypadek foremny i ogólny oddzielnie. Status: częściowo odblokowany dla testu referencyjnego; interpretacja jako operator TIMDR wymaga potwierdzenia reguły odbicia.
