@@ -710,3 +710,13 @@ To wspiera obraz centralnej konfiguracji jako punktu wysokiej symetrii w skończ
 
 Reprodukcja:
 'experiments/rhombic_prism_screw_unfolding_multidegree.py'
+
+
+Walidacja GitHub Actions dla całego zestawu testów:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42636469072 — PASS.
+
+W logach CI potwierdzono:
+- trzy kierunki szczególne: dla długości 4 = 245 map / 84 śruby; dla długości 6 = 3045 map / 1848 śrub;
+- kierunki ogólne 30° i 90°: dla długości 4 = 320 map / 120 śrub; dla długości 6 = 5078 map / 3400 śrub;
+- centrum: 14, 65 i 175 map dla długości 2, 4 i 6;
+- diagnostykę precyzji długości 8, która potwierdza niestabilność numerycznego deduplikowania poza centrum.
