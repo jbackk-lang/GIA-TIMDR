@@ -158,3 +158,7 @@ To rozdziela dwa zjawiska:
 - **rezonans okresowy**: kąt obrotu jest wymierną wielokrotnością pełnego obrotu.
 
 Znaleźliśmy pierwsze, ale nie drugie. Samo wyzerowanie skoku nie wystarcza do otrzymania zamkniętej krzywej.
+
+
+Pełny test po dodaniu widma kątów rezonansowych również zakończył się powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42605904137
