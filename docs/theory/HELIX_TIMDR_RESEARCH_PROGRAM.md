@@ -349,3 +349,55 @@ Jest to obowiązkowy rejestr właściwości, parametrów, wrażliwości, ogranic
 ## 14. Geneza sygnału i warunki brzegowe węzła trójhelikalnego
 
 Nowy dokument formalizacyjny: [TRIANGLE_HELIX_NODE_BOUNDARY_CONDITIONS.md](../geometry/TRIANGLE_HELIX_NODE_BOUNDARY_CONDITIONS.md). Zapisuje jako hipotezy robocze ciąg trajektoria trójkąta → redukcja → węzeł trójhelikalny, rolę osi i punktów kardynalnych, możliwe znaczenia redukcji czterowęzła do trójwęzła oraz macierz warunków brzegowych. Dokument rozdziela torsję Freneta-Serreta, skręt pasma, writhe, linking i fazę modalną. Nie uznaje jeszcze żadnej mapy redukcji za dowiedzioną.
+
+
+## 15. Trop chemiczno-jądrowy z archiwum TRM (2026-11-09)
+
+Odnaleziono bezpośrednio powiązany materiał w repozytorium `jbackk-lang/TIMDR-Concept-Archive`, katalog `Topological-Reduction-Model-TRM/physics/`:
+
+- `element-stability.md` — szkic efektywnego skrętu jądra `τ_nuc=f(Z,N)`, w najprostszym wariancie `α|N−Z|+βZ`; proponuje związek z energią wiązania na nukleon i tempem rozpadu.
+- `decay-series.md` — serie uranowa, torowa i neptunowa jako „drabiny redukcji” kończące się stabilnymi izotopami ołowiu.
+- `leptons.md` — analogia redukcyjna `τ→μ→e`.
+- `cosmic_time_in_particle.md` — hipoteza łączenia czasu życia cząstek z globalnym parametrem τ.
+- `examples/particle-to-biology.md` — zestawienie analogii `U-238→Pb-206`, `τ→μ→e` i przemian biologicznych.
+- `core/twist-reduction-law.md` oraz `math/reduction-equations.md` — ogólne prawo `R=kτ^n` i szkic dynamiki redukcji informacji.
+
+### 15.1. Dlaczego to może pomóc w badaniu węzła i redukcji
+
+Najbardziej użyteczny trop to nie analogia chemiczna sama w sobie, lecz **jawny łańcuch przejść między stanami**. W szeregu rozpadu każdy nuklid ma stan opisany co najmniej przez ((Z,N)), a przejścia zmieniają te liczby według typu rozpadu. Można więc badać:
+- graf stanów i skierowanych przejść;
+- węzły rozgałęzień (np. konkurujące kanały rozpadu);
+- stany końcowe / stabilne;
+- niezmienniki i wielkości monotoniczne;
+- warunki brzegowe łańcucha i prawdopodobieństwa przejść.
+
+To może dostarczyć formalnego języka do sprawdzenia, czy „redukcja 4→3” w modelu helikalnym oznacza redukcję liczby niezależnych stanów, kontrakcję grafu, projekcję obserwacji czy rzeczywistą zmianę topologii. Nie dowodzi jednak, że proces jądrowy i postulowana geometria helisy są tym samym mechanizmem.
+
+### 15.2. Krytyczne rozróżnienie: tablica okresowa a szeregi rozpadu
+
+Nie znaleziono w tym przeglądzie odrębnego repozytorium wyprowadzającego układ okresowy pierwiastków jako całość z redukcji TIMDR. Znaleziony materiał dotyczy przede wszystkim **stabilności jąder i szeregów rozpadu**, a nie wyprowadzenia okresowości chemicznej z konfiguracji elektronowych.
+
+W fizyce jądrowej stan nuklidu opisuje ((Z,N)); rozpad α zmienia ((Z,N)	o(Z-2,N-2)), rozpad β⁻ ((Z,N)	o(Z+1,N-1)), a β⁺ / wychwyt elektronu ((Z,N)	o(Z-1,N+1)). Są to reguły bilansu liczby protonów i neutronów. Łańcuch U-238→Pb-206 ma wiele etapów i rozgałęzień, więc nie wolno przedstawiać go jako prostego, jednorodnego skalowania pojedynczego τ bez walidacji.
+
+### 15.3. Status naukowy równań TRM
+
+Równania w `element-stability.md` są hipotezami modelowymi, nie wyprowadzonym prawem jądrowym:
+- `τ_nuc=α|N−Z|+βZ` nie uwzględnia samodzielnie parowania nukleonów, efektów powłokowych, deformacji jądra ani szczegółów oddziaływań;
+- `τ_nuc∝1/(B/A)` nie jest uniwersalnym prawem fizycznym;
+- `λ=λ₀τ^m` wymaga kalibracji osobno dla kanałów rozpadu i nie wynika z samej definicji τ;
+- `R=kτ^n` jest postulatem TRM, którego parametry i zdolność predykcyjna wymagają testu na danych izotopowych.
+
+Dodatkowo `cosmic_time_in_particle.md` zawiera mocną hipotezę o globalnym czasie kosmicznym zapisanym w czasie życia cząstek, ale w znalezionym pliku nie ma wyprowadzenia ani testu rozstrzygającego. Nie traktować jej jako ustalonego faktu.
+
+### 15.4. Nowy kierunek eksperymentu — graf redukcji nuklidów
+
+Zalecany test porównawczy:
+1. Zbudować graf nuklidów z węzłami ((Z,N)) i skierowanymi krawędziami kanałów α, β⁻, β⁺ / EC oraz rozgałęzień.
+2. Oznaczyć stabilne nuklidy jako stany końcowe, a niestabilne jako stany przejściowe.
+3. Dodać dane empiryczne: typ rozpadu, energię, okres półtrwania, rozgałęzienia i niepewności.
+4. Dopiero potem obliczyć kandydackie `τ_nuc` i `R`, dopasować parametry na zbiorze treningowym i sprawdzić predykcję na odłożonych izotopach.
+5. Porównać z prostymi baseline'ami: odległość od doliny stabilności, parzystość Z/N, liczby magiczne i znane modele jądrowe.
+6. Zarejestrować, czy redukcja jest monotoniczna, czy występują cykle/rozgałęzienia i ile stanów niezależnych rzeczywiście pozostaje.
+
+**Wniosek:** archiwum zawiera wartościowy trop do formalizacji redukcji jako grafu przejść stanów. To może pomóc w analizie trajektorii trójkąta i hipotezy 4→3, ale analogia musi zostać przetestowana, a nie przyjęta jako dowód.
+
