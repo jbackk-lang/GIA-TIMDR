@@ -509,3 +509,14 @@ Autor wskazał, że sygnał sinusoidalny przebiega kolejno: dodatnio, ujemnie, d
 Nie utożsamiamy znaku płata z torsją Freneta, ręcznością topologiczną ani własnością antycząstki. Trzeba zdefiniować mapę sygnał→trzy gałęzie 3D, punkty przejścia przez zero, styczne, fazę i warunki domknięcia. Dopiero wtedy można stwierdzić, czy powstaje topologiczny trójwęzeł, czy tylko trójpłatowa trajektoria.
 
 Specyfikacja: `docs/geometry/TRIPLE_NODE_FROM_ALTERNATING_SINUSOID_LOBES_v0.1.md`. Kandydatami na punkty kardynalne są ekstrema płatów, przejścia przez zero i punkty zmiany orientacji mapowania; ich status wymaga testu stabilności.
+
+
+## 25. Wynik badania trzech płatów sinusoidy (+−+)
+
+Wykonano audyt sygnału (s(t)=A\sin(\omega t)) na trzech kolejnych półokresach. Kod: `experiments/helix_reduction/three_lobe_signal_audit.py`; testy: `experiments/helix_reduction/tests/test_three_lobe_signal_audit.py`; raport: `docs/geometry/THREE_LOBE_SINUSOID_SIGNAL_AUDIT_v0.1.md`.
+
+Wynik sygnałowy: znaki płatów (+,-,+), ekstrema (+A,-A,+A), cztery granice zerowe z naprzemiennymi znakami pochodnej (+,-,+,-). Wartość bezwzględna zmienia słowo znaków na (+,+,+), tracąc orientacyjną informację środkowego płata.
+
+**Odkryta pułapka:** słowo (+,-,+) jest palindromiczne, więc samo nie rozróżnia kierunku przejścia. Odwrócenie parametryzacji zmienia znak kierunku/pochodnej, choć sekwencja polaryzacji płatów pozostaje taka sama. Ręczność wymaga dodatkowego kanału orientacji (kierunek parametru, styczna, rama lub faza przestrzenna); nie można jej wywnioskować z samych znaków.
+
+CI [run pending from latest commit] uruchamia testy oraz zapis JSON. Wynik sygnałowy nie dowodzi jeszcze trójwęzła: potrzebny jest jawny operator osadzenia 3D, reguła połączeń i niezmiennik topologiczny. Nie utożsamiać trzech płatów z trzema strunami.
