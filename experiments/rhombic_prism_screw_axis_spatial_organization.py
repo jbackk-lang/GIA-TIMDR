@@ -80,7 +80,7 @@ def extract_axes(u, v, length):
         if sig is None:
             kinds["rotation"] += 1
             continue
-        if sig[0] == "ill_conditioned":
+        if isinstance(sig[0], str) and sig[0] == "ill_conditioned":
             kinds["ill_conditioned_screw"] += 1
             continue
         kinds["screw"] += 1
