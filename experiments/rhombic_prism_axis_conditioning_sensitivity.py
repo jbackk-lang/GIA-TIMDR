@@ -17,8 +17,11 @@ def analyze(label, u, v):
     bins = [0, 5, 30, 60, 90, 120, 180.000001]
     hist = [int(np.sum((np.asarray(angle_values) >= lo) & (np.asarray(angle_values) < hi)))
             for lo, hi in zip(bins[:-1], bins[1:])]
+    low_angles = [x for x in angle_values if x < 5.0]
+    high_angles = [x for x in angle_values if x >= 5.0]
     print(f"ANGLE_HIST,{label},bins_lt5_5to30_30to60_60to90_90to120_ge120={hist},"
-          f"min_nonidentity_deg={min(angle_values):.7g}")
+          f"min_nonidentity_deg={min(angle_values):.7g},"
+          f"max_below5={max(low_angles):.7g},min_atleast5={min(high_angles):.7g}")
     for cutoff in (1.0, 2.0, 5.0, 10.0):
         axes = {}
         rotations = screws = near = translations = 0
