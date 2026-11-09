@@ -500,3 +500,12 @@ Nowa sekwencja robocza:
 Nie zakładamy jeszcze, czy piąty element zostaje odrzucony, czy jego dodanie reorganizuje cały układ do trzech niezależnych gałęzi. Wynik musi wynikać z jawnych warunków brzegowych i operatora redukcji, nie z ręcznego usunięcia helisy. Kula pozostaje geometrią bazową, faza jest miarą podziału; jajo jest wariantem kontrolnym.
 
 Specyfikacja: `docs/geometry/ADDITION_INDUCED_REDUCTION_TRIANGLE_TETRAHEDRON_v0.1.md`. Wyniki wcześniejszego modelu 4→3 (v0.2) pozostają wyłącznie kontrolą kinematycznego rozstawienia faz 90°→120° i nie są dowodem mechanizmu redukcji przez dodanie elementu.
+
+
+## 24. Sygnał naprzemienny + − + jako kandydat na źródło trójwęzła
+
+Autor wskazał, że sygnał sinusoidalny przebiega kolejno: dodatnio, ujemnie, dodatnio. Hipoteza: trzy kolejne płaty sinusoidy o znakach `(+1,-1,+1)` mogą stanowić źródło konstrukcji trójwęzła. Znak środkowego płata jest informacją o odwróceniu orientacji i nie może zostać utracony przez wartość bezwzględną sygnału.
+
+Nie utożsamiamy znaku płata z torsją Freneta, ręcznością topologiczną ani własnością antycząstki. Trzeba zdefiniować mapę sygnał→trzy gałęzie 3D, punkty przejścia przez zero, styczne, fazę i warunki domknięcia. Dopiero wtedy można stwierdzić, czy powstaje topologiczny trójwęzeł, czy tylko trójpłatowa trajektoria.
+
+Specyfikacja: `docs/geometry/TRIPLE_NODE_FROM_ALTERNATING_SINUSOID_LOBES_v0.1.md`. Kandydatami na punkty kardynalne są ekstrema płatów, przejścia przez zero i punkty zmiany orientacji mapowania; ich status wymaga testu stabilności.
