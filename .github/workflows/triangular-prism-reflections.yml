@@ -1,0 +1,21 @@
+name: Triangular prism reflection group
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/triangular_prism_reflections.py"
+      - ".github/workflows/triangular-prism-reflections.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-prism-reflections:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install sympy
+      - name: Run exact triangular prism reflection experiment
+        run: python experiments/triangular_prism_reflections.py
