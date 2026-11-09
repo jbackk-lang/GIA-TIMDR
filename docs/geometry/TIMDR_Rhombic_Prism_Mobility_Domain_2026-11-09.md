@@ -111,3 +111,43 @@ Dokładne sprawdzenia symboliczne przeszły w GitHub Actions:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42626682712
 
 Zweryfikowano relacje między trzema kątami, dwuwymiarowość przestrzeni konfiguracji, pola rombów, stałe pole trójkątów oraz wzór na objętość.
+
+
+## 9. Sprzężenie podatności z widmem ruchów śrubowych
+
+Dodano skan numeryczny całej rodziny konfiguracji:
+`experiments/rhombic_prism_mobility_screw_coupling.py`.
+
+Parametry ((u,v)) opisują dwa stopnie swobody, (u^2+v^2<1). Dla każdej próbki konstruujemy pięć płaszczyzn odbić i enumerujemy wszystkie zredukowane słowa długości 4 (320 słów). Następnie porównujemy uzyskane izometrie afiniczne i klasyfikujemy je jako obroty, ruchy śrubowe, translacje lub identyczność.
+
+### Skan przekroju (u=1/2)
+
+| (v) | Kąty ostre rombów (°) | Różne mapy | Obroty | Śruby | Translacje |
+|---:|---|---:|---:|---:|---:|
+| 0 | 60; 75.522; 75.522 | 161 | 116 | 36 | 8 |
+| 0.05 | 60; 78.071; 72.944 | 302 | 222 | 72 | 8 |
+| 0.10 | 60; 80.596; 70.330 | 302 | 222 | 72 | 8 |
+| 0.20 | 60; 85.596; 64.963 | 302 | 222 | 72 | 8 |
+| 0.288675 | 60; 90; 60 | 245 | 176 | 60 | 8 |
+| 0.35 | 60; 86.956; 56.419 | 302 | 222 | 72 | 8 |
+| 0.50 | 60; 79.455; 46.920 | 302 | 222 | 72 | 8 |
+| 0.577350 | 60; 75.522; 41.410 | 292 | 212 | 72 | 8 |
+| 0.60 | 60; 74.359; 39.681 | 302 | 222 | 72 | 8 |
+| 0.70 | 60; 69.132; 31.105 | 302 | 222 | 72 | 8 |
+
+Dodatkowy punkt poza tą linią, ((u,v)=(0.1,0.1)), również dał 302 mapy: 222 obroty, 72 śruby i 8 translacji.
+
+### Co z tego wynika — ostrożnie
+
+1. W próbkach ogólnych widmo długości 4 jest stabilne: 302 różne mapy, w tym 72 ruchy śrubowe.
+2. W szczególnych konfiguracjach pojawiają się dodatkowe zbieżności transformacji: liczba różnych map spada, np. do 245 lub 292.
+3. W punkcie (v=0) na badanym przekroju występuje dodatkowa symetria i liczba śrub spada do 36.
+4. Próbki (v=1/(2\sqrt3)) i (v=1/\sqrt3) odtwarzają wcześniej badane przypadki A i B.
+
+To wspiera hipotezę, że podatność geometryczna steruje nie tylko wymiarami bryły, lecz także strukturą relacji odbić. Szczególne kąty mogą odpowiadać konfiguracjom rezonansowym, w których różne słowa odbić dają tę samą izometrię.
+
+**Ograniczenie:** skan jest numeryczny (deduplikacja z tolerancją (10^{-8})) i obejmuje wyłącznie słowa długości 4. Nie dowodzi globalnej klasyfikacji grupy ani nie wskazuje jeszcze pełnego zbioru krzywych rezonansowych w dysku ((u,v)). Wymaga to dokładnej analizy symbolicznej.
+
+### Status reprodukcji
+
+GitHub Actions: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42627185257
