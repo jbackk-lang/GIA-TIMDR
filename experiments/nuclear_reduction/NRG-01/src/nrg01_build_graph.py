@@ -58,7 +58,7 @@ def daughter_for(z: int, n: int, mode: str) -> tuple[int, int] | None:
         return (z-2, n-2) if z >= 2 and n >= 2 else None
     if m in {"B-", "BM", "BETA-", "BETA−"}:
         return (z+1, n-1) if n >= 1 else None
-    if m in {"B+", "BP", "BETA+", "BETA+"}:
+    if m in {"B+", "BP", "BETA+"}:
         return (z-1, n+1) if z >= 1 else None
     if m in {"EC", "E.C.", "ELECTRONCAPTURE"}:
         return (z-1, n+1) if z >= 1 else None
@@ -165,9 +165,6 @@ def build_graph(seeds=SEEDS, max_depth=80, delay=0.15):
 
 
 def symbol_for_z(z: int) -> str | None:
-    # Reverse lookup intentionally shares parse_nuclide's validated table.
-    for a in range(max(1, z), max(1, z)+1):
-        pass
     symbols = [
         "H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca",
         "Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr","Rb","Sr","Y","Zr",
