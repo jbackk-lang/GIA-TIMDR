@@ -201,3 +201,82 @@ Dopiero po odpowiedziach na R1–R5:
 ## Dziennik zmian
 
 - **2026-11-09 / v0.1:** utworzono program badań; ustalono GIA-TIMDR jako kanoniczne repozytorium postępu; oddzielono teorię od implementacji HELIX-LOCK; zapisano otwarte hipotezy helisa–pole–struna i warunki przejścia do badań kryptograficznych.
+
+
+## 9. Inwentaryzacja źródeł — pierwszy przebieg (2026-11-09)
+
+Przeszukano strukturę plików repozytorium GIA-TIMDR oraz wybrane, bezpośrednio powiązane repozytoria siostrzane. Jest to **pierwszy przebieg inwentaryzacji**, a nie pełny audyt wszystkich 72 repozytoriów. Wyniki poniżej rozróżniają definicje, implementacje i eksperymenty.
+
+### 9.1. GIA-TIMDR
+
+| Źródło | Rodzaj | Co wnosi | Ograniczenie / uwaga |
+|---|---|---|---|
+| `docs/geometry/TIMDR_Trefoil_FrenetTorsion.md` | dokument + raport eksperymentu | Model krzywej trefoil, krzywizna i torsja Freneta-Serreta, lokalne deformacje węzłów, rezonans kanałów | Test syntetyczny konkretnej krzywej; nie jest szyfrem ani ogólną definicją helisy TIMDR |
+| `core/trefoil_frenet_torsion.py` | implementacja numeryczna | Krzywizna/torsja z próbek, deformacje Gaussowskie, kanały detekcji i koincydencja | Implementacja diagnostyczna; nie definiuje transformacji danych ani kryptografii |
+| `docs/theory/TIMDR_Twists.md` | indeks/specyfikacja pojęć | Rozdziela co najmniej siedem formalnie różnych znaczeń „skrętu” | Konieczne źródło kontroli terminologii; nie utożsamia torsji krzywej ze skrętem topologicznym |
+| `docs/theory/Model_T_Field_Theory.md` | teoria pola | Kandydat na formalizację pola w ekosystemie | Wymaga osobnego przeglądu równań, dziedziny i statusu twierdzeń przed użyciem w mapie helisa→pole |
+| `docs/geometry/tourosomobius.md` | notacja pojęciowa | Potrójny Tourosomobius, hybryda torus+Möbius+helisa | Sam dokument opisuje ją jako koncepcję bez kompletnej dziedziny, przeciwdziedziny, dowodu, kodu i testów |
+
+**Wniosek GIA:** istnieje konkretny, policzalny model trefoil oraz odrębne pojęcia skrętu. Nie znaleziono podstaw, by traktować trefoil jako uniwersalną helisę TIMDR albo utożsamiać jego torsję Freneta z innymi wielkościami `τ`.
+
+### 9.2. TIMDR-Math-Formalism
+
+| Źródło | Rodzaj | Co wnosi | Ograniczenie / uwaga |
+|---|---|---|---|
+| `docs/theory/GS_Matrix_Helical_Coupling_DRAFT.md` | szkic modelu | Konstrukcja sprzężenia K↔Θ_bif i próg genuine rotation | Jawnie eksploracyjny toy model, nieaksjomatyzowany |
+| `docs/theory/PREREG_HELICAL_SHAPE_ESTIMATOR.md` | prerejestracja + protokół | Test estymacji parametrów helikalnego kształtu z szumem | Test odzyskiwania parametrów znanego modelu, nie dowód, że realne dane mają taki kształt |
+| `docs/theory/RESULT_HELICAL_COUPLING_SCOPE.md` | raport wyniku | Wykazuje ograniczony zakres: binarna klasyfikacja obecności rotacji była obiecująca, dokładna estymacja Re(λ) nie przeszła kryterium | Wynik opisowy na ograniczonych danych; brak podstaw do uogólnienia kryptograficznego |
+
+**Wniosek Math-Formalism:** istnieje kandydat na opis helikalnego sprzężenia i procedura estymacji kształtu. Wynik jest asymetryczny: klasyfikacja obecności rotacji wypada lepiej niż odzyskiwanie dokładnego tempa obwiedni. Nie wolno przenosić jakościowego wyniku do twierdzeń o bezpieczeństwie.
+
+### 9.3. TIMDR-META-DYNAMICS
+
+| Źródło | Rodzaj | Co wnosi | Ograniczenie / uwaga |
+|---|---|---|---|
+| `models/evolution_helix.py` | model ewolucji | Klasyfikuje cykl życia helisy jako narodziny/stabilizacja/rozpad na podstawie `MetaState.tau` | Progi 0.2 i 1.0 są arbitralne i wymagają kalibracji |
+| `models/evolution_field.py` | model pola | Generuje serię M-stanów z kolejnych S-stanów | To ewolucja globalnego pola w API tego repo; nie jest jeszcze mapą pola z krzywej helikalnej |
+| `analysis/meta_torsion.py` | analiza geometryczna | Liczy krzywiznę i torsję trajektorii `(Λ, τ, ρ)` | Jawnie odróżnia geometryczną torsję od wejściowego `MetaState.tau`; wymaga równomiernego dt i wygładzania |
+| `test_field_torsion_vs_tau.py` | test korelacyjny | Sprawdza korelację geometrycznej torsji z wejściowym τ | Dane demo syntetyczne; wynik nie jest dowodem tożsamości tych wielkości |
+
+**Wniosek META-DYNAMICS:** w repozytorium występują co najmniej trzy różne sensy „helisy/pola/torsji”. Należy zachować ich rozdzielenie. Szczególnie `MetaState.tau` nie jest torsją Freneta-Serreta.
+
+### 9.4. Pozostałe znalezione tropy — wymagają otwarcia i oceny
+
+- `Helix-Astro/helix_spectrum.py` i `Helix-Astro/test_helix.py`: helikalny model widmowy; nie oceniono jeszcze jego równań ani statusu.
+- `FIELDCORE/src/fieldcore.py`: implementacja pola; nie oceniono jeszcze relacji z helisą TIMDR.
+- `THE_TIMDR_Hyperflow_Engine/the_geo_pro_4d.py`: wskazywany przez dokumentację jako implementacja geometrii 3D/4D z krzywizną i torsją; repozytorium i kod wymagają osobnego przeglądu.
+- `TIMDR-Geometry-Formalism`: w spisie plików nie znaleziono nazw zawierających helix/helical/spiral/strun/torsion/trefoil/twist; nie wyklucza to treści ukrytej pod innymi nazwami.
+- `TIMDR-Time-Formalism` i `TIMDR-Modal-Formalism`: brak nazw plików wskazujących wprost na helisę; wcześniej sprawdzone Chronoprocess i phase_sync pozostają istotne jako źródła niezależnych projekcji i modelu fazowego.
+
+### 9.5. Wstępna mapa pojęć — nie utożsamiać
+
+| Nazwa | Obiekt matematyczny | Status w przeglądzie |
+|---|---|---|
+| Helisa / krzywa helikalna | Krzywa parametryczna w przestrzeni | Wymaga wskazania konkretnej definicji TIMDR |
+| Trefoil | Zamknięta krzywa węzłowa | Implementacja i test syntetyczny w GIA |
+| Torsja Freneta-Serreta | Wielkość geometryczna krzywej | Zaimplementowana dla trefoil i trajektorii meta |
+| Skręt topologiczny τ | Zdarzenie/parametr rodziny deformowanych powierzchni | Odrębna definicja w TIMDR_Twists |
+| Helical coupling K↔Θ_bif | Eksploracyjny model sprzężenia | Wynik o ograniczonym zakresie |
+| Meta field (Λ, τ, ρ) | Trajektoria stanu w R³ | Liczona geometrycznie; nie jest automatycznie polem przestrzennym |
+| Pole TIMDR | Wymaga określenia typu i przestrzeni definicji | Kandydat do formalizacji |
+| Struna | Nieustalony obiekt modelowy | Hipoteza otwarta, brak formalnej definicji znalezionej w tym przebiegu |
+
+## 10. Aktualizacja priorytetów po inwentaryzacji
+
+Nie rozpoczynać jeszcze implementacji transformatora ani szyfru. Następny krok to pogłębiony audyt źródeł z sekcji 9.4 oraz zebranie konkretnych definicji parametrycznych helisy z repozytoriów siostrzanych.
+
+Kolejność:
+1. Otworzyć `tourosomobius.md`, `Model_T_Field_Theory.md` oraz źródła teorii pola i sprawdzić, czy istnieje formalna mapa z krzywej do pola.
+2. Otworzyć `Helix-Astro/helix_spectrum.py` i jego testy; sklasyfikować model widmowy.
+3. Otworzyć `FIELDCORE/src/fieldcore.py` i określić, czy jest to pole skalarne/wektorowe/inny obiekt oraz jakie ma wejścia/wyjścia.
+4. Otworzyć `THE_TIMDR_Hyperflow_Engine/the_geo_pro_4d.py` i porównać definicje helisy, krzywizny i torsji z GIA.
+5. Dopiero po tych krokach zdefiniować kandydackie mapy helisa→pole i helisa→struna.
+
+**Nie wolno nazywać „struną” zwykłej krzywej parametrycznej bez dodatkowej struktury.** Trzeba określić, jakie stopnie swobody lub pola wewnętrzne odróżniają model strunowy od samej krzywej.
+
+## 11. Dziennik zmian — dopisek 2026-11-09
+
+- Wykonano pierwszy przebieg inwentaryzacji plików w GIA-TIMDR oraz wybranych repozytoriach siostrzanych.
+- Znaleziono konkretne źródła: trefoil/Frenet torsion, siedem rozróżnień pojęcia skrętu, GS-Matrix helical coupling, estymator kształtu helikalnego, ewolucję helisy i geometrię trajektorii pola meta.
+- Wykryto ważne ograniczenia: część modeli jest eksperymentalna, część używa arbitralnych progów, a część wyników opiera się na danych syntetycznych.
+- Ustalono, że pełna inwentaryzacja wszystkich repozytoriów siostrzanych pozostaje otwarta.
