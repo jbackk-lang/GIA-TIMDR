@@ -529,3 +529,14 @@ Samo odzyskanie sekwencji (+,-,+) jest własnością definicyjną trzech półok
 Kod audytu rozszerzono o pomiar zgodności (C^0/C^1); testy CI [42566568596](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42566568596) przeszły. Warianty do porównania: odcinek przejściowy obracający styczną; sklejenie z odwróceniem orientacji (wraz z ramą); inny zakres fazy; albo trzy płaty jako fragment większego obiegu. Nie wybieramy jeszcze żadnego.
 
 **Wniosek:** +−+ wnosi do analizy dopiero jako wymóg zachowania znaku środkowego płata i jako problem szwu (C^1). Samo słowo znaków nie daje topologii, kierunku obiegu ani ręczności.
+
+
+## 27. Porównanie +−+ z podpisaną torsją istniejącego trefoila
+
+Wykonano nowy audyt analityczny: `experiments/helix_reduction/trefoil_lobe_correspondence_audit.py`, testy: `experiments/helix_reduction/tests/test_trefoil_lobe_correspondence.py`, raport: `docs/geometry/SINUSOID_LOBES_VS_TREFOIL_TORSION_AUDIT_v0.1.md`.
+
+Dla klasycznej krzywej trefoil z `core/trefoil_frenet_torsion.py` torsję obliczono z pochodnych analitycznych, a parametr podzielono na trzy równe sektory. Każdy sektor ma ten sam rozkład podpisanej torsji (trzykrotna symetria); w każdym występują zarówno wartości dodatnie, jak i ujemne. Średnia w każdym sektorze wynosi ok. +0.05343, udział dodatnich próbek ok. 57.71%, a zakres ok. [-0.22222,+0.35294].
+
+**Wniosek:** nie ma mapowania „ujemny środkowy płat sygnału = ujemna torsja środkowego sektora trefoila”. Środkowy sektor klasycznego trefoila nie jest wyróżniony. To negatywny wynik dla prostego utożsamienia, nie obalenie możliwości mapowania sygnału na orientację ramy/framingu trzech helikalnych gałęzi.
+
+CI dla audytu uruchomiono w [run 42566883725](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42566883725); w chwili zapisu nadal trwa. Poprzednia próba workflow miała błędne literalne znaki nowej linii w YAML i została naprawiona w kolejnym commicie.
