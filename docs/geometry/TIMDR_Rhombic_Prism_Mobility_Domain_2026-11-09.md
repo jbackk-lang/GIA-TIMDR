@@ -1062,3 +1062,19 @@ Dodano experiments/rhombic_prism_d3_degeneracy_diagnostic.py, który:
 4. porównuje zbiory różnych kątów bez krotności.
 
 Dopiero te testy pozwolą rozdzielić błąd modelu od artefaktu numerycznej deduplikacji. Do czasu ich zakończenia status symetrii pełnego multizbioru pozostaje niepotwierdzony.
+
+
+## 27. Korekta diagnostyki sprzężenia i rozdzielenie widma od krotności
+
+W pierwszej wersji diagnostyki użyto macierzy \(2dd^\top-I\), która jest obrotem o \(180^\circ\) wokół osi \(d\), a nie odbiciem w pionowej płaszczyźnie zawierającej \(d\) i oś \(z\). Był to błąd testu pomocniczego, nie geometrii generatorów. Poprawna macierz odbicia ma postać:
+\[
+S=I-2nn^\top,\qquad n=(-\sin30^\circ,\cos30^\circ,0).
+\]
+Po poprawce reszty dopasowania pięciu generatorów dla punktów \((0.4,0)\) i \((0.2,0.4\sin60^\circ)\) spadły do poziomu \(10^{-16}\).
+
+To pokazuje, że zbiór generatorów jest sprzężony przez właściwe odbicie przestrzenne. Mimo tego liczby różnych map uzyskane przez zaokrąglanie i deduplikację nadal różnią się zależnie od precyzji. Wcześniejsza diagnostyka wykazała jednocześnie identyczny zbiór 49 różnych wartości kątów po obu stronach. Zatem należy rozdzielić:
+- **nośnik widma** — zbiór różnych wartości kątów, który można porównywać niezależnie od krotności;
+- **krotności map** — zależne od numerycznej identyfikacji przekształceń i wymagające stabilnego grupowania z tolerancją;
+- **dokładną symetrię grupy** — najlepiej testowaną przez sprzężenie generatorów i porównanie przekształceń odpowiadających tym samym słowom po permutacji generatorów.
+
+Test D3 zmieniono więc tak, aby jawnie sprawdzał nośnik widma, a osobny test sprawdzał sprzężenie generatorów słowo po słowie. Nie będziemy już nazywać zgodności nośnika zgodnością pełnego multizbioru. Krotności pozostają osobnym otwartym problemem numerycznym.
