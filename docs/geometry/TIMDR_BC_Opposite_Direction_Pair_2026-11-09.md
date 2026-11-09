@@ -80,3 +80,21 @@ Log potwierdza: 65 punktów na każdej nici, promień² (54/25), kroki osiowe (-
 ## 7. Co ten model mówi, a czego nie mówi
 
 W obecnej konstrukcji nici są po przeciwnych stronach tej samej osi i zachowują stały kąt fazowy (pi) na każdej wspólnej wysokości. Są to dwie rozłączne, równoległe fazowo orbity na wspólnym walcu. Nie tworzą automatycznie klasycznego splotu dwóch zamkniętych krzywych. Następny sensowny eksperyment to zmienić relację fazową i/lub chiralność jednej nici niezależnie, a następnie badać, czy można uzyskać zamknięcie bez przecięć.
+
+
+## 8. Drugi eksperyment: przeciwna chiralność, nie tylko odwrotny przebieg
+
+Rozdzielamy dwa znaczenia „przeciwnych kierunków”:
+
+1. **Odwrotna parametryzacja**: (S^{-1}) odwraca jednocześnie znak obrotu i przesuwu osiowego. Geometryczna chiralność krzywej pozostaje taka sama. To przetestowała pierwsza para.
+2. **Przeciwna chiralność**: sprzęgamy mapę (S) odbiciem lustrzanym (M) w płaszczyźnie zawierającej oś śruby. Nowa mapa (MSM) zachowuje znak przesuwu osiowego, ale odwraca znak obrotu wokół osi.
+
+Dodano drugi dokładny eksperyment:
+`experiments/bc_opposite_chirality_pair.py`.
+
+Obie nici startują na tym samym walcu, z tym samym promieniem i z przeciwległymi fazami. W odróżnieniu od pierwszego testu, teraz mają ten sam postęp osiowy, ale przeciwną chiralność. Skrypt bada dokładnie 65 punktów każdej nici i wszystkie pary 64×64 odcinków łamanych. Wynik przecięć jest raportowany, a nie zakładany z góry.
+
+To rozróżnienie jest ważne dla hipotezy o strukturze dwuniciowej: przeciwna parametryzacja nie jest tym samym co przeciwna chiralność. Dopiero drugi model może odpowiadać intuicji dwóch lustrzanych, przeciwskrętnych nici.
+
+CI dla obu eksperymentów:
+https://github.com/jbackk-lang/GIA-TIMDR/actions
