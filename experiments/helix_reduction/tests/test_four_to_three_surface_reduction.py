@@ -40,6 +40,13 @@ class FourToThreeSurfaceReductionTests(unittest.TestCase):
             egg["after"]["min_adjacent_parallel_spacing"], places=4
         )
 
+    def test_signed_torsion_is_computed(self):
+        result = run_model("sphere", samples=720)
+        for profile in result["signed_torsion_survivors"]:
+            self.assertTrue(np.isfinite(profile["mean"]))
+            self.assertTrue(np.isfinite(profile["min"]))
+            self.assertTrue(np.isfinite(profile["max"]))
+
     def test_surface_metric_positive_semidefinite(self):
         E, F, G = surface_metric(np.pi/2, egg=0.2)
         self.assertGreaterEqual(E, 0)
