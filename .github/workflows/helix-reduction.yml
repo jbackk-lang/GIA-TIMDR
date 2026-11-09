@@ -27,13 +27,19 @@ jobs:
         run: |
           mkdir -p artifacts
           python experiments/helix_reduction/four_to_three_surface_reduction.py --shape sphere --out artifacts/sphere_reduction.json
-      - name: Run egg model
+      - name: Run egg model (v0.1 surface comparison)
         run: |
-          python experiments/helix_reduction/four_to_three_surface_reduction.py --shape egg --out artifacts/egg_reduction.json
+          python experiments/helix_reduction/four_to_three_surface_reduction.py --shape egg --out artifacts/egg_reduction_v01.json
+      - name: Run phase-locked whole-strand reduction on sphere (v0.2)
+        run: |
+          python experiments/helix_reduction/phase_locked_whole_strand_reduction.py --shape sphere --out artifacts/phase_reduction_sphere_v02.json
+      - name: Run phase-locked whole-strand reduction on egg (v0.2 sensitivity)
+        run: |
+          python experiments/helix_reduction/phase_locked_whole_strand_reduction.py --shape egg --out artifacts/phase_reduction_egg_v02.json
       - name: Upload comparison artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: helix-four-to-three-sphere-egg
+          name: helix-four-to-three-phase-locked-v02
           path: artifacts/
           if-no-files-found: error
           retention-days: 90
