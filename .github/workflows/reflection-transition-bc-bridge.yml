@@ -25,3 +25,5 @@ jobs:
         run: python -m unittest tests.test_reflection_transition -v
       - name: Run BC bridge experiment
         run: python experiments/reflection_transition_bc_bridge.py
+      - name: Run exact multi-branch reflection tree experiment
+        run: python experiments/reflection_branch_tree.py
