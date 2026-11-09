@@ -166,3 +166,17 @@ Do tego czasu eksperyment jest protokołem, a nie wynikiem.
 ## 11. Dziennik zmian
 
 - **2026-11-09 / v0.1:** prerejestracja eksperymentu grafu nuklidów; rozdzielenie grafu przejść od węzła topologicznego; zapis testów redukcji i modelu `τ_nuc`; ustalenie kryteriów porównania z geometrią TIMDR.
+
+
+## 12. Implementacja etapu pobierania danych (2026-11-09)
+
+Dodano wykonywalny szkielet pobierania i budowy grafu:
+- `experiments/nuclear_reduction/NRG-01/src/nrg01_build_graph.py`
+- `experiments/nuclear_reduction/NRG-01/tests/test_nrg01_build_graph.py`
+- `experiments/nuclear_reduction/NRG-01/README.md`
+
+Źródłem wejściowym jest udokumentowane API IAEA LiveChart `fields=ground_states`. Program startuje od U-238, Th-232 i Np-237, rekurencyjnie pobiera stany potomne, zachowuje surowe odpowiedzi CSV w `source_csv/`, zapisuje SHA-256, metadane pochodzenia i graf JSON.
+
+Na tym etapie program automatycznie wyznacza córki wyłącznie dla jednoznacznych reguł bilansu α, β⁻, β⁺ i EC. IT, SF, emisje p/n, rozpady klastrowe, podwójne beta i inne niejednoznaczne kanały pozostają jawnie nierozwiązane. Brak wpisanego kanału rozpadu nie jest automatycznie interpretowany jako stabilność.
+
+**Status wykonania:** kod i testy jednostkowe dodane do repozytorium; zdalnego pobrania danych, utworzenia grafu i uruchomienia testów nie potwierdzono w tej sesji. Nie publikujemy jeszcze liczby nuklidów ani wyników eksperymentu.
