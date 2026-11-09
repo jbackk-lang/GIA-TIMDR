@@ -98,3 +98,27 @@ To rozróżnienie jest ważne dla hipotezy o strukturze dwuniciowej: przeciwna p
 
 CI dla obu eksperymentów:
 https://github.com/jbackk-lang/GIA-TIMDR/actions
+
+
+## 9. Wynik przeciwnej chiralności — przecięcia
+
+Dedykowane CI zakończyło się powodzeniem dla obu eksperymentów:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42604041297
+
+Dla lustrzanej mapy (MSM), która zachowuje osiowy krok (-2), ale odwraca znak obrotu:
+- promień² obu nici: (54/25);
+- osiowe kroki: ((-2,-2));
+- 0 wspólnych punktów w próbkach wierzchołkowych;
+- 47 przecięć pomiędzy parami odcinków łamanych (64×64).
+
+Pierwsze przecięcie występuje już pomiędzy odcinkami o indeksach (0,0). To nie jest błąd testu: dwa odcinki mają te same przedziały osiowe, a ich przeciwne obroty prowadzą do przecięcia cięciw. Wynik wskazuje, że na wspólnym walcu, przy tym samym promieniu i tym samym postępie osiowym, próba zestawienia dwóch helis o przeciwnych chiralnościach prowadzi do przecięć, a nie do dwóch rozłącznych nici.
+
+Dla idealnych gładkich helis z tym samym promieniem i skokiem, ale przeciwnymi znakami kąta, różnica fazy zmienia się ciągle wraz z wysokością. W związku z tym przecięcie jest nieuniknione na nieskończonym zakresie, niezależnie od stałego przesunięcia fazowego. Dyskretne testy odcinków są numerycznie niepotrzebne do tego wniosku jakościowego, ale pokazują go już na skończonym fragmencie.
+
+## 10. Najważniejszy wniosek roboczy
+
+Mamy dwa różne wyniki:
+- (S) i (S^{-1}): dwie rozłączne fazowo nici o tej samej chiralności geometrycznej, przeciwnej parametryzacji i bez przecięć w sprawdzonym fragmencie;
+- (S) i (MSM): przeciwne chiralności, ten sam osiowy kierunek i promień — przecięcia.
+
+Zatem „przeciwbieżność” sama w sobie nie tworzy splotu. Kluczowe jest, czy odwracamy cały ruch śrubowy, czy tylko część obrotową. Następny eksperyment powinien dopuścić różne promienie albo przesunięte osie, aby sprawdzić, czy przeciwne chiralności mogą być rozłączne bez utraty wspólnej struktury osiowej.
