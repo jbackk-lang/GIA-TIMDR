@@ -155,3 +155,28 @@ def reflect_tetrahedron_step(vertices: Sequence[Vector]) -> Vector:
         tuple(c[i] - a[i] for i in range(3)),
     )
     return reflect_point_in_plane(point, a, normal)
+
+
+def tetrahedron_face_reflection_candidates(vertices: Sequence[Vector]) -> tuple[tuple[Vector, ...], ...]:
+    """Return the four one-step states obtained by reflecting each vertex
+    across the opposite face of a non-degenerate tetrahedron.
+
+    Each candidate retains the six edge lengths of the input tetrahedron.
+    This enumerates geometric possibilities only; it assigns no probabilities
+    and does not decide which candidate is the physically/model-wise valid
+    continuation.
+    """
+    if len(vertices) != 4:
+        raise ValueError("exactly four tetrahedron vertices are required")
+    result = []
+    for i in range(4):
+        face = [vertices[j] for j in range(4) if j != i]
+        reflected = reflect_point_in_plane(vertices[i], face[0],
+            _cross(
+                tuple(face[1][k] - face[0][k] for k in range(3)),
+                tuple(face[2][k] - face[0][k] for k in range(3)),
+            ))
+        candidate = list(vertices)
+        candidate[i] = reflected
+        result.append(tuple(candidate))
+    return tuple(result)
