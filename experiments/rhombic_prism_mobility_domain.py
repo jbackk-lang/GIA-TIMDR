@@ -34,8 +34,8 @@ def main():
     face_area_sq = [s.simplify(1-x**2) for x in c]
     assert face_area_sq == [
         1-u**2,
-        1-(u**2-2*r3*u*v+4*v**2)/4,
-        1-(u**2+2*r3*u*v+4*v**2)/4,
+        1-(u**2-2*r3*u*v+3*v**2)/4,
+        1-(u**2+2*r3*u*v+3*v**2)/4,
     ]
 
     # End-triangle area and prism volume.
