@@ -1037,3 +1037,28 @@ Odległość Wassersteina jest użyta jako diagnostyka zmian rozkładu, a nie ja
 3. zbieżność całej grupy generowanej przez odbicia.
 
 Kod został dodany do workflow CI; jego wynik będzie oceniony razem z pełnym testem symetrii \(D_3\).
+
+
+## 26. Korekta testu D3: pojedyncza niezgodność na promieniu r=0.4
+
+Pełny test multizbiorów kątów nie przeszedł w dwóch przebiegach CI. W 23 z 24 par widm uzyskano identyczne liczby map i identyczne multizbiory kątów. Jedyna niezgodność występuje dla:
+\[
+(r,\phi)=(0.4,0^\circ),\qquad (r,\phi')=(0.4,60^\circ).
+\]
+Enumerator zwrócił odpowiednio 36 889 i 36 991 różnych map, a liczby kątów wyniosły 36 446 i 36 548. Różnica wynosi 102.
+
+Nie należy traktować tego jako obalenia symetrii D3, ale też nie wolno ignorować niepowodzenia. Możliwe źródła:
+- numeryczne rozszczepienie map, które powinny być identyczne w szczególnym punkcie parametrycznym;
+- zależność deduplikacji od zaokrągleń STATE_DECIMALS=12 i MAP_DECIMALS=10;
+- błędne przyporządkowanie generatorów lub nieprawidłowa macierz sprzężenia symetrii;
+- rzeczywista niezgodność modelu, jeśli geometria generatorów nie zachowuje zakładanej akcji D3.
+
+Ważna obserwacja z wcześniejszej siatki: dla obu punktów liczba różnych wartości kątów jest taka sama (49), choć liczby map różnią się. To sugeruje, że nośnik widma może być symetryczny, a problem dotyczyć krotności lub deduplikacji. Jest to wskazówka diagnostyczna, nie rozstrzygnięcie.
+
+Dodano experiments/rhombic_prism_d3_degeneracy_diagnostic.py, który:
+1. sprawdza sprzężenie zbioru pięciu generatorów przez odbicie przestrzenne o osi poziomej phi=30 stopni;
+2. enumeruje wszystkie zredukowane słowa długości 8 bez scalania stanów pośrednich;
+3. porównuje liczbę map przy precyzjach zaokrąglenia 12, 10, 9, 8, 7 i 6 miejsc;
+4. porównuje zbiory różnych kątów bez krotności.
+
+Dopiero te testy pozwolą rozdzielić błąd modelu od artefaktu numerycznej deduplikacji. Do czasu ich zakończenia status symetrii pełnego multizbioru pozostaje niepotwierdzony.
