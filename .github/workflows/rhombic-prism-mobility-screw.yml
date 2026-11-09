@@ -1,0 +1,21 @@
+name: Rhombic prism mobility and screw coupling
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/rhombic_prism_mobility_screw_coupling.py"
+      - ".github/workflows/rhombic-prism-mobility-screw.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobility-screw-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy
+      - name: Scan mobility family and length-four screw spectra
+        run: python experiments/rhombic_prism_mobility_screw_coupling.py
