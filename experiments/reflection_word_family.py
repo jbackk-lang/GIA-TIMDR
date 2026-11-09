@@ -112,7 +112,7 @@ def classify_isometry(transform):
     return kind, cosine, axial_shift_sq
 
 
-def enumerate_words(max_length=6):
+def enumerate_words(max_length=10):
     generators = fixed_face_reflections()
     layers = {}
     previous = [((), (IDENTITY, ZERO))]
@@ -129,8 +129,8 @@ def enumerate_words(max_length=6):
 
 
 def main():
-    layers = enumerate_words(8)
-    expected_words = {n: 4 * (3 ** (n - 1)) for n in range(1, 9)}
+    layers = enumerate_words(10)
+    expected_words = {n: 4 * (3 ** (n - 1)) for n in range(1, 11)}
     expected_types = {
         1: {"orientation_reversing": 4},
         2: {"rotation": 12},
@@ -141,8 +141,16 @@ def main():
         7: {"orientation_reversing": 2916},
         8: {"rotation": 2964, "screw": 5784},
     }
+    global_seen = {(IDENTITY, ZERO): ()}
+    cross_length_collisions = []
     for length, entries in layers.items():
         maps = [transform for _, transform in entries]
+        for word, transform in entries:
+            previous_word = global_seen.get(transform)
+            if previous_word is not None and previous_word != word:
+                cross_length_collisions.append((previous_word, word))
+            else:
+                global_seen[transform] = word
         assert len(entries) == expected_words[length]
         assert len(set(maps)) == len(maps), f"map collision at length {length}"
         counts = Counter(classify_isometry(t)[0] for t in maps)
@@ -165,8 +173,11 @@ def main():
     # Finite-order rotation test via Niven's theorem. All matrix traces
     # are rational, so a rational angle multiple of pi can only have
     # cosine 0, +/-1/2, or +/-1.
+    print(f"cross-length exact map collisions: {len(cross_length_collisions)}")
+    if cross_length_collisions:
+        print(f"first exact relation: {cross_length_collisions[0]}")
     niven_values = {Q(0), Q(1, 2), Q(-1, 2), Q(1), Q(-1)}
-    for length in (2, 4, 6, 8):
+    for length in (2, 4, 6, 8, 10):
         cosines = Counter()
         finite_order = 0
         screw_count = 0
@@ -180,7 +191,7 @@ def main():
         assert finite_order == 0, (length, finite_order, cosines)
         print(f"even length {length}: rotation cosine spectrum={dict(sorted(cosines.items()))}; "
               f"finite-order rotations={finite_order}; screws={screw_count}")
-    print("PASS: exact word-family classification through length 8; no finite-order pure rotations found.")
+    print("PASS: exact word enumeration through length 10; finite-order rotation test through length 10.")
     print("LIMIT: these are fixed-face affine maps; BC uses a moving-face vertex recurrence. No knot classification is implied.")
 
 
