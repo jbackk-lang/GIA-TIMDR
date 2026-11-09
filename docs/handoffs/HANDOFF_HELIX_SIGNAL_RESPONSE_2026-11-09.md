@@ -98,3 +98,12 @@ Nie twierdzić, że uruchomiono eksperyment, jeśli jedynie zapisano protokół 
 - `docs/geometry/RESULT_HC01_CIRCULAR_HELIX_PILOT_2026-11-09.md` — wyniki pilotażowe HC-01/TUBE, materiał pomocniczy.
 
 **Jednozdaniowe wznowienie:** Otwórz ten handoff, przejrzyj istniejące moduły G/K/M/T oraz kod Helix-Lock i zrekonstruuj rzeczywisty przepływ sygnału przez helisę aż do jej odpowiedzi; nie rozpoczynaj nowych pobocznych badań przed tym audytem.
+
+
+## 9. Wynik audytu istniejącego przepływu (2026-11-09)
+
+Audyt zapisany w `docs/handoffs/AUDIT_SIGNAL_TO_HELIX_RESPONSE_PATH_2026-11-09.md`. Ustalono: graf zdarzeń może generować sygnał M/S; K wyznacza modalności (f,φ,A) i afiniczną synchronizację; `chrono_modal_geometry_bridge.py` mapuje trzy obwiednie na trajektorię Γ i mierzy jej κ/τ; G buduje mechaniczny pierścień i oblicza odpowiedź harmoniczną ustaloną; `modal_self_repair.py` dopasowuje skalar częstotliwości s. Są to osobne komponenty/projekcje, nie zamknięty sprzężony tor.
+
+**Kluczowy wynik:** brakuje wykonywalnego przejścia: sygnał wejściowy → jawne oddziaływanie z fizycznym/abstrakcyjnym stanem helisy → aktualizacja stanu → obserwowalna odpowiedź → wpływ odpowiedzi na kolejne wejście. G nie przyjmuje obecnie przebiegu sygnału w czasie ani historii; jego odpowiedź jest ustalona w dziedzinie częstotliwości. Most chrono-modal mierzy geometrię trajektorii obwiedni, ale nie aktualizuje stanu G. K nie dostraja dynamicznie geometrii. `abs(tau)` w G usuwa znak chiralności.
+
+**Następny krok:** nie robić kolejnego sweepu. Wybrać jeden istniejący sygnał i jeden kanał wymuszenia, określić jednostki/normalizację i jawnie oznaczyć mapowanie sygnału na wymuszenie jako hipotezę modelową. Następnie zbudować minimalny test integracyjny z identycznym sygnałem testowym dla stanu odniesienia i stanu po historii pobudzenia. Bez uzasadnienia jednostek wynik pozostaje abstrakcyjnym testem wejście–wyjście, nie fizycznym dowodem.
