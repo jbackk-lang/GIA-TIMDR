@@ -13,6 +13,12 @@ class PhaseFieldPreservationTests(unittest.TestCase):
         self.assertAlmostEqual(r["1"]["scalar_angle_winding"], 0.0, places=6)
         self.assertAlmostEqual(r["-1"]["scalar_angle_winding"], 0.0, places=6)
 
+    def test_chirality_sign_survives_sampling_and_noise_sweep(self):
+        sweep = run()["robustness_sweep"]
+        self.assertEqual(len(sweep), 50)
+        for row in sweep:
+            self.assertAlmostEqual(row["winding"], float(row["chirality"]), places=6)
+
     def test_phase_reconstruction_is_accurate(self):
         r = run()["results_by_chirality"]
         for result in r.values():
