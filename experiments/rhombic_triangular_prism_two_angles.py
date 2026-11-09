@@ -80,6 +80,20 @@ def direction_key(u):
     # Canonicalize sign by making first nonzero component +1.
     return tuple(ratios)
 
+def axis_line_key(T):
+    """Exact unoriented screw-axis line: canonical direction + closest point to origin."""
+    M,b=T
+    u=axis(M)
+    lam=s.simplify(u.dot(b)/u.dot(u))
+    rhs=simp_mat(b-lam*u)
+    xyz=s.symbols("x0:3")
+    solution=next(iter(s.linsolve((I-M, rhs), xyz)))
+    free=set().union(*(x.free_symbols for x in solution))
+    substitutions={x:0 for x in free}
+    point=s.Matrix([s.simplify(x.subs(substitutions)) for x in solution])
+    closest=simp_mat(point-u*(u.dot(point)/u.dot(u)))
+    return direction_key(u), tuple(s.simplify(x) for x in closest)
+
 def enumerate_layer(G, max_length=4):
     layer=[((),(I,O))]
     results={}
@@ -104,6 +118,7 @@ def analyze_even_layer(unique):
     rotation_axes=Counter()
     screw_axes=Counter()
     screw_pitch_sq=Counter()
+    screw_lines=Counter()
     examples={}
     for word,T in unique.values():
         kind,cosine=classify(T)
@@ -119,8 +134,9 @@ def analyze_even_layer(unique):
                 screw_axes[d]+=1
                 pitch_sq=s.simplify((u.dot(T[1])**2)/u.dot(u))
                 screw_pitch_sq[str(pitch_sq)]+=1
+                screw_lines[axis_line_key(T)]+=1
                 examples.setdefault(d,word)
-    return types,cosines,rotation_axes,screw_axes,screw_pitch_sq,examples
+    return types,cosines,rotation_axes,screw_axes,screw_pitch_sq,screw_lines,examples
 
 def main():
     cases=[
@@ -162,11 +178,12 @@ def main():
             assert len(unique)==expected, (label,length,len(unique),expected)
             print(f"length_{length}: reduced_words={word_count}; distinct_maps={len(unique)}; collisions={word_count-len(unique)}")
             if length==4:
-                types,cosines,rot_axes,screw_axes,pitch_sq,examples=analyze_even_layer(unique)
+                types,cosines,rot_axes,screw_axes,pitch_sq,screw_lines,examples=analyze_even_layer(unique)
                 print(f"length_4_isometry_types={dict(types)}")
                 print(f"length_4_rotation_cosines={dict(cosines)}")
                 print(f"length_4_distinct_rotation_axis_directions={len(rot_axes)}")
                 print(f"length_4_distinct_screw_axis_directions={len(screw_axes)}")
+                print(f"length_4_distinct_screw_axis_lines={len(screw_lines)}")
                 print(f"length_4_screw_axis_direction_counts={dict(screw_axes)}")
                 print(f"length_4_normalized_screw_pitch_squared={dict(pitch_sq)}")
         print("")
