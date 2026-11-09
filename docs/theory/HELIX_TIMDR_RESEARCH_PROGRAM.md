@@ -743,3 +743,20 @@ Audyt źródeł zapisano w `docs/handoffs/AUDIT_SIGNAL_TO_HELIX_RESPONSE_PATH_20
 Najważniejsza luka to brak jawnego adaptera wejścia i dynamiki stanu: mapowania sygnału na kanał oddziaływania, aktualizacji stanu helisy i pomiaru odpowiedzi zależnej od historii. G obecnie przyjmuje wektor wymuszenia harmonicznego w dziedzinie częstotliwości i zwraca odpowiedź ustaloną; chrono-modalny most mierzy geometrię trajektorii obwiedni, ale nie zasila nią dynamicznie G. K ma stałe parametry modalności. G używa |τ|, więc nie zachowuje znaku chiralności w sprzężeniu.
 
 Dalszy krok jest pojedynczy: zaprojektować minimalny test integracyjny na jednym istniejącym sygnale, z jawnym kanałem wymuszenia i jednostkami (albo oznaczoną normalizacją abstrakcyjną), porównujący odpowiedź na identyczny sygnał testowy dla stanu odniesienia i stanu po wcześniejszym pobudzeniu. Nie prowadzić teraz pobocznych sweepów geometrii ani redukcji. Nie nazywać testu fizycznym, jeśli mapowanie sygnału na wymuszenie nie ma uzasadnienia jednostkowego.
+
+
+## 29. Audyt skilla Claude i reguła ciągłości badań (2026-11-09)
+
+Przeczytano pełny `timdr-signal-framework-SKILL.md` (29 sekcji). Wyniki i wskazówki przeniesiono do `docs/handoffs/AUDIT_CLAUDE_SKILL_TIMDR_SIGNAL_FRAMEWORK_2026-11-09.md`; bieżący stan i następny krok zapisano również w `docs/handoffs/HANDOFF_HELIX_SIGNAL_RESPONSE_2026-11-09.md`.
+
+Najważniejsze wnioski skilla dla helisy: dokładna tetrahelisa Boerdijka–Coxetera jest istniejącą konstrukcją czworościan→helisa, ale nie jest automatycznie helisą TIMDR ani dowodem redukcji 4→3; torsja Freneta (trzecia pochodna) jest wrażliwa na szum i musi być benchmarkowana względem prostszych cech; metryka/null model/hipoteza/kontrole muszą być prerejestrowane; progi nie mogą być kalibrowane na danych zawierających badany efekt; nie wolno przenosić null modelu między domenami bez sprawdzenia; należy pilnować dziedzin, przeciwdziedzin, jednostek i odrębnych znaczeń τ/rezonansu; reakcja, pamięć stanu, pamięć informacji, adaptacja, samonaprawa i odzyskanie informacji to różne wyniki.
+
+### 29.1. Korekta stanu integracji sygnał→odpowiedź
+
+Istnieje już syntetyczny proof-of-integration `experiments/helix_signal_response/minimal_coupling_probe.py` (raport `docs/handoffs/RESULT_MINIMAL_SIGNAL_HELIX_RESPONSE_PROBE_2026-11-09.md`, CI PASS 3/3): abstrakcyjny tor `u(t)→z(t)→y(t)` w modelu pierścienia G daje różną odpowiedź na identyczny sygnał dla stanu zerowego i stanu po wcześniejszym impulsie. Wynik dowodzi działania integracji programistycznej i zależności od resztkowego stanu dynamicznego; nie dowodzi fizycznego kanału oddziaływania helisy, pamięci informacyjnej ani samonaprawy. Brakuje fizycznego uzasadnienia jednostek/mapowania wejścia, aktualizacji geometrii i sprzężenia odpowiedzi z następnym sygnałem.
+
+### 29.2. Następny krok — kontynuacja, nie restart
+
+Kontynuować istniejący probe: (1) zamrozić kontrakt sygnału wejściowego i jednostki/normalizację; (2) porównać prosty baseline, κ i podpisane τ; (3) wykonać kontrolę szumu oraz odbicia lustrzanego; (4) użyć prerejestracji i niedegenerujących kontroli; (5) nie rozszerzać modelu o fizyczne twierdzenia bez niezależnego uzasadnienia kanału. Nie powtarzać zakończonych testów bez jawnej replikacji lub rozszerzenia.
+
+**Reguła ciągłości:** przed każdą kolejną sesją dotyczącą helisy sprawdzić ten program, oba audyty w `docs/handoffs/` i raport minimalnego probe. Po każdym zadaniu zapisać wynik, commit, status (MEASURED/DEFINED/HYPOTHESIS/UNKNOWN), ograniczenia i dokładny następny krok. To jest kanoniczne miejsce kontynuacji badań; nie zaczynać od ponownego katalogowania znanych własności.
