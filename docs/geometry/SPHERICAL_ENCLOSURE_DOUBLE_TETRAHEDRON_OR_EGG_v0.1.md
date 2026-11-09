@@ -96,3 +96,10 @@ Nie wybieramy między kulą i jajem na podstawie wyglądu. Porównujemy:
 - odwracalność mapy i informację utraconą w projekcji.
 
 **Wynik, którego wolno użyć teraz:** dla regularnego czworościanu para antypodyczna dokładnie uzupełnia osiem naroży sześcianu wpisanego w sferę. Wariant jajowaty łamie tę prostą symetrię, więc wymaga osobnego operatora. Nie przesądza to jeszcze, który wariant jest właściwym modelem TIMDR.
+
+
+## 7. Implementacja kontrolna i CI
+
+Dodano `antipodal_vertices(vertices, center)` do `core/boerdijk_coxeter_tetrahelix.py`. Funkcja realizuje inwersję centralną (v^*=2c-v); jest jawnie odrębna od odbicia BC względem płaszczyzny ściany. Testy dokładne potwierdzają, że dla regularnego czworościanu referencyjnego jego partner antypodyczny uzupełnia dokładnie osiem naroży sześcianu {(±1,±1,±1)}, wszystkie na sferze o promieniu √3, oraz że inwersja jest involucją dla dowolnego środka. CI run `42591111550` — SUCCESS, **11/11 testów**.
+
+To potwierdza wyłącznie wariant matematyczny S. Nie potwierdza jeszcze, że „podwójna reprezentacja” TIMDR oznacza partnera antypodycznego; ta interpretacja wymaga decyzji autora.
