@@ -520,3 +520,12 @@ Wynik sygnałowy: znaki płatów (+,-,+), ekstrema (+A,-A,+A), cztery granice ze
 **Odkryta pułapka:** słowo (+,-,+) jest palindromiczne, więc samo nie rozróżnia kierunku przejścia. Odwrócenie parametryzacji zmienia znak kierunku/pochodnej, choć sekwencja polaryzacji płatów pozostaje taka sama. Ręczność wymaga dodatkowego kanału orientacji (kierunek parametru, styczna, rama lub faza przestrzenna); nie można jej wywnioskować z samych znaków.
 
 CI [run pending from latest commit] uruchamia testy oraz zapis JSON. Wynik sygnałowy nie dowodzi jeszcze trójwęzła: potrzebny jest jawny operator osadzenia 3D, reguła połączeń i niezmiennik topologiczny. Nie utożsamiać trzech płatów z trzema strunami.
+
+
+## 26. Krytyczna ocena wartości sygnału +−+: warunek szwu
+
+Samo odzyskanie sekwencji (+,-,+) jest własnością definicyjną trzech półokresów sinusoidy i nie stanowi niezależnego potwierdzenia trójwęzła. Istotniejszy wynik audytu: dla trzech półokresów (s(t)=A\sin(\omega t)), (t\in[0,3\pi/\omega]), położenie skalarne domyka się (C^0), ale styczna nie: (s'(0)=+A\omega), (s'(3\pi/\omega)=-A\omega). To daje konkretną niezgodność warunku brzegowego, którą operator sygnał→helisa musi rozwiązać.
+
+Kod audytu rozszerzono o pomiar zgodności (C^0/C^1); testy CI [42566568596](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42566568596) przeszły. Warianty do porównania: odcinek przejściowy obracający styczną; sklejenie z odwróceniem orientacji (wraz z ramą); inny zakres fazy; albo trzy płaty jako fragment większego obiegu. Nie wybieramy jeszcze żadnego.
+
+**Wniosek:** +−+ wnosi do analizy dopiero jako wymóg zachowania znaku środkowego płata i jako problem szwu (C^1). Samo słowo znaków nie daje topologii, kierunku obiegu ani ręczności.
