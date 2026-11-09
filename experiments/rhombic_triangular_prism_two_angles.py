@@ -86,12 +86,11 @@ def axis_line_key(T):
     u=axis(M)
     lam=s.simplify(u.dot(b)/u.dot(u))
     rhs=simp_mat(b-lam*u)
-    xyz=s.symbols("x0:3")
-    solution=next(iter(s.linsolve((I-M, rhs), xyz)))
-    free=set().union(*(x.free_symbols for x in solution))
-    substitutions={x:0 for x in free}
-    point=s.Matrix([s.simplify(x.subs(substitutions)) for x in solution])
-    closest=simp_mat(point-u*(u.dot(point)/u.dot(u)))
+    # Add the projector onto the axis direction to make (I-M) invertible.
+    # The right-hand side is perpendicular to u, so this solves for the
+    # unique point on the axis closest to the origin.
+    A=simp_mat(I-M+(u*u.T)/u.dot(u))
+    closest=simp_mat(A.inv()*rhs)
     return direction_key(u), tuple(s.simplify(x) for x in closest)
 
 def enumerate_layer(G, max_length=4):
