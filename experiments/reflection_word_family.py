@@ -138,6 +138,8 @@ def main():
         4: {"rotation": 84, "screw": 24},
         5: {"orientation_reversing": 324},
         6: {"rotation": 516, "screw": 456},
+        7: {"orientation_reversing": 2916},
+        8: {"rotation": 2964, "screw": 5784},
     }
     for length, entries in layers.items():
         maps = [transform for _, transform in entries]
