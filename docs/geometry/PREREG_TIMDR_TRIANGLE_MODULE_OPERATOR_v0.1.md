@@ -100,3 +100,6 @@ Dodano test dla ogólnego, nierównego czworościanu, który sprawdza, że wszys
 CI dla najnowszego commita testowego: `42590580686` (w toku w chwili aktualizacji; wynik należy sprawdzić przed uznaniem testów za zaliczone).
 
 **Status:** decyzja o reprezentacji obiektu — ustalona; reguła odbicia BC — zaimplementowana jako kandydat referencyjny; zgodność tej reguły z zamierzoną regułą TIMDR — wymaga jeszcze potwierdzenia autora. Następny test porówna regularny i ogólny czworościan pod kątem istnienia stałego operatora śrubowego, zamiast zakładać, że każdy łańcuch odbić jest helisą o stałym skoku.
+
+
+**Wynik CI po uogólnieniu:** run `42590580686` — SUCCESS, **9/9 testów**. Dwa nowe testy obejmują ogólny czworościan (zachowanie wszystkich sześciu krawędzi w kolejnych oknach) oraz odrzucenie koplanarnego wejścia. Link: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42590580686
