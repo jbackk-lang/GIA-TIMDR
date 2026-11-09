@@ -1019,3 +1019,21 @@ Workflow:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42642429432
 
 Status: oczekuje na wykonanie CI. Wynik zostanie dopisany po zakończeniu testu.
+
+
+## 25. Zbieżność rozkładów widma między długościami słów
+
+Dodano eksperyment rhombic_prism_angular_spectrum_depth_convergence.py. Dla sześciu konfiguracji porównuje on długości słów 4, 6 i 8, raportując:
+- liczbę różnych map i kątów;
+- liczbę kątów poniżej 1°, 5° i 10°;
+- kwantyle rozkładu kątów;
+- jednowymiarową odległość Wassersteina między empirycznymi rozkładami kątów dla głębokości 4→6 i 6→8.
+
+Wybrane punkty obejmują centrum, oś symetrii, oś \(\phi=30^\circ\) przy trzech promieniach oraz punkt ogólny poza osią symetrii.
+
+Odległość Wassersteina jest użyta jako diagnostyka zmian rozkładu, a nie jako dowód zbieżności grupy lub zbioru osi. Rozkłady mogą się stabilizować statystycznie, mimo że ich nośniki nadal rosną. Z tego powodu w interpretacji należy odróżnić:
+1. stabilizację kwantyli i rozkładu kątów;
+2. zbieżność zbiorów osi w przestrzeni Plückera;
+3. zbieżność całej grupy generowanej przez odbicia.
+
+Kod został dodany do workflow CI; jego wynik będzie oceniony razem z pełnym testem symetrii \(D_3\).
