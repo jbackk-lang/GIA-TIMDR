@@ -117,3 +117,10 @@ To są dwa warianty testowe, nie rozstrzygnięcie, co autor rozumie przez „pod
 
 
 **Korekta geometrii otoczenia:** nie interpretować „podwójnej reprezentacji” jako pary antypodycznej. Autor wskazał anomalię przesunięcia środków (d=C_t-C_s). Przed generowaniem operatora należy określić, jaki środek czworościanu jest używany oraz uwzględnić ograniczenie (\|d+Qp_i\|\le R). Orientacyjna zależność wynika z geometrii; reguła dynamiczna generująca rotację pozostaje do wyprowadzenia. Szczegóły: `docs/geometry/SPHERICAL_ENCLOSURE_DOUBLE_TETRAHEDRON_OR_EGG_v0.1.md` §8.
+
+
+## 11. Aktualizacja po twierdzeniu czterokrokowym dla czworościanu ogólnego — 2026-11-09
+
+Wcześniejszy zapis w §9, że zachowanie krawędzi nie dowodzi stałej transformacji śrubowej dla dowolnego czworościanu, należy teraz czytać precyzyjnie: nie dowodzi on operatora **jednokrokowego**. Nowy wynik w `docs/geometry/GENERAL_TETRAHEDRON_FOUR_STEP_SCREW_THEOREM_v0.1.md` wykazuje, że dla dowolnego niekoplanarnego czworościanu uporządkowana metryka okna wraca po czterech przesunięciach, co daje jedną właściwą izometrię `T` z `T(v_n)=v_{n+4}` dla całego łańcucha.
+
+To jest własność matematyczna referencyjnej rekurencji BC. Nie przesądza, że TIMDR używa tej reguły odbicia; nadal wymaga to potwierdzenia autora. Jeżeli reguła BC zostanie przyjęta jako model, należy badać cztery przeplatane orbity wspólnego operatora, nie zakładać pojedynczej helisy ani fraktalności.
