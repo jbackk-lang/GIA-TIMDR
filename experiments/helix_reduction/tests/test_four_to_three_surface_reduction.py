@@ -28,12 +28,16 @@ class FourToThreeSurfaceReductionTests(unittest.TestCase):
         self.assertAlmostEqual(sphere["after"]["azimuth_gap_radians"], 2*np.pi/3)
         self.assertGreater(sphere["operation"]["bridge_length"], 0)
 
-    def test_egg_changes_metric_and_spacing(self):
+    def test_egg_changes_local_metric_and_spacing(self):
         sphere = run_model("sphere", samples=360)
         egg = run_model("egg", samples=360)
         self.assertNotAlmostEqual(
-            sphere["after"]["mean_adjacent_parallel_spacing"],
-            egg["after"]["mean_adjacent_parallel_spacing"], places=4
+            sphere["after"]["max_adjacent_parallel_spacing"],
+            egg["after"]["max_adjacent_parallel_spacing"], places=4
+        )
+        self.assertNotAlmostEqual(
+            sphere["after"]["min_adjacent_parallel_spacing"],
+            egg["after"]["min_adjacent_parallel_spacing"], places=4
         )
 
     def test_surface_metric_positive_semidefinite(self):
