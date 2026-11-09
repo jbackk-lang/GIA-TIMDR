@@ -894,3 +894,40 @@ Ponieważ konfiguracja ogólna z sekcji 19 ma promień zaledwie \(r=0.01\), jest
 
 Walidacja testu stabilności i widma kątów:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42639377048
+
+
+## 21. Mapa widma kątów w dysku parametrów
+
+Skan experiments/rhombic_prism_angle_spectrum_grid.py rozszerzył badanie z trzech punktów do 12 konfiguracji: \(r\in\{0.1,0.3,0.6,0.8\}\), \(\phi\in\{0^\circ,22.5^\circ,45^\circ\}\), gdzie \(u=r\cos\phi,\ v=r\sin\phi\). W każdym punkcie uwzględniono wszystkie różne mapy zredukowanych słów długości 8, a następnie obliczono kąty właściwych części ortogonalnych.
+
+### 21.1. Luka w pobliżu zera jest zależna od położenia w dysku
+
+| \(r\) | \(\phi\) | Liczba kątów < 5° | Największy kąt < 5° | Najmniejszy kąt ≥ 5° |
+|---:|---:|---:|---:|---:|
+| 0.1 | 0° | 1134 | 1.494° | 19.823° |
+| 0.1 | 22.5° | 1758 | 1.670° | 8.656° |
+| 0.1 | 45° | 1758 | 1.728° | 5.793° |
+| 0.3 | 0° | 32 | 4.159° | 6.935° |
+| 0.3 | 22.5° | 586 | 4.099° | 5.826° |
+| 0.3 | 45° | 1094 | 4.135° | 7.938° |
+| 0.6 | 0° | 0 | — | 12.599° |
+| 0.6 | 22.5° | 0 | — | 8.815° |
+| 0.6 | 45° | 70 | 3.698° | 12.370° |
+| 0.8 | 0° | 0 | — | 11.066° |
+| 0.8 | 22.5° | 186 | 3.561° | 11.973° |
+| 0.8 | 45° | 0 | — | 5.814° |
+
+Wynik jest wyraźnie anizotropowy: liczba małych kątów zależy nie tylko od promienia deformacji, lecz również od kierunku w płaszczyźnie \((u,v)\). Na osi symetrii \(\phi=0^\circ\) dla \(r=0.6\) i \(0.8\) nie ma w tej próbce kątów poniżej \(5^\circ\). W kierunku \(45^\circ\) przy \(r=0.6\) pozostaje 70 takich przypadków, a przy \(r=0.8\) nie ma ich wcale.
+
+### 21.2. Największe przerwy w całym widmie
+
+Dla małych deformacji i kierunku symetrii pojawiają się duże luki nie tylko przy zerze. Przykładowo dla \(r=0.1,\phi=0^\circ\) największa przerwa między kolejnymi różnymi kątami wynosi około \(77.23^\circ\), od \(39.80^\circ\) do \(117.03^\circ\). Dla \(r=0.1,\phi=45^\circ\) analogiczna przerwa wynosi około \(72.89^\circ\), od \(44.36^\circ\) do \(117.25^\circ\). Wraz z deformacją widmo w kierunkach ogólnych staje się znacznie gęstsze; przy \(r=0.8,\phi=45^\circ\) największa z pięciu raportowanych luk wynosi około \(6.11^\circ\).
+
+### 21.3. Interpretacja i ograniczenia
+
+Nie ma podstaw do stwierdzenia, że istnieje uniwersalna luka kątowa dla całej rodziny. Wartość \(5^\circ\) jest wyłącznie progiem diagnostycznym; w niektórych punktach najmniejszy kąt powyżej progu jest bliski \(5^\circ\), w innych przekracza \(19^\circ\), a w kilku konfiguracjach nie ma żadnych kątów poniżej progu.
+
+Dodatkowo kąty są liczone z części liniowej izometrii, a nie z położenia osi afinicznej. Widmo nie rozstrzyga więc o zbieżności osi ani o strukturze granicznej ich zbioru. Następny krok powinien mapować liczbę małych kątów oraz największe luki na gęstszej siatce parametrów, a także porównywać wyniki dla różnych głębokości słów.
+
+Walidacja pełnego skanu:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42640831774
