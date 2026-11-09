@@ -32,11 +32,12 @@ def main():
     # Each lateral face has side vectors e_i and t, both unit length.
     # Its area is |e_i x t| = sqrt(1 - (e_i.t)^2).
     face_area_sq = [s.simplify(1-x**2) for x in c]
-    assert face_area_sq == [
+    expected_face_area_sq = [
         1-u**2,
         1-(u**2-2*r3*u*v+3*v**2)/4,
         1-(u**2+2*r3*u*v+3*v**2)/4,
     ]
+    assert all(s.simplify(a-b) == 0 for a,b in zip(face_area_sq, expected_face_area_sq))
 
     # End-triangle area and prism volume.
     base_area = r3/4
