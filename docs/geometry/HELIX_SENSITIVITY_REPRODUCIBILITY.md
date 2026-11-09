@@ -65,7 +65,7 @@ gdy (p,y\ne0). W pobliżu zera raportujemy pochodną bezwzględną i przedział,
 
 | ID | Zmieniany czynnik | Oczekiwany wpływ / ryzyko | Minimalny pomiar | Status |
 |---|---|---|---|---|
-| S-01 | amplituda / skala przestrzenna | (kappa) i (	au) mają różne prawa skalowania; (H) dziedziczy oba | skala (c\in\{0.25,0.5,1,2,4\}), sprawdzić (kappa(c r)), (	au(c r)) | UNKNOWN |
+| S-01 | skala przestrzenna r → c·r | Dla tej definicji przy stałym parametrze: κ, τ_FS i H skalują się jak 1/c; długość łuku L jak c | c ∈ {0.25, 0.5, 1, 2, 4}; test numeryczny względem przewidywania | Prawo analityczne wyprowadzone; test implementacji UNKNOWN |
 | S-02 | promień helisy | zmienia krzywiznę i relację krzywizna–torsja | siatka promienia, stały skok | UNKNOWN |
 | S-03 | skok / pitch | zmienia torsję i kształt | siatka pitch, stały promień | UNKNOWN |
 | S-04 | częstotliwość / liczba zwojów | wpływ na długość, lokalną krzywiznę i próbkowanie | siatka częstotliwości | UNKNOWN |
