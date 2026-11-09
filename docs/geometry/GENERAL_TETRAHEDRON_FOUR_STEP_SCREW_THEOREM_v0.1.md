@@ -137,3 +137,25 @@ Testy dopisano do:
 experiments/helix_characterization/tests/test_boerdijk_coxeter_tetrahelix.py.
 
 **Status:** twierdzenie geometryczne — wyprowadzone; testy regresyjne — dodane; pełny CI po tym commicie — do sprawdzenia.
+
+
+## 9. Interpretacja topologiczna: plecionka, węzeł i splot
+
+Cztery klasy reszt modulo 4 są orbitami tej samej izometrii śrubowej:
+\[
+\mathcal H_j=\{T^k(v_j):k\in\mathbb Z\},\quad j=0,1,2,3.
+\]
+
+Jeśli składowa translacyjna wzdłuż osi \(T\) jest niezerowa, każda orbita jest niezamkniętą, nieskończoną helisą. W takim przypadku cztery orbity mogą tworzyć geometrię plecionkową (cztery nici o wspólnej osi), ale ich suma nie jest węzłem ani splotem w standardowym sensie teorii węzłów, ponieważ nie składa się z zamkniętych krzywych.
+
+Należy rozdzielić:
+- **plecionkę:** otwarte lub nieskończone nici, które wzajemnie się owijają;
+- **węzeł:** jedna zamknięta krzywa osadzona w 3D;
+- **splot:** kilka zamkniętych, rozłącznych krzywych;
+- **domknięcie okresowe:** dodatkowa reguła identyfikacji/połączenia końców, która może przekształcić fragment plecionki w kandydata na węzeł lub splot.
+
+Dla izometrii śrubowej z niezerowym postępem osiowym żadna pojedyncza orbita nie zamyka się. Jeśli postęp osiowy jest zerowy, operator jest obrotem wokół osi (lub przypadkiem szczególnym); orbity zamykają się dopiero, gdy kąt obrotu jest wymierną wielokrotnością \(2\pi\). Wtedy należy osobno sprawdzić, czy różne orbity są rozłączne i jaki typ splotu tworzą.
+
+Samo przeplatanie wizualne nie dowodzi niezerowego niezmiennika splotowego. Do klasyfikacji potrzebne będą: dokładne parametry osi, kąta i przesunięcia, analiza przecięć/rozłączności, jawna reguła domknięcia oraz niezmiennik topologiczny odpowiedni dla otrzymanej krzywej/splotu (np. liczba łącznościowa dla dwóch składowych lub grupa podstawowa dopełnienia w trudniejszych przypadkach).
+
+**Status:** hipoteza plecionki — uzasadniona do zbadania; hipoteza węzła/splotu — wymaga domknięcia i testu topologicznego. Nie nazywać obecnych nieskończonych orbit węzłem.
