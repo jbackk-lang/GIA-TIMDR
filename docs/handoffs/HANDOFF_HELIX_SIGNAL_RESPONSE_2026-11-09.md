@@ -221,3 +221,16 @@ HC-01-TUBE porównuje lokalny promień krzywizny z globalnym ograniczeniem przez
 Istniejące modele redukcji 4→3 (`four_to_three_surface_reduction.py`, `phase_locked_whole_strand_reduction.py`) są kinematyczne: wycinają/łączą gałąź i re-fazują pozostałe, bez pełnej relaksacji mechanicznej i bez pełnego niezmiennika węzła. Audyt sinusoidy (+,−,+) względem torsji trefoila nie potwierdził prostego przypisania znaków do trzech sektorów.
 
 Wniosek: nie trzeba ponownie wyprowadzać podstawowej geometrii helisy kołowej. Dalsze prace powinny rozwijać już zamrożony protokół HC-01 w kierunku HC-02/HC-04 i porównać wynik z modelem tunelu/warunków brzegowych. Raport audytu: `docs/handoffs/AUDIT_EXISTING_FORMALISMS_FOR_TIMDR_HELIX_2026-11-09.md`.
+
+
+## 21. Audyt skilla Claude — wskazówki metodologiczne i korekta statusu (2026-11-09)
+
+Przeczytano pełny `timdr-signal-framework-SKILL.md` (29 sekcji). Pełny audyt zapisano w `docs/handoffs/AUDIT_CLAUDE_SKILL_TIMDR_SIGNAL_FRAMEWORK_2026-11-09.md`.
+
+Najważniejsze wskazówki: (1) skill opisuje dokładną tetrahelisę Boerdijka–Coxetera jako konstrukcję modułową z regularnych czworościanów i jedną sztywną transformacją śrubową; to odrębny obiekt od HC-01, trefoila i postulowanej redukcji TIMDR, więc nie przenosić wyniku bez jawnej mapy. (2) Torsja Freneta z trzecią pochodną jest poprawna analitycznie, ale w testach szumu przegrywała z prostym baseline'em; obowiązkowo porównywać τ z pozycją/resztą/κ i testować odporność na szum. (3) prerejestrować metrykę i null model, używać nie-degenerujących kontroli pozytywnych/negatywnych, korygować wielokrotne porównania i raportować wyniki negatywne. (4) nie kalibrować progu na oknie zawierającym badany defekt; nie przenosić null modelu z innej dziedziny. (5) sprawdzać dziedzinę/przeciwdziedzinę i jednostki przed składaniem operatorów. (6) oddzielać reakcję, pamięć stanu, pamięć informacji, adaptację, samonaprawę i odzyskanie payloadu. (7) sprawdzić duplikaty implementacji, aby uniknąć duplication-drift.
+
+**Korekta statusu sprzężenia:** w repo istnieje już `experiments/helix_signal_response/minimal_coupling_probe.py` i raport `RESULT_MINIMAL_SIGNAL_HELIX_RESPONSE_PROBE_2026-11-09.md`. Syntetyczny tor `u(t)→z(t)→y(t)` przeszedł CI (3/3 testy); ten sam sygnał testowy daje inną odpowiedź dla stanu zerowego i stanu po wcześniejszym impulsie. To potwierdza abstrakcyjną zależność odpowiedzi od resztkowego stanu mechanicznego, ale nie potwierdza fizycznego kanału sygnał→helisa, pamięci informacyjnej ani samonaprawy. Brakuje uzasadnionych jednostek/mapowania wejścia, aktualizacji geometrii helisy i sprzężenia odpowiedzi z kolejnym sygnałem.
+
+Skill ma na początku zdublowany blok front matter; odnotowano to bez zmiany pliku źródłowego.
+
+**Następny krok anty-zapętlenia:** kontynuować minimalny probe, nie powtarzać go od zera. Zamrozić kontrakt wejścia (sygnał, jednostki/normalizacja, amplituda, faza), wykonać prerejestrowane porównanie prostego baseline'u z κ i podpisanym τ, dodać kontrolę szumu i test odbicia lustrzanego, a następnie ustalić, czy istnieje fizyczne uzasadnienie kanału wejściowego. Po każdym kroku aktualizować ten handoff i rejestr wyników.
