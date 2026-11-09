@@ -210,3 +210,14 @@ Odnaleziono również `core/trefoil_frenet_torsion.py` i `TIMDR_Trefoil_FrenetTo
 Krytyczne: `core/geometric_resonance_operator.py` używa `kc[i]=kc_scale*abs(tau[i])`. G-Rezonans traci więc znak torsji w macierzy sprzężeń i nie może przez ten kanał rozróżnić lustrzanej chiralności. Nie zmieniać tego arbitralnie; najpierw zaprojektować kontrolę lustrzaną i określić, czy znak ma wpływać na kierunek/strukturę sprzężenia.
 
 Wniosek: główna luka została zawężona. Mamy już specyfikację tunelu osi i kod podpisanej torsji trójwęzła; brakuje ich implementacyjnej walidacji dla właściwej helisy TIMDR oraz integracji podpisanych wielkości θ, ω, τ, holonomii i twistu gałęzi z G-Rezonansem. Pełny audyt uzupełniono w `docs/handoffs/AUDIT_EXISTING_FORMALISMS_FOR_TIMDR_HELIX_2026-11-09.md`.
+
+
+## 20. HC-01: istniejący matematyczny baseline helisy i tunelu
+
+Odnaleziono `HELIX_CHARACTERIZATION_PROTOCOL_HC01_v0.1.md`, `experiments/helix_characterization/hc01_circular_helix.py`, `hc01_tube.py` oraz raport `RESULT_HC01_CIRCULAR_HELIX_PILOT_2026-11-09.md`. Dla helisy kołowej `r(t)=(a cos t,a sin t,h t)` istnieją ścisłe wzory: κ=a/(a²+h²), τ_FS=h/(a²+h²), τ/κ=h/a, skok p=2πh, długość obrotu 2π√(a²+h²). Odbicie h→−h odwraca znak torsji i skoku, zachowując krzywiznę i długość. Bezwymiarowa torsja aτ=η/(1+η²) osiąga maksimum modułu przy |η|=1, co odpowiada 45° kąta stycznej do płaszczyzny poprzecznej. To nie jest próg 90° ani punkt kardynalny TIMDR.
+
+HC-01-TUBE porównuje lokalny promień krzywizny z globalnym ograniczeniem przez doubly-critical self-distance; dla małego skoku globalne zbliżenie osi może ograniczać tunel wcześniej niż lokalna krzywizna. Wynik dotyczy idealnej helisy kołowej. Protokół HC-01 już przewiduje HC-02 zmienny skok, HC-03 zmienny promień, HC-04 zakrzywioną oś, HC-05 zamkniętą krzywą lokalnie helikalną i HC-06 trefoil.
+
+Istniejące modele redukcji 4→3 (`four_to_three_surface_reduction.py`, `phase_locked_whole_strand_reduction.py`) są kinematyczne: wycinają/łączą gałąź i re-fazują pozostałe, bez pełnej relaksacji mechanicznej i bez pełnego niezmiennika węzła. Audyt sinusoidy (+,−,+) względem torsji trefoila nie potwierdził prostego przypisania znaków do trzech sektorów.
+
+Wniosek: nie trzeba ponownie wyprowadzać podstawowej geometrii helisy kołowej. Dalsze prace powinny rozwijać już zamrożony protokół HC-01 w kierunku HC-02/HC-04 i porównać wynik z modelem tunelu/warunków brzegowych. Raport audytu: `docs/handoffs/AUDIT_EXISTING_FORMALISMS_FOR_TIMDR_HELIX_2026-11-09.md`.
