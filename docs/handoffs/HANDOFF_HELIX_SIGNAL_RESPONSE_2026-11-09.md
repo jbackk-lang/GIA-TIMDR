@@ -107,3 +107,10 @@ Audyt zapisany w `docs/handoffs/AUDIT_SIGNAL_TO_HELIX_RESPONSE_PATH_2026-11-09.m
 **Kluczowy wynik:** brakuje wykonywalnego przejścia: sygnał wejściowy → jawne oddziaływanie z fizycznym/abstrakcyjnym stanem helisy → aktualizacja stanu → obserwowalna odpowiedź → wpływ odpowiedzi na kolejne wejście. G nie przyjmuje obecnie przebiegu sygnału w czasie ani historii; jego odpowiedź jest ustalona w dziedzinie częstotliwości. Most chrono-modal mierzy geometrię trajektorii obwiedni, ale nie aktualizuje stanu G. K nie dostraja dynamicznie geometrii. `abs(tau)` w G usuwa znak chiralności.
 
 **Następny krok:** nie robić kolejnego sweepu. Wybrać jeden istniejący sygnał i jeden kanał wymuszenia, określić jednostki/normalizację i jawnie oznaczyć mapowanie sygnału na wymuszenie jako hipotezę modelową. Następnie zbudować minimalny test integracyjny z identycznym sygnałem testowym dla stanu odniesienia i stanu po historii pobudzenia. Bez uzasadnienia jednostek wynik pozostaje abstrakcyjnym testem wejście–wyjście, nie fizycznym dowodem.
+
+
+## 10. Minimalny test integracyjny wykonany
+
+Dodano `experiments/helix_signal_response/minimal_coupling_probe.py` i testy. CI run `42572283596` zakończył się PASS (3/3 testy); skrypt wykonał porównanie odpowiedzi na identyczny sygnał dla stanu zerowego i stanu po wcześniejszym impulsie. RMS odpowiedzi: 0.0311099 vs 0.0838454; RMS różnicy: 0.0748333; max różnicy: 0.1739572. Wynik dowodzi zależności od stanu w abstrakcyjnym liniowym modelu pierścienia G. **Nie** dowodzi fizycznego sprzężenia informacji z rzeczywistą helisą: wejście znormalizowane do siły przez arbitralny gain, bez kalibracji jednostek. Raport: `docs/handoffs/RESULT_MINIMAL_SIGNAL_HELIX_RESPONSE_PROBE_2026-11-09.md`.
+
+Następny i jedyny priorytet: ustalić na podstawie wcześniejszych badań i repozytoriów, jaki jest rzeczywisty fizyczny/operacyjny kanał oddziaływania informacji na helisę. Nie rozszerzać modelu ani nie mnożyć sweepów, dopóki kanał nie zostanie uzasadniony.
