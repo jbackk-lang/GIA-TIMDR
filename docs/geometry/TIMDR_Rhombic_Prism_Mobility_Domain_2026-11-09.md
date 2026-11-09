@@ -1078,3 +1078,27 @@ To pokazuje, że zbiór generatorów jest sprzężony przez właściwe odbicie p
 - **dokładną symetrię grupy** — najlepiej testowaną przez sprzężenie generatorów i porównanie przekształceń odpowiadających tym samym słowom po permutacji generatorów.
 
 Test D3 zmieniono więc tak, aby jawnie sprawdzał nośnik widma, a osobny test sprawdzał sprzężenie generatorów słowo po słowie. Nie będziemy już nazywać zgodności nośnika zgodnością pełnego multizbioru. Krotności pozostają osobnym otwartym problemem numerycznym.
+
+
+## 28. Rozstrzygnięcie niezgodności \(D_3\) na \(r=0.4\)
+
+Dedykowany test CI zakończył się sukcesem. Dla odbicia przestrzennego względem pionowej płaszczyzny o kierunku \(\phi=30^\circ\) otrzymano permutację generatorów:
+\[
+(0,1,2,3,4)\mapsto(0,1,4,3,2).
+\]
+Maksymalna reszta sprzężenia pojedynczych generatorów wynosi \(6.1\cdot10^{-16}\).
+
+Co ważniejsze, porównano wszystkie 81 920 zredukowanych słów długości 8, stosując powyższą permutację generatorów. Dla odpowiadających sobie słów:
+- maksymalna norma różnicy macierzy po sprzężeniu: \(2.22\cdot10^{-15}\);
+- maksymalna norma różnicy wektorów przesunięcia: \(4.52\cdot10^{-15}\).
+
+To jest mocny numeryczny dowód, że **działanie \(D_3\) jest zachowane słowo po słowie** w tej parze konfiguracji, z dokładnością maszynową.
+
+Liczby różnych map po niezależnej deduplikacji zaokrąglonych współczynników nadal są różne (np. 36 889 kontra 37 114 przy 12 miejscach). Liczby te zmieniają się niemonotonicznie przy zmianie precyzji zaokrąglenia. Nie są zatem wiarygodnym niezmiennikiem symetrii: ta sama mapa może zostać rozszczepiona na kilka kluczy numerycznych w jednej reprezentacji, a scalona w drugiej.
+
+Zbiory różnych kątów są natomiast identyczne: 49 wartości po obu stronach, maksymalna różnica \(0\) po zaokrągleniu do \(10^{-7}\) stopnia.
+
+**Wniosek:** wcześniejszy czerwony test nie ujawnił złamania symetrii geometrii. Ujawnił niestabilność deduplikacji map przez zaokrąglanie. Test pełnego widma zmieniono na test nośnika widma, a niezależny test słowo-po-słowie weryfikuje sprzężenie generatorów. Krotności różnych map pozostają osobnym zagadnieniem obliczeniowym.
+
+Dedykowany przebieg CI:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42645102180
