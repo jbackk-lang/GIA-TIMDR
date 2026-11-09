@@ -1,12 +1,12 @@
 """Couple rhombic-prism mobility to length-4 reflection spectra.
 
-Exploratory numerical scan only: exact symbolic checks are in
+Exploratory numerical scan with correctly offset affine side planes. Exact symbolic checks are in
 rhombic_prism_mobility_domain.py and the two rational benchmark cases are in
 rhombic_triangular_prism_two_angles.py.
 
 Parameters (u,v) lie in the open unit disk; w=sqrt(1-u^2-v^2).
 All nine edges remain unit length, the two triangular ends remain equilateral,
-and all three lateral faces remain rhombi.
+and all three lateral faces remain rhombi. Their reflection planes pass through the actual base edges.
 """
 import itertools
 from collections import Counter
@@ -30,11 +30,19 @@ def build_generators(u, v):
     Rz = np.diag([1.0, 1.0, -1.0])
     generators = [(Rz, np.zeros(3)), (Rz, np.array([0.0, 0.0, 2*w]))]
     # Each lateral rhombus plane contains one base edge and t.
-    for edge in EDGES:
+    # Actual base vertices of the equilateral triangle. The lateral face
+    # planes are affine: each passes through its own base edge, not the origin.
+    base_vertices = (
+        np.array([0.0, 0.0, 0.0]),
+        np.array([1.0, 0.0, 0.0]),
+        np.array([0.5, np.sqrt(3)/2, 0.0]),
+    )
+    for edge, point in zip(EDGES, base_vertices):
         n = np.cross(edge, t)
         n = n/np.linalg.norm(n)
         R = IDENTITY - 2*np.outer(n, n)
-        generators.append((R, np.zeros(3)))
+        offset = 2*n*np.dot(n, point)
+        generators.append((R, offset))
     return generators, w, t
 
 def compose(left, right):
