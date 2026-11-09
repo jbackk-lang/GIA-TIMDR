@@ -540,3 +540,16 @@ Dla klasycznej krzywej trefoil z `core/trefoil_frenet_torsion.py` torsję oblicz
 **Wniosek:** nie ma mapowania „ujemny środkowy płat sygnału = ujemna torsja środkowego sektora trefoila”. Środkowy sektor klasycznego trefoila nie jest wyróżniony. To negatywny wynik dla prostego utożsamienia, nie obalenie możliwości mapowania sygnału na orientację ramy/framingu trzech helikalnych gałęzi.
 
 CI dla audytu uruchomiono w [run 42566883725](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42566883725); w chwili zapisu nadal trwa. Poprzednia próba workflow miała błędne literalne znaki nowej linii w YAML i została naprawiona w kolejnym commicie.
+
+
+## 28. Korekta progu redukcji: piąty element mieści się, szósty wywołuje przeciążenie
+
+Autor doprecyzował model 2026-11-09: piąty element nadal mieści się w 4-węźle; dopiero szósty rozpycha układ i ma wymusić reorganizację w trójwęzeł. To zastępuje wcześniejszą hipotezę, że już piąty element przekracza warunki brzegowe.
+
+Sekwencja robocza:
+`3 (triangle) -> +4 (tetrahedral / four-node state) -> +5 (still admissible in four-node) -> +6 (overload) -> global reorganization -> three-node`.
+
+Warunek do zbadania:
+`X5 ∈ A4` oraz `X6* ∉ A4`, gdzie A4 jest zbiorem konfiguracji dopuszczalnych dla 4-węzła. Nie wpisujemy progu 6 jako arbitralnego limitu licznika. Trzeba zdefiniować „element” (wierzchołek, ściana, krawędź, płat sygnału czy gałąź helikalna), metrykę i warunek brzegowy. Liczby wierzchołków, krawędzi, ścian, cykli grafu i gałęzi nie są zamienne.
+
+Specyfikacja: `docs/geometry/SIXTH_ELEMENT_OVERLOAD_FOUR_NODE_TO_TREFOIL_v0.1.md`. Wcześniejszy dokument `ADDITION_INDUCED_REDUCTION_TRIANGLE_TETRAHEDRON_v0.1.md` pozostaje historią hipotezy 5→redukcja, ale jej próg jest superseded przez 6→przeciążenie.
