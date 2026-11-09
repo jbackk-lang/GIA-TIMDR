@@ -89,3 +89,14 @@ Kryterium „helisa” nie może być jedynie wizualne. Co najmniej: operator ma
 Autor ustalił, że czworościan jest reprezentowany przez swoje wierzchołki. W następnym kroku testujemy jawnie wariant BC: odbicie jednego wierzchołka przez płaszczyznę przeciwległej ściany i przesunięcie uporządkowanego okna o jeden punkt. Równolegle nie zakładamy foremności: należy porównać czworościan foremny z ogólnym czworościanem i sprawdzić, kiedy istnieje stała transformacja śrubowa.
 
 Eksperyment jest odblokowany dla tego wariantu referencyjnego. Wynik BC nie może być przedstawiony jako wynik TIMDR, dopóki autor nie potwierdzi, że właśnie ta reguła odbicia/sklejania jest zamierzona. Pozostałe parametry geometryczne należy zamrozić przed testem holdout.
+
+
+## 9. Aktualizacja implementacyjna po decyzji autora (2026-11-09)
+
+Autor potwierdził reprezentację czworościanu przez jego wierzchołki. W `core/boerdijk_coxeter_tetrahelix.py` uogólniono rekurencję do `generate_tetrahedral_chain(initial_vertices, count)`: wejściem jest dokładnie cztery niekoplanarne punkty; najstarszy punkt jest odbijany względem płaszczyzny pozostałych trzech, a okno czterech wierzchołków przesuwa się o jeden. Arytmetyka pozostaje dokładna (`Fraction`).
+
+Dodano test dla ogólnego, nierównego czworościanu, który sprawdza, że wszystkie sześć długości krawędzi każdego kolejnego czworościanu jest identyczne z bazowym. Dodano też odrzucanie koplanarnego zestawu wejściowego. To potwierdza zachowanie kongruencji kolejnych modułów przy tej regule odbicia, ale **nie** dowodzi stałej transformacji śrubowej dla dowolnego czworościanu. Stała transformacja BC jest potwierdzona dla regularnego czworościanu.
+
+CI dla najnowszego commita testowego: `42590580686` (w toku w chwili aktualizacji; wynik należy sprawdzić przed uznaniem testów za zaliczone).
+
+**Status:** decyzja o reprezentacji obiektu — ustalona; reguła odbicia BC — zaimplementowana jako kandydat referencyjny; zgodność tej reguły z zamierzoną regułą TIMDR — wymaga jeszcze potwierdzenia autora. Następny test porówna regularny i ogólny czworościan pod kątem istnienia stałego operatora śrubowego, zamiast zakładać, że każdy łańcuch odbić jest helisą o stałym skoku.
