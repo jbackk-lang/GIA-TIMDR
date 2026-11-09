@@ -278,3 +278,6 @@ Raport rozszerzono o te źródła w `docs/geometry/COMPARISON_BC_HC01_TIMDR_2026
 
 
 **Implementacja po decyzji autora:** dodano `generate_tetrahedral_chain(initial_vertices, count)` w `core/boerdijk_coxeter_tetrahelix.py`. Funkcja przyjmuje cztery niekoplanarne wierzchołki i iteracyjnie odbija najstarszy przez płaszczyznę pozostałych trzech. Dodano test ogólnego, nierównego czworościanu: wszystkie sześć długości krawędzi kolejnych czworościanów pozostaje dokładnie takie jak w bazowym. Dodano walidację niekoplanarności. To gwarantuje kongruencję kolejnych czworościanów, ale nie automatycznie stały operator śrubowy; taki operator jest już potwierdzony dla foremnego BC. CI run `42590580686` uruchomiony dla commita `2d602db...` (w toku przy zapisie). Zgodność reguły BC z zamierzoną regułą TIMDR nadal wymaga potwierdzenia; kod jest kandydatem referencyjnym.
+
+
+**Wynik CI uogólnionej rekurencji:** run `42590580686` — SUCCESS, **9/9 testów**. Dla nierównego czworościanu wszystkie sześć długości krawędzi jest zachowane w każdym kolejnym oknie; koplanarne wejście jest odrzucane. https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42590580686
