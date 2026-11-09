@@ -94,11 +94,11 @@ def finite_float(value):
         return None
 
 
-def build_graph(seeds=SEEDS, max_depth=80, delay=0.15):
+def build_graph(seeds=SEEDS, max_depth=80, delay=0.15, max_nodes=250):
     nodes, edges, unresolved, sources, raw_csv = {}, [], [], [], {}
     queue = deque((s.lower(), 0) for s in seeds)
     seen = set()
-    while queue:
+    while queue and len(nodes) < max_nodes:
         label, depth = queue.popleft()
         if label in seen or depth > max_depth:
             continue
@@ -196,9 +196,10 @@ def main():
     parser.add_argument("--seeds", nargs="+", default=list(SEEDS))
     parser.add_argument("--max-depth", type=int, default=80)
     parser.add_argument("--delay", type=float, default=0.15)
+    parser.add_argument("--max-nodes", type=int, default=250)
     parser.add_argument("--out", default="experiments/nuclear_reduction/NRG-01/raw/graph.json")
     args = parser.parse_args()
-    graph = build_graph(args.seeds, args.max_depth, args.delay)
+    graph = build_graph(args.seeds, args.max_depth, args.delay, args.max_nodes)
     target = Path(args.out)
     target.parent.mkdir(parents=True, exist_ok=True)
     raw_dir = target.parent / "source_csv"
