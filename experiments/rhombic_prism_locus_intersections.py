@@ -87,7 +87,10 @@ def active_loci(u0, x0, tol=1e-6):
 def exact_high_order_checks():
     # Central configuration: all three end/side pairs are m=2 and all
     # three side/side pairs are m=3.
-    center = active_loci(0, 0, tol=0)
+    center = [
+        name for name, poly in POLYS.items()
+        if s.simplify(poly.as_expr().subs({U:0, X:0})) == 0
+    ]
     assert len(center) == 6
 
     # Six exact triple intersections, all at horizontal radius 2/sqrt(13).
