@@ -68,15 +68,23 @@ def main():
     def axial_coordinate(p):
         return _dot(sub(p, axis_point), axis_dir)
 
-    # Two strands share one tetrahedral launch configuration but start at
-    # different vertices and move in opposite screw directions.
-    a0, b0 = INITIAL_VERTICES[0], INITIAL_VERTICES[1]
+    # Strand B starts at the point diametrically opposite A on the same
+    # circle perpendicular to the screw axis, at the same axial coordinate.
+    # This gives a half-turn phase offset without introducing irrational data.
+    a0 = INITIAL_VERTICES[0]
+    axial_projection = tuple(axis_point[k] + axis_dir[k] *
+                             axial_coordinate(a0) / norm_sq for k in range(3))
+    b0 = tuple(2 * axial_projection[k] - a0[k] for k in range(3))
     forward = orbit(a0, screw, 64)
     backward = orbit(b0, inverse_screw, 64)
 
     assert all(radius_sq(p) == radius_sq(a0) for p in forward)
     assert all(radius_sq(p) == radius_sq(b0) for p in backward)
     assert radius_sq(a0) == radius_sq(b0)
+    assert axial_coordinate(a0) == axial_coordinate(b0)
+    radial_a = sub(a0, axial_projection)
+    radial_b = sub(b0, axial_projection)
+    assert tuple(radial_a[k] + radial_b[k] for k in range(3)) == (Q(0), Q(0), Q(0))
 
     # Exact point-collision check on finite sampled pieces.
     collisions = [(i, j) for i, p in enumerate(forward)
@@ -109,7 +117,8 @@ def main():
     print(f"radial_dot_product = {dot_radial}")
     print(f"radial_cross_norm_squared = {cross_norm_sq}")
     print("sampled_exact_point_collisions = 0")
-    print("RESULT: two distinct, coaxial, equal-radius screw orbits with opposite axial advance.")
+    print("phase_offset = pi (exactly opposite radial launch vectors)")
+    print("RESULT: two distinct, coaxial, equal-radius screw orbits with opposite axial advance and opposite initial phase.")
     print("LIMIT: infinite/open strands have no classical linking number; no knot/link claim is made.")
 
 
