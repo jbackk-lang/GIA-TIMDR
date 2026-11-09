@@ -642,3 +642,16 @@ Fakty matematyczne:
 Ważne: √2 jest przekątną kwadratu, nie trójkąta; √3 jest przekątną przestrzenną sześcianu, nie czworościanu. „Trójkąt→kwadrat” i „czworościan→sześcian” są nazwami postulowanych przejść konstrukcyjnych, których operacje trzeba dopiero zdefiniować. Nie utożsamiać ich z automatyczną transformacją brył ani z samymi długościami.
 
 Nowa specyfikacja: `docs/geometry/HELIX_CONSTRUCTION_SQRT2_SQRT3_DIAGONAL_TRANSITIONS_v0.1.md`. Kluczowym brakującym elementem jest operator składania dwóch poziomów: musi określić kolejność modułów, orientację odbić, fazę, macierze przejścia i regułę sklejenia. Dopiero jeśli z tego operatora wynika krzywa z osią i mierzalnym skrętem, można mówić o konstrukcji helisy. Zachować znak lewo-/prawoskrętny.
+
+
+## 33. Zmiana priorytetu: tunel osi, warunki brzegowe i zakres skrętu
+
+Autor ocenia, że relacje diagonalne √2/√3 wpływają na właściwości helisy co najwyżej szczątkowo. Pozostają pomocniczym tropem, nie głównym mechanizmem. Priorytet przechodzi na tunel osi i jego warunki brzegowe oraz ustalenie dopuszczalnego zakresu skrętu, ponieważ na granicy tego zakresu może zachodzić redukcja.
+
+Nowa specyfikacja: `docs/geometry/AXIS_TUNNEL_BOUNDARY_CONDITIONS_TWIST_RANGE_REDUCTION_v0.1.md`.
+
+Roboczo tunel osi to otoczenie krzywej osiowej z lokalnym przekrojem i ograniczeniami dopuszczalnych trajektorii. Należy wyprowadzić źródłową oś TIMDR, określić promień/przekrój tunelu, warunki wejścia/wyjścia, domknięcie, zgodność stycznych, ramy, fazy, orientacji i gałęzi. Mierzyć luz poprzeczny, regularność współrzędnych rurowych, krzywiznę osi i minimalne odległości nieprzyległych fragmentów.
+
+Zakres skrętu traktować jako zorientowaną zmienną geometryczną (np. obrót przekroju względem transportowanej ramy), odrębną od torsji Freneta, skrętu powierzchniowego i τ TRM. Redukcja ma być testowana jako zdarzenie na granicy zbioru dopuszczalnych stanów, nie jako z góry zadany próg. Hipoteza 90° pozostaje testem: sprawdzić, czy przy tej wartości niezależnie zanika luz, powstaje kolizja/osobliwość albo naruszenie warunków szwu. Nie zakładać 90° jako aksjomatu.
+
+Kolejność: źródłowa oś → tunel i przekrój → warunki brzegowe → zorientowany skręt i jego zakres → granica dopuszczalności / punkty kardynalne → operator redukcji → dopiero potem wpływ √2/√3, kuli i liczby modułów.
