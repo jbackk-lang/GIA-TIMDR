@@ -1,0 +1,27 @@
+name: Reflection transition BC bridge
+on:
+  push:
+    branches: [main]
+    paths:
+      - "core/reflection_transition.py"
+      - "core/boerdijk_coxeter_tetrahelix.py"
+      - "tests/test_reflection_transition.py"
+      - "experiments/reflection_transition_bc_bridge.py"
+      - ".github/workflows/reflection-transition-bc-bridge.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reflection-bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run reflection transition unit tests
+        run: python -m unittest tests.test_reflection_transition -v
+      - name: Run BC bridge experiment
+        run: python experiments/reflection_transition_bc_bridge.py
