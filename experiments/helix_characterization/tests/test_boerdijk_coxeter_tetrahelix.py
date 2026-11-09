@@ -71,6 +71,22 @@ class BoerdijkCoxeterExactTests(unittest.TestCase):
                                    (Q(1), Q(0), Q(0)),
                                    (Q(2), Q(0), Q(0)))
 
+    def test_vertices_and_tetrahedron_centroids_have_exact_constant_radii(self):
+        vertices = generate_vertices(32)
+        axis_point = (Q(0), Q(0), Q(-2, 5))
+        axis_direction = (Q(2), Q(1), Q(0))
+
+        def radius_sq(point):
+            w = tuple(point[i] - axis_point[i] for i in range(3))
+            factor = sum((w[i] * axis_direction[i] for i in range(3)), Q(0)) / Q(5)
+            radial = tuple(w[i] - factor * axis_direction[i] for i in range(3))
+            return sum((x * x for x in radial), Q(0))
+
+        self.assertTrue(all(radius_sq(v) == Q(54, 25) for v in vertices))
+        centroids = [tetrahedron_centroid(vertices[i:i + 4])
+                     for i in range(len(vertices) - 3)]
+        self.assertTrue(all(radius_sq(c) == Q(4, 25) for c in centroids))
+
 
 if __name__ == "__main__":
     unittest.main()
