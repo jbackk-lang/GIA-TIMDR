@@ -159,3 +159,66 @@ Dla izometrii śrubowej z niezerowym postępem osiowym żadna pojedyncza orbita 
 Samo przeplatanie wizualne nie dowodzi niezerowego niezmiennika splotowego. Do klasyfikacji potrzebne będą: dokładne parametry osi, kąta i przesunięcia, analiza przecięć/rozłączności, jawna reguła domknięcia oraz niezmiennik topologiczny odpowiedni dla otrzymanej krzywej/splotu (np. liczba łącznościowa dla dwóch składowych lub grupa podstawowa dopełnienia w trudniejszych przypadkach).
 
 **Status:** hipoteza plecionki — uzasadniona do zbadania; hipoteza węzła/splotu — wymaga domknięcia i testu topologicznego. Nie nazywać obecnych nieskończonych orbit węzłem.
+
+
+## 10. Wspólny początek i więź czterech orbit — hipoteza sprzężonego obiektu
+
+Sugestia badawcza autora: cztery orbity należy traktować tak, jakby rozpoczęły ruch jednocześnie i pozostawały ze sobą związane przez wspólną strukturę, a być może także przez oddziaływanie przypominające grawitację. Nie jest to jeszcze twierdzenie o fizycznej sile. Poniżej rozdziela się to, co wynika z geometrii BC, od możliwego rozszerzenia dynamicznego.
+
+### 10.1. Wspólny parametr i wspólny operator
+
+Niech początkowy czworościan ma uporządkowane wierzchołki \(X_j(0)=v_j\), \(j=0,1,2,3\). Wszystkie cztery trajektorie mają ten sam parametr ewolucji \(s\) i ten sam początek:
+\[
+X_j(s)=\exp(s\Xi)X_j(0),
+\]
+gdzie \(\exp(s\Xi)\in SE(3)\) jest jednoparametrową grupą ruchów śrubowych, a jej próbka przy \(s=1\) jest operatorem \(T\). Wtedy:
+\[
+X_j(k)=T^k(v_j),\qquad k\in\mathbb Z.
+\]
+To jest precyzyjny sens jednoczesnego startu i wspólnego ruchu. Cztery nici nie są niezależnie parametryzowane; mają wspólną fazę, prędkość kątową i postęp osiowy, a ich różnice są zakodowane w czterech punktach początkowych.
+
+Dla wspólnego ruchu sztywnego:
+\[
+\|X_i(s)-X_j(s)\|=\|X_i(0)-X_j(0)\|.
+\]
+Zachowane są więc wszystkie sześć odległości między czterema punktami. W każdej chwili tworzą one przystający, współporuszający się czworościan. To daje więź geometryczną bez postulowania dodatkowej siły.
+
+### 10.2. Ważne rozróżnienie: więź kinematyczna a oddziaływanie
+
+**Model A — więź kinematyczna:** jeden operator \(SE(3)\) przenosi cały czteropunktowy motyw. Wzajemne odległości są niezmiennikami. Jest to dokładna konsekwencja czterokrokowego twierdzenia dla rekurencji BC.
+
+**Model B — sprzężenie dynamiczne:** każda nić ma własny stan \(X_j,V_j\), a równania ruchu zawierają człony zależne od pozostałych nici:
+\[
+m_j\ddot X_j=F^{\mathrm{self}}_j+
+\sum_{i\ne j}F_{ij}.
+\]
+Przykładowy, wyłącznie fenomenologiczny potencjał wiążący mógłby zależeć od odchyleń od odległości odniesienia:
+\[
+U_{\mathrm{bind}}=
+\frac12\sum_{i<j}k_{ij}
+\left(\|X_i-X_j\|-d_{ij}^{(0)}\right)^2.
+\]
+Taki model przypomina więź sprężystą, nie grawitację. Model grawitacyjny wymagałby osobnego uzasadnienia potencjału, źródła, znaku, jednostek i zasady sprzężenia.
+
+Modele A i B nie są tym samym. W modelu A odległości są zachowane z definicji ruchu sztywnego; w modelu B odległości mogą się zmieniać, a wspólny ruch śrubowy przestaje być dokładny, chyba że symetria i siły gwarantują jego zachowanie.
+
+### 10.3. Co znaczyłoby „pole czasoprzestrzenne”?
+
+Na obecnym etapie można wprowadzić jedynie roboczą nazwę **pole więzi / pole sprzężenia czterech orbit**. Jego minimalna rola byłaby taka, że stan jednej nici wpływa na dopuszczalny stan pozostałych. Aby nazwać je polem fizycznym, trzeba określić:
+- zmienne pola i ich dziedzinę (przestrzeń, czas lub czasoprzestrzeń);
+- równanie ewolucji i źródła;
+- prawo oddziaływania z czterema trajektoriami;
+- jednostki, symetrie i prawa zachowania;
+- granicę, w której model odtwarza znaną teorię albo daje testowalną nową predykcję.
+
+Nie utożsamiać analogii do grawitacji z grawitacją fizyczną.
+
+### 10.4. Minimalny test rozstrzygający
+
+1. Ustawić cztery punkty początkowe jako jeden czworościan i uruchomić je ze wspólnym parametrem \(s=0\).
+2. W modelu A zastosować ten sam generator śrubowy do wszystkich czterech punktów; sprawdzić zachowanie sześciu odległości i wspólnej fazy.
+3. W modelu B włączyć jawne sprzężenie parami, mierzyć zmianę odległości, faz i osi; porównać z modelem A oraz kontrolą bez sprzężenia.
+4. Sprawdzić, czy istnieje niezerowe sprzężenie, które zachowuje lub stabilizuje strukturę czteroniciową bez ręcznego wymuszania jej geometrii.
+5. Dopiero po tym badać, czy trajektorie tworzą plecionkę, a po jawnej regule domknięcia — węzeł lub splot.
+
+**Status:** wspólny start i wspólny ruch sztywny — ścisła konstrukcja kinematyczna; oddziaływanie między nićmi — hipoteza dynamiczna; analogia grawitacyjna — intuicja do formalizacji, nie wynik fizyczny.
