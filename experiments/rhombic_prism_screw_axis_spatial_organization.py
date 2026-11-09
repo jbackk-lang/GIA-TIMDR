@@ -29,10 +29,15 @@ def enumerate_maps(u, v, length, decimals=11):
         unique.setdefault(key, (word, M, b))
     return list(unique.values()), len(layer)
 
-def screw_axis(M, b, tol=2e-7):
-    # Even word length gives a proper orthogonal linear part.
+def screw_axis(M, b, tol=2e-7, min_angle_deg=0.1):
+    # Even word length gives a proper orthogonal linear part. Near-identity
+    # rotations have axes extremely far away and are ill-conditioned in float.
     if np.linalg.det(M) < 0.0 or np.linalg.norm(M - IDENTITY) < tol:
         return None
+    cosine = np.clip((np.trace(M)-1.0)/2.0, -1.0, 1.0)
+    angle_deg = float(np.degrees(np.arccos(cosine)))
+    if angle_deg < min_angle_deg:
+        return "ill_conditioned", angle_deg
     vals, vecs = np.linalg.eig(M)
     k = int(np.argmin(np.abs(vals - 1.0)))
     if abs(vals[k] - 1.0) > 1e-5:
@@ -55,7 +60,7 @@ def screw_axis(M, b, tol=2e-7):
     residual = float(np.linalg.norm(A @ p - rhs))
     if residual > 2e-5:
         return None
-    return a, p, pitch
+    return a, p, pitch, angle_deg
 
 def line_key(a, p, decimals=7):
     return tuple(np.round(np.r_[a, p], decimals))
@@ -75,8 +80,11 @@ def extract_axes(u, v, length):
         if sig is None:
             kinds["rotation"] += 1
             continue
+        if sig[0] == "ill_conditioned":
+            kinds["ill_conditioned_screw"] += 1
+            continue
         kinds["screw"] += 1
-        a, p, pitch = sig
+        a, p, pitch, angle_deg = sig
         axes.setdefault(line_key(a, p), (a, p, []))[2].append(pitch)
     return list(axes.values()), len(maps), raw, kinds
 
@@ -106,13 +114,14 @@ def summarize(label, u, v, lengths=(2,4,6)):
             counts = box_counts(pluecker, 6, scales)
             pnorm = np.linalg.norm(offsets, axis=1)
             print(f"AXES,{label},{n},raw={raw},distinct_maps={distinct},"
-                  f"screw_maps={kinds['screw']},unique_axis_lines={len(axes)},"
+                  f"screw_maps={kinds['screw']},ill_conditioned_screws={kinds['ill_conditioned_screw']},"
+                  f"unique_axis_lines={len(axes)},"
                   f"p_norm_minmax=({pnorm.min():.8g},{pnorm.max():.8g}),"
                   f"pluecker_cov_eigs={np.round(eig,8).tolist()},"
                   f"box_counts={counts}")
         else:
             print(f"AXES,{label},{n},raw={raw},distinct_maps={distinct},"
-                  f"screw_maps={kinds['screw']},unique_axis_lines=0")
+                  f"screw_maps={kinds['screw']},ill_conditioned_screws={kinds['ill_conditioned_screw']},unique_axis_lines=0")
 
 def main():
     eps = 1e-2
