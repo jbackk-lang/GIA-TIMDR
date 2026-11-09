@@ -102,3 +102,33 @@ W `core/geometric_resonance_operator.py` sprzężenie segmentowe jest budowane j
 ### 10.5 Wniosek skorygowany
 
 Główna luka nie brzmi już „brak geometrii osi/tunelu” — istnieje jej jawna specyfikacja koncepcyjna. Luka brzmi: brak implementacji i walidacji tej specyfikacji oraz brak integracji jej podpisanych wielkości (θ, ω, τ osi, holonomia, twist gałęzi) z mechanicznym G-Rezonansem. Najbardziej ekonomiczny następny krok to audyt zgodności tych trzech artefaktów: tunel/warunki brzegowe, Frenet torsion i G-Rezonans, a następnie minimalny test, który sprawdza czy zmiana znaku torsji zmienia odpowiedź. Nie tworzyć jeszcze nowego operatora.
+
+
+## 11. Odkrycie: charakterystyka HC-01 już wyprowadza geometrię helisy kołowej
+
+W GIA-TIMDR istnieje `docs/geometry/HELIX_CHARACTERIZATION_PROTOCOL_HC01_v0.1.md` oraz `experiments/helix_characterization/hc01_circular_helix.py`. Dla standardowej helisy kołowej `r(t)=(a cos t,a sin t,h t)` wyprowadzono dokładnie:
+- `κ=a/(a²+h²)`;
+- podpisana torsja Freneta `τ_FS=h/(a²+h²)`;
+- `τ_FS/κ=h/a`;
+- skok `p=2πh`;
+- długość obrotu `2π√(a²+h²)`.
+
+Odbicie `h→−h` zachowuje κ i długość, a odwraca znak τ_FS i skoku. Bezwymiarowa torsja `aτ_FS=η/(1+η²)`, `η=h/a`, ma maksimum modułu przy `|η|=1`, gdzie kąt stycznej do płaszczyzny poprzecznej wynosi 45°. To ścisły wynik dla rodziny idealnych helis kołowych, nie próg 90°, nie punkt kardynalny TIMDR i nie próg redukcji. Raport `RESULT_HC01_CIRCULAR_HELIX_PILOT_2026-11-09.md` podaje numeryczną zbieżność estymatora krzywizny i ograniczenia torsji numerycznej.
+
+### 11.1 HC-01-TUBE — tunel helisy
+
+W tym samym raporcie jest już pilot HC-01-TUBE. Ograniczenie promienia tubularnego otoczenia osi jest porównywane z dwóch źródeł: lokalny promień krzywizny `1/κ=(a²+h²)/a` oraz połowa odległości pary doubly-critical. Dla małego `|h/a|` ograniczenie globalne (zbliżenie nieprzyległych fragmentów osi) może być ciaśniejsze niż lokalna krzywizna; przy większym skoku w badanym zakresie ogranicza lokalny promień krzywizny. To ważne dla tunelu, ale dotyczy idealnej helisy kołowej, nie jeszcze osi zakrzywionej/helisy TIMDR.
+
+### 11.2 Protokół HC-01 już definiuje macierz rodzin
+
+HC-01: helisa kołowa; HC-02: zmienny skok; HC-03: zmienny promień/helisa stożkowa; HC-04: helisa na osi zakrzywionej; HC-05: krzywa zamknięta o lokalnej helikalności; HC-06: trefoil. Protokół każe rozdzielać geometrię lokalną, ramę/tunel, globalną topologię i odporność numeryczną. To właściwy porządek badań i powinien być kontynuowany zamiast budowania kolejnego niezależnego modelu od zera.
+
+## 12. Redukcja 4→3: istniejące implementacje są kinematyczne
+
+`experiments/helix_reduction/four_to_three_surface_reduction.py` realizuje wycięcie fragmentu jednej z czterech gałęzi i mostkowanie końców na powierzchni sfery/jaja; trzy pozostałe gałęzie są ponownie fazowane równomiernie. `phase_locked_whole_strand_reduction.py` modeluje usunięcie całej zamkniętej gałęzi na zdarzeniu granicznym i ponowne fazowanie trzech pozostałych. Są to jawne modele kinematyczne, nie wyprowadzenie mechaniki/energii ani dowód fizycznej redukcji. Sam raport kodu stwierdza, że most jest interpolacją parametrów powierzchni, nie geodezyjną; brak pełnego solvera relaksacji sprężystej; brak pełnego niezmiennika węzła/splotu.
+
+Audyt `SINUSOID_LOBES_VS_TREFOIL_TORSION_AUDIT_v0.1.md` wykazał, że trzy sektory klasycznego trefoila mają równoważny rozkład podpisanej torsji; nie potwierdza to mapowania płatów sinusoidy (+,−,+) na znaki torsji trefoila. To ważna kontrola przeciw zbyt prostemu utożsamianiu sygnału z geometrią.
+
+## 13. Najważniejszy syntetyczny obraz stanu
+
+W GIA istnieją już: (a) analityczny baseline helisy kołowej i pilot tunelu, (b) podpisana torsja trefoila, (c) koncepcyjna specyfikacja osi/tunelu/warunków brzegowych, (d) modele kinematycznej redukcji 4→3, (e) operator G-Rezonans. Nie ma jeszcze jednego modelu, który bierze rzeczywistą geometrię TIMDR, zachowuje jej podpisaną orientację i warunki brzegowe, przeprowadza redukcję wynikającą z pierwszego ograniczenia dopuszczalności, a następnie przewiduje mierzalną odpowiedź mechaniczną. To jest konkretna integracyjna luka — nie brak ogólnej geometrii.
