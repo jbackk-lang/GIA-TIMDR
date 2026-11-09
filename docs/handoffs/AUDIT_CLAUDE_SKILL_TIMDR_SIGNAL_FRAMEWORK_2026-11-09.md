@@ -105,3 +105,14 @@ Nie wracać do ogólnego katalogowania geometrii ani nie tworzyć kolejnego niez
 6. odróżnić odpowiedź resztkową od pamięci informacji.
 
 **Zasada anty-zapętlenia:** przed każdym nowym zadaniem helikalnym czytać ten audyt, `HANDOFF_HELIX_SIGNAL_RESPONSE_2026-11-09.md` i `HELIX_TIMDR_RESEARCH_PROGRAM.md`; po zadaniu aktualizować handoff, rejestr wyników i wskazany następny krok. Nie powtarzać testu, który ma już raport, chyba że jawnie sprawdzamy jego replikację lub rozszerzenie.
+
+
+## 9. Weryfikacja §12 na dokładnym generatorze BC (2026-11-09)
+
+Wskazówka z §12 została odtworzona niezależnie w `core/boerdijk_coxeter_tetrahelix.py` z arytmetyką wymierną i 6 testami CI (run 42588917531, SUCCESS). Dla wybranej konwencji współrzędnych uzyskano jedną macierz śrubową `R` i translację `t`, które przewidują 60 kolejnych wierzchołków i przenoszą centroidy tetraedrów. Raport: `docs/geometry/BOERDIJK_COXETER_EXACT_REFERENCE_2026-11-09.md`.
+
+**Doprecyzowanie terminologiczne do §12:** zapis skilla `cos(τ)=1/3` odpowiada wartości cosinusa wewnętrznego kąta dwuściennego regularnego czworościanu (≈70.5288°). Kąt obrotu dokładnej transformacji śrubowej BC dla tej konwencji ma `cos(θ)=-2/3` (≈131.8103°). Żadnego z tych kątów nie należy nazywać ciągłą torsją Freneta–Serreta. To ważne, bo w repo TIMDR `τ_FS` ma jednostkę odwrotności długości, a inne `τ` są odrębnymi obiektami.
+
+**Nowa obserwacja:** ściany BC są równoboczne, ale sekwencja tetraedrów mimo to wykonuje niezerowy obrót śrubowy. Zatem lokalna asymetria modułu i globalna holonomia wynikająca z reguły sklejenia są odrębnymi możliwymi źródłami skrętu. To nie obala G2 TIMDR, lecz wymaga rozdzielenia obiektów i testowania ich niezależnie.
+
+Dodatkowo odnaleziono i zweryfikowano istniejący test chiralności w repozytorium `jbackk-lang/Helix-Lock`: run 42559444225, Python 3.11 i 3.12, po 148 testów PASS. Wynik jest już opisany w `docs/geometry/COMPARISON_BC_HC01_TIMDR_2026-11-09.md`; nie należy kopiować go ponownie do GIA-TIMDR.
