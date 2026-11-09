@@ -107,3 +107,8 @@ Uruchomienie testów:
 `python -m unittest experiments.helix_characterization.tests.test_boerdijk_coxeter_tetrahelix -v`
 
 Testy używają wyłącznie standardowej biblioteki Pythona i dokładnej arytmetyki `Fraction`; nie wymagają SciPy ani NumPy.
+
+
+## 10. Dodatkowa kontrola centroidów
+
+Rozszerzono testy o dokładny promień centroidów. Dla osi przechodzącej przez ((0,0,-2/5)) w kierunku ((2,1,0)), wszystkie wierzchołki mają (r_v^2=54/25), a centroidy kolejnych tetraedrów (r_c^2=4/25). Zatem promień centroidowej helisy wynosi dokładnie (2/5), jest mniejszy od promienia helisy wierzchołków i ma tę samą oś. Test działa na liczbach wymiernych.
