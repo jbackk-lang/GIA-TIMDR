@@ -657,3 +657,56 @@ Wartości bezwzględnego skoku śrubowego pozostają bliskie \(3/2\) i \(2\). Ma
 Kod: \`experiments/rhombic_prism_central_screw_unfolding.py\`.
 
 Walidacja CI: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42635226502 — PASS.
+
+
+## 17. Test rozszczepienia widma na długościach 2, 4 i 6
+
+Dodano 'experiments/rhombic_prism_screw_unfolding_multidegree.py'. Używa on poprawnych odbić afinicznych i porównuje centrum z perturbacjami o promieniu \(\varepsilon=10^{-2}\). Dla długości 2, 4 i 6 deduplikacja do 11 miejsc daje stabilne wyniki w powtórzonych kierunkach.
+
+### 17.1. Wyniki
+
+| Kierunek perturbacji | Długość słowa | Różne mapy | Ruchy śrubowe |
+|---|---:|---:|---:|
+| Centrum | 2 | 14 | 0 |
+| Centrum | 4 | 65 | 24 |
+| Centrum | 6 | 175 | 84 |
+| Linie \(0^\circ,60^\circ,120^\circ\) | 2 | 18 | 0 |
+| Linie \(0^\circ,60^\circ,120^\circ\) | 4 | 245 | 84 |
+| Linie \(0^\circ,60^\circ,120^\circ\) | 6 | 3045 | 1848 |
+| Kierunek ogólny \(30^\circ\) lub \(90^\circ\) | 2 | 20 | 0 |
+| Kierunek ogólny \(30^\circ\) lub \(90^\circ\) | 4 | 320 | 120 |
+| Kierunek ogólny \(30^\circ\) lub \(90^\circ\) | 6 | 5078 | 3400 |
+| Kierunek ogólny \(45^\circ\) | 2 | 20 | 0 |
+| Kierunek ogólny \(45^\circ\) | 4 | 320 | 120 |
+| Kierunek ogólny \(45^\circ\) | 6 | 5102 | 3480 |
+
+Wynik jest zgodny z dokładnymi trzema liniami prostopadłości ściany bocznej do ścian końcowych: \(v=0\), \(v=\sqrt3u\), \(v=-\sqrt3u\). Wzdłuż tych linii widmo jest mniejsze niż w kierunkach ogólnych. Zatem perturbacja centralna nie ma jednego uniwersalnego rozszczepienia — wynik zależy od kierunku.
+
+### 17.2. Osie i skoki
+
+Dla długości 4 i \(\varepsilon=10^{-3}\) największy kąt między osią śruby po perturbacji a najbliższą osią centralną wynosi około \(0.1^\circ\). Przy \(\varepsilon=10^{-2}\) jest około \(1^\circ\), co jest zgodne z małą, w przybliżeniu liniową zmianą osi.
+
+W centrum długości 4 występują wartości bezwzględne skoku \(3/2\) i \(2\). Przy perturbacji długości 4 rozszczepiają się one na bliskie wartości, np. dla kierunku \(u\):
+\[
+1.49989,\ 1.49994,\ 1.99960,\ 1.99980.
+\]
+Dla długości 6 pojawiają się już dodatkowe wartości skoków, również małe. Nie wolno więc przenosić wniosku o dwóch wartościach skoku z długości 4 na całe widmo.
+
+### 17.3. Długość 8 — wynik diagnostyczny, nie rozstrzygający
+
+Dla słów długości 8 mamy 327680 zredukowanych słów. W centrum liczba różnych map wynosi 369 i jest stabilna w badanym zakresie precyzji. Po perturbacji deduplikacja zmiennoprzecinkowa staje się wrażliwa na liczbę cyfr: przykładowo dla kierunku ogólnego \(45^\circ\) wynik zmienia się od około 77765 do 81200 przy zmianie zaokrąglenia z 7 do 13 miejsc.
+
+Dlatego liczby długości 8 są raportowane wyłącznie jako test diagnostyczny i **nie są używane jako dowód liczby klas**. Potrzebne są obliczenia z dokładną arytmetyką algebraiczną lub certyfikowanym porównaniem macierzy afinicznych.
+
+### 17.4. Wniosek
+
+Dla długości 2, 4 i 6 istnieje stabilny, kierunkowo zależny obraz rozszczepienia:
+- centrum ma największą degenerację spośród przebadanych konfiguracji;
+- trzy kierunki szczególne zachowują dodatkowe relacje komutacji;
+- kierunki ogólne dają więcej różnych map i ruchów śrubowych;
+- przy wzroście długości słowa pojawiają się nowe wartości skoków, więc struktura jest bogatsza niż dwa skoki widoczne na długości 4.
+
+To wspiera obraz centralnej konfiguracji jako punktu wysokiej symetrii w skończonych widmach odbić. Nie dowodzi jeszcze bifurkacji całej nieskończonej grupy.
+
+Reprodukcja:
+'experiments/rhombic_prism_screw_unfolding_multidegree.py'
