@@ -104,3 +104,17 @@ Dopiero wtedy można testować:
 - czy istnieje niearbitralna, falsyfikowalna relacja 3-komponenty ↔ 3-gałęzie.
 
 **Wniosek końcowy:** audyt nie wykazał odpowiedniości 3→3. Wykazał dokładnie, dlaczego obecny zbiór danych jej nie identyfikuje i jakie dane oraz definicje są konieczne, aby ją uczciwie sprawdzić.
+
+
+## 8. Uruchomienie audytu w CI
+
+Audyt został uruchomiony przez GitHub Actions w przebiegu [42563682586](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42563682586). Wszystkie kroki zakończyły się sukcesem: testy, pobranie grafu, analiza grafu, test podpisanej torsji, audyt odpowiedniości oraz upload artefaktu.
+
+Artefakt `nrg01-parallel-tracks`, ID `13650283583`, SHA-256 `64ece60415e3768cfd485abb387892d58b3ede9cc272bc789fc355b39acd6068`. Wewnątrz znajduje się `three_strand_correspondence_audit.json`, który potwierdza:
+- 3 słabo spójne komponenty;
+- 3 / 5 / 1 rozgałęzienia w komponentach Np-237 / U-238 / Th-232;
+- 4 / 15 / 2 ścieżki źródło–terminal;
+- wszystkie komponenty są DAG;
+- brak rozgałęzień trójkanałowych;
+- sześć równoważnych przypisań komponentów do trzech gałęzi;
+- brak identyfikowalnego mapowania punktów kardynalnych i ręczności.
