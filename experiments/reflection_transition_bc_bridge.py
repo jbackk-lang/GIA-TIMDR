@@ -7,6 +7,12 @@ This checks geometry only. It does not infer a physical probability law.
 """
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
 from core.boerdijk_coxeter_tetrahelix import (
     INITIAL_VERTICES,
     generate_vertices,
