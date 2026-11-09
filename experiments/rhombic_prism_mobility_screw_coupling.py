@@ -67,7 +67,7 @@ def length_four_spectrum(u, v):
         layer = nxt
     distinct = {}
     for word, (M, b) in layer:
-        key = tuple(np.round(np.r_[M.ravel(), b], 8))
+        key = tuple(np.round(np.r_[M.ravel(), b], 10))
         distinct.setdefault(key, (word, M, b))
     kinds = Counter(classify(M, b) for _, M, b in distinct.values())
     c = [float(t @ e) for e in EDGES]
@@ -85,10 +85,15 @@ def main():
     a = 1/(2*np.sqrt(3))
     b = 1/np.sqrt(3)
     samples = [
-        (0.5, 0.0),                    # equal acute angles: c2=-c3
+        (0.2, 0.0),                    # symmetry branch c2=c3
+        (0.5, 0.0),                    # symmetry branch c2=c3
+        (0.8, 0.0),
+        (0.5, 1e-5),                   # transverse off-branch control
         (0.5, 0.05),
         (0.5, 0.10),
         (0.5, 0.20),
+        (0.2, 0.2/np.sqrt(3)),        # square-face symmetry branch
+        (0.4, 0.4/np.sqrt(3)),
         (0.5, a),                      # exact benchmark A: c=(1/2,0,-1/2)
         (0.5, -a),                     # reflected partner of A
         (0.5, a-1e-5),                 # off-resonance controls
