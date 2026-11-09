@@ -112,3 +112,20 @@ Następny rozstrzygający test nie powinien dodawać dowolnego „pola” jako k
 Mierzyć: sześć odległości, objętość/orientację czworościanu, środek masy, moment pędu, odchylenie od wspólnej osi i fazy czterech orbit. Model C jest wyłącznie kontrolą matematyczną, nie propozycją utożsamienia TIMDR z grawitacją.
 
 **Konkluzja:** istnieje konkretny sposób powiązania czterech nici — sześć wzajemnych więzi geometrycznych. Jest to pierwszy minimalny mechanizm stabilizacji kształtu. Pytanie o mechanizm, który dodatkowo synchronizuje i napędza wspólny ruch, pozostaje otwarte.
+
+
+## 8. Dodatkowa symulacja relaksacji po zaburzeniu
+
+Wykonano jawny test czasowy dla tego samego czworościanu i sześciu sprężyn jednostkowych:
+- masy wszystkich punktów: \(m_i=1\);
+- tłumienie lepkie: \(\gamma=0.8\);
+- początkowo punkt \(X_1\) przesunięto o \(0.05\) w osi \(x\), pozostałe punkty bez zmiany;
+- prędkości początkowe: zero;
+- integracja: krok \(dt=0.002\), 10 000 kroków.
+
+RMS błędu sześciu długości krawędzi:
+\[
+\mathrm{RMS}_{\rm initial}=0.02464999,\qquad
+\mathrm{RMS}_{\rm final}=4.3272\cdot10^{-6}.
+\]
+W tym modelu zaburzony czworościan wraca numerycznie blisko kształtu odniesienia. Jest to demonstracja relaksacji do minimum potencjału sprężynowego. Nie jest to dowód samonaprawy fizycznej helisy ani podtrzymywania ruchu śrubowego.
