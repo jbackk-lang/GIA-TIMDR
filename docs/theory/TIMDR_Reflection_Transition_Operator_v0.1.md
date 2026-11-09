@@ -165,3 +165,15 @@ Jeżeli nie ma kontrakcji ani innego wykazanego mechanizmu zmiany skali, wynik k
 Najpierw implementujemy i testujemy deterministyczny łańcuch zdarzenie–powierzchnia–odbicie–kontynuacja. Dopiero gdy zbiór dopuszczalnych kontynuacji jest większy niż jeden i istnieją dane lub jawny mechanizm losowości, dodajemy jądro prawdopodobieństwa. Fraktalność pozostaje osobną hipotezą wymagającą wykazania zmiany skali.
 
 **Wniosek:** brakującym ogniwem nie jest kolejny kąt, lecz dobrze określony operator przejścia F wraz z warunkami dopuszczalności i — opcjonalnie — jądrem P. To on połączy istniejący graf zdarzeń, Chronoproces i odbicie BC bez utożsamiania geometrii, prawdopodobieństwa i fraktalności.
+
+## 13. Pierwsza implementacja operatora — 2026-11-09
+
+Dodano:
+- `core/reflection_transition.py` — normalną z dwóch stycznych powierzchni, deterministyczne odbicie kierunku, obiekt zdarzenia oraz opcjonalny softmax po jawnie podanym zbiorze kosztów gałęzi;
+- `tests/test_reflection_transition.py` — testy zachowania normy prędkości, odwrócenia składowej normalnej, równości kątów, niezmienniczości względem skali normalnej, degeneracji powierzchni i normalizacji jądra gałęzi.
+
+Ważne rozróżnienie: odbicie punktu czworościanu w `core/boerdijk_coxeter_tetrahelix.py` jest konstrukcyjną regułą generowania kolejnego wierzchołka. Odbicie wektora kierunku w `core/reflection_transition.py` jest prawem zwierciadlanego odbicia kierunku na powierzchni. Są matematycznie spokrewnione przez geometrię płaszczyzny, ale opisują różne obiekty i nie wolno ich utożsamiać bez dodatkowego mapowania stanu.
+
+Softmax jest jedynie kandydacką rodziną rozkładów po dostarczonych kosztach. Nie jest wyprowadzony z kąta, nie jest jeszcze skalibrowany na danych i nie stanowi postulatu o fizycznej losowości.
+
+**Status wykonania:** pliki zostały zapisane i ponownie odczytane z repozytorium. Testy zostały dodane, ale w tej sesji nie uruchomiono środowiska Pythona z pełnym checkoutem repozytorium; wynik testów pozostaje `NOT RUN`, a nie `PASS`.
