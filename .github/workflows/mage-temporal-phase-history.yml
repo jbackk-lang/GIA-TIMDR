@@ -23,11 +23,15 @@ jobs:
         with:
           python-version: "3.11"
       - run: python -m pip install numpy opencv-python-headless
-      - name: Analyze real committed image sequence
-        run: python experiments/mage_temporal_phase_history/test_phase_history.py --mage-root mage-data --clip Test001 --out results/mage_phase_history_Test001.json
+      - name: Analyze three real committed image sequences
+        run: |
+          mkdir -p results
+          for clip in Test001 Test002 Test003; do
+            python experiments/mage_temporal_phase_history/test_phase_history.py --mage-root mage-data --clip "$clip" --out "results/mage_phase_history_${clip}.json"
+          done
       - uses: actions/upload-artifact@v4
         with:
           name: mage-temporal-phase-history-Test001
-          path: results/mage_phase_history_Test001.json
+          path: results/mage_phase_history_*.json
           if-no-files-found: error
           retention-days: 90
