@@ -163,6 +163,47 @@ def resonance_roots(length):
                 roots[q0] += 1
     return roots, parameter_independent_rotations
 
+def resonance_cosine_spectrum(length, target_q):
+    """Cosines of rotations whose screw pitch vanishes at target_q."""
+    G0 = (
+        reflect((Q(1), Q(1), Q(1)), Q(-1)),
+        reflect((Q(1), Q(1), Q(1)), Q(3)),
+        *(reflect(n, Q(-1)) for n in SIDE_NORMALS),
+    )
+    G1 = (
+        reflect((Q(1), Q(1), Q(1)), Q(-1)),
+        reflect((Q(1), Q(1), Q(1)), Q(-1)),
+        *(reflect(n, Q(-1)) for n in SIDE_NORMALS),
+    )
+    layer = [((), (I, ZERO), (I, ZERO))]
+    for _ in range(1, length + 1):
+        next_layer = []
+        for word, T0, T1 in layer:
+            for i in range(5):
+                if word and word[-1] == i:
+                    continue
+                next_layer.append((
+                    word + (i,),
+                    compose(G0[i], T0),
+                    compose(G1[i], T1),
+                ))
+        layer = next_layer
+    spectrum = Counter()
+    rotation_matrices = set()
+    for word, T0, T1 in layer:
+        M, b0 = T0
+        _, b1 = T1
+        if M == I:
+            continue
+        u = axis_vector(M)
+        p0, p1 = dot(u, b0), dot(u, b1)
+        if p0 != p1 and -p0 / (p1 - p0) == target_q:
+            cosine = (sum((M[k][k] for k in range(3)), Q(0)) - 1) / 2
+            spectrum[cosine] += 1
+            rotation_matrices.add(M)
+    return spectrum, len(rotation_matrices)
+
+
 def main():
     q = Q(1, 2)
     G = generators(q)
@@ -225,6 +266,12 @@ def main():
         Q(1, 4): 72, Q(1, 3): 108, Q(1, 2): 36
     }
     assert fixed6 == 1572
+    spectra6 = {r: resonance_cosine_spectrum(6, r) for r in (Q(1, 4), Q(1, 3), Q(1, 2))}
+    assert dict(spectra6[Q(1, 4)][0]) == {Q(-79, 81): 72}
+    assert dict(spectra6[Q(1, 3)][0]) == {Q(-631, 729): 72, Q(-151, 729): 36}
+    assert dict(spectra6[Q(1, 2)][0]) == {Q(-79, 81): 36}
+    niven_values = {Q(0), Q(1, 2), Q(-1, 2), Q(1), Q(-1)}
+    assert all(not (set(spectrum) & niven_values) for spectrum, _ in spectra6.values())
     assert len(roots8) == 25
     assert fixed8 == 11724
 
@@ -241,6 +288,9 @@ def main():
     print(f"length_8_zero_pitch_resonance_count={len(roots8)} distinct rational q values")
     print(f"length_8_zero_pitch_resonances={dict(sorted(roots8.items()))}")
     print(f"parameter_independent_pure_rotations: length6={fixed6}; length8={fixed8}")
+    for r, (spectrum, distinct_axes) in spectra6.items():
+        print(f"length_6_resonance_q_{r}_rotation_cosines={dict(sorted(spectrum.items()))}; distinct_rotation_matrices={distinct_axes}")
+    print("Niven test: none of the length-six resonant rotations has finite order.")
     print("RESULT: truncation depth changes screw pitch; exact rational depths create zero-pitch resonances.")
     print("LIMIT: finite word search does not prove global closure, knotting, or physical interaction.")
 
