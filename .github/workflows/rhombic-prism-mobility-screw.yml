@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - "experiments/rhombic_prism_mobility_screw_coupling.py"
+      - "experiments/rhombic_prism_ellipse_braid_relation.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -16,6 +17,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install numpy
+      - run: pip install numpy sympy
       - name: Scan mobility family and length-four screw spectra
         run: python experiments/rhombic_prism_mobility_screw_coupling.py
+      - name: Prove exact braid relations on candidate ellipse
+        run: python experiments/rhombic_prism_ellipse_braid_relation.py
