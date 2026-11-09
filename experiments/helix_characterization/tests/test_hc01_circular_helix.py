@@ -3,8 +3,8 @@ import unittest
 from pathlib import Path
 import sys
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "experiments" / "helix_characterization"))
+MODULE_DIR = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(MODULE_DIR))
 import hc01_circular_helix as hc
 
 
