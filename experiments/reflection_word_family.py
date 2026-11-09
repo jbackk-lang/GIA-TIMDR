@@ -129,8 +129,8 @@ def enumerate_words(max_length=6):
 
 
 def main():
-    layers = enumerate_words(6)
-    expected_words = {1: 4, 2: 12, 3: 36, 4: 108, 5: 324, 6: 972}
+    layers = enumerate_words(8)
+    expected_words = {n: 4 * (3 ** (n - 1)) for n in range(1, 9)}
     expected_types = {
         1: {"orientation_reversing": 4},
         2: {"rotation": 12},
