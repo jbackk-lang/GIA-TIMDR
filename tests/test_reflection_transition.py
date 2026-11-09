@@ -8,6 +8,7 @@ from core.reflection_transition import (
     reflect_event,
     surface_normal,
     reflect_tetrahedron_step,
+    tetrahedron_face_reflection_candidates,
 )
 
 
@@ -100,6 +101,49 @@ class BoerdijkCoxeterBridgeTests(unittest.TestCase):
         reflected = reflect_direction(incoming, normal)
         for x, y in zip(reflected, outgoing):
             self.assertAlmostEqual(x, y, places=12)
+
+
+    def test_regular_tetrahedron_has_four_distinct_face_reflection_candidates(self):
+        from core.boerdijk_coxeter_tetrahelix import INITIAL_VERTICES
+
+        vertices = tuple(tuple(float(x) for x in p) for p in INITIAL_VERTICES)
+        candidates = tetrahedron_face_reflection_candidates(vertices)
+        self.assertEqual(len(candidates), 4)
+        new_points = [candidate[i] for i, candidate in enumerate(candidates)]
+        self.assertEqual(len(set(tuple(round(x, 12) for x in p) for p in new_points)), 4)
+        for candidate in candidates:
+            edge_sq = {
+                round(sum((candidate[i][k] - candidate[j][k]) ** 2 for k in range(3)), 10)
+                for i in range(4) for j in range(i + 1, 4)
+            }
+            self.assertEqual(edge_sq, {8.0})
+
+    def test_generic_tetrahedron_four_candidates_preserve_six_edge_lengths(self):
+        vertices = (
+            (0.0, 0.0, 0.0), (2.0, 0.0, 0.0),
+            (0.0, 3.0, 0.0), (0.0, 0.0, 4.0),
+        )
+        expected = sorted(
+            sum((vertices[i][k] - vertices[j][k]) ** 2 for k in range(3))
+            for i in range(4) for j in range(i + 1, 4)
+        )
+        candidates = tetrahedron_face_reflection_candidates(vertices)
+        self.assertEqual(len(candidates), 4)
+        for candidate in candidates:
+            actual = sorted(
+                sum((candidate[i][k] - candidate[j][k]) ** 2 for k in range(3))
+                for i in range(4) for j in range(i + 1, 4)
+            )
+            for x, y in zip(actual, expected):
+                self.assertAlmostEqual(x, y, places=10)
+
+    def test_degenerate_tetrahedron_branch_enumeration_is_rejected(self):
+        flat = (
+            (0.0, 0.0, 0.0), (1.0, 0.0, 0.0),
+            (0.0, 1.0, 0.0), (1.0, 1.0, 0.0),
+        )
+        with self.assertRaises(ValueError):
+            tetrahedron_face_reflection_candidates(flat)
 
 
 if __name__ == "__main__":
