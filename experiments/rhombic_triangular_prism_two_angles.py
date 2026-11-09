@@ -86,11 +86,12 @@ def axis_line_key(T):
     u=axis(M)
     lam=s.simplify(u.dot(b)/u.dot(u))
     rhs=simp_mat(b-lam*u)
-    # Add the projector onto the axis direction to make (I-M) invertible.
-    # The right-hand side is perpendicular to u, so this solves for the
-    # unique point on the axis closest to the origin.
-    A=simp_mat(I-M+(u*u.T)/u.dot(u))
-    closest=simp_mat(A.inv()*rhs)
+    # On the plane perpendicular to u:
+    # (I-M).T*(I-M) = 2*(1-cos(theta))*I.
+    # This gives the closest-to-origin point of the axis without a symbolic
+    # matrix inversion.
+    cosine=s.simplify((s.trace(M)-1)/2)
+    closest=simp_mat((I-M).T*rhs/(2*(1-cosine)))
     return direction_key(u), tuple(s.simplify(x) for x in closest)
 
 def enumerate_layer(G, max_length=4):
