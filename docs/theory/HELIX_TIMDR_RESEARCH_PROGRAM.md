@@ -868,3 +868,12 @@ Wynik geometryczny: HC-01 jest gładką krzywą o stałej krzywiźnie i torsji; 
 **Wniosek:** fraktalności nie ma w definicji HC-01 ani regularnego BC. Status struktury nadrzędnej TIMDR pozostaje UNKNOWN. To wynik negatywny dla najprostszych kandydatów, nie obalenie hipotezy fraktalnej całego TIMDR.
 
 **Następny krok w tej samej linii:** ilościowo porównać bezwymiarowe parametry HC-01 i dokładne parametry śrubowe BC, następnie sprawdzić ogólny czworościan. Nie uruchamiać box-countingu jako poszukiwania fraktala na gładkiej HC-01; użyć go później wyłącznie do testu kalibracyjnego estymatora. Do właściwego testu fraktalności przejść dopiero po wskazaniu geometrii o rzeczywistej rekurencji/wielu skalach.
+
+
+### 30.14. Ilościowa kontrola HC-01/BC po audycie geometrii — 2026-11-09
+
+Po rozstrzygnięciu geometrycznym wykonano kontrolę liczb dla dokładnego wzorca BC. Wyniki i interpretacja są w sekcji 9 `docs/geometry/HELIX_FRACTAL_GEOMETRY_AUDIT_v0.1.md`. Otrzymano `η=h/a≈−0.2645400022`, `aκ≈0.9345956744`, `aτ_FS≈−0.2472379417`, kąt śrubowy `θ≈131.8103148958°`, promień wierzchołków `a≈1.4696938457`, promień centroidów `0.4`, krzywiznę `κ≈0.6359118106` i podpisaną torsję `τ_FS≈−0.1682241117`.
+
+Wartości bezwymiarowe są niezmienne przy jednorodnym skalowaniu. Stały przyrost fazy i osiowy BC potwierdzają regularność śrubową, nie rekurencję wieloskalową. Stosunek promienia centroidów do promienia wierzchołków wynosi dokładnie `√6/9`; dwie wyróżnione orbity nie dowodzą fraktalnej hierarchii.
+
+**Wniosek:** kontrola liczb jest zgodna z analizą geometrii i nie ujawnia fraktalności HC-01/regularnego BC. Nie obala to możliwości fraktalnej reprezentacji struktury nadrzędnej TIMDR. Następna ilościowa kontrola powinna dotyczyć ogólnego czworościanu z już istniejącej rekurencji: sprawdzić, czy kolejne moduły mogą być przenoszone jedną stałą izometrią, a jeśli nie — scharakteryzować zmianę operatora, bez nazywania jej fraktalną z góry.
