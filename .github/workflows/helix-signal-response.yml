@@ -1,0 +1,31 @@
+name: Helix signal response probe
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/helix_signal_response/**"
+      - ".github/workflows/helix-signal-response.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install numpy
+      - name: Run tests
+        run: python -m unittest discover -s experiments/helix_signal_response/tests -v
+      - name: Run probe
+        run: python experiments/helix_signal_response/minimal_coupling_probe.py --out results/probe.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: abstract-helix-signal-response-probe
+          path: results/probe.json
+          if-no-files-found: error
+          retention-days: 90
