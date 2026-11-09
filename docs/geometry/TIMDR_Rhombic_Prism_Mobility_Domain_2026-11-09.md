@@ -720,3 +720,53 @@ W logach CI potwierdzono:
 - kierunki ogólne 30° i 90°: dla długości 4 = 320 map / 120 śrub; dla długości 6 = 5078 map / 3400 śrub;
 - centrum: 14, 65 i 175 map dla długości 2, 4 i 6;
 - diagnostykę precyzji długości 8, która potwierdza niestabilność numerycznego deduplikowania poza centrum.
+
+
+## 18. Przestrzenna organizacja osi śrubowych — wynik wstępny i korekty
+
+Dodano experiments/rhombic_prism_screw_axis_spatial_organization.py. Oś każdej śruby jest rekonstruowana jako prosta w \(\mathbb R^3\): kierunek jednostkowy \(a\) oraz punkt \(p\) najbliższy początkowi układu, z warunkami
+\[
+(I-M)p=b-(a\cdot b)a,\qquad p\cdot a=0.
+\]
+Do porównania prostych użyto współrzędnych Plückera \((a,p\times a)\). Różne transformacje mogą dzielić tę samą oś, dlatego raportuje się osobno liczbę map śrubowych i liczbę różnych prostych osi.
+
+### 18.1. Wynik dla długości 4
+
+Przy \(\varepsilon=0.01\), przed odrzuceniem prawie-identycznościowych obrotów, otrzymano:
+- centrum: 24 mapy śrubowe, 9 różnych osi;
+- trzy kierunki szczególne: 84 mapy śrubowe, 42–44 różne osie;
+- kierunki ogólne: 120 map śrubowych, 54–62 różne osie.
+
+To potwierdza, że liczba map śrubowych nie jest liczbą geometrycznie różnych osi.
+
+### 18.2. Długość 6 i problem osi odległych
+
+Dla długości 6 wstępna rekonstrukcja dawała osie o odległościach od początku rzędu \(10^4\)–\(10^5\). To wskazuje na źle uwarunkowane przypadki: gdy kąt części obrotowej zbliża się do zera, oś śruby może odsuwać się bardzo daleko (granica ruchu śrubowego do translacji). Nie należy interpretować takich wartości jako zwartego skupiska osi w pobliżu bryły ani jako dowodu fraktalności.
+
+Dodano filtr minimalnego kąta obrotu \(0.1^\circ\), a następnie zaostrzono go do \(1^\circ\) jako test stabilności. Odrzucone przypadki są liczone osobno jako ill_conditioned_screws; nie są utożsamiane z brakiem śruby. Nawet po filtrze \(0.1^\circ\) część osi pozostawała daleko od początku, co uzasadnia analizę w kilku progach i kontrolę reszt równania osi.
+
+### 18.3. Czy widać fraktal?
+
+Na obecnym etapie **nie ma dowodu fraktalności**. Wykonano tylko skończoną enumerację słów długości 2, 4 i 6. Liczby zajętych pudełek w przestrzeni Plückera rosną na kilku skalach, ale szybko się nasycają; to typowe dla skończonego zbioru punktów i nie wyznacza wymiaru fraktalnego.
+
+Żeby badać fraktalność, trzeba:
+1. porównać stabilne osie przy rosnącej długości słów, używając dokładnej lub certyfikowanej arytmetyki;
+2. ustalić metrykę na przestrzeni prostych (np. odległość w znormalizowanych współrzędnych Plückera);
+3. badać prawo potęgowe \(N(\epsilon)\sim\epsilon^{-D}\) na coraz szerszym zakresie skal, kontrolując zależność od progu kąta;
+4. sprawdzić, czy rozkład jest samopodobny, a nie tylko skupiony wokół skończonej liczby osi symetrii.
+
+### 18.4. Korekta liczby słów długości 8
+
+Dla pięciu generatorów i zakazu powtórzenia tego samego generatora bezpośrednio po sobie liczba zredukowanych słów długości \(n\) wynosi:
+\[
+5\cdot4^{n-1}.
+\]
+Zatem dla długości 8 jest to \(5\cdot4^7=81920\), a nie 327680. Wcześniejsza liczba 327680 w sekcji 17.3 była błędna i zostaje wycofana.
+
+### 18.5. Walidacja
+
+Pierwsze uruchomienie analizy osi zakończyło się błędem w kontroli typu zwracanej sygnatury; poprawiono go. Poprawione uruchomienie zakończyło się powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42637724150
+
+Dalszy test ze zwiększonym progiem kąta \(1^\circ\) jest osobnym testem stabilności:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42637962973
