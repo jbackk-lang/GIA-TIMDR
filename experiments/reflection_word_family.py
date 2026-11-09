@@ -141,11 +141,20 @@ def main():
         7: {"orientation_reversing": 2916},
         8: {"rotation": 2964, "screw": 5784},
     }
+    initial_set = tuple(sorted(INITIAL_VERTICES))
+    tetrahedron_stabilizers = []
     global_seen = {(IDENTITY, ZERO): ()}
     cross_length_collisions = []
     for length, entries in layers.items():
         maps = [transform for _, transform in entries]
         for word, transform in entries:
+            A, b = transform
+            image_vertices = tuple(sorted(
+                tuple(x + y for x, y in zip(matvec(A, vertex), b))
+                for vertex in INITIAL_VERTICES
+            ))
+            if image_vertices == initial_set:
+                tetrahedron_stabilizers.append((word, transform))
             previous_word = global_seen.get(transform)
             if previous_word is not None and previous_word != word:
                 cross_length_collisions.append((previous_word, word))
@@ -174,6 +183,9 @@ def main():
     # are rational, so a rational angle multiple of pi can only have
     # cosine 0, +/-1/2, or +/-1.
     print(f"cross-length exact map collisions: {len(cross_length_collisions)}")
+    print(f"unlabelled initial-tetrahedron returns: {len(tetrahedron_stabilizers)}")
+    if tetrahedron_stabilizers:
+        print(f"first tetrahedron stabilizer word: {tetrahedron_stabilizers[0][0]}")
     if cross_length_collisions:
         print(f"first exact relation: {cross_length_collisions[0]}")
     niven_values = {Q(0), Q(1, 2), Q(-1, 2), Q(1), Q(-1)}
