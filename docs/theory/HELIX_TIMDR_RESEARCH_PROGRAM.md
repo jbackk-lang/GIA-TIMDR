@@ -439,3 +439,21 @@ Nie wykazano jeszcze rozgałęzienia trójkanałowego ani naturalnej redukcji 4�
 Równoległy test idealnej helisy dla (R=1), (h=\pm0.5) uzyskał podpisane torsje (+0.4) i (-0.4). Potwierdza to, że redukcja do (|\tau_g|) usuwa rozróżnienie ręczności. To kontrola analityczna, nie pomiar geometrii TIMDR ani dowód relacji z antycząstkami.
 
 **Nadrzędna reguła:** zachowywać znak torsji i skoku, orientację osi, fazę oraz kolejność punktów kardynalnych podczas każdej redukcji.
+
+
+## 20. Audyt odpowiedniości 3 komponentów NRG-01 ↔ 3 gałęzie helisy
+
+Wykonano audyt na rzeczywistym artefakcie NRG-01. Szczegóły: `docs/experiments/NRG-01_THREE_STRAND_CORRESPONDENCE_AUDIT_2026-11-09.md`.
+
+Komponenty:
+- Np-237: 16 węzłów, 18 krawędzi, 3 rozgałęzienia, 4 ścieżki źródło–terminal, najdłuższa ścieżka 12 krawędzi;
+- U-238: 20 węzłów, 24 krawędzie, 5 rozgałęzień, 15 ścieżek, najdłuższa ścieżka 14 krawędzi;
+- Th-232: 12 węzłów, 12 krawędzi, 1 rozgałęzienie, 2 ścieżki, najdłuższa ścieżka 10 krawędzi.
+
+Wszystkie są DAG-ami w rozpoznanym podzbiorze, ale ich profile nie są równoważne. Istnieje sześć możliwych przypisań trzech komponentów do trzech nazwanych gałęzi; żadne nie jest wyróżnione, bo graf nie ma współrzędnych 3D, fazy, podpisanej torsji ani etykiet punktów kardynalnych. Każdy komponent ma rozgałęzienia, więc nie odpowiada bezpośrednio pojedynczej gładkiej, nie rozgałęziającej się krzywej.
+
+Istniejący `core/trefoil_frenet_torsion.py` opisuje jedną zamkniętą krzywą z trzema lobami, a nie trzy niezależne helisy. Konstrukcja `Φ_G` z `TIMDR_Geometry_From_EventGraph.md` wymaga pozycji 3D i uporządkowania zdarzeń; nuklidowy graf NRG-01 nie dostarcza pozycji.
+
+**Rozstrzygnięcie:** odpowiedniość 3 komponenty ↔ 3 gałęzie jest obecnie nieidentyfikowalna. Trzy komponenty wynikają z trzech wybranych jąder startowych; nie są niezależnym dowodem trójdzielności. Nie można wyprowadzić osi, punktów kardynalnych ani zachowania ręczności z samego grafu nuklidów. Nie wykazano redukcji 4→3.
+
+Dodano kod audytu `experiments/nuclear_reduction/NRG-01/src/audit_three_strand_correspondence.py` oraz testy. Następny rozstrzygający eksperyment wymaga niezależnie określonych trzech krzywych (H_i(s)), wspólnej osi, faz, podpisanych torsji/skoków i punktów kardynalnych TIMDR oraz prerejestrowanego operatora mapowania bez dopasowywania współrzędnych nuklidów po fakcie.
