@@ -108,3 +108,17 @@ Dopiero jeśli te warianty dają różne, stabilne własności przestrzenne/topo
 **Niepotwierdzone:** że +−+ samo tworzy trójwęzeł. Do tego brakuje operatora osadzenia 3D i warunków sklejenia.
 
 Wniosek ten jest falsyfikowalny i nie dopisuje geometrii, której sygnał skalarny nie zawiera.
+
+
+## 10. Wynik CI i artefakt
+
+Workflow [42565948968](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42565948968) zakończył się sukcesem. Przeszły wszystkie testy jednostkowe oraz uruchomienia modeli kuli, jaja i audytu trzech płatów. Artefakt `helix-four-to-three-phase-locked-v02`, ID `13651795453`, SHA-256 `f98dd2b861c452974311799c280c0ef0b986e5df22cbb4b5cfb6b0aa38ff9672`.
+
+Dla (A=1,\omega=1,\varphi=0):
+- ekstrema: ((\pi/2,+1),(3\pi/2,-1),(5\pi/2,+1));
+- granice: (0,\pi,2\pi,3\pi);
+- znaki nachyleń na granicach: (+,-,+,-);
+- słowo po odwróceniu przebiegu: nadal (+,-,+);
+- orientacja parametru: (+1\to-1).
+
+Wynik kluczowy jest negatywny, ale istotny: polaryzacja płatów nie wystarcza do odzyskania kierunku przebiegu. Kierunek musi być osobnym polem danych.
