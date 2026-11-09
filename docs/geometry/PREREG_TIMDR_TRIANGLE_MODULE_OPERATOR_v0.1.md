@@ -103,3 +103,14 @@ CI dla najnowszego commita testowego: `42590580686` (w toku w chwili aktualizacj
 
 
 **Wynik CI po uogólnieniu:** run `42590580686` — SUCCESS, **9/9 testów**. Dwa nowe testy obejmują ogólny czworościan (zachowanie wszystkich sześciu krawędzi w kolejnych oknach) oraz odrzucenie koplanarnego wejścia. Link: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42590580686
+
+
+## 10. Nowe ograniczenie autora: otoczenie sferyczne wymaga podwójnej reprezentacji albo wariantu jajowatego
+
+Autor zwrócił uwagę, że czworościan musi być badany w swoim otoczeniu: w wariancie kuli może wymagać podwójnej reprezentacji, alternatywnie należy rozważyć powierzchnię jajowatą. Nie wolno więc kończyć analizy na swobodnym łańcuchu BC.
+
+Zapisano dwa warianty w `docs/geometry/SPHERICAL_ENCLOSURE_DOUBLE_TETRAHEDRON_OR_EGG_v0.1.md`:
+- S: czworościan i partner antypodyczny względem środka sfery, (v_i^*=2c-v_i). Dla regularnego czworościanu w znanej orientacji suma obu zestawów daje dokładnie osiem naroży sześcianu wpisanego w sferę.
+- E: asymetryczna powierzchnia jajowata jako ograniczenie. Nie ma ona zwykłej symetrii antypodycznej, więc nie można przenieść parowania z kuli bez nowej mapy.
+
+To są dwa warianty testowe, nie rozstrzygnięcie, co autor rozumie przez „podwójną reprezentację”. Nie utożsamiać jej z podwójnym pokryciem topologicznym, odbiciem lustrzanym ani antycząstką.
