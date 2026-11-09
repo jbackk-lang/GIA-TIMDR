@@ -483,3 +483,8 @@ Nowy model v0.2: `experiments/helix_reduction/phase_locked_whole_strand_reductio
 **Kontrola krytyczna:** w idealnie symetrycznej kuli z czterema identycznymi helisami i symetrycznymi warunkami brzegowymi wszystkie cztery mają ten sam próg. Samo rozszerzanie/kurczenie nie wybierze jednej helisy. Jednoznaczne odpadnięcie wymaga fizycznego selektora: asymetrii, zaburzenia albo różnego warunku brzegowego. To musi wynikać z danych/teorii, nie z arbitralnego wskazania w kodzie.
 
 Zachowanie ręczności w v0.2 jest kontrolowane przez znak kierunku fazowego (\sigma=\mathrm{sign}(d\phi/du)), osobno od podpisanej torsji Freneta. Model pozostaje kinematyczny: nie rozwiązuje jeszcze mechaniki odłączenia ani relaksacji energii trzech pozostałych helis.
+
+
+CI v0.2: [run 42565302887](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42565302887) zakończony sukcesem. Kula i jajo dały fazy 90°→120°, trzy ocalałe krzywe i zachowany znak obiegu. Długości każdej z trzech krzywych: 6.502990 (kula), 6.571573 (jajo). Próg pierwszego odpadnięcia nie jest jednoznaczny w żadnym wariancie, ponieważ model jest symetryczny.
+
+**Istotne zastrzeżenie:** v0.2 usuwa jedną z czterech zamkniętych krzywych, ale nie modeluje jeszcze rzeczywistych połączeń między helisami. Następna wersja musi zbudować połączony graf przestrzenny z węzłami połączeń, łukami helikalnymi oraz dwiema zgodnymi granicami odcięcia określonymi przez globalną ćwiartkę fazy. Bez tego nie można twierdzić, że wykonano topologiczną redukcję czterowęzła do trójwęzła.
