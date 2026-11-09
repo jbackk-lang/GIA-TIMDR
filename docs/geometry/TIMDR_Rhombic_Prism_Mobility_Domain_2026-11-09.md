@@ -551,3 +551,78 @@ To jest mapa podstawowych relacji par odbić, a nie pełna klasyfikacja wszystki
 
 Dokładne równania sprawdza `experiments/rhombic_prism_exceptional_affine_relations.py`; numeryczny skan uruchamia workflow:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42632173337
+
+
+## 14. Korekta modelu afinicznego i mapa przecięć loci (wersja poprawiona)
+
+**Korekta wcześniejszych wyników:** płaszczyzny ścian bocznych nie przechodzą wszystkie przez początek układu. Każda zawiera inną krawędź trójkąta podstawy. Poprawna refleksja w płaszczyźnie o normalnej \(n_i=e_i\times t\), przechodzącej przez punkt \(p_i\), ma postać:
+\[
+x\longmapsto (I-2n_in_i^T/(n_i\cdot n_i))x
++2n_i(n_i\cdot p_i)/(n_i\cdot n_i).
+\]
+Kod \`rhombic_prism_mobility_screw_coupling.py\` został poprawiony o te przesunięcia. W konsekwencji **wszystkie wcześniejsze liczby widma liczone dla bocznych płaszczyzn przechodzących przez początek należy uznać za nieaktualne**. Nie wolno ich używać do wniosków o rezonansach.
+
+### 14.1 Dwanaście loci pierwszego i drugiego rodzaju
+
+Rozpatrujemy tylko kąty Coxetera \(\pi/2\) i \(\pi/3\), a nie wszystkie możliwe \(\pi/m\). Wprowadzamy \(X=\sqrt3v\). Wtedy dwanaście warunków jest opisanych wielomianami o współczynnikach wymiernych:
+
+| Para płaszczyzn | \(m=2\) (kąt \(\pi/2\)) | \(m=3\) (kąt \(\pi/3\)) |
+|---|---|---|
+| Trójkąt – ściana 1 | \(X=0\) | \(3u^2+4X^2-3=0\) |
+| Trójkąt – ściana 2 | \(3u+X=0\) | \(39u^2+18uX+7X^2-12=0\) |
+| Trójkąt – ściana 3 | \(3u-X=0\) | \(39u^2-18uX+7X^2-12=0\) |
+| Ściany 1–2 | \(u^2-uX-1=0\) | \(3u^4-6u^3X+3u^2X^2-3u^2+6uX+X^2=0\) |
+| Ściany 1–3 | \(u^2+uX-1=0\) | \(3u^4+6u^3X+3u^2X^2-3u^2-6uX+X^2=0\) |
+| Ściany 2–3 | \(u^2-X^2+2=0\) | \(3u^4-6u^2X^2+24u^2+3X^4-8X^2=0\) |
+
+Są to warunki na kąty między normalnymi płaszczyzn, równoważne odpowiednim relacjom Coxetera dla par odbić. Sam warunek kąta jest relacją liniowych części odbić; w przypadku płaszczyzn afinicznych należy dodatkowo sprawdzać pełne przesunięcia, co robią testy afiniczne.
+
+### 14.2 Przecięcia
+
+Dodano \`experiments/rhombic_prism_locus_intersections.py\`. Skrypt:
+- buduje wszystkie 12 wielomianów dokładnie w \(\mathbb Q[u,X]\);
+- używa resultantów do znalezienia kandydatów przecięć;
+- filtruje rozwiązania rzeczywiste wewnątrz dysku \(u^2+X^2/3<1\);
+- sprawdza dokładnie konfigurację centralną i sześć punktów potrójnych;
+- porównuje długość czwartego poziomu słów odbić przy użyciu poprawnych afinicznych generatorów.
+
+W skanie resultantowym znaleziono 61 izolowanych rzeczywistych przecięć w otwartym dysku: 54 przecięcia dwóch loci, 6 punktów potrójnych i jeden punkt sześciokrotny. Liczba 61 jest wynikiem numerycznej izolacji pierwiastków resultantów, a nie jeszcze formalnym certyfikatem kompletności wszystkich pudełek pierwiastkowych.
+
+### 14.3 Punkty o największej krotności
+
+Punkt centralny:
+\[
+(u,v)=(0,0)
+\]
+leży na sześciu loci jednocześnie: trzech warunkach \(m=2\) między ścianami końcowymi i bocznymi oraz trzech warunkach \(m=3\) między parami ścian bocznych.
+
+Sześć punktów potrójnych ma dokładne współrzędne:
+\[
+(u,X)=\left(\pm\frac2{\sqrt{13}},0\right),
+\qquad
+(u,X)=\left(\pm\frac1{\sqrt{13}},\pm\frac3{\sqrt{13}}\right).
+\]
+Każdy leży na jednym locus \(m=2\) i dwóch loci \(m=3\). Ich promień poziomy spełnia:
+\[
+u^2+v^2=\frac4{13}.
+\]
+
+### 14.4 Widmo słów długości 4 — po korekcie afinicznej
+
+Po poprawieniu położeń płaszczyzn bocznych:
+- konfiguracja ogólna \((u,v)=(0.31,0.17)\): 320 różnych map;
+- punkt centralny \((0,0)\): 65 różnych map;
+- każdy z sześciu punktów potrójnych: 213 różnych map.
+
+To są wyniki enumeracji słów długości 4, z numeryczną deduplikacją współczynników afinicznych do 7 miejsc po przecinku. Nie są to liczebności całych grup. Różnica pokazuje, że przecięcia loci rzeczywiście wiążą się z silniejszymi identyfikacjami w krótkich słowach, ale nie dowodzi jeszcze klasyfikacji nieskończonej grupy.
+
+### 14.5 Granice wniosku
+
+1. Dwanaście loci obejmuje wyłącznie \(m=2\) i \(m=3\). Dla \(m\ge4\) mogą istnieć kolejne krzywe Coxetera.
+2. Warunek kąta między normalnymi nie wystarcza sam w sobie do ustalenia wszystkich relacji afinicznych; trzeba porównywać także offsety.
+3. Liczba 61 przecięć wymaga dalszej certyfikacji algebraicznej (izolacja wszystkich wspólnych pierwiastków w racjonalnych pudełkach).
+4. Wcześniejsze wyniki 302, 290, 298 itd. uzyskane dla bocznych płaszczyzn bez właściwych offsetów są wycofane.
+
+### Reprodukcja
+
+\`python experiments/rhombic_prism_locus_intersections.py\`
