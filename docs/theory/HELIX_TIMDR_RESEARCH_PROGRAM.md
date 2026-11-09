@@ -553,3 +553,10 @@ Warunek do zbadania:
 `X5 ∈ A4` oraz `X6* ∉ A4`, gdzie A4 jest zbiorem konfiguracji dopuszczalnych dla 4-węzła. Nie wpisujemy progu 6 jako arbitralnego limitu licznika. Trzeba zdefiniować „element” (wierzchołek, ściana, krawędź, płat sygnału czy gałąź helikalna), metrykę i warunek brzegowy. Liczby wierzchołków, krawędzi, ścian, cykli grafu i gałęzi nie są zamienne.
 
 Specyfikacja: `docs/geometry/SIXTH_ELEMENT_OVERLOAD_FOUR_NODE_TO_TREFOIL_v0.1.md`. Wcześniejszy dokument `ADDITION_INDUCED_REDUCTION_TRIANGLE_TETRAHEDRON_v0.1.md` pozostaje historią hipotezy 5→redukcja, ale jej próg jest superseded przez 6→przeciążenie.
+
+
+### Doprecyzowanie nazewnictwa progu 5→6
+
+„Pięciościan” i „sześciościan” oznaczają tu bryły o pięciu i sześciu ŚCIANACH (F=5 i F=6), a nie konstrukcje z pięcioma/sześcioma wierzchołkami. Czworościan ma F=4. Liczba ścian nie wyznacza jednoznacznie typu kombinatorycznego bryły: pięciościan i sześciościan mogą mieć różne grafy incydencji. Specyfikację skorygowano odpowiednio w `docs/geometry/SIXTH_ELEMENT_OVERLOAD_FOUR_NODE_TO_TREFOIL_v0.1.md`.
+
+Właściwy test ma zatem porównać konkretny typ pięciościanu z konkretnym typem sześciościanu, zachowując jawne V, E, F i macierze incydencji. Hipoteza brzmi: konfiguracja F=5 mieści się w 4-węźle, a wybrana konfiguracja F=6 wymusza przeciążenie i reorganizację do trójwęzła. Nie wolno sprowadzać tego do samego licznika wierzchołków.
