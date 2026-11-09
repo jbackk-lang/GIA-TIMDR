@@ -264,3 +264,44 @@ https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42629227737
 
 Kod:
 `experiments/rhombic_prism_mobility_screw_coupling.py`
+
+
+## 12. Dokładne wyjaśnienie elipsy: relacje Coxetera
+
+Najważniejszy krok: elipsa nie jest już tylko numerycznie wykrytym zbiorem punktów. Dla jej dodatniej gałęzi:
+[
+u^2+4v^2=1,\quad v>0,\quad w=\sqrt3v
+]
+normalna do ściany bocznej opartej na krawędzi (e_1=(1,0,0)) ma postać:
+[
+n=e_1\times t=(0,-w,v)=(0,-\sqrt3v,v).
+]
+Normalna do dolnego i górnego trójkąta jest równoległa do osi (z). Po unormowaniu:
+[
+\left|\widehat n\cdot(0,0,1)\right|
+=\frac{v}{\sqrt{w^2+v^2}}
+=\frac12.
+]
+Zatem kąt między normalnymi wynosi (60^\circ) (z dokładnością do wyboru orientacji), a kąt dwuścienny między płaszczyznami jest równy (60^\circ).
+
+Dwie refleksje w płaszczyznach przecinających się pod kątem (\pi/3) spełniają relację Coxetera:
+[
+s_i s_j s_i=s_j s_i s_j,\qquad (s_i s_j)^3=1.
+]
+W naszym przypadku zachodzą dwie dokładne afiniczne relacje:
+[
+s_0s_2s_0=s_2s_0s_2,
+\qquad
+s_1s_2s_1=s_2s_1s_2,
+]
+gdzie (s_0,s_1) są odbiciami w dolnej i górnej płaszczyźnie trójkąta, a (s_2) jest odbiciem w wybranej ścianie bocznej.
+
+To wyjaśnia, dlaczego na elipsie liczba map długości 4 spada o 12 względem typowego wyniku 302: dwie relacje braid generują dodatkowe identyfikacje słów długości 4. Niezależny enumerator kombinatoryczny potwierdza, że te dwie relacje łączą 320 zredukowanych słów w 308 klas, czyli wymuszają dokładnie 12 identyfikacji. Pozostałe 18 identyfikacji obecnych w próbce ogólnej pozostają odrębnym zjawiskiem.
+
+**Ważne:** dowód relacji Coxetera jest dokładny. Przypisanie całej różnicy (302\to290) wyłącznie tym relacjom jest zgodne z enumeracją długości 4; pełna klasyfikacja wszystkich możliwych relacji w całej grupie nadal nie została przeprowadzona.
+
+### Reprodukcja symboliczna
+
+`python experiments/rhombic_prism_ellipse_braid_relation.py`
+
+Skrypt sprawdza dokładnie macierze afinicznych odbić i liczy wymuszone identyfikacje słów.
