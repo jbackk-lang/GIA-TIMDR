@@ -7,6 +7,18 @@ from rhombic_prism_axis_limit_study import enumerate_depths, extract_axis, line_
 def analyze(label, u, v):
     maps, raw, states = enumerate_depths(u, v, 8)[8]
     print(f"CONFIG,{label},length=8,raw_words={raw},distinct_maps={len(maps)}")
+    angle_values = []
+    for M, b in maps.values():
+        if np.linalg.norm(M - np.eye(3)) > 2e-7 and np.linalg.det(M) > 0:
+            cosine = np.clip((np.trace(M) - 1.0) / 2.0, -1.0, 1.0)
+            skew = np.array([M[2, 1] - M[1, 2], M[0, 2] - M[2, 0], M[1, 0] - M[0, 1]])
+            sine = 0.5 * np.linalg.norm(skew)
+            angle_values.append(float(np.degrees(np.arctan2(sine, cosine))))
+    bins = [0, 5, 30, 60, 90, 120, 180.000001]
+    hist = [int(np.sum((np.asarray(angle_values) >= lo) & (np.asarray(angle_values) < hi)))
+            for lo, hi in zip(bins[:-1], bins[1:])]
+    print(f"ANGLE_HIST,{label},bins_lt5_5to30_30to60_60to90_90to120_ge120={hist},"
+          f"min_nonidentity_deg={min(angle_values):.7g}")
     for cutoff in (1.0, 2.0, 5.0, 10.0):
         axes = {}
         rotations = screws = near = translations = 0
