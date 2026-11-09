@@ -29,7 +29,7 @@ def enumerate_maps(u, v, length, decimals=11):
         unique.setdefault(key, (word, M, b))
     return list(unique.values()), len(layer)
 
-def screw_axis(M, b, tol=2e-7, min_angle_deg=0.1):
+def screw_axis(M, b, tol=2e-7, min_angle_deg=1.0):
     # Even word length gives a proper orthogonal linear part. Near-identity
     # rotations have axes extremely far away and are ill-conditioned in float.
     if np.linalg.det(M) < 0.0 or np.linalg.norm(M - IDENTITY) < tol:
