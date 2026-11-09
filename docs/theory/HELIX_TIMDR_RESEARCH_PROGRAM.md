@@ -785,3 +785,12 @@ Przed kolejnym eksperymentem trzeba rozstrzygnąć z definicji źródłowej TIMD
 Sprawdzono bezpośrednio repozytorium siostrzane `jbackk-lang/Helix-Lock`, wskazane w `CONCEPT_ARCHIVE_AUDIT_AXIS_TUNNEL_REDUCTION_2026-11-09.md`. Eksperyment `experiments/helical_tunnel_chirality.py` i jego testy już realizują syntetyczną kontrolę odbicia helisy i transportu sygnału w ramie Freneta. CI run **42559444225**: 148 testów zaliczonych w Pythonie 3.11 i 148 w 3.12. W logach: średni błąd lustrzany przy konwencji fazy zależnej od chiralności = 0; przy naiwnej stałej konwencji = 1.255915117488; torsje prawej/lewej helisy = ±0.311804008909; macierze i widma G5 pozostają identyczne pod odbiciem, bo G5 używa `abs(tau)`.
 
 **Decyzja:** nie kopiować ani nie powtarzać standardowego testu chiralności do GIA. Jest już działającym baseline'em, ale pozostaje syntetyczny i nie wyprowadza reguły fazy z pierwotnego modułu TIMDR. Następne nowe badanie ma sprawdzić, czy formalnie zdefiniowany moduł trójkątny TIMDR indukuje tę samą regułę transportu ramy/fazy. Do tego czasu nie projektować kolejnego operatora chiralnego ani nie zmieniać G5.
+
+
+### 30.2. Reuse istniejącego eksperymentu chiralności Helix-Lock
+
+Nie kopiować testu chiralności standardowej helisy do GIA-TIMDR. W `jbackk-lang/Helix-Lock` istnieje `experiments/helical_tunnel_chirality.py` wraz z testami. CI run `42559444225` przeszedł 148 testów na Pythonie 3.11 i 148 na 3.12. Logi potwierdzają: średni błąd lustrzany sygnału zgodnego z chiralnością = 0, średni błąd dla naiwnej stałej konwencji fazy = 1.255915117488, torsja prawej/lewej helisy = ±0.311804008909, a G5 ma identyczne macierze i widma po odbiciu przez `abs(tau)`. Jest to syntetyczny baseline, nie prawo wyprowadzone z oryginalnego TIMDR. Nowy eksperyment ma rozszerzać go o geometrię z modułu TIMDR dopiero po zdefiniowaniu operatora modułowego.
+
+### 30.3. Rozdzielenie asymetrii modułu i globalnego transportu
+
+W BC ściany wszystkich tetraedrów są trójkątami równobocznymi, a mimo to łańcuch ma niezerowy obrót śrubowy. Lokalna asymetria trójkąta (G2) i globalna holonomia/obrót wynikające z reguły sklejenia to dwa odrębne mechanizmy. Dalszy model TIMDR powinien testować je niezależnie: najpierw zmiana kształtu modułu przy stałym sklejeniu, następnie zmiana sklejenia przy stałym module. Nie utożsamiać ich bez dowodu.
