@@ -706,3 +706,26 @@ Każdy wynik cząstkowy musi być przypisany do jednej z tych warstw oraz opisyw
 Nie traktować redukcji 4→3, progu 90°, √2/√3 ani archiwalnych interpretacji TRM jako osi badań. Pozostają hipotezami wtórnymi, dopóki niezależna charakterystyka nie wykaże ich znaczenia.
 
 **Zasada organizacyjna:** utrzymywać jeden nadrzędny model/diagram helisy i aktualizować go po każdym istotnym wyniku. Szczegółowe pomiary są podporządkowane mapie, nie odwrotnie. Nie tworzyć kolejnych wariantów dokumentów dla drobnych obserwacji, jeśli można je dopisać do wspólnego raportu HC.
+
+
+## 37. Korekta zasadniczego pytania: wpływ informacji/sygnału na helisę i jej odpowiedź
+
+Autor doprecyzował, że celem nie jest ponowne katalogowanie znanych właściwości helisy (m.in. pamięci, samonaprawy itd.). Przedmiotem badań jest **sprzężenie sygnał → helisa → odpowiedź**, w tym zależność odpowiedzi od historii wcześniejszych sygnałów.
+
+Nadrzędne pytanie: jaki sygnał wprowadzony do helisy zmienia jej stan, jaką obserwowalną odpowiedź generuje helisa i czy identyczny sygnał daje inną odpowiedź zależnie od wcześniejszego pobudzenia?
+
+Audyt istniejących gałęzi:
+- G-Rezonans (core/geometric_resonance_operator.py) jest najbliższym istniejącym modelem pobudzenia i odpowiedzi: Mx''+Γx'+Kx=F(t), odpowiedź częstotliwościowa. Jest jednak liniowym modelem mechanicznym na zamkniętej krzywej, pobudzanym siłą harmoniczną; używa |τ|, więc gubi znak chiralności w sprzężeniu, i nie jest pełnym modelem informacji.
+- K opisuje modalności (f,φ,A) i ich synchronizację; sam nie określa dynamiki geometrii helisy.
+- M/S klasyfikuje sygnały czasowe; jego „rezonans” progowy nie jest ani rezonansem mechanicznym G, ani fazowym K.
+- Model T szkicuje pola informacji/modalności/rezonansu/emergencji, ale nie dostarcza jeszcze zwalidowanego prawa sprzężenia sygnał–helisa.
+
+Nowa synteza i program: docs/geometry/HELIX_SIGNAL_RESPONSE_COUPLING_v0.1.md.
+
+Badanie ma ustalić mapę: (sygnał, stan początkowy, historia, geometria) → odpowiedź helisy. Wejście opisujemy amplitudą/energią, widmem, fazą, orientacją/chiralnością, obwiednią, modulacją i sekwencją. Wyjście mierzymy w kanałach geometrycznym, fazowym, widmowym, propagacyjnym i informacyjnym.
+
+Rozdzielić bezwzględnie: reakcję na pobudzenie, pamięć (identyczne wejście → różne wyjście zależnie od historii), adaptację, samonaprawę (powrót do niezależnego stanu odniesienia) i odzyskanie informacji (payload/referencja odtworzona). Powrót częstotliwości nie dowodzi powrotu fazy, przebiegu ani informacji; zachować rygor protokołu PHASE_RECOVERY_VALIDATION_PROTOCOL.md.
+
+Pierwszy test o najwyższej wartości informacyjnej: porównać odpowiedź na identyczny sygnał testowy dla helisy w stanie świeżym i po wcześniejszym kontrolowanym pobudzeniu, przy identycznych warunkach i kontrolach. To rozstrzyga, czy w badanym kanale występuje mierzalna zależność wejście–wyjście od historii.
+
+Od tej chwili pomiary κ, τ, tunelu i chiralności są opisem stanu/zmiennymi objaśniającymi odpowiedź, a nie celem samym w sobie. Nie scalać znaczeń rezonansu G/K/M i nie zmieniać aksjomatów bez jawnego, testowalnego mostu.
