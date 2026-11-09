@@ -168,6 +168,16 @@ def tetrahedron_face_reflection_candidates(vertices: Sequence[Vector]) -> tuple[
     """
     if len(vertices) != 4:
         raise ValueError("exactly four tetrahedron vertices are required")
+    if any(not all(isfinite(float(x)) for x in point) for point in vertices):
+        raise ValueError("tetrahedron vertices must be finite")
+    e1 = tuple(vertices[1][k] - vertices[0][k] for k in range(3))
+    e2 = tuple(vertices[2][k] - vertices[0][k] for k in range(3))
+    e3 = tuple(vertices[3][k] - vertices[0][k] for k in range(3))
+    volume6 = abs(_dot(e1, _cross(e2, e3)))
+    edge_scale = max(_norm(tuple(vertices[i][k] - vertices[j][k] for k in range(3)))
+                     for i in range(4) for j in range(i + 1, 4))
+    if edge_scale <= 1e-14 or volume6 <= 1e-14 * edge_scale ** 3:
+        raise ValueError("initial tetrahedron must be non-degenerate")
     result = []
     for i in range(4):
         face = [vertices[j] for j in range(4) if j != i]
