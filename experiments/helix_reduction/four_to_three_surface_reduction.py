@@ -107,8 +107,8 @@ def run_model(shape="sphere", samples=720, cut_start=0.15, cut_end=1.1,
     theta = np.pi/2 + 0.22*np.sin(2*u)
     E, F, G = surface_metric(theta, radius, axial, egg)
     # At fixed theta, the local parallel metric is ds^2 = G dphi^2.
-    old_gap = np.sqrt(max(G, 0.0)) * (2*np.pi/4)
-    new_gap = np.sqrt(max(G, 0.0)) * (2*np.pi/3)
+    old_gap = np.sqrt(np.maximum(G, 0.0)) * (2*np.pi/4)
+    new_gap = np.sqrt(np.maximum(G, 0.0)) * (2*np.pi/3)
 
     torsions = [signed_torsion(p) for p in old[:3]]
     result = {
@@ -137,7 +137,7 @@ def run_model(shape="sphere", samples=720, cut_start=0.15, cut_end=1.1,
             "mean_adjacent_parallel_spacing": float(np.mean(new_gap)),
             "survivor_lengths": [polyline_length(p) for p in new],
         },
-        "surface_metric_midpoint": {"E": E, "F": F, "G": G},
+        "surface_metric_midpoint": {"E": float(np.asarray(E)[samples//2]), "F": float(np.asarray(F)[samples//2]), "G": float(np.asarray(G)[samples//2])},
         "signed_torsion_survivors": [
             {"mean": float(np.nanmean(t)), "min": float(np.nanmin(t)),
              "max": float(np.nanmax(t))} for t in torsions
