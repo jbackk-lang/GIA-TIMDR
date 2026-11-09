@@ -344,3 +344,8 @@ Na potrzeby odtwarzalności utworzono osobny dokument:
 Jest to obowiązkowy rejestr właściwości, parametrów, wrażliwości, ograniczeń numerycznych, warunków eksperymentów i manifestów odtwarzalności. Rozróżnia wyniki zmierzone od definicji, hipotez i niewiadomych. Każdy kolejny eksperyment helikalny ma aktualizować ten katalog oraz wskazywać commit, kod, test, parametry i dane surowe.
 
 **Zasada:** nie twierdzimy, że „wszystkie wrażliwości są już poznane”. Zapisujemy wszystkie zidentyfikowane czynniki i systematycznie mierzymy ich wpływ, zachowując również wyniki negatywne.
+
+
+## 14. Geneza sygnału i warunki brzegowe węzła trójhelikalnego
+
+Nowy dokument formalizacyjny: [TRIANGLE_HELIX_NODE_BOUNDARY_CONDITIONS.md](../geometry/TRIANGLE_HELIX_NODE_BOUNDARY_CONDITIONS.md). Zapisuje jako hipotezy robocze ciąg trajektoria trójkąta → redukcja → węzeł trójhelikalny, rolę osi i punktów kardynalnych, możliwe znaczenia redukcji czterowęzła do trójwęzła oraz macierz warunków brzegowych. Dokument rozdziela torsję Freneta-Serreta, skręt pasma, writhe, linking i fazę modalną. Nie uznaje jeszcze żadnej mapy redukcji za dowiedzioną.
