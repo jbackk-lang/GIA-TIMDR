@@ -576,3 +576,16 @@ Autor doprecyzował: obrót kolejnych modułów wymusza helisę; jej oś wewnęt
 Rozdzielamy: moduł trójkątny z orientacją odbicia, wewnętrzną oś (A(s)), ramę lokalną osi, fazę obrotu modułu, gałęzie helikalne i kulistą granicę. Obrót modułu, torsja osi, holonomia ramy i twist gałęzi są różnymi wielkościami. Kula nie tworzy węzła automatycznie: potrzebne są warunki domknięcia, sklejenia i test niezmiennika topologicznego.
 
 Specyfikacja: `docs/geometry/ROTATION_INNER_SPIRAL_SPHERICAL_CONFINEMENT_TO_KNOT_v0.1.md`. Plan testów rozdziela helisę bez kuli, tę samą helisę pod ograniczeniem kulistym, próg 5→6 modułów oraz test topologiczny. Jajo pozostaje kontrolą asymetrii.
+
+
+## 29. Audyt odejścia od źródłowych właściwości helisy — powrót do rdzenia
+
+Audyt `docs/geometry/HELIX_SOURCE_PROPERTIES_DRIFT_AUDIT_2026-11-09.md` wykazał, że ostatnia linia „spiralna oś wewnętrzna + kula wymuszająca skręt + próg 5→6” nie wynika jeszcze z wcześniejszej definicji TIMDR. To hipotezy potomne, bez operatora generującego moduły i bez testu mechanizmu.
+
+Pierwotny porządek z `docs/geometry/TRIANGLE_HELIX_NODE_BOUNDARY_CONDITIONS.md` pozostaje nadrzędny:
+`trajektoria trójkąta → redukcja → węzeł trójhelikalny → oś i punkty kardynalne → sygnał`.
+Oś jest elementem pierwotnym, ale jej źródłowa parametryzacja oraz punkty kardynalne pozostają nieustalone. Katalog `HELIX_SENSITIVITY_REPRODUCIBILITY.md` definiuje miary krzywej (pozycja, pochodne, krzywizna, torsja Freneta, kandydacka helikalność), lecz wiele wrażliwości pozostaje niezmierzonych.
+
+Aksjomaty G2–G4 wskazują na trójkąt/asymetrię oraz zmianę pola normalnych powierzchni jako obiekty gałęzi geometrycznej; nie ustanawiają kuli jako źródła helisy. Obecne skrypty 4→3 są jawnie kinematycznymi modelami zadanych krzywych: wybierają/wycinają gałąź, budują mostek lub usuwają całą krzywą, a następnie ustawiają trzy pozostałe fazy na 120°. Nie wyprowadzają modułów z odbicia trójkąta, nie wyprowadzają wyboru gałęzi ani nie dowodzą węzła lub progu 5→6.
+
+**Decyzja:** wstrzymać rozbudowę hipotezy „kula generuje spiralną oś i węzeł” do czasu odtworzenia operatora trójkąt→odbicie→obrót→sklejenie. Najpierw odtworzyć moduł źródłowy, z niego wyprowadzić oś i gałęzie, zmierzyć właściwości i dopiero później dodać kulę jako kontrolowany warunek. Zachować znak orientacji, fazę, kolejność zdarzeń i warunki brzegowe w każdej redukcji.
