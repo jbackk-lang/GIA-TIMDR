@@ -734,3 +734,12 @@ Od tej chwili pomiary κ, τ, tunelu i chiralności są opisem stanu/zmiennymi o
 ## 38. Handoff i zasada wznowienia pracy
 
 Utrwalono punkt wznowienia w `docs/handoffs/HANDOFF_HELIX_SIGNAL_RESPONSE_2026-11-09.md`. Obowiązuje nadrzędny cel: prześledzić rzeczywisty wpływ sygnału/informacji na helisę i jej odpowiedź, w tym zależność odpowiedzi od historii. Następnym krokiem jest audyt istniejącego przepływu sygnału przez moduły G/K/M/T i Helix-Lock — od reprezentacji wejścia, przez miejsce oddziaływania i zmianę stanu, do obserwowalnego wyjścia. Nie rozpoczynać nowych sweepów ani pobocznych analiz przed tym audytem. Wskazać jedną najważniejszą lukę i jeden minimalny test. W raportach rozróżniać kod zapisany, testy CI, eksperyment faktycznie uruchomiony i wniosek z wyniku.
+
+
+## 39. Audyt przepływu sygnału — wynik i następny krok
+
+Audyt źródeł zapisano w `docs/handoffs/AUDIT_SIGNAL_TO_HELIX_RESPONSE_PATH_2026-11-09.md`. Istniejące komponenty: graf zdarzeń→sygnał M/S (`trm_gia_projections.py`); modalności K (`phase_sync.py`); trzy obwiednie→trajektoria Γ→metryki κ/τ (`chrono_modal_geometry_bridge.py`); mechaniczny pierścień G i harmoniczna odpowiedź ustalona (`geometric_resonance_operator.py`); dopasowanie skalarnej częstotliwości s (`modal_self_repair.py`). Nie tworzą one jednak zintegrowanej pętli sygnał→stan helisy→odpowiedź→kolejny sygnał.
+
+Najważniejsza luka to brak jawnego adaptera wejścia i dynamiki stanu: mapowania sygnału na kanał oddziaływania, aktualizacji stanu helisy i pomiaru odpowiedzi zależnej od historii. G obecnie przyjmuje wektor wymuszenia harmonicznego w dziedzinie częstotliwości i zwraca odpowiedź ustaloną; chrono-modalny most mierzy geometrię trajektorii obwiedni, ale nie zasila nią dynamicznie G. K ma stałe parametry modalności. G używa |τ|, więc nie zachowuje znaku chiralności w sprzężeniu.
+
+Dalszy krok jest pojedynczy: zaprojektować minimalny test integracyjny na jednym istniejącym sygnale, z jawnym kanałem wymuszenia i jednostkami (albo oznaczoną normalizacją abstrakcyjną), porównujący odpowiedź na identyczny sygnał testowy dla stanu odniesienia i stanu po wcześniejszym pobudzeniu. Nie prowadzić teraz pobocznych sweepów geometrii ani redukcji. Nie nazywać testu fizycznym, jeśli mapowanie sygnału na wymuszenie nie ma uzasadnienia jednostkowego.
