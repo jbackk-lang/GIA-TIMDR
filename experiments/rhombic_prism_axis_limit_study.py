@@ -59,7 +59,7 @@ def canonical_axis(a, p, pitch):
     return a, p, pitch
 
 
-def extract_axis(M, b):
+def extract_axis(M, b, min_angle_deg=MIN_ANGLE_DEG):
     if np.linalg.det(M) < 0:
         return "improper", None
     if np.linalg.norm(M - IDENTITY) < TOL:
@@ -71,7 +71,7 @@ def extract_axis(M, b):
                      M[1, 0] - M[0, 1]])
     sine = 0.5 * np.linalg.norm(skew)
     angle = float(np.degrees(np.arctan2(sine, cosine)))
-    if angle < MIN_ANGLE_DEG:
+    if angle < min_angle_deg:
         return "ill_conditioned", angle
 
     # The right singular vector for the smallest singular value is the
