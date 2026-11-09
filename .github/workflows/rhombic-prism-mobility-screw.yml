@@ -13,6 +13,7 @@ on:
       - "experiments/rhombic_prism_axis_limit_study.py"
       - "experiments/rhombic_prism_axis_conditioning_sensitivity.py"
       - "experiments/rhombic_prism_angle_spectrum_parameter_sweep.py"
+      - "experiments/rhombic_prism_angle_spectrum_grid.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -46,3 +47,5 @@ jobs:
         run: python experiments/rhombic_prism_axis_conditioning_sensitivity.py
       - name: Test angular spectrum under larger deformations
         run: python experiments/rhombic_prism_angle_spectrum_parameter_sweep.py
+      - name: Map angular spectrum across mobility parameter disk
+        run: python experiments/rhombic_prism_angle_spectrum_grid.py
