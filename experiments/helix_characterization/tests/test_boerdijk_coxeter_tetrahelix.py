@@ -11,6 +11,7 @@ from core.boerdijk_coxeter_tetrahelix import (
     SCREW_TRANSLATION,
     generate_vertices,
     generate_tetrahedral_chain,
+    antipodal_vertices,
     screw_step,
     squared_distance,
     tetrahedron_centroid,
@@ -118,6 +119,26 @@ class BoerdijkCoxeterExactTests(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             generate_tetrahedral_chain(flat, 8)
+
+
+    def test_antipodal_regular_tetrahedron_completes_cube_vertices(self):
+        partner = antipodal_vertices(INITIAL_VERTICES)
+        original_set = set(INITIAL_VERTICES)
+        partner_set = set(partner)
+        self.assertTrue(original_set.isdisjoint(partner_set))
+        combined = original_set | partner_set
+        cube_vertices = {
+            (Q(x), Q(y), Q(z))
+            for x in (-1, 1) for y in (-1, 1) for z in (-1, 1)
+        }
+        self.assertEqual(combined, cube_vertices)
+        self.assertTrue(all(_dot(v, v) == Q(3) for v in combined))
+
+    def test_antipodal_map_is_an_involution_about_arbitrary_center(self):
+        center = (Q(2), Q(-1), Q(3))
+        points = ((Q(4), Q(5), Q(-2)), (Q(-3), Q(2), Q(7)))
+        twice = antipodal_vertices(antipodal_vertices(points, center), center)
+        self.assertEqual(twice, points)
 
 
 if __name__ == "__main__":
