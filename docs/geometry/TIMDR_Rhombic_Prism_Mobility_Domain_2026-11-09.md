@@ -1102,3 +1102,55 @@ Zbiory różnych kątów są natomiast identyczne: 49 wartości po obu stronach,
 
 Dedykowany przebieg CI:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42645102180
+
+
+## 29. Audyt geometrii zbioru osi w przestrzeni Plückera
+
+Rozpoczęto nowy etap: zamiast porównywać same kąty obrotu, analizujemy osie wszystkich właściwych izometrii afinicznych uzyskanych z parzystych zredukowanych słów odbić.
+
+### 29.1. Reprezentacja osi
+
+Dla izometrii
+\[
+x\mapsto Rx+b
+\]
+z właściwą częścią obrotową \(R\ne I\), oś śrubowa jest prostą o kierunku jednostkowym \(a\), najbliższym początku punkcie \(p\) spełniającym \(p\cdot a=0\), oraz skoku:
+\[
+h=a\cdot b.
+\]
+Prostą można opisać współrzędnymi Plückera:
+\[
+L=(a,m),\qquad m=p\times a.
+\]
+Przyjęta konwencja orientuje kierunek prostej kanonicznie, aby uniknąć podwójnego zapisu \((a,m)\sim(-a,-m)\).
+
+Ważne rozróżnienie: obrót ma \(h=0\), a ruch śrubowy ma \(h\ne0\). Oba przypadki mają oś i muszą być analizowane łącznie. Translacje nie mają skończonej osi.
+
+### 29.2. Zbiór kumulacyjny zamiast powłoki dokładnej długości
+
+Poprzednie skrypty porównywały zbiory słów o dokładnych długościach 2, 4, 6 i 8. Takie powłoki nie są zagnieżdżone. Nowy audyt buduje zbiory kumulacyjne: na poziomie n uwzględnia wszystkie właściwe izometrie reprezentowane przez parzyste zredukowane słowa długości nie większej niż n.
+
+To pozwala sensownie pytać, czy nowe osie z kolejnych poziomów:
+- zbliżają się do osi już znalezionych;
+- wypełniają nowe obszary przestrzeni Plückera;
+- zwiększają zasięg zbioru bez oznak stabilizacji.
+
+### 29.3. Metryki i testy
+
+Dodano experiments/rhombic_prism_axis_geometry_limit_audit.py. Dla centrum, punktu bliskiego centrum na gałęzi symetrii oraz dwóch konfiguracji ogólnych oblicza:
+- liczbę map i osi w zbiorach kumulacyjnych dla głębokości 2, 4, 6, 8;
+- statystyki położenia osi, skoku i kąta;
+- odległości najbliższego sąsiada między nowymi i poprzednimi zbiorami w sześciowymiarowej reprezentacji Plückera;
+- zajętość komórek w stałej, wspólnej normalizacji dla wszystkich głębokości;
+- wrażliwość liczby osi na próg odrzucania niemal identyczności: 0.5°, 1°, 2° i 5°.
+
+Normalizacja komórek jest wspólna dla wszystkich głębokości w danej konfiguracji. Nie dopasowuje się osobnej skali do każdego poziomu, ponieważ mogłoby to sztucznie sugerować stabilizację wymiaru.
+
+### 29.4. Ograniczenia interpretacji
+
+Zajętość komórek w przestrzeni Plückera jest diagnostyką rozkładu skończonego zbioru, nie estymatorem wymiaru Hausdorffa. Mała odległość nowych osi od poprzedniego zbioru nie dowodzi zbieżności Hausdorffa, jeśli jednocześnie rośnie średnica lub pojawiają się rzadkie odległe punkty. Wyniki trzeba interpretować łącznie z ogonami rozkładu odległości, skokami i zależnością od progu kąta.
+
+Kod został włączony do głównego workflow:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42647520695
+
+**Pytanie badawcze tego etapu:** czy rodzina osi tworzy ograniczony, coraz gęściej próbkowany zbiór w przestrzeni prostych, czy też jej zasięg rośnie wraz z długością słów? Dopiero po rozstrzygnięciu tej kwestii ma sens testowanie fraktalności.
