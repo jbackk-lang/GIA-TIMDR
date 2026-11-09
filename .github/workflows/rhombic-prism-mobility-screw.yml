@@ -11,6 +11,7 @@ on:
       - "experiments/rhombic_prism_screw_unfolding_multidegree.py"
       - "experiments/rhombic_prism_screw_axis_spatial_organization.py"
       - "experiments/rhombic_prism_axis_limit_study.py"
+      - "experiments/rhombic_prism_axis_geometry_limit_audit.py"
       - "experiments/rhombic_prism_axis_conditioning_sensitivity.py"
       - "experiments/rhombic_prism_angle_spectrum_parameter_sweep.py"
       - "experiments/rhombic_prism_angle_spectrum_grid.py"
@@ -46,6 +47,8 @@ jobs:
         run: python experiments/rhombic_prism_screw_axis_spatial_organization.py
       - name: Study rotation and screw axis limit through word length 8
         run: python experiments/rhombic_prism_axis_limit_study.py
+      - name: Audit cumulative Pluecker-space axis geometry
+        run: python experiments/rhombic_prism_axis_geometry_limit_audit.py
       - name: Test axis cloud sensitivity to rotation cutoff
         run: python experiments/rhombic_prism_axis_conditioning_sensitivity.py
       - name: Test angular spectrum under larger deformations
