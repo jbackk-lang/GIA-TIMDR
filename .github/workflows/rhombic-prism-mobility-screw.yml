@@ -6,6 +6,7 @@ on:
       - "experiments/rhombic_prism_mobility_screw_coupling.py"
       - "experiments/rhombic_prism_ellipse_braid_relation.py"
       - "experiments/rhombic_prism_exceptional_affine_relations.py"
+      - "experiments/rhombic_prism_locus_intersections.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -25,3 +26,5 @@ jobs:
         run: python experiments/rhombic_prism_ellipse_braid_relation.py
       - name: Verify exceptional affine relations and glide conjugacy
         run: python experiments/rhombic_prism_exceptional_affine_relations.py
+      - name: Classify intersections of the 12 Coxeter loci
+        run: python experiments/rhombic_prism_locus_intersections.py
