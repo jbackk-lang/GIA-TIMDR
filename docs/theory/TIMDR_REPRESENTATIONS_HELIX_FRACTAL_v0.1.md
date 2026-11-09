@@ -1,18 +1,18 @@
-# TIMDR — helisa i fraktal jako główne reprezentacje struktury nadrzędnej (v0.1)
+# TIMDR — helisa i hipoteza reprezentacji fraktalnej struktury nadrzędnej (v0.1)
 
 **Data:** 2026-11-09
 **Status:** formalizacja kierunku wskazanego przez autora, zgodna z wcześniejszym rozdzieleniem gałęzi TIMDR. Nie jest nowym aksjomatem ani dowodem fizycznym.
 
 ## 1. Korekta hierarchii
 
-Autor przypomina, że podczas wcześniejszych formalizmów doszliśmy do wniosku, iż helisa jest jednym z rzutów/reprezentacji struktury TIMDR, a znacząca część pozostałej reprezentacji ma charakter fraktalny.
+Autor przypomina, że podczas wcześniejszych formalizmów doszliśmy do wniosku, iż helisa jest jednym z rzutów/reprezentacji struktury TIMDR — i jednym z jej głównych rzutów, ale nie całością. Możliwość, że część pozostałej reprezentacji ma charakter fraktalny, jest na obecnym etapie **przypuszczeniem badawczym**, a nie ustalonym wynikiem formalizmów.
 
-Nie wolno zatem traktować helisy jako całej struktury źródłowej ani fraktala jako ozdobnego dodatku do helisy. Oba są kandydatami na odrębne, powiązane reprezentacje tego samego procesu/obiektu nadrzędnego. Tożsamość źródłowa i mapa przejścia między reprezentacjami wymagają jawnego określenia.
+Nie wolno zatem traktować helisy jako całej struktury źródłowej. Nie wolno też przedstawiać fraktalności pozostałej struktury jako faktu ani zakładać, że „reszta” musi być fraktalna. Fraktal jest kandydatem na odrębną reprezentację lub własność wieloskalową, którą trzeba dopiero zidentyfikować i zmierzyć. Tożsamość źródłowa i mapa przejścia między reprezentacjami wymagają jawnego określenia.
 
 Robocza hierarchia:
 
 1. **Struktura nadrzędna TIMDR** — stan, relacje, reguły przejścia, historia i warunki brzegowe.
-2. **Rodzina reprezentacji/rzutów** — co najmniej reprezentacja helikalna i fraktalna; inne reprezentacje pozostają otwarte.
+2. **Rodzina reprezentacji/rzutów** — reprezentacja helikalna jest wskazanym głównym rzutem; reprezentacja fraktalna pozostaje kandydatem/hipotezą do sprawdzenia; inne reprezentacje pozostają otwarte.
 3. **Operatory przejścia** — projekcja, lift 2D→3D, obrót/transport ramy, redukcja, zmiana skali, sklejenie i transformacja fazowa.
 4. **Obserwable** — geometria, faza, chiralność, wymiar/skalowanie, widmo, topologia, odpowiedź na sygnał.
 
@@ -103,4 +103,15 @@ Nie odnaleziono w aktualnym drzewie `main` dedykowanego modułu ani formalnego d
 
 Od tej chwili dokumentacja helisy powinna opisywać ją jako **reprezentację helikalną**, nie jako całość TIMDR. Badania fraktalne prowadzić jako równoległą reprezentację, po czym testować wspólne źródło i mapy przejścia. Nie podporządkowywać fraktala helisie ani helisy fraktalowi przed wynikiem testu.
 
-**Wniosek:** właściwym przedmiotem poszukiwania jest struktura nadrzędna oraz rodzina jej reprezentacji. Helisa i fraktal są głównymi kandydatami na dwa komplementarne rzuty; ich wspólna reguła generująca pozostaje pytaniem badawczym.
+**Wniosek:** właściwym przedmiotem poszukiwania jest struktura nadrzędna oraz rodzina jej reprezentacji. Helisa jest jednym z głównych rzutów. Fraktalność pozostałej części jest hipotezą, nie konkluzją; należy sprawdzić, czy istnieje odrębna reprezentacja fraktalna, czy tylko lokalne/wieloskalowe własności fraktalne innych reprezentacji. Wspólna reguła generująca pozostaje pytaniem badawczym.
+
+## 9. Doprecyzowanie statusu hipotezy fraktalnej — 2026-11-09
+
+W rozmowie z 2026-11-09 autor wyraźnie zaznaczył, że możliwość fraktalnej natury pozostałej reprezentacji jest gdybaniem. To zastrzeżenie ma pierwszeństwo przed mocniejszymi sformułowaniami roboczymi w starszych notatkach.
+
+- **Ustalenie robocze:** helisa jest jednym z głównych rzutów/reprezentacji struktury TIMDR, ale nie jest całą strukturą.
+- **Hipoteza otwarta:** część struktury niewidoczna w rzucie helikalnym może mieć reprezentację fraktalną lub własności wieloskalowe.
+- **Nieustalone:** czy fraktal jest osobnym rzutem, cechą wielu rzutów, mechanizmem generującym, czy tylko przybliżeniem obserwowanych danych.
+- **Zakaz wnioskowania:** nie przypisywać „reszcie” struktury fraktalności bez wskazania obiektu, definicji samopodobieństwa, zakresu skal, metody estymacji i kontroli niefraktalnej.
+
+W konsekwencji H1–H4 z sekcji 4 pozostają hipotezami, a program T2–T6 jest programem weryfikacji, nie potwierdzeniem. Do czasu wskazania wcześniejszego formalizmu fraktalnego należy zachować status **spekulatywny / do weryfikacji**.
