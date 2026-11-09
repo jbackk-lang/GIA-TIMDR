@@ -103,3 +103,53 @@ Nie wybieramy między kulą i jajem na podstawie wyglądu. Porównujemy:
 Dodano `antipodal_vertices(vertices, center)` do `core/boerdijk_coxeter_tetrahelix.py`. Funkcja realizuje inwersję centralną (v^*=2c-v); jest jawnie odrębna od odbicia BC względem płaszczyzny ściany. Testy dokładne potwierdzają, że dla regularnego czworościanu referencyjnego jego partner antypodyczny uzupełnia dokładnie osiem naroży sześcianu {(±1,±1,±1)}, wszystkie na sferze o promieniu √3, oraz że inwersja jest involucją dla dowolnego środka. CI run `42591111550` — SUCCESS, **11/11 testów**.
 
 To potwierdza wyłącznie wariant matematyczny S. Nie potwierdza jeszcze, że „podwójna reprezentacja” TIMDR oznacza partnera antypodycznego; ta interpretacja wymaga decyzji autora.
+
+## 8. Korekta autora: anomalia przesunięcia środków (ważniejsza niż para antypodyczna)
+
+**Doprecyzowanie autora (2026-11-09, 09:09Z):** „podwójna reprezentacja” nie oznacza dwóch czworościanów antypodycznych. Chodzi o relację położenia środka kuli i środka czworościanu. Ich przesunięcie jest anomalią geometryczną i kandydatem na źródło efektu rotacji.
+
+Niech:
+- C_s — środek kuli,
+- C_t — środek czworościanu (należy jawnie ustalić, czy centroid wierzchołków, środek sfery opisanej, czy inny środek konstrukcyjny),
+- R — promień kuli,
+- d=C_t-C_s — wektor przesunięcia,
+- δ=||d||/R — bezwymiarowa ekscentryczność.
+
+**Nie utożsamiać** C_t automatycznie z centroidem i środkiem sfery opisanej: dla czworościanu ogólnego mogą to być różne punkty. W regularnym czworościanie środki te się pokrywają.
+
+### 8.1. Ograniczenie orientacyjne
+
+Dla punktów czworościanu zapisanych względem jego wybranego środka p_i, po obrocie Q∈SO(3) i przesunięciu d, pozycje względem środka kuli wynoszą:
+
+x_i(Q)=d+Qp_i.
+
+Warunek pozostania w kuli:
+
+||d+Qp_i||≤R dla każdego i.
+
+Dla aktywnego kontaktu równość zachodzi dla co najmniej jednego wierzchołka. Wtedy dopuszczalne orientacje Q zależą od kierunku d. To jest matematyczny mechanizm, przez który przesunięcie może sprzęgać położenie z orientacją.
+
+Dla pojedynczego wierzchołka:
+
+||d+Qp_i||²=||d||²+||p_i||²+2 d·Qp_i.
+
+Ostatni składnik jest zależny od orientacji. Dla d=0 znika; dla d≠0 wyróżnia kierunki i może tworzyć orientacyjny bias.
+
+### 8.2. Co jest, a co nie jest dowiedzione
+
+- **Wynika z geometrii:** przesunięcie środka wprowadza zależność warunku kontaktu od orientacji czworościanu.
+- **Nie wynika jeszcze:** że układ musi zacząć się obracać, ani jaki będzie kierunek, prędkość czy kąt rotacji.
+- **Do wyprowadzenia:** prawo kontaktu/reakcji, tarcie lub bezpoślizgowe toczenie, energia/zasada relaksacji albo dyskretna reguła przejścia modułów. Dopiero ono zamienia orientacyjny bias w określony ruch.
+
+### 8.3. Minimalny eksperyment rozstrzygający
+
+1. Zdefiniować osobno środek centroidalny czworościanu i środek sfery opisanej; wskazać, który jest C_t w TIMDR.
+2. Dla stałego kształtu i promienia kuli wykonać sweep δ=0 do granicy dopuszczalności.
+3. Dla każdego δ obliczyć dopuszczalne orientacje Q, aktywne punkty kontaktu i luz wszystkich wierzchołków.
+4. Porównać przypadki: d=0, d≠0 bez ruchu kontaktowego, kontakt bez tarcia oraz jawnie określona reguła toczenia/sprzężenia.
+5. Mierzyć podpisany przyrost orientacji, oś obrotu, holonomię i zmianę fazy. Odwrócić d→−d oraz wykonać lustrzaną kontrolę.
+6. Dopiero potem dołączyć rekurencję wierzchołków BC/TIMDR i sprawdzić, czy powstaje stabilna helisa.
+
+### 8.4. Status korekty wcześniejszego wariantu
+
+Wariant antypodyczny v_i*=2C_s−v_i, implementowany w antipodal_vertices, jest poprawną operacją matematyczną, ale **nie odpowiada wyjaśnieniu autora anomalii**. Zachowujemy go wyłącznie jako kontrolę geometryczną, nie jako główny model „podwójnej reprezentacji”. Główny kierunek badania to teraz przesunięcie C_s≠C_t i wynikające z niego sprzężenie orientacji z ograniczeniem sferycznym.
