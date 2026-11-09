@@ -114,7 +114,8 @@ def main():
         u, v = (0.0, 0.0) if name == "center" else (
             eps*np.cos(theta), eps*np.sin(theta))
         for decimals in (7, 9, 11, 13):
-            n, _, _, _ = summarize(u, v, 8, decimals)
+            maps, _ = enumerate_maps(u, v, 8, decimals)
+            n = len(maps)
             print(f"length8_precision_diagnostic:{name},{decimals},{n}")
     print("PASS: length 2/4/6 spectra and screw counts reproduce at all six directions.")
     print("LIMIT: length-8 off-center map counts are precision-sensitive and are not asserted.")
