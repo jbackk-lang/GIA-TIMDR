@@ -626,3 +626,9 @@ To są wyniki enumeracji słów długości 4, z numeryczną deduplikacją wspó�
 ### Reprodukcja
 
 \`python experiments/rhombic_prism_locus_intersections.py\`
+
+
+Walidacja CI dla poprawionego modelu i przecięć:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42633731178
+
+Wynik: PASS. CI odtworzyło 61 przecięć (54 podwójne, 6 potrójnych, 1 sześciokrotne), sprawdziło symbolicznie środek i sześć punktów potrójnych oraz uzyskało 65 map w centrum i 320 w próbce ogólnej.
