@@ -364,3 +364,118 @@ https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42629995606
 
 Dodatkowy test symboliczny rozszerzono o sprzężenie obrotami (\pm120^\circ) wokół osi (z). CI potwierdza relacje braid dla wszystkich trzech ścian bocznych, każdej z dolną i górną ścianą trójkątną:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42630116584
+
+
+---
+
+## 14. KOREKTA MODELU ODBIĆ — rzeczywiste położenie ścian bocznych
+
+**Ta sekcja zastępuje wcześniejsze numeryczne wyniki widma z sekcji 9–13 tam, gdzie użyto błędnego położenia płaszczyzn bocznych.**
+
+Wcześniejszy skrypt umieszczał wszystkie trzy płaszczyzny boczne w początku układu. To niepoprawne: każda ściana boczna leży na innej krawędzi dolnego trójkąta. Dla krawędzi o kierunku (e_i), przechodzącej przez punkt (p_i), normalna jest (n_i=e_i\times t), ale odbicie afiniczne ma również translację:
+
+\[
+R_i=I-2\frac{n_i n_i^T}{n_i\cdot n_i},\qquad b_i=2n_i\frac{n_i\cdot p_i}{n_i\cdot n_i}.
+\]
+
+Pominięcie (b_i) zachowywało orientację płaszczyzny, lecz przesuwało dwie ściany boczne do niewłaściwych miejsc. W konsekwencji wcześniejsze liczby 161, 229, 245, 280, 292 i 302 z tamtego skanu nie mogą być traktowane jako wyniki dla rzeczywistej bryły.
+
+Kod `rhombic_prism_mobility_screw_coupling.py` został poprawiony i uwzględnia wszystkie trzy rzeczywiste krawędzie podstawy.
+
+### 14.1. Poprawione widmo długości 4
+
+W poprawionym modelu jest 320 zredukowanych słów długości 4.
+
+| Konfiguracja | Różne mapy | Obroty | Śruby | Translacje | Identyczność |
+|---|---:|---:|---:|---:|---:|
+| Ogólna | 320 | 192 | 120 | 8 | 0 |
+| Typowy punkt na jednej z trzech elips Coxetera | 308 | 180 | 120 | 8 | 0 |
+| Szczególny punkt elipsy z dodatkową relacją | 298 | 170 | 120 | 8 | 0 |
+| Typowy punkt na linii ściany prostopadłej do podstaw | 245 | 148 | 84 | 12 | 1 |
+| Szczególny punkt tej linii, promień poziomy (1/2) | 235 | 142 | 80 | 12 | 1 |
+
+Są to wyniki dla różnych map otrzymanych ze zredukowanych słów długości 4, nie liczba elementów całej grupy.
+
+### 14.2. Trzy elipsy Coxetera pozostają poprawne
+
+Warunek kąta dwuściennego (60^\circ) między ścianą boczną a trójkątną nie zależy od przesunięcia płaszczyzny. Trzy elipsy pozostają:
+
+\[
+u^2+4v^2=1,
+\]
+\[
+13u^2+6\sqrt3uv+7v^2=4,
+\]
+\[
+13u^2-6\sqrt3uv+7v^2=4.
+\]
+
+Na typowym punkcie każdej elipsy zachodzą dokładne relacje braid dla odpowiedniej pary odbić dolnej/górnej ściany i ściany bocznej. Dają one 12 identyfikacji słów: (320\to308).
+
+### 14.3. Trzy linie relacji prostopadłości
+
+Jeżeli pozioma część przesunięcia (h=(u,v)) jest równoległa do jednej z trzech krawędzi podstawy, odpowiednia ściana boczna jest pionowa. Jest prostopadła do obu poziomych ścian trójkątnych, co daje dwie relacje komutacji:
+
+\[
+s_0s_i=s_is_0,\qquad s_1s_i=s_is_1.
+\]
+
+Odpowiadają im trzy linie:
+
+\[
+v=0,\qquad v=\sqrt3u,\qquad v=-\sqrt3u.
+\]
+
+W typowym punkcie tych linii poprawny skan daje 245 różnych map. Nie należy ich mylić z liniami, na których jedynie jedna ściana rombowa staje się kwadratem.
+
+### 14.4. Dodatkowa relacja glide-reflection przy promieniu (1/2)
+
+Na linii (v=0), dla
+
+\[
+(u,v,w)=\left(\frac12,0,\frac{\sqrt3}{2}\right),
+\]
+
+izometria (G=s_2s_1s_0) sprzęga dwie pozostałe refleksje boczne:
+
+\[
+G s_3 G^{-1}=s_4.
+\]
+
+Jest to dokładna relacja afiniczna, sprawdzona z niezerowymi przesunięciami płaszczyzn bocznych. Poprawiony skan ma wtedy 235 różnych map. Przez symetrię trójkąta istnieje sześć takich punktów: promień poziomy (1/2), trzy kierunki krawędzi i dwa zwroty.
+
+### 14.5. Dodatkowy punkt na elipsie: prostopadłość po sprzężeniu
+
+Na pierwszej elipsie (u^2+4v^2=1), normalna płaszczyzny będącej obrazem dolnej ściany przez (s_2) jest (R_2k), gdzie (k=(0,0,1)). Jej iloczyn skalarny z normalną sąsiedniej ściany bocznej ma licznik:
+
+\[
+F=\sqrt3u^3-u^2v+2\sqrt3uv^2-\sqrt3u+v.
+\]
+
+Po ograniczeniu do elipsy:
+
+\[
+F|_{E_1}=2v^2(2v-\sqrt3u).
+\]
+
+Poza zdegenerowanym brzegiem otrzymujemy punkty:
+
+\[
+(u,v)=\left(\frac12,\frac{\sqrt3}{4}\right),\quad
+\left(-\frac12,-\frac{\sqrt3}{4}\right).
+\]
+
+W dodatnim punkcie (w=3/4) odbicia (s_2s_0s_2) i (s_3) komutują dokładnie. To dodatkowa relacja poza zwykłą relacją braid elipsy; poprawiony skan daje 298 map zamiast 308. Pozostałe punkty otrzymujemy przez obroty trójkąta.
+
+### 14.6. Co zostało odrzucone
+
+- Punkt ((0,1/2)), wcześniej opisywany jako 229 map, ma teraz 308 map i jest zwykłym punktem elipsy.
+- Punkt ((1/2,1/\sqrt3)), wcześniej opisywany jako 292 mapy, ma teraz 320 map i jest ogólną konfiguracją w poprawnym modelu.
+- Wcześniejsze przypisanie szczególnych liczb map samym równym kątom rombów było nieuzasadnione. O relacjach odbić decyduje położenie i kąt rzeczywistych płaszczyzn, nie tylko kąty ścian.
+
+### 14.7. Testy
+
+Dodano `experiments/rhombic_prism_exceptional_affine_relations.py`, który sprawdza dwie komutacje na liniach prostopadłości, dodatkowe sprzężenie glide-reflection przy promieniu (1/2), wielomianowy warunek dodatkowej komutacji na elipsie oraz dokładną komutację afinicznych odbić w szczególnym punkcie.
+
+Skan i testy symboliczne:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42631778651
