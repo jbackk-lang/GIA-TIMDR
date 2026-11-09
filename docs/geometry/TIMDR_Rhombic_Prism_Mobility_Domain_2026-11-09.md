@@ -781,3 +781,74 @@ Po zaostrzeniu progu dla długości 6 otrzymano:
 - kierunki ogólne: 1576–1596 osi.
 
 Maksymalne odległości osi od początku nadal dochodzą do około 77 dla kierunków szczególnych i 133 dla ogólnych. To potwierdza, że samo odcięcie obrotów poniżej \(1^\circ\) nie usuwa całego problemu złego uwarunkowania / odległych osi. Box-counting w pięciu skalach pozostaje skończony i szybko się nasyca (np. centrum: 9 pudełek na każdej skali od \(1/4\) wzwyż w dół; nie ma tu zakresu potęgowego wystarczającego do estymacji wymiaru fraktalnego).
+
+
+## 19. Granica osi obrotów i śrubowych — enumeracja do długości 8
+
+Wprowadzono osobny enumerator experiments/rhombic_prism_axis_limit_study.py. Istotna korekta względem sekcji 18: oś obrotu o zerowym skoku jest również osią geometryczną i musi być liczona. W poprzednim skrypcie była pomijana, bo analizowano tylko śruby z niezerowym skokiem. Nowy skrypt rozdziela:
+- rotation_axes: osie obrotów (skok zerowy);
+- screw_axes: osie śrub (skok niezerowy);
+- translations: translacje, które nie mają skończonej osi;
+- near_identity: prawie-identycznościowe części obrotowe, których osie są numerycznie źle uwarunkowane.
+
+### 19.1. Metoda
+
+Dla każdej właściwej izometrii afinicznej \(x\mapsto Mx+b\), z \(M\in SO(3)\) i \(M\ne I\), kierunek osi wyznaczany jest jako wektor osobliwy odpowiadający najmniejszej wartości osobliwej macierzy \(M-I\). Skok osiowy wynosi \(h=a\cdot b\). Punkt osi \(p\), prostopadły do \(a\), spełnia:
+\[
+(I-M)p=b-ha,\qquad p\cdot a=0.
+\]
+Wykorzystano SVD i kontrolę reszty równania. Dla porównania prostych użyto współrzędnych Plückera \((a,p\times a)\). Enumeracja dynamicznie zachowuje ostatni generator, więc redukcja słów (zakaz sąsiednich identycznych odbić) jest respektowana, a stany o tej samej transformacji i tym samym ostatnim generatorze mogą być scalane.
+
+### 19.2. Wyniki do długości 8
+
+Próg odrzucenia prawie-identycznościowych obrotów: \(1^\circ\). Liczby unique_lines obejmują teraz zarówno osie obrotów, jak i osie śrub.
+
+| Konfiguracja | Długość 4 | Długość 6 | Długość 8 |
+|---|---:|---:|---:|
+| Centrum | 30 | 72 | 129 |
+| Gałąź symetrii \((u,v)=(0.01,0)\) | 110 | 1395 | 17179 |
+| Ogólna \(45^\circ\), \((u,v)=(0.01/\sqrt2,0.01/\sqrt2)\) | 144 | 2285 | 36474 |
+
+W centrum liczba różnych map rośnie od 65 do 175 i 369; w konfiguracji ogólnej od 320 do 5102 i 81173. Na gałęzi symetrii odpowiednio: 245, 3045 i 36889. Dla długości 8 liczba słów zredukowanych wynosi 81920.
+
+### 19.3. Zbieżność zbiorów między głębokościami
+
+Porównano każdą oś z długości \(n\) z najbliższą osią z długości \(n-2\) w sześciowymiarowych współrzędnych Plückera (bez niezależnego przeskalowania zakresów na każdym poziomie).
+
+| Konfiguracja | Porównanie | Mediana najbliższej odległości | Udział osi w odległości < 0.1 |
+|---|---|---:|---:|
+| Centrum | 4 → 2 | 0.6495 | 30.0% |
+| Centrum | 6 → 4 | 0.4330 | 41.7% |
+| Centrum | 8 → 6 | \(1.1\cdot10^{-15}\) | 55.8% |
+| Gałąź symetrii | 6 → 4 | 0.0200 | 66.0% |
+| Gałąź symetrii | 8 → 6 | 0.0113 | 82.7% |
+| Ogólna 45° | 6 → 4 | 0.0167 | 68.3% |
+| Ogólna 45° | 8 → 6 | 0.00888 | 81.6% |
+
+Dla centrum mediana równa około \(10^{-15}\) oznacza, że ponad połowa osi z długości 8 pokrywa się numerycznie z osią z długości 6. Dla gałęzi symetrii i konfiguracji ogólnej rośnie udział osi leżących blisko zbioru poprzedniej głębokości. Jest to wstępny sygnał zagęszczania skończonych zbiorów osi, ale nie dowód istnienia granicznej powierzchni ani samopodobieństwa.
+
+### 19.4. Rozkład odległości osi i zła kondycja
+
+Maksymalna odległość osi od początku dla długości 8:
+- centrum: około 4.09;
+- gałąź symetrii: około 174.07;
+- konfiguracja ogólna: około 212.12.
+
+Mimo progu kąta \(1^\circ\) pozostają bardzo odległe osie. W długości 8 wykryto 1134 przypadki prawie-identycznościowe na gałęzi symetrii i 4128 w konfiguracji ogólnej. Najmniejszy zaakceptowany kąt wynosił odpowiednio około \(1.98^\circ\) i \(1.19^\circ\). To pokazuje, że próg \(1^\circ\) nie wystarcza do pełnej stabilizacji ogonów rozkładu. Wartości median są znacznie stabilniejsze niż maksima.
+
+Wszystkie zaakceptowane osie przeszły kontrolę reszty: maksymalna reszta wyniosła \(7.73\cdot10^{-14}\), więc problemem nie jest niedomknięcie równania osi, lecz jego uwarunkowanie przy małym kącie obrotu.
+
+### 19.5. Box-counting i interpretacja
+
+Dla stałych skal Plückera \(2,1,1/2,1/4,1/8,1/16\) liczba zajętych pudełek rośnie wraz z głębokością i liczbą osi. Przykładowo dla konfiguracji ogólnej na długości 8 uzyskano:
+\[
+1514,\ 2419,\ 4185,\ 5183,\ 5845,\ 6326.
+\]
+To nie jest jeszcze estymacja wymiaru fraktalnego: liczba głębokości jest mała, zbiór jest skończony, a część osi ma duże momenty Plückera. Potrzebne są dalsze głębokości, analiza progów kąta i test stabilności nachylenia \(\log N(\epsilon)\) względem \(\log(1/\epsilon)\).
+
+### 19.6. Status
+
+GitHub Actions zakończył się powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42638629655
+
+Wniosek na dziś: zbiór osi rośnie bardzo szybko poza centrum, a kolejne głębokości coraz bardziej zbliżają się do poprzednich w metryce Plückera. To uzasadnia dalsze badanie granicy, ale nie uprawnia jeszcze do stwierdzenia, że granicą jest fraktal.
