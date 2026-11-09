@@ -190,3 +190,12 @@ Użytkownik podkreślił, że geometria jest źródłem formalizacji matematyczn
 Ważne zastrzeżenie z literatury: muszla jest zwykle modelowana jako ruch/skalowanie krzywej generującej wokół osi, nie jako pojedyncza zwykła helisa. Badanie empiryczne 25 gatunków / 176 okazów wykazało, że klasyczne założenia izometrii i wykładniczego wzrostu zawodzą dla części gatunków (Paleobiology, DOI 10.1017/pab.2021.8). Logarytmiczny model jest bazą, nie uniwersalnym prawem. Dokument: `docs/handoffs/GEOMETRY_FIRST_MATHEMATICAL_DERIVATIONS_2026-11-09.md`.
 
 Następnie należy zdefiniować własną geometrię TIMDR (oś/tunel, krzywa generująca, skręt/chiralność, ekspansja, translacja, przekrój, warunki brzegowe) i dopiero potem wyprowadzić operator. Równania powyżej są ścisłymi konsekwencjami założeń, nie dowodem, że sygnał zmienia parametry ani że GS-Matrix/G-Rezonans są prawami fizycznymi.
+
+
+## 18. Audyt czterech istniejących formalizmów — wynik 2026-11-09
+
+Przeprowadzono przegląd `TIMDR-Math-Formalism`, `TIMDR-Geometry-Formalism`, `TIMDR-Time-Formalism` i `TIMDR-Modal-Formalism`. Nie zaczynamy od zera. G8-G9 mają dyskretny operator Weingartena, krzywizny główne i `T_S`; `Γ(t,s)` tworzy powierzchnię z rodziny trajektorii; G10 ma ścisłą redukcję/odwrócenie `(P,Q)` dla jednej rodziny zaokrąglonych obwiedni trójkąta; GS-Matrix opisuje abstrakcyjną spiralną dynamikę w przestrzeni stanów `(G,S)`; Modal formalism ma fazę/synchronizację; Chronoprocess orkiestruje M/S, G, K bez automatycznego sprzężenia.
+
+Znaleziono kluczowe rozróżnienia/luki: (1) `T_S=||n(q)-n(p)||` jest normą i gubi znak orientacji; nie jest sam w sobie chiralnością ani torsją osi. (2) operator Weingartena opisuje krzywiznę powierzchni, nie automatycznie torsję krzywej osi. (3) spirala GS-Matrix jest w przestrzeni stanów `(G,S)`, nie dowodem przestrzennej helisy 3D. (4) G10 dotyczy jednej rodziny zaokrąglonych obwiedni trójkąta; nie dowodzi ogólnej redukcji czworościan→trójwęzeł ani dowolnej helisy. (5) brak formalnego mostu sygnał/pole→zmiana Γ/geometrii→odpowiedź; Chronoprocess nie przekazuje wyników między gałęziami. (6) faza modalna nie jest pamięcią mechaniczną.
+
+Pełny audyt: `docs/handoffs/AUDIT_EXISTING_FORMALISMS_FOR_TIMDR_HELIX_2026-11-09.md`. Następny krok: sporządzić kartę geometrycznego obiektu helisy TIMDR (oś jako krzywa, powierzchnia boczna, tunel/przekrój, rama/orientacja, warunki brzegowe) i przypisać do niej istniejące obserwable oraz jawne braki. Nie dopisywać nowego operatora przed tym mapowaniem.
