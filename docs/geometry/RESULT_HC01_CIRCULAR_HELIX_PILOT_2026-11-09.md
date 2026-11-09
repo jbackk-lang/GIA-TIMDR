@@ -82,3 +82,10 @@ Dla torsji błąd jest znacznie mniejszy, ale przy dużej liczbie próbek pojawi
 - HC-03: helisa stożkowa / zmienny promień.
 
 **Decyzja:** zachować HC-01 jako matematyczny baseline. Nie przenosić jego ekstremum torsji na ogólną helisę TIMDR bez osobnych pomiarów.
+
+
+## 8. Reprodukowalność CI
+
+GitHub Actions: **success** — run `42570850539`, commit `9667eebe6085cbbd1b692f584e1075c7d5a3311d`. Testy jednostkowe HC-01, pełny sweep parametrów i zapis artefaktów zakończyły się powodzeniem. Artefakt: `hc01-circular-helix-characterization` (artifact ID `13652688302`).
+
+Pierwsze uruchomienie CI ujawniło błąd ścieżki importu w teście; poprawiono ścieżkę, po czym ponowne uruchomienie przeszło pomyślnie. Nie ukrywamy tej korekty — jest częścią historii reprodukowalności.
