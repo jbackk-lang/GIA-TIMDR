@@ -167,3 +167,15 @@ Liczności sumują się odpowiednio do (inom{26}{2}=325) i (inom{36}{2}=630). 
 To istotna różnica między wariantami. Wariant B ma więcej osi i znacznie więcej relacji równoległości oraz skośności. Nie powstaje jedna wspólna oś helikalna; pojawia się wieloosiowa sieć prostych w przestrzeni. To może być właściwszy obiekt do dalszego badania niż pojedyncza helisa.
 
 Wynik dotyczy osi 60 i 72 różnych ruchów śrubowych znalezionych w enumeracji długości 4; nie jest klasyfikacją całej nieskończonej grupy.
+
+
+## 8. Walidacja końcowa
+
+Pełny eksperyment — łącznie z wyznaczaniem prostych osiowych i klasyfikacją każdej pary osi — zakończył się powodzeniem w GitHub Actions:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42611238641
+
+CI potwierdziło dokładnie:
+- A: 26 prostych osiowych; 57 par równoległych, 18 przecinających się, 250 skośnych;
+- B: 36 prostych osiowych; 174 pary równoległe, 24 przecinające się, 432 skośne.
+
+Wszystkie relacje obliczono symbolicznie, bez progów tolerancji numerycznej.
