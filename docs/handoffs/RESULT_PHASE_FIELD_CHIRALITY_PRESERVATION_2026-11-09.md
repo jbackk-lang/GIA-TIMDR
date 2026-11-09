@@ -69,3 +69,12 @@ Zachować pole jako kandydata na warstwę transformacji, ale minimalny kontrakt 
 5. oryginalny sygnał do kontroli rekonstrukcji i strat.
 
 Następnie testować odporność tej reprezentacji na szum i rozdzielczość próbkowania. Dopiero potem mapować pole do S w GS-Matrix. Nie łączyć jeszcze bezpośrednio z mechanicznym G-Rezonansem.
+
+
+## 8. Odporność na rozdzielczość i szum — rozszerzenie testu
+
+Dodano deterministyczny sweep: siatki źródłowe 5×5, 7×7, 9×9, 13×13, 17×17; szum Gaussa o odchyleniu 0, 0.05, 0.1, 0.2, 0.35 w każdej składowej kwadraturowej; oba znaki chiralności. Łącznie 50 przypadków. CI run `42584276273`: **4/4 testy PASS**, wszystkie 50 przypadków zachowały prawidłowy znak i liczbę nawinięć (+1 lub −1).
+
+Koszt dokładności fazy rósł wraz z szumem i rzadszą siatką: najlepszy MAE 0.12° (17×17, bez szumu); najgorszy MAE 18.86° i p95 56.59° (5×5, szum 0.35, chiralność −1). Przy siatce 9×9 i szumie 0.1 MAE wyniósł ok. 4.1–4.5°, p95 ok. 9.1–10.6° dla obu orientacji. Winding pozostał poprawny, ale nie oznacza to, że lokalna faza była dokładna — topologiczny znak okazał się odporniejszy niż rekonstrukcja szczegółów fazy.
+
+**Zastrzeżenie:** jeden deterministyczny seed na kombinację i syntetyczne gładkie pole z pojedynczym defektem centralnym; nie jest to statystyka odporności na wszystkie szumy, defekty ani nieregularne próbki. Wynik wskazuje, że globalny winding może przetrwać umiarkowane zakłócenia w tym modelu, podczas gdy lokalna faza degraduje się wyraźnie.
