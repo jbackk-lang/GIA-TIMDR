@@ -46,6 +46,22 @@ def inverse_screw(p):
     return mv(SCREW_ROTATION, sub(p, SCREW_TRANSLATION))
 
 
+def segment_intersection(p1, p2, q1, q2):
+    """Exact intersection test for two non-parallel closed 3D segments."""
+    u, v, w = sub(p2, p1), sub(q2, q1), sub(q1, p1)
+    for i, j in ((0, 1), (0, 2), (1, 2)):
+        determinant = u[j] * v[i] - u[i] * v[j]
+        if determinant == 0:
+            continue
+        s = (w[j] * v[i] - w[i] * v[j]) / determinant
+        t = (u[i] * w[j] - u[j] * w[i]) / determinant
+        if not (0 <= s <= 1 and 0 <= t <= 1):
+            return False
+        return all(p1[k] + s * u[k] == q1[k] + t * v[k]
+                   for k in range(3))
+    return False
+
+
 def orbit(seed, step, count):
     out = [seed]
     for _ in range(count):
@@ -90,6 +106,12 @@ def main():
     collisions = [(i, j) for i, p in enumerate(forward)
                   for j, q in enumerate(backward) if p == q]
     assert not collisions
+    polyline_crossings = [
+        (i, j) for i in range(64) for j in range(64)
+        if segment_intersection(forward[i], forward[i + 1],
+                                backward[j], backward[j + 1])
+    ]
+    assert not polyline_crossings, polyline_crossings
 
     # The signed axial increments must be equal and opposite.
     da = axial_coordinate(forward[1]) - axial_coordinate(forward[0])
@@ -117,6 +139,7 @@ def main():
     print(f"radial_dot_product = {dot_radial}")
     print(f"radial_cross_norm_squared = {cross_norm_sq}")
     print("sampled_exact_point_collisions = 0")
+    print("exact_polyline_segment_intersections = 0 (64 x 64 segment pairs)")
     print("phase_offset = pi (exactly opposite radial launch vectors)")
     print("RESULT: two distinct, coaxial, equal-radius screw orbits with opposite axial advance and opposite initial phase.")
     print("LIMIT: infinite/open strands have no classical linking number; no knot/link claim is made.")
