@@ -123,3 +123,12 @@ W kolejnym przeglądzie znaleziono istniejący operator, który trzeba uwzględn
 Dodatkowo `signal_meta_bridge.py` łączy sygnał → SG-Coupling → Θ_bif → klasy I/II/III → MetaState → faza, ale nie sprzęga mechanicznie z helisą. `modal_band_energy_bridge.py` daje obserwable pasmowe sygnału, nie pomiar energii przekazanej do helisy. Modele T/U pozostają szkicami pola/przepływu informacji, bez kompletnego, wymiarowo określonego prawa oddziaływania.
 
 Pełny audyt kandydatów: `docs/handoffs/AUDIT_CANDIDATE_PHYSICAL_SIGNAL_HELIX_CHANNELS_2026-11-09.md`. Kolejny priorytet: audyt pozostałych repozytoriów, zwłaszcza TSI, ponieważ lokalny katalog `C:\Users\jback\Downloads\a` nie jest dostępny bezpośrednio w sesji; potrzebne jest udostępnienie archiwum lub repozytoriów na GitHub.
+
+
+## 12. Synoptyk-v3 — trop warstwy pola jako transformatora sygnału
+
+Użytkownik wskazał Synoptyk-v3. Audyt repo `jbackk-lang/Synoptyk-v3` potwierdził, że pipeline `membrane/interpolate.py` przekształca rozproszone wejścia w regularne pola skalarne/wektorowe; `spectrum.py` wyznacza FFT, gradienty, wirowość i koherencję; `defects.py` i `resonance.py` wydobywają lokalne anomalie i koincydencje; `meta_adapter.py` mapuje cechy do `MetaState(Λ,τ,ρ,J)`. Ważna lekcja: najpierw transformacja wejścia do pola, potem analiza struktury pola, dopiero potem adapter stanu.
+
+Dla helisy może to być brakująca warstwa między surowym sygnałem a GS-Matrix/G-Rezonansem. To wzorzec architektoniczny, nie gotowy fizyczny operator: pole pogodowe Synoptyka nie jest polem oddziaływania helisy; jego heurystyczny rezonans nie jest oscylatorem fizycznym; MetaState nie jest siłą/energią. Szczególnie cenna jest praktyka zachowania orientacji: wiatr jest rozkładany na u/v przed interpolacją, by nie zgubić cykliczności kierunku. Analogicznie helikalna reprezentacja nie może gubić fazy ani znaku chiralności.
+
+Dokument analizy: `docs/handoffs/SYNOPTYK_V3_FIELD_TRANSFORM_CLUE_FOR_HELIX_2026-11-09.md`. Następny minimalny krok: dla jednego sygnału sprawdzić transformację sygnał→pole→cechy pola→rekonstrukcja, mierząc co zostało zachowane/utracone; dopiero potem mapować wybrane cechy na stan S w GS-Matrix i odpowiedź G. Nie pisać nowego operatora ani nie zakładać fizycznego sprzężenia przed tym testem.
