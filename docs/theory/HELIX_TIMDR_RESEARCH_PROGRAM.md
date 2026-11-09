@@ -833,3 +833,10 @@ Autor dodał warunek, że czworościan nie może być analizowany wyłącznie ja
 ### 30.9. Właściwa anomalia: przesunięcie środka czworościanu względem środka kuli
 
 Autor skorygował interpretację „podwójnej reprezentacji”: chodzi o stosunek i przesunięcie środków kuli i czworościanu, nie o dwa czworościany antypodyczne. Główna zmienna to (d=C_t-C_s), znormalizowana ekscentryczność δ=\|d\|/R. Dla wierzchołków (p_i) względem wybranego środka czworościanu i orientacji (Q), ograniczenie sferyczne zapisuje się (\|d+Qp_i\|\le R). Składnik (2d\cdot Qp_i) powoduje, że dopuszczalność zależy od orientacji. Nie dowodzi to jeszcze samoczynnej rotacji: potrzebna jest reguła kontaktu/reakcji, tarcia/toczenia, minimalizacji energii albo dyskretne sprzężenie modułów. Szczegóły i testy w `docs/geometry/SPHERICAL_ENCLOSURE_DOUBLE_TETRAHEDRON_OR_EGG_v0.1.md`. Partner antypodyczny pozostaje kontrolą matematyczną.
+
+
+### 30.10. Program anomaly-first — wspólna reguła bez normalizowania anomalii
+
+Po rozmowie z autorem przyjęto zasadę: anomalii nie usuwać ani nie interpretować przed zbadaniem relacji. Utworzono `docs/geometry/ANOMALY_FIRST_UNIFICATION_PROGRAM_v0.1.md`. Zestawia przesunięcie środków, niezgodność symetrii bryła–sfera, lift 2D→3D, zachowanie fazy/chiralności, historię MAGE, redukcję 4→3 i ograniczenia G-Rezonansu. Wspólny stan roboczy obejmuje geometrię/graf, relację środków, ramę, fazę z winding, warunki brzegowe i historię. Najpierw testujemy orientacyjny bias wynikający z offsetu bez dynamiki, potem pojedynczy jawny mechanizm, który mógłby dać rzeczywistą rotację. Nie zakładamy z góry jednej przyczyny wszystkich anomalii.
+
+**CI liftu 2D→3D:** po naprawie projekcji dla zmiennej ramy run `42592777404` — SUCCESS.
