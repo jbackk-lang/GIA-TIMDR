@@ -94,6 +94,16 @@ def axis_line_key(T):
     closest=simp_mat((I-M).T*rhs/(2*(1-cosine)))
     return direction_key(u), tuple(s.simplify(x) for x in closest)
 
+def line_relation(L1,L2):
+    """Exact relation of two distinct 3D lines."""
+    d1=s.Matrix(L1[0]); p1=s.Matrix(L1[1])
+    d2=s.Matrix(L2[0]); p2=s.Matrix(L2[1])
+    normal=d1.cross(d2)
+    delta=p2-p1
+    if all(s.simplify(x)==0 for x in normal):
+        return "parallel" if any(s.simplify(x)!=0 for x in delta.cross(d1)) else "coincident"
+    return "intersecting" if s.simplify(delta.dot(normal))==0 else "skew"
+
 def enumerate_layer(G, max_length=4):
     layer=[((),(I,O))]
     results={}
@@ -136,7 +146,12 @@ def analyze_even_layer(unique):
                 screw_pitch_sq[str(pitch_sq)]+=1
                 screw_lines[axis_line_key(T)]+=1
                 examples.setdefault(d,word)
-    return types,cosines,rotation_axes,screw_axes,screw_pitch_sq,screw_lines,examples
+    line_list=list(screw_lines)
+    line_relations=Counter(
+        line_relation(line_list[i],line_list[j])
+        for i in range(len(line_list)) for j in range(i+1,len(line_list))
+    )
+    return types,cosines,rotation_axes,screw_axes,screw_pitch_sq,screw_lines,line_relations,examples
 
 def main():
     cases=[
@@ -178,12 +193,13 @@ def main():
             assert len(unique)==expected, (label,length,len(unique),expected)
             print(f"length_{length}: reduced_words={word_count}; distinct_maps={len(unique)}; collisions={word_count-len(unique)}")
             if length==4:
-                types,cosines,rot_axes,screw_axes,pitch_sq,screw_lines,examples=analyze_even_layer(unique)
+                types,cosines,rot_axes,screw_axes,pitch_sq,screw_lines,line_relations,examples=analyze_even_layer(unique)
                 print(f"length_4_isometry_types={dict(types)}")
                 print(f"length_4_rotation_cosines={dict(cosines)}")
                 print(f"length_4_distinct_rotation_axis_directions={len(rot_axes)}")
                 print(f"length_4_distinct_screw_axis_directions={len(screw_axes)}")
                 print(f"length_4_distinct_screw_axis_lines={len(screw_lines)}")
+                print(f"length_4_screw_axis_line_relations={dict(line_relations)}")
                 print(f"length_4_screw_axis_direction_counts={dict(screw_axes)}")
                 print(f"length_4_normalized_screw_pitch_squared={dict(pitch_sq)}")
         print("")
