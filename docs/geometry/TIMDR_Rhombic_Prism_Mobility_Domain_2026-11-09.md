@@ -151,3 +151,49 @@ To wspiera hipotezę, że podatność geometryczna steruje nie tylko wymiarami b
 ### Status reprodukcji
 
 GitHub Actions: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42627185257
+
+
+## 10. Rozpoznanie loci symetrii i punktów rezonansowych
+
+Rozszerzony skan (17 konfiguracji, w tym punkty lustrzane i kontrole po obu stronach) zakończył się powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42628189983
+
+Zwiększono precyzję deduplikacji numerycznej z 8 do 10 miejsc po przecinku. Dla (u=1/2) wyniki są następujące:
+
+| Warunek / (v) | Kąty ostre rombów | Różne mapy długości 4 | Obroty | Śruby |
+|---|---|---:|---:|---:|
+| (v=0) | (60,75.522,75.522\degree) | 161 | 116 | 36 |
+| (v=+1/(2\sqrt3)) | (60,90,60\degree) | 245 | 176 | 60 |
+| (v=-1/(2\sqrt3)) | (60,60,90\degree) | 245 | 176 | 60 |
+| (v=+1/\sqrt3) | (60,75.522,41.410\degree) | 292 | 212 | 72 |
+| (v=-1/\sqrt3) | (60,41.410,75.522\degree) | 292 | 212 | 72 |
+| próbki ogólne | brak równych kątów | 302 | 222 | 72 |
+
+### Dwie rodziny loci równych kątów
+
+Ponieważ:
+[
+c_1=u,\quad c_2=\frac{-u+\sqrt3v}{2},\quad
+c_3=\frac{-u-\sqrt3v}{2},
+]
+równość ostrych kątów dwóch rombów oznacza (|c_i|=|c_j|), a więc dwa różne przypadki:
+
+- (c_i=c_j): dwie ściany mają ten sam kąt i trzeci cosinus jest przeciwny do ich sumy. W badanych próbkach tej rodziny otrzymujemy 161 map, 116 obrotów i 36 śrub.
+- (c_i=-c_j): trzeci cosinus jest zerowy, czyli jedna ściana boczna jest kwadratem, a dwie pozostałe mają równe kąty ostre. W badanych próbkach tej rodziny otrzymujemy 245 map, 176 obrotów i 60 śrub.
+
+Są to linie w dwuwymiarowej przestrzeni parametrów, a nie pojedyncze punkty. Skan sprawdził kilka punktów na każdej z tych rodzin; pełna identyfikacja wszystkich relacji grupowych na całych liniach wymaga dowodu symbolicznego.
+
+### Izolowane punkty dodatkowej degeneracji
+
+Punkty (u=1/2, v=\pm1/\sqrt3) dają 292 mapy, mimo że nie mają pary równych kątów ostrych. Przesunięcie (v) o zaledwie (10^{-5}) w dowolną stronę przywraca 302 mapy. Ich lustrzane odpowiedniki dają ten sam wynik.
+
+Dla dodatniego punktu ten wynik 292 map jest dodatkowo zgodny z wcześniejszym dokładnym, symbolicznym przypadkiem B ((c_1=1/2,c_2=1/4,c_3=-3/4)). Ujemny punkt jest jego odbiciem lustrzanym.
+
+### Co można już powiedzieć
+
+- 302 mapy to wynik typowy w przebadanych konfiguracjach ogólnych.
+- Linie równych kątów są loci symetrii z wyraźnie zmienionym widmem długości 4.
+- Istnieją również szczególne konfiguracje bez równych kątów, w których liczba map spada do 292.
+- W pobliżu tych miejsc widmo wraca do wartości typowej; nie jest to ciągły spadek liczby transformacji.
+
+To jest mocniejszy obraz niż hipoteza o pojedynczym „rezonansie”: w przestrzeni kształtów widać co najmniej dwie rodziny loci symetrii i dodatkowe punkty szczególne. Nadal nie jest to pełna klasyfikacja wszystkich rezonansów ani całej nieskończonej grupy odbić.
