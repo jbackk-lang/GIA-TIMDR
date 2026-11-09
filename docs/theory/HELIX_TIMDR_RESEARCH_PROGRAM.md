@@ -620,3 +620,12 @@ Kontrola liczbowa:
 Suma nie jest równa π: √2+√3 jest algebraiczna, a π przestępne. W geometrii koła jednostkowego √2 jest długością cięciwy kąta środkowego 90°, a √3 cięciwy 120°. To interesujące punkty konstrukcyjne, ale nie odtwarzają jeszcze źródłowej konstrukcji autora ani nie dowodzą reguły redukcji.
 
 Dokument roboczy: `docs/geometry/PI_CIRCLE_SQRT2_SQRT3_REDUCTION_PATH_v0.1.md`. W przeszukanym drzewie bieżącego GIA-TIMDR nie odnaleziono jeszcze pierwotnego rysunku/notatki tej konstrukcji. Należy odzyskać dokładną kolejność konstrukcji, normalizację długości, rolę π (wartość, granica czy normalizacja) i operator redukcji. Nie utożsamiać sumy pierwiastków z π i nie zakładać, że to ta sama redukcja co redukcja grafowa.
+
+
+### Korekta drugiej drogi redukcji: √2 i √3 jako odpowiednik mechanizmu π idealne → π rzeczywiste
+
+Autor doprecyzował, że √2 i √3 nie miały być sumą przybliżającą π ani dwiema cięciwami do dodania. Miały być odpowiednikiem samego mechanizmu redukcji — analogicznie do przejścia od π idealnego (idealny okrąg / dokładna wielkość) do π rzeczywistego rozumianego jako skończona realizacja lub przybliżenie.
+
+Ścieżka ta jest strukturalną analogią, nie równością liczbową. W matematyce π pozostaje jedną dokładną liczbą; „idealne → rzeczywiste” oznacza tu rozróżnienie obiektu idealnego i skończonej realizacji/pomiaru. Rola √2 i √3 jako stanów, parametrów lub elementów operatora redukcji wymaga odtworzenia ze źródłowej konstrukcji. Nie zakładać √2+√3=π (to fałsz).
+
+Skorygowano dokument `docs/geometry/PI_CIRCLE_SQRT2_SQRT3_REDUCTION_PATH_v0.1.md`. Następne zadanie: zdefiniować obiekt idealny, realizowany, operator przejścia i zachowywany niezmiennik, a dopiero potem porównać tę analogię z redukcją helisy.
