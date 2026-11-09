@@ -178,3 +178,8 @@ Następnie porównać:
 - stabilność wyniku przy zmianie (u_a,u_b).
 
 Jeżeli zależności utrzymają się w obu kształtach, będą kandydatami na własności niezależne od konkretnej bryły. Jeżeli zmienią się między kulą a jajem, będą własnościami zależnymi od krzywizny i asymetrii otoczenia. W obu przypadkach otrzymamy falsyfikowalny wynik.
+
+
+### 5.1. Ważna kontrola: średnia a profil lokalny
+
+Dla przyjętej symetrycznej funkcji szerokości geograficznej \(\theta(u)=\pi/2+a\sin(2u)\) składnik liniowy w \(\epsilon\) znosi się w średniej po pełnym okresie. Dlatego średni odstęp po całym obiegu może być taki sam dla kuli i jaja, mimo że lokalny profil odstępów jest inny. Porównanie kształtów musi więc obejmować minimum, maksimum i profil \(d_3(u)\), a nie samą średnią. To jest kontrola przeciwko fałszywemu wnioskowi z jednej liczby agregowanej.
