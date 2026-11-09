@@ -930,3 +930,14 @@ Rozdzielono trzy klasy: (A) kontener/warunki brzegowe, (B) więź wewnętrzna mi
 Analogie fizyczne doprecyzowano: wiązania wodorowe i inne oddziaływania elektromagnetyczne stabilizują wodę; chmury atmosferyczne są kroplami/ kryształami lodu, a nie skupiskami gazowych cząsteczek utrzymywanymi jak galaktyki; w dużych obłokach i galaktykach grawitacja może być istotna. Nie postulować jednej siły dla wszystkich skal.
 
 **Pytanie rozstrzygające TIMDR:** czy cztery elementy zachowują wspólną strukturę po usunięciu zewnętrznego kontenera, wyłącznie dzięki mierzalnemu sprzężeniu wewnętrznemu? „Grawitacja informacji” pozostaje metaforą, dopóki nie ma pola, źródeł, jednostek, dynamiki i falsyfikowalnych predykcji.
+
+
+### 30.20. Dwukierunkowa, wieloskalowa organizacja helikalna — 2026-11-09
+
+Autor zaproponował odwrócenie kierunku przyczynowego: nie tylko informacja może organizować się w strukturę helikalną; geometria czasoprzestrzeni, pola i drgania mogą ograniczać trajektorie oraz w określonych warunkach prowadzić do struktur helikalnych/topologicznych, które następnie wspierają powstawanie kształtów i organizacji informacji. Zapisano hipotezę dwukierunkową w `docs/theory/BIDIRECTIONAL_MULTISCALE_HELICAL_ORGANIZATION_HYPOTHESIS_v0.1.md`.
+
+Dodano możliwość hierarchii wielu skal, potencjalnie bez z góry przyjętego poziomu końcowego, ale nie wpisano nieskończonego regresu jako aksjomatu. Rozróżniono geometrię helikalną, symetrię helikalną, topologię i mechanizm generujący. Zaznaczono, że ruch śrubowy w polu magnetycznym, helikalność fal/pól, topologiczna skrętność i kwantowa helicity to odrębne pojęcia; spin/helicity nie oznacza literalnej helisy cząstki.
+
+Dla TSI zapisano potrzebę operacjonalizacji zachowań inteligentnych: odporność, pamięć, adaptacja, predykcja, wybór trajektorii, samoregulacja i transfer między skalami. Nie utożsamiać złożoności geometrycznej z inteligencją. Do ustalenia pozostaje rozwinięcie skrótu TSI i konkretna implementacja oceniana w testach.
+
+Program badania: geometria → liczby → dynamika/sprzężenie → informacja/TSI. Wymagane są modele kontrolne niehelikalne i warunki falsyfikacji. Hipoteza nie zakłada, że każda czasoprzestrzeń wymusza helisy ani że każda skala jest fraktalna.
