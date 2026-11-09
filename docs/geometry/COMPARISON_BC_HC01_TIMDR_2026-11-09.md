@@ -125,3 +125,12 @@ To już istniejący eksperyment syntetyczny, który tworzy helisę prawą i jej 
 To jest już przetestowany baseline chiralności; nie należy kopiować go ponownie do GIA-TIMDR. Trzeba go traktować jako wynik syntetyczny i konwencję kandydującą, nie jako wyprowadzenie oryginalnego prawa TIMDR ani dowód odzyskiwania dowolnego payloadu.
 
 **Konsekwencja dla następnej pracy:** nie powtarzać testu „czy znak torsji znika w G5” ani testu kowariancji tej samej idealnej helisy — one już istnieją. Nowe pytanie ma być inne: czy źródłowa reguła modułu TIMDR (po jej jednoznacznym zdefiniowaniu) indukuje tę samą regułę transportu ramy/fazy, czy wymaga innej. W razie potrzeby należy rozszerzyć istniejący test o geometrię wyprowadzoną z modułu, a nie tworzyć drugi eksperyment dla standardowej helisy.
+
+
+## 11. Dodatkowa różnica: asymetria lokalna a skręt globalny modułów
+
+Każda ściana czworościanu BC jest trójkątem równobocznym; kolejne tetraedry są przystające, a reguła doklejania zachowuje wszystkie krawędzie. Mimo braku asymetrii pojedynczego trójkąta, cała sekwencja ma niezerowy obrót śrubowy. W BC skręt globalny wynika z trójwymiarowej reguły odbicia i sklejenia modułów, nie z deformacji lokalnej ściany trójkątnej.
+
+To nie obala G2 TIMDR: G2 mówi o asymetrii trójkąta jako źródle skrętu w gałęzi geometrycznej G, natomiast BC jest konstrukcją łańcucha brył z globalnym transportem orientacji. Pokazuje jednak, że musimy rozdzielić dwa mechanizmy: (a) lokalną asymetrię pojedynczego modułu/pola normalnych oraz (b) globalny obrót/holonomię wynikającą z reguły sklejenia modułów. Nie można zakładać, że jeden z nich automatycznie implikuje drugi.
+
+**Nowy test dla przyszłego operatora TIMDR:** porównać wariant modułu symetrycznego i asymetrycznego przy tej samej regule sklejenia, a osobno zmienić regułę sklejenia przy stałym module. Zmierzyć przyrost fazy/ramy na krok. To rozdzieli, czy źródłem helikalności jest kształt modułu, czy globalna operacja jego transportu. Test ma sens dopiero po formalnym zdefiniowaniu obu wariantów; nie kodować z góry oczekiwanego wyniku.
