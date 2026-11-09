@@ -61,5 +61,5 @@ def recover_phasor_coordinates(points: np.ndarray, frame: np.ndarray,
         F = np.broadcast_to(F, (len(X), 3, 3))
     if F.shape != (len(X), 3, 3):
         raise ValueError("frame must have shape (3,3) or (N,3,3)")
-    local = np.einsum("nij,ni->nj", np.swapaxes(F, 1, 2), X - c)
+    local = np.einsum("nij,ni->nj", F, X - c)
     return local[:, 0], local[:, 1], local[:, 2]
