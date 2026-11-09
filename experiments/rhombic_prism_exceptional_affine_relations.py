@@ -48,13 +48,50 @@ def inverse_isometry(H):
     b = H[:3, 3]
     return homogeneous(R.T, -R.T*b)
 
+def side_side_coxeter_equations():
+    """Derive exact m=2 and m=3 loci for every pair of lateral faces."""
+    U, V = s.symbols("U V", real=True)
+    c1 = U
+    c2 = (-U+s.sqrt(3)*V)/2
+    c3 = (-U-s.sqrt(3)*V)/2
+    cs = (c1, c2, c3)
+    expected_m2 = (
+        U**2-s.sqrt(3)*U*V-1,
+        U**2+s.sqrt(3)*U*V-1,
+        3*V**2-U**2-2,
+    )
+    expected_m3 = (
+        U**4-2*s.sqrt(3)*U**3*V+3*U**2*V**2-U**2+2*s.sqrt(3)*U*V+V**2,
+        U**4+2*s.sqrt(3)*U**3*V+3*U**2*V**2-U**2-2*s.sqrt(3)*U*V+V**2,
+        U**4-6*U**2*V**2+8*U**2+9*V**4-8*V**2,
+    )
+    derived_m2, derived_m3 = [], []
+    for i,j in ((0,1),(0,2),(1,2)):
+        ci,cj=cs[i],cs[j]
+        dot=-s.Rational(1,2)-ci*cj
+        ni2=1-ci**2
+        nj2=1-cj**2
+        derived_m2.append(s.factor(-2*dot))
+        derived_m3.append(s.factor(4*dot**2-ni2*nj2))
+    assert all(s.simplify(a-b)==0 for a,b in zip(derived_m2,expected_m2))
+    assert all(s.simplify(a-b)==0 for a,b in zip(derived_m3,expected_m3))
+    return expected_m2, expected_m3
+
 def main():
+    m2_loci, m3_loci = side_side_coxeter_equations()
     # 1. A whole line of two commuting pairs: horizontal end planes and
     #    the first lateral plane are mutually perpendicular when v=0.
     S0, S1, S2, S3, S4 = generators(u, 0, w)
     assert s.simplify(S0*S2 - S2*S0) == s.zeros(4)
     assert s.simplify(S1*S2 - S2*S1) == s.zeros(4)
     print("PASS: v=0 gives two exact commuting reflection pairs.")
+    print("PASS: exact side-side m=2 and m=3 locus equations derived for all three face pairs.")
+    print("side_side_m2_loci:")
+    for equation in m2_loci:
+        print(f"  {s.factor(equation)} = 0")
+    print("side_side_m3_loci:")
+    for equation in m3_loci:
+        print(f"  {s.factor(equation)} = 0")
     print("relations: s0*s2=s2*s0; s1*s2=s2*s1")
 
     # 2. At (u,v,w)=(1/2,0,sqrt(3)/2), a glide-reflection conjugacy
