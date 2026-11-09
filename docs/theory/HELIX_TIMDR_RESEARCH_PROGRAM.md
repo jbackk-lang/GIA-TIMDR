@@ -908,3 +908,14 @@ Najpierw model kinematyczny: cztery punkty początkowe tworzą jeden czworościa
 Osobno model dynamiczny: trajektorie mogą oddziaływać wzajemnie przez jawne człony `F_ij` lub potencjał wiążący. To już zmienia dynamikę i może naruszyć dokładny ruch śrubowy; należy sprawdzić, czy symetryczne sprzężenie stabilizuje strukturę czteroniciową bez narzucania jej z góry. Nazwa robocza „pole więzi/sprzężenia” jest dopuszczalna, ale „grawitacja” pozostaje analogią, dopóki nie ma równań pola, źródeł, jednostek, symetrii i testowalnych predykcji.
 
 Minimalny następny eksperyment: wspólny start czterech punktów; porównanie (A) wspólnego ruchu sztywnego i (B) sprzężenia dynamicznego z kontrolą bez sprzężenia; pomiar sześciu odległości, faz, osi i stabilności plecionki. Nie utożsamiać kinematycznego zachowania odległości z wykryciem fizycznej siły.
+
+
+### 30.18. Test dynamicznej więzi czterech orbit — 2026-11-09
+
+Sprawdzono, czy cztery orbity mogą być związane bez narzucania sztywnego ruchu. Minimalny model to kompletny graf K4: sześć potencjalnych więzi między czterema punktami, z energią `U=1/2 Σ k_ij (|X_i-X_j|-d_ij^0)^2`. Raport: `docs/geometry/FOUR_ORBIT_DYNAMIC_BINDING_TEST_v0.1.md`.
+
+W przykładowym niekoplanarnym czworościanie hesjan w minimum ma sześć zerowych modów bryły sztywnej (3 translacje + 3 obroty) i sześć dodatnich modów wewnętrznych; najmniejsza dodatnia wartość własna ≈0.910035 przy `k_ij=1`. To numerycznie potwierdza lokalną sztywność kształtu w modelu K4.
+
+Ograniczenie jest zasadnicze: sprężyny o długościach naturalnych równych odległościom początkowym nie generują ruchu śrubowego. W spoczynku siły są zerowe; przy zadanym wspólnym ruchu sztywnym sprężyny pozostają nieodkształcone. Zatem więź geometryczna nie jest jeszcze synchronizacją ani napędem. Oddzielono też potencjał sprężynowy od Newtonowskiej grawitacji; analogia grawitacyjna wymaga źródła, prawa pola, jednostek i przewidywań.
+
+Następny test porównawczy: A — brak sprzężenia, B — K4 sprężynowe, C — Newtonowski potencjał par jako kontrola. Identyczne warunki początkowe; mierzyć sześć odległości, objętość/orientację, środek masy, moment pędu, oś i fazy. Nie nazywać żadnego z modeli fizycznym modelem TIMDR bez uzasadnienia kanału i kalibracji.
