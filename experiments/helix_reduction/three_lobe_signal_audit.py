@@ -52,6 +52,12 @@ def analyze_three_lobes(samples_per_lobe: int = 512, amplitude: float = 1.0,
                       ) for i in range(3)]
     derivative_orientation_forward = 1
     derivative_orientation_reverse = -1
+    endpoint_value_start = float(x[0])
+    endpoint_value_end = float(x[-1])
+    endpoint_slope_start = float(amplitude * omega * np.cos(phase))
+    endpoint_slope_end = float(amplitude * omega * np.cos(3*np.pi + phase))
+    position_closes = bool(np.isclose(endpoint_value_start, endpoint_value_end))
+    tangent_closes = bool(np.isclose(endpoint_slope_start, endpoint_slope_end))
     return {
         "schema": "gia-timdr-three-lobe-signal-audit-v0.1",
         "parameters": {"samples_per_lobe": samples_per_lobe, "amplitude": amplitude,
@@ -65,6 +71,15 @@ def analyze_three_lobes(samples_per_lobe: int = 512, amplitude: float = 1.0,
         "word_is_palindromic": lobe_signs == reversed_signs,
         "traversal_orientation_forward": derivative_orientation_forward,
         "traversal_orientation_reverse": derivative_orientation_reverse,
+        "closure": {
+            "start_value": endpoint_value_start,
+            "end_value": endpoint_value_end,
+            "start_slope": endpoint_slope_start,
+            "end_slope": endpoint_slope_end,
+            "position_closes_C0": position_closes,
+            "tangent_closes_C1": tangent_closes,
+            "smooth_scalar_loop": position_closes and tangent_closes
+        },
         "signal_level_conclusions": {
             "alternating_sign_word_recovered": lobe_signs == [1, -1, 1],
             "absolute_value_erases_middle_negative_polarity": abs_signs == [1, 1, 1],
