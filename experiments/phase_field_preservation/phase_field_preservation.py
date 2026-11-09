@@ -42,6 +42,33 @@ def interpolate(values: np.ndarray, points: np.ndarray,
     return out
 
 
+def robustness_case(chirality: int, n: int, noise: float) -> dict:
+    xs = np.linspace(-1.0, 1.0, n)
+    X, Y = np.meshgrid(xs, xs)
+    points = np.column_stack([X.ravel(), Y.ravel()])
+    dense = np.linspace(-1.0, 1.0, 81)
+    GX, GY = np.meshgrid(dense, dense)
+    true_phase = chirality * np.arctan2(Y, X)
+    rng = np.random.default_rng(123)
+    c = np.cos(true_phase) + rng.normal(0.0, noise, true_phase.shape)
+    s = np.sin(true_phase) + rng.normal(0.0, noise, true_phase.shape)
+    ci = interpolate(c, points, GX, GY)
+    si = interpolate(s, points, GX, GY)
+    phase = np.arctan2(si, ci)
+    norm = np.hypot(ci, si)
+    loop = square_loop()
+    mask = ((GX**2 + GY**2 > 0.15**2) &
+            (GX**2 + GY**2 < 0.85**2) & (norm > 0.1))
+    error = np.abs(wrap_phase(
+        phase[mask] - chirality * np.arctan2(GY[mask], GX[mask])
+    ))
+    return {
+        "winding": winding_number(phase, loop),
+        "phase_mae_deg": float(np.degrees(error).mean()),
+        "phase_p95_deg": float(np.degrees(np.quantile(error, 0.95))),
+    }
+
+
 def run() -> dict:
     # Sparse samples and dense output grid, matching Synoptyk-v3's
     # scattered-points -> regular-grid architecture.
@@ -81,6 +108,12 @@ def run() -> dict:
             "field_norm_median_valid": float(np.median(magnitude[valid])),
         }
 
+    robustness = [
+        {"chirality": q, "source_grid_n": n, "noise_std": noise,
+         **robustness_case(q, n, noise)}
+        for q in (1, -1) for n in (5, 7, 9, 13, 17)
+        for noise in (0.0, 0.05, 0.1, 0.2, 0.35)
+    ]
     return {
         "schema": "gia-timdr-phase-field-preservation-v1",
         "status": "synthetic_representation_test_not_physical_validation",
@@ -88,6 +121,7 @@ def run() -> dict:
         "source_grid": "9x9",
         "output_grid": "81x81",
         "results_by_chirality": results,
+        "robustness_sweep": robustness,
         "interpretation": [
             "Interpolating (cos(phi), sin(phi)) preserves circular phase through the branch cut in this test.",
             "Interpolating wrapped phi as an ordinary scalar destroys the measured winding in this test.",
