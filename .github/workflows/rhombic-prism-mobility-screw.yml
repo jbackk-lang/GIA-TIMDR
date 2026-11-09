@@ -11,6 +11,7 @@ on:
       - "experiments/rhombic_prism_screw_unfolding_multidegree.py"
       - "experiments/rhombic_prism_screw_axis_spatial_organization.py"
       - "experiments/rhombic_prism_axis_limit_study.py"
+      - "experiments/rhombic_prism_axis_conditioning_sensitivity.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -40,3 +41,5 @@ jobs:
         run: python experiments/rhombic_prism_screw_axis_spatial_organization.py
       - name: Study rotation and screw axis limit through word length 8
         run: python experiments/rhombic_prism_axis_limit_study.py
+      - name: Test axis cloud sensitivity to rotation cutoff
+        run: python experiments/rhombic_prism_axis_conditioning_sensitivity.py
