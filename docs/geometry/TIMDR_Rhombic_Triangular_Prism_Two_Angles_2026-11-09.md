@@ -85,3 +85,67 @@ W obu przypadkach występuje jedna translacja (złożenie odbić w dwóch równo
 Zmiana dwóch parametrów kątowych zmienia więc całe widmo obrotów generowanych przez pary odbić, a nie tylko długość translacji. W obu przypadkach niektóre kąty obrotu są inne niż w symetrycznym graniastosłupie z kwadratami.
 
 Wyniki są dokładne i symboliczne; nie rozstrzygają jeszcze, czy złożenia trzech lub większej liczby odbić dają ruchy śrubowe. To następny test.
+
+
+## 7. Wielokrotne odbicia: osie obrotów i ruchy śrubowe
+
+Rozszerzono eksperyment poza pary odbić. Enumerujemy wszystkie zredukowane słowa generatorów długości 2 i 4 (bez sąsiedniego powtórzenia tego samego odbicia), łącznie odpowiednio 20 i 320 słów dla każdego przypadku. Transformacje afiniczne są porównywane dokładnie, a nie numerycznie.
+
+### Liczba różnych transformacji
+
+| Przypadek | Długość słowa | Słowa | Różne mapy | Kolizje |
+|---|---:|---:|---:|---:|
+| A | 2 | 20 | 18 | 2 |
+| A | 4 | 320 | 245 | 75 |
+| B | 2 | 20 | 20 | 0 |
+| B | 4 | 320 | 292 | 28 |
+
+### Klasy izometrii dla różnych map długości 4
+
+| Przypadek | Obroty | Ruchy śrubowe | Translacje | Identyczność |
+|---|---:|---:|---:|---:|
+| A | 176 | 60 | 8 | 1 |
+| B | 212 | 72 | 8 | 0 |
+
+To jest kluczowy wynik: **w obu zamkniętych graniastosłupach z trzema rombami pojawiają się ruchy śrubowe w złożeniach czterech odbić**, mimo że dla par odbić otrzymywaliśmy wyłącznie czyste obroty lub translację.
+
+### Kierunki osi
+
+Liczba różnych kierunków osi (kierunek, nie położenie konkretnej osi):
+| Przypadek | Osie obrotów | Kierunki osi ruchów śrubowych |
+|---|---:|---:|
+| A | 27 | 8 |
+| B | 37 | 8 |
+
+W obu przypadkach osie śrubowe nie redukują się do jednego kierunku. W drugim przypadku widmo osi obrotów jest bogatsze, ale liczba kierunków osi śrubowych pozostaje taka sama.
+
+### Skok ruchu śrubowego
+
+Dla wektora kierunku osi (u) wyznaczamy niezmiennik:
+[
+p^2=\frac{(u\cdot b)^2}{u\cdot u},
+]
+gdzie (x\mapsto Mx+b) jest badaną izometrią. To kwadrat przesunięcia wzdłuż osi na jedno zastosowanie transformacji, niezależny od skali i znaku wektora (u).
+
+**Przypadek A:**
+| (p^2) | Liczba różnych map |
+|---:|---:|
+| (16/9) | 36 |
+| (16/13) | 16 |
+| (16/7) | 8 |
+
+**Przypadek B:**
+| (p^2) | Liczba różnych map |
+|---:|---:|
+| (25/36) | 48 |
+| (25/76) | 8 |
+| (25/28) | 8 |
+| (25/46) | 8 |
+
+Wyniki pokazują, że zmiana geometrii rombów zmienia zarówno widmo kątów, jak i skoki ruchów śrubowych. Nie jest to wyłącznie zmiana wysokości graniastosłupa.
+
+### Granice wniosku
+
+To są dokładne wyniki dla słów długości najwyżej 4. Nie dowodzą, że cała grupa ma tylko te osie lub skoki, ani że trajektorie tworzą zamknięte węzły. Kierunki osi nie określają jeszcze położenia osi w przestrzeni: do badania wzajemnego splątania potrzebne będą również linie osi, a nie tylko ich wektory kierunkowe.
+
+Kod eksperymentu został rozszerzony o klasyfikację map, kierunków osi i niezmienników skoku.
