@@ -56,14 +56,14 @@ def side_side_coxeter_equations():
     c3 = (-U-s.sqrt(3)*V)/2
     cs = (c1, c2, c3)
     expected_m2 = (
-        U**2-s.sqrt(3)*U*V-1,
-        U**2+s.sqrt(3)*U*V-1,
-        3*V**2-U**2-2,
+        1-U**2+s.sqrt(3)*U*V,
+        1-U**2-s.sqrt(3)*U*V,
+        (U**2-3*V**2+2)/2,
     )
     expected_m3 = (
-        U**4-2*s.sqrt(3)*U**3*V+3*U**2*V**2-U**2+2*s.sqrt(3)*U*V+V**2,
-        U**4+2*s.sqrt(3)*U**3*V+3*U**2*V**2-U**2-2*s.sqrt(3)*U*V+V**2,
-        U**4-6*U**2*V**2+8*U**2+9*V**4-8*V**2,
+        s.Rational(3,4)*(U**4-2*s.sqrt(3)*U**3*V+3*U**2*V**2-U**2+2*s.sqrt(3)*U*V+V**2),
+        s.Rational(3,4)*(U**4+2*s.sqrt(3)*U**3*V+3*U**2*V**2-U**2-2*s.sqrt(3)*U*V+V**2),
+        s.Rational(3,16)*(U**4-6*U**2*V**2+8*U**2+9*V**4-8*V**2),
     )
     derived_m2, derived_m3 = [], []
     for i,j in ((0,1),(0,2),(1,2)):
