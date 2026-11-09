@@ -113,6 +113,20 @@ def screw_step(point: Vector) -> Vector:
     return _add(rotated, SCREW_TRANSLATION)  # type: ignore[arg-type]
 
 
+def antipodal_vertices(
+    vertices: Sequence[Vector], center: Vector = (Q(0), Q(0), Q(0))
+) -> tuple[Vector, ...]:
+    """Return the central-inversion partner of each vertex about center.
+
+    This is a candidate spherical double-representation map, not the BC
+    face-reflection recurrence. It preserves distance from the chosen center.
+    """
+    return tuple(
+        tuple(Q(2) * center[i] - point[i] for i in range(3))  # type: ignore[misc]
+        for point in vertices
+    )
+
+
 def tetrahedron_centroid(vertices: Sequence[Vector]) -> Vector:
     """Return the exact centroid of four vertices."""
     if len(vertices) != 4:
