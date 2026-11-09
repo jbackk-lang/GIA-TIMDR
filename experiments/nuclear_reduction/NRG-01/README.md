@@ -50,3 +50,29 @@ python -m unittest discover -s tests -v
 The tests validate nuclide identity, alpha/beta bookkeeping, and the rule that
 unsupported channels are not guessed. They do not validate nuclear data from
 the remote API.
+
+
+## Parallel track implementation (2026-11-09)
+
+Two analysis tracks now run from the same reproducible workflow:
+
+### Track A — nuclear transition graph
+- `src/nrg01_build_graph.py`: downloads the IAEA LiveChart ground-state records and constructs the resolved/unresolved decay graph.
+- `src/analyze_decay_graph.py`: reports degree histograms, branch points, four-state motifs and exploratory quotient classes.
+- The quotient signature currently groups by decay-mode/status behaviour and **omits Z,N**. Any merge therefore loses isotope identity; it is a candidate for inspecting reduced descriptions, not a physically accepted reduction. A 4→3 result must state which observables it preserves.
+
+### Track B — signed helix orientation
+- `src/analyze_helix_handedness.py`: analytic control for (r(t)=(R\cos t,R\sin t,ht)), where signed torsion is (h/(R^2+h^2)).
+- The report preserves signed torsion, signed pitch, axis orientation, phase and cardinal-event order. Taking `abs(torsion)` alone is explicitly prohibited because it collapses left/right handedness.
+- This is an ideal-helix mathematical control, not a measured TIMDR structure and not an antiparticle classifier.
+
+### Automation and artifacts
+GitHub Actions workflow `.github/workflows/nrg01.yml` runs unit tests, downloads the graph, performs Track A and Track B analyses, and uploads JSON/CSV artifacts as `nrg01-parallel-tracks`. A successful workflow run is required before treating any graph metric as an empirical result.
+
+Local commands:
+```bash
+python -m unittest discover -s experiments/nuclear_reduction/NRG-01/tests -v
+python experiments/nuclear_reduction/NRG-01/src/nrg01_build_graph.py --max-depth 35 --out artifacts/graph.json
+python experiments/nuclear_reduction/NRG-01/src/analyze_decay_graph.py artifacts/graph.json --out artifacts/graph_analysis.json
+python experiments/nuclear_reduction/NRG-01/src/analyze_helix_handedness.py --out artifacts/helix_handedness.json
+```
