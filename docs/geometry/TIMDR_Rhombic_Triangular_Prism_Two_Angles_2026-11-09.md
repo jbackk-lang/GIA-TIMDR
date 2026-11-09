@@ -63,3 +63,25 @@ Czy zmiana dwóch kątów rombów zmienia:
 - możliwość powstawania ruchów śrubowych w złożeniach wielokrotnych?
 
 Nie zakładamy z góry, że odpowiedź jest taka sama dla obu przypadków.
+
+
+## 6. Wyniki dokładnych testów par odbić
+
+CI zakończyło się powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42607218699
+
+W obu przypadkach występuje jedna translacja (złożenie odbić w dwóch równoległych płaszczyznach końcowych) i dziewięć obrotów (pozostałe pary płaszczyzn).
+
+**Przypadek A** — kąty ostre rombów (60^circ,90^circ,60^circ):
+- wysokość: (sqrt6/3);
+- długość translacji: (2sqrt6/3);
+- cosinusy kątów obrotu: (-7/9) (5 par) oraz (-1/3) (4 pary).
+
+**Przypadek B** — kąty ostre rombów (60^circ,arccos(1/4),arccos(3/4)), czyli około (60^circ,75.522^circ,41.410^circ):
+- wysokość: (sqrt{15}/6);
+- długość translacji: (sqrt{15}/3);
+- cosinusy kątów obrotu: (-1/9) (2 pary), (1/9) (3 pary), (-19/21) (3 pary), (-11/21) (1 para).
+
+Zmiana dwóch parametrów kątowych zmienia więc całe widmo obrotów generowanych przez pary odbić, a nie tylko długość translacji. W obu przypadkach niektóre kąty obrotu są inne niż w symetrycznym graniastosłupie z kwadratami.
+
+Wyniki są dokładne i symboliczne; nie rozstrzygają jeszcze, czy złożenia trzech lub większej liczby odbić dają ruchy śrubowe. To następny test.
