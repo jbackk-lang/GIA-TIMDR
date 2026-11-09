@@ -931,3 +931,29 @@ Dodatkowo kąty są liczone z części liniowej izometrii, a nie z położenia o
 
 Walidacja pełnego skanu:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42640831774
+
+
+## 22. Zagęszczenie siatki widma — eksperyment rozszerzony
+
+Zmieniono eksperyment rhombic_prism_angle_spectrum_grid.py z siatki 12 punktów na siatkę polarną 56 punktów:
+\[
+r\in\{0.1,0.2,\ldots,0.8\},\qquad
+\phi\in\{0^\circ,10^\circ,\ldots,60^\circ\}.
+\]
+Każdy punkt używa enumeracji zredukowanych słów długości 8 i raportuje liczbę różnych map, liczbę kątów poniżej \(5^\circ\), skrajne kąty po obu stronach progu oraz pięć największych przerw między kolejnymi różnymi wartościami kąta.
+
+### 22.1. Status reprodukcji
+
+Kod i workflow zostały zapisane w repozytorium. Przebieg:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42641203910
+
+W chwili zapisu dokumentacji wszystkie wcześniejsze kroki workflow zakończyły się powodzeniem, a ostatni krok — mapa 56-punktowa — pozostawał w toku. Nie przypisuje się więc temu rozszerzonemu skanowi żadnych wyników liczbowych przed pobraniem logów zakończonego kroku.
+
+### 22.2. Pytania, które rozstrzygnie siatka
+
+1. Czy obszary z brakiem małych kątów tworzą spójne sektory, czy są rozdzielone wąskimi krzywymi rezonansowymi?
+2. Czy granice tych sektorów pokrywają się z wcześniej wyprowadzonymi loci Coxetera, czy występują niezależnie?
+3. Czy liczba kątów bliskich zeru zmienia się skokowo przy przechodzeniu przez szczególne krzywe?
+4. Czy największe luki widma są stabilne względem promienia i kierunku, czy znikają po zagęszczeniu siatki?
+
+Ograniczenie: stały próg 5° jest narzędziem diagnostycznym, nie matematyczną granicą widma. W analizie końcowej należy zachować surowe wartości kątów i porównywać widma bez progu, a także wykonać test zbieżności po długości słowa.
