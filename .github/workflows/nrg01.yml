@@ -34,6 +34,9 @@ jobs:
         run: |
           python experiments/nuclear_reduction/NRG-01/src/analyze_helix_handedness.py \
             --out artifacts/helix_handedness.json
+      - name: Audit graph-to-three-strand correspondence
+        run: |
+          python experiments/nuclear_reduction/NRG-01/src/audit_three_strand_correspondence.py artifacts/graph.json --out artifacts/three_strand_correspondence_audit.json
       - name: Upload reproducibility artifacts
         uses: actions/upload-artifact@v4
         with:
