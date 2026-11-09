@@ -629,3 +629,16 @@ Autor doprecyzował, że √2 i √3 nie miały być sumą przybliżającą π a
 Ścieżka ta jest strukturalną analogią, nie równością liczbową. W matematyce π pozostaje jedną dokładną liczbą; „idealne → rzeczywiste” oznacza tu rozróżnienie obiektu idealnego i skończonej realizacji/pomiaru. Rola √2 i √3 jako stanów, parametrów lub elementów operatora redukcji wymaga odtworzenia ze źródłowej konstrukcji. Nie zakładać √2+√3=π (to fałsz).
 
 Skorygowano dokument `docs/geometry/PI_CIRCLE_SQRT2_SQRT3_REDUCTION_PATH_v0.1.md`. Następne zadanie: zdefiniować obiekt idealny, realizowany, operator przejścia i zachowywany niezmiennik, a dopiero potem porównać tę analogię z redukcją helisy.
+
+
+## 32. Dwa diagonalne poziomy konstrukcji helisy: √2 (2D) i √3 (3D)
+
+Autor doprecyzował model: relacja trójkąt–kwadrat ma odpowiadać diagonalizacji płaskiej z przekątną jednostkowego kwadratu √2; relacja czworościan–sześcian ma odpowiadać diagonalizacji przestrzennej z przekątną jednostkowego sześcianu √3. Złożenie tych dwóch poziomów ma stanowić model konstrukcji helisy TIMDR.
+
+Fakty matematyczne:
+- kwadrat o boku a: przekątna (a\sqrt2);
+- sześcian o krawędzi a: przekątna ściany (a\sqrt2), przekątna przestrzenna (a\sqrt3).
+
+Ważne: √2 jest przekątną kwadratu, nie trójkąta; √3 jest przekątną przestrzenną sześcianu, nie czworościanu. „Trójkąt→kwadrat” i „czworościan→sześcian” są nazwami postulowanych przejść konstrukcyjnych, których operacje trzeba dopiero zdefiniować. Nie utożsamiać ich z automatyczną transformacją brył ani z samymi długościami.
+
+Nowa specyfikacja: `docs/geometry/HELIX_CONSTRUCTION_SQRT2_SQRT3_DIAGONAL_TRANSITIONS_v0.1.md`. Kluczowym brakującym elementem jest operator składania dwóch poziomów: musi określić kolejność modułów, orientację odbić, fazę, macierze przejścia i regułę sklejenia. Dopiero jeśli z tego operatora wynika krzywa z osią i mierzalnym skrętem, można mówić o konstrukcji helisy. Zachować znak lewo-/prawoskrętny.
