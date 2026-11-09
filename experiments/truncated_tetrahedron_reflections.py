@@ -182,7 +182,7 @@ def main():
     for n, omitted in zip(SIDE_NORMALS, B_VERTICES):
         assert dot(n, A_VERTEX) == -1
         assert all(dot(n, v) == -1 for v in B_VERTICES if v != omitted)
-        assert all(dot(n, p) == -1 for p in cut_vertices if dot(n, p) != -1 or True)
+        assert all(dot(n, p) == -1 for p, v in zip(cut_vertices, B_VERTICES) if v != omitted)
 
     # Every face reflection is an exact involutive Euclidean isometry.
     for S in G:
