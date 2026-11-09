@@ -147,7 +147,7 @@ def main():
     r=run(a.shape,a.samples,a.radius,a.expansion,a.boundary_radius,
           a.removed_strand,a.handedness)
     a.out.parent.mkdir(parents=True,exist_ok=True)
-    a.out.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\\n",encoding="utf-8")
+    a.out.write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print(json.dumps({
         "shape":r["shape"],
         "initial_phase_deg":r["phase_partition"]["initial_sector_width_deg"],
