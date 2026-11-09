@@ -852,3 +852,45 @@ GitHub Actions zakończył się powodzeniem:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42638629655
 
 Wniosek na dziś: zbiór osi rośnie bardzo szybko poza centrum, a kolejne głębokości coraz bardziej zbliżają się do poprzednich w metryce Plückera. To uzasadnia dalsze badanie granicy, ale nie uprawnia jeszcze do stwierdzenia, że granicą jest fraktal.
+
+
+## 20. Test stabilności względem progu kąta i widmo kątów
+
+Dodano eksperyment experiments/rhombic_prism_axis_conditioning_sensitivity.py. Dla długości 8 porównano progi odrzucania małych kątów \(1^\circ,2^\circ,5^\circ,10^\circ\). To rozdziela rzeczywistą geometrię zbioru od artefaktów osi bardzo odległych, które powstają przy części obrotowej bliskiej identyczności.
+
+### 20.1. Stabilność osi
+
+| Konfiguracja | Próg | Różne osie | Mediana \(\|p\|\) | 90. percentyl \(\|p\|\) | Maksimum \(\|p\|\) |
+|---|---:|---:|---:|---:|---:|
+| Gałąź symetrii | 1° | 17179 | 1.083 | 26.00 | 174.07 |
+| Gałąź symetrii | 2° | 15133 | 1.020 | 2.039 | 67.66 |
+| Gałąź symetrii | 5° | 15041 | 1.015 | 2.030 | 4.10 |
+| Gałąź symetrii | 10° | 15041 | 1.015 | 2.030 | 4.10 |
+| Ogólna 45° | 1° | 36474 | 1.043 | 24.22 | 212.12 |
+| Ogólna 45° | 2° | 33443 | 1.017 | 2.055 | 156.16 |
+| Ogólna 45° | 5° | 32100 | 1.014 | 2.038 | 4.10 |
+| Ogólna 45° | 10° | 32100 | 1.014 | 2.038 | 4.10 |
+
+Ważna obserwacja: po podniesieniu progu z \(2^\circ\) do \(5^\circ\) maksimum odległości osi spada z 67.7 do 4.10 na gałęzi symetrii i ze 156.2 do 4.10 w konfiguracji ogólnej. Progi \(5^\circ\) i \(10^\circ\) dają identyczne wyniki. Oznacza to, że bardzo odległe osie w tej próbce są związane z małymi kątami obrotu, a nie z typowym rozkładem osi dużych obrotów. Mediany pozostają bliskie 1, więc efekt dotyczy przede wszystkim ogona rozkładu.
+
+### 20.2. Widmo kątów długości 8
+
+Dla dwóch konfiguracji bliskich centrum otrzymano następujące liczby właściwych map z kątem obrotu w kolejnych przedziałach:
+
+| Przedział kąta | Gałąź symetrii | Ogólna 45° |
+|---|---:|---:|
+| \(0^\circ\)–\(5^\circ\) | 5590 | 12984 |
+| \(5^\circ\)–\(30^\circ\) | 0 | 0 |
+| \(30^\circ\)–\(60^\circ\) | 0 | 0 |
+| \(60^\circ\)–\(90^\circ\) | 0 | 0 |
+| \(90^\circ\)–\(120^\circ\) | 3386 | 9364 |
+| \(120^\circ\)–\(180^\circ\) | 27470 | 58419 |
+
+W przebadanych konfiguracjach nie występują kąty w przedziale \(5^\circ\)–\(90^\circ\). Próg \(5^\circ\) pozostawia najniższy zaakceptowany kąt około \(119.97^\circ\), a próg \(10^\circ\) nie zmienia już zbioru osi. To wskazuje na rozdzielenie małych kątów, pochodzących od prawie-zanikających relacji centralnych, od dużych obrotów. Jest to obserwacja dla skończonej enumeracji do długości 8 i małych deformacji \(r=0.01\); nie wolno jej uogólniać na całą przestrzeń parametrów.
+
+### 20.3. Następny test konieczny
+
+Ponieważ konfiguracja ogólna z sekcji 19 ma promień zaledwie \(r=0.01\), jest nadal bliska centrum. Dodano zatem skan widma kątów dla większych deformacji \(r=0.3\) i \(r=0.6\), zarówno na gałęzi symetrii, jak i w kierunku \(45^\circ\). Dopiero ten test pokaże, czy obserwowana luka kątowa jest cechą lokalnego rozwinięcia wokół konfiguracji centralnej, czy utrzymuje się dalej w dziedzinie mobilności.
+
+Walidacja testu stabilności i widma kątów:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42639377048
