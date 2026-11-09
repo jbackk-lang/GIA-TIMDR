@@ -4,8 +4,10 @@ from rhombic_prism_mobility_screw_coupling import IDENTITY, build_generators, co
 
 
 def reflection_30():
+    # Reflection in the vertical plane spanned by the 30-degree direction and z.
     d = np.array([np.cos(np.pi/6), np.sin(np.pi/6), 0.0])
-    return 2*np.outer(d, d)-IDENTITY
+    n = np.array([-d[1], d[0], 0.0])
+    return IDENTITY-2*np.outer(n, n)
 
 
 def match_generator_sets(u1, v1, u2, v2):
