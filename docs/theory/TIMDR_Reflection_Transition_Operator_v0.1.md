@@ -177,3 +177,50 @@ Ważne rozróżnienie: odbicie punktu czworościanu w `core/boerdijk_coxeter_tet
 Softmax jest jedynie kandydacką rodziną rozkładów po dostarczonych kosztach. Nie jest wyprowadzony z kąta, nie jest jeszcze skalibrowany na danych i nie stanowi postulatu o fizycznej losowości.
 
 **Status wykonania:** pliki zostały zapisane i ponownie odczytane z repozytorium. Testy zostały dodane, ale w tej sesji nie uruchomiono środowiska Pythona z pełnym checkoutem repozytorium; wynik testów pozostaje `NOT RUN`, a nie `PASS`.
+
+## 14. Połączenie z rekurencją BC i enumeracja gałęzi — 2026-11-09
+
+### 14.1. Tożsamość operatorów
+
+Dla płaszczyzny Pi przechodzącej przez punkt a i mającej normalną n, odbicie punktu ma postać:
+
+p' = a + [(p-a) - 2 ((p-a)·n)/(n·n) n].
+
+To jest dokładnie przesunięcie początku układu do punktu a, zastosowanie odbicia wektora p-a, a następnie powrót do pierwotnego układu. Zatem odbicie punktu BC i odbicie wektora w operatorze przejścia są tym samym przekształceniem afinicznym, gdy wektor wejściowy jest liczony od punktu leżącego na płaszczyźnie.
+
+Dodano adapter `reflect_tetrahedron_step` w `core/reflection_transition.py`. Dla okna `(oldest, face_a, face_b, face_c)` wyznacza normalną ściany i odbija najstarszy wierzchołek. Oryginalny `core/boerdijk_coxeter_tetrahelix.py` pozostaje dokładnym wzorcem `Fraction`; adapter jest numerycznym mostem, a nie zamiennikiem dokładnej implementacji.
+
+### 14.2. Cztery geometryczne kontynuacje jednego czworościanu
+
+Dodano `tetrahedron_face_reflection_candidates`. Dla nieosobliwego czworościanu enumeruje cztery kandydaty: odbicie każdego z czterech wierzchołków względem ściany przeciwległej. Każdy kandydat zachowuje wszystkie sześć długości krawędzi czworościanu. Dla czworościanu foremnego kandydaci są różni i symetryczni.
+
+To daje ważne rozróżnienie:
+- geometria dopuszcza cztery lokalne kontynuacje;
+- reguła BC wybiera jedną z nich przez uporządkowanie historii (odbija najstarszy wierzchołek);
+- sama geometria foremnego czworościanu nie wyróżnia jednej z czterech możliwości;
+- dlatego z symetrii nie wynika niejednorodny rozkład prawdopodobieństwa. Rozkład jednostajny byłby dodatkowym założeniem symetrii, nie odkrytym prawem fizycznym.
+
+### 14.3. Test reprodukowalny
+
+Dodano `experiments/reflection_transition_bc_bridge.py`, uruchamiany z katalogu głównego:
+`python experiments/reflection_transition_bc_bridge.py`
+
+Skrypt sprawdza:
+1. zgodność adaptera z dokładną rekurencją BC dla 36 kolejnych przejść w łańcuchu 40 wierzchołków;
+2. istnienie czterech różnych kandydatów dla czworościanu foremnego;
+3. zachowanie sześciu krawędzi w każdym kandydacie;
+4. zgodność odbicia punktu i wektora dla ściany BC.
+
+### 14.4. Wynik niezależnej kontroli algebraicznej
+
+Kontrola na dokładnej arytmetyce wymiernej potwierdziła zerowy błąd między odbiciem punktu a wzorem odbicia punktu względem płaszczyzny dla 36 przejść BC. Osobna kontrola numeryczna kandydatów regularnego czworościanu dała cztery różne punkty:
+
+(-5/3,-5/3,-5/3), (-5/3,5/3,5/3), (5/3,-5/3,5/3), (5/3,5/3,-5/3).
+
+Każdy z czterech czworościanów potomnych ma sześć kwadratów długości krawędzi równych 8.
+
+**Uwaga o statusie testów:** powyższe wyniki są kontrolą matematyczną formuł i niezależnym uruchomieniem odpowiadającego im rachunku. Nie oznaczają, że pytest/unittest został uruchomiony w pełnym checkoutcie GitHub w tej sesji. Skrypt reprodukowalny i testy repozytorium są zapisane; ich wykonanie w środowisku repo pozostaje do potwierdzenia.
+
+### 14.5. Konsekwencja dla hipotezy fraktalnej
+
+Jeden krok daje cztery geometryczne kandydaty, ale wszystkie są pojedynczymi odbiciami izometrycznymi i zachowują skalę. Rozgałęzianie liczby stanów nie jest jeszcze fraktalem. Fraktalność wymaga wykazania rekurencyjnej samopodobności na wielu skalach, np. przez kontrakcje albo inny jawny mechanizm zmiany skali. Następny test powinien zatem iterować wszystkie cztery gałęzie z deduplikacją stanów i mierzyć liczbę odrębnych konfiguracji, kolizje, nakładanie oraz ewentualną zmianę skali — bez nadawania im z góry prawdopodobieństw.
