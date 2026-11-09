@@ -270,3 +270,5 @@ Raport rozszerzono o te źródła w `docs/geometry/COMPARISON_BC_HC01_TIMDR_2026
 
 
 **Prerejestracja kolejnego eksperymentu:** utworzono `docs/geometry/PREREG_TIMDR_TRIANGLE_MODULE_OPERATOR_v0.1.md`. Protokół definiuje pola, które muszą zostać zamrożone (obiekt odbijany, współrzędne, płaszczyzna/strona odbicia, interfejs sklejenia, transport orientacji, faza i oś), hipotezy lokalnej asymetrii vs globalnego transportu, baseline BC/HC-01, null i mirror controls oraz test predykcji 20 modułów holdout. Status **BLOCKED** do czasu określenia przez autora, co dokładnie jest odbijane i jak dwa kolejne moduły są łączone. To nie jest pytanie, które można zastąpić zgadywaniem kodu.
+
+**Aktualizacja BC:** dodano siódmy test dokładnego promienia: wierzchołki mają (r_v=3√6/5), a centroidy tetraedrów (r_c=2/5) względem tej samej osi. Run **42589832124 SUCCESS**, 7/7 testów. Raport BC uzupełniono o współosiową helisę centroidów.
