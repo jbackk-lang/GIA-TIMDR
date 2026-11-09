@@ -139,6 +139,18 @@ def main():
                     (uu, vv+1e-5*ct),
                     (uu, vv-1e-5*ct),
                 ])
+    # Three perpendicular-face loci: the horizontal displacement is parallel
+    # to one of the three base-edge directions. Include generic and exceptional
+    # radii, plus transverse controls.
+    for theta in (0.0, 2*np.pi/3, -2*np.pi/3):
+        ct, st = np.cos(theta), np.sin(theta)
+        for radius in (0.2, 0.4, 0.5, 0.7):
+            uu, vv = radius*ct, radius*st
+            samples.extend([
+                (uu, vv),
+                (uu-1e-5*st, vv+1e-5*ct),
+                (uu+1e-5*st, vv-1e-5*ct),
+            ])
     print("u,v,w,volume,acute_angles_deg,distinct_length4_maps,rotations,screws,translations,identities")
     for u, v in samples:
         result = length_four_spectrum(u, v)
