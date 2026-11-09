@@ -219,8 +219,10 @@ Kontrola na dokładnej arytmetyce wymiernej potwierdziła zerowy błąd między 
 
 Każdy z czterech czworościanów potomnych ma sześć kwadratów długości krawędzi równych 8.
 
-**Uwaga o statusie testów:** powyższe wyniki są kontrolą matematyczną formuł i niezależnym uruchomieniem odpowiadającego im rachunku. Nie oznaczają, że pytest/unittest został uruchomiony w pełnym checkoutcie GitHub w tej sesji. Skrypt reprodukowalny i testy repozytorium są zapisane; ich wykonanie w środowisku repo pozostaje do potwierdzenia.
+**Status testów po poprawkach:** GitHub Actions uruchomił testy w pełnym checkoutcie repozytorium. `python -m unittest tests.test_reflection_transition -v`: 15/15 PASS. Skrypt `python experiments/reflection_transition_bc_bridge.py`: PASS. Workflow: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42600138401. Maksymalny błąd adaptera zmiennoprzecinkowego względem dokładnej rekurencji Fraction dla 36 kroków: 3.664e-15.
 
 ### 14.5. Konsekwencja dla hipotezy fraktalnej
 
 Jeden krok daje cztery geometryczne kandydaty, ale wszystkie są pojedynczymi odbiciami izometrycznymi i zachowują skalę. Rozgałęzianie liczby stanów nie jest jeszcze fraktalem. Fraktalność wymaga wykazania rekurencyjnej samopodobności na wielu skalach, np. przez kontrakcje albo inny jawny mechanizm zmiany skali. Następny test powinien zatem iterować wszystkie cztery gałęzie z deduplikacją stanów i mierzyć liczbę odrębnych konfiguracji, kolizje, nakładanie oraz ewentualną zmianę skali — bez nadawania im z góry prawdopodobieństw.
+
+**Wniosek po CI:** połączenie operatora odbicia z BC jest zweryfikowane numerycznie na dokładnym wzorcu geometrycznym w granicach tolerancji testu. Enumeracja czterech kandydatów również przeszła testy. Nie zweryfikowano jeszcze iteracji wielogałęziowej, prawa wyboru gałęzi ani fraktalności.
