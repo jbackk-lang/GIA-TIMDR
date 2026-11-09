@@ -14,6 +14,7 @@ on:
       - "experiments/rhombic_prism_axis_conditioning_sensitivity.py"
       - "experiments/rhombic_prism_angle_spectrum_parameter_sweep.py"
       - "experiments/rhombic_prism_angle_spectrum_grid.py"
+      - "experiments/rhombic_prism_angular_spectrum_symmetry_check.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -49,3 +50,5 @@ jobs:
         run: python experiments/rhombic_prism_angle_spectrum_parameter_sweep.py
       - name: Map angular spectrum across mobility parameter disk
         run: python experiments/rhombic_prism_angle_spectrum_grid.py
+      - name: Verify D3 symmetry of complete angular spectra
+        run: python experiments/rhombic_prism_angular_spectrum_symmetry_check.py
