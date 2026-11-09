@@ -1001,3 +1001,21 @@ To ważny test kontrolny: rozkład nie jest dowolną anizotropią numeryczną, l
 W skończonej głębokości widmo kątowe jest wyraźnie zależne od parametrów i kierunku, a jego statystyki respektują symetrię trójkąta. Widzimy sektory bez małych kątów, sektory z dużą liczbą małych kątów oraz obszary, w których próg 5° przecina widmo niemal bez przerwy.
 
 To jest dowód na bogatą strukturę skończonego widma, nie na fraktalność. Kluczowy następny eksperyment: sprawdzenie pełnej symetrii widm oraz porównanie głębokości 4, 6 i 8 w tych samych punktach parametrów.
+
+
+## 24. Test pełnego widma pod symetrią \(D_3\)
+
+Sama zgodność liczby kątów poniżej \(5^\circ\) dla par \(\phi\) i \(60^\circ-\phi\) nie wystarcza. Dodano osobny test, który porównuje całe posortowane multizbiory kątów obrotu (po zaokrągleniu do \(10^{-7}\) stopnia) dla 24 par punktów:
+\[
+r\in\{0.1,\ldots,0.8\},\qquad
+\phi\in\{0^\circ,10^\circ,20^\circ\},\qquad
+\phi'=60^\circ-\phi.
+\]
+Test wymaga zgodności liczby różnych map oraz identyczności całego multizbioru kątów. To bezpośrednio sprawdza, czy widmo numeryczne zachowuje odbiciową symetrię trójkąta, a nie tylko jedną statystykę progową.
+
+Kod: experiments/rhombic_prism_angular_spectrum_symmetry_check.py
+
+Workflow:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42642429432
+
+Status: oczekuje na wykonanie CI. Wynik zostanie dopisany po zakończeniu testu.
