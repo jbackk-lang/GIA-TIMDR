@@ -460,3 +460,15 @@ Dodano kod audytu `experiments/nuclear_reduction/NRG-01/src/audit_three_strand_c
 
 
 Audyt odpowiedniości został także uruchomiony w CI: workflow [42563682586](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42563682586) zakończył wszystkie kroki sukcesem. Artefakt `nrg01-parallel-tracks` (ID `13650283583`, SHA-256 `64ece60415e3768cfd485abb387892d58b3ede9cc272bc789fc355b39acd6068`) zawiera `three_strand_correspondence_audit.json` z profilem 3 komponentów i jawnym wynikiem nieidentyfikowalności mapowania.
+
+
+## 21. Korekta modelu: operacja cięcia i ponownego łączenia 4→3 na kuli/jaju
+
+Doprecyzowanie autora z 2026-11-09: redukcja nie polega na dopasowaniu trzech komponentów grafu do trzech helis. Należy wyciąć wybrany zamknięty obieg/łuk jednej helisy czterowęzłowej, po dwóch cięciach połączyć końce, a trzy pozostałe przebiegi dopasować do kolistości wspólnej bryły — kuli lub jaja. Formalizacja v0.1 i wyniki: `docs/geometry/FOUR_TO_THREE_HELIX_REDUCTION_ON_SPHERE_OR_EGG_v0.1.md`.
+
+Model referencyjny wykorzystuje powierzchnię obrotową
+(S(\theta,\phi)=(R\sin\theta(1+\epsilon\cos\theta)\cos\phi, R\sin\theta(1+\epsilon\cos\theta)\sin\phi, Rc\cos\theta)), gdzie kula ma ((c,\epsilon)=(1,0)), a jajowaty wariant kontrolny ((1.08,0.28)). Po redukcji trzy fazy są rozstawione co (120^\circ), zamiast (90^\circ). Lokalny odstęp zmienia się z promieniem równoleżnika (\rho(\theta)), więc jajowatość wpływa na profil lokalny, nawet gdy średnia po symetrycznym obiegu się znosi.
+
+CI [42564365070](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42564365070) zaliczył wszystkie testy i oba uruchomienia. W tym modelu mostek-kandydat ma długość 0.949232 na kuli i 0.919649 na jaju; zakres podpisanej torsji jest odpowiednio około ±0.959278 i ±1.619435. Torsja zmienia znak, więc obecna krzywa testowa nie spełnia jeszcze wymogu stałej orientacji skrętu. To jawny wynik negatywny, który musi wejść do następnej wersji modelu.
+
+Ważne ograniczenie: obecny mostek jest interpolacją po parametrach powierzchni, nie geodezyjną; pozostałe trzy krzywe są fazowo przesuniętymi kopiami, a nie rozwiązaniem relaksacji sprężystej. Nie traktować v0.1 jako pełnego dowodu topologicznego ani fizycznego. Następny krok: geodezyjny/energetycznie optymalny mostek, relaksacja trzech krzywych przy warunkach brzegowych i jawny warunek zachowania znaku torsji.
