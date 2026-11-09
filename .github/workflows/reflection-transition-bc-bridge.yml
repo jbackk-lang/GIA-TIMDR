@@ -9,6 +9,7 @@ on:
       - "experiments/reflection_transition_bc_bridge.py"
       - "experiments/reflection_branch_tree.py"
       - "experiments/reflection_word_family.py"
+      - "experiments/bc_opposite_direction_pair.py"
       - ".github/workflows/reflection-transition-bc-bridge.yml"
   workflow_dispatch:
 
@@ -31,3 +32,5 @@ jobs:
         run: python experiments/reflection_branch_tree.py
       - name: Run exact fixed-face reflection word classification
         run: python experiments/reflection_word_family.py
+      - name: Run exact opposite-direction BC strand experiment
+        run: python experiments/bc_opposite_direction_pair.py
