@@ -113,3 +113,22 @@ https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42601951429
 W trakcie rozszerzenia pierwsze uruchomienie CI ujawniło błąd zakresu pętli (skrypt wciąż generował warstwy tylko do długości 6, mimo że nowy test pytał o długość 8). Poprawiono granicę enumeracji, dodano oczekiwane liczności dla długości 7 i 8, a następne pełne CI przeszło.
 
 **Wniosek matematyczny:** dla stałych odbić ścian czworościanu rozpoznaliśmy rodzinę izometrii, której powtarzane elementy dają albo nieokresowe orbity kołowe, albo niezamknięte helisy. Nie znaleźliśmy zamkniętych orbit w tym trybie. Hipoteza, że węzły pojawiają się przy przełączaniu różnych odbić lub w rekurencji ruchomych ścian BC, pozostaje otwarta i wymaga odrębnego testu.
+
+
+## 13. Test zamknięcia konfiguracji jako nieuporządkowanego czworościanu
+
+Samo sprawdzenie, czy złożenie odbić jest identycznością afiniczną, mogłoby przeoczyć sytuację, w której czworościan wraca do tego samego zbioru czterech punktów, ale wierzchołki są permutowane. Dlatego dodano osobny test stabilizatora początkowego czworościanu: dla każdej zredukowanej sekwencji sprawdzamy dokładnie, czy obraz zbioru czterech wierzchołków jest równy zbiorowi początkowemu po posortowaniu punktów.
+
+Wynik do długości słowa 10:
+- 0 nietrywialnych powtórzeń map afinicznych pomiędzy różnymi długościami;
+- 0 powrotów do początkowego nieuporządkowanego czworościanu;
+- na długości 10: 78 732 różne mapy, w tym 15 324 obroty i 63 408 ruchów śrubowych.
+
+Liczności dla długości 9 i 10 zostały dodane jako jawne asercje w skrypcie. Pełny CI zakończył się powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42602486417
+
+### Interpretacja i granice
+
+Dla modelu, w którym stanem jest obraz początkowego foremnego czworościanu pod działaniem czterech stałych odbić ścian, nie znaleziono zamkniętego nietrywialnego cyklu do długości 10, nawet po utożsamieniu permutacji wierzchołków. To mocniejszy wynik niż sam brak powrotu macierzy do identyczności.
+
+Nie dowodzi to braku cykli o większej długości. Nie wyklucza też zamkniętych krzywych w modelu z dodatkowymi stopniami swobody (np. zmienną orientacją wewnętrzną, innym stanem etykiet, sprzężeniem kilku czworościanów albo inną regułą przejścia). W szczególności nie jest to jeszcze dowód, że TIMDR nie może tworzyć węzłów. Jest to ograniczenie konkretnego modelu stałych odbić.
