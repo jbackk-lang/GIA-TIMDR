@@ -145,3 +145,8 @@ Możliwe klasy rozwiązań do zbadania, bez wybierania jednej z góry:
 4. traktować trzy płaty jako fragment większej trajektorii, a nie samodzielną pętlę.
 
 Audyt koduje teraz (C^0) i (C^1) osobno, a test sprawdza, że pozycja się zamyka, natomiast styczna nie. Ten wynik daje konkretny warunek brzegowy dla przyszłego operatora sygnał→helisa.
+
+
+## 12. Walidacja poprawki domknięcia
+
+Po dodaniu jawnego testu zgodności stycznych workflow [42566568596](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42566568596) zakończył się sukcesem. Krok `Unit tests` oraz uruchomienie audytu sygnałowego przeszły. Potwierdza to poprawność implementacji testu (C^0/C^1), nie fizyczny mechanizm trójwęzła.
