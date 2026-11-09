@@ -479,3 +479,75 @@ Dodano `experiments/rhombic_prism_exceptional_affine_relations.py`, który spraw
 
 Skan i testy symboliczne:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42631778651
+
+
+## 15. Dodatkowe loci Coxetera między ścianami bocznymi
+
+Poza trzema elipsami (kąt (60^\circ) ściana boczna–ściana trójkątna) i trzema liniami prostopadłości (kąt (90^\circ) ściana boczna–ściana trójkątna), sprawdzono także kąty między parami ścian bocznych.
+
+Dla dwóch krawędzi podstawy (e_i,e_j) zachodzi (e_i\cdot e_j=-1/2). Przy (c_i=e_i\cdot h), (c_j=e_j\cdot h), normalne ścian bocznych spełniają:
+
+\[
+n_i\cdot n_j=-\frac12-c_ic_j,\qquad \|n_i\|^2=1-c_i^2.
+\]
+
+### 15.1. Trzy krzywe kąta (90^\circ) między ścianami bocznymi
+
+Warunek prostopadłości (n_i\cdot n_j=0) daje (c_ic_j=-1/2). Dla trzech par otrzymujemy:
+
+\[
+u^2-\sqrt3uv=1,
+\]
+\[
+u^2+\sqrt3uv=1,
+\]
+\[
+3v^2-u^2=2.
+\]
+
+Na tych krzywych odpowiednie odbicia boczne komutują: (s_is_j=s_js_i). Są to dodatkowe krzywe algebraiczne w dysku konfiguracji.
+
+### 15.2. Trzy krzywe kąta (60^\circ) między ścianami bocznymi
+
+Warunek kąta Coxetera (\pi/3) to:
+
+\[
+4(n_i\cdot n_j)^2=\|n_i\|^2\|n_j\|^2.
+\]
+
+Po podstawieniu otrzymujemy trzy kwartykowe krzywe:
+
+\[
+u^4-2\sqrt3u^3v+3u^2v^2-u^2+2\sqrt3uv+v^2=0,
+\]
+\[
+u^4+2\sqrt3u^3v+3u^2v^2-u^2-2\sqrt3uv+v^2=0,
+\]
+\[
+u^4-6u^2v^2+8u^2+9v^4-8v^2=0.
+\]
+
+Na nich odpowiednia para odbić bocznych spełnia relację braid długości 3.
+
+### 15.3. Kontrola numeryczna
+
+Skan dodano do `rhombic_prism_mobility_screw_coupling.py`: dla każdej pary ścian wybierane są punkty na krzywych (m=2) i (m=3), a także kontrole przesunięte promieniowo o (10^{-5}).
+
+W reprezentatywnych próbkach:
+- krzywe (m=2): 286 różnych map długości 4 (175 obrotów, 102 śruby, 8 translacji, 1 identyczność);
+- krzywe (m=3): 314 różnych map długości 4 (186 obrotów, 120 śrub, 8 translacji).
+
+Punkty poza krzywą wracają w tych próbkach do 320 map. Przecięcia tych krzywych z wcześniej opisanymi loci mogą dawać jeszcze większe degeneracje. Wartości są numeryczne; same warunki kątowe i równania krzywych zostały wyprowadzone symbolicznie.
+
+### 15.4. Aktualna mapa relacji Coxetera
+
+W przestrzeni ((u,v)) mamy teraz co najmniej:
+- 3 elipsy (m=3) dla par ściana boczna–ściana trójkątna;
+- 3 linie (m=2) dla tych samych typów par;
+- 3 krzywe (m=2) dla par ściana boczna–ściana boczna;
+- 3 krzywe (m=3) dla par ściana boczna–ściana boczna.
+
+To jest mapa podstawowych relacji par odbić, a nie pełna klasyfikacja wszystkich możliwych relacji wyższych rzędów.
+
+Dokładne równania sprawdza `experiments/rhombic_prism_exceptional_affine_relations.py`; numeryczny skan uruchamia workflow:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42632173337
