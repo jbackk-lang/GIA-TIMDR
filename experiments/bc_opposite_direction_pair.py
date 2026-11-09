@@ -129,7 +129,9 @@ def main():
                             for k in range(3)))
     cross_norm_sq = _dot(_cross(ra_perp, rb_perp), _cross(ra_perp, rb_perp))
     dot_radial = _dot(ra_perp, rb_perp)
-    assert cross_norm_sq != 0
+    assert cross_norm_sq == 0
+    assert dot_radial < 0
+    assert dot_radial ** 2 == _dot(ra_perp, ra_perp) * _dot(rb_perp, rb_perp)
 
     print("PASS: 65 exact points generated on each oppositely directed strand.")
     print(f"radius_squared_A = {radius_sq(a0)}")
@@ -138,6 +140,7 @@ def main():
     print(f"axial_step_backward = {db}")
     print(f"radial_dot_product = {dot_radial}")
     print(f"radial_cross_norm_squared = {cross_norm_sq}")
+    print("radial_phase_relation = pi (exactly antiparallel)")
     print("sampled_exact_point_collisions = 0")
     print("exact_polyline_segment_intersections = 0 (64 x 64 segment pairs)")
     print("phase_offset = pi (exactly opposite radial launch vectors)")
