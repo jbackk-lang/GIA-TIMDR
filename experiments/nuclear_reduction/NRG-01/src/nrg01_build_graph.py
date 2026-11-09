@@ -82,6 +82,7 @@ def fetch_ground_state(label: str, timeout: int = 30) -> dict:
     # API may return more than one row in future; keep the ground state if idx exists.
     row = next((r for r in rows if str(r.get("idx", "0")).strip() in {"", "0"}), rows[0])
     row["_raw_sha256"] = hashlib.sha256(raw).hexdigest()
+    row["_raw_csv"] = text
     return row
 
 
@@ -94,7 +95,7 @@ def finite_float(value):
 
 
 def build_graph(seeds=SEEDS, max_depth=80, delay=0.15):
-    nodes, edges, unresolved, sources = {}, [], [], []
+    nodes, edges, unresolved, sources, raw_csv = {}, [], [], [], {}
     queue = deque((s.lower(), 0) for s in seeds)
     seen = set()
     while queue:
@@ -103,6 +104,7 @@ def build_graph(seeds=SEEDS, max_depth=80, delay=0.15):
             continue
         seen.add(label)
         row = fetch_ground_state(label)
+        raw_csv[label.lower()] = row.pop("_raw_csv")
         z, n, symbol = parse_nuclide(label)
         canonical = f"{z+n}{symbol}"
         node = {
@@ -110,7 +112,7 @@ def build_graph(seeds=SEEDS, max_depth=80, delay=0.15):
             "half_life_sec": finite_float(row.get("half_life_sec")),
             "half_life_raw": row.get("half_life"),
             "half_life_unit": row.get("unit_hl"),
-            "decay_modes": [], "stable_flag": None,
+            "decay_modes": [], "stability_status": "not_determined_from_mode_list",
             "source_cutoff": row.get("ENSDFpublicationcut-off") or row.get("ENSDF_publication_cut-off"),
             "source_authors": row.get("ENSDFauthors") or row.get("ENSDF_authors"),
         }
@@ -142,7 +144,7 @@ def build_graph(seeds=SEEDS, max_depth=80, delay=0.15):
             })
             if daughter_label.lower() not in seen and depth < max_depth:
                 queue.append((daughter_label.lower(), depth+1))
-        node["stable_flag"] = not bool(node["decay_modes"])
+        if node["decay_modes"]:\n            node["stability_status"] = "decay_mode_listed"\n        else:\n            node["stability_status"] = "no_decay_mode_listed_not_assumed_stable"
         nodes[canonical] = node
         sources.append({"nuclide": canonical, "raw_sha256": row["_raw_sha256"]})
         time.sleep(delay)
