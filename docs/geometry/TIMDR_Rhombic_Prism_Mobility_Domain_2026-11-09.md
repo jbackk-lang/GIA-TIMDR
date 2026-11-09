@@ -311,3 +311,52 @@ Walidacja GitHub Actions zakończona powodzeniem:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42629739921
 
 CI potwierdziło dokładnie obie afiniczne relacje braid oraz 12 dodatkowych identyfikacji wśród 320 zredukowanych słów długości 4.
+
+
+## 13. Trzy elipsy Coxetera — pełna symetria trzech ścian bocznych
+
+Warunek kąta (60^\circ) można zapisać bez wybierania układu współrzędnych dla konkretnej ściany. Dla krawędzi podstawy:
+[
+e_i=(a_i,b_i,0),\quad h=(u,v,0),\quad t=h+(0,0,w),
+]
+definiujemy:
+[
+c_i=e_i\cdot h=a_i u+b_i v,
+\qquad
+q_i=a_i v-b_i u.
+]
+Normalna do ściany bocznej to (n_i=e_i\times t), więc:
+[
+\|n_i\|^2=1-c_i^2,\qquad (n_i)_z=q_i.
+]
+Kąt między normalną ściany bocznej a normalną poziomej ściany końcowej ma cosinus bezwzględny:
+[
+\frac{|q_i|}{\sqrt{1-c_i^2}}.
+]
+Warunek kąta (60^\circ) jest zatem równoważny:
+[
+\boxed{4q_i^2=1-c_i^2}.
+]
+Po podstawieniu trzech kierunków krawędzi trójkąta otrzymujemy dokładnie trzy elipsy:
+[
+\boxed{u^2+4v^2=1},
+]
+[
+\boxed{13u^2+6\sqrt3uv+7v^2=4},
+]
+[
+\boxed{13u^2-6\sqrt3uv+7v^2=4}.
+]
+
+Każda elipsa odpowiada jednej ze ścian bocznych. Na jej dopuszczalnych łukach odpowiednia ściana boczna spotyka się pod kątem (60^\circ) z obiema równoległymi ścianami trójkątnymi. W konsekwencji dla każdej z trzech ścian bocznych powstają dwie relacje braid: z odbiciem dolnej i górnej ściany końcowej.
+
+Skan numeryczny rozszerzono na wszystkie trzy obrócone elipsy, ich obie gałęzie oraz punkty kontrolne przesunięte poza loci. W typowych próbkach każdej elipsy widmo długości 4 ma 290 map (210 obrotów, 72 śruby, 8 translacji). Szczególne przecięcia elips z innymi loci mogą mieć mniejszą liczbę map.
+
+Dokładne sprawdzenie symboliczne:
+`experiments/rhombic_prism_ellipse_braid_relation.py`
+
+Skan numeryczny:
+`experiments/rhombic_prism_mobility_screw_coupling.py`
+
+GitHub Actions — oba testy zakończone powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42629995606
