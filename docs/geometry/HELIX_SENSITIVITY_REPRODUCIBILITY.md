@@ -206,3 +206,8 @@ Nie ma jeszcze pełnego katalogu zmierzonych wrażliwości. W szczególności UN
 ## 9. Dziennik zmian
 
 - **2026-11-09 / v0.1:** utworzono katalog właściwości i rejestr wrażliwości; zapisano parametry istniejącego testu trefoil i GS-Matrix; oddzielono wyniki zmierzone od hipotez i luk; określono manifest oraz kolejność badań P0–P3.
+
+
+## 14. Rozszerzenie rejestru wrażliwości: węzeł trójhelikalny i trajektoria trójkąta
+
+Nowy zestaw obowiązkowych czynników do testowania znajduje się w [TRIANGLE_HELIX_NODE_BOUNDARY_CONDITIONS.md](TRIANGLE_HELIX_NODE_BOUNDARY_CONDITIONS.md): domknięcie osi i fazy na szwie, ciągłość stycznej i ramy, permutacja trzech gałęzi, warunki jednostronne w punktach kardynalnych, naroża trajektorii trójkąta, orientacja obiegu oraz różne modele redukcji 4→3. Wrażliwości te pozostają UNKNOWN do czasu wykonania testów; nie są przedstawiane jako zmierzone.
