@@ -141,3 +141,6 @@ Wykonano test syntetyczny wzorowany na interpolacji Synoptyk-v3 (griddata cubic,
 Dodatkowa obserwacja: radialne widmo mocy i moduł gradientu nie zachowują orientacji/chiralności (lustrzane pola dają identyczne te cechy); wirowość ze znakiem oraz winding mogą ją zachować. Dla helisy trzeba przechowywać parę kwadraturową, amplitudę/normę, znak winding i miejsca zaniku normy; nie redukować do samego kąta, modułu lub radialnego widma.
 
 Wynik potwierdza wybór reprezentacji w syntetycznym teście, nie fizyczne sprzężenie sygnału z helisą. Następny krok: test odporności pary kwadraturowej i znaku winding na szum oraz rozdzielczość próbkowania, zanim pole zostanie mapowane na S w GS-Matrix.
+
+
+Rozszerzono test pola o sweep odporności: 5 rozdzielczości (5×5 do 17×17), 5 poziomów szumu (0–0.35), oba znaki chiralności, łącznie 50 przypadków. CI `42584276273`: 4/4 PASS; wszystkie 50 zachowały winding ±1. Lokalna faza degraduje się mimo zachowanego winding: najgorszy przypadek MAE 18.86°, p95 56.59° (5×5, szum 0.35). Przy 9×9 i szumie 0.1 MAE ok. 4.1–4.5°. Raport rozszerzony: `docs/handoffs/RESULT_PHASE_FIELD_CHIRALITY_PRESERVATION_2026-11-09.md`. Interpretacja: znak topologiczny jest odporniejszy niż lokalna rekonstrukcja fazy; wymaga to dalszej walidacji na nieregularnych próbkach, wielu seedach i bardziej złożonych polach.
