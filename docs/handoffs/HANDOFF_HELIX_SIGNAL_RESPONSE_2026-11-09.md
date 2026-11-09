@@ -181,3 +181,12 @@ Zachować więc obie strony bez odwracania ich ról:
 Schemat roboczy: `geometria → formalizacja matematyczna → operator oddziaływania → odpowiedź helisy`. Sygnał/informacja jest wejściem do tego układu, nie substytutem geometrii. Trop biologiczny DNA→rozwój→muszla jest przydatny jako przykład tego, jak informacja może wpływać na powstawanie i zmianę geometrii; nie uzasadnia redukowania helisy do samej informacji ani pomijania jej osi, tunelu, skrętu, chiralności i warunków brzegowych.
 
 **Reguła metodologiczna:** nie proponować operatora oderwanego od geometrii. Najpierw wskazać relację geometryczną, następnie jej matematyczną reprezentację, potem sposób oddziaływania sygnału i mierzalną odpowiedź. Nie oznacza to, że wszystkie wielkości muszą być wyprowadzone wyłącznie z geometrii euklidesowej; oznacza, że ich znaczenie w modelu musi być zakotwiczone w jawnej strukturze i relacjach.
+
+
+## 17. Geometria-first: pierwsze ścisłe relacje i granice modelu
+
+Użytkownik podkreślił, że geometria jest źródłem formalizacji matematycznej, a nie dodatkiem. Zapisano pierwsze warunkowe wyprowadzenia: przy stałym względnym przyroście `dr/dθ=br` otrzymujemy `r=r₀e^{bθ}` i `b=ln(q)/(2π)` z ilorazu promieni po obrocie; przy stałym przesunięciu osiowym `dz/dθ=c` otrzymujemy `z=z₀+cθ` i skok `P=2πc`. Chiralność wymaga jawnej konwencji orientacji osi i parametryzacji `ε=±1`; nie jest tym samym co b ani P.
+
+Ważne zastrzeżenie z literatury: muszla jest zwykle modelowana jako ruch/skalowanie krzywej generującej wokół osi, nie jako pojedyncza zwykła helisa. Badanie empiryczne 25 gatunków / 176 okazów wykazało, że klasyczne założenia izometrii i wykładniczego wzrostu zawodzą dla części gatunków (Paleobiology, DOI 10.1017/pab.2021.8). Logarytmiczny model jest bazą, nie uniwersalnym prawem. Dokument: `docs/handoffs/GEOMETRY_FIRST_MATHEMATICAL_DERIVATIONS_2026-11-09.md`.
+
+Następnie należy zdefiniować własną geometrię TIMDR (oś/tunel, krzywa generująca, skręt/chiralność, ekspansja, translacja, przekrój, warunki brzegowe) i dopiero potem wyprowadzić operator. Równania powyżej są ścisłymi konsekwencjami założeń, nie dowodem, że sygnał zmienia parametry ani że GS-Matrix/G-Rezonans są prawami fizycznymi.
