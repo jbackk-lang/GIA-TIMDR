@@ -252,3 +252,10 @@ Porównanie BC–HC-01–TIMDR zapisano w `docs/geometry/COMPARISON_BC_HC01_TIMD
 **Druga granica integracji:** G5 / `build_ring_matrices` zakłada zamkniętą krzywą i cykliczny pierścień; łańcuch BC jest otwarty. Nie podawać go bezpośrednio do G5 przez sztuczne domknięcie. G5 ponadto używa `abs(tau)`, więc nie testuje chiralności. Ewentualne sprzężenie chiralne wymaga jawnej ramy/wektorowych stopni swobody i uzasadnionej miary obrotu na segmencie, nie tylko zmiany znaku skalarnej sprężyny.
 
 **Następny krok:** odzyskać z definicji TIMDR dokładnie to, co jest odbijane (wierzchołki/moduł/orientacja/stan), płaszczyznę i stronę odbicia, interfejs sklejenia i regułę fazy. Dopiero wtedy wyprowadzić/testować (S_{TIMDR}), przewidywać niewykorzystane moduły i wykonać test lustrzany. Wstrzymać dalsze sweepy i hipotezy 5→6/kula do czasu zdefiniowania tego operatora.
+
+
+## Dodatkowa kontrola krzyżowa: istniejący test chiralności Helix-Lock (2026-11-09)
+
+Sprawdzono bezpośrednio repozytorium siostrzane `jbackk-lang/Helix-Lock`, wskazane w `CONCEPT_ARCHIVE_AUDIT_AXIS_TUNNEL_REDUCTION_2026-11-09.md`. Eksperyment `experiments/helical_tunnel_chirality.py` i jego testy już realizują syntetyczną kontrolę odbicia helisy i transportu sygnału w ramie Freneta. CI run **42559444225**: 148 testów zaliczonych w Pythonie 3.11 i 148 w 3.12. W logach: średni błąd lustrzany przy konwencji fazy zależnej od chiralności = 0; przy naiwnej stałej konwencji = 1.255915117488; torsje prawej/lewej helisy = ±0.311804008909; macierze i widma G5 pozostają identyczne pod odbiciem, bo G5 używa `abs(tau)`.
+
+**Decyzja:** nie kopiować ani nie powtarzać standardowego testu chiralności do GIA. Jest już działającym baseline'em, ale pozostaje syntetyczny i nie wyprowadza reguły fazy z pierwotnego modułu TIMDR. Następne nowe badanie ma sprawdzić, czy formalnie zdefiniowany moduł trójkątny TIMDR indukuje tę samą regułę transportu ramy/fazy. Do tego czasu nie projektować kolejnego operatora chiralnego ani nie zmieniać G5.
