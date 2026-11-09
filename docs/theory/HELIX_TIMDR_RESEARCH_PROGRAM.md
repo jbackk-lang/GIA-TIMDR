@@ -280,3 +280,57 @@ Kolejność:
 - Znaleziono konkretne źródła: trefoil/Frenet torsion, siedem rozróżnień pojęcia skrętu, GS-Matrix helical coupling, estymator kształtu helikalnego, ewolucję helisy i geometrię trajektorii pola meta.
 - Wykryto ważne ograniczenia: część modeli jest eksperymentalna, część używa arbitralnych progów, a część wyników opiera się na danych syntetycznych.
 - Ustalono, że pełna inwentaryzacja wszystkich repozytoriów siostrzanych pozostaje otwarta.
+
+
+## 12. Pogłębiony przegląd kolejnych źródeł (2026-11-09)
+
+### 12.1. `docs/geometry/tourosomobius.md` — ważna rozbieżność statusu
+
+Dokument opisuje Potrójny Tourosomobius jako `(T × M × H)_{Λ,τ,ρ}`, przypisuje warstwom torus/Möbius/helisa role Λ–τ–ρ i deklaruje warunek boromejski oraz określone kąty/proporcje projekcji.
+
+Jednocześnie dokument nie podaje konstrukcji osadzenia/zanurzenia, jawnych map między warstwami, definicji niezmiennika linkowania dla wskazanych obiektów ani dowodu warunku boromejskiego. Wcześniejszy raport `TIMDR_Trefoil_FrenetTorsion.md` określa Tourosomobius jako notację pojęciową bez kompletnej dziedziny/przeciwdziedziny i testów.
+
+**Wniosek:** traktować Tourosomobius jako hipotezę/notację koncepcyjną, nie jako już zweryfikowany obiekt topologiczny. Sformułowania „formalny model” i „spełnia warunek boromejski” wymagają dowodu albo zmiany statusu na hipotezę.
+
+### 12.2. `docs/theory/Model_T_Field_Theory.md` — pola TIMDR
+
+Dokument wprowadza kandydackie pola informacyjne `I(x,t)`, modalne `M(x,t)=(f,φ,A)`, rezonansowe `R(x,t)` i emergentne `E(x,t)`, a następnie zapisuje Lagrangian i równania Eulera–Lagrange’a.
+
+Nie znaleziono w tym dokumencie jawnej mapy:
+- krzywa helikalna → pole TIMDR;
+- helisa → konfiguracja pola modalnego;
+- pole → obiekt strunowy.
+
+Zapis `(∂μ M)(∂^μ M)` wymaga doprecyzowania, ponieważ M jest tu krotką parametrów modalnych, a nie zdefiniowanym polem o określonej przestrzeni wartości i metryce wewnętrznej. Także równania dla E wymagają jawnego uzasadnienia wynikającego z przyjętego Lagrangianu i definicji sprzężeń.
+
+**Wniosek:** Model T jest kandydackim szkicem teorii pola, ale sam w sobie nie dostarcza transformatora helisa→pole. Przed wykorzystaniem wymaga pełnej definicji zmiennych, jednostek, metryki, symetrii, działania i wyprowadzenia równań.
+
+### 12.3. `Helix-Astro/helix_spectrum.py` — helisa jako etykieta analizy widma
+
+Kod przetwarza widmo: T0 zwraca intensywność, T1 normalizuje i wygładza, T2 liczy gradient; metryki to entropia histogramu, współczynnik zmienności i RMS pochodnej.
+
+W tym module nazwa „Helix” nie oznacza reprezentacji krzywej helikalnej ani pola/struny. To narzędzie analizy widmowej z etykietą projektu. Testy dotyczą sygnału stałego, szumu i skoku.
+
+**Wniosek:** nie jest to źródło geometrii helisy do transformacji.
+
+### 12.4. `FIELDCORE/src/fieldcore.py` — status implementacji pola
+
+Plik jest oznaczony jako „w przygotowaniu”, importuje modele pola/rezonansów/cząstek i pozwala przypisać model pola oraz topologię TorusMobius. W aktualnym pobranym pliku występuje też niepoprawne wcięcie przy `generuj_czastki`, więc nie można uznać go za działający, zwalidowany silnik pola bez dalszego sprawdzenia całego repozytorium.
+
+Nie ma tu jawnej mapy helisa→pole ani transformacji strunowej.
+
+**Wniosek:** FIELDCORE jest tropem architektonicznym, nie potwierdzoną implementacją reprezentacji polowej TIMDR.
+
+### 12.5. `THE_TIMDR_Hyperflow_Engine/the_geo_pro_4d.py` — geometria krzywych 3D
+
+Moduł liczy krzywiznę `κ`, torsję Freneta `τ` i helikalność `H=sqrt(κ²+τ²)` z kolejnych próbek krzywej 3D. Dokumentuje także istotny problem: potrójne różnicowanie surowych, zaszumionych próbek wzmacnia szum; wskazuje na potrzebę wygładzania przed różniczkowaniem.
+
+To użyteczne źródło do geometrii krzywych i analizy stabilności numerycznej, ale nie jest modelem pola ani struny. „Helikalność” H jest tu skalarem z krzywizny i torsji, a nie automatycznie nową reprezentacją obiektu.
+
+### 12.6. Korekta mapy statusów
+
+- **Zaimplementowane i testowane:** wybrane metryki krzywych (κ, τ, H), detekcja deformacji trefoil na danych syntetycznych, proste narzędzia analizy widma.
+- **Eksploracyjne / ograniczone:** GS-Matrix helical coupling i estymacja parametrów modelu helikalnego.
+- **Koncepcyjne / wymagające formalizacji:** Potrójny Tourosomobius jako obiekt Borromejski, mapy helisa–pole–struna.
+- **Niepotwierdzone:** odwracalny transformator helisa→pole, helisa→struna, pole↔struna oraz jakakolwiek korzyść kryptograficzna.
+
