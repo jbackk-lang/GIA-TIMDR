@@ -155,3 +155,14 @@ Dla Test001 (180 klatek), Test002 (180) i Test003 (150) obliczono zespolone FFT 
 Opisowa średnia aktywność fazowa normal/anomalia: Test001 0.454/0.475 rad; Test002 0.435/0.579; Test003 0.479/0.518, ale tylko 3 przejścia normalne w Test003. Nie wykonano inferencji statystycznej ani korekty ruchu kamery; wskaźnik nie rozróżnia stabilnie anomalii. Raport: `docs/handoffs/RESULT_MAGE_REAL_SEQUENCE_PHASE_HISTORY_2026-11-09.md`.
 
 Następny priorytet: korekta globalnego ruchu, lokalna koherencja fazowa i baseline'y (różnica obrazu/przepływ optyczny/amplituda widma) na większej liczbie klipów. Nie podłączać jeszcze do G-Rezonansu; dopiero po walidacji reprezentacji pola określić mapowanie do S/GS-Matrix.
+
+
+## 15. Biologiczny trop: DNA → rozwój → helikalna morfologia (2026-11-09)
+
+Użytkownik wskazał muszle ślimaków jako przykład informacji dziedzicznej, która steruje powstawaniem struktury spiralnej. Przegląd literatury potwierdza mocną, ale pośrednią ścieżkę przyczynową: DNA/produkty matczyne → ekspresja i białka → cytoszkielet/orientacja podziałów → chiralność zarodka i asymetria ciała → asymetryczny wzrost płaszcza + mechanika → przyrostowa geometria muszli. Dla *Lymnaea stagnalis* gen matczyny Lsdia1 (formin) został eksperymentalnie powiązany z kierunkiem dextral/sinistral (Abe & Kuroda 2019, PMID 31088796). Badania PNAS 2019 wykazują asymetrie proliferacji/organizacji komórek na brzegu płaszcza; model PNAS 2021 wskazuje również na rolę mechanicznego skrętu ciała. Źródła i pełna synteza w `docs/handoffs/RESULT_DNA_TO_HELICAL_MORPHOGENESIS_REVIEW_2026-11-09.md`.
+
+Wniosek precyzyjny: DNA nie musi kodować gotowej geometrii muszli; koduje/reguluje procesy, które iteracyjnie wytwarzają geometrię. Nie utożsamiać helisy molekularnej DNA z makroskopowym skrętem muszli. Kierunek chiralności, logarytmiczna geometria zwoju i szczegóły ornamentacji są odrębnymi cechami wymagającymi odrębnych mechanizmów.
+
+Audyt repo: TIMDR-DNA jest analizatorem depth-of-coverage/CNV, nie modelem morfogenezy DNA; Helix-Lock jest narzędziem kryptograficznym, nie biologicznym modelem helisy. GIA-TIMDR nie ma jeszcze łańcucha DNA→rozwój→morfologia. Nie przedstawiać tego jako istniejącego kodu ani potwierdzonej fizyki TIMDR.
+
+Następny minimalny test koncepcyjny: rozdzielić (1) parametr dziedzicznej chiralności, (2) lokalną regułę przyrostu brzegu muszli, (3) mechaniczne sprzężenie ciała i muszli oraz (4) obserwowaną geometrię zwoju. Najpierw testować, czy zmiana chiralności i parametrów wzrostu daje właściwy znak skrętu i klasy kształtów; później dodawać mechanikę. Biologia jest wzorcem architektury informacja→stan pośredni→reguły wzrostu→geometria, nie dowodem, że obecny G-Rezonans/GS-Matrix jest tym samym mechanizmem.
