@@ -457,3 +457,6 @@ Istniejący `core/trefoil_frenet_torsion.py` opisuje jedną zamkniętą krzywą 
 **Rozstrzygnięcie:** odpowiedniość 3 komponenty ↔ 3 gałęzie jest obecnie nieidentyfikowalna. Trzy komponenty wynikają z trzech wybranych jąder startowych; nie są niezależnym dowodem trójdzielności. Nie można wyprowadzić osi, punktów kardynalnych ani zachowania ręczności z samego grafu nuklidów. Nie wykazano redukcji 4→3.
 
 Dodano kod audytu `experiments/nuclear_reduction/NRG-01/src/audit_three_strand_correspondence.py` oraz testy. Następny rozstrzygający eksperyment wymaga niezależnie określonych trzech krzywych (H_i(s)), wspólnej osi, faz, podpisanych torsji/skoków i punktów kardynalnych TIMDR oraz prerejestrowanego operatora mapowania bez dopasowywania współrzędnych nuklidów po fakcie.
+
+
+Audyt odpowiedniości został także uruchomiony w CI: workflow [42563682586](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42563682586) zakończył wszystkie kroki sukcesem. Artefakt `nrg01-parallel-tracks` (ID `13650283583`, SHA-256 `64ece60415e3768cfd485abb387892d58b3ede9cc272bc789fc355b39acd6068`) zawiera `three_strand_correspondence_audit.json` z profilem 3 komponentów i jawnym wynikiem nieidentyfikowalności mapowania.
