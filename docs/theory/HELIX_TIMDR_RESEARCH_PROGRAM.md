@@ -888,3 +888,12 @@ Wniosek: dla dowolnego niekoplanarnego czworościanu istnieje stały operator w�
 Dodano dwa testy dokładne do `experiments/helix_characterization/tests/test_boerdijk_coxeter_tetrahelix.py`: czterokrokową zgodność uporządkowanych krawędzi i zorientowanej objętości oraz kontrolę braku zgodności jednego kroku dla przykładowego ogólnego czworościanu. Poprawiono komentarz w `core/boerdijk_coxeter_tetrahelix.py`, aby odróżniał brak operatora jednokrokowego od istnienia operatora czterokrokowego.
 
 **Status:** twierdzenie geometryczne wyprowadzone; testy dodane, ale CI po najnowszym commicie wymaga osobnego potwierdzenia. Wynik nie dowodzi fraktalności: stała izometria jest skalująco neutralna i daje skończony motyw czterogałęziowy, nie hierarchię skal.
+
+
+### 30.16. Cztery orbity: hipoteza plecionki i warunki węzłowe — 2026-11-09
+
+Autor zasugerował, że cztery przeplatane orbity mogą tworzyć helisę skrętną, plecionkę, a być może węzeł. Dopisano analizę topologiczną w `docs/geometry/GENERAL_TETRAHEDRON_FOUR_STEP_SCREW_THEOREM_v0.1.md` §9.
+
+Dla operatora śrubowego `T` z niezerowym postępem osiowym cztery klasy reszt modulo 4 są czterema nieskończonymi nićmi helikalnymi o wspólnej osi. Jest to kandydat na geometrię plecionkową, ale nie zamknięty węzeł ani splot. Węzeł/splot wymaga jawnego domknięcia krzywych; przy zerowym postępie osiowym orbity mogą zamknąć się tylko przy wymiernym kącie obrotu względem `2π`. Po domknięciu trzeba sprawdzić rozłączność i niezmienniki topologiczne.
+
+**Następny test geometryczny:** wyznaczyć dla rodziny czworościanów parametry operatora `T` (kąt, oś, składową osiową, cztery promienie i fazy), sprawdzić przecięcia oraz minimalne odległości między nićmi, a następnie ustalić warunki degeneracji/domknięcia. Nie przypisywać typu węzła na podstawie samej wizualizacji.
