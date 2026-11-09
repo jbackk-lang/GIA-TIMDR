@@ -53,8 +53,10 @@ def trefoil_torsion_sector_audit(samples=12000):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out", type=Path, default=Path("trefoil_lobe_correspondence_audit.json"))
+    args = parser.parse_args()
     result = trefoil_torsion_sector_audit()
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.out.write_text(json.dumps(result, indent=2) + "\\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
-    Path("trefoil_lobe_correspondence_audit.json").write_text(
-        json.dumps(result, indent=2) + "\\n", encoding="utf-8"
-    )
