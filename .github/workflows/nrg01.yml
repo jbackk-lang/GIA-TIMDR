@@ -1,0 +1,43 @@
+name: NRG-01 reproducible analysis
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/nuclear_reduction/NRG-01/**"
+      - ".github/workflows/nrg01.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit tests
+        run: python -m unittest discover -s experiments/nuclear_reduction/NRG-01/tests -v
+      - name: Build IAEA decay graph
+        run: |
+          python experiments/nuclear_reduction/NRG-01/src/nrg01_build_graph.py \
+            --max-depth 35 --delay 0.12 \
+            --out artifacts/graph.json
+      - name: Analyze graph structure
+        run: |
+          python experiments/nuclear_reduction/NRG-01/src/analyze_decay_graph.py \
+            artifacts/graph.json --out artifacts/graph_analysis.json
+      - name: Analyze signed helix handedness control
+        run: |
+          python experiments/nuclear_reduction/NRG-01/src/analyze_helix_handedness.py \
+            --out artifacts/helix_handedness.json
+      - name: Upload reproducibility artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nrg01-parallel-tracks
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 90
