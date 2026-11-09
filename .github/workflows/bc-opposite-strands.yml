@@ -1,0 +1,21 @@
+name: Opposite-direction BC strands
+on:
+  push:
+    branches: [main]
+    paths:
+      - "core/boerdijk_coxeter_tetrahelix.py"
+      - "experiments/bc_opposite_direction_pair.py"
+      - ".github/workflows/bc-opposite-strands.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-opposite-strands:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run exact opposite-direction BC strand experiment
+        run: python experiments/bc_opposite_direction_pair.py
