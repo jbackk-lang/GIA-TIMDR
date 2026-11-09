@@ -426,3 +426,16 @@ Nie utożsamiać jednak ręczności geometrycznej z antycząstką. Trzeba rozdzi
 Szczegółowy protokół, definicję podpisanej torsji, kontrolę konwencji osi/parametryzacji oraz hipotezy falsyfikowalne H-CH0/H-CH1/H-CH2 zapisano w `docs/experiments/NRG-01_NUCLEAR_REDUCTION_GRAPH.md`, sekcja 13.
 
 **Konsekwencja dla modelu helisy:** znak skrętu staje się obowiązkowym polem zapisu geometrii. Nie jest etykietą cząstka/antycząstka, dopóki nie zostanie wykazane niezależne mapowanie do C, P i CP.
+
+
+## 19. Pierwszy wykonany przebieg NRG-01 i równoległy test ręczności
+
+Raport rzeczywistego przebiegu zapisano w `docs/experiments/NRG-01_RUN_REPORT_2026-11-09.md`. GitHub Actions zakończył powodzeniem testy, pobieranie danych IAEA, analizę grafu i analityczny test podpisanej torsji helisy.
+
+W pierwszym zbiorze: 48 nuklidów, 54 rozpoznane przejścia, 12 kanałów nierozstrzygniętych, 9 punktów rozgałęzienia, maksymalny stopień wyjściowy 2. Graf rozdzielił się na trzy komponenty osiągalne z trzech wybranych jąder startowych (U-238: 20, Th-232: 12, Np-237: 16 węzłów). Ten podział wynika z doboru trzech jąder startowych i nie dowodzi sam w sobie uniwersalnej trójdzielności.
+
+Nie wykazano jeszcze rozgałęzienia trójkanałowego ani naturalnej redukcji 4→3. Dziewięć rozgałęzień binarnych zapisano jako kandydatów do porównania z punktami kardynalnymi na poziomie zdarzeń grafowych, nie jako ich geometryczne odpowiedniki.
+
+Równoległy test idealnej helisy dla (R=1), (h=\pm0.5) uzyskał podpisane torsje (+0.4) i (-0.4). Potwierdza to, że redukcja do (|\tau_g|) usuwa rozróżnienie ręczności. To kontrola analityczna, nie pomiar geometrii TIMDR ani dowód relacji z antycząstkami.
+
+**Nadrzędna reguła:** zachowywać znak torsji i skoku, orientację osi, fazę oraz kolejność punktów kardynalnych podczas każdej redukcji.
