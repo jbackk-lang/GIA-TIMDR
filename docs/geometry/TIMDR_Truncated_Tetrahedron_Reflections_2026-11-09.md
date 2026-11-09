@@ -139,3 +139,22 @@ Uruchomienie potwierdziło:
 - wszystkie wymienione wymierne rezonanse zerowego skoku na długościach 6 i 8.
 
 Wynik CI: **success**.
+
+
+## 8. Czy rezonanse zerowego skoku są orbitami zamkniętymi?
+
+Sprawdzono dokładne cosinusy kątów obrotu dla rezonansów długości 6:
+| (q) | Cosinus obrotu | Liczba słów |
+|---:|---:|---:|
+| (1/4) | (-79/81) | 72 |
+| (1/3) | (-631/729) | 72 |
+| (1/3) | (-151/729) | 36 |
+| (1/2) | (-79/81) | 36 |
+
+Żadna z tych wartości nie należy do ({0,pm1/2,pm1}). Z twierdzenia Nivena wynika, że kąty nie są wymiernymi wielokrotnościami (pi). Są to więc czyste obroty nieskończonego rzędu, a nie okresowe obroty zamykające orbitę po skończonej liczbie iteracji.
+
+To rozdziela dwa zjawiska:
+- **rezonans skoku**: znika przesunięcie wzdłuż osi śruby;
+- **rezonans okresowy**: kąt obrotu jest wymierną wielokrotnością pełnego obrotu.
+
+Znaleźliśmy pierwsze, ale nie drugie. Samo wyzerowanie skoku nie wystarcza do otrzymania zamkniętej krzywej.
