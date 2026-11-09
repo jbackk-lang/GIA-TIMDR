@@ -840,3 +840,8 @@ Autor skorygował interpretację „podwójnej reprezentacji”: chodzi o stosun
 Po rozmowie z autorem przyjęto zasadę: anomalii nie usuwać ani nie interpretować przed zbadaniem relacji. Utworzono `docs/geometry/ANOMALY_FIRST_UNIFICATION_PROGRAM_v0.1.md`. Zestawia przesunięcie środków, niezgodność symetrii bryła–sfera, lift 2D→3D, zachowanie fazy/chiralności, historię MAGE, redukcję 4→3 i ograniczenia G-Rezonansu. Wspólny stan roboczy obejmuje geometrię/graf, relację środków, ramę, fazę z winding, warunki brzegowe i historię. Najpierw testujemy orientacyjny bias wynikający z offsetu bez dynamiki, potem pojedynczy jawny mechanizm, który mógłby dać rzeczywistą rotację. Nie zakładamy z góry jednej przyczyny wszystkich anomalii.
 
 **CI liftu 2D→3D:** po naprawie projekcji dla zmiennej ramy run `42592777404` — SUCCESS.
+
+
+### 30.11. Korekta: helisa i fraktal jako równoległe reprezentacje TIMDR
+
+Autor przypomina wcześniejszy wniosek z formalizmów: helisa jest jednym z głównych rzutów struktury nadrzędnej, a pozostała reprezentacja w znacznej mierze jest fraktalna. Nie utożsamiać TIMDR z helisą. Dodano `docs/theory/TIMDR_REPRESENTATIONS_HELIX_FRACTAL_v0.1.md`, w którym zapisano mapy reprezentacji \(H=\Pi_H(X)\), \(F=\Pi_F(X)\), rozłączne hipotezy relacji helisa–fraktal i testy: wymiar/skala fraktala, parametry helisy, wspólna predykcja i utrata informacji. W drzewie aktualnego `main` nie odnaleziono dedykowanego formalizmu fraktalnego; należy odnaleźć wcześniejszy dokument/repo, nie zastępować go nową definicją.
