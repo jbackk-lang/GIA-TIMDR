@@ -117,14 +117,20 @@ def main():
             (q, q/np.sqrt(3)), (q, -q/np.sqrt(3)),
             (0.0, q),
         ])
-    # Candidate exceptional ellipse: u^2 + 4 v^2 = 1, hence w=sqrt(3)*|v|.
-    # Sample both signs and a special intersection u=1/2.
-    for u0 in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
-        v0 = np.sqrt(1-u0*u0)/2
-        samples.extend([
-            (u0, v0), (u0, -v0),
-            (u0, v0+1e-5), (u0, v0-1e-5),
-        ])
+    # Three cyclically rotated candidate ellipses, one for each lateral face.
+    # In the frame aligned with a chosen base edge: a^2+4*b^2=1.
+    for theta in (0.0, 2*np.pi/3, -2*np.pi/3):
+        ct, st = np.cos(theta), np.sin(theta)
+        for a0 in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
+            b0 = np.sqrt(1-a0*a0)/2
+            for sign in (-1.0, 1.0):
+                aa, bb = a0, sign*b0
+                uu, vv = aa*ct-bb*st, aa*st+bb*ct
+                samples.extend([
+                    (uu, vv),
+                    (uu, vv+1e-5*ct),
+                    (uu, vv-1e-5*ct),
+                ])
     print("u,v,w,volume,acute_angles_deg,distinct_length4_maps,rotations,screws,translations,identities")
     for u, v in samples:
         result = length_four_spectrum(u, v)
