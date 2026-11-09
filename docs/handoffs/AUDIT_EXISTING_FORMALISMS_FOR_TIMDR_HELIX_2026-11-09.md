@@ -78,3 +78,27 @@ Dopiero po zatwierdzeniu karty porównać istniejące operatory z wymaganymi obs
 Trzeba pilnować rozróżnień: krzywizna powierzchni ≠ torsja osi helisy; norma zmiany normalnych ≠ chiralność ze znakiem; spirala w przestrzeni stanów (G,S) ≠ przestrzenna helisa; redukcja obwiedni trójkąta (P,Q) ≠ ogólna redukcja węzła/helisy; faza modalna ≠ pamięć mechaniczna powierzchni.
 
 To są konkretne luki do rozstrzygnięcia przed wiarygodnym modelem odpowiedzi helisy na informację.
+
+## 10. Uzupełnienie po odczytaniu oryginalnych dokumentów GIA: tunel osi i torsja trójwęzła
+
+Audyt uzupełniono o dwa istniejące dokumenty, które są bezpośrednio bliższe aktualnemu pytaniu niż ogólne G8-G10:
+
+### 10.1 AXIS_TUNNEL_BOUNDARY_CONDITIONS_TWIST_RANGE_REDUCTION_v0.1.md
+
+To już istniejący program formalizacji tunelu osi. Definiuje oś A(s), otoczenie rurowe o promieniu r(s), lokalne współrzędne z ramą poprzeczną, warunki poprzeczne i osiowe, sklejenia pozycji/stycznej/ramy/fazy/indeksu gałęzi/orientacji, warunki regularności oraz zorientowany kąt θ(s) i tempo ω(s)=dθ/ds. Redukcja jest zdefiniowana jako utrata dopuszczalności min_j g_j(X)=0, a nie arbitralny próg liczby modułów. Próg 90° jest wyraźnie hipotezą testową. To dokładnie właściwy punkt startowy; status dokumentu pozostaje programem formalizacji, nie zwalidowanym modelem fizycznym.
+
+### 10.2 ROTATION_INNER_SPIRAL_SPHERICAL_CONFINEMENT_TO_KNOT_v0.1.md
+
+Ten dokument rozdziela moduł M_n, wewnętrzną oś A(s) i gałęzie H_i(s). Opisuje obrót modułów, odbicie m_n∈{−1,+1}, ramę, ograniczenie kulą, torsję osi, holonomię, twist gałęzi i writhe. Jawnie stwierdza, że kula sama nie tworzy skrętu i że zamknięcie geometryczne nie dowodzi węzła; potrzebne są warunki domknięcia, brak samoprzecięć i niezmiennik topologiczny. To hipoteza do falsyfikacji, nie gotowy model.
+
+### 10.3 Istniejąca torsja Freneta-Serreta trójwęzła
+
+`core/trefoil_frenet_torsion.py` liczy krzywiznę i podpisaną torsję osi z κ=||v×a||/||v||³ oraz τ=det(v,a,j)/||v×a||², z bramkowaniem przy małej krzywiźnie. `docs/geometry/TIMDR_Trefoil_FrenetTorsion.md` raportuje 4/4 testy na syntetycznym trefoilu: negatywna kontrola bez fałszywych alarmów, dodatnia lokalna deformacja wykrywana; rezonans 2-z-3 kanałów zwęża 31 rozproszonych punktów torsji do 4. To nie jest walidacja fizycznej helisy TIMDR, ale istniejący kod do podpisanej torsji osi jest ważnym punktem startowym.
+
+### 10.4 Krytyczna utrata znaku w G-Rezonans
+
+W `core/geometric_resonance_operator.py` sprzężenie segmentowe jest budowane jako `kc[i]=kc_scale*abs(tau[i])`. Komentarz kodu jawnie stwierdza, że znak torsji nie zmienia siły sprzężenia w tym modelu, tylko kierunek geometryczny, którego macierz nie reprezentuje. Zatem obecny G-Rezonans może reagować na wielkość torsji, ale nie rozróżnia jej znaku/chiralności przez ten kanał. Nie należy po cichu zmieniać `abs`; to wymaga odrębnej decyzji modelowej i testu symetrii lustrzanej.
+
+### 10.5 Wniosek skorygowany
+
+Główna luka nie brzmi już „brak geometrii osi/tunelu” — istnieje jej jawna specyfikacja koncepcyjna. Luka brzmi: brak implementacji i walidacji tej specyfikacji oraz brak integracji jej podpisanych wielkości (θ, ω, τ osi, holonomia, twist gałęzi) z mechanicznym G-Rezonansem. Najbardziej ekonomiczny następny krok to audyt zgodności tych trzech artefaktów: tunel/warunki brzegowe, Frenet torsion i G-Rezonans, a następnie minimalny test, który sprawdza czy zmiana znaku torsji zmienia odpowiedź. Nie tworzyć jeszcze nowego operatora.
