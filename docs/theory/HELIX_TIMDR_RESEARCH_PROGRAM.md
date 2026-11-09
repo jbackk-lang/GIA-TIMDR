@@ -823,3 +823,8 @@ Po decyzji autora zaimplementowano `generate_tetrahedral_chain(initial_vertices,
 
 
 **CI po uogólnieniu:** run `42590580686` — SUCCESS, **9/9 testów**, w tym dwa nowe testy ogólnego czworościanu i walidacji niekoplanarności.
+
+
+### 30.8. Ograniczenie otoczenia: podwójny czworościan na sferze albo jajo
+
+Autor dodał warunek, że czworościan nie może być analizowany wyłącznie jako swobodny łańcuch wierzchołków: w otoczeniu kuli należy rozważyć podwójną reprezentację, a alternatywą jest powierzchnia jajowata. W nowym dokumencie `docs/geometry/SPHERICAL_ENCLOSURE_DOUBLE_TETRAHEDRON_OR_EGG_v0.1.md` zapisano wariant sferyczny z partnerem antypodycznym (v_i^*=2c-v_i) i wariant jajowaty z osobną mapą ograniczenia. Dla regularnego czworościanu para antypodyczna dokładnie daje osiem naroży sześcianu wpisanego w sferę; asymetryczne jajo nie zachowuje tej prostej symetrii. Nie utożsamiać „podwójnej reprezentacji” z podwójnym pokryciem topologicznym ani antycząstką bez definicji. Następny test ma porównać sferę z partnerem, jajo z jedną reprezentacją i — jeśli zostanie zdefiniowana — jajo z drugą reprezentacją.
