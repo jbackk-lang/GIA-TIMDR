@@ -655,3 +655,17 @@ Roboczo tunel osi to otoczenie krzywej osiowej z lokalnym przekrojem i ogranicze
 Zakres skrętu traktować jako zorientowaną zmienną geometryczną (np. obrót przekroju względem transportowanej ramy), odrębną od torsji Freneta, skrętu powierzchniowego i τ TRM. Redukcja ma być testowana jako zdarzenie na granicy zbioru dopuszczalnych stanów, nie jako z góry zadany próg. Hipoteza 90° pozostaje testem: sprawdzić, czy przy tej wartości niezależnie zanika luz, powstaje kolizja/osobliwość albo naruszenie warunków szwu. Nie zakładać 90° jako aksjomatu.
 
 Kolejność: źródłowa oś → tunel i przekrój → warunki brzegowe → zorientowany skręt i jego zakres → granica dopuszczalności / punkty kardynalne → operator redukcji → dopiero potem wpływ √2/√3, kuli i liczby modułów.
+
+
+## 34. Wyniki przeszukania repozytoriów koncepcyjnych — tunel osi i granica redukcji
+
+Przejrzano źródła z `TIMDR-Concept-Archive` (TRM-Geometry-Core, Topological-Reduction-Model-TRM, topologia-informacji) oraz `Helix-Lock` (granice parametrów, eksperyment tunelu/chiralności i testy).
+
+Najważniejsze wskazówki:
+1. TRM-Geometry-Core opiera się na kole oraz kwadracie wpisanym i opisanym jako dwóch granicach przekroju; archiwalna interpretacja przypisuje im Λ (struktura), τ (przejście) i ρ (defekt/różnica). Dla koła promienia r boki kwadratów wynoszą odpowiednio √2 r i 2r, więc stosunek granic to √2. To użyteczna para obwiedni przekroju, ale sama nie dowodzi skrętu.
+2. Kula i wpisany sześcian dają niezależne ograniczenie przestrzenne (a=2r/\sqrt3). Nie jest to przekątna czworościanu.
+3. Archiwalne TRM mówi o krytycznym τ, przeciążeniu/nasyceniu ρ i punkcie przejścia J. To sugeruje badać próg jako interakcję skrętu z dostępnym luzem/pojemnością, ale (R=k|τ|^n) i (|τ|>τ_{krit}) pozostają koncepcyjnymi postulatami, nie wyprowadzonym prawem geometrii helisy.
+4. Helix-Lock doprecyzowuje: tunel jest geometryczny, sygnał jest mapowany na jego geometrię. Eksperyment syntetyczny wykazuje, że odbicie lustrzane zachowuje κ i odwraca znak torsji; faza sygnału musi respektować handedness. Aktualny G5 używa (|τ|), więc traci chiralność. Nie należy wstawiać ujemnej torsji bezpośrednio jako ujemnej wagi sprężyny.
+5. Brak uniwersalnego liczbowego maksimum κ/τ bez skali, promienia i skoku. Obecny warunek dodatniej określoności G5 nie wyznacza górnego limitu (|τ|). Zatem próg redukcji musi wynikać z jawnego warunku geometrycznego/dynamicznego, nie z arbitralnej liczby.
+
+Audyt i plan testów: `docs/geometry/CONCEPT_ARCHIVE_AUDIT_AXIS_TUNNEL_REDUCTION_2026-11-09.md`. Nowy priorytet: modelować przekrój tunelu przez granice wpisaną/opisaną, obwiednię przestrzenną i chiralną ramę; mierzyć luz, kolizje, holonomię, fazę i ρ oddzielnie. Punkt J należy zdefiniować jako wykrywalne zdarzenie przejścia po naruszeniu jawnego warunku brzegowego. Dopiero potem testować, czy występuje reorganizacja 4→3.
