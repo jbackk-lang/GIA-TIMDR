@@ -857,3 +857,14 @@ Rozróżnić trzy poziomy:
 3. **Niewiadoma:** czy fraktal jest osobną reprezentacją, własnością wieloskalową kilku reprezentacji, mechanizmem generującym, czy nieadekwatną intuicją.
 
 Nie nazywać pozostałej części struktury fraktalną bez identyfikacji obiektu, definicji samopodobieństwa, zakresu skal, oszacowania wymiaru z niepewnością i kontroli niefraktalnej. Nie zmieniać aksjomatów M/S, G, K ani META na podstawie tej hipotezy. Kolejny krok to odnalezienie wcześniejszego formalizmu fraktalnego w repozytoriach ekosystemu i porównanie go z definicjami w GIA-TIMDR.
+
+
+### 30.13. Audyt geometrii helisy a hipoteza fraktalna — 2026-11-09
+
+Wykonano pierwszy etap badania zgodnie z kolejnością **geometria → liczby**, bez restartu programu. Raport: `docs/geometry/HELIX_FRACTAL_GEOMETRY_AUDIT_v0.1.md`.
+
+Wynik geometryczny: HC-01 jest gładką krzywą o stałej krzywiźnie i torsji; jej projekcje są gładkie. Jednorodna zmiana skali zachowuje bezwymiarowy kształt `η=h/a`, ale jest zwykłą kowariancją homotetyczną, nie fraktalnością. Regularna tetrahelisa BC jest generowana przez stałą izometrię śrubową i ma moduły jednej skali; sama rekurencja odbić ani powtarzanie przystających czworościanów nie daje hierarchii fraktalnej. Dla ogólnego czworościanu potwierdzono zachowanie kongruencji kolejnych modułów, nie zaś stały operator śrubowy ani fraktalność.
+
+**Wniosek:** fraktalności nie ma w definicji HC-01 ani regularnego BC. Status struktury nadrzędnej TIMDR pozostaje UNKNOWN. To wynik negatywny dla najprostszych kandydatów, nie obalenie hipotezy fraktalnej całego TIMDR.
+
+**Następny krok w tej samej linii:** ilościowo porównać bezwymiarowe parametry HC-01 i dokładne parametry śrubowe BC, następnie sprawdzić ogólny czworościan. Nie uruchamiać box-countingu jako poszukiwania fraktala na gładkiej HC-01; użyć go później wyłącznie do testu kalibracyjnego estymatora. Do właściwego testu fraktalności przejść dopiero po wskazaniu geometrii o rzeczywistej rekurencji/wielu skalach.
