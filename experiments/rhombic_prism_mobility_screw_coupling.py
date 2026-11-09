@@ -67,7 +67,7 @@ def length_four_spectrum(u, v):
         layer = nxt
     distinct = {}
     for word, (M, b) in layer:
-        key = tuple(np.round(np.r_[M.ravel(), b], 8))
+        key = tuple(np.round(np.r_[M.ravel(), b], 7))
         distinct.setdefault(key, (word, M, b))
     kinds = Counter(classify(M, b) for _, M, b in distinct.values())
     c = [float(t @ e) for e in EDGES]
@@ -108,6 +108,15 @@ def main():
         (0.5, 0.70),
         (0.1, 0.1),                    # off-symmetry generic control
     ]
+    # Equal-angle symmetry lines in the (u,v) disk:
+    # c_i=c_j gives v=0 or v=+/-sqrt(3)u;
+    # c_i=-c_j gives u=0 or v=+/-u/sqrt(3).
+    for q in (0.1, 0.2, 0.3, 0.4):
+        samples.extend([
+            (q, np.sqrt(3)*q), (q, -np.sqrt(3)*q),
+            (q, q/np.sqrt(3)), (q, -q/np.sqrt(3)),
+            (0.0, q),
+        ])
     # Candidate exceptional ellipse: u^2 + 4 v^2 = 1, hence w=sqrt(3)*|v|.
     # Sample both signs and a special intersection u=1/2.
     for u0 in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
