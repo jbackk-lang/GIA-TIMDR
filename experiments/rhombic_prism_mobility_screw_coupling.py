@@ -82,15 +82,23 @@ def length_four_spectrum(u, v):
 
 def main():
     # Two coordinates sweep the full mobility family; this path holds u fixed.
+    a = 1/(2*np.sqrt(3))
+    b = 1/np.sqrt(3)
     samples = [
-        (0.5, 0.0),
+        (0.5, 0.0),                    # equal acute angles: c2=-c3
         (0.5, 0.05),
         (0.5, 0.10),
         (0.5, 0.20),
-        (0.5, 1/(2*np.sqrt(3))),       # exact benchmark A: c=(1/2,0,-1/2)
+        (0.5, a),                      # exact benchmark A: c=(1/2,0,-1/2)
+        (0.5, -a),                     # reflected partner of A
+        (0.5, a-1e-5),                 # off-resonance controls
+        (0.5, a+1e-5),
         (0.5, 0.35),
         (0.5, 0.50),
-        (0.5, 1/np.sqrt(3)),           # exact benchmark B: c=(1/2,1/4,-3/4)
+        (0.5, b),                      # exact benchmark B: c=(1/2,1/4,-3/4)
+        (0.5, -b),                     # reflected partner of B
+        (0.5, b-1e-5),
+        (0.5, b+1e-5),
         (0.5, 0.60),
         (0.5, 0.70),
         (0.1, 0.1),                    # off-symmetry generic control
