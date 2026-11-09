@@ -93,10 +93,25 @@ def main():
     assert s.simplify(S1*S2*S1 - S2*S1*S2) == s.zeros(4)
     assert s.simplify((S0*S2)**3 - H4) == s.zeros(4)
     assert s.simplify((S1*S2)**3 - H4) == s.zeros(4)
+
+    # Conjugate the canonical construction by the two nontrivial 120-degree
+    # rotations of the equilateral base. This proves the braid relations for
+    # each of the three lateral faces, not just the e1 face.
+    for theta in (2*s.pi/3, -2*s.pi/3):
+        Q = s.Matrix([
+            [s.cos(theta), -s.sin(theta), 0],
+            [s.sin(theta),  s.cos(theta), 0],
+            [0, 0, 1],
+        ])
+        Q4 = homogeneous(Q, s.zeros(3, 1))
+        S2_rotated = s.simplify(Q4*S2*Q4.inv())
+        assert s.simplify(S0*S2_rotated*S0 - S2_rotated*S0*S2_rotated) == s.zeros(4)
+        assert s.simplify(S1*S2_rotated*S1 - S2_rotated*S1*S2_rotated) == s.zeros(4)
+
     raw_words, braid_classes = braid_word_class_count()
     assert raw_words == 320
     assert raw_words - braid_classes == 12
-    print("PASS: exact affine Coxeter braid relation for lower and upper face pairs.")
+    print("PASS: exact affine Coxeter braid relation for all three lateral faces and both triangular ends.")
     print("three_face_specific_ellipse_equations:")
     for equation in ellipse_equations:
         print(f"  {s.factor(equation)} = 0")
