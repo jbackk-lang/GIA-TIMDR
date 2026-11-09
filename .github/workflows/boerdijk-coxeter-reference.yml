@@ -1,0 +1,24 @@
+name: Boerdijk-Coxeter exact reference
+on:
+  push:
+    branches: [main]
+    paths:
+      - "core/boerdijk_coxeter_tetrahelix.py"
+      - "experiments/helix_characterization/tests/test_boerdijk_coxeter_tetrahelix.py"
+      - "docs/geometry/BOERDIJK_COXETER_EXACT_REFERENCE_2026-11-09.md"
+      - ".github/workflows/boerdijk-coxeter-reference.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run exact rational geometry tests
+        run: python -m unittest experiments.helix_characterization.tests.test_boerdijk_coxeter_tetrahelix -v
