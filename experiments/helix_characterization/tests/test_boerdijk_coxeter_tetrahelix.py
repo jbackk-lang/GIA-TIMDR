@@ -10,6 +10,7 @@ from core.boerdijk_coxeter_tetrahelix import (
     SCREW_ROTATION,
     SCREW_TRANSLATION,
     generate_vertices,
+    generate_tetrahedral_chain,
     screw_step,
     squared_distance,
     tetrahedron_centroid,
@@ -86,6 +87,37 @@ class BoerdijkCoxeterExactTests(unittest.TestCase):
         centroids = [tetrahedron_centroid(vertices[i:i + 4])
                      for i in range(len(vertices) - 3)]
         self.assertTrue(all(radius_sq(c) == Q(4, 25) for c in centroids))
+
+
+    def test_general_tetrahedron_vertex_reflection_preserves_all_six_edges(self):
+        initial = (
+            (Q(0), Q(0), Q(0)),
+            (Q(2), Q(0), Q(0)),
+            (Q(0), Q(3), Q(0)),
+            (Q(0), Q(0), Q(4)),
+        )
+        vertices = generate_tetrahedral_chain(initial, 24)
+        expected = {
+            squared_distance(initial[i], initial[j])
+            for i in range(4) for j in range(i + 1, 4)
+        }
+        for start in range(len(vertices) - 3):
+            tetra = vertices[start:start + 4]
+            actual = {
+                squared_distance(tetra[i], tetra[j])
+                for i in range(4) for j in range(i + 1, 4)
+            }
+            self.assertEqual(actual, expected)
+
+    def test_general_tetrahedron_rejects_coplanar_initial_vertices(self):
+        flat = (
+            (Q(0), Q(0), Q(0)),
+            (Q(1), Q(0), Q(0)),
+            (Q(0), Q(1), Q(0)),
+            (Q(1), Q(1), Q(0)),
+        )
+        with self.assertRaises(ValueError):
+            generate_tetrahedral_chain(flat, 8)
 
 
 if __name__ == "__main__":
