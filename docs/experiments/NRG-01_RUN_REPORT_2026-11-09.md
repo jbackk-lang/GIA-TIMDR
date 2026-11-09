@@ -105,3 +105,10 @@ Artefakt workflow jest przechowywany przez GitHub Actions przez 90 dni. Zawiera 
 6. Przetestować redukcję na parach lewo-/prawoskrętnych i wykazać, że znak nie zanika.
 
 **Zasada nadrzędna:** nie redukować geometrii przez wartość bezwzględną skrętu; nie utożsamiać grafu nuklidów z węzłem topologicznym; nie przypisywać etykiety antycząstki na podstawie samej ręczności geometrycznej.
+
+
+## 6. Powtórzenie z limitem rozmiaru grafu
+
+Po dodaniu bezpiecznego limitu `--max-nodes=250` uruchomiono ponownie cały workflow: [run 42562827240](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42562827240). Wszystkie kroki ponownie zakończyły się sukcesem. Wyniki były zgodne z pierwszym przebiegiem: 48 nuklidów, 54 rozpoznane przejścia, 12 kanałów nierozstrzygniętych, 9 rozgałęzień; 48 surowych odpowiedzi CSV. Podpisane torsje kontrolne ponownie wyniosły +0.4 i −0.4.
+
+Drugi artefakt: `nrg01-parallel-tracks`, ID `13650530264`, SHA-256 `cbe4f5771cdc3c668c73c99d19a9dff6524874740622e8548b069bfb77a4ec3b`. Powtórzenie potwierdza stabilność tego przebiegu pipeline'u, ale nie usuwa ograniczeń zakresu danych ani nie stanowi niezależnej walidacji fizycznej.
