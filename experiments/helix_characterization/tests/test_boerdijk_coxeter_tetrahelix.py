@@ -132,7 +132,7 @@ class BoerdijkCoxeterExactTests(unittest.TestCase):
             for x in (-1, 1) for y in (-1, 1) for z in (-1, 1)
         }
         self.assertEqual(combined, cube_vertices)
-        self.assertTrue(all(_dot(v, v) == Q(3) for v in combined))
+        self.assertTrue(all(squared_distance(v, (Q(0), Q(0), Q(0))) == Q(3) for v in combined))
 
     def test_antipodal_map_is_an_involution_about_arbitrary_center(self):
         center = (Q(2), Q(-1), Q(3))
