@@ -1,0 +1,20 @@
+name: Rhombic prism D3 degeneracy diagnostic
+
+on:
+  push:
+    paths:
+      - "experiments/rhombic_prism_d3_degeneracy_diagnostic.py"
+      - "experiments/rhombic_prism_mobility_screw_coupling.py"
+      - ".github/workflows/rhombic-prism-d3-diagnostic.yml"
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy
+      - name: Diagnose the r=0.4 reflected endpoint pair
+        run: python experiments/rhombic_prism_d3_degeneracy_diagnostic.py
