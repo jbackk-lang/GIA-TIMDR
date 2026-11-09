@@ -262,3 +262,8 @@ Sprawdzono bezpośrednio repozytorium siostrzane `jbackk-lang/Helix-Lock`, wskaz
 
 
 **Dodatkowa obserwacja geometryczna:** w BC każda ściana tetraedru jest trójkątem równobocznym; mimo lokalnej symetrii ścian cała sekwencja ma niezerowy obrót śrubowy, który wynika z globalnej reguły odbicia/sklejenia. Nie obala to G2 (inny obiekt), ale wymusza rozdzielenie lokalnej asymetrii modułu/pola normalnych od globalnej holonomii transportu modułów. Gdy TIMDR operator będzie zdefiniowany, test rozdzielający ma zmieniać osobno kształt modułu (symetryczny/asymetryczny) i regułę sklejenia, mierząc przyrost fazy/ramy.
+
+
+**Kontrola źródeł 72-repo portfolio — zakres ukierunkowany (2026-11-09):** sprawdzono bezpośrednio `TIMDR-Concept-Archive/TRM-Geometry-Core` (triangle/core/transitions/src/triangle.py), `Topological-Reduction-Model-TRM` (topological-wave/twist-reduction-law), `TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py`, `THE_TIMDR_Hyperflow_Engine/the_geo_pro_4d.py` i `TIMDR-META-DYNAMICS` (evolution_helix/meta_torsion). W tych źródłach trójkąt daje bok (a=r√3)/trzy stany, TRM τ jest skalarem fali/progu, Weingarten liczy kształt istniejącej siatki, Hyperflow liczy κ/τ z gotowej trajektorii, a META-DYNAMICS klasyfikuje wejściowe tau. Nie znaleziono operatora 3D odbicia/sklejenia trójkątnego modułu ani (S_{TIMDR}). To nie jest deklaracja, że wszystkie 72 repo zostały przejrzane plik po pliku; to ukierunkowany audyt źródeł wskazanych przez obecny program.
+
+Raport rozszerzono o te źródła w `docs/geometry/COMPARISON_BC_HC01_TIMDR_2026-11-09.md` §12. Wniosek pozostaje: brakujący operator nie jest ukryty w sprawdzonych źródłach; trzeba go formalnie określić jako nową definicję/hipotezę autora, a nie rekonstruować z samych symboli i współczynników skali.
