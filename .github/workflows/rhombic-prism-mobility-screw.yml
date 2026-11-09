@@ -7,6 +7,7 @@ on:
       - "experiments/rhombic_prism_ellipse_braid_relation.py"
       - "experiments/rhombic_prism_exceptional_affine_relations.py"
       - "experiments/rhombic_prism_locus_intersections.py"
+      - "experiments/rhombic_prism_central_screw_unfolding.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -28,3 +29,5 @@ jobs:
         run: python experiments/rhombic_prism_exceptional_affine_relations.py
       - name: Classify intersections of the 12 Coxeter loci
         run: python experiments/rhombic_prism_locus_intersections.py
+      - name: Probe screw-spectrum unfolding near the central configuration
+        run: python experiments/rhombic_prism_central_screw_unfolding.py
