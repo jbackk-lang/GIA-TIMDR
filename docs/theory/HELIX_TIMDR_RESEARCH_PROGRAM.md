@@ -567,3 +567,12 @@ Właściwy test ma zatem porównać konkretny typ pięciościanu z konkretnym ty
 Autor doprecyzował, że „elementy” to moduły generujące helisę — analogiczne do trójkąta w odbiciu. Interpretacja pięcio- i sześciościanu jako brył o F=5/F=6 ścianach była błędna i zostaje wycofana. W aktualnym modelu liczymy kolejne moduły helikalne: cztery tworzą konfigurację czterowęzłową, piąty nadal mieści się w jej warunkach brzegowych, a szósty ma wywołać konflikt / przeciążenie i reorganizację do trzech gałęzi.
 
 Specyfikację skorygowano w `docs/geometry/SIXTH_ELEMENT_OVERLOAD_FOUR_NODE_TO_TREFOIL_v0.1.md`. Do dalszego modelowania należy jawnie zdefiniować trójkątny moduł bazowy, operator odbicia, orientację przed/po odbiciu, regułę sklejenia sąsiednich modułów, przyrost fazy/obrotu wokół osi oraz znak skrętu. Licznik modułów jest odrębny od liczby ścian, wierzchołków, gałęzi i cykli grafu.
+
+
+### Nowa interpretacja mechanizmu helisy: obrót modułów, oś wewnętrzna, ograniczenie kuliste
+
+Autor doprecyzował: obrót kolejnych modułów wymusza helisę; jej oś wewnętrzna sama ma przebieg spiralny. Otoczenie kuliste ogranicza geometrię i może wymuszać dodatkową krzywiznę / obrót ramy, przez co helisa może przejść w strukturę węzłową. Kula jest otoczeniem, nie osią.
+
+Rozdzielamy: moduł trójkątny z orientacją odbicia, wewnętrzną oś (A(s)), ramę lokalną osi, fazę obrotu modułu, gałęzie helikalne i kulistą granicę. Obrót modułu, torsja osi, holonomia ramy i twist gałęzi są różnymi wielkościami. Kula nie tworzy węzła automatycznie: potrzebne są warunki domknięcia, sklejenia i test niezmiennika topologicznego.
+
+Specyfikacja: `docs/geometry/ROTATION_INNER_SPIRAL_SPHERICAL_CONFINEMENT_TO_KNOT_v0.1.md`. Plan testów rozdziela helisę bez kuli, tę samą helisę pod ograniczeniem kulistym, próg 5→6 modułów oraz test topologiczny. Jajo pozostaje kontrolą asymetrii.
