@@ -121,18 +121,24 @@ def analyze(label, u, v):
         records_by_depth[depth] = records
         point_sets[depth] = [x[0] for x in records]
         pnorms = [np.linalg.norm(x[2]) for x in records]
+        axis_stats = tuple(round(float(x), 7) for x in
+                           ((np.median(pnorms), np.quantile(pnorms, .9), max(pnorms))
+                            if pnorms else (0, 0, 0)))
+        pitch_stats = tuple(round(float(x), 7) for x in
+                            ((np.median(pitches), np.quantile(pitches, .9), max(pitches))
+                             if pitches else (0, 0, 0)))
+        angle_stats = tuple(round(float(x), 7) for x in
+                            ((min(angles), np.median(angles)) if angles else (0, 0)))
+        max_residual = max(residuals) if residuals else 0.0
         print(
             f"AXIS_CLOUD,{label},{depth},maps={len(cumulative[depth])},"
             f"proper_axes={len(records)},rotation_maps={kinds['rotation_axis']},"
             f"screw_maps={kinds['screw_axis']},translations={kinds['translation']},"
             f"near_identity={kinds['ill_conditioned']},bad_residual={kinds['bad_residual']},"
-            f"axis_distance_q50_q90_max={tuple(round(float(x),7) for x in "
-            f"(np.median(pnorms),np.quantile(pnorms,.9),max(pnorms)) if pnorms else (0,0,0))},"
-            f"pitch_abs_q50_q90_max={tuple(round(float(x),7) for x in "
-            f"(np.median(pitches),np.quantile(pitches,.9),max(pitches)) if pitches else (0,0,0))},"
-            f"angle_min_median={tuple(round(float(x),7) for x in "
-            f"(min(angles),np.median(angles)) if angles else (0,0))},"
-            f"max_axis_residual={max(residuals) if residuals else 0:.3g}"
+            f"axis_distance_q50_q90_max={axis_stats},"
+            f"pitch_abs_q50_q90_max={pitch_stats},"
+            f"angle_min_median={angle_stats},"
+            f"max_axis_residual={max_residual:.3g}"
         )
         if depth != DEPTHS[0]:
             prev = DEPTHS[DEPTHS.index(depth)-1]
