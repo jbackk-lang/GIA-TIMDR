@@ -61,3 +61,22 @@ CI:
 https://github.com/jbackk-lang/GIA-TIMDR/actions
 
 Kod wykorzystuje dokładne `Fraction`, nie przybliżenia zmiennoprzecinkowe. Nie wnioskuje o fizycznej sile wiążącej ani o mechanizmie oddziaływania między nićmi.
+
+
+## 6. Korekta interpretacji kierunku
+
+„Przeciwny kierunek” oznacza tutaj zastosowanie odwrotnej mapy afinicznej (S^{-1}): odwracają się jednocześnie znak obrotu i znak postępu osiowego. Iloraz (d\phi/dz), a więc geometryczna chiralność helisy jako nieorientowanej krzywej, pozostaje taki sam. To są dwie fazowo przesunięte o (pi) nici o tej samej chiralności geometrycznej, parametryzowane w przeciwnych kierunkach, a nie para helis o przeciwnych chiralnościach.
+
+Wynik CI pierwszej wersji ujawnił błędną asercję: dla fazy (pi) radialne wektory są antyrównoległe, zatem ich iloczyn wektorowy jest zerowy. Poprawiono test na:
+- iloczyn skalarny radialnych wektorów = (-54/25);
+- kwadrat normy ich iloczynu wektorowego = (0);
+- dokładnie przeciwne wektory radialne.
+
+Dedykowany workflow zakończył się powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42603894043
+
+Log potwierdza: 65 punktów na każdej nici, promień² (54/25), kroki osiowe (-2,+2), 0 wspólnych punktów oraz 0 przecięć w 4096 parach odcinków.
+
+## 7. Co ten model mówi, a czego nie mówi
+
+W obecnej konstrukcji nici są po przeciwnych stronach tej samej osi i zachowują stały kąt fazowy (pi) na każdej wspólnej wysokości. Są to dwie rozłączne, równoległe fazowo orbity na wspólnym walcu. Nie tworzą automatycznie klasycznego splotu dwóch zamkniętych krzywych. Następny sensowny eksperyment to zmienić relację fazową i/lub chiralność jednej nici niezależnie, a następnie badać, czy można uzyskać zamknięcie bez przecięć.
