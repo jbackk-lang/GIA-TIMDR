@@ -778,3 +778,10 @@ Dla ustalonej konwencji współrzędnych jedna dokładna transformacja śrubowa 
 ### 30.1. Następny krok, który zapobiega zapętleniu
 
 Przed kolejnym eksperymentem trzeba rozstrzygnąć z definicji źródłowej TIMDR: co jest odbijane (wierzchołki, cały moduł, orientacja czy stan), względem jakiej płaszczyzny, po której stronie, przez jaki interfejs moduły są sklejane i jaka jest reguła przyrostu fazy. Dopiero po zapisaniu tych danych można wyprowadzić (S_{TIMDR}), sprawdzić czy jest stały i czy przewiduje moduły niewykorzystane do wyznaczenia operatora. Test lustrzany musi zachować podpisane wielkości. Nie kontynuować teraz sweepów promienia/torsji ani hipotezy 5→6/kuli — operator bazowy jest brakujący.
+
+
+## Dodatkowa kontrola krzyżowa: istniejący test chiralności Helix-Lock (2026-11-09)
+
+Sprawdzono bezpośrednio repozytorium siostrzane `jbackk-lang/Helix-Lock`, wskazane w `CONCEPT_ARCHIVE_AUDIT_AXIS_TUNNEL_REDUCTION_2026-11-09.md`. Eksperyment `experiments/helical_tunnel_chirality.py` i jego testy już realizują syntetyczną kontrolę odbicia helisy i transportu sygnału w ramie Freneta. CI run **42559444225**: 148 testów zaliczonych w Pythonie 3.11 i 148 w 3.12. W logach: średni błąd lustrzany przy konwencji fazy zależnej od chiralności = 0; przy naiwnej stałej konwencji = 1.255915117488; torsje prawej/lewej helisy = ±0.311804008909; macierze i widma G5 pozostają identyczne pod odbiciem, bo G5 używa `abs(tau)`.
+
+**Decyzja:** nie kopiować ani nie powtarzać standardowego testu chiralności do GIA. Jest już działającym baseline'em, ale pozostaje syntetyczny i nie wyprowadza reguły fazy z pierwotnego modułu TIMDR. Następne nowe badanie ma sprawdzić, czy formalnie zdefiniowany moduł trójkątny TIMDR indukuje tę samą regułę transportu ramy/fazy. Do tego czasu nie projektować kolejnego operatora chiralnego ani nie zmieniać G5.
