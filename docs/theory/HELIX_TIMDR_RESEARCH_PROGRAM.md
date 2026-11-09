@@ -815,3 +815,8 @@ Zapisano `docs/geometry/PREREG_TIMDR_TRIANGLE_MODULE_OPERATOR_v0.1.md`. Protokó
 ### 30.6. Decyzja autora: czworościan reprezentowany przez wierzchołki
 
 Autor doprecyzował, że obiektem są wierzchołki, ale rozumiane jako reprezentacja czworościanu. Prerejestracja została zaktualizowana: moduł bazowy to cztery uporządkowane punkty w R³. Jako pierwszy wariant operacyjny badamy regułę BC: odbicie najstarszego wierzchołka względem płaszczyzny trzech pozostałych, dopisanie nowego punktu i przesunięcie okna o jeden. Nie zakładamy z góry, że czworościan TIMDR jest foremny ani że reguła BC jest jego prawem; testujemy przypadek foremny i ogólny oddzielnie. Status: częściowo odblokowany dla testu referencyjnego; interpretacja jako operator TIMDR wymaga potwierdzenia reguły odbicia.
+
+
+### 30.7. Uogólniona rekurencja wierzchołków czworościanu
+
+Po decyzji autora zaimplementowano `generate_tetrahedral_chain(initial_vertices, count)` w `core/boerdijk_coxeter_tetrahelix.py`. Cztery niekoplanarne punkty definiują bazowy czworościan; najstarszy wierzchołek odbijany jest przez płaszczyznę trzech pozostałych, po czym przesuwa się okno. Test dla nierównego czworościanu potwierdza dokładne zachowanie wszystkich sześciu długości krawędzi kolejnych modułów. To dowód kongruencji przy tej regule, nie dowód stałego ruchu śrubowego dla dowolnego czworościanu. Dla foremnego przypadku BC stały operator jest potwierdzony. CI run `42590580686` dla commita `2d602db...` był w toku w chwili zapisu. Zgodność tej reguły z pierwotnym TIMDR pozostaje do potwierdzenia.
