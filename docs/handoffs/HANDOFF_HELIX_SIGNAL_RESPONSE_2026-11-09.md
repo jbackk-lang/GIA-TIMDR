@@ -234,3 +234,21 @@ Najważniejsze wskazówki: (1) skill opisuje dokładną tetrahelisę Boerdijka�
 Skill ma na początku zdublowany blok front matter; odnotowano to bez zmiany pliku źródłowego.
 
 **Następny krok anty-zapętlenia:** kontynuować minimalny probe, nie powtarzać go od zera. Zamrozić kontrakt wejścia (sygnał, jednostki/normalizacja, amplituda, faza), wykonać prerejestrowane porównanie prostego baseline'u z κ i podpisanym τ, dodać kontrolę szumu i test odbicia lustrzanego, a następnie ustalić, czy istnieje fizyczne uzasadnienie kanału wejściowego. Po każdym kroku aktualizować ten handoff i rejestr wyników.
+
+
+
+## 22. Dokładna tetrahelisa BC i porównanie z HC-01/TIMDR (2026-11-09)
+
+Na podstawie §12 skilla Claude odtworzono konstrukcję Boerdijk–Coxeter w nowym module `core/boerdijk_coxeter_tetrahelix.py`, z dokładną arytmetyką `Fraction`. Dodano 6 testów i workflow `.github/workflows/boerdijk-coxeter-reference.yml`. Run **42588917531 SUCCESS**, 6/6 testów. Równolegle istniejący workflow HC-01 przeszedł ponownie po zmianie testów: run **42588907910 SUCCESS**.
+
+Dokładna transformacja w konwencji wektorów wierszowych: `v_next = v @ R + t`, gdzie `R=1/3[[2,2,-1],[2,-1,2],[1,-2,-2]]`, `t=(-2/3,-2/3,-2/3)`. Testy potwierdzają ortogonalność, det=1, zachowanie krawędzi o długości (2√2), regularność kolejnych czworościanów oraz dokładne przewidywanie 60 kolejnych wierzchołków przez jeden operator. Ten sam operator przenosi centroidy kolejnych czworościanów.
+
+Dla tej konwencji oś ma kierunek ((2,1,0)/√5), punkt ((0,0,-2/5)), promień wierzchołków (3√6/5), a przesunięcie osiowe na krok wynosi (-2/√5). Kąt obrotu śrubowego ma cos=-2/3 (131.8103°). Wewnętrzny kąt dwuścienny czworościanu ma cos=+1/3 (70.5288°). Skill §12 nazywa wartość cos=1/3 „torsion angle”; w dalszych dokumentach nie utożsamiać tego terminu z kątem śrubowym ani z ciągłą torsją Freneta–Serreta.
+
+Porównanie BC–HC-01–TIMDR zapisano w `docs/geometry/COMPARISON_BC_HC01_TIMDR_2026-11-09.md`. Wniosek: punkty BC są dokładnymi dyskretnymi próbkami pewnej helisy kołowej HC-01 po sztywnym ustawieniu osi; dla niej (a=3√6/5), (h=(-2/√5)/acos(-2/3)), (κ≈0.6359118106), (τ_FS≈-0.1682241117), (τ_FS/κ≈-0.2645400022). Cięciwa między sąsiednimi punktami ma dokładnie długość (2√2). To nie czyni całego łańcucha tetraedrów tożsamym z ciągłą krzywą HC-01.
+
+**Ważne rozstrzygnięcie:** w G2–G4/G9 TIMDR ma trójkąt, asymetrię i pole normalnych/operator Weingartena, ale nadal nie ma jednoznacznej reguły odbicia/sklejenia modułu trójkątnego ani macierzy (S_{TIMDR}). Zatem BC jest wzorcem kompletnej konstrukcji, a nie dowodem, że TIMDR już taką konstrukcję posiada. Obecna hipoteza trójkąt→helisa pozostaje HYPOTHESIS.
+
+**Druga granica integracji:** G5 / `build_ring_matrices` zakłada zamkniętą krzywą i cykliczny pierścień; łańcuch BC jest otwarty. Nie podawać go bezpośrednio do G5 przez sztuczne domknięcie. G5 ponadto używa `abs(tau)`, więc nie testuje chiralności. Ewentualne sprzężenie chiralne wymaga jawnej ramy/wektorowych stopni swobody i uzasadnionej miary obrotu na segmencie, nie tylko zmiany znaku skalarnej sprężyny.
+
+**Następny krok:** odzyskać z definicji TIMDR dokładnie to, co jest odbijane (wierzchołki/moduł/orientacja/stan), płaszczyznę i stronę odbicia, interfejs sklejenia i regułę fazy. Dopiero wtedy wyprowadzić/testować (S_{TIMDR}), przewidywać niewykorzystane moduły i wykonać test lustrzany. Wstrzymać dalsze sweepy i hipotezy 5→6/kula do czasu zdefiniowania tego operatora.
