@@ -919,3 +919,14 @@ W przykładowym niekoplanarnym czworościanie hesjan w minimum ma sześć zerowy
 Ograniczenie jest zasadnicze: sprężyny o długościach naturalnych równych odległościom początkowym nie generują ruchu śrubowego. W spoczynku siły są zerowe; przy zadanym wspólnym ruchu sztywnym sprężyny pozostają nieodkształcone. Zatem więź geometryczna nie jest jeszcze synchronizacją ani napędem. Oddzielono też potencjał sprężynowy od Newtonowskiej grawitacji; analogia grawitacyjna wymaga źródła, prawa pola, jednostek i przewidywań.
 
 Następny test porównawczy: A — brak sprzężenia, B — K4 sprężynowe, C — Newtonowski potencjał par jako kontrola. Identyczne warunki początkowe; mierzyć sześć odległości, objętość/orientację, środek masy, moment pędu, oś i fazy. Nie nazywać żadnego z modeli fizycznym modelem TIMDR bez uzasadnienia kanału i kalibracji.
+
+
+### 30.19. Hipoteza wiązania informacji i rozproszenia — 2026-11-09
+
+Zapisano hipotezę autora, że trwała struktura informacji wymaga mechanizmu przeciwdziałającego rozproszeniu, analogicznie funkcjonalnie do oddziaływań wiążących w materii. Nowy dokument: `docs/theory/INFORMATION_BINDING_AND_DISPERSION_HYPOTHESIS_v0.1.md`.
+
+Rozdzielono trzy klasy: (A) kontener/warunki brzegowe, (B) więź wewnętrzna między elementami, (C) samopodtrzymywana dynamika/sprzężenie zwrotne. Informacja wzajemna mierzy zależność statystyczną, ale nie dowodzi siły ani przyczynowości. Zaproponowano model czterech stanów `żdot z_i=f_i(z_i,u_i)+Σg_ij(z_i,z_j)` i eksperyment porównujący kontener, sprzężenie wewnętrzne bez kontenera oraz swobodny układ kontrolny.
+
+Analogie fizyczne doprecyzowano: wiązania wodorowe i inne oddziaływania elektromagnetyczne stabilizują wodę; chmury atmosferyczne są kroplami/ kryształami lodu, a nie skupiskami gazowych cząsteczek utrzymywanymi jak galaktyki; w dużych obłokach i galaktykach grawitacja może być istotna. Nie postulować jednej siły dla wszystkich skal.
+
+**Pytanie rozstrzygające TIMDR:** czy cztery elementy zachowują wspólną strukturę po usunięciu zewnętrznego kontenera, wyłącznie dzięki mierzalnemu sprzężeniu wewnętrznemu? „Grawitacja informacji” pozostaje metaforą, dopóki nie ma pola, źródeł, jednostek, dynamiki i falsyfikowalnych predykcji.
