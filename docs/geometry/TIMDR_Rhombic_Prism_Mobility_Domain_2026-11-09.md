@@ -632,3 +632,28 @@ Walidacja CI dla poprawionego modelu i przecięć:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42633731178
 
 Wynik: PASS. CI odtworzyło 61 przecięć (54 podwójne, 6 potrójnych, 1 sześciokrotne), sprawdziło symbolicznie środek i sześć punktów potrójnych oraz uzyskało 65 map w centrum i 320 w próbce ogólnej.
+
+
+## 16. Rozwijanie widma śrubowego wokół konfiguracji centralnej
+
+Dodano eksperyment \`experiments/rhombic_prism_central_screw_unfolding.py\`. Dla centrum oraz sześciu kierunków perturbacji o promieniu \(\varepsilon=10^{-3}\) enumeruje on wszystkie 320 zredukowanych słów długości 4 i klasyfikuje wynikowe afiniczne izometrie.
+
+| Konfiguracja | Różne mapy | Śruby | Obroty | Translacje | Identyczność |
+|---|---:|---:|---:|---:|---:|
+| Centrum \((0,0)\) | 65 | 24 | 30 | 10 | 1 |
+| Kierunek \(0^\circ\) | 245 | 84 | 148 | 12 | 1 |
+| Kierunek \(30^\circ\) | 320 | 120 | 188 | 12 | 0 |
+| Kierunek \(45^\circ\) | 314 | 120 | 186 | 8 | 0 |
+| Kierunek \(21.199^\circ\) | 320 | 120 | 192 | 8 | 0 |
+| Kierunek \(60^\circ\) | 245 | 84 | 148 | 12 | 1 |
+| Kierunek \(90^\circ\) | 320 | 120 | 188 | 12 | 0 |
+
+Wszystkie kierunki poza centrum mają \(\varepsilon=10^{-3}\). W centrum występuje 24 śrubowe mapy długości 4; po perturbacji jest ich 84 na wybranych kierunkach symetrii i 120 w próbkach ogólnych. Rozszczepienie zależy od kierunku.
+
+Wartości bezwzględnego skoku śrubowego pozostają bliskie \(3/2\) i \(2\). Maksymalna zmiana kierunku osi względem najbliższej osi centralnej w tych próbkach wynosi około \(0.1^\circ\). Wynik sugeruje rozszczepienie zdegenerowanych transformacji, a nie gwałtowną zmianę wszystkich kierunków osi.
+
+**Interpretacja:** centrum jest kandydatem na punkt rozgałęzienia (unfolding) rodzin ruchów śrubowych w skończonym widmie odbić. Nie jest to jeszcze dowód bifurkacji całej nieskończonej grupy: zbadano wyłącznie słowa długości 4.
+
+Kod: \`experiments/rhombic_prism_central_screw_unfolding.py\`.
+
+Walidacja CI: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42635226502 — PASS.
