@@ -132,3 +132,12 @@ Użytkownik wskazał Synoptyk-v3. Audyt repo `jbackk-lang/Synoptyk-v3` potwierdz
 Dla helisy może to być brakująca warstwa między surowym sygnałem a GS-Matrix/G-Rezonansem. To wzorzec architektoniczny, nie gotowy fizyczny operator: pole pogodowe Synoptyka nie jest polem oddziaływania helisy; jego heurystyczny rezonans nie jest oscylatorem fizycznym; MetaState nie jest siłą/energią. Szczególnie cenna jest praktyka zachowania orientacji: wiatr jest rozkładany na u/v przed interpolacją, by nie zgubić cykliczności kierunku. Analogicznie helikalna reprezentacja nie może gubić fazy ani znaku chiralności.
 
 Dokument analizy: `docs/handoffs/SYNOPTYK_V3_FIELD_TRANSFORM_CLUE_FOR_HELIX_2026-11-09.md`. Następny minimalny krok: dla jednego sygnału sprawdzić transformację sygnał→pole→cechy pola→rekonstrukcja, mierząc co zostało zachowane/utracone; dopiero potem mapować wybrane cechy na stan S w GS-Matrix i odpowiedź G. Nie pisać nowego operatora ani nie zakładać fizycznego sprzężenia przed tym testem.
+
+
+## 13. Test zachowania fazy/chiralności w transformacji do pola (2026-11-09)
+
+Wykonano test syntetyczny wzorowany na interpolacji Synoptyk-v3 (griddata cubic, 9×9→81×81). Dla pola `φ=±atan2(y,x)` interpolacja pary `cosφ,sinφ` i rekonstrukcja `atan2` zachowały winding +1/−1; interpolacja samego zawiniętego kąta jako skalara dała winding ≈0 dla obu znaków. MAE fazy 0.826°, p95 3.846°. CI run `42584118204`: 3/3 PASS. Raport: `docs/handoffs/RESULT_PHASE_FIELD_CHIRALITY_PRESERVATION_2026-11-09.md`; kod: `experiments/phase_field_preservation/`.
+
+Dodatkowa obserwacja: radialne widmo mocy i moduł gradientu nie zachowują orientacji/chiralności (lustrzane pola dają identyczne te cechy); wirowość ze znakiem oraz winding mogą ją zachować. Dla helisy trzeba przechowywać parę kwadraturową, amplitudę/normę, znak winding i miejsca zaniku normy; nie redukować do samego kąta, modułu lub radialnego widma.
+
+Wynik potwierdza wybór reprezentacji w syntetycznym teście, nie fizyczne sprzężenie sygnału z helisą. Następny krok: test odporności pary kwadraturowej i znaku winding na szum oraz rozdzielczość próbkowania, zanim pole zostanie mapowane na S w GS-Matrix.
