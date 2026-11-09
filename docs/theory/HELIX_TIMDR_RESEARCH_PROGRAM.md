@@ -472,3 +472,14 @@ Model referencyjny wykorzystuje powierzchnię obrotową
 CI [42564365070](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42564365070) zaliczył wszystkie testy i oba uruchomienia. W tym modelu mostek-kandydat ma długość 0.949232 na kuli i 0.919649 na jaju; zakres podpisanej torsji jest odpowiednio około ±0.959278 i ±1.619435. Torsja zmienia znak, więc obecna krzywa testowa nie spełnia jeszcze wymogu stałej orientacji skrętu. To jawny wynik negatywny, który musi wejść do następnej wersji modelu.
 
 Ważne ograniczenie: obecny mostek jest interpolacją po parametrach powierzchni, nie geodezyjną; pozostałe trzy krzywe są fazowo przesuniętymi kopiami, a nie rozwiązaniem relaksacji sprężystej. Nie traktować v0.1 jako pełnego dowodu topologicznego ani fizycznego. Następny krok: geodezyjny/energetycznie optymalny mostek, relaksacja trzech krzywych przy warunkach brzegowych i jawny warunek zachowania znaku torsji.
+
+
+## 22. Korekta zgodna z decyzją autora: ćwiartka fazowa i odpadnięcie całej helisy
+
+Decyzja z 2026-11-09: przyjmujemy obrót fazowy jako miarę podziału kuli; jedna helisa odpada w całości, a nie przez usunięcie łuku. Cztery sektory mają po (90^\circ=2\pi/4); po redukcji trzy ocalałe mają dopasować się do (120^\circ=2\pi/3). Kula jest geometrią bazową. Jajo pozostaje wariantem kontrolnym, w którym porównujemy podział fazowy z podziałem według długości łuku, nie zakładając ich równoważności.
+
+Nowy model v0.2: `experiments/helix_reduction/phase_locked_whole_strand_reduction.py`; specyfikacja: `docs/geometry/PHASE_QUARTER_WHOLE_STRAND_DETACHMENT_4_TO_3_v0.2.md`. Testy w `experiments/helix_reduction/tests/test_phase_locked_whole_strand_reduction.py`. Workflow uruchamia model na kuli i jaju.
+
+**Kontrola krytyczna:** w idealnie symetrycznej kuli z czterema identycznymi helisami i symetrycznymi warunkami brzegowymi wszystkie cztery mają ten sam próg. Samo rozszerzanie/kurczenie nie wybierze jednej helisy. Jednoznaczne odpadnięcie wymaga fizycznego selektora: asymetrii, zaburzenia albo różnego warunku brzegowego. To musi wynikać z danych/teorii, nie z arbitralnego wskazania w kodzie.
+
+Zachowanie ręczności w v0.2 jest kontrolowane przez znak kierunku fazowego (\sigma=\mathrm{sign}(d\phi/du)), osobno od podpisanej torsji Freneta. Model pozostaje kinematyczny: nie rozwiązuje jeszcze mechaniki odłączenia ani relaksacji energii trzech pozostałych helis.
