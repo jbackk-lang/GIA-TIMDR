@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
 import unittest
 from nrg01_build_graph import daughter_for, parse_nuclide, graph_metrics
 
