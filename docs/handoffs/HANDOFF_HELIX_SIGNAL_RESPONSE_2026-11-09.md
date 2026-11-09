@@ -281,3 +281,6 @@ Raport rozszerzono o te źródła w `docs/geometry/COMPARISON_BC_HC01_TIMDR_2026
 
 
 **Wynik CI uogólnionej rekurencji:** run `42590580686` — SUCCESS, **9/9 testów**. Dla nierównego czworościanu wszystkie sześć długości krawędzi jest zachowane w każdym kolejnym oknie; koplanarne wejście jest odrzucane. https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42590580686
+
+
+**Nowe ograniczenie geometrii (09:06Z):** autor wskazał, że przy ujęciu czworościanu w kuli trzeba uwzględnić podwójną reprezentację albo alternatywnie powierzchnię jajowatą. Zapisano oba warianty w `docs/geometry/SPHERICAL_ENCLOSURE_DOUBLE_TETRAHEDRON_OR_EGG_v0.1.md`. Dla kuli testujemy jako pierwszą interpretację partnera antypodycznego (v_i^*=2c-v_i). Dla regularnego tetrahedronu para antypodyczna uzupełnia osiem naroży sześcianu wpisanego w sferę — dokładna własność geometrii regularnej. Dla asymetrycznego jaja zwykła inwersja centralna nie zachowuje powierzchni, więc wymagana byłaby osobna mapa. Znaczenie „podwójnej reprezentacji” pozostaje hipotezą do doprecyzowania; nie utożsamiać jej z podwójnym pokryciem, lustrzanym odbiciem ani antycząstką.
