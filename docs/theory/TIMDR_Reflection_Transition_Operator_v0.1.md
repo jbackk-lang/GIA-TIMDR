@@ -1,0 +1,167 @@
+# TIMDR — operator przejścia zdarzenie–powierzchnia–odbicie–kształt (v0.1)
+
+**Data:** 2026-11-09  
+**Status:** propozycja formalizacji i plan testu; nie jest jeszcze prawem fizycznym ani potwierdzonym mechanizmem fraktalnym.
+
+## 1. Cel i miejsce w architekturze
+
+Dokument łączy istniejące elementy repozytorium:
+- graf zdarzeń TRM/GIA: energia, czas i położenie;
+- Chronoproces: rodzina trajektorii i powierzchnia zależna od czasu;
+- geometria z grafu: krzywa, wstęga/rura i ramy normalne;
+- dokładne odbicie punktu względem płaszczyzny oraz rekurencję czworościenną BC;
+- gałęzie META/K/G jako miejsca zapisu obserwabli i wyników.
+
+Brakującym elementem jest jawny operator przejścia, który określa, jak stan zdarzenia i kontakt z powierzchnią ograniczają następny moduł oraz — jeśli istnieje wiele dopuszczalnych kontynuacji — jak przypisuje się im prawdopodobieństwa.
+
+## 2. Stan zdarzenia
+
+Dla kroku n zapisujemy:
+
+\[
+X_n=(t_n,p_n,u_n,\Sigma_n,n_n,M_n,h_n),
+\]
+
+gdzie:
+- t_n — czas zdarzenia;
+- p_n — położenie zdarzenia w R^3;
+- u_n — jednostkowy kierunek wejściowy;
+- Sigma_n — lokalna powierzchnia kontaktu;
+- n_n — jednostkowa normalna powierzchni w punkcie kontaktu;
+- M_n — bieżący moduł/konfiguracja geometryczna;
+- h_n — historia stanów i przejść potrzebna do sprawdzenia zależności od pamięci.
+
+Graf zdarzeń już dostarcza t_n i p_n. Kierunek u_n można estymować z dwóch kolejnych pozycji tylko wtedy, gdy Δt_n>0 i p_n-p_(n-1) jest niezerowe. Jeżeli dostępna jest niezależna prędkość lub kierunek pomiarowy, należy użyć jej zamiast estymacji.
+
+## 3. Powierzchnia i normalna
+
+Jeśli Chronoproces daje regularną parametryzację powierzchni:
+
+\[
+\Gamma(t,s),
+\]
+
+to w punkcie (t_n,s_n) kandydacka normalna wynosi:
+
+\[
+n_n=\frac{\partial_t\Gamma\times\partial_s\Gamma}
+{\|\partial_t\Gamma\times\partial_s\Gamma\|}.
+\]
+
+Warunek regularności to niezerowy iloczyn wektorowy. Gdy znika, normalna nie jest określona i operator musi zwrócić stan osobliwy/nieokreślony, a nie zgadywać kierunek.
+
+Orientację normalnej trzeba zamrozić jedną konwencją. Odwrócenie znaku normalnej nie zmienia idealnego wzoru odbicia, ale ma znaczenie dla znakowanych kątów, stron powierzchni i klasyfikacji wejścia/wyjścia.
+
+## 4. Geometria odbicia
+
+Dla jednostkowego kierunku padającego u_n i jednostkowej normalnej n_n idealne odbicie zwierciadlane ma postać:
+
+\[
+u_n^{+}=u_n^{-}-2(u_n^{-}\cdot n_n)n_n.
+\]
+
+Kąt padania i odbicia mierzymy względem normalnej:
+
+\[
+\theta_i=\arccos(|u_n^{-}\cdot n_n|),\qquad
+\theta_r=\arccos(|u_n^{+}\cdot n_n|),
+\]
+
+więc dla idealnego odbicia zachodzi theta_i=theta_r. To prawo jest deterministyczne. Nie jest samo w sobie rozkładem prawdopodobieństwa i nie tworzy automatycznie fraktala.
+
+## 5. Zbiór dopuszczalnych kontynuacji
+
+Niech B(X_n) oznacza skończony zbiór kandydackich następnych modułów/gałęzi. Kandydat b należy do B(X_n) tylko wtedy, gdy spełnia jawne warunki:
+1. zgodność topologiczna połączeń;
+2. warunki brzegowe i dopuszczalność geometryczna;
+3. brak niedozwolonej degeneracji;
+4. jawna reguła orientacji i sklejenia;
+5. ograniczenia modelu źródłowego, w tym ewentualny mechanizm dodawania elementu.
+
+Jeśli zbiór B(X_n) jest pusty, przejście jest niedopuszczalne. Nie wolno sztucznie normalizować prawdopodobieństwa na pustym zbiorze.
+
+## 6. Jądro prawdopodobieństwa
+
+Jeżeli istnieje więcej niż jedna dopuszczalna kontynuacja, definiujemy jądro:
+
+\[
+P(b\mid X_n)=0\quad\text{dla }b\notin B(X_n),
+\]
+
+\[
+P(b\mid X_n)\geq0,\qquad
+\sum_{b\in B(X_n)}P(b\mid X_n)=1.
+\]
+
+Sam kąt nie wyznacza tego rozkładu. Potrzebny jest mechanizm: zmierzona częstość, jawny model fluktuacji albo wcześniej określona funkcja kosztu/energii.
+
+Jako model zerowy do testów można użyć rozkładu jednostajnego na B(X_n). Jako rodzinę modeli alternatywnych można prerejestrować:
+
+\[
+P_\beta(b\mid X_n)=
+\frac{\exp[-\beta C(b\mid X_n)]}
+{\sum_{c\in B(X_n)}\exp[-\beta C(c\mid X_n)]},
+\]
+
+gdzie C jest zdefiniowanym przed eksperymentem kosztem, a beta parametrem dopasowywanym wyłącznie na zbiorze treningowym. Ten zapis jest rodziną hipotez, nie twierdzeniem, że natura wybiera rozkład Boltzmanna. Wyniki trzeba porównać z modelem jednostajnym i deterministycznym.
+
+## 7. Aktualizacja kształtu
+
+Po wyborze b_następny stan wynosi:
+
+\[
+X_{n+1}=F(X_n,b_{n+1}).
+\]
+
+Mapa F musi jawnie zwracać co najmniej: nowy czas, położenie, kierunek, moduł, połączenia grafu, orientację i zapis historii. Jeżeli model przewiduje dodawanie elementów, operacja dodania musi poprzedzać test dopuszczalności i ewentualną redukcję; nie wolno zastępować jej arbitralnym usuwaniem helisy.
+
+## 8. Test fraktalności — warunek konieczny
+
+Powtarzane odbicia izometryczne zachowują skalę. Sama rekurencja odbicia nie dowodzi fraktalności.
+
+Aby mówić o mechanizmie fraktalnym, trzeba wykazać rekurencyjne generowanie struktur na wielu skalach. Jednym z możliwych modeli jest rodzina map kontrakcyjnych:
+
+\[
+F_b: M\mapsto M_b,\qquad 0<r_b<1,
+\]
+
+z regułą wyboru b określoną przez jądro P. Następnie należy zbadać:
+- czy istnieje zakres skal z powtarzalnym prawem;
+- czy wymiar pudełkowy lub inny właściwy wymiar stabilizuje się przy zmianie rozdzielczości;
+- czy wynik jest odporny na obrót, translację, zmianę próbkowania i małe perturbacje;
+- czy wynik przewyższa kontrole: czyste izometrie BC, losowe rozgałęzianie bez geometrii oraz model niehelikalny.
+
+Jeżeli nie ma kontrakcji ani innego wykazanego mechanizmu zmiany skali, wynik klasyfikujemy jako geometrię rekurencyjną, nie fraktalną.
+
+## 9. Minimalny eksperyment rozstrzygający
+
+1. Wczytać graf zdarzeń z (e_i,t_i,p_i) i zamrozić kalibrację GIA.
+2. Zbudować powierzchnię z Chronoprocesu; zapisać parametryzację, domenę i konwencję normalnej.
+3. Wyznaczyć u_n i n_n; odrzucić lub oznaczyć przypadki osobliwe.
+4. Zastosować deterministyczne prawo odbicia i wygenerować zbiór dopuszczalnych kontynuacji.
+5. Porównać trzy modele wyboru: deterministyczny, jednostajny i prerejestrowane jądro alternatywne.
+6. Zastosować operator aktualizacji F, zachowując pełną historię przejść.
+7. Zmierzyć geometrię, topologię, rozkłady kątów, skalę i stabilność; wykonać kontrole oraz walidację na danych niewykorzystanych do dopasowania.
+
+## 10. Kryteria falsyfikacji
+
+- Jeśli normalna powierzchni nie jest jednoznaczna lub niestabilna, hipoteza o odbiciu na tej powierzchni nie jest jeszcze testowalna.
+- Jeśli tylko jedna kontynuacja spełnia warunki, model probabilistyczny redukuje się do deterministycznego wyboru.
+- Jeśli częstości przejść nie różnią się od modelu jednostajnego/deterministycznego w prerejestrowanym teście, nie ma wsparcia dla postulowanego prawa probabilistycznego.
+- Jeśli iteracje zachowują skalę, nie ma dowodu fraktalności.
+- Jeśli wynik zależy od arbitralnego doboru promienia rury, ramki, progu lub zakresu skal, trzeba raportować tę zależność; nie jest to niezmiennik teorii.
+
+## 11. Powiązanie z istniejącymi plikami
+
+- docs/theory/TIMDR_EventGraph_Branch_Construction.md
+- docs/theory/TIMDR_Geometry_From_EventGraph.md
+- docs/theory/TIMDR_Chronoprocess.md
+- core/boerdijk_coxeter_tetrahelix.py
+- docs/geometry/ADDITION_INDUCED_REDUCTION_TRIANGLE_TETRAHEDRON_v0.1.md
+- docs/geometry/TETRAHEDRON_CUBE_TWIST_ANGLE_PROOF_2026-11-09.md
+
+## 12. Decyzja robocza
+
+Najpierw implementujemy i testujemy deterministyczny łańcuch zdarzenie–powierzchnia–odbicie–kontynuacja. Dopiero gdy zbiór dopuszczalnych kontynuacji jest większy niż jeden i istnieją dane lub jawny mechanizm losowości, dodajemy jądro prawdopodobieństwa. Fraktalność pozostaje osobną hipotezą wymagającą wykazania zmiany skali.
+
+**Wniosek:** brakującym ogniwem nie jest kolejny kąt, lecz dobrze określony operator przejścia F wraz z warunkami dopuszczalności i — opcjonalnie — jądrem P. To on połączy istniejący graf zdarzeń, Chronoproces i odbicie BC bez utożsamiania geometrii, prawdopodobieństwa i fraktalności.
