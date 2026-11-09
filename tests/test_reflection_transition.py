@@ -93,7 +93,7 @@ class BoerdijkCoxeterBridgeTests(unittest.TestCase):
         face_center = tuple((a[k] + b[k] + c[k]) / 3.0 for k in range(3))
         incoming = tuple(old[k] - face_center[k] for k in range(3))
         outgoing = tuple(nxt[k] - face_center[k] for k in range(3))
-        normal = tuple(
+        normal = (
             (b[1]-a[1])*(c[2]-a[2]) - (b[2]-a[2])*(c[1]-a[1]),
             (b[2]-a[2])*(c[0]-a[0]) - (b[0]-a[0])*(c[2]-a[2]),
             (b[0]-a[0])*(c[1]-a[1]) - (b[1]-a[1])*(c[0]-a[0]),
