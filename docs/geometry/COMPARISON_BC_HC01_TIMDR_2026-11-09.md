@@ -101,3 +101,27 @@ Nie rozwijać teraz hipotezy 5→6, kuli/jaja ani punktów kardynalnych. Nie ma 
 - BC → G5 response: **NOT DIRECTLY APPLICABLE** bez jawnych warunków końcowych/domknięcia i modelu znaku skrętu.
 
 **Reguła anty-zapętlenia:** następną pracą nie jest kolejny sweep promienia, torsji ani progu. Jest nią formalne odzyskanie źródłowego operatora trójkąt→moduł następny. BC pozostaje referencją do testowania kompletności takiego operatora.
+
+
+## 10. Istniejący test chiralności w repozytorium siostrzanym Helix-Lock
+
+Dodatkowo sprawdzono rzeczywisty kod źródłowy, a nie tylko opis archiwalny:
+- `jbackk-lang/Helix-Lock/experiments/helical_tunnel_chirality.py`
+- `jbackk-lang/Helix-Lock/tests/test_helical_tunnel_chirality.py`
+- `jbackk-lang/Helix-Lock/docs/HELIX_LOOP_PARAMETER_BOUNDS.md`
+
+To już istniejący eksperyment syntetyczny, który tworzy helisę prawą i jej lustrzane odbicie, sprawdza równość krzywizny i przeciwny znak torsji, układa poprzeczny wektor sygnału w lokalnej ramie Freneta, porównuje konwencję fazy zgodną z chiralnością z naiwną stałą konwencją fazy oraz pokazuje, że obecny G5 ma identyczną macierz sztywności i widmo dla obu znaków torsji przez abs(tau).
+
+**Rzeczywiste logi CI Helix-Lock, run 42559444225:**
+- Python 3.11: 148 testów zaliczonych;
+- Python 3.12: 148 testów zaliczonych;
+- średni błąd lustrzany sygnału przy konwencji chiralnej: 0.0;
+- średni błąd przy naiwnej stałej konwencji fazy: 1.255915117488;
+- maksymalny błąd przy konwencji chiralnej: 0.0;
+- maksymalny błąd przy konwencji naiwnej: 1.996053456857;
+- torsja prawej/lewej helisy: +0.311804008909 / -0.311804008909;
+- macierze G5 i widma pod odbiciem: identyczne.
+
+To jest już przetestowany baseline chiralności; nie należy kopiować go ponownie do GIA-TIMDR. Trzeba go traktować jako wynik syntetyczny i konwencję kandydującą, nie jako wyprowadzenie oryginalnego prawa TIMDR ani dowód odzyskiwania dowolnego payloadu.
+
+**Konsekwencja dla następnej pracy:** nie powtarzać testu „czy znak torsji znika w G5” ani testu kowariancji tej samej idealnej helisy — one już istnieją. Nowe pytanie ma być inne: czy źródłowa reguła modułu TIMDR (po jej jednoznacznym zdefiniowaniu) indukuje tę samą regułę transportu ramy/fazy, czy wymaga innej. W razie potrzeby należy rozszerzyć istniejący test o geometrię wyprowadzoną z modułu, a nie tworzyć drugi eksperyment dla standardowej helisy.
