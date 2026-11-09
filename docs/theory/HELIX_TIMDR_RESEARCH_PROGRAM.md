@@ -808,3 +808,5 @@ Bezpośrednio otwarto `TIMDR-Concept-Archive/TRM-Geometry-Core/docs/triangle.md`
 Zapisano `docs/geometry/PREREG_TIMDR_TRIANGLE_MODULE_OPERATOR_v0.1.md`. Protokół nie zgaduje brakującego operatora: jawnie wymaga definicji obiektu odbijanego, współrzędnych, płaszczyzny i strony odbicia, interfejsu sklejenia, transportu orientacji, fazy i osi. Rozdziela hipotezę lokalnej asymetrii modułu od globalnego transportu/sklejenia. Po uzupełnieniu definicji operator ma być wyznaczony na krótkim prefiksie i przewidywać co najmniej 20 modułów holdout; przewidziano kontrole BC, HC-01, null, mirror i broken-seam.
 
 **Status: BLOCKED** do czasu decyzji autora, co dokładnie jest odbijane i jak są łączone kolejne moduły. Nie rozpoczynać implementacji generatora przed zamrożeniem tej definicji.
+
+**Aktualizacja BC:** siódmy test potwierdza dokładne promienie względem wspólnej osi: wierzchołki (3√6/5), centroidy (2/5). GitHub Actions run **42589832124 SUCCESS**, 7/7 testów.
