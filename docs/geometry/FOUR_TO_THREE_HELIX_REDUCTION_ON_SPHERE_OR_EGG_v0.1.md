@@ -183,3 +183,27 @@ Jeżeli zależności utrzymają się w obu kształtach, będą kandydatami na w�
 ### 5.1. Ważna kontrola: średnia a profil lokalny
 
 Dla przyjętej symetrycznej funkcji szerokości geograficznej \(\theta(u)=\pi/2+a\sin(2u)\) składnik liniowy w \(\epsilon\) znosi się w średniej po pełnym okresie. Dlatego średni odstęp po całym obiegu może być taki sam dla kuli i jaja, mimo że lokalny profil odstępów jest inny. Porównanie kształtów musi więc obejmować minimum, maksimum i profil \(d_3(u)\), a nie samą średnią. To jest kontrola przeciwko fałszywemu wnioskowi z jednej liczby agregowanej.
+
+
+## 10. Wynik pierwszego uruchomienia (CI, 2026-11-09)
+
+Workflow: [42564365070](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42564365070) — testy, obliczenie kuli, obliczenie jaja i zapis artefaktów zakończone sukcesem. Artefakt: `helix-four-to-three-sphere-egg`, ID `13650618087`, SHA-256 `55d3bdec9a9257238919d8dfea1c85dba4962b1b7c22b0be6f3f6afeaae11e25`.
+
+Dla (R=1), (u_a=0.15), (u_b=1.1), (N=720):
+
+| Wielkość | Kula | Jajo |
+|---|---:|---:|
+| Długość mostka-kandydata | 0.949232 | 0.919649 |
+| Średni odstęp po redukcji 3-helis | 2.069129 | 2.069129 |
+| Minimalny odstęp po redukcji | 2.043915 | 1.919023 |
+| Maksymalny odstęp po redukcji | 2.094395 | 2.168807 |
+| Długość każdej z trzech pozostałych helis | 6.493437 | 6.561827 |
+| Zakres podpisanej torsji | około ±0.959278 | około ±1.619435 |
+
+W obu przypadkach rozstaw fazowy zmienia się dokładnie z (90^\circ) na (120^\circ). Średni odstęp po pełnym okresie jest taki sam dla tych dwóch instancji, ale profile lokalne i ich zakresy są różne. To potwierdza, że sama średnia ukrywa wpływ kształtu.
+
+**Ważny wynik negatywny dotyczący skrętu:** średnia podpisanej torsji jest bliska zeru, a profil przechodzi przez wartości dodatnie i ujemne. Aktualna krzywa referencyjna jest więc przestrzennym, okresowym przebiegiem na powierzchni, ale nie reprezentuje helisy o stałym znaku torsji. Jeśli w modelu autora orientacja skrętu ma być zachowana, trzeba wprowadzić warunek orientacji/znaku i znaleźć taką rodzinę krzywych, która go spełnia — nie wolno tego dopisać interpretacyjnie po wyniku.
+
+Trzy długości są identyczne w obrębie danego kształtu, ponieważ model narzuca im dokładnie tę samą krzywą z przesunięciem fazowym. To kontrola symetrii konstrukcji, a nie odkryta własność fizyczna.
+
+Wynik dotyczy wyłącznie jawnie zdefiniowanego modelu v0.1. Mostek nie jest geodezyjny, a trzy helisy nie przeszły jeszcze relaksacji sprężystej. Następny etap musi dopuścić deformację i rozwiązać problem minimalizacji energii przy warunkach brzegowych po cięciu.
