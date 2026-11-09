@@ -9,6 +9,7 @@ on:
       - "experiments/rhombic_prism_locus_intersections.py"
       - "experiments/rhombic_prism_central_screw_unfolding.py"
       - "experiments/rhombic_prism_screw_unfolding_multidegree.py"
+      - "experiments/rhombic_prism_screw_axis_spatial_organization.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -34,3 +35,5 @@ jobs:
         run: python experiments/rhombic_prism_central_screw_unfolding.py
       - name: Test screw unfolding at word lengths 2, 4 and 6
         run: python experiments/rhombic_prism_screw_unfolding_multidegree.py
+      - name: Analyze spatial organization of screw axes
+        run: python experiments/rhombic_prism_screw_axis_spatial_organization.py
