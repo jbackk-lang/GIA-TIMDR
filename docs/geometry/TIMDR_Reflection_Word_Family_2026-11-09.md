@@ -75,3 +75,7 @@ Kod: `experiments/reflection_word_family.py`
 Uruchomienie: `python experiments/reflection_word_family.py`
 
 CI: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42601192457
+
+## 9. Status CI
+
+GitHub Actions zakończył workflow powodzeniem: 15/15 testów jednostkowych, eksperyment BC, drzewo gałęzi oraz klasyfikacja słów odbić długości 1–6 przeszły. Logi klasyfikacji potwierdzają dokładnie podane wyżej liczności i niezmienniki: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42601192457.
