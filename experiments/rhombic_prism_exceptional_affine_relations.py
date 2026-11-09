@@ -77,7 +77,7 @@ def main():
     numerator = s.factor((2*(v**2+w**2)*dot).subs(w**2, 1-u**2-v**2))
     expected = s.sqrt(3)*u**3 - u**2*v + 2*s.sqrt(3)*u*v**2 - s.sqrt(3)*u + v
     assert s.simplify(numerator-expected) == 0
-    on_ellipse = s.factor(numerator.subs(u**2, 1-4*v**2))
+    on_ellipse = s.factor(s.rem(numerator, u**2 + 4*v**2 - 1, u))
     assert s.simplify(on_ellipse - 2*v**2*(2*v-s.sqrt(3)*u)) == 0
     print("PASS: exact orthogonality condition derived on E1.")
     print("E1: u^2+4*v^2=1")
