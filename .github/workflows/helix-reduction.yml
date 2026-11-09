@@ -36,6 +36,9 @@ jobs:
       - name: Run phase-locked whole-strand reduction on egg (v0.2 sensitivity)
         run: |
           python experiments/helix_reduction/phase_locked_whole_strand_reduction.py --shape egg --out artifacts/phase_reduction_egg_v02.json
+      - name: Run three-lobe signed signal audit (v0.1)
+        run: |
+          python experiments/helix_reduction/three_lobe_signal_audit.py --out artifacts/three_lobe_signal_audit_v01.json
       - name: Upload comparison artifacts
         uses: actions/upload-artifact@v4
         with:
