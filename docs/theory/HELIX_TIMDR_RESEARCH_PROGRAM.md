@@ -415,3 +415,14 @@ Utworzono prerejestrację `docs/experiments/NRG-01_NUCLEAR_REDUCTION_GRAPH.md`. 
 W repozytorium dodano skrypt `experiments/nuclear_reduction/NRG-01/src/nrg01_build_graph.py`, testy jednostkowe i README. Skrypt korzysta z IAEA LiveChart API, zachowuje surowe CSV i SHA-256, a niejednoznaczne kanały pozostawia nierozwiązane. Szczegóły i ograniczenia w `docs/experiments/NRG-01_NUCLEAR_REDUCTION_GRAPH.md`.
 
 **Uczciwy status:** implementacja jest zapisana; nie potwierdzono jeszcze jej uruchomienia na danych zdalnych ani przejścia testów. Następny raport musi zawierać rzeczywisty log uruchomienia i artefakty CSV/JSON, zanim zaczniemy interpretować graf.
+
+
+## 18. Znak skrętu i hipoteza chiralności / antycząstki
+
+Nowa uwaga badawcza: w modelu helisy należy zachowywać **podpisany znak skrętu** (lewy/prawy), nie redukować go do wartości bezwzględnej. Znak może być ważną cechą kardynalną geometrii i kandydatem na obserwablę chiralności.
+
+Nie utożsamiać jednak ręczności geometrycznej z antycząstką. Trzeba rozdzielić torsję geometryczną, chiralność, heliczność, parzystość P i sprzężenie ładunkowe C. Odbicie P odwraca chiralność geometryczną, ale nie zamienia samo z siebie cząstki w antycząstkę. Szczególny związek heliczności neutrin i antyneutrin w oddziaływaniach słabych nie jest ogólną regułą dla wszystkich cząstek.
+
+Szczegółowy protokół, definicję podpisanej torsji, kontrolę konwencji osi/parametryzacji oraz hipotezy falsyfikowalne H-CH0/H-CH1/H-CH2 zapisano w `docs/experiments/NRG-01_NUCLEAR_REDUCTION_GRAPH.md`, sekcja 13.
+
+**Konsekwencja dla modelu helisy:** znak skrętu staje się obowiązkowym polem zapisu geometrii. Nie jest etykietą cząstka/antycząstka, dopóki nie zostanie wykazane niezależne mapowanie do C, P i CP.
