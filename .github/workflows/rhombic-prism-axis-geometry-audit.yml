@@ -1,0 +1,25 @@
+name: Rhombic prism axis geometry audit
+
+on:
+  push:
+    paths:
+      - "experiments/rhombic_prism_axis_geometry_limit_audit.py"
+      - "experiments/rhombic_prism_axis_limit_study.py"
+      - "experiments/rhombic_prism_mobility_screw_coupling.py"
+      - ".github/workflows/rhombic-prism-axis-geometry-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  axis-geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy
+      - name: Audit cumulative Pluecker-space axis geometry
+        run: python experiments/rhombic_prism_axis_geometry_limit_audit.py
