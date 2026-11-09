@@ -27,3 +27,5 @@ jobs:
         run: python experiments/reflection_transition_bc_bridge.py
       - name: Run exact multi-branch reflection tree experiment
         run: python experiments/reflection_branch_tree.py
+      - name: Run exact fixed-face reflection word classification
+        run: python experiments/reflection_word_family.py
