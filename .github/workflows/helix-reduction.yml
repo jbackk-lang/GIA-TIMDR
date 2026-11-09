@@ -4,7 +4,8 @@ on:
     branches: [main]
     paths:
       - "experiments/helix_reduction/**"
-      - "docs/geometry/FOUR_TO_THREE_HELIX_REDUCTION_ON_SPHERE_OR_EGG_v0.1.md"\n      - "docs/geometry/THREE_LOBE_SINUSOID_SIGNAL_AUDIT_v0.1.md"
+      - "docs/geometry/FOUR_TO_THREE_HELIX_REDUCTION_ON_SPHERE_OR_EGG_v0.1.md"
+      - "docs/geometry/THREE_LOBE_SINUSOID_SIGNAL_AUDIT_v0.1.md"
       - ".github/workflows/helix-reduction.yml"
   workflow_dispatch:
 
@@ -39,7 +40,10 @@ jobs:
       - name: Run three-lobe signed signal audit (v0.1)
         run: |
           python experiments/helix_reduction/three_lobe_signal_audit.py --out artifacts/three_lobe_signal_audit_v01.json
-      - name: Audit sinusoid lobe to trefoil torsion correspondence\n        run: |\n          python experiments/helix_reduction/trefoil_lobe_correspondence_audit.py --out artifacts/trefoil_lobe_correspondence_v01.json\n      - name: Upload comparison artifacts
+      - name: Audit sinusoid lobe to trefoil torsion correspondence
+        run: |
+          python experiments/helix_reduction/trefoil_lobe_correspondence_audit.py --out artifacts/trefoil_lobe_correspondence_v01.json
+      - name: Upload comparison artifacts
         uses: actions/upload-artifact@v4
         with:
           name: helix-four-to-three-phase-locked-v02
