@@ -7,6 +7,8 @@ on:
       - "core/boerdijk_coxeter_tetrahelix.py"
       - "tests/test_reflection_transition.py"
       - "experiments/reflection_transition_bc_bridge.py"
+      - "experiments/reflection_branch_tree.py"
+      - "experiments/reflection_word_family.py"
       - ".github/workflows/reflection-transition-bc-bridge.yml"
   workflow_dispatch:
 
