@@ -166,3 +166,18 @@ Wniosek precyzyjny: DNA nie musi kodować gotowej geometrii muszli; koduje/regul
 Audyt repo: TIMDR-DNA jest analizatorem depth-of-coverage/CNV, nie modelem morfogenezy DNA; Helix-Lock jest narzędziem kryptograficznym, nie biologicznym modelem helisy. GIA-TIMDR nie ma jeszcze łańcucha DNA→rozwój→morfologia. Nie przedstawiać tego jako istniejącego kodu ani potwierdzonej fizyki TIMDR.
 
 Następny minimalny test koncepcyjny: rozdzielić (1) parametr dziedzicznej chiralności, (2) lokalną regułę przyrostu brzegu muszli, (3) mechaniczne sprzężenie ciała i muszli oraz (4) obserwowaną geometrię zwoju. Najpierw testować, czy zmiana chiralności i parametrów wzrostu daje właściwy znak skrętu i klasy kształtów; później dodawać mechanikę. Biologia jest wzorcem architektury informacja→stan pośredni→reguły wzrostu→geometria, nie dowodem, że obecny G-Rezonans/GS-Matrix jest tym samym mechanizmem.
+
+
+## 16. Korekta epistemiczna: geometria jako źródło formalizacji matematycznej (2026-11-09)
+
+Użytkownik doprecyzował, że geometria nie jest poboczną wizualizacją ani czymś, od czego należy odchodzić ku informacji. **Geometria jest konieczna, ponieważ to z relacji geometrycznych wyprowadzamy formalizm matematyczny i liczby opisujące układ.** Osie, kąty, proporcje, odległości, skręt, orientacja/chiralność, punkty przejścia i warunki brzegowe są pierwotnymi relacjami strukturalnymi; liczby, funkcje, macierze i operatory są ich formalnym zapisem lub miarą.
+
+Zachować więc obie strony bez odwracania ich ról:
+- geometria helisy: struktura i relacje, które trzeba opisać;
+- matematyka: język ilościowego wyprowadzenia tych relacji;
+- operator: formalny model oddziaływania sygnału z geometrią/stanem;
+- odpowiedź: wynik, który można porównać z obserwacją.
+
+Schemat roboczy: `geometria → formalizacja matematyczna → operator oddziaływania → odpowiedź helisy`. Sygnał/informacja jest wejściem do tego układu, nie substytutem geometrii. Trop biologiczny DNA→rozwój→muszla jest przydatny jako przykład tego, jak informacja może wpływać na powstawanie i zmianę geometrii; nie uzasadnia redukowania helisy do samej informacji ani pomijania jej osi, tunelu, skrętu, chiralności i warunków brzegowych.
+
+**Reguła metodologiczna:** nie proponować operatora oderwanego od geometrii. Najpierw wskazać relację geometryczną, następnie jej matematyczną reprezentację, potem sposób oddziaływania sygnału i mierzalną odpowiedź. Nie oznacza to, że wszystkie wielkości muszą być wyprowadzone wyłącznie z geometrii euklidesowej; oznacza, że ich znaczenie w modelu musi być zakotwiczone w jawnej strukturze i relacjach.
