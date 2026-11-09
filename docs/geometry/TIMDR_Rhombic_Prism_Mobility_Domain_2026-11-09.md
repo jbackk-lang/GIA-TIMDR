@@ -770,3 +770,14 @@ https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42637724150
 
 Dalszy test ze zwiększonym progiem kąta \(1^\circ\) jest osobnym testem stabilności:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42637962973
+
+
+Test stabilności z progiem \(1^\circ\) również zakończył się PASS:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42637962973
+
+Po zaostrzeniu progu dla długości 6 otrzymano:
+- centrum: 30 różnych osi;
+- kierunki szczególne: 872–892 osie;
+- kierunki ogólne: 1576–1596 osi.
+
+Maksymalne odległości osi od początku nadal dochodzą do około 77 dla kierunków szczególnych i 133 dla ogólnych. To potwierdza, że samo odcięcie obrotów poniżej \(1^\circ\) nie usuwa całego problemu złego uwarunkowania / odległych osi. Box-counting w pięciu skalach pozostaje skończony i szybko się nasyca (np. centrum: 9 pudełek na każdej skali od \(1/4\) wzwyż w dół; nie ma tu zakresu potęgowego wystarczającego do estymacji wymiaru fraktalnego).
