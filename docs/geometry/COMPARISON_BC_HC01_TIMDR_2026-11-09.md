@@ -134,3 +134,17 @@ Każda ściana czworościanu BC jest trójkątem równobocznym; kolejne tetraedr
 To nie obala G2 TIMDR: G2 mówi o asymetrii trójkąta jako źródle skrętu w gałęzi geometrycznej G, natomiast BC jest konstrukcją łańcucha brył z globalnym transportem orientacji. Pokazuje jednak, że musimy rozdzielić dwa mechanizmy: (a) lokalną asymetrię pojedynczego modułu/pola normalnych oraz (b) globalny obrót/holonomię wynikającą z reguły sklejenia modułów. Nie można zakładać, że jeden z nich automatycznie implikuje drugi.
 
 **Nowy test dla przyszłego operatora TIMDR:** porównać wariant modułu symetrycznego i asymetrycznego przy tej samej regule sklejenia, a osobno zmienić regułę sklejenia przy stałym module. Zmierzyć przyrost fazy/ramy na krok. To rozdzieli, czy źródłem helikalności jest kształt modułu, czy globalna operacja jego transportu. Test ma sens dopiero po formalnym zdefiniowaniu obu wariantów; nie kodować z góry oczekiwanego wyniku.
+
+
+## 12. Kontrola źródeł archiwalnych i repozytoriów siostrzanych
+
+Sprawdzono bezpośrednio wskazane źródła, a nie tylko ich streszczenie w GIA:
+
+- `TIMDR-Concept-Archive/TRM-Geometry-Core/docs/triangle.md` i `src/triangle.py`: trójkąt równoboczny jest opisany przez bok (a=r√3), trzy stany/fazy; kod zwraca jedynie długość boku. Brak 3D współrzędnych modułu, reguły odbicia, płaszczyzny sklejenia lub macierzy przejścia.
+- `TRM-Geometry-Core/docs/core.md` i `docs/transitions.md`: operatorami są relacje skali (√3), (√π), (2/√3); dokument deklaruje zachowanie informacji, ale nie definiuje bijekcji ani operatora generującego helisę.
+- `Topological-Reduction-Model-TRM/core/topological-wave.md` i `core/twist-reduction-law.md`: τ jest skalarnym polem/parametrem w równaniu fali i progu redukcji; nie jest tam geometrią krzywej, torsją Freneta ani regułą modułowego odbicia.
+- `TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py`: istnieje implementacja operatora kształtu na trójkątnej siatce powierzchni; nie generuje ona łańcucha modułów ani osi helisy.
+- `THE_TIMDR_Hyperflow_Engine/the_geo_pro_4d.py`: liczy krzywiznę i torsję z próbek ogólnej trajektorii 3D; nie konstruuje trajektorii z trójkąta.
+- `TIMDR-META-DYNAMICS/models/evolution_helix.py` klasyfikuje stany po wejściowym `MetaState.tau`; jego własny docstring określa progi jako arbitralne. `analysis/meta_torsion.py` liczy oddzielną torsję Freneta trajektorii ((Λ,τ,ρ)). To odrębne wielkości, nie generator helisy.
+
+**Wniosek po kontroli źródeł:** w tych wskazanych repozytoriach i plikach nie znaleziono brakującego (S_{TIMDR}). Zapis „trójkąt → helisa” jest kierunkiem/hipotezą, nie gotowym algorytmem. Nie należy konstruować go przez sklejanie samych współczynników (√3), (√2), τ lub przez zmianę etykiet. Potrzebne są jawne współrzędne, operator odbicia, interfejs sklejenia i orientacja.
