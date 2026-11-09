@@ -149,3 +149,21 @@ Wyniki pokazują, że zmiana geometrii rombów zmienia zarówno widmo kątów, j
 To są dokładne wyniki dla słów długości najwyżej 4. Nie dowodzą, że cała grupa ma tylko te osie lub skoki, ani że trajektorie tworzą zamknięte węzły. Kierunki osi nie określają jeszcze położenia osi w przestrzeni: do badania wzajemnego splątania potrzebne będą również linie osi, a nie tylko ich wektory kierunkowe.
 
 Kod eksperymentu został rozszerzony o klasyfikację map, kierunków osi i niezmienników skoku.
+
+
+### Położenie osi: równoległe, przecinające się czy skośne?
+
+Samo liczenie kierunków osi nie wystarcza. Wyznaczyliśmy więc dla każdej śruby również konkretną prostą osiową, reprezentowaną przez kierunek oraz punkt tej prostej najbliższy początkowi układu. Następnie porównaliśmy wszystkie nieuporządkowane pary różnych osi.
+
+| Relacja między osiami | A: 60°/90° | B: niesymetryczne kąty |
+|---|---:|---:|
+| Różne proste osiowe | 26 | 36 |
+| Pary równoległe | 57 | 174 |
+| Pary przecinające się | 18 | 24 |
+| Pary skośne | 250 | 432 |
+
+Liczności sumują się odpowiednio do (inom{26}{2}=325) i (inom{36}{2}=630). Nie ma par osi pokrywających się, ponieważ identyczne proste zostały scalone.
+
+To istotna różnica między wariantami. Wariant B ma więcej osi i znacznie więcej relacji równoległości oraz skośności. Nie powstaje jedna wspólna oś helikalna; pojawia się wieloosiowa sieć prostych w przestrzeni. To może być właściwszy obiekt do dalszego badania niż pojedyncza helisa.
+
+Wynik dotyczy osi 60 i 72 różnych ruchów śrubowych znalezionych w enumeracji długości 4; nie jest klasyfikacją całej nieskończonej grupy.
