@@ -305,3 +305,9 @@ To wyjaśnia, dlaczego na elipsie liczba map długości 4 spada o 12 względem t
 `python experiments/rhombic_prism_ellipse_braid_relation.py`
 
 Skrypt sprawdza dokładnie macierze afinicznych odbić i liczy wymuszone identyfikacje słów.
+
+
+Walidacja GitHub Actions zakończona powodzeniem:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42629739921
+
+CI potwierdziło dokładnie obie afiniczne relacje braid oraz 12 dodatkowych identyfikacji wśród 320 zredukowanych słów długości 4.
