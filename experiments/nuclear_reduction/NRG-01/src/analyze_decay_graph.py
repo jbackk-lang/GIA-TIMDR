@@ -36,7 +36,7 @@ def analyze(data):
     # It never merges solely to force a desired 4->3 result.
     labels = {
         k: (
-            n.get("z"), n.get("n"), n.get("stability_status"),
+            n.get("stability_status"),
             tuple(sorted(x["mode"] for x in n.get("decay_modes", []))),
         )
         for k, n in nodes.items()
@@ -95,7 +95,8 @@ def analyze(data):
         "interpretation_guardrails": [
             "A graph vertex is a nuclide state, not a topological knot component.",
             "A branch point is a transition event, not automatically a helix cardinal point.",
-            "No 4->3 reduction is accepted unless the equivalence relation preserves declared observables.",
+            "The exploratory quotient signature omits Z,N; any merge therefore loses isotope identity and must be reported as such.",
+            "A 4->3 candidate is not accepted unless the selected equivalence relation preserves the declared observables for the research question.",
             "Unresolved decay channels are excluded from resolved degree counts and remain visible in input data.",
         ],
     }
