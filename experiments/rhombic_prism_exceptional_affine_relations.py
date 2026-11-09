@@ -41,7 +41,7 @@ def generators(U, V, W):
         normal = edge.cross(T)
         normals.append(normal)
         sides.append(reflection_in_plane(normal, point))
-    return (S0, S1, *sides), normals
+    return (S0, S1, *sides)
 
 def inverse_isometry(H):
     R = H[:3, :3]
