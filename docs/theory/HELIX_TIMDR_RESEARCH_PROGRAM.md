@@ -729,3 +729,8 @@ Rozdzielić bezwzględnie: reakcję na pobudzenie, pamięć (identyczne wejście
 Pierwszy test o najwyższej wartości informacyjnej: porównać odpowiedź na identyczny sygnał testowy dla helisy w stanie świeżym i po wcześniejszym kontrolowanym pobudzeniu, przy identycznych warunkach i kontrolach. To rozstrzyga, czy w badanym kanale występuje mierzalna zależność wejście–wyjście od historii.
 
 Od tej chwili pomiary κ, τ, tunelu i chiralności są opisem stanu/zmiennymi objaśniającymi odpowiedź, a nie celem samym w sobie. Nie scalać znaczeń rezonansu G/K/M i nie zmieniać aksjomatów bez jawnego, testowalnego mostu.
+
+
+## 38. Handoff i zasada wznowienia pracy
+
+Utrwalono punkt wznowienia w `docs/handoffs/HANDOFF_HELIX_SIGNAL_RESPONSE_2026-11-09.md`. Obowiązuje nadrzędny cel: prześledzić rzeczywisty wpływ sygnału/informacji na helisę i jej odpowiedź, w tym zależność odpowiedzi od historii. Następnym krokiem jest audyt istniejącego przepływu sygnału przez moduły G/K/M/T i Helix-Lock — od reprezentacji wejścia, przez miejsce oddziaływania i zmianę stanu, do obserwowalnego wyjścia. Nie rozpoczynać nowych sweepów ani pobocznych analiz przed tym audytem. Wskazać jedną najważniejszą lukę i jeden minimalny test. W raportach rozróżniać kod zapisany, testy CI, eksperyment faktycznie uruchomiony i wniosek z wyniku.
