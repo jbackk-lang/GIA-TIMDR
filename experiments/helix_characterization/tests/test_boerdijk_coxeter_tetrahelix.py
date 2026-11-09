@@ -142,5 +142,57 @@ class BoerdijkCoxeterExactTests(unittest.TestCase):
         self.assertEqual(twice, points)
 
 
+    def test_general_tetrahedron_has_exact_four_step_ordered_congruence(self):
+        initial = (
+            (Q(0), Q(0), Q(0)),
+            (Q(2), Q(0), Q(0)),
+            (Q(0), Q(3), Q(0)),
+            (Q(0), Q(0), Q(4)),
+        )
+        vertices = generate_tetrahedral_chain(initial, 36)
+
+        def ordered_edge_squares(tetra):
+            return tuple(
+                squared_distance(tetra[i], tetra[j])
+                for i, j in ((0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3))
+            )
+
+        def oriented_six_volume(tetra):
+            a, b, c, d = tetra
+            u = tuple(b[i] - a[i] for i in range(3))
+            v = tuple(c[i] - a[i] for i in range(3))
+            w = tuple(d[i] - a[i] for i in range(3))
+            cross = (
+                v[1] * w[2] - v[2] * w[1],
+                v[2] * w[0] - v[0] * w[2],
+                v[0] * w[1] - v[1] * w[0],
+            )
+            return sum((u[i] * cross[i] for i in range(3)), Q(0))
+
+        for start in range(len(vertices) - 7):
+            current = vertices[start:start + 4]
+            following = vertices[start + 4:start + 8]
+            self.assertEqual(ordered_edge_squares(current),
+                             ordered_edge_squares(following))
+            self.assertEqual(oriented_six_volume(current),
+                             oriented_six_volume(following))
+
+    def test_generic_tetrahedron_does_not_have_one_step_ordered_congruence(self):
+        initial = (
+            (Q(0), Q(0), Q(0)),
+            (Q(2), Q(0), Q(0)),
+            (Q(0), Q(3), Q(0)),
+            (Q(0), Q(0), Q(4)),
+        )
+        vertices = generate_tetrahedral_chain(initial, 8)
+        def ordered_edges(tetra):
+            return tuple(
+                squared_distance(tetra[i], tetra[j])
+                for i, j in ((0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3))
+            )
+        self.assertNotEqual(ordered_edges(vertices[:4]),
+                            ordered_edges(vertices[1:5]))
+
+
 if __name__ == "__main__":
     unittest.main()
