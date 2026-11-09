@@ -79,3 +79,37 @@ CI: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42601192457
 ## 9. Status CI
 
 GitHub Actions zakończył workflow powodzeniem: 15/15 testów jednostkowych, eksperyment BC, drzewo gałęzi oraz klasyfikacja słów odbić długości 1–6 przeszły. Logi klasyfikacji potwierdzają dokładnie podane wyżej liczności i niezmienniki: https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42601192457.
+
+
+## 10. Rozszerzenie do długości 8 i test zamknięcia orbit
+
+Klasyfikację rozszerzono do długości 8. Dokładne wyniki:
+| Długość | Zredukowane słowa | Różne mapy | Obroty | Śruby |
+|---:|---:|---:|---:|---:|
+| 2 | 12 | 12 | 12 | 0 |
+| 4 | 108 | 108 | 84 | 24 |
+| 6 | 972 | 972 | 516 | 456 |
+| 8 | 8748 | 8748 | 2964 | 5784 |
+
+Długości nieparzyste 1, 3, 5, 7 zawierają odpowiednio 4, 36, 324, 2916 map odwracających orientację. W badanym zakresie każde zredukowane słowo daje inną mapę afiniczną.
+
+Dla każdego czystego obrotu z długości 2, 4, 6 i 8 zebrano dokładny wymierny cosinus kąta. Żaden nie należy do zbioru {0, ±1/2, ±1}. Z twierdzenia Nivena wynika, że żaden z tych kątów nie jest wymierną wielokrotnością pi, a zatem żaden czysty obrót nie ma skończonego rzędu. Dla punktu poza osią powtarzanie takiego obrotu daje orbitę gęstą na okręgu.
+
+Każda transformacja sklasyfikowana jako śruba ma niezerowy przesuw wzdłuż osi, więc jej iteracje nie mogą zamknąć orbity punktu. W konsekwencji **żadne pojedyncze zredukowane słowo długości 2, 4, 6 lub 8, powtarzane w kółko jako ta sama izometria, nie daje niebanalnej zamkniętej orbity punktowej**.
+
+To nie wyklucza zamkniętych krzywych budowanych przez zmienne sekwencje różnych transformacji, ani zamkniętych trajektorii w modelu z ruchomymi płaszczyznami. Nie stanowi też pełnej klasyfikacji węzłów.
+
+## 11. Porównanie z BC i węzłami
+
+Dla referencyjnej helisy BC cos(theta)=-2/3 oraz osiowy postęp na krok wynosi -2/sqrt(5). Kąt jest niewymierną wielokrotnością 2*pi (Niven), a postęp osiowy jest niezerowy. Zatem powtarzana mapa śrubowa BC również nie zamyka się do okresowej orbity. Daje helisę, nie zamknięty węzeł.
+
+Wniosek: zamknięty węzeł nie powstanie przez samo wielokrotne zastosowanie jednego z tych obrotów lub ruchów śrubowych. Aby uzyskać węzeł, trzeba badać bardziej złożoną zamkniętą ścieżkę z przełączaniem generatorów, warunkiem powrotu całej konfiguracji do stanu początkowego oraz geometrią łączącą kolejne punkty bez samoprzecięć.
+
+## 12. Status walidacji i zakres wniosku
+
+GitHub Actions zakończył się powodzeniem: 15/15 testów jednostkowych, most BC, drzewo odbić i klasyfikacja słów do długości 8 — PASS:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42601951429
+
+W trakcie rozszerzenia pierwsze uruchomienie CI ujawniło błąd zakresu pętli (skrypt wciąż generował warstwy tylko do długości 6, mimo że nowy test pytał o długość 8). Poprawiono granicę enumeracji, dodano oczekiwane liczności dla długości 7 i 8, a następne pełne CI przeszło.
+
+**Wniosek matematyczny:** dla stałych odbić ścian czworościanu rozpoznaliśmy rodzinę izometrii, której powtarzane elementy dają albo nieokresowe orbity kołowe, albo niezamknięte helisy. Nie znaleźliśmy zamkniętych orbit w tym trybie. Hipoteza, że węzły pojawiają się przy przełączaniu różnych odbić lub w rekurencji ruchomych ścian BC, pozostaje otwarta i wymaga odrębnego testu.
