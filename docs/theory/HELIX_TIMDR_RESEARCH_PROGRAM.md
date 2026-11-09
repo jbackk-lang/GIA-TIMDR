@@ -401,3 +401,10 @@ Zalecany test porównawczy:
 
 **Wniosek:** archiwum zawiera wartościowy trop do formalizacji redukcji jako grafu przejść stanów. To może pomóc w analizie trajektorii trójkąta i hipotezy 4→3, ale analogia musi zostać przetestowana, a nie przyjęta jako dowód.
 
+
+
+## 16. Protokół eksperymentu NRG-01
+
+Utworzono prerejestrację `docs/experiments/NRG-01_NUCLEAR_REDUCTION_GRAPH.md`. Dokument określa budowę grafu nuklidów z ocenionych danych, walidację reguł bilansu, pomiary rozgałęzień i stanów końcowych, trzy rozdzielne typy redukcji (iloraz stanów, kontrakcja grafu, projekcja obserwacyjna), test modelu `τ_nuc` względem baseline'ów oraz warunki dopuszczenia porównania z geometrią helisy.
+
+**Status:** protokół zapisany; danych nuklidowych nie pobrano, grafu nie zbudowano, hipotez nie przetestowano. Czterech wierzchołków grafu nie utożsamiamy z czterowęzłem topologicznym.
