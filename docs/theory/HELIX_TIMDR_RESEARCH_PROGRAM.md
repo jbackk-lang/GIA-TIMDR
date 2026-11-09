@@ -408,3 +408,10 @@ Zalecany test porównawczy:
 Utworzono prerejestrację `docs/experiments/NRG-01_NUCLEAR_REDUCTION_GRAPH.md`. Dokument określa budowę grafu nuklidów z ocenionych danych, walidację reguł bilansu, pomiary rozgałęzień i stanów końcowych, trzy rozdzielne typy redukcji (iloraz stanów, kontrakcja grafu, projekcja obserwacyjna), test modelu `τ_nuc` względem baseline'ów oraz warunki dopuszczenia porównania z geometrią helisy.
 
 **Status:** protokół zapisany; danych nuklidowych nie pobrano, grafu nie zbudowano, hipotez nie przetestowano. Czterech wierzchołków grafu nie utożsamiamy z czterowęzłem topologicznym.
+
+
+## 17. NRG-01 — implementacja pobierania danych
+
+W repozytorium dodano skrypt `experiments/nuclear_reduction/NRG-01/src/nrg01_build_graph.py`, testy jednostkowe i README. Skrypt korzysta z IAEA LiveChart API, zachowuje surowe CSV i SHA-256, a niejednoznaczne kanały pozostawia nierozwiązane. Szczegóły i ograniczenia w `docs/experiments/NRG-01_NUCLEAR_REDUCTION_GRAPH.md`.
+
+**Uczciwy status:** implementacja jest zapisana; nie potwierdzono jeszcze jej uruchomienia na danych zdalnych ani przejścia testów. Następny raport musi zawierać rzeczywisty log uruchomienia i artefakty CSV/JSON, zanim zaczniemy interpretować graf.
