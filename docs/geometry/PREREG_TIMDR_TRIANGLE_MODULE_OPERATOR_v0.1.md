@@ -114,3 +114,6 @@ Zapisano dwa warianty w `docs/geometry/SPHERICAL_ENCLOSURE_DOUBLE_TETRAHEDRON_OR
 - E: asymetryczna powierzchnia jajowata jako ograniczenie. Nie ma ona zwykłej symetrii antypodycznej, więc nie można przenieść parowania z kuli bez nowej mapy.
 
 To są dwa warianty testowe, nie rozstrzygnięcie, co autor rozumie przez „podwójną reprezentację”. Nie utożsamiać jej z podwójnym pokryciem topologicznym, odbiciem lustrzanym ani antycząstką.
+
+
+**Korekta geometrii otoczenia:** nie interpretować „podwójnej reprezentacji” jako pary antypodycznej. Autor wskazał anomalię przesunięcia środków (d=C_t-C_s). Przed generowaniem operatora należy określić, jaki środek czworościanu jest używany oraz uwzględnić ograniczenie (\|d+Qp_i\|\le R). Orientacyjna zależność wynika z geometrii; reguła dynamiczna generująca rotację pozostaje do wyprowadzenia. Szczegóły: `docs/geometry/SPHERICAL_ENCLOSURE_DOUBLE_TETRAHEDRON_OR_EGG_v0.1.md` §8.
