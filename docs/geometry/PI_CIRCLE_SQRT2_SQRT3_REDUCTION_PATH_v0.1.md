@@ -1,81 +1,79 @@
-# Druga ścieżka redukcji TIMDR: konstrukcja koła, π oraz długości √2 i √3 (v0.1)
+# Druga droga redukcji TIMDR: analogia π idealne → π rzeczywiste oraz √2 / √3 (v0.2)
 
 **Data:** 2026-11-09  
-**Status:** ścieżka przypomniana przez autora; historyczna konstrukcja źródłowa nieodnaleziona jeszcze w bieżącym drzewie GIA-TIMDR.  
-**Zasada:** nie utożsamiać sumy √2+√3 z π. Najpierw odtworzyć konkretną konstrukcję i jej rolę w redukcji.
+**Status:** korekta interpretacji autora; formalny operator redukcji pozostaje do odtworzenia.
 
-## 1. Pozycja w programie
+## 1. Korekta sensu analogii
 
-Autor wskazuje drugą, niezależną drogę analizy redukcji: analogię do π i idealnej konstrukcji koła, z użyciem sumy pierwiastków √2 i √3. Ta ścieżka ma być badana równolegle do redukcji trójkąt → czworościan → konfiguracja czterowęzłowa / trójwęzłowa.
+Pierwiastki √2 i √3 nie miały być po prostu składnikami sumy przybliżającej π ani długościami dwóch cięciw, których dodanie daje obwód. Miały pełnić rolę **odpowiednika naszej redukcji** w analogii przejścia od π idealnego do π rzeczywistego.
 
-Nie zakładamy, że jest to ta sama operacja co redukcja grafu ani że daje bezpośrednio kąt skrętu helisy. Potencjalny wspólny wynik trzeba wykazać przez wspólne niezmienniki lub mapę między konstrukcjami.
+Czyli badamy relację strukturalną:
+[
+\text{ideał / konstrukcja idealna}
+\xrightarrow{\text{redukcja}}
+\text{postać rzeczywista / realizowalna}
+]
+a nie równość liczbową:
+[
+\sqrt2+\sqrt3=\pi.
+]
 
-## 2. Kontrola arytmetyczna
+W języku TIMDR pytanie brzmi: czy relacja między √2 i √3 koduje podobny mechanizm przejścia/redukcji, jaki obserwujemy w geometrii helisy (np. przejście konfiguracji do postaci dopuszczalnej), podczas gdy π idealne i π rzeczywiste stanowią analogiczny wzorzec idealizacji i realizacji?
 
-\[
-\sqrt2+\sqrt3\approx3.1462643699419726
-\]
-\[
-\pi\approx3.1415926535897932
-\]
-\[
-(\sqrt2+\sqrt3)-\pi\approx0.0046717163521794.
-\]
+To jest interpretacja robocza, nie dowiedzione twierdzenie. Nie przesądzamy jeszcze, czy √2 i √3 są dwoma stanami, granicami, współczynnikami, wymiarami czy elementami konstrukcji.
 
-Zatem suma √2+√3 jest bliskim przybliżeniem π (błąd względny ok. 0.1487%), ale nie jest równa π. Ponadto √2 i √3 są liczbami algebraicznymi, a ich suma również jest algebraiczna; π jest przestępne. W konsekwencji żadna skończona konstrukcja oparta wyłącznie na operacjach algebraicznych na tych długościach nie daje dokładnie π.
+## 2. Rozróżnienie matematyczne, którego nie wolno zgubić
 
-To nie unieważnia analogii. Możliwe, że chodzi o:
-- konstrukcję przybliżającą obwód koła;
-- granicę ciągu konstrukcji wielokątnych;
-- sumę odcinków/cięciw przypisanych różnym sektorom;
-- proporcję długości, a nie równość √2+√3=π;
-- regułę redukcji, w której √2 i √3 są dwoma składnikami lub stanami, a π pełni rolę granicy/normalizacji.
+W matematyce π jest jedną dokładną liczbą rzeczywistą i nie ma odrębnej „wartości idealnej” oraz „wartości rzeczywistej”. Można natomiast rozróżnić:
+- idealny obiekt geometryczny — doskonały okrąg;
+- jego idealną wielkość — dokładny obwód (C=2\pi r);
+- skończone konstrukcje/przybliżenia — wielokąty, pomiary i algorytmy, których wyniki zbliżają się do π;
+- fizyczną realizację — obiekt o tolerancjach, ziarnistości i błędzie pomiaru.
 
-## 3. Geometria okręgu — punkty kontrolne
+Dlatego sformułowanie „π idealne → π rzeczywiste” należy rozumieć jako analogię między ideałem a skończoną realizacją/przybliżeniem, a nie jako dwie różne matematyczne wartości π.
 
-Dla okręgu jednostkowego:
-- cięciwa kąta środkowego 90° ma długość √2;
-- cięciwa kąta środkowego 120° ma długość √3;
-- obwód wynosi 2π, a półobwód π.
+## 3. Fakty kontrolne o √2 i √3
 
-Wartości √2 i √3 pojawiają się więc naturalnie w geometrii kwadrantu i sześciokąta foremnego. To daje możliwy most geometryczny do modułów trójkątnych, czworościanu i sześcianu, ale nie identyfikuje jeszcze konkretnej konstrukcji autora.
+[
+\sqrt2\approx1.41421356237,\qquad
+\sqrt3\approx1.73205080757.
+]
+[
+\sqrt2+\sqrt3\approx3.14626436994\ne\pi.
+]
 
-Dla okręgu o promieniu r powyższe cięciwy mają długości r√2 i r√3. Należy jawnie zapisać promień i normalizację przed porównywaniem ich z π.
+Suma jest algebraiczna, π jest przestępne, więc nie są równe. Ta kontrola obala wyłącznie prostą interpretację sumy jako dokładnego π; **nie obala analogii redukcyjnej**, którą wskazuje autor.
 
-## 4. Pytania dowodowe
+Dla okręgu jednostkowego √2 i √3 występują też jako długości określonych cięciw, lecz bez źródłowego diagramu nie wolno uznać tego za zamierzone znaczenie w TIMDR.
 
-1. Czy √2 i √3 oznaczają długości cięciw, przekątnych, promieni, boków, czy współczynniki redukcji?
-2. Czy suma jest dosłowną sumą długości, czy sumą znormalizowanych proporcji?
-3. Czy π jest wartością docelową, granicą procesu, obwodem/średnicą, czy symbolem idealnej konstrukcji koła?
-4. Czy konstrukcja jest skończona, czy graniczna (ciąg wielokątów)?
-5. Jaki obiekt redukuje się: obwód, pole, graf, trajektoria, faza czy liczba stopni swobody?
-6. Czy reguła zachowuje orientację i znak skrętu?
-7. Czy ta sama mapa redukcji działa dla obu dróg: bryłowo-węzłowej i kołowo-pierwiastkowej?
+## 4. Co trzeba odzyskać, aby sformalizować analogię
 
-## 5. Minimalne testy
+1. **Obiekt idealny:** co dokładnie nazywaliśmy π idealnym — okrąg, obwód, stosunek obwodu do średnicy, czy konstrukcję graniczną?
+2. **Obiekt realizowany:** co było π rzeczywistym — przybliżenie wielokątne, skończony pomiar, czy inna reprezentacja?
+3. **Rola pierwiastków:** czy √2 i √3 są dwoma poziomami/stadiami redukcji, czy parametrami transformacji między nimi?
+4. **Operator:** jaka operacja przeprowadza stan idealny w realizowany i co zachowuje?
+5. **Błąd/reszta:** co zostaje utracone lub pozostaje jako reszta po redukcji?
+6. **Niezmiennik:** jaka wielkość pozostaje zachowana — stosunek, długość, pole, orientacja, faza, liczba stopni swobody?
+7. **Odpowiednik helisy:** jaki obiekt TIMDR odpowiada idealnemu okręgowi, a jaki jego skończonej realizacji?
 
-### C1 — odtworzenie rysunku/konstrukcji
-Zebrać pierwotny diagram, wzory i kolejność operacji. Bez tego nie wybierać interpretacji.
+## 5. Program porównawczy z redukcją helisy
 
-### C2 — wymiarowanie
-Wszystkie długości wyrazić względem jednego promienia/boku jednostkowego. Oddzielić długości od bezwymiarowych stosunków.
+Nie utożsamiamy obu dróg. Budujemy tabelę odwzorowania dopiero po zdefiniowaniu obiektów:
 
-### C3 — dokładność
-Sprawdzić, czy π jest:
-- dokładne (wtedy konstrukcja nie może być skończoną konstrukcją algebraiczną z √2 i √3);
-- przybliżane (wtedy wyznaczyć błąd i zbieżność);
-- granicą (wtedy podać ciąg i udowodnić granicę).
+| Analogia kołowa | Kandydat w TIMDR | Status |
+|---|---|---|
+| Okrąg / π idealne | źródłowa konstrukcja geometryczna helisy | do zdefiniowania |
+| Skończone przybliżenie / realizacja | konfiguracja po redukcji | do zdefiniowania |
+| √2, √3 | elementy/parametry przejścia redukcyjnego | rola nieustalona |
+| Błąd lub reszta przybliżenia | informacja tracona/zachowywana w redukcji | do zmierzenia |
+| Granica procesu | stan graniczny / warunek brzegowy TIMDR | do wykazania |
 
-### C4 — redukcja
-Zdefiniować operator R_pi i jego niezmienniki. Sprawdzić, czy zachowuje obwód, pole, orientację, fazę lub inną wielkość, którą konstrukcja deklaruje jako zachowaną.
+Kryterium wspólnego mechanizmu: oba modele muszą mieć jawny operator redukcji i dawać zgodny, niezależnie zdefiniowany niezmiennik. Samo podobieństwo liczb lub rysunków nie wystarczy.
 
-### C5 — porównanie ścieżek
-Porównać wynik z redukcją grafową/bryłową przez wspólne wielkości: relacje incydencji, liczbę stopni swobody, kąt orientacji, holonomię lub jawnie zdefiniowany niezmiennik. Nie wystarczy podobieństwo wizualne.
+## 6. Status w repozytorium
 
-## 6. Status źródeł w GIA-TIMDR
+W przeszukanym drzewie bieżącej gałęzi main nie znaleziono jeszcze źródłowego rysunku/notatki odtwarzającej tę analogię. Zachowujemy ją jako odrębną gałąź i nie dopowiadamy brakującej konstrukcji.
 
-W przeszukanym drzewie bieżącej gałęzi main nie znaleziono jeszcze źródłowego pliku z frazami/tematem π, √2, √3 i konstrukcji koła. Nie oznacza to, że konstrukcja nie istnieje w innych repozytoriach, archiwum, lokalnym katalogu autora lub wcześniejszych notatkach. Należy odzyskać źródło zamiast rekonstruować je z pamięci modelu.
+## 7. Decyzja
 
-## 7. Zasada robocza
-
-Traktować ścieżkę π–√2–√3 jako niezależną gałąź badania redukcji. Nie wpisywać równości π=√2+√3 ani nie używać tej sumy jako dowiedzionego kąta/długości TIMDR. Priorytetem jest odzyskanie idealnej konstrukcji koła, normalizacji, operatora redukcji i dowodu dokładności lub zbieżności.
+Zachować ideę autora: **√2 i √3 mają reprezentować mechanizm redukcji analogiczny do przejścia od π idealnego do π rzeczywistego**. Nie interpretować ich jako sumy równej π. Następny krok to odzyskanie definicji stanów idealnego i realizowanego oraz operatora przejścia. Dopiero wtedy można porównać ten mechanizm z redukcją helisy 4→3.
