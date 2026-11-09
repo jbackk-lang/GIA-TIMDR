@@ -127,3 +127,31 @@ def branch_probabilities(costs: Sequence[float], beta: float = 1.0) -> tuple[flo
     weights = tuple(exp(x - shift) for x in logits)
     total = sum(weights)
     return tuple(w / total for w in weights)
+
+
+def reflect_point_in_plane(point: Vector, plane_point: Vector, normal: Vector) -> Vector:
+    """Reflect a point across a plane specified by one point and its normal."""
+    n = _unit(normal, name="plane normal")
+    if not all(isfinite(x) for x in point + plane_point):
+        raise ValueError("point and plane point must be finite")
+    offset = tuple(point[i] - plane_point[i] for i in range(3))
+    reflected_offset = reflect_direction(offset, n)
+    return tuple(plane_point[i] + reflected_offset[i] for i in range(3))  # type: ignore[return-value]
+
+
+def reflect_tetrahedron_step(vertices: Sequence[Vector]) -> Vector:
+    """BC bridge: reflect the oldest vertex across the face of the other three.
+
+    Input order is (oldest, face_a, face_b, face_c). The result is the
+    next vertex in the face-reflected tetrahedral chain. This is a floating
+    point adapter for the exact Fraction reference in
+    core.boerdijk_coxeter_tetrahelix; use that module for exact arithmetic.
+    """
+    if len(vertices) != 4:
+        raise ValueError("exactly four tetrahedron vertices are required")
+    point, a, b, c = vertices
+    normal = _cross(
+        tuple(b[i] - a[i] for i in range(3)),
+        tuple(c[i] - a[i] for i in range(3)),
+    )
+    return reflect_point_in_plane(point, a, normal)
