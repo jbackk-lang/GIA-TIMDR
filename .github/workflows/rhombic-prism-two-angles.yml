@@ -1,0 +1,21 @@
+name: Rhombic triangular prism two-angle experiment
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/rhombic_triangular_prism_two_angles.py"
+      - ".github/workflows/rhombic-prism-two-angles.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-rhombic-prism:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install sympy
+      - name: Run two exact rhombus-angle cases
+        run: python experiments/rhombic_triangular_prism_two_angles.py
