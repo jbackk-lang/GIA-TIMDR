@@ -801,3 +801,10 @@ W BC ściany wszystkich tetraedrów są trójkątami równobocznymi, a mimo to �
 Bezpośrednio otwarto `TIMDR-Concept-Archive/TRM-Geometry-Core/docs/triangle.md`, `docs/core.md`, `docs/transitions.md`, `src/triangle.py`, `Topological-Reduction-Model-TRM/core/topological-wave.md`, `core/twist-reduction-law.md`, a także `TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py`, `THE_TIMDR_Hyperflow_Engine/the_geo_pro_4d.py` i `TIMDR-META-DYNAMICS/models/evolution_helix.py` / `analysis/meta_torsion.py`. Trójkąt jest opisany jako trzy stany i bok (a=r√3), a kod liczy jedynie bok. TRM τ jest skalarem w równaniu fali/progu. Weingarten liczy operator kształtu dla zadanej siatki; Hyperflow liczy κ/τ z zadanej trajektorii; META-DYNAMICS oddziela wejściowe `MetaState.tau` od geometrycznej torsji trajektorii. W sprawdzonych źródłach nie znaleziono jawnego generatora 3D trójkąt→moduł→helisa ani macierzy (S_{TIMDR}). Zakres tej kontroli jest ukierunkowany, nie jest pełnym przeglądem wszystkich 72 repozytoriów. Szczegóły: `docs/geometry/COMPARISON_BC_HC01_TIMDR_2026-11-09.md` §12.
 
 **Decyzja:** brakujący operator musi zostać jawnie zdefiniowany (co jest odbijane, względem jakiej płaszczyzny, jaka strona, jaki interfejs sklejenia i jaki transport orientacji). Nie wyprowadzać go z samego (√3), symbolu τ ani deklaracji „bez utraty informacji”.
+
+
+### 30.5. Prerejestracja operatora trójkątnego TIMDR
+
+Zapisano `docs/geometry/PREREG_TIMDR_TRIANGLE_MODULE_OPERATOR_v0.1.md`. Protokół nie zgaduje brakującego operatora: jawnie wymaga definicji obiektu odbijanego, współrzędnych, płaszczyzny i strony odbicia, interfejsu sklejenia, transportu orientacji, fazy i osi. Rozdziela hipotezę lokalnej asymetrii modułu od globalnego transportu/sklejenia. Po uzupełnieniu definicji operator ma być wyznaczony na krótkim prefiksie i przewidywać co najmniej 20 modułów holdout; przewidziano kontrole BC, HC-01, null, mirror i broken-seam.
+
+**Status: BLOCKED** do czasu decyzji autora, co dokładnie jest odbijane i jak są łączone kolejne moduły. Nie rozpoczynać implementacji generatora przed zamrożeniem tej definicji.
