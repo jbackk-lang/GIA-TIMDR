@@ -1,0 +1,20 @@
+name: Truncated tetrahedron reflection resonances
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/truncated_tetrahedron_reflections.py"
+      - ".github/workflows/truncated-tetrahedron-reflections.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-truncation-geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run exact truncated tetrahedron reflection experiment
+        run: python experiments/truncated_tetrahedron_reflections.py
