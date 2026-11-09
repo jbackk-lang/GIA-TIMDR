@@ -877,3 +877,14 @@ Po rozstrzygnięciu geometrycznym wykonano kontrolę liczb dla dokładnego wzorc
 Wartości bezwymiarowe są niezmienne przy jednorodnym skalowaniu. Stały przyrost fazy i osiowy BC potwierdzają regularność śrubową, nie rekurencję wieloskalową. Stosunek promienia centroidów do promienia wierzchołków wynosi dokładnie `√6/9`; dwie wyróżnione orbity nie dowodzą fraktalnej hierarchii.
 
 **Wniosek:** kontrola liczb jest zgodna z analizą geometrii i nie ujawnia fraktalności HC-01/regularnego BC. Nie obala to możliwości fraktalnej reprezentacji struktury nadrzędnej TIMDR. Następna ilościowa kontrola powinna dotyczyć ogólnego czworościanu z już istniejącej rekurencji: sprawdzić, czy kolejne moduły mogą być przenoszone jedną stałą izometrią, a jeśli nie — scharakteryzować zmianę operatora, bez nazywania jej fraktalną z góry.
+
+
+### 30.15. Ogólny czworościan — czterokrokowa periodyczność śrubowa — 2026-11-09
+
+W badaniu ogólnego (nieforemnego) czworościanu uzyskano ważny wynik geometryczny. Wektor sześciu uporządkowanych kwadratów krawędzi kolejnego okna zmienia się przez permutację `P(a,b,c,d,e,f)=(d,e,a,f,b,c)`, dla której `P^4=I`. Zatem po czterech przesunięciach okna uporządkowana metryka wraca do pierwotnej. Zachowanie znaku zorientowanej objętości daje właściwą izometrię `T`, a ekwiwariantność odbicia względem izometrii dowodzi, że `T(v_n)=v_{n+4}` dla całego łańcucha.
+
+Wniosek: dla dowolnego niekoplanarnego czworościanu istnieje stały operator właściwej izometrii co cztery kroki. Łańcuch rozkłada się na cztery przeplatane orbity tej samej izometrii (zwykle cztery dyskretne ślady śrubowe o wspólnej osi, lecz różnych fazach/promieniach). Dla ogólnego czworościanu nie musi istnieć izometria na jeden krok. Szczegóły dowodu i przykład liczbowy: `docs/geometry/GENERAL_TETRAHEDRON_FOUR_STEP_SCREW_THEOREM_v0.1.md`.
+
+Dodano dwa testy dokładne do `experiments/helix_characterization/tests/test_boerdijk_coxeter_tetrahelix.py`: czterokrokową zgodność uporządkowanych krawędzi i zorientowanej objętości oraz kontrolę braku zgodności jednego kroku dla przykładowego ogólnego czworościanu. Poprawiono komentarz w `core/boerdijk_coxeter_tetrahelix.py`, aby odróżniał brak operatora jednokrokowego od istnienia operatora czterokrokowego.
+
+**Status:** twierdzenie geometryczne wyprowadzone; testy dodane, ale CI po najnowszym commicie wymaga osobnego potwierdzenia. Wynik nie dowodzi fraktalności: stała izometria jest skalująco neutralna i daje skończony motyw czterogałęziowy, nie hierarchię skal.
