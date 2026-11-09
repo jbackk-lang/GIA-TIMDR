@@ -43,6 +43,8 @@ def analyze(frames, seed=20261109):
     threshold=np.quantile(mean_amp[valid],0.50)
     mask=valid & (mean_amp>=threshold)
     d=wrap(phase[1:]-phase[:-1])
+    # Per-transition activity: mean absolute phase increment across valid bins.
+    transition_activity=np.mean(np.abs(d[:,mask]),axis=1)
     # Reconstruct phase history from initial phase + ordered phase increments.
     rec=np.empty_like(phase)
     rec[0]=phase[0]
@@ -81,6 +83,9 @@ def analyze(frames, seed=20261109):
       "shuffled_history_reconstruction_p95_rad":shuffled_p95,
       "reverse_time_identity_max_error_rad":float(reversal_error.max()),
       "shuffle_to_ordered_mae_ratio":float(shuffled_mae/max(exact_mae,1e-15)),
+      "transition_activity_mean_rad":float(transition_activity.mean()),
+      "transition_activity_std_rad":float(transition_activity.std()),
+      "transition_activity_series_rad":transition_activity.tolist(),
     }
 
 
@@ -91,14 +96,32 @@ def main():
     ap.add_argument("--clip",default="Test001")
     args=ap.parse_args()
     paths,frames=load_sequence(args.mage_root,args.clip)
+    gt={"Test001":[61,180],"Test002":[95,180],"Test003":[1,146]}
     result={
       "schema":"gia-timdr-mage-temporal-phase-history-v1",
       "dataset":"MAGE-IN-IMAGE-DECODER/data/ucsd_ped2/Test/"+args.clip,
-      "dataset_ground_truth_anomaly_frames":[61,180] if args.clip=="Test001" else None,
+      "dataset_ground_truth_anomaly_frames":gt.get(args.clip),
       "status":"real_image_sequence_representation_test_not_physical_helix_validation",
       "method":"complex 2D FFT; ordered inter-frame wrapped phase increments; deterministic temporal shuffle control",
       "result":analyze(frames),
     }
+    # Compare phase activity in transitions wholly inside normal/anomalous intervals.
+    lo,hi=gt.get(args.clip,(None,None))
+    activity=np.asarray(result["result"]["transition_activity_series_rad"])
+    normal_idx=[]; anomalous_idx=[]
+    for i in range(len(activity)):
+        f0=i+1; f1=i+2
+        is_anom=(lo is not None and f0>=lo and f0<=hi and f1>=lo and f1<=hi)
+        if is_anom: anomalous_idx.append(i)
+        elif lo is not None and (f0<lo or f0>hi) and (f1<lo or f1>hi): normal_idx.append(i)
+    result["phase_activity_by_ground_truth"]={
+      "normal_transition_count":len(normal_idx),
+      "anomalous_transition_count":len(anomalous_idx),
+      "normal_mean_rad":float(activity[normal_idx].mean()) if normal_idx else None,
+      "anomalous_mean_rad":float(activity[anomalous_idx].mean()) if anomalous_idx else None,
+      "interpretation":"descriptive only; no significance claim; intervals from dataset annotations"
+    }
+    result["result"].pop("transition_activity_series_rad",None)
     args.out.parent.mkdir(parents=True,exist_ok=True)
     args.out.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(result,indent=2))
