@@ -67,6 +67,61 @@ def make_case(c1,c2):
         G.append(reflection(n,0))
     return t,w,G
 
+def map_key(T):
+    M,b=T
+    return tuple(s.srepr(s.simplify(x)) for x in list(M)+list(b))
+
+def direction_key(u):
+    """Scale- and sign-independent exact direction key."""
+    vals=list(u)
+    k=next(i for i,x in enumerate(vals) if s.simplify(x)!=0)
+    base=vals[k]
+    ratios=[s.simplify(x/base) for x in vals]
+    # Canonicalize sign by making first nonzero component +1.
+    return tuple(ratios)
+
+def enumerate_layer(G, max_length=4):
+    layer=[((),(I,O))]
+    results={}
+    for length in range(1,max_length+1):
+        nxt=[]
+        unique={}
+        for word,T in layer:
+            for i,g in enumerate(G):
+                if word and word[-1]==i:
+                    continue
+                new_word=word+(i,)
+                new_T=compose(g,T)
+                nxt.append((new_word,new_T))
+                unique.setdefault(map_key(new_T),(new_word,new_T))
+        results[length]=(len(nxt),unique)
+        layer=nxt
+    return results
+
+def analyze_even_layer(unique):
+    types=Counter()
+    cosines=Counter()
+    rotation_axes=Counter()
+    screw_axes=Counter()
+    screw_pitch_sq=Counter()
+    examples={}
+    for word,T in unique.values():
+        kind,cosine=classify(T)
+        types[kind]+=1
+        if cosine is not None:
+            cosines[str(cosine)]+=1
+        if kind in ("rotation","screw"):
+            u=axis(T[0])
+            d=direction_key(u)
+            if kind=="rotation":
+                rotation_axes[d]+=1
+            else:
+                screw_axes[d]+=1
+                pitch_sq=s.simplify((u.dot(T[1])**2)/u.dot(u))
+                screw_pitch_sq[str(pitch_sq)]+=1
+                examples.setdefault(d,word)
+    return types,cosines,rotation_axes,screw_axes,screw_pitch_sq,examples
+
 def main():
     cases=[
       ("A: 60deg and 90deg",s.Rational(1,2),s.Rational(0)),
@@ -97,11 +152,28 @@ def main():
         print(f"pair_types={dict(pair_kinds)}")
         print(f"pair_rotation_cosines={dict(pair_cos)}")
         print(f"pair_details={pair_details}")
+        layers=enumerate_layer(G,4)
+        for length in (2,4):
+            word_count,unique=layers[length]
+            if length==2:
+                expected=18 if c2==0 else 20
+            else:
+                expected=245 if c2==0 else 292
+            assert len(unique)==expected, (label,length,len(unique),expected)
+            print(f"length_{length}: reduced_words={word_count}; distinct_maps={len(unique)}; collisions={word_count-len(unique)}")
+            if length==4:
+                types,cosines,rot_axes,screw_axes,pitch_sq,examples=analyze_even_layer(unique)
+                print(f"length_4_isometry_types={dict(types)}")
+                print(f"length_4_rotation_cosines={dict(cosines)}")
+                print(f"length_4_distinct_rotation_axis_directions={len(rot_axes)}")
+                print(f"length_4_distinct_screw_axis_directions={len(screw_axes)}")
+                print(f"length_4_screw_axis_direction_counts={dict(screw_axes)}")
+                print(f"length_4_normalized_screw_pitch_squared={dict(pitch_sq)}")
         print("")
 
     print("GEOMETRIC CONSTRAINT: three exact rhombi force both triangular ends to be equilateral and congruent.")
     print("The two angle inputs are not independent of the third: c1+c2+c3=0.")
-    print("LIMIT: these are exact face-reflection pair tests; no physical interaction or knot claim.")
+    print("LIMIT: finite word enumeration does not prove global group structure, knotting, or physical interaction.")
 
 if __name__=="__main__":
     main()
