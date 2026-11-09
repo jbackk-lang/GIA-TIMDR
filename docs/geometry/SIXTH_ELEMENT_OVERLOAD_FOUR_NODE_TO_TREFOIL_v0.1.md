@@ -102,8 +102,8 @@ Powtórzyć na kuli (model bazowy) oraz jajowatej powierzchni (kontrola asymetri
 
 ## 7. Kryterium potwierdzenia
 
-Hipoteza pięciościan mieści się / sześciościan wymusza redukcję otrzymuje wsparcie dopiero wtedy, gdy:
-- kombinatoryczny typ pięcio- i sześciościanu jest jawnie określony;
+Hipoteza piąty moduł mieści się / szósty moduł wymusza reorganizację otrzymuje wsparcie dopiero wtedy, gdy:
+- moduł odbiciowy i reguła jego łączenia są jednoznacznie określone;
 - stany 3–5 mają dopuszczalne osadzenie;
 - stan 6 przekracza jawny warunek, a nie tylko zadany limit licznika;
 - operator reorganizacji nie koduje z góry odpowiedzi;
@@ -112,4 +112,4 @@ Hipoteza pięciościan mieści się / sześciościan wymusza redukcję otrzymuje
 
 ## 8. Zasada robocza
 
-**Pięciościan (5 ścian) nadal mieści się w 4-węźle. Badamy, czy dopiero sześciościan (6 ścian) wymusza reorganizację całej struktury do trójwęzła.**
+**Piąty moduł helisy nadal mieści się w 4-węźle. Badamy, czy dopiero szósty moduł wymusza reorganizację całej struktury do trójwęzła.**
