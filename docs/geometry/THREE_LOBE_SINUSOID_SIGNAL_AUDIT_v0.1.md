@@ -122,3 +122,26 @@ Dla (A=1,\omega=1,\varphi=0):
 - orientacja parametru: (+1\to-1).
 
 Wynik kluczowy jest negatywny, ale istotny: polaryzacja płatów nie wystarcza do odzyskania kierunku przebiegu. Kierunek musi być osobnym polem danych.
+
+
+## 11. Dodatkowy wynik: domknięcie położenia nie oznacza domknięcia stycznej
+
+Dla trzech półokresów (s(t)=A\sin(\omega t)), (t\in[0,3\pi/\omega]):
+
+\[
+s(0)=s(3\pi/\omega)=0,
+\]
+ale
+\[
+s'(0)=A\omega,\qquad s'(3\pi/\omega)=-A\omega.
+\]
+
+Zatem skalarna trajektoria domyka się w sensie (C^0), ale nie w sensie (C^1). Przy sklejeniu końców w tej samej orientacji parametru powstaje niezgodność stycznych (załamanie / odwrócenie kierunku). To nie jest detal numeryczny: jeśli płaty mają budować zamknięty obieg helisy, reguła szwu musi rozwiązać tę niezgodność.
+
+Możliwe klasy rozwiązań do zbadania, bez wybierania jednej z góry:
+1. dodać odcinek przejściowy, który obraca styczną;
+2. zastosować identyfikację z odwróceniem orientacji (sprawdzić, czy geometria i rama pozwalają na takie sklejenie);
+3. użyć innego zakresu fazy / dodatkowego płata, aby położenie i styczna zamknęły się jednocześnie;
+4. traktować trzy płaty jako fragment większej trajektorii, a nie samodzielną pętlę.
+
+Audyt koduje teraz (C^0) i (C^1) osobno, a test sprawdza, że pozycja się zamyka, natomiast styczna nie. Ten wynik daje konkretny warunek brzegowy dla przyszłego operatora sygnał→helisa.
