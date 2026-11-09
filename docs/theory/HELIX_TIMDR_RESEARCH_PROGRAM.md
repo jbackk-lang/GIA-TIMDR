@@ -334,3 +334,13 @@ To użyteczne źródło do geometrii krzywych i analizy stabilności numerycznej
 - **Koncepcyjne / wymagające formalizacji:** Potrójny Tourosomobius jako obiekt Borromejski, mapy helisa–pole–struna.
 - **Niepotwierdzone:** odwracalny transformator helisa→pole, helisa→struna, pole↔struna oraz jakakolwiek korzyść kryptograficzna.
 
+
+
+## 13. Kanoniczny katalog właściwości i wrażliwości
+
+Na potrzeby odtwarzalności utworzono osobny dokument:
+`docs/geometry/HELIX_SENSITIVITY_REPRODUCIBILITY.md`.
+
+Jest to obowiązkowy rejestr właściwości, parametrów, wrażliwości, ograniczeń numerycznych, warunków eksperymentów i manifestów odtwarzalności. Rozróżnia wyniki zmierzone od definicji, hipotez i niewiadomych. Każdy kolejny eksperyment helikalny ma aktualizować ten katalog oraz wskazywać commit, kod, test, parametry i dane surowe.
+
+**Zasada:** nie twierdzimy, że „wszystkie wrażliwości są już poznane”. Zapisujemy wszystkie zidentyfikowane czynniki i systematycznie mierzymy ich wpływ, zachowując również wyniki negatywne.
