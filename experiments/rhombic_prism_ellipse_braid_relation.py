@@ -8,7 +8,8 @@ These are affine reflection identities, checked with SymPy.
 import itertools
 import sympy as s
 
-v = s.symbols("v", positive=True, real=True)
+u, v = s.symbols("u v", real=True)
+w = s.symbols("w", positive=True, real=True)
 I3 = s.eye(3)
 R0 = s.diag(1, 1, -1)
 
@@ -61,7 +62,28 @@ def braid_word_class_count():
                         union(word, candidate)
     return len(words), len({find(w) for w in words})
 
+def check_three_ellipse_equations():
+    """Derive the three face-specific angle-pi/3 loci in base coordinates."""
+    edges = (
+        (s.Integer(1), s.Integer(0)),
+        (-s.Rational(1, 2), s.sqrt(3)/2),
+        (-s.Rational(1, 2), -s.sqrt(3)/2),
+    )
+    expected = (
+        u**2 + 4*v**2 - 1,
+        (13*u**2 + 6*s.sqrt(3)*u*v + 7*v**2 - 4)/4,
+        (13*u**2 - 6*s.sqrt(3)*u*v + 7*v**2 - 4)/4,
+    )
+    derived = []
+    for ex, ey in edges:
+        c = ex*u + ey*v
+        nz = ex*v - ey*u
+        derived.append(s.factor(4*nz**2 - (1-c**2)))
+    assert all(s.simplify(a-b) == 0 for a,b in zip(derived, expected))
+    return derived
+
 def main():
+    ellipse_equations = check_three_ellipse_equations()
     assert R2 == s.Matrix([
         [1, 0, 0],
         [0, -s.Rational(1, 2), s.sqrt(3)/2],
@@ -75,6 +97,9 @@ def main():
     assert raw_words == 320
     assert raw_words - braid_classes == 12
     print("PASS: exact affine Coxeter braid relation for lower and upper face pairs.")
+    print("three_face_specific_ellipse_equations:")
+    for equation in ellipse_equations:
+        print(f"  {s.factor(equation)} = 0")
     print(f"length4_reduced_words={raw_words}")
     print(f"length4_classes_from_these_two_braid_relations={braid_classes}")
     print(f"additional_identifications_forced_by_braid_relations={raw_words-braid_classes}")
