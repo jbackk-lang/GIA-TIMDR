@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from core.boerdijk_coxeter_tetrahelix import (
+    INITIAL_VERTICES,
     SCREW_ROTATION,
     SCREW_TRANSLATION,
     generate_vertices,
