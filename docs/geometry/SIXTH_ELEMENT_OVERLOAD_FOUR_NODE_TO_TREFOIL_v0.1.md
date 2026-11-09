@@ -43,7 +43,7 @@ Przed przypisaniem nazwy bryły trzeba określić, co dokładnie jest „element
 
 ## 3. Warunek brzegowy zamiast arbitralnego progu
 
-Nie wprowadzamy reguły „szósty element zawsze redukuje” jako aksjomatu. Definiujemy funkcję dopuszczalności:
+Nie wprowadzamy reguły „sześciościan zawsze redukuje” jako aksjomatu. Definiujemy funkcję dopuszczalności:
 \[
 g(X)=\min\{g_{\rm sep},g_{\rm closure},g_{\rm curvature},
 g_{\rm phase},g_{\rm embedding}\}.
@@ -102,8 +102,8 @@ Powtórzyć na kuli (model bazowy) oraz jajowatej powierzchni (kontrola asymetri
 
 ## 7. Kryterium potwierdzenia
 
-Hipoteza 5 mieści się / 6 wymusza redukcję otrzymuje wsparcie dopiero wtedy, gdy:
-- semantyka elementu jest jednoznaczna;
+Hipoteza pięciościan mieści się / sześciościan wymusza redukcję otrzymuje wsparcie dopiero wtedy, gdy:
+- kombinatoryczny typ pięcio- i sześciościanu jest jawnie określony;
 - stany 3–5 mają dopuszczalne osadzenie;
 - stan 6 przekracza jawny warunek, a nie tylko zadany limit licznika;
 - operator reorganizacji nie koduje z góry odpowiedzi;
@@ -112,4 +112,4 @@ Hipoteza 5 mieści się / 6 wymusza redukcję otrzymuje wsparcie dopiero wtedy, 
 
 ## 8. Zasada robocza
 
-**Nie redukujemy przy piątym elemencie. Piąty nadal mieści się w 4-węźle. Badamy, czy dopiero szósty element wymusza reorganizację całej struktury do trójwęzła.**
+**Pięciościan (5 ścian) nadal mieści się w 4-węźle. Badamy, czy dopiero sześciościan (6 ścian) wymusza reorganizację całej struktury do trójwęzła.**
