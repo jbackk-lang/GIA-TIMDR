@@ -16,6 +16,7 @@ on:
       - "experiments/rhombic_prism_angle_spectrum_grid.py"
       - "experiments/rhombic_prism_angular_spectrum_symmetry_check.py"
       - "experiments/rhombic_prism_angular_spectrum_depth_convergence.py"
+      - "experiments/rhombic_prism_d3_degeneracy_diagnostic.py"
       - ".github/workflows/rhombic-prism-mobility-screw.yml"
   workflow_dispatch:
 permissions:
@@ -51,6 +52,8 @@ jobs:
         run: python experiments/rhombic_prism_angle_spectrum_parameter_sweep.py
       - name: Map angular spectrum across mobility parameter disk
         run: python experiments/rhombic_prism_angle_spectrum_grid.py
+      - name: Diagnose D3 endpoint degeneracy
+        run: python experiments/rhombic_prism_d3_degeneracy_diagnostic.py
       - name: Verify D3 symmetry of complete angular spectra
         run: python experiments/rhombic_prism_angular_spectrum_symmetry_check.py
       - name: Compare angular spectra across word depths
