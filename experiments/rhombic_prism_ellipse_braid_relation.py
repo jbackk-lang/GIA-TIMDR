@@ -103,7 +103,8 @@ def main():
             [s.sin(theta),  s.cos(theta), 0],
             [0, 0, 1],
         ])
-        Q4 = homogeneous(Q, s.zeros(3, 1))
+        centroid = s.Matrix([s.Rational(1, 2), s.sqrt(3)/6, 0])
+        Q4 = homogeneous(Q, centroid - Q*centroid)
         S2_rotated = s.simplify(Q4*S2*Q4.inv())
         assert s.simplify(S0*S2_rotated*S0 - S2_rotated*S0*S2_rotated) == s.zeros(4)
         assert s.simplify(S1*S2_rotated*S1 - S2_rotated*S1*S2_rotated) == s.zeros(4)
