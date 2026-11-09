@@ -844,4 +844,16 @@ Po rozmowie z autorem przyjęto zasadę: anomalii nie usuwać ani nie interpreto
 
 ### 30.11. Korekta: helisa i fraktal jako równoległe reprezentacje TIMDR
 
-Autor przypomina wcześniejszy wniosek z formalizmów: helisa jest jednym z głównych rzutów struktury nadrzędnej, a pozostała reprezentacja w znacznej mierze jest fraktalna. Nie utożsamiać TIMDR z helisą. Dodano `docs/theory/TIMDR_REPRESENTATIONS_HELIX_FRACTAL_v0.1.md`, w którym zapisano mapy reprezentacji \(H=\Pi_H(X)\), \(F=\Pi_F(X)\), rozłączne hipotezy relacji helisa–fraktal i testy: wymiar/skala fraktala, parametry helisy, wspólna predykcja i utrata informacji. W drzewie aktualnego `main` nie odnaleziono dedykowanego formalizmu fraktalnego; należy odnaleźć wcześniejszy dokument/repo, nie zastępować go nową definicją.
+Autor przypomina wcześniejszy wniosek z formalizmów: helisa jest jednym z głównych rzutów struktury nadrzędnej; nie utożsamiać TIMDR z helisą. Możliwość fraktalnej natury części pozostałej reprezentacji jest jednak **przypuszczeniem (gdybaniem), nie ustalonym wynikiem**. Nie zakładać, że „reszta” jest fraktalna ani że fraktal stanowi już zdefiniowany drugi rzut. Dodano `docs/theory/TIMDR_REPRESENTATIONS_HELIX_FRACTAL_v0.1.md`, w którym zapisano mapy reprezentacji \(H=\Pi_H(X)\), \(F=\Pi_F(X)\), rozłączne hipotezy relacji helisa–fraktal i testy: wymiar/skala fraktala, parametry helisy, wspólna predykcja i utrata informacji. W drzewie aktualnego `main` nie odnaleziono dedykowanego formalizmu fraktalnego; należy odnaleźć wcześniejszy dokument/repo, nie zastępować go nową definicją.
+
+
+### 30.12. Doprecyzowanie statusu fraktala — 2026-11-09
+
+Autor wyraźnie zastrzegł, że fraktalna natura pozostałej reprezentacji jest na razie przypuszczeniem. Zapis w `TIMDR_REPRESENTATIONS_HELIX_FRACTAL_v0.1.md` został doprecyzowany: helisa pozostaje jednym z głównych rzutów struktury nadrzędnej; fraktal jest hipotezą do sprawdzenia, a nie faktem ani aksjomatem.
+
+Rozróżnić trzy poziomy:
+1. **Ustalenie robocze:** helisa jest jednym z głównych rzutów, ale nie wyczerpuje struktury TIMDR.
+2. **Hipoteza:** część informacji/struktury niewidoczna w rzucie helikalnym może być opisywana fraktalnie lub wieloskalowo.
+3. **Niewiadoma:** czy fraktal jest osobną reprezentacją, własnością wieloskalową kilku reprezentacji, mechanizmem generującym, czy nieadekwatną intuicją.
+
+Nie nazywać pozostałej części struktury fraktalną bez identyfikacji obiektu, definicji samopodobieństwa, zakresu skal, oszacowania wymiaru z niepewnością i kontroli niefraktalnej. Nie zmieniać aksjomatów M/S, G, K ani META na podstawie tej hipotezy. Kolejny krok to odnalezienie wcześniejszego formalizmu fraktalnego w repozytoriach ekosystemu i porównanie go z definicjami w GIA-TIMDR.
