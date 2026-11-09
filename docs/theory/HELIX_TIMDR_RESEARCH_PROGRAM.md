@@ -488,3 +488,15 @@ Zachowanie ręczności w v0.2 jest kontrolowane przez znak kierunku fazowego (\s
 CI v0.2: [run 42565302887](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42565302887) zakończony sukcesem. Kula i jajo dały fazy 90°→120°, trzy ocalałe krzywe i zachowany znak obiegu. Długości każdej z trzech krzywych: 6.502990 (kula), 6.571573 (jajo). Próg pierwszego odpadnięcia nie jest jednoznaczny w żadnym wariancie, ponieważ model jest symetryczny.
 
 **Istotne zastrzeżenie:** v0.2 usuwa jedną z czterech zamkniętych krzywych, ale nie modeluje jeszcze rzeczywistych połączeń między helisami. Następna wersja musi zbudować połączony graf przestrzenny z węzłami połączeń, łukami helikalnymi oraz dwiema zgodnymi granicami odcięcia określonymi przez globalną ćwiartkę fazy. Bez tego nie można twierdzić, że wykonano topologiczną redukcję czterowęzła do trójwęzła.
+
+
+## 23. Zasadnicza korekta: redukcja jest indukowana DODANIEM elementu
+
+Doprecyzowanie autora z 2026-11-09: dotychczasowy mechanizm redukcji przebiegał przez dodawanie elementów: trójkąt po dodaniu czwartego elementu staje się czworościanem; próba dodania następnego elementu do czworościanu wywołuje redukcję. To odwraca wcześniejsze założenie, że punktem wyjścia jest odpadnięcie jednej helisy podczas rozszerzania/kurczenia.
+
+Nowa sekwencja robocza:
+`triangle(3) -> add element 4 -> tetrahedron(4) -> add element 5 -> boundary violation -> reduction operator`.
+
+Nie zakładamy jeszcze, czy piąty element zostaje odrzucony, czy jego dodanie reorganizuje cały układ do trzech niezależnych gałęzi. Wynik musi wynikać z jawnych warunków brzegowych i operatora redukcji, nie z ręcznego usunięcia helisy. Kula pozostaje geometrią bazową, faza jest miarą podziału; jajo jest wariantem kontrolnym.
+
+Specyfikacja: `docs/geometry/ADDITION_INDUCED_REDUCTION_TRIANGLE_TETRAHEDRON_v0.1.md`. Wyniki wcześniejszego modelu 4→3 (v0.2) pozostają wyłącznie kontrolą kinematycznego rozstawienia faz 90°→120° i nie są dowodem mechanizmu redukcji przez dodanie elementu.
