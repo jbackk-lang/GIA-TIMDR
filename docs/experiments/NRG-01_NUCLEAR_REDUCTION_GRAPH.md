@@ -204,7 +204,7 @@ Dla regularnej krzywej parametryzowanej długością łuku (s), z krzywizną (ka
 \tau_g(s)=\frac{(r'(s)\times r''(s))\cdot r'''(s)}
 {\lVert r'(s)\times r''(s)\rVert^2}.
 ]
-Znak zależy od orientacji przestrzeni i kierunku parametryzacji. Dlatego zapis eksperymentu musi jawnie ustalić: orientację osi (x,y,z), kierunek przebiegu parametru, regułę prawej dłoni, jednostki i konwencję normalną/binormalną. Odwrócenie parametryzacji lub odbicie układu współrzędnych może zmienić znak; nie wolno interpretować zmiany znaku bez kontroli konwencji.
+Znak zależy od orientacji przestrzeni (orientacji układu współrzędnych). Dla standardowej torsji Freneta–Serreta odwrócenie kierunku parametryzacji regularnej krzywej samo w sobie nie zmienia znaku torsji; odbicie przestrzenne o wyznaczniku −1 zmienia znak. Zapis eksperymentu musi jawnie ustalić orientację osi (x,y,z), regułę prawej dłoni, jednostki oraz konwencję normalną/binormalną. Znak skoku helisy zależy ponadto od jawnie wskazanego dodatniego kierunku jej osi, dlatego raportuj go oddzielnie.
 
 Dla helisy o osi i skoku należy ponadto rejestrować oddzielnie:
 - znak torsji geometrycznej;
