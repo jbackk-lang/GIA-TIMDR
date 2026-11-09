@@ -144,3 +144,14 @@ Wynik potwierdza wybór reprezentacji w syntetycznym teście, nie fizyczne sprz�
 
 
 Rozszerzono test pola o sweep odporności: 5 rozdzielczości (5×5 do 17×17), 5 poziomów szumu (0–0.35), oba znaki chiralności, łącznie 50 przypadków. CI `42584276273`: 4/4 PASS; wszystkie 50 zachowały winding ±1. Lokalna faza degraduje się mimo zachowanego winding: najgorszy przypadek MAE 18.86°, p95 56.59° (5×5, szum 0.35). Przy 9×9 i szumie 0.1 MAE ok. 4.1–4.5°. Raport rozszerzony: `docs/handoffs/RESULT_PHASE_FIELD_CHIRALITY_PRESERVATION_2026-11-09.md`. Interpretacja: znak topologiczny jest odporniejszy niż lokalna rekonstrukcja fazy; wymaga to dalszej walidacji na nieregularnych próbkach, wielu seedach i bardziej złożonych polach.
+
+
+## 14. Test historii fazowej na rzeczywistych sekwencjach MAGE
+
+Dodano `experiments/mage_temporal_phase_history/test_phase_history.py` i workflow `.github/workflows/mage-temporal-phase-history.yml`, który pobiera publiczne repo MAGE jako źródło danych i uruchamia analizę trzech sekwencji UCSD Ped2. CI run `42585600447` zakończył się PASS.
+
+Dla Test001 (180 klatek), Test002 (180) i Test003 (150) obliczono zespolone FFT klatek, a historię opisano przez fazę początkową + uporządkowane `Δφ_t=arg(F_{t+1} conj(F_t))`. MAE rekonstrukcji uporządkowanej: 2.50–3.26e-6 rad; po przetasowaniu przyrostów: 1.380–1.393 rad. Odwrócenie czasu spełniło oczekiwaną relację znaku/kolejności z błędem max 4.77e-7 rad. To potwierdza, że uporządkowana reprezentacja zachowuje historię fazową sekwencji; nie dowodzi autonomicznej pamięci pola ani helisy (rekonstrukcja jest konsekwencją definicji przyrostów).
+
+Opisowa średnia aktywność fazowa normal/anomalia: Test001 0.454/0.475 rad; Test002 0.435/0.579; Test003 0.479/0.518, ale tylko 3 przejścia normalne w Test003. Nie wykonano inferencji statystycznej ani korekty ruchu kamery; wskaźnik nie rozróżnia stabilnie anomalii. Raport: `docs/handoffs/RESULT_MAGE_REAL_SEQUENCE_PHASE_HISTORY_2026-11-09.md`.
+
+Następny priorytet: korekta globalnego ruchu, lokalna koherencja fazowa i baseline'y (różnica obrazu/przepływ optyczny/amplituda widma) na większej liczbie klipów. Nie podłączać jeszcze do G-Rezonansu; dopiero po walidacji reprezentacji pola określić mapowanie do S/GS-Matrix.
