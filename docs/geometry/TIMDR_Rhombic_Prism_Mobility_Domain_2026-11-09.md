@@ -360,3 +360,7 @@ Skan numeryczny:
 
 GitHub Actions — oba testy zakończone powodzeniem:
 https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42629995606
+
+
+Dodatkowy test symboliczny rozszerzono o sprzężenie obrotami (\pm120^\circ) wokół osi (z). CI potwierdza relacje braid dla wszystkich trzech ścian bocznych, każdej z dolną i górną ścianą trójkątną:
+https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/42630116584
