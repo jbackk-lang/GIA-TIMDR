@@ -22,6 +22,7 @@ on:
       - 'experiments/rhombic_prism_triangle_exact_cosine.py'
       - 'experiments/rhombic_prism_triangle_nine_trace_moments.py'
       - 'experiments/rhombic_prism_triangle_nine_spectral_orbits.py'
+      - 'experiments/rhombic_prism_triangle_spectral_separation.py'
       - 'experiments/rhombic_prism_axis_limit_study.py'
       - 'experiments/rhombic_prism_mobility_screw_coupling.py'
       - '.github/workflows/rhombic-prism-center-orbit.yml'
@@ -78,3 +79,5 @@ jobs:
         run: python experiments/rhombic_prism_triangle_nine_trace_moments.py
       - name: Verify spectral orbit multiplicities 3 plus 6
         run: python experiments/rhombic_prism_triangle_nine_spectral_orbits.py
+      - name: Certify exact rational spectral class separation
+        run: python experiments/rhombic_prism_triangle_spectral_separation.py
