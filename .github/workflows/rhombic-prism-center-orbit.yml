@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'experiments/rhombic_prism_center_orbit_geometry.py'
+      - 'experiments/rhombic_prism_helix_commutator_audit.py'
       - 'experiments/rhombic_prism_axis_limit_study.py'
       - 'experiments/rhombic_prism_mobility_screw_coupling.py'
       - '.github/workflows/rhombic-prism-center-orbit.yml'
@@ -24,3 +25,5 @@ jobs:
         run: python -m pip install numpy
       - name: Check center orbit and screw identity
         run: python experiments/rhombic_prism_center_orbit_geometry.py
+      - name: Check circular orbits and noncommutativity
+        run: python experiments/rhombic_prism_helix_commutator_audit.py
