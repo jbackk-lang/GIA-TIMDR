@@ -16,6 +16,7 @@ on:
       - 'experiments/rhombic_prism_triangle_six_orders.py'
       - 'experiments/rhombic_prism_triangle_nine_shapes.py'
       - 'experiments/rhombic_prism_triangle_certified_disk.py'
+      - 'experiments/rhombic_prism_triangle_nine_exact_certificate.py'
       - 'experiments/rhombic_prism_axis_limit_study.py'
       - 'experiments/rhombic_prism_mobility_screw_coupling.py'
       - '.github/workflows/rhombic-prism-center-orbit.yml'
@@ -60,3 +61,5 @@ jobs:
         run: python experiments/rhombic_prism_triangle_nine_shapes.py
       - name: Certify physical root count using rational intervals
         run: python experiments/rhombic_prism_triangle_certified_disk.py
+      - name: Certify nine distinct physical configurations exactly
+        run: python experiments/rhombic_prism_triangle_nine_exact_certificate.py
