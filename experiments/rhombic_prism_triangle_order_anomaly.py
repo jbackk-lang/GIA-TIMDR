@@ -48,7 +48,7 @@ def main():
     except ImportError:
         print("SciPy not installed; skipping candidate-zero search")
         return
-    for guess in ((-.63,-.27),(-.684,-.18)):
+    for guess in ((-.63,-.27),(-.684,-.18),(-.495,-.506)):
         def f(x):
             u,v=x
             if u*u+v*v>=.98**2:
