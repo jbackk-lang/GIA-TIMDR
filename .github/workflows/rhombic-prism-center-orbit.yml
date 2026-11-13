@@ -18,6 +18,7 @@ on:
       - 'experiments/rhombic_prism_triangle_certified_disk.py'
       - 'experiments/rhombic_prism_triangle_nine_exact_certificate.py'
       - 'experiments/rhombic_prism_triangle_nine_spectrum.py'
+      - 'experiments/rhombic_prism_triangle_nine_symbolic_spectrum.py'
       - 'experiments/rhombic_prism_axis_limit_study.py'
       - 'experiments/rhombic_prism_mobility_screw_coupling.py'
       - '.github/workflows/rhombic-prism-center-orbit.yml'
@@ -66,3 +67,5 @@ jobs:
         run: python experiments/rhombic_prism_triangle_nine_exact_certificate.py
       - name: Audit nine-dimensional spectral decomposition
         run: python experiments/rhombic_prism_triangle_nine_spectrum.py
+      - name: Prove exact nine-dimensional characteristic polynomial
+        run: python experiments/rhombic_prism_triangle_nine_symbolic_spectrum.py
