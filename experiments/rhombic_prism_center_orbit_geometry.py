@@ -21,20 +21,19 @@ def audit(u, v, max_depth=5, decimals=10):
     trans = compose(gens[1], gens[0])
     assert np.allclose(trans[0], IDENTITY, atol=1e-12)
     assert np.allclose(trans[1], [0, 0, 2*w], atol=1e-12)
-    states = {((), tuple(np.round(O, decimals))): (IDENTITY, np.zeros(3))}
+    states = [((), (IDENTITY, np.zeros(3)))]
     cumulative_points = {tuple(np.round(O, decimals))}
     print(f"CONFIG,u={u:.9g},v={v:.9g},w={w:.9g},center={O.tolist()}")
     for depth in range(1, max_depth+1):
-        next_states = {}
-        for (word, _), transform in states.items():
+        next_states = []
+        for word, transform in states:
             for i, gen in enumerate(gens):
                 if word and i == word[-1]:
                     continue
                 g = compose(gen, transform)
-                position = g[0] @ O + g[1]
-                next_states[(word[-1:] + (i,), tuple(np.round(position, decimals)))] = g
+                next_states.append((word + (i,), g))
         states = next_states
-        positions = np.array([g[0] @ O + g[1] for g in states.values()])
+        positions = np.array([g[0] @ O + g[1] for _, g in states])
         cumulative_points.update(tuple(np.round(p, decimals)) for p in positions)
         displacements = np.array(list(cumulative_points)) - O
         max_radius = float(np.max(np.linalg.norm(displacements, axis=1)))
@@ -45,7 +44,7 @@ def audit(u, v, max_depth=5, decimals=10):
         if depth % 2 == 0:
             checked = 0
             max_error = 0.0
-            for M, b in states.values():
+            for _, (M, b) in states:
                 kind, result = extract_axis(M, b, min_angle_deg=1.0)
                 if kind not in ("rotation_axis", "screw_axis"):
                     continue
