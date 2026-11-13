@@ -6,7 +6,8 @@ This test is symbolic (SymPy), with no numerical eigenvalue approximations.
 import sympy as sp
 
 def main():
-    l,c,s=sp.symbols("lambda c s",real=True)
+    l=sp.Symbol("lambda")
+    c,s=sp.symbols("c s",real=True)
     R=sp.Matrix([[c,-s,0],[s,c,0],[0,0,1]])
     T=sp.kronecker_product(R,R)
     chi=sp.factor(T.charpoly(l).as_expr())
