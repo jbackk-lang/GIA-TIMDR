@@ -5,6 +5,7 @@ on:
     paths:
       - 'experiments/rhombic_prism_center_orbit_geometry.py'
       - 'experiments/rhombic_prism_helix_commutator_audit.py'
+      - 'experiments/rhombic_prism_center_commutator.py'
       - 'experiments/rhombic_prism_axis_limit_study.py'
       - 'experiments/rhombic_prism_mobility_screw_coupling.py'
       - '.github/workflows/rhombic-prism-center-orbit.yml'
@@ -27,3 +28,5 @@ jobs:
         run: python experiments/rhombic_prism_center_orbit_geometry.py
       - name: Check circular orbits and noncommutativity
         run: python experiments/rhombic_prism_helix_commutator_audit.py
+      - name: Check centroid return under affine commutators
+        run: python experiments/rhombic_prism_center_commutator.py
