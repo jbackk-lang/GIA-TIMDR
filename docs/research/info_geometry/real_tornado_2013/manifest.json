@@ -2,11 +2,35 @@
   "event": "Newcastle–Moore tornado, 2013-05-20",
   "radar": "KTLX",
   "source": "NEXRAD Level II / unidata-nexrad-level2",
-  "utc_range": "2013-05-20T20:03:56Z/2013-05-20T20:42:15Z",
-  "file_count": 10,
-  "total_bytes": 97646751,
-  "note": "Manifest of user-provided real radar scans; no TIMDR observational triples calculated yet. Raw binaries not committed.",
+  "utc_range": "2013-05-20T19:46:55Z/2013-05-20T20:54:59Z",
+  "file_count": 16,
+  "total_bytes": 152060741,
+  "note": "16 user-uploaded observational scans verified locally by gzip decode, byte size and SHA-256; raw binaries not stored in GitHub. First aggregate-sector triple: (14.0 m/s, 15.0 m/s, 258 s), not tornado-specific.",
   "files": [
+    {
+      "name": "KTLX20130520_194655_V06.gz",
+      "bytes": 7814124,
+      "sha256": "deccb9a0fbe0aa786e8a1c1d2aab9ba316a806e6b40ece9602e4dd8a4a1933f2",
+      "url": "https://unidata-nexrad-level2.s3.amazonaws.com/2013/05/20/KTLX/KTLX20130520_194655_V06.gz"
+    },
+    {
+      "name": "KTLX20130520_195111_V06.gz",
+      "bytes": 8092816,
+      "sha256": "d41dcfa4c7db1b72bd5c0399df7931afca6cfe4b5ee1633f79956da974f2dd19",
+      "url": "https://unidata-nexrad-level2.s3.amazonaws.com/2013/05/20/KTLX/KTLX20130520_195111_V06.gz"
+    },
+    {
+      "name": "KTLX20130520_195527_V06.gz",
+      "bytes": 8308234,
+      "sha256": "7fcde18f99e7363ca986011d9ea2bf10a085dd8cba06d6467a4a1b74fc919961",
+      "url": "https://unidata-nexrad-level2.s3.amazonaws.com/2013/05/20/KTLX/KTLX20130520_195527_V06.gz"
+    },
+    {
+      "name": "KTLX20130520_195941_V06.gz",
+      "bytes": 8506393,
+      "sha256": "09bc1b6bb10598721215d1acd2098ec6ba233af992394a153ae55be19a47546e",
+      "url": "https://unidata-nexrad-level2.s3.amazonaws.com/2013/05/20/KTLX/KTLX20130520_195941_V06.gz"
+    },
     {
       "name": "KTLX20130520_200356_V06.gz",
       "bytes": 8793000,
@@ -66,6 +90,18 @@
       "bytes": 10547840,
       "sha256": "981fbcece9cb2c1440c4045c9c5f1f7254062fd6dcbdd04dcdc2142989eba5fd",
       "url": "https://unidata-nexrad-level2.s3.amazonaws.com/2013/05/20/KTLX/KTLX20130520_204215_V06.gz"
+    },
+    {
+      "name": "KTLX20130520_205045_V06.gz",
+      "bytes": 10830394,
+      "sha256": "c9eb529c4a64afd9094e95637ce46d68e131a05a4d48e6368603ad3b649270e4",
+      "url": "https://unidata-nexrad-level2.s3.amazonaws.com/2013/05/20/KTLX/KTLX20130520_205045_V06.gz"
+    },
+    {
+      "name": "KTLX20130520_205459_V06.gz",
+      "bytes": 10862029,
+      "sha256": "c52d8b2975bbe16a66f1dfc428e1888beb9cab5ff75c25add247170f89093835",
+      "url": "https://unidata-nexrad-level2.s3.amazonaws.com/2013/05/20/KTLX/KTLX20130520_205459_V06.gz"
     }
   ]
 }
