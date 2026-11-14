@@ -10,6 +10,10 @@ To katalog **historycznych, datowanych dokumentów**. Materiały zachowują stan
 
 Indeks zawiera **zweryfikowane dokumenty**; nie stanowi jeszcze pełnego spisu wszystkich plików katalogu.
 
+## Audyt archiwum
+
+- [Audyt odnośników i plan pełnej inwentaryzacji — 2026-11-14](AUDYT_2026-11-14.md) — potwierdzone pliki, ograniczenia sprawdzenia katalogów i procedura identyfikacji duplikatów.
+
 ## Gdzie znaleźć aktualny stan
 
 - [README projektu](../../README.md) — wprowadzenie i nawigacja.
