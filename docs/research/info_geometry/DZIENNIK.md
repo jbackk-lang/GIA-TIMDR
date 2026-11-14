@@ -9,6 +9,7 @@
 | 2026-11-14 | Rozdzielono informację Shannona, predykcyjną i fizyczną | Notatka teoretyczna |
 | 2026-11-14 | Uwaga autora: nie wiadomo, czy obserwujemy generator, czy odbiornik | Dodano model źródło–kanał–odbiornik i macierz kontroli |
 | 2026-11-14 | Dodano wykonywalny pilot G/H/R i instrukcję interpretacji | Kod zapisany, wyniki nieuruchomione |
+| 2026-11-14 | Dodano model dwóch odbiorników i wspólnego kanału | Kod zapisany, wyniki nieuruchomione; identyfikacja źródła nadal ograniczona |
 
 ## Szablon wpisu
 
