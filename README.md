@@ -193,4 +193,4 @@ Kod i dokumentacja są materiałem badawczym, nie certyfikowanym narzędziem dia
 
 ## Cytowanie i licencja
 
-Wersjonowane prace autora są dostępne pod DOI: [gałąź sygnałowa](https://doi.org/10.5281/zenodo.22288541), [przegląd ekosystemu](https://doi.org/10.5281/zenodo.22788266), [widmo Laplasjanu na wstędze Möbiusa](https://doi.org/10.5281/zenodo.22812269). Zakres każdego wydania jest różny. Warunki korzystania z kodu określa [LICENSE](LICENSE).
+Wersjonowane prace autora są dostępne pod DOI: [gałąź sygnałowa](https://doi.org/10.5281/zenodo.22288541), [przegląd ekosystemu](https://doi.org/10.5281/zenodo.22788266), [widmo Laplasjanu na wstędze Möbiusa](https://doi.org/10.5281/zenodo.22812269), [dwie algebraiczne klasy spektralne komutatorów odbić graniastosłupa rombowego](https://doi.org/10.5281/zenodo.24210921). Zakres każdego wydania jest różny. Warunki korzystania z kodu określa [LICENSE](LICENSE).
