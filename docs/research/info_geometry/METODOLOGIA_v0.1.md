@@ -14,6 +14,10 @@ Dla szeregu `x[t]` i opóźnienia `d` rekonstruujemy stan `X[t] = (x[t], x[t-d],
 - **H3:** rozróżniają sekwencje o podobnych rozkładach amplitud, lecz odmiennych zależnościach czasowych.
 - **H0 / kontrola negatywna:** na odpowiednio skonstruowanych danych losowych nie pojawia się stabilna, powtarzalna przewaga.
 
+## Odbiór wielogałęziowy i nieznana kategoria
+
+Nie zakładamy, że informacja należy z góry do M/S, G, K albo META. Należy rozważyć równoległe rzuty i jawne mosty, z możliwością `UNKNOWN` / `NOT_APPLICABLE`. Nie wolno utożsamiać krzywizny pojedynczej krzywej opóźnieniowej z operatorem powierzchniowym G. Szczegóły: [mosty gałęzi przy odbiorze](MOSTY_GALEZI_ODBIOR.md).
+
 ## Ograniczenie identyfikowalności
 
 Obserwowane cechy dotyczą sygnału na wyjściu odbiornika, niekoniecznie generatora. Zmiany kanału transmisji, filtracji, próbkowania, wzmocnienia i zegara mogą imitować zmianę źródła. Pilot syntetyczny zakłada stały tor pomiarowy i **nie rozstrzyga przyczynowo**, czy zdarzenie pochodzi ze źródła. Rozszerzenie oraz macierz kontroli G/H/R: [Generator, kanał czy odbiornik?](GENERATOR_KANAL_ODBIORNIK.md).
