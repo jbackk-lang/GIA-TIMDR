@@ -17,6 +17,7 @@ Czy geometria przejść między stanami pozwala odzyskać dodatkową informację
 - [Pilot G/H/R — kod](pilot_ghr.py) i [instrukcja interpretacji](PILOT_GHR_INSTRUKCJA.md).
 - [Dwa odbiorniki — symulacja](two_receivers.py) i [protokół interpretacji](DWA_ODBIORNIKI.md).
 - [Odbiór bez założonej kategorii — mosty gałęzi](MOSTY_GALEZI_ODBIOR.md).
+- [Test wielogałęziowy — kod](multibranch_receiver_test.py) i [protokół](TEST_WIELOGALEZIOWY.md).
 - [Uwagi i pytania otwarte](UWAGI.md)
 - [Dziennik decyzji i wyników](DZIENNIK.md)
 
