@@ -14,6 +14,7 @@ Czy geometria przejść między stanami pozwala odzyskać dodatkową informację
 - [Protokół syntetyczny v0.1](PREREG_SYNTHETIC_v0.1.md)
 - [Informacja, czas i geometria](INFORMACJA_CZAS_GEOMETRIA.md)
 - [Generator, kanał czy odbiornik?](GENERATOR_KANAL_ODBIORNIK.md) — problem identyfikowalności źródła zmiany.
+- [Pilot G/H/R — kod](pilot_ghr.py) i [instrukcja interpretacji](PILOT_GHR_INSTRUKCJA.md).
 - [Uwagi i pytania otwarte](UWAGI.md)
 - [Dziennik decyzji i wyników](DZIENNIK.md)
 
