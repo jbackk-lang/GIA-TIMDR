@@ -14,6 +14,7 @@
 | 2026-11-14 | Dodano eksperyment wielogałęziowy z dwoma odbiornikami i ablacją | Kod zapisany, nieuruchomiony; gałęzie K/G reprezentowane przez proxy |
 | 2026-11-14 | Audyt: zależność cech, brak baseline'u jednoodbiornikowego, brak UNKNOWN | Dodano audyt i skrypt porównania A/B/AB |
 | 2026-11-14 | Wykonano lokalne odtworzenie pilota A/B/AB | AB: MS accuracy 0.976; ALL 1.000 na 250 syntetycznych przypadkach; wyniki eksploracyjne, bez formalnej walidacji mostów |
+| 2026-11-14 | Uwaga autora: TIMDR jest metodą dynamiczną, poprzednie podejście było cząstkowe | Dodano protokół trajektorii i pilot ablacji porządku czasu; bez wyników |
 
 ## Szablon wpisu
 
