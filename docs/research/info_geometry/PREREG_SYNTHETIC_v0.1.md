@@ -29,6 +29,10 @@ Jednostka niepewności: **sesja**, nie okno. Metryka główna: różnica macro-F
 3. Wrażliwość: poziom szumu pomiarowego 0, 0.2, 0.5 SD; analiza wyłącznie wtórna.
 4. Raportowanie autokorelacji jako mocnego baseline'u: bez niego przewaga geometrii nie jest interpretowalna.
 
+## Granica interpretacji: źródło kontra odbiornik
+
+Ten pilot symuluje znane przełączenie generatora AR(1) przy stałym torze obserwacji. Wynik nie pozwala identyfikować źródła zmian w nieznanym rzeczywistym układzie. Warianty z osobno zmienianym generatorem, kanałem i odbiornikiem wymagają odrębnego zamrożonego testu: [model i macierz G/H/R](GENERATOR_KANAL_ODBIORNIK.md).
+
 ## Ograniczenia
 
 To test dodatkowej wartości predykcyjnej cech, nie miara fundamentalnej informacji. AR(1) może być dobrze opisywany przez autokorelację; brak poprawy geometrii jest sensownym i oczekiwanym wynikiem kontrolnym. Dane syntetyczne nie uzasadniają uogólnień na fizykę, EEG ani sejsmikę.
