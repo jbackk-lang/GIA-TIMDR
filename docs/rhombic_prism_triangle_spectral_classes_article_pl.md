@@ -1,6 +1,10 @@
 # Dwie algebraiczne klasy spektralne komutatorów odbić graniastosłupa rombowego
 
 **Artykuł matematyczny — wersja robocza z odtwarzalnymi certyfikatami obliczeń dokładnych**
+**Wersja w Zenodo (DOI):** [10.5281/zenodo.24210921](https://doi.org/10.5281/zenodo.24210921)
+
+**Repozytorium z kodem i certyfikatami:** [jbackk-lang/GIA-TIMDR](https://github.com/jbackk-lang/GIA-TIMDR)
+
 
 ## Streszczenie
 
