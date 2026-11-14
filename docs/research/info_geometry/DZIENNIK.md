@@ -12,7 +12,8 @@
 | 2026-11-14 | Dodano model dwóch odbiorników i wspólnego kanału | Kod zapisany, wyniki nieuruchomione; identyfikacja źródła nadal ograniczona |
 | 2026-11-14 | Uwaga autora: nie zakładać kategorii informacji; korzystać z mostów TIMDR przy odbiorze | Dodano architekturę równoległych rzutów i mostów, bez naruszania aksjomatów |
 | 2026-11-14 | Dodano eksperyment wielogałęziowy z dwoma odbiornikami i ablacją | Kod zapisany, nieuruchomiony; gałęzie K/G reprezentowane przez proxy |
-| 2026-11-14 | Audyt: zależność cech, brak baseline'u jednoodbiornikowego, brak UNKNOWN | Dodano audyt i skrypt porównania A/B/AB; bez wyników liczbowych |
+| 2026-11-14 | Audyt: zależność cech, brak baseline'u jednoodbiornikowego, brak UNKNOWN | Dodano audyt i skrypt porównania A/B/AB |
+| 2026-11-14 | Wykonano lokalne odtworzenie pilota A/B/AB | AB: MS accuracy 0.976; ALL 1.000 na 250 syntetycznych przypadkach; wyniki eksploracyjne, bez formalnej walidacji mostów |
 
 ## Szablon wpisu
 
