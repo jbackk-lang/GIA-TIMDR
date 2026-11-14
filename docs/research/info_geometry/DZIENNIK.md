@@ -5,6 +5,8 @@
 | 2026-11-14 | Sformułowano pytanie o geometrię informacji i „cząstkę informacji” | Hipoteza |
 | 2026-11-14 | Utworzono gałąź badawczą i metodologię v0.1 | Dokumentacja |
 | 2026-11-14 | Zaplanowano testy syntetyczne, kontrole i porównania z baseline'ami | Nieuruchomione |
+| 2026-11-14 | Zapisano szczegółowy protokół pilota AR(1) i regułę sukcesu | Do implementacji i zamrożenia kodu |
+| 2026-11-14 | Rozdzielono informację Shannona, predykcyjną i fizyczną | Notatka teoretyczna |
 
 ## Szablon wpisu
 
