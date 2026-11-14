@@ -15,6 +15,7 @@ Czy geometria przejść między stanami pozwala odzyskać dodatkową informację
 - [Informacja, czas i geometria](INFORMACJA_CZAS_GEOMETRIA.md)
 - [Generator, kanał czy odbiornik?](GENERATOR_KANAL_ODBIORNIK.md) — problem identyfikowalności źródła zmiany.
 - [Pilot G/H/R — kod](pilot_ghr.py) i [instrukcja interpretacji](PILOT_GHR_INSTRUKCJA.md).
+- [Dwa odbiorniki — symulacja](two_receivers.py) i [protokół interpretacji](DWA_ODBIORNIKI.md).
 - [Uwagi i pytania otwarte](UWAGI.md)
 - [Dziennik decyzji i wyników](DZIENNIK.md)
 
