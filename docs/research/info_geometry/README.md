@@ -13,6 +13,7 @@ Czy geometria przejść między stanami pozwala odzyskać dodatkową informację
 - [Metodologia v0.1](METODOLOGIA_v0.1.md)
 - [Protokół syntetyczny v0.1](PREREG_SYNTHETIC_v0.1.md)
 - [Informacja, czas i geometria](INFORMACJA_CZAS_GEOMETRIA.md)
+- [Generator, kanał czy odbiornik?](GENERATOR_KANAL_ODBIORNIK.md) — problem identyfikowalności źródła zmiany.
 - [Uwagi i pytania otwarte](UWAGI.md)
 - [Dziennik decyzji i wyników](DZIENNIK.md)
 
