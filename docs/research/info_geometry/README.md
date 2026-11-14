@@ -19,6 +19,7 @@ Czy geometria przejść między stanami pozwala odzyskać dodatkową informację
 - [Odbiór bez założonej kategorii — mosty gałęzi](MOSTY_GALEZI_ODBIOR.md).
 - [Test wielogałęziowy — kod](multibranch_receiver_test.py) i [protokół](TEST_WIELOGALEZIOWY.md).
 - [Porównanie jednego i dwóch odbiorników](compare_receivers.py), [audyt metodologiczny](AUDYT_TESTU_WIELOGALEZIOWEGO.md) i [wyniki pilota syntetycznego 2026-11-14](WYNIKI_PILOT_AB_2026-11-14.md).
+- [Dynamiczny protokół TIMDR](TIMDR_DYNAMICZNY_PROTOKOL.md) i [pilot zachowania porządku czasowego](dynamic_trajectory_pilot.py).
 - [Uwagi i pytania otwarte](UWAGI.md)
 - [Dziennik decyzji i wyników](DZIENNIK.md)
 
