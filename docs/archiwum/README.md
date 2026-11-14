@@ -10,6 +10,10 @@ To katalog **historycznych, datowanych dokumentów**. Materiały zachowują stan
 
 Indeks zawiera **zweryfikowane dokumenty**; nie stanowi jeszcze pełnego spisu wszystkich plików katalogu.
 
+## Zachowane zestawienia wyników
+
+- [Szczegółowe eksperymenty — migawka README z 2026-11-14](WYNIKI_EKSPERYMENTOW_MIGAWKA_README_2026-11-14.md) — pełna historyczna tabela porównań, w tym wyniki pozytywne, mieszane i negatywne; zachowana przy skróceniu głównego README.
+
 ## Audyt archiwum
 
 - [Audyt odnośników i plan pełnej inwentaryzacji — 2026-11-14](AUDYT_2026-11-14.md) — potwierdzone pliki, ograniczenia sprawdzenia katalogów i procedura identyfikacji duplikatów.
