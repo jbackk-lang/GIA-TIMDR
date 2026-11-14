@@ -14,6 +14,10 @@ Dla szeregu `x[t]` i opóźnienia `d` rekonstruujemy stan `X[t] = (x[t], x[t-d],
 - **H3:** rozróżniają sekwencje o podobnych rozkładach amplitud, lecz odmiennych zależnościach czasowych.
 - **H0 / kontrola negatywna:** na odpowiednio skonstruowanych danych losowych nie pojawia się stabilna, powtarzalna przewaga.
 
+## Ograniczenie identyfikowalności
+
+Obserwowane cechy dotyczą sygnału na wyjściu odbiornika, niekoniecznie generatora. Zmiany kanału transmisji, filtracji, próbkowania, wzmocnienia i zegara mogą imitować zmianę źródła. Pilot syntetyczny zakłada stały tor pomiarowy i **nie rozstrzyga przyczynowo**, czy zdarzenie pochodzi ze źródła. Rozszerzenie oraz macierz kontroli G/H/R: [Generator, kanał czy odbiornik?](GENERATOR_KANAL_ODBIORNIK.md).
+
 ## Dane i kontrole
 1. Syntetyczne: biały i skorelowany szum, proces AR, oscylator, skoki reżimu, impulsy, mieszanki sygnału i szumu. Ustalić generatory, parametry i ziarna przed testem.
 2. Kontrole: tasowanie czasu (zachowuje histogram, niszczy kolejność), surrogaty zachowujące widmo, zmiana próbkowania, poziomu szumu i amplitudy.
