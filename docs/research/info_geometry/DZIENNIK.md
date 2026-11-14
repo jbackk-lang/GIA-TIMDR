@@ -11,6 +11,7 @@
 | 2026-11-14 | Dodano wykonywalny pilot G/H/R i instrukcję interpretacji | Kod zapisany, wyniki nieuruchomione |
 | 2026-11-14 | Dodano model dwóch odbiorników i wspólnego kanału | Kod zapisany, wyniki nieuruchomione; identyfikacja źródła nadal ograniczona |
 | 2026-11-14 | Uwaga autora: nie zakładać kategorii informacji; korzystać z mostów TIMDR przy odbiorze | Dodano architekturę równoległych rzutów i mostów, bez naruszania aksjomatów |
+| 2026-11-14 | Dodano eksperyment wielogałęziowy z dwoma odbiornikami i ablacją | Kod zapisany, nieuruchomiony; gałęzie K/G reprezentowane przez proxy |
 
 ## Szablon wpisu
 
