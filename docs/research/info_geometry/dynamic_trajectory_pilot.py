@@ -31,20 +31,20 @@ def lag1(x):
     den=sum((v-m)**2 for v in x)
     return sum((x[i]-m)*(x[i-1]-m) for i in range(1,len(x)))/den if den else 0.0
 
-def features(x,mode):
+def features(x,mode,seed=None,label=None):
     z=[lag1(x[i:i+WINDOW]) for i in range(0,len(x),WINDOW)]
     if mode=="DYNAMIC":
         return z
     if mode=="STATIC":
         return [statistics.mean(z),statistics.pstdev(z),min(z),max(z)]
     if mode=="SHUFFLED":
-        rng=random.Random(123456)
+        rng=random.Random(810000+seed*7)
         rng.shuffle(z)
         return z
     raise ValueError(mode)
 
 def model(mode):
-    rows={label:[features(trajectory(seed,label),mode) for seed in TRAIN]
+    rows={label:[features(trajectory(seed,label),mode,seed,label) for seed in TRAIN]
           for label in LABELS}
     d=len(next(iter(rows.values()))[0])
     mu=[statistics.mean(v[j] for values in rows.values() for v in values) for j in range(d)]
@@ -65,7 +65,7 @@ def main():
         ok=0
         for seed in TEST:
             for label in LABELS:
-                pred=predict(features(trajectory(seed,label),mode),m)
+                pred=predict(features(trajectory(seed,label),mode,seed,label),m)
                 ok+=(pred==label)
         print(f"{mode},{ok/(len(TEST)*len(LABELS)):.4f}")
 
