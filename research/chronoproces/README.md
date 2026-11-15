@@ -24,3 +24,4 @@ Zainstalować rzeczywiście niezależny [lrat-check](https://github.com/marijnhe
 
 ## Zasada dokumentacyjna
 Główne [README](../../README.md) prezentuje kluczowe odkrycia i uczciwy status dowodowy. Tutaj pozostają techniczne checkpointy. Raporty łożyskowe i inne domenowe są powiązanymi eksperymentami, nie zastępują rdzenia matematycznego.
+\n## 51B.16s — błąd protokołu odpowiedzi\n[Checkpoint 51B.16s](TIMDR_51B16S_CHECKPOINT_2026-11-15.md): usunięto podatność na fałszywie pozytywne rozpoznanie `NOT VERIFIED`; 17/17 testów, ale niezależny checker nadal nieuruchomiony.\n
