@@ -53,6 +53,27 @@ TIMDR to zasada budowania małego rdzenia, z którego można wyprowadzić mechan
 
 Skuteczność oceniamy osobno dla każdej aplikacji i zadania. Wyniki i zakres zastosowania podają repozytoria domenowe.
 
+## Najnowsze odkrycia badawcze — Chronoproces i proof-carrying control (51B.15u–51B.16q)
+
+**Główny rezultat tej linii badań:** dla skończonych układów częściowo obserwowalnych TIMDR formułuje dokładną grę przekonań, w której regulator wybiera działania wyłącznie na podstawie dostępnej obserwacji i swojej pamięci. Rozdzielono trzy obowiązki: **bezpieczeństwo wszystkich możliwych trajektorii przed diagnozą**, **gwarantowaną diagnozę w skończonym czasie** oraz **weryfikowalny dowód, że dany regulator lub cała klasa regulatorów spełnia albo nie spełnia specyfikacji**. Wyniki mają precyzyjny zakres matematyczny; nie są ogólną walidacją systemów ciągłych ani gotowym certyfikatem bezpieczeństwa przemysłowego.
+
+### Najważniejsze twierdzenia i rozróżnienia
+
+| Odkrycie / rezultat | Znaczenie | Zakres i ograniczenie |
+|---|---|---|
+| **Dokładna gra przekonań i diagnoza** (15u–15z, 16a, 16g) | Rozróżnienie etykiety bieżącego stanu od niezmiennego pochodzenia; test osiągalności bezpiecznej diagnozy i pułapki epistemiczne. | Skończona gra częściowej obserwacji; diagnoza pochodzenia wymaga jawnego tagowania stanu. |
+| **Pamięć regulatora ≠ wiedza o stanie** (16b–16d, 16j) | Sterownik realizuje tablice \(\alpha,\eta:M\times Y\to A,M\); nie może używać ukrytego przekonania \(B\) ani identyfikatora komórki kwantyzacji jako dodatkowego pomiaru. | Gwarancje dotyczą ustalonej klasy regulatorów i semantyki obserwacja → działanie → aktualizacja pamięci → przejście. |
+| **Abstrakcja geometryczna i epistemiczna** (16e–16f) | Nadaproksymacja może dowodzić bezpieczeństwa, ale pozorny cykl abstrakcyjny nie jest automatycznie rzeczywistym świadkiem niewykonalności. | Negatywny certyfikat ciągły wymaga realizowalności ścieżki lub zweryfikowanej relacji symulacyjnej. |
+| **Dualne certyfikaty** (16h–16k) | Dodatnie: indukcyjny zbiór i malejąca ranga. Ujemne: niebezpieczny prefiks albo epistemiczne lasso; dla ograniczonej pamięci kompletne świadectwa mogą obejmować wszystkie tablice. | Dokładne modele skończone; enumeracja ma koszt \((|A|k)^{k|Y|}\). |
+| **Symboliczne niewykonalności** (16l–16m) | Kodowanie SAT \(\Phi_k\) jest spełnialne wtedy i tylko wtedy, gdy istnieje regulator \(k\)-stanowy spełniający specyfikację; dowód UNSAT może zastąpić listę regulatorów. | Encoder może mieć wykładniczą przestrzeń przekonań, a świadectwo UNSAT nie musi być krótkie. |
+| **Jądro dowodowe i integralność** (16n–16q) | Eksperymentalny checker RUP/RAT, manifest SHA-256 modelu/CNF/dowodu, testy mutacyjne i izolacja procesu. | Brak pełnej formalnej weryfikacji kodu i **brak wykonanego porównania z niezależnym zewnętrznym checkerem LRAT**. |
+
+**Wyniki testów prototypów, nie twierdzenia o pełnej poprawności:** w 51B.16m uzyskano 36 zgodnych porównań SAT z enumeracją dla małych gier; w 51B.16p wykonano 2500 mutacji parsera bez nieobsłużonego wyjątku; w 51B.16q ponownie potwierdzono 12/12 testów jednostkowych (15 listopada 2026). Odróżniamy zgodność na korpusie testowym od formalnego dowodu poprawności implementacji.
+
+**Otwarte zadanie krytyczne:** niezależne sprawdzenie tych samych plików DIMACS/LRAT przez zewnętrzny checker, z dokumentacją wersji, poleceń i analizy rozbieżności. Kandydaci: [lrat-check / drat-trim](https://github.com/marijnheule/drat-trim) oraz [cake_lpr](https://github.com/tanyongkiam/cake_lpr). Samo uruchomienie naszego checkera w osobnym procesie nie jest niezależną walidacją.
+
+**Dokumentacja szczegółowa:** [indeks badań Chronoprocesu](research/chronoproces/README.md) · [ostatni checkpoint 51B.16q](research/chronoproces/TIMDR_51B16Q_CHECKPOINT_2026-11-15.md) · [stan projektu](STAN_PROJEKTU.md). Raporty domenowe, w tym łożyskowe, pozostają w [archiwum eksperymentów](docs/archiwum/WYNIKI_EKSPERYMENTOW_MIGAWKA_README_2026-11-14.md); są jedną z linii badań, nie osią narracji głównego README.
+
 ## Co już powstało
 
 - Cztery gałęzie opisane definicjami i aksjomatami (13 M/S, 10 G, 10 K, 9 META), cztery formalne repozytoria włączone tutaj z zachowaniem historii oraz kod geometrii, sygnału, fazy i dynamiki.
