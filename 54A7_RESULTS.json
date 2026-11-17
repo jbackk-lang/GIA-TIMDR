@@ -1,0 +1,38 @@
+{
+  "status": "synthetic exploratory META proxy, not full TIMDR",
+  "window": 64,
+  "results": [
+    {
+      "dataset": "random",
+      "input_bytes": 32768,
+      "raw": 32796,
+      "static": 32796,
+      "adaptive": 32796,
+      "meta_proxy": 32796
+    },
+    {
+      "dataset": "periodic",
+      "input_bytes": 32768,
+      "raw": 170,
+      "static": 395,
+      "adaptive": 172,
+      "meta_proxy": 172
+    },
+    {
+      "dataset": "drift",
+      "input_bytes": 32768,
+      "raw": 167,
+      "static": 167,
+      "adaptive": 170,
+      "meta_proxy": 320
+    },
+    {
+      "dataset": "correlated",
+      "input_bytes": 32768,
+      "raw": 6655,
+      "static": 9334,
+      "adaptive": 6655,
+      "meta_proxy": 6655
+    }
+  ]
+}
