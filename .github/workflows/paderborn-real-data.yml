@@ -51,7 +51,7 @@ jobs:
           p = Path("raw") / (name + ".rar")
           with p.open("rb") as f:
               sig = f.read(8)
-          assert sig.startswith(b"Rar!\\x1a\\x07"), "File is not a RAR archive"
+          assert sig.startswith(b"Rar!\x1a\x07"), "File is not a RAR archive"
           print("Official RAR archive signature verified:", name)
           PY
       - name: Hash source file and publish manifest
