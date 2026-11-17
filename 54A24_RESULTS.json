@@ -1,0 +1,49 @@
+{
+  "experiment": "54A.24",
+  "n": 8192,
+  "record_bytes": 6,
+  "compressor": "zlib level 6",
+  "assumptions": "three 16-bit nodes per timestamp, fixed known star topology, no metadata for topology; synthetic",
+  "rows": [
+    {
+      "dataset": "shared",
+      "compressed_bytes": {
+        "raw": 3764,
+        "independent": 133,
+        "hierarchical": 113
+      },
+      "hierarchical_vs_independent_pct": -15.04,
+      "roundtrip": true
+    },
+    {
+      "dataset": "independent",
+      "compressed_bytes": {
+        "raw": 31741,
+        "independent": 136,
+        "hierarchical": 137
+      },
+      "hierarchical_vs_independent_pct": 0.74,
+      "roundtrip": true
+    },
+    {
+      "dataset": "switching",
+      "compressed_bytes": {
+        "raw": 19673,
+        "independent": 703,
+        "hierarchical": 641
+      },
+      "hierarchical_vs_independent_pct": -8.82,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "compressed_bytes": {
+        "raw": 48185,
+        "independent": 48960,
+        "hierarchical": 49100
+      },
+      "hierarchical_vs_independent_pct": 0.29,
+      "roundtrip": true
+    }
+  ]
+}
