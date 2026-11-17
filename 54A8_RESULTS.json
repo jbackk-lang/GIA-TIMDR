@@ -1,0 +1,37 @@
+{
+  "experiment": "54A.8",
+  "window": 64,
+  "status": "synthetic, not full TIMDR",
+  "results": [
+    {
+      "dataset": "structured",
+      "input_bytes": 16384,
+      "raw": 95,
+      "static": 64,
+      "adaptive": 105,
+      "meta": 111,
+      "geometry_side_gzip": 116,
+      "meta_with_side": 227
+    },
+    {
+      "dataset": "switching",
+      "input_bytes": 16384,
+      "raw": 554,
+      "static": 2062,
+      "adaptive": 572,
+      "meta": 571,
+      "geometry_side_gzip": 119,
+      "meta_with_side": 690
+    },
+    {
+      "dataset": "random",
+      "input_bytes": 16384,
+      "raw": 16407,
+      "static": 16407,
+      "adaptive": 16407,
+      "meta": 16407,
+      "geometry_side_gzip": 9852,
+      "meta_with_side": 26259
+    }
+  ]
+}
