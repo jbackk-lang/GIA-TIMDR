@@ -1,0 +1,76 @@
+name: Paderborn real data - one click
+
+on:
+  workflow_dispatch:
+    inputs:
+      bearing:
+        description: "Official Paderborn bearing archive to check"
+        type: choice
+        required: true
+        default: K002
+        options:
+          - K002
+          - K003
+          - K004
+          - K005
+          - K006
+          - KA04
+          - KA15
+          - KA16
+          - KA22
+          - KA30
+          - KI04
+          - KI14
+          - KI16
+          - KI18
+          - KI21
+
+permissions:
+  contents: read
+
+jobs:
+  download-and-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download selected official archive
+        env:
+          BEARING: ${{ inputs.bearing }}
+        run: |
+          set -euo pipefail
+          mkdir -p raw
+          curl --fail --location --retry 3 --connect-timeout 30 --max-time 600 \
+            "https://groups.uni-paderborn.de/kat/BearingDataCenter/${BEARING}.rar" \
+            --output "raw/${BEARING}.rar"
+          test "$(stat -c%s "raw/${BEARING}.rar")" -gt 1000000
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          name = os.environ["BEARING"]
+          p = Path("raw") / (name + ".rar")
+          with p.open("rb") as f:
+              sig = f.read(8)
+          assert sig.startswith(b"Rar!\\x1a\\x07"), "File is not a RAR archive"
+          print("Official RAR archive signature verified:", name)
+          PY
+      - name: Hash source file and publish manifest
+        env:
+          BEARING: ${{ inputs.bearing }}
+        run: |
+          python scripts/hash_paderborn_archives.py raw > paderborn-source-manifest.json
+          python - <<'PY'
+          import json, os
+          with open("paderborn-source-manifest.json") as f:
+              data = json.load(f)
+          target = os.environ["BEARING"] + ".rar"
+          assert any(x["name"] == target for x in data["files"])
+          print("Downloaded:", target)
+          print("SHA256:", next(x["sha256"] for x in data["files"] if x["name"] == target))
+          PY
+      - name: Publish small provenance report only
+        uses: actions/upload-artifact@v4
+        with:
+          name: paderborn-source-manifest-${{ inputs.bearing }}
+          path: paderborn-source-manifest.json
+          retention-days: 14
