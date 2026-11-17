@@ -27,6 +27,22 @@ class ValidatorTests(unittest.TestCase):
             self.assertEqual(result.returncode, 1)
             self.assertIn("unreadable NPZ", result.stdout)
 
+    def test_duplicate_condition_measurement_pair_fails(self):
+        import numpy as np
+        with tempfile.TemporaryDirectory() as d:
+            conds = ("N15_M07_F10", "N09_M07_F10", "N15_M01_F10", "N15_M07_F04")
+            cond = np.array([c for c in conds for _ in range(20)])
+            meas = np.tile(np.arange(1, 21), 4)
+            meas[0], meas[21] = meas[21], meas[0]
+            np.savez_compressed(
+                Path(d) / "K002.npz",
+                raw=np.broadcast_to(np.zeros((1, 64000), np.float32), (80, 64000)),
+                tok=np.broadcast_to(np.zeros((1, 15, 230), np.float32), (80, 15, 230)),
+                cond=cond, meas=meas)
+            result = self.run_validator(d)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("duplicate or missing condition/measurement pairs", result.stdout)
+
     def test_wrong_shape_fails(self):
         import numpy as np
         with tempfile.TemporaryDirectory() as d:
