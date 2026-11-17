@@ -1,0 +1,35 @@
+{
+  "experiment": "54A.13",
+  "input_bytes": 32768,
+  "alarm_matching_window": [
+    -64,
+    128
+  ],
+  "results": [
+    {
+      "dataset": "regular",
+      "boundaries": 63,
+      "gzip_bytes": 1958,
+      "adaptive_bytes": 2550,
+      "multiscale_bytes": 2642,
+      "detector_alarms": 127,
+      "detector_matched": 57,
+      "detector_false": 70,
+      "detector_early": 10,
+      "multiscale_alarms": 0
+    },
+    {
+      "dataset": "irregular",
+      "boundaries": 55,
+      "gzip_bytes": 1756,
+      "adaptive_bytes": 2318,
+      "multiscale_bytes": 2392,
+      "detector_alarms": 101,
+      "detector_matched": 48,
+      "detector_false": 53,
+      "detector_early": 6,
+      "multiscale_alarms": 0
+    }
+  ],
+  "caveat": "No predictive evidence; alarms not part of compressed stream"
+}
