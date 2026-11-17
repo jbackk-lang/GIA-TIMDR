@@ -34,6 +34,11 @@ def validate(directory: Path) -> dict:
                     observed = [int(n) for n in z["meas"]]
                     if sorted(observed) != sorted(list(range(1, 21)) * 4):
                         result["errors"].append(f"{bearing}: unexpected measurement indices")
+                if all(k in z.files and z[k].shape == (80,) for k in ("cond", "meas")):
+                    pairs = [(str(cd), int(n)) for cd, n in zip(z["cond"], z["meas"])]
+                    expected_pairs = [(cd, n) for cd in CONDS for n in range(1, 21)]
+                    if sorted(pairs) != sorted(expected_pairs):
+                        result["errors"].append(f"{bearing}: duplicate or missing condition/measurement pairs")
             result["checked"] += 1
         except (OSError, ValueError, KeyError, TypeError) as exc:
             result["errors"].append(f"{bearing}: unreadable NPZ ({type(exc).__name__}: {exc})")
