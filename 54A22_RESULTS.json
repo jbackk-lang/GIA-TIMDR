@@ -1,0 +1,248 @@
+{
+  "records": 65536,
+  "block_records": 512,
+  "raw_bytes": 720896,
+  "methods": "raw order0; delta1; second delta2; causal best previous completed block; geometry previous-block directional alignment",
+  "rows": [
+    {
+      "dataset": "linear",
+      "method": "raw",
+      "compressed_bytes": 68699,
+      "compress_MiBs": 15.17,
+      "model_counts": [
+        128,
+        0,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "linear",
+      "method": "fixed1",
+      "compressed_bytes": 50341,
+      "compress_MiBs": 16.51,
+      "model_counts": [
+        0,
+        128,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "linear",
+      "method": "fixed2",
+      "compressed_bytes": 50695,
+      "compress_MiBs": 14.43,
+      "model_counts": [
+        0,
+        0,
+        128
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "linear",
+      "method": "causal",
+      "compressed_bytes": 50347,
+      "compress_MiBs": 5.49,
+      "model_counts": [
+        0,
+        126,
+        2
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "linear",
+      "method": "geometry",
+      "compressed_bytes": 50696,
+      "compress_MiBs": 6.57,
+      "model_counts": [
+        0,
+        1,
+        127
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "curve",
+      "method": "raw",
+      "compressed_bytes": 113200,
+      "compress_MiBs": 15.41,
+      "model_counts": [
+        128,
+        0,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "curve",
+      "method": "fixed1",
+      "compressed_bytes": 56934,
+      "compress_MiBs": 16.36,
+      "model_counts": [
+        0,
+        128,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "curve",
+      "method": "fixed2",
+      "compressed_bytes": 54330,
+      "compress_MiBs": 13.8,
+      "model_counts": [
+        0,
+        0,
+        128
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "curve",
+      "method": "causal",
+      "compressed_bytes": 54360,
+      "compress_MiBs": 4.88,
+      "model_counts": [
+        0,
+        1,
+        127
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "curve",
+      "method": "geometry",
+      "compressed_bytes": 54360,
+      "compress_MiBs": 6.5,
+      "model_counts": [
+        0,
+        1,
+        127
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "noise",
+      "method": "raw",
+      "compressed_bytes": 501101,
+      "compress_MiBs": 13.19,
+      "model_counts": [
+        128,
+        0,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "noise",
+      "method": "fixed1",
+      "compressed_bytes": 502141,
+      "compress_MiBs": 13.43,
+      "model_counts": [
+        0,
+        128,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "noise",
+      "method": "fixed2",
+      "compressed_bytes": 502211,
+      "compress_MiBs": 11.28,
+      "model_counts": [
+        0,
+        0,
+        128
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "noise",
+      "method": "causal",
+      "compressed_bytes": 502129,
+      "compress_MiBs": 4.11,
+      "model_counts": [
+        0,
+        78,
+        50
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "noise",
+      "method": "geometry",
+      "compressed_bytes": 502141,
+      "compress_MiBs": 6,
+      "model_counts": [
+        0,
+        128,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "raw",
+      "compressed_bytes": 190149,
+      "compress_MiBs": 14.47,
+      "model_counts": [
+        128,
+        0,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "fixed1",
+      "compressed_bytes": 165029,
+      "compress_MiBs": 11.83,
+      "model_counts": [
+        0,
+        128,
+        0
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "fixed2",
+      "compressed_bytes": 164817,
+      "compress_MiBs": 13.18,
+      "model_counts": [
+        0,
+        0,
+        128
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "causal",
+      "compressed_bytes": 164705,
+      "compress_MiBs": 4.95,
+      "model_counts": [
+        0,
+        83,
+        45
+      ],
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "geometry",
+      "compressed_bytes": 164759,
+      "compress_MiBs": 6.58,
+      "model_counts": [
+        0,
+        33,
+        95
+      ],
+      "roundtrip": true
+    }
+  ]
+}
