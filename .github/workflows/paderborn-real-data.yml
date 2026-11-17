@@ -1,10 +1,6 @@
 name: Paderborn real data - one click
 
 on:
-  push:
-    paths:
-      - ".github/workflows/paderborn-real-data.yml"
-      - "scripts/hash_paderborn_archives.py"
   workflow_dispatch:
     inputs:
       bearing:
