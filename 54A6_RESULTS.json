@@ -1,0 +1,37 @@
+{
+  "scope": "Exploratory J-inspired coupling, not source-derived TIMDR",
+  "results": [
+    {
+      "data": "random",
+      "input_bytes": 32768,
+      "raw": 32796,
+      "static": 32796,
+      "adaptive": 32796,
+      "coupled": 32796
+    },
+    {
+      "data": "periodic",
+      "input_bytes": 32768,
+      "raw": 170,
+      "static": 395,
+      "adaptive": 172,
+      "coupled": 172
+    },
+    {
+      "data": "drift",
+      "input_bytes": 32768,
+      "raw": 167,
+      "static": 167,
+      "adaptive": 170,
+      "coupled": 173
+    },
+    {
+      "data": "correlated",
+      "input_bytes": 32768,
+      "raw": 6624,
+      "static": 9368,
+      "adaptive": 6624,
+      "coupled": 6624
+    }
+  ]
+}
