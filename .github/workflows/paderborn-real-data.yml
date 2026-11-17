@@ -92,10 +92,16 @@ jobs:
           from scipy.io import loadmat
           bearing = os.environ["BEARING"]
           member = f"{bearing}/N15_M07_F10_{bearing}_1.mat"
-          result = subprocess.run(
-              ["7z", "e", "-so", f"raw/{bearing}.rar", member],
-              capture_output=True, check=True)
-          data = loadmat(BytesIO(result.stdout), squeeze_me=True, struct_as_record=False)
+          import tempfile
+          from pathlib import Path
+          with tempfile.TemporaryDirectory() as tmp:
+              subprocess.run(
+                  ["7z", "x", "-y", f"raw/{bearing}.rar", f"-o{tmp}", member],
+                  check=True, stdout=subprocess.DEVNULL)
+              matches = list(Path(tmp).rglob(f"N15_M07_F10_{bearing}_1.mat"))
+              if len(matches) != 1:
+                  raise RuntimeError(f"Expected one MATLAB measurement, found {len(matches)}")
+              data = loadmat(matches[0], squeeze_me=True, struct_as_record=False)
           s = data[next(k for k in data if not k.startswith("__"))]
           channels = {entry.Name: entry.Data for entry in s.Y}
           vibration = np.asarray(channels["vibration_1"], dtype=np.float64)
