@@ -1,0 +1,50 @@
+{
+  "experiment": "54A.21",
+  "records": 32768,
+  "raw_bytes": 360448,
+  "methods": [
+    "fixed4096",
+    "model256",
+    "geometry256",
+    "cost256"
+  ],
+  "results": [
+    {
+      "dataset": "linear",
+      "compressed_bytes": {
+        "fixed4096": 10506,
+        "model256": 10465,
+        "geometry256": 10465,
+        "cost256": 10465
+      }
+    },
+    {
+      "dataset": "turn",
+      "compressed_bytes": {
+        "fixed4096": 8855,
+        "model256": 10159,
+        "geometry256": 10159,
+        "cost256": 10159
+      }
+    },
+    {
+      "dataset": "mixed",
+      "compressed_bytes": {
+        "fixed4096": 122672,
+        "model256": 163777,
+        "geometry256": 163777,
+        "cost256": 124041
+      }
+    },
+    {
+      "dataset": "random",
+      "compressed_bytes": {
+        "fixed4096": 232222,
+        "model256": 287196,
+        "geometry256": 287196,
+        "cost256": 287196
+      }
+    }
+  ],
+  "note": "Verified locally by executing /mnt/data/54A21.py; all 28 variants passed exact roundtrip. This GitHub file is a summary; full results including timings and fixed 64/256/1024 are in local 54A21_RESULTS.json. Geometry is a J-like heuristic, not full TIMDR."
+}
