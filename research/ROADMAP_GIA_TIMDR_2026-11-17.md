@@ -43,6 +43,22 @@ Kandydat na minimalny stan jest klasą równoważności historii h~h' wtedy i ty
 
 ---
 
+### 51B.13+ — kolejność twierdzeń i kontrprzykładów
+
+Proponowana architektura (hipoteza, nie ustalony fakt): historia H → równoważność względem przyszłości → stan S_H → **predykcyjnie istotne** projekcje M/S, G, K, META. Wymaganie odtworzenia pełnych historycznych reprezentacji byłoby silniejsze i nie wynika z wystarczalności predykcyjnej.
+
+1. **Istnienie**: przy określonej przestrzeni mierzalnej i regularnych rozkładach warunkowych określić, kiedy klasy historii względem rozkładu przyszłości są dobrze zdefiniowane. Wskazać kontrprzykłady / granice.
+2. **Minimalność**: udowodnić, że każdy inny deterministyczny predykcyjnie wystarczający stan rozróżnia co najmniej te klasy (w sensie faktoryzacji, z dokładnością do zbiorów miary zero); oddzielić od minimalnej liczby bitów lub wymiaru.
+3. **Jednoznaczność**: określić jednoznaczność do izomorfizmu mierzalnego / przelabelowania na nośniku rozkładu, a nie identyczność numerycznych współrzędnych.
+4. **Zegar**: porównać filtracje i rozkłady przyszłości dla czasu fizycznego, indeksu zdarzeń, kąta/obrotu i fazy. Wykazać przypadek równoważności przy odwracalnej zmianie czasu oraz przypadek nierównoważności przy utracie informacji.
+5. **Projekcje**: formalnie sprawdzić dla każdej gałęzi, czy żądana obserwabla jest funkcją S_H. Jeśli nie — skonstruować kontrprzykład i ograniczyć roszczenie do predykcyjnie istotnej obserwabli.
+6. **GIA**: zdefiniować jawny operator kompresji \hat S_H=GIA(H), mierzyć stratę predykcyjną względem historii i stanu referencyjnego, stabilność i kalibrację.
+7. **Koszt opisu**: porównać długość kodowania, liczbę stanów/wymiar, koszt pamięci i obliczeń; minimalność informacyjna nie implikuje automatycznie taniej implementacji.
+
+**Warunek nowości:** klasyczna konstrukcja stanów przyczynowych jest punktem odniesienia; potencjalna nowość TIMDR leży w zgodności projekcji, zależności od zegara i przybliżonej kompresji GIA. Każde twierdzenie zestawić z literaturą computational mechanics, predictive state representations i sufficient statistics, aby nie deklarować ponownego odkrycia.
+
+**Pierwsze zadanie:** zrewidować faktyczne wyniki 51B i sformułować jedno twierdzenie z założeniami oraz jeden kontrprzykład. Bez uruchamiania nowego Paderborn.
+
 ## Cztery strumienie pracy
 
 ### A — Chronoproces / zegar (najwyższy priorytet)
