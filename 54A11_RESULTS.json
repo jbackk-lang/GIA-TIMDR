@@ -1,0 +1,66 @@
+{
+  "experiment": "54A.11",
+  "method": "causal short-window error with switching hysteresis vs EWMA baseline",
+  "results": [
+    {
+      "dataset": "random",
+      "input_bytes": 32768,
+      "raw_bytes": 32796,
+      "raw_switches": 0,
+      "static_bytes": 32796,
+      "static_switches": 0,
+      "adaptive_bytes": 32796,
+      "adaptive_switches": 5583,
+      "switch_bytes": 32796,
+      "switch_switches": 4809
+    },
+    {
+      "dataset": "periodic",
+      "input_bytes": 32768,
+      "raw_bytes": 376,
+      "raw_switches": 0,
+      "static_bytes": 249,
+      "static_switches": 0,
+      "adaptive_bytes": 172,
+      "adaptive_switches": 1,
+      "switch_bytes": 172,
+      "switch_switches": 1
+    },
+    {
+      "dataset": "regime_512",
+      "input_bytes": 32768,
+      "raw_bytes": 1356,
+      "raw_switches": 0,
+      "static_bytes": 1976,
+      "static_switches": 0,
+      "adaptive_bytes": 318,
+      "adaptive_switches": 0,
+      "switch_bytes": 318,
+      "switch_switches": 0
+    },
+    {
+      "dataset": "regime_128",
+      "input_bytes": 32768,
+      "raw_bytes": 1135,
+      "raw_switches": 0,
+      "static_bytes": 3098,
+      "static_switches": 0,
+      "adaptive_bytes": 809,
+      "adaptive_switches": 0,
+      "switch_bytes": 809,
+      "switch_switches": 0
+    },
+    {
+      "dataset": "mixed",
+      "input_bytes": 32768,
+      "raw_bytes": 1696,
+      "raw_switches": 0,
+      "static_bytes": 299,
+      "static_switches": 0,
+      "adaptive_bytes": 265,
+      "adaptive_switches": 1,
+      "switch_bytes": 265,
+      "switch_switches": 1
+    }
+  ]
+}
