@@ -18,6 +18,31 @@ TIMDR rozwijamy przede wszystkim jako **framework konstrukcji reprezentacji i op
 4. **Wynik syntetyczny != empiryczny**: testy TRM/GIA dowodzą własności konkretnej konstrukcji pod podanymi założeniami, nie przewagi nad modelami sekwencyjnymi.
 5. **Ograniczenia infrastruktury**: dostępność archiwum, możliwość rozpakowania, poprawny schemat MATLAB i realne obliczenie to oddzielne bramki. Nie uznawać zielonego pobrania za eksperyment.
 
+## Nowa hipoteza rdzeniowa: minimalna pamięć procesu (51B → Chronoproces)
+
+**Status: hipoteza formalna, nie dowiedzione twierdzenie o uniwersalności.** Proponowany nowy priorytet przed A–D: ustalić, czy można zdefiniować stan procesu jako najmniejszą informację o historii niezbędną do zachowania przewidywań przyszłości. Wymaga najpierw sprawdzenia szczegółowych wyników linii 51B; nie utożsamiać ich automatycznie z poniższą konstrukcją.
+
+Niech H_t oznacza historię obserwacji do t, F_t wybraną przyszłość, a S_t=φ(H_t). Warunek wystarczalności predykcyjnej:
+
+P(F_t | H_t) = P(F_t | S_t).
+
+Kandydat na minimalny stan jest klasą równoważności historii h~h' wtedy i tylko wtedy, gdy P(F_t|h)=P(F_t|h') dla wszystkich dopuszczonych zdarzeń przyszłych. To **minimalność względem ustalonej przyszłości, modelu probabilistycznego i zbioru obserwacji**, a nie automatycznie najmniejszy wektor numeryczny, najniższy koszt obliczeniowy lub uniwersalna reprezentacja wszystkich domen. Dla niektórych procesów stan może być nieskończenie wymiarowy lub niemożliwy do dokładnego oszacowania z danych skończonych.
+
+**Pytania badawcze:**
+1. Czy w 51B istnieje konstrukcja φ, dowód wystarczalności i jawna definicja minimalności? Co dokładnie znaczy „zachowuje przyszłość”?
+2. Jak zmienia się S_t przy zmianie zegara Chronoprocesu (czas fizyczny, licznik zdarzeń, faza, obrót)? Czy transformacja czasu jest odwracalna i czy zachowuje filtrację informacji? Nie zakładać niezmienniczości bez dowodu.
+3. Czy projekcje M/S, G, K i META są funkcjami jednego stanu S_t, czy potrzebują osobnych stanów? Warunek zgodności projekcji i utraty informacji trzeba zdefiniować, nie postulować.
+4. Czy GIA może realizować przybliżoną kompresję historii bez utraty informacji predykcyjnej? Testować także kontrprzykłady i procesy z długą pamięcią.
+5. Jak mierzyć stratę predykcyjną, złożoność stanu, stabilność i kalibrację, osobno dla syntetycznych procesów o znanym stanie i realnych danych?
+
+**Ważne rozróżnienie:** powyższy iloraz historii jest powiązany z istniejącą literaturą stanów przyczynowych / predictive state representations i statystyk wystarczających. Nie przedstawiać go jako nowego twierdzenia TIMDR bez wskazania, co TIMDR dodaje i czego dowodzi.
+
+**Protokół startowy bez danych zewnętrznych:** zdefiniować mierzalny proces i przyszłość; skonstruować minimalne stany dla prostych modeli Markowa oraz kontrprzykładów z ukrytym stanem; wykazać wystarczalność, minimalność i granice przy zmianie osi czasu. Dopiero potem tworzyć adaptery Chronoprocesu i testy domenowe.
+
+**Nowe sformułowanie celu projektu:** TIMDR nie powinien być oceniany wyłącznie przez skuteczność klasyfikacji na Paderborn, CWRU czy innych benchmarkach. Jego wartością jest budowa formalizmów reprezentacji procesów i zmian w czasie. Wyniki aplikacyjne służą weryfikacji konkretnych konstrukcji. Najbardziej perspektywiczne jest badanie minimalnych stanów predykcyjnych oraz wpływu wyboru osi czasu na strukturę reprezentacji procesu.
+
+---
+
 ## Cztery strumienie pracy
 
 ### A — Chronoproces / zegar (najwyższy priorytet)
