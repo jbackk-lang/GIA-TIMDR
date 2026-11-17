@@ -1,0 +1,170 @@
+{
+  "records": 32768,
+  "record_bytes": 11,
+  "description": "synthetic deterministic in-memory single run, completed-block causal adaptation, not full formal TIMDR",
+  "rows": [
+    {
+      "dataset": "stable",
+      "method": "fixed64",
+      "bytes": 101405,
+      "ratio": 0.28133,
+      "MiB_s": 48.95,
+      "blocks": 512,
+      "roundtrip": true
+    },
+    {
+      "dataset": "stable",
+      "method": "fixed256",
+      "bytes": 60994,
+      "ratio": 0.16922,
+      "MiB_s": 99.28,
+      "blocks": 128,
+      "roundtrip": true
+    },
+    {
+      "dataset": "stable",
+      "method": "fixed1024",
+      "bytes": 20369,
+      "ratio": 0.05651,
+      "MiB_s": 246.73,
+      "blocks": 32,
+      "roundtrip": true
+    },
+    {
+      "dataset": "stable",
+      "method": "fixed4096",
+      "bytes": 8907,
+      "ratio": 0.02471,
+      "MiB_s": 551.57,
+      "blocks": 8,
+      "roundtrip": true
+    },
+    {
+      "dataset": "stable",
+      "method": "variance",
+      "bytes": 10708,
+      "ratio": 0.02971,
+      "MiB_s": 75.03,
+      "blocks": 12,
+      "roundtrip": true
+    },
+    {
+      "dataset": "stable",
+      "method": "timdr_proxy",
+      "bytes": 10708,
+      "ratio": 0.02971,
+      "MiB_s": 6.15,
+      "blocks": 12,
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "fixed64",
+      "bytes": 209605,
+      "ratio": 0.58151,
+      "MiB_s": 25.69,
+      "blocks": 512,
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "fixed256",
+      "bytes": 169509,
+      "ratio": 0.47027,
+      "MiB_s": 58.18,
+      "blocks": 128,
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "fixed1024",
+      "bytes": 131230,
+      "ratio": 0.36407,
+      "MiB_s": 144.23,
+      "blocks": 32,
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "fixed4096",
+      "bytes": 123195,
+      "ratio": 0.34178,
+      "MiB_s": 168.21,
+      "blocks": 8,
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "variance",
+      "bytes": 142466,
+      "ratio": 0.39525,
+      "MiB_s": 38.26,
+      "blocks": 93,
+      "roundtrip": true
+    },
+    {
+      "dataset": "mixed",
+      "method": "timdr_proxy",
+      "bytes": 142466,
+      "ratio": 0.39525,
+      "MiB_s": 21.67,
+      "blocks": 93,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "fixed64",
+      "bytes": 286997,
+      "ratio": 0.79622,
+      "MiB_s": 20,
+      "blocks": 512,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "fixed256",
+      "bytes": 271537,
+      "ratio": 0.75333,
+      "MiB_s": 52.44,
+      "blocks": 128,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "fixed1024",
+      "bytes": 240681,
+      "ratio": 0.66773,
+      "MiB_s": 99.1,
+      "blocks": 32,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "fixed4096",
+      "bytes": 233192,
+      "ratio": 0.64695,
+      "MiB_s": 99.58,
+      "blocks": 8,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "variance",
+      "bytes": 286868,
+      "ratio": 0.79587,
+      "MiB_s": 15.55,
+      "blocks": 508,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "timdr_proxy",
+      "bytes": 286868,
+      "ratio": 0.79587,
+      "MiB_s": 11.65,
+      "blocks": 508,
+      "roundtrip": true
+    }
+  ],
+  "note": "Summary excludes per-block histograms; run script for full machine-produced JSON."
+}
