@@ -1,0 +1,140 @@
+{
+  "records": 262144,
+  "repeats": 3,
+  "block_records": 4096,
+  "method": "median compression time, one decompression time; no external dependencies",
+  "rows": [
+    {
+      "dataset": "trajectory",
+      "method": "gzip_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 1275331,
+      "ratio": 0.442273,
+      "compress_seconds": 0.021241,
+      "compress_MiB_s": 129.47,
+      "decompress_seconds": 0.014353,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "gzip_6",
+      "input_bytes": 2883584,
+      "compressed_bytes": 1230070,
+      "ratio": 0.426577,
+      "compress_seconds": 0.121805,
+      "compress_MiB_s": 22.58,
+      "decompress_seconds": 0.010275,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "zlib_blocks_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 1305186,
+      "ratio": 0.452626,
+      "compress_seconds": 0.020304,
+      "compress_MiB_s": 135.44,
+      "decompress_seconds": 0.009373,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "delta_zlib_blocks_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 62033,
+      "ratio": 0.021512,
+      "compress_seconds": 0.216419,
+      "compress_MiB_s": 12.71,
+      "decompress_seconds": 0.264361,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "gzip_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 1592501,
+      "ratio": 0.552264,
+      "compress_seconds": 0.03274,
+      "compress_MiB_s": 83.99,
+      "decompress_seconds": 0.007824,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "gzip_6",
+      "input_bytes": 2883584,
+      "compressed_bytes": 1609001,
+      "ratio": 0.557987,
+      "compress_seconds": 0.151366,
+      "compress_MiB_s": 18.17,
+      "decompress_seconds": 0.01322,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "zlib_blocks_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 1580425,
+      "ratio": 0.548077,
+      "compress_seconds": 0.0279,
+      "compress_MiB_s": 98.57,
+      "decompress_seconds": 0.008357,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "delta_zlib_blocks_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 28196,
+      "ratio": 0.009778,
+      "compress_seconds": 0.204782,
+      "compress_MiB_s": 13.43,
+      "decompress_seconds": 0.260422,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "gzip_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 2356497,
+      "ratio": 0.817211,
+      "compress_seconds": 0.053593,
+      "compress_MiB_s": 51.31,
+      "decompress_seconds": 0.011125,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "gzip_6",
+      "input_bytes": 2883584,
+      "compressed_bytes": 2395487,
+      "ratio": 0.830733,
+      "compress_seconds": 0.12372,
+      "compress_MiB_s": 22.23,
+      "decompress_seconds": 0.010933,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "zlib_blocks_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 2359484,
+      "ratio": 0.818247,
+      "compress_seconds": 0.045683,
+      "compress_MiB_s": 60.2,
+      "decompress_seconds": 0.010795,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "delta_zlib_blocks_1",
+      "input_bytes": 2883584,
+      "compressed_bytes": 2175768,
+      "ratio": 0.754536,
+      "compress_seconds": 0.267394,
+      "compress_MiB_s": 10.28,
+      "decompress_seconds": 0.294056,
+      "roundtrip": true
+    }
+  ]
+}
