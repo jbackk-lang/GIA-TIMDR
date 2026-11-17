@@ -1,0 +1,52 @@
+{
+  "experiment": "54A.26",
+  "records": 16384,
+  "block_records": 512,
+  "raw_bytes": 98304,
+  "methods": [
+    "temporal",
+    "star",
+    "common",
+    "adaptive"
+  ],
+  "rows": [
+    {
+      "dataset": "shared",
+      "compressed_bytes": {
+        "temporal": 31383,
+        "star": 33320,
+        "common": 34716,
+        "adaptive": 31383
+      }
+    },
+    {
+      "dataset": "split",
+      "compressed_bytes": {
+        "temporal": 41905,
+        "star": 54457,
+        "common": 46780,
+        "adaptive": 41905
+      }
+    },
+    {
+      "dataset": "independent",
+      "compressed_bytes": {
+        "temporal": 48588,
+        "star": 66174,
+        "common": 53649,
+        "adaptive": 48588
+      }
+    },
+    {
+      "dataset": "random",
+      "compressed_bytes": {
+        "temporal": 98888,
+        "star": 98888,
+        "common": 98888,
+        "adaptive": 98888
+      }
+    }
+  ],
+  "roundtrip_all": true,
+  "notes": "Actual local execution of /mnt/data/54A26_SHARED_MOTION.py; adaptive evaluates all three candidates on every block. Each compressed block has a 7-byte header; stream header 8 bytes."
+}
