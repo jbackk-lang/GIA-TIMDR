@@ -1,0 +1,45 @@
+name: TIMDR cloud checks
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "core/trm_gia_projections.py"
+      - "tests/test_trm_gia_projections.py"
+      - "scripts/check_paderborn_data.py"
+      - ".github/workflows/timdr-cloud-checks.yml"
+  pull_request:
+    paths:
+      - "core/trm_gia_projections.py"
+      - "tests/test_trm_gia_projections.py"
+      - "scripts/check_paderborn_data.py"
+      - ".github/workflows/timdr-cloud-checks.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: ".github/workflows/timdr-cloud-checks.yml"
+      - name: Install minimal dependency
+        run: python -m pip install "numpy>=1.24,<3"
+      - name: Run reference construction tests
+        run: python -m unittest discover -s tests -p 'test_trm_gia_projections.py' -v
+      - name: Check data inventory script syntax
+        run: python -m py_compile scripts/check_paderborn_data.py
+      - name: Cloud data inventory (no data downloaded)
+        run: python scripts/check_paderborn_data.py > paderborn-inventory.json
+      - name: Publish inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: paderborn-inventory
+          path: paderborn-inventory.json
+          retention-days: 14
