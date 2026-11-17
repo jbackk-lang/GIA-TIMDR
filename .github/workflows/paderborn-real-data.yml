@@ -94,6 +94,29 @@ jobs:
           print("Downloaded:", target)
           print("SHA256:", next(x["sha256"] for x in data["files"] if x["name"] == target))
           PY
+      - name: Show one-page result in GitHub Actions
+        env:
+          BEARING: ${{ inputs.bearing || 'K002' }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          with open("paderborn-source-manifest.json") as f:
+              manifest = json.load(f)
+          name = os.environ["BEARING"] + ".rar"
+          item = next(x for x in manifest["files"] if x["name"] == name)
+          summary = (
+              "## Real Paderborn archive verified\\n\\n"
+              f"- Bearing: **{os.environ['BEARING']}**\\n"
+              "- Source: Paderborn University Bearing Data Center\\n"
+              "- Measurement names found: **80 / 80**\\n"
+              f"- Archive size: **{item['size_bytes']:,} bytes**\\n"
+              f"- SHA-256: \\x60{item['sha256']}\\x60\\n"
+              "- Scope: data provenance only, **not a TIMDR benchmark**\\n"
+          )
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write(summary)
+          PY
       - name: Publish small provenance report only
         uses: actions/upload-artifact@v4
         with:
