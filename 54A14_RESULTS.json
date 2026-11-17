@@ -1,0 +1,92 @@
+{
+  "experiment": "54A.14",
+  "input_bytes": 32768,
+  "block_sizes": [
+    256,
+    512,
+    1024
+  ],
+  "format": "gzip raw/adaptive + 12-byte header; switched 20-byte header + gzip selector bytes + gzip residual",
+  "rows": [
+    {
+      "dataset": "random",
+      "gzip_total": 32808,
+      "adaptive_total": 32808,
+      "causal_total_by_block": [
+        32869,
+        32852,
+        32844
+      ],
+      "oracle_total_by_block": [
+        32868,
+        32852,
+        32844
+      ]
+    },
+    {
+      "dataset": "lag_switch_256",
+      "gzip_total": 4833,
+      "adaptive_total": 5744,
+      "causal_total_by_block": [
+        8730,
+        6297,
+        6165
+      ],
+      "oracle_total_by_block": [
+        5183,
+        6233,
+        6193
+      ]
+    },
+    {
+      "dataset": "lag_switch_512",
+      "gzip_total": 3309,
+      "adaptive_total": 3883,
+      "causal_total_by_block": [
+        5533,
+        5951,
+        4662
+      ],
+      "oracle_total_by_block": [
+        3619,
+        3618,
+        4828
+      ]
+    },
+    {
+      "dataset": "lag_switch_1024",
+      "gzip_total": 2561,
+      "adaptive_total": 2972,
+      "causal_total_by_block": [
+        3836,
+        4081,
+        4509
+      ],
+      "oracle_total_by_block": [
+        2854,
+        2853,
+        2853
+      ]
+    },
+    {
+      "dataset": "constant",
+      "gzip_total": 197,
+      "adaptive_total": 145,
+      "causal_total_by_block": [
+        176,
+        176,
+        176
+      ],
+      "oracle_total_by_block": [
+        176,
+        176,
+        176
+      ]
+    }
+  ],
+  "caveats": [
+    "Oracle chooses block predictor with access to current raw block, but selector bytes are transmitted",
+    "No real-world corpus; not formal TIMDR",
+    "Codec format includes header but does not explicitly serialize original length; fixed test length known to decoder"
+  ]
+}
