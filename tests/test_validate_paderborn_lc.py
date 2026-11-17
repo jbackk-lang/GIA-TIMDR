@@ -43,6 +43,24 @@ class ValidatorTests(unittest.TestCase):
             self.assertEqual(result.returncode, 1)
             self.assertIn("duplicate or missing condition/measurement pairs", result.stdout)
 
+    def test_complete_synthetic_dataset_passes(self):
+        import numpy as np
+        with tempfile.TemporaryDirectory() as d:
+            bearings = ("K002", "K003", "K004", "K005", "K006",
+                        "KA04", "KA15", "KA16", "KA22", "KA30",
+                        "KI04", "KI14", "KI16", "KI18", "KI21")
+            conds = ("N15_M07_F10", "N09_M07_F10", "N15_M01_F10", "N15_M07_F04")
+            raw = np.zeros((80, 64000), dtype=np.float32)
+            tok = np.zeros((80, 15, 230), dtype=np.float32)
+            cond = np.array([c for c in conds for _ in range(20)])
+            meas = np.tile(np.arange(1, 21), 4)
+            for bearing in bearings:
+                np.savez_compressed(Path(d) / (bearing + ".npz"),
+                                    raw=raw, tok=tok, cond=cond, meas=meas)
+            result = self.run_validator(d)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn('"valid": true', result.stdout)
+
     def test_wrong_shape_fails(self):
         import numpy as np
         with tempfile.TemporaryDirectory() as d:
