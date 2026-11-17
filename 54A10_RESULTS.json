@@ -1,0 +1,42 @@
+{
+  "experiment": "54A.10",
+  "status": "exploratory causal multiscale predictor, not Chronoprocess formalism",
+  "input_bytes": 32768,
+  "results": [
+    {
+      "dataset": "random",
+      "raw": 32796,
+      "static": 32796,
+      "adaptive": 32796,
+      "multiscale": 32796
+    },
+    {
+      "dataset": "periodic",
+      "raw": 376,
+      "static": 249,
+      "adaptive": 172,
+      "multiscale": 172
+    },
+    {
+      "dataset": "drift",
+      "raw": 914,
+      "static": 195,
+      "adaptive": 167,
+      "multiscale": 167
+    },
+    {
+      "dataset": "regime",
+      "raw": 1356,
+      "static": 1976,
+      "adaptive": 318,
+      "multiscale": 318
+    },
+    {
+      "dataset": "mixed",
+      "raw": 1696,
+      "static": 299,
+      "adaptive": 265,
+      "multiscale": 265
+    }
+  ]
+}
