@@ -1,0 +1,50 @@
+{
+  "experiment": "54A.17",
+  "records": 1048576,
+  "block_records": 65536,
+  "format": "GIA17 v1, 20 byte header, 8 byte per-block header",
+  "rows": [
+    {
+      "dataset": "trajectory",
+      "input_bytes": 11534336,
+      "gzip1_bytes": 5101232,
+      "stream_bytes": 131892,
+      "gzip1_seconds": 0.1105,
+      "stream_compress_seconds": 0.021,
+      "stream_decompress_seconds": 0.0408,
+      "gzip1_MiBs": 99.52,
+      "stream_MiBs": 523.68,
+      "stream_decode_MiBs": 269.8,
+      "peak_tracemalloc_bytes": 2181578,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "regime",
+      "input_bytes": 11534336,
+      "gzip1_bytes": 6419392,
+      "stream_bytes": 162508,
+      "gzip1_seconds": 0.1331,
+      "stream_compress_seconds": 0.0213,
+      "stream_decompress_seconds": 0.0151,
+      "gzip1_MiBs": 82.63,
+      "stream_MiBs": 515.47,
+      "stream_decode_MiBs": 728.8,
+      "peak_tracemalloc_bytes": 2183775,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "random",
+      "input_bytes": 11534336,
+      "gzip1_bytes": 9426025,
+      "stream_bytes": 7355120,
+      "gzip1_seconds": 0.2344,
+      "stream_compress_seconds": 0.1691,
+      "stream_decompress_seconds": 0.0246,
+      "gzip1_MiBs": 46.92,
+      "stream_MiBs": 65.05,
+      "stream_decode_MiBs": 446.94,
+      "peak_tracemalloc_bytes": 3779458,
+      "sha256_equal": true
+    }
+  ]
+}
