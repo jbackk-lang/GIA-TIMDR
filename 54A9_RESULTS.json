@@ -1,0 +1,42 @@
+{
+  "experiment": "54A.9",
+  "note": "synthetic edge-orientation proxy, not full TIMDR; costs exclude codec headers",
+  "results": [
+    {
+      "dataset": "aligned",
+      "bytes": 16384,
+      "geometry_side_bytes": 51,
+      "raw_total": 1001,
+      "static_total": 156,
+      "adaptive_total": 104,
+      "geometry_total": 108
+    },
+    {
+      "dataset": "rotating",
+      "bytes": 16384,
+      "geometry_side_bytes": 109,
+      "raw_total": 1250,
+      "static_total": 311,
+      "adaptive_total": 236,
+      "geometry_total": 243
+    },
+    {
+      "dataset": "switching",
+      "bytes": 16384,
+      "geometry_side_bytes": 109,
+      "raw_total": 938,
+      "static_total": 439,
+      "adaptive_total": 223,
+      "geometry_total": 231
+    },
+    {
+      "dataset": "random",
+      "bytes": 16384,
+      "geometry_side_bytes": 2730,
+      "raw_total": 19137,
+      "static_total": 19137,
+      "adaptive_total": 19137,
+      "geometry_total": 19137
+    }
+  ]
+}
