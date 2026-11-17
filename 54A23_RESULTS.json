@@ -1,0 +1,45 @@
+{
+  "experiment": "54A.23",
+  "records": 65536,
+  "bytes_per_sample": 2,
+  "compressor": "zlib level 1",
+  "results": [
+    {
+      "dataset": "linear",
+      "compressed_bytes": {
+        "raw": 37626,
+        "lag1": 732,
+        "lag2": 730,
+        "composed3": 732
+      }
+    },
+    {
+      "dataset": "quadratic",
+      "compressed_bytes": {
+        "raw": 2965,
+        "lag1": 2518,
+        "lag2": 4281,
+        "composed3": 6461
+      }
+    },
+    {
+      "dataset": "piecewise",
+      "compressed_bytes": {
+        "raw": 39039,
+        "lag1": 1099,
+        "lag2": 1023,
+        "composed3": 1063
+      }
+    },
+    {
+      "dataset": "random",
+      "compressed_bytes": {
+        "raw": 131118,
+        "lag1": 131118,
+        "lag2": 131118,
+        "composed3": 131118
+      }
+    }
+  ],
+  "note": "Measured using Python local execution; third difference is a cascade of difference operators, not affine-map composition or formal TIMDR composition."
+}
