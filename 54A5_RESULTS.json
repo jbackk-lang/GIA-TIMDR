@@ -1,0 +1,9 @@
+{
+  "method": "Causal byte predictors; gzip level 9; no side information; prototype tri_loop is phase-aware tie-breaking, NOT original TIMDR J(Lambda)",
+  "results": [
+    {"dataset":"random","raw":131130,"static":131130,"adaptive":131130,"tri_loop":131130},
+    {"dataset":"repeated","raw":822,"static":440,"adaptive":174,"tri_loop":178},
+    {"dataset":"slow_changes","raw":1018,"static":547,"adaptive":273,"tri_loop":273},
+    {"dataset":"three_correlated","raw":53932,"static":33539,"adaptive":25089,"tri_loop":25088}
+  ]
+}
