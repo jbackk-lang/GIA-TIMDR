@@ -8,6 +8,8 @@ on:
       - "tests/test_trm_gia_projections.py"
       - "scripts/check_paderborn_data.py"
       - "tests/test_paderborn_data_inventory.py"
+      - "tests/test_validate_paderborn_lc.py"
+      - "scripts/validate_paderborn_lc.py"
       - ".github/workflows/timdr-cloud-checks.yml"
   pull_request:
     paths:
@@ -15,6 +17,8 @@ on:
       - "tests/test_trm_gia_projections.py"
       - "scripts/check_paderborn_data.py"
       - "tests/test_paderborn_data_inventory.py"
+      - "tests/test_validate_paderborn_lc.py"
+      - "scripts/validate_paderborn_lc.py"
       - ".github/workflows/timdr-cloud-checks.yml"
 
 permissions:
@@ -37,8 +41,10 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_trm_gia_projections.py' -v
       - name: Test data recovery inventory
         run: python -m unittest discover -s tests -p 'test_paderborn_data_inventory.py' -v
+      - name: Test Paderborn NPZ validation
+        run: python -m unittest discover -s tests -p 'test_validate_paderborn_lc.py' -v
       - name: Check data inventory script syntax
-        run: python -m py_compile scripts/check_paderborn_data.py
+        run: python -m py_compile scripts/check_paderborn_data.py scripts/validate_paderborn_lc.py
       - name: Cloud data inventory (no data downloaded)
         run: python scripts/check_paderborn_data.py > paderborn-inventory.json
       - name: Publish inventory
