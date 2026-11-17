@@ -1,0 +1,94 @@
+{
+  "experiment": "54A.18",
+  "input_bytes": 115343360,
+  "records_per_seed": 1048576,
+  "seed_repetitions": 10,
+  "source": "synthetic repeated 11 MiB seed; file I/O; single run",
+  "results": [
+    {
+      "dataset": "trajectory",
+      "method": "gzip1",
+      "compressed_bytes": 51009350,
+      "compression_MiBs": 123.95,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "zstd1",
+      "compressed_bytes": 38333588,
+      "compression_MiBs": 290.35,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "lz4",
+      "compressed_bytes": 84718495,
+      "compression_MiBs": 456.37,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "gia17",
+      "compressed_bytes": 1318740,
+      "compression_MiBs": 567.23,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "regime",
+      "method": "gzip1",
+      "compressed_bytes": 64178441,
+      "compression_MiBs": 84.03,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "regime",
+      "method": "zstd1",
+      "compressed_bytes": 16514545,
+      "compression_MiBs": 399.5,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "regime",
+      "method": "lz4",
+      "compressed_bytes": 108640331,
+      "compression_MiBs": 818.92,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "regime",
+      "method": "gia17",
+      "compressed_bytes": 1624900,
+      "compression_MiBs": 550.35,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "random",
+      "method": "gzip1",
+      "compressed_bytes": 94260544,
+      "compression_MiBs": 47.48,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "random",
+      "method": "zstd1",
+      "compressed_bytes": 106439869,
+      "compression_MiBs": 338.81,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "random",
+      "method": "lz4",
+      "compressed_bytes": 115350411,
+      "compression_MiBs": 1955.83,
+      "sha256_equal": true
+    },
+    {
+      "dataset": "random",
+      "method": "gia17",
+      "compressed_bytes": 73551020,
+      "compression_MiBs": 69.05,
+      "sha256_equal": true
+    }
+  ],
+  "warning": "Only size and compression speed excerpted here; full local output also includes decompression speed. Not real-world independent data."
+}
