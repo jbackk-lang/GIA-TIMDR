@@ -1,0 +1,179 @@
+{
+  "experiment": "54A.16",
+  "records": 65536,
+  "bytes_per_record": 11,
+  "input_bytes": 720896,
+  "repeats": 3,
+  "platform": "current execution environment, in-memory Python standard library",
+  "rows": [
+    {
+      "dataset": "trajectory",
+      "method": "gzip1",
+      "compressed_bytes": 318385,
+      "compress_MiB_s": 114.91,
+      "decompress_MiB_s": 181.92,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "gzip6",
+      "compressed_bytes": 308099,
+      "compress_MiB_s": 20.94,
+      "decompress_MiB_s": 421.76,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "shuffle_z1",
+      "compressed_bytes": 8234,
+      "compress_MiB_s": 549.6,
+      "decompress_MiB_s": 648.97,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "shuffle_z6",
+      "compressed_bytes": 4849,
+      "compress_MiB_s": 270.44,
+      "decompress_MiB_s": 542.06,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "delta_z1",
+      "compressed_bytes": 14834,
+      "compress_MiB_s": 34.63,
+      "decompress_MiB_s": 15.78,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "delta_shuffle_z1",
+      "compressed_bytes": 6443,
+      "compress_MiB_s": 32.74,
+      "decompress_MiB_s": 15.52,
+      "roundtrip": true
+    },
+    {
+      "dataset": "trajectory",
+      "method": "delta_shuffle_z6",
+      "compressed_bytes": 3268,
+      "compress_MiB_s": 29.39,
+      "decompress_MiB_s": 14.29,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "gzip1",
+      "compressed_bytes": 388293,
+      "compress_MiB_s": 83.03,
+      "decompress_MiB_s": 300.46,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "gzip6",
+      "compressed_bytes": 397274,
+      "compress_MiB_s": 16.98,
+      "decompress_MiB_s": 348.46,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "shuffle_z1",
+      "compressed_bytes": 9822,
+      "compress_MiB_s": 576.83,
+      "decompress_MiB_s": 833.33,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "shuffle_z6",
+      "compressed_bytes": 6965,
+      "compress_MiB_s": 245.91,
+      "decompress_MiB_s": 462.17,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "delta_z1",
+      "compressed_bytes": 6502,
+      "compress_MiB_s": 33.16,
+      "decompress_MiB_s": 13.99,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "delta_shuffle_z1",
+      "compressed_bytes": 3630,
+      "compress_MiB_s": 32.31,
+      "decompress_MiB_s": 13.93,
+      "roundtrip": true
+    },
+    {
+      "dataset": "regime",
+      "method": "delta_shuffle_z6",
+      "compressed_bytes": 1017,
+      "compress_MiB_s": 30.37,
+      "decompress_MiB_s": 13.83,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "gzip1",
+      "compressed_bytes": 589108,
+      "compress_MiB_s": 50.87,
+      "decompress_MiB_s": 302.79,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "gzip6",
+      "compressed_bytes": 598834,
+      "compress_MiB_s": 21.87,
+      "decompress_MiB_s": 250.99,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "shuffle_z1",
+      "compressed_bytes": 459707,
+      "compress_MiB_s": 71.25,
+      "decompress_MiB_s": 497.86,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "shuffle_z6",
+      "compressed_bytes": 458917,
+      "compress_MiB_s": 66.94,
+      "decompress_MiB_s": 431.35,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "delta_z1",
+      "compressed_bytes": 544470,
+      "compress_MiB_s": 17.86,
+      "decompress_MiB_s": 11.79,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "delta_shuffle_z1",
+      "compressed_bytes": 460678,
+      "compress_MiB_s": 19.46,
+      "decompress_MiB_s": 12.4,
+      "roundtrip": true
+    },
+    {
+      "dataset": "random",
+      "method": "delta_shuffle_z6",
+      "compressed_bytes": 459790,
+      "compress_MiB_s": 18.64,
+      "decompress_MiB_s": 11.77,
+      "roundtrip": true
+    }
+  ],
+  "note": "Measured outputs. Source script emits additional timing fields and full precision; timing depends on machine."
+}
