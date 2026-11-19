@@ -58,7 +58,7 @@ def bridge_features(x, fs=360., max_lag=12):
     }
 
 
-def vector(x):
-    b = bridge_features(x)
+def vector(x, fs=360., max_lag=12):
+    b = bridge_features(x, fs=fs, max_lag=max_lag)
     return [v for name in ("MS_G","G_K","K_MS")
-            for v in (b[name]["correlation"], b[name]["lag_samples"]/12.)]
+            for v in (b[name]["correlation"], b[name]["lag_samples"]/float(max_lag))]
