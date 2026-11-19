@@ -66,14 +66,9 @@ def dataset(folder, max_windows=25):
 
 def evaluate(folder):
     xs,y,loads,provenance = dataset(folder)
-    # Original benchmark.extract uses FS=360 for phase/curvature; for CWRU
-    # resample to the pilot's 360 Hz to ensure identical feature definition.
-    # Anti-aliasing is handled by resample_poly, but high-frequency fault content
-    # is discarded: this is a *methodological limitation*, not a final benchmark.
-    from scipy.signal import resample_poly
-    processed=[resample_poly(x,3,100) for x in xs]
-    feats=[extract(x) for x in processed]
-    b=np.asarray([vector(x) for x in processed])
+    # Preserve original 12 kHz sampling and full available bandwidth.
+    feats=[extract(x, fs=FS) for x in xs]
+    b=np.asarray([vector(x, fs=FS, max_lag=12) for x in xs])
     base=np.asarray([p[0] for p in feats])
     chrono=np.asarray([p[1] for p in feats])
     helix=np.asarray([p[2] for p in feats])
@@ -98,9 +93,9 @@ def evaluate(folder):
                          "auprc":float(average_precision_score(y[test],prob))})
         scores[name]=rows
     return {"status":"exploratory_real_data","dataset":"CWRU 12k DE, 0.007-inch defects",
-            "sample_rate_original":FS,"sample_rate_processed":360,
+            "sample_rate_original":FS,"sample_rate_processed":FS,
             "n_windows":len(xs),"files":provenance,"scores":scores,
-            "limitations":["Downsampling to 360 Hz removes high-frequency bearing signatures.",
+            "limitations":["Full-band 12 kHz signal retained; Hilbert features may still need bandpass preprocessing.",
                            "Same physical fault construction may recur across loads; load holdout is not bearing holdout.",
                            "Non-overlapping windows from same recording are correlated.",
                            "No confidence intervals or external replication."]}
