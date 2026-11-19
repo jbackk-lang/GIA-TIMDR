@@ -61,7 +61,7 @@ def extract(x, fs=FS):
     f = np.diff(phase)*fs/(2*np.pi)
     z = np.column_stack([a.real, a.imag, np.arange(len(x))/fs])
     v = np.gradient(z, 1/fs, axis=0)
-    acc = np.gradient(v, 1/FS, axis=0)
+    acc = np.gradient(v, 1/fs, axis=0)
     curvature = np.linalg.norm(np.cross(v, acc), axis=1)/(np.linalg.norm(v, axis=1)**3+1e-8)
     spectrum = np.abs(np.fft.rfft(x))**2
     spectrum /= spectrum.sum()+1e-12
