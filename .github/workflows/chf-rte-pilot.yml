@@ -1,0 +1,33 @@
+name: CHF RTE electrical pilot
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rte-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout CHF research branch
+        uses: actions/checkout@v4
+        with:
+          ref: research/chrono-helix-fusion
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install numpy scipy scikit-learn
+      - name: Download and inspect RTE electrical recordings
+        run: python research/chrono_helix_fusion/rte_fetch_eval.py --out rte_pilot --max-pairs 50
+      - name: Upload pilot report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chf-rte-electrical-pilot
+          path: rte_pilot/report.json
+          if-no-files-found: warn
+          retention-days: 14
