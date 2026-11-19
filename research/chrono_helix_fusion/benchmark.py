@@ -52,15 +52,15 @@ def ecg_windows():
     return [x[i:i+N] for i in range(0, len(x)-N+1, N)]
 
 
-def extract(x):
+def extract(x, fs=FS):
     x = np.asarray(x, dtype=float)
     x = x - np.median(x)
     a = signal.hilbert(x)
     amp = np.abs(a)
     phase = np.unwrap(np.angle(a))
-    f = np.diff(phase)*FS/(2*np.pi)
-    z = np.column_stack([a.real, a.imag, np.arange(len(x))/FS])
-    v = np.gradient(z, 1/FS, axis=0)
+    f = np.diff(phase)*fs/(2*np.pi)
+    z = np.column_stack([a.real, a.imag, np.arange(len(x))/fs])
+    v = np.gradient(z, 1/fs, axis=0)
     acc = np.gradient(v, 1/FS, axis=0)
     curvature = np.linalg.norm(np.cross(v, acc), axis=1)/(np.linalg.norm(v, axis=1)**3+1e-8)
     spectrum = np.abs(np.fft.rfft(x))**2
@@ -72,12 +72,12 @@ def extract(x):
               float(np.mean(np.abs(np.diff(x, n=2))))]
     helix = [float(np.median(curvature)), float(np.quantile(curvature, .9))]
     branches = [float(np.mean(amp)), float(np.std(amp)),
-                float(np.median(f)), float(np.std(np.clip(f, -FS/2, FS/2)))]
+                float(np.median(f)), float(np.std(np.clip(f, -fs/2, fs/2)))]
     # Tri-node proxies: coupling between temporal variation of amplitude,
     # curvature and phase speed, without claiming causal interactions.
     da = np.diff(amp)
     dc = np.diff(np.clip(curvature, 0, np.quantile(curvature, .99)))
-    df = np.diff(np.clip(f, -FS/2, FS/2))
+    df = np.diff(np.clip(f, -fs/2, fs/2))
     m = min(len(da),len(dc),len(df))
     def corr(a,b):
         if np.std(a[:m]) < 1e-9 or np.std(b[:m]) < 1e-9:
