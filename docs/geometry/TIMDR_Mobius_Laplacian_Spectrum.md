@@ -141,10 +141,10 @@ G8-G9 — nie jako wynik.
 
 ## Powiązane
 
-[`TIMDR_Twists.md`](./TIMDR_Twists.md) (punkt 7 — formalna
+[`TIMDR_Twists.md`](../theory/TIMDR_Twists.md) (punkt 7 — formalna
 specyfikacja domeny/przeciwdziedziny tego znaczenia "skrętu"),
-[`Axioms_G_TIMDR_Geometry.md`](./Axioms_G_TIMDR_Geometry.md) (dopisek
-cross-referencyjny, nie nowy aksjomat), [`Axioms_K_TIMDR.md`](./Axioms_K_TIMDR.md)
+[`Axioms_G_TIMDR_Geometry.md`](../theory/Axioms_G_TIMDR_Geometry.md) (dopisek
+cross-referencyjny, nie nowy aksjomat), [`Axioms_K_TIMDR.md`](../theory/Axioms_K_TIMDR.md)
 (dopisek o kandydującym moście, ten sam wzorzec co most Fouriera M/S↔K),
 [`Spectral_Analysis_of_the_Mobius_Laplacian_v2.pdf`](./Spectral_Analysis_of_the_Mobius_Laplacian_v2.pdf)
 (pełny dokument źródłowy), [DOI 10.5281/zenodo.22812269](https://doi.org/10.5281/zenodo.22812269)
