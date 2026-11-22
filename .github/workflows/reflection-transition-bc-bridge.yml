@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "experiments/reflections/**"
       - "core/reflection_transition.py"
       - "core/boerdijk_coxeter_tetrahelix.py"
       - "tests/test_reflection_transition.py"
