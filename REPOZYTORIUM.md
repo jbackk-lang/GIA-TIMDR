@@ -4,7 +4,7 @@ Stan mapy: 22 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 
 ## Gdzie szukać
 
-| [Dokumentacja](docs/README.md) | Indeks dokumentów tematycznych | Architektura, formalizacja, audyty, teoria, geometria i archiwum |
+| [Dokumentacja](docs/README.md) | Indeks dokumentów tematycznych | Architektura, formalizacja, audyty, teoria, geometria, badania, archiwum i [indeks materiałów binarnych](docs/assets/README.md) |
 
 | Miejsce | Zawartość | Uwaga |
 |---|---|---|
@@ -13,6 +13,7 @@ Stan mapy: 22 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 | [HISTORIA_README.md](HISTORIA_README.md) | Zachowany dawny README | Miesza opisy koncepcyjne i wyniki z różnych dat |
 | [STAN_PROJEKTU.md](STAN_PROJEKTU.md) | Bieżący stan: zasady z testów, najmocniejsze wyniki, zastosowania, bilans wszystkich testów | Po teście: wiersz w README, potem `python scripts/stan_projektu.py` (albo `aktualizuj_stan.bat`) |
 | [Indeks archiwum](docs/archiwum/README.md) | Datowane podsumowania historyczne i zasady ich zachowania | Do wglądu; aktualny stan w `STAN_PROJEKTU.md` |
+| [Indeks materiałów binarnych](docs/assets/README.md) | PDF-y, DOCX, obrazy i istniejące diagramy | Pliki źródłowe zachowują dotychczasowe ścieżki do czasu audytu odwołań |
 | [docs/theory](docs/theory/) | Aksjomaty, Chronoproces, reguły metodologiczne i szkice | Sprawdzaj status konkretnego dokumentu |
 | [docs/geometry](docs/geometry/) | Prerejestracje, manifesty, wyniki i notatki mostów | Wynik czytaj razem z planem i danymi |
 | [docs/diagrams](docs/diagrams/) | Diagramy i wizualizacje | Ilustracje, nie niezależny dowód |
