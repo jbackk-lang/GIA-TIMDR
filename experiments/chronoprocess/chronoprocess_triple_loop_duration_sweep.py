@@ -27,7 +27,7 @@ def simulate(k: float, duration: float, amplitude: float = 1.2,
     omega = np.full(3, 2.0 * np.pi * 4.0)
     pulse = np.zeros((n + 1, 3))
     indices = {"one": (0,), "two": (0, 1), "all": (0, 1, 2)}[disturbance]
-    pulse[(t >= start) & (t < start + duration), list(indices)] = amplitude
+    pulse[np.ix_(np.flatnonzero((t >= start) & (t < start + duration),), indices)] = amplitude
     theta = np.zeros((n + 1, 3))
 
     def rhs(x, p):
