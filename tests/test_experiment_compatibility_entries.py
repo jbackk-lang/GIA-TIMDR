@@ -21,7 +21,10 @@ def _group_map(path: Path) -> dict[str, str]:
                 for target in node.targets)
     ]
     assert len(assignments) == 1, f"{path}: expected exactly one _GROUP mapping"
-    value = ast.literal_eval(assignments[0].value)
+    mapping_node = assignments[0].value
+    if isinstance(mapping_node, ast.Subscript):
+        mapping_node = mapping_node.value
+    value = ast.literal_eval(mapping_node)
     assert isinstance(value, dict), f"{path}: _GROUP must be a literal dictionary"
     return value
 
