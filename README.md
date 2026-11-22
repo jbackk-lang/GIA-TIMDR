@@ -99,7 +99,7 @@ To konkretne osiągnięcia w opisanych danych i wersjach. GIA-TIMDR nie przedsta
 | [TIMDR Solar PV](https://github.com/jbackk-lang/TIMDR-Solar-PV) | Analiza pracy instalacji fotowoltaicznych |
 | [TIMDR-Tornado-NEXRAD](https://github.com/jbackk-lang/TIMDR-Tornado-NEXRAD) | Badanie rotacji w danych Dopplera. Przy wejściu 68 KiB wir znalazł się wśród trzech pierwszych kandydatów w 1/6 przypadków bez podania lokalizacji. |
 
-Wyniki dotyczą podanych zbiorów i wersji. Sejsmika i radar pogodowy pozostają pracami badawczymi. Odrębny kierunek analizy obrazu i wideo rozwija [MAGE-IN-IMAGE-DECODER](https://github.com/jbackk-lang/MAGE-IN-IMAGE-DECODER). Dokumentacja TSI jest publiczna. Aktualny kod, wagi i prywatna pamięć TSI pozostają lokalnie. [Wcześniejszy etap AI-SI](HISTORIA_README.md#dawne-lokalne-ai-si--stan-z-8-października-2026)
+Wyniki dotyczą podanych zbiorów i wersji. Sejsmika i radar pogodowy pozostają pracami badawczymi. Odrębny kierunek analizy obrazu i wideo rozwija [MAGE-IN-IMAGE-DECODER](https://github.com/jbackk-lang/MAGE-IN-IMAGE-DECODER). Dokumentacja TSI jest publiczna. Aktualny kod, wagi i prywatna pamięć TSI pozostają lokalnie. [Wcześniejszy etap AI-SI](docs/archiwum/HISTORIA_README.md#dawne-lokalne-ai-si--stan-z-8-października-2026)
 
 ## Zacznij tutaj
 
@@ -112,7 +112,7 @@ Wyniki dotyczą podanych zbiorów i wersji. Sejsmika i radar pogodowy pozostają
 - [Specyfikacja czterech gałęzi](docs/theory/TIMDR_Branch_Specification.md) i [słownik](docs/GLOSSARY_EN_PL.md) — właściwe definicje oraz granice między obiektami.
 - [Reguła kalibracji, zamrożenia i testu końcowego](docs/theory/TIMDR_CALIBRATION_FREEZE_RULE.md) — rozwój na train/calibration jest dopuszczony, tuning do wyniku holdoutu nie.
 - [Pełny katalog ekosystemu](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md) — lista repozytoriów aplikacyjnych i koncepcyjnych; poniżej wymieniono tylko najbliższe temu repo.
-- [Historia dawnego README](HISTORIA_README.md) — pełny, zachowany opis koncepcyjny i kronika wcześniejszych prac. Nie jest aktualnym skrótem statusów.
+- [Historia dawnego README](docs/archiwum/HISTORIA_README.md) — pełny, zachowany opis koncepcyjny i kronika wcześniejszych prac. Nie jest aktualnym skrótem statusów.
 
 ## Formalizmy i kod
 
@@ -144,7 +144,7 @@ TIMDR jest ramą konstrukcyjną i protokołem badań, a nie jednym gotowym detek
 | **Eksperymenty i replikacje** | Łożyska i przekładnie, mosty i budynki, radar, budżet, sygnały multimodalne | [Zestawienie historyczne](docs/archiwum/WYNIKI_EKSPERYMENTOW_MIGAWKA_README_2026-11-14.md), [wyniki i prerejestracje](docs/geometry/) |
 | **Zastosowania naukowe** | Plazma TCABR, sejsmika, astronomia, fotometria, meteorologia | [Katalog ekosystemu](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md), [astronomia](docs/astronomy/ASTRONOMIA_2026-09-30.md) |
 | **Narzędzia i AI** | AI-SI-TSI, walidacja matematyki, MUZ, MAGE, analiza sygnałów | [Zastosowania TSI](#tsi-i-zastosowania-timdr), [powiązane projekty](#powiązane-zastosowania) |
-| **Historia i dokumentacja** | Geneza GIA/TRM, dawne opisy, datowane podsumowania i audyty | [Indeks archiwum](docs/archiwum/README.md), [historia README](HISTORIA_README.md) |
+| **Historia i dokumentacja** | Geneza GIA/TRM, dawne opisy, datowane podsumowania i audyty | [Indeks archiwum](docs/archiwum/README.md), [historia README](docs/archiwum/HISTORIA_README.md) |
 
 **Interpretacja wyników:** przejście testu syntetycznego nie jest walidacją na rzeczywistych danych; SUPPORTED, NOT SUPPORTED i INCONCLUSIVE pozostają odrębnymi ocenami. Wyniki łożyskowe stanowią jedną z linii badawczych, nie reprezentują całego programu. Dokładne liczby, porównania z metodami bazowymi, niepowodzenia i ograniczenia zachowano w [historycznej tabeli eksperymentów](docs/archiwum/WYNIKI_EKSPERYMENTOW_MIGAWKA_README_2026-11-14.md). Aktualne podsumowanie: [STAN_PROJEKTU.md](STAN_PROJEKTU.md).
 

@@ -23,7 +23,7 @@ Indeks zawiera **zweryfikowane dokumenty**; nie stanowi jeszcze pełnego spisu w
 - [README projektu](../../README.md) — wprowadzenie i nawigacja.
 - [Stan projektu](../../STAN_PROJEKTU.md) — bieżący bilans i ograniczenia.
 - [Mapa repozytorium](../../REPOZYTORIUM.md) — źródła kodu, teorii i testów.
-- [Historia dawnego README](../../HISTORIA_README.md) — wcześniejsze opisy koncepcyjne.
+- [Historia dawnego README](HISTORIA_README.md) — wcześniejsze opisy koncepcyjne.
 - [Dokumentacja eksperymentów](../geometry/) — prerejestracje i wyniki.
 
 ## Zasady porządkowania
