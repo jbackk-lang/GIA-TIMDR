@@ -11,7 +11,7 @@ Dokumentacja jest uporządkowana tematycznie. Przenosiny nie zmieniają statusu 
 - [Geometria](geometry/) — prerejestracje, protokoły i wyniki.
 - [Badania](research/) — notatki i linie badawcze.
 - [Archiwum](archiwum/) — historia projektu, migawki i zachowane zestawienia.
-- [Materiały binarne i ilustracje](assets/README.md) — indeks PDF, DOCX, obrazów i diagramów.
+- [Materiały binarne i ilustracje](assets/README.md) — indeks PDF, DOCX, obrazów i diagramów; pliki źródłowe znajdują się w `assets/source-documents/` i `assets/images/`.
 
 ## Zasada porządkowania
 
