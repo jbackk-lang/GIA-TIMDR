@@ -1,5 +1,9 @@
 name: Helix four-to-three surface reduction
 on:
+  pull_request:
+    paths:
+      - "experiments/helix_reduction/**"
+      - ".github/workflows/helix-reduction.yml"
   push:
     branches: [main]
     paths:
