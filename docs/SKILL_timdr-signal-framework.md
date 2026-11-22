@@ -1,6 +1,6 @@
 ---
 name: timdr-signal-framework
-description: Zwięzła ściąga GIA-TIMDR: czym jest TIMDR, gałęzie, drogowskazy budowy analizy, mosty, zasada odniesienia, parametry przejść, protokół testów i aktualny stan wyników. Używaj przy każdej pracy nad teorią, kodem lub testami TIMDR.
+description: "Zwięzła ściąga GIA-TIMDR: czym jest TIMDR, gałęzie, drogowskazy budowy analizy, mosty, zasada odniesienia, parametry przejść, protokół testów i aktualny stan wyników. Używaj przy każdej pracy nad teorią, kodem lub testami TIMDR."
 ---
 
 # TIMDR — ściąga (stan 2026-10-07)
