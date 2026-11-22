@@ -17,6 +17,17 @@ Dokumentacja jest uporządkowana tematycznie. Przenosiny nie zmieniają statusu 
 
 - [Indeks skryptów pomocniczych](../scripts/README.md) — aktualizacja stanu projektu, walidacja danych i narzędzia GUI.
 
+## Pliki celowo utrzymane w katalogu głównym
+
+- [`timdr-signal-framework-SKILL.md`](../timdr-signal-framework-SKILL.md) — pełny plik skilla, pozostawiony w głównej ścieżce dla łatwego wykrywania przez narzędzia AI.
+- [`SKILL_timdr-signal-framework.md`](../SKILL_timdr-signal-framework.md) — krótszy, zawężony skrót skilla.
+- [`timdr-signal-framework-ADDENDUM.md`](../timdr-signal-framework-ADDENDUM.md) — uzupełnienie pełnego skilla.
+- [`TRIGGER.md`](../TRIGGER.md) — skrócony atlas paradoksów, pozostawiony jako widoczny punkt wejścia.
+- [`KATEGORIE.md`](../KATEGORIE.md) — historyczny wskaźnik do kanonicznego katalogu repozytoriów.
+- [`StatOkenkoGit.py`](../StatOkenkoGit.py) — launcher zgodności; właściwa implementacja znajduje się w `scripts/github_traffic_window.py`.
+- [`aktualizuj_stan.bat`](../aktualizuj_stan.bat) — wygodny launcher Windows.
+- `ARCHITEKTURA_TIMDR.md`, `Audyt naukowy GIA-TIMDR vs fizyka 2026.md`, `Formalizm Sygnałowy.md` i `HISTORIA_README.md` — krótkie wskaźniki zachowujące dawne ścieżki po przeniesieniu pełnych dokumentów.
+
 ## Zasada porządkowania
 
-Nie usuwamy materiałów tylko ze względu na wiek. Dokumenty historyczne zachowują daty i ograniczenia. Pliki binarne pozostawione w katalogu głównym zachowują dotychczasowe adresy pobierania do czasu sprawdzenia wszystkich odwołań i ustalenia ich pochodzenia.
+Nie usuwamy materiałów tylko ze względu na wiek. Dokumenty historyczne zachowują daty i ograniczenia. Materiały binarne znajdują się obecnie w `assets/source-documents/` i `assets/images/`; ich aktualne odnośniki są w [indeksie materiałów](assets/README.md).
