@@ -1,0 +1,76 @@
+name: Uncovered regression tests
+
+on:
+  pull_request:
+    paths:
+      - "core/**"
+      - "filters/**"
+      - "TIMDR-Math-Formalism/**"
+      - "TIMDR-Geometry-Formalism/**"
+      - "tests/test_analytic_tube.py"
+      - "tests/test_bent_tube.py"
+      - "tests/test_chrono_cone_bridge.py"
+      - "tests/test_chrono_cone_bridge_v2.py"
+      - "tests/test_chrono_cone_bridge_v3.py"
+      - "tests/test_chrono_membrane_bridge.py"
+      - "tests/test_chrono_trumpet_spectrum.py"
+      - "tests/test_geometric_resonance_operator.py"
+      - "tests/test_mobius_kg_bridge.py"
+      - "tests/test_modal_speed_tracking.py"
+      - "tests/test_real_chrono_membrane_bridge_independent.py"
+      - "tests/test_real_chrono_membrane_bridge_v0_2.py"
+      - "tests/test_sg_background.py"
+      - "tests/test_sg_perturbations.py"
+      - "tests/test_sg_shooting.py"
+      - "tests/test_signal_character.py"
+      - "tests/test_transition_params.py"
+      - "tests/test_trefoil_frenet_torsion.py"
+      - "tests/test_trefoil_missing_coordinate_solver.py"
+      - "tests/test_trefoil_resonance_model.py"
+      - "tests/test_trefoil_weather_embedding_validation.py"
+      - "tests/test_vendor_senscore_gia_filter.py"
+      - "tests/test_zero_mode_topology_bridge.py"
+      - ".github/workflows/uncovered-regression-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  uncovered-regressions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install test dependencies
+        run: python -m pip install --upgrade pip numpy scipy pytest
+      - name: Run uncovered synthetic and unit regression tests
+        run: |
+          python -m pytest -q \
+            tests/test_analytic_tube.py \
+            tests/test_bent_tube.py \
+            tests/test_chrono_cone_bridge.py \
+            tests/test_chrono_cone_bridge_v2.py \
+            tests/test_chrono_cone_bridge_v3.py \
+            tests/test_chrono_membrane_bridge.py \
+            tests/test_chrono_trumpet_spectrum.py \
+            tests/test_geometric_resonance_operator.py \
+            tests/test_mobius_kg_bridge.py \
+            tests/test_modal_speed_tracking.py \
+            tests/test_real_chrono_membrane_bridge_independent.py \
+            tests/test_real_chrono_membrane_bridge_v0_2.py \
+            tests/test_sg_background.py \
+            tests/test_sg_perturbations.py \
+            tests/test_sg_shooting.py \
+            tests/test_signal_character.py \
+            tests/test_transition_params.py \
+            tests/test_trefoil_frenet_torsion.py \
+            tests/test_trefoil_missing_coordinate_solver.py \
+            tests/test_trefoil_resonance_model.py \
+            tests/test_trefoil_weather_embedding_validation.py \
+            tests/test_vendor_senscore_gia_filter.py \
+            tests/test_zero_mode_topology_bridge.py
