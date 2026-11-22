@@ -15,6 +15,7 @@ Stan mapy: 22 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 | [Indeks archiwum](docs/archiwum/README.md) | Datowane podsumowania historyczne i zasady ich zachowania | Do wglądu; aktualny stan w `STAN_PROJEKTU.md` |
 | [Indeks materiałów binarnych](docs/assets/README.md) | PDF-y, DOCX, obrazy i istniejące diagramy | Dokumenty źródłowe w `docs/assets/source-documents/`, obrazy w `docs/assets/images/` |
 | [docs/theory](docs/theory/) | Aksjomaty, Chronoproces, reguły metodologiczne i szkice | Sprawdzaj status konkretnego dokumentu |
+| [scripts](scripts/README.md) | Skrypty do stanu projektu, walidacji danych i narzędzia GUI | Indeks uruchamiania i przeznaczenia |
 | [docs/geometry](docs/geometry/) | Prerejestracje, manifesty, wyniki i notatki mostów | Wynik czytaj razem z planem i danymi |
 | [docs/diagrams](docs/diagrams/) | Diagramy i wizualizacje | Ilustracje, nie niezależny dowód |
 | [experiments](experiments/) | Skrypty eksperymentalne pogrupowane według linii badawczych | Indeks serii [54A](experiments/54A/README.md); kod, raporty i wyniki są rozdzielone |

@@ -13,6 +13,10 @@ Dokumentacja jest uporządkowana tematycznie. Przenosiny nie zmieniają statusu 
 - [Archiwum](archiwum/) — historia projektu, migawki i zachowane zestawienia.
 - [Materiały binarne i ilustracje](assets/README.md) — indeks PDF, DOCX, obrazów i diagramów; pliki źródłowe znajdują się w `assets/source-documents/` i `assets/images/`.
 
+## Skrypty
+
+- [Indeks skryptów pomocniczych](../scripts/README.md) — aktualizacja stanu projektu, walidacja danych i narzędzia GUI.
+
 ## Zasada porządkowania
 
 Nie usuwamy materiałów tylko ze względu na wiek. Dokumenty historyczne zachowują daty i ograniczenia. Pliki binarne pozostawione w katalogu głównym zachowują dotychczasowe adresy pobierania do czasu sprawdzenia wszystkich odwołań i ustalenia ich pochodzenia.
