@@ -10,8 +10,9 @@ Dokumentacja jest uporządkowana tematycznie. Przenosiny nie zmieniają statusu 
 - [Teoria](theory/) — definicje, aksjomaty i konstrukcje formalne.
 - [Geometria](geometry/) — prerejestracje, protokoły i wyniki.
 - [Badania](research/) — notatki i linie badawcze.
-- [Archiwum](archiwum/) — historyczne migawki.
+- [Archiwum](archiwum/) — historia projektu, migawki i zachowane zestawienia.
+- [Materiały binarne i ilustracje](assets/README.md) — indeks PDF, DOCX, obrazów i diagramów.
 
 ## Zasada porządkowania
 
-Nie usuwamy materiałów tylko ze względu na wiek. Dokumenty historyczne zachowują daty i ograniczenia. Pliki binarne pozostawione w katalogu głównym zachowują dotychczasowe adresy pobierania do czasu sprawdzenia wszystkich odwołań.
+Nie usuwamy materiałów tylko ze względu na wiek. Dokumenty historyczne zachowują daty i ograniczenia. Pliki binarne pozostawione w katalogu głównym zachowują dotychczasowe adresy pobierania do czasu sprawdzenia wszystkich odwołań i ustalenia ich pochodzenia.
