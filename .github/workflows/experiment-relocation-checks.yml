@@ -1,6 +1,16 @@
 name: Repository regression checks
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/**"
+      - "core/**"
+      - "filters/**"
+      - "TIMDR-Math-Formalism/**"
+      - "TIMDR-Geometry-Formalism/**"
+      - "tests/**"
+      - ".github/workflows/experiment-relocation-checks.yml"
   pull_request:
     paths:
       - "experiments/**"
