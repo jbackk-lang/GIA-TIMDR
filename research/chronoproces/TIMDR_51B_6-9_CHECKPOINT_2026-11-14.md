@@ -9,7 +9,7 @@ Naturalne surjekcje: X -> S_Phi -> S_H, gdzie S_Phi=X/~Phi i S_H=X/~H. Nie nale�
 Dla skończonych, niepustych ilorazów: eta=|S_Phi|/|S_H| >=1.
 
 ## 51B.6: statyczna zgodność nie wystarcza
-Cztery stany a,b,c,d, przejścia a -e-> c i b -e-> d, c,d końcowe. Wszystkie a,b mają przyszłość „e, koniec”, c,d mają pustą przyszłość, więc S_H={{a,b},{c,d}}. Relacja binarna R(c,c)=1, wszędzie indziej 0. Początkowy podział zgodny z relacjami i prognozami: {{a,b},{c},{d}}. Ponieważ następcy a,b należą do różnych klas, stabilizacja rozdziela a,b: S_Phi ma 4 stany, eta=2.
+Cztery stany a,b,c,d, przejścia a -e-> c i b -e-> d, c,d końcowe. Wszystkie a,b mają przyszłość „e, koniec”, c,d mają pustą przyszłość, więc S_H={% raw %}{{a,b},{c,d}}{% endraw %}. Relacja binarna R(c,c)=1, wszędzie indziej 0. Początkowy podział zgodny z relacjami i prognozami: {% raw %}{{a,b},{c},{d}}{% endraw %}. Ponieważ następcy a,b należą do różnych klas, stabilizacja rozdziela a,b: S_Phi ma 4 stany, eta=2.
 
 ## 51B.7: brak uniwersalnego ograniczenia dla relacji binarnych
 X_n={a_1,...,a_n,c_1,...,c_n}; a_i -e-> c_i, c_i końcowe; R(c_i,c_i)=1 dla każdego i, R=0 na pozostałych parach. R rozróżnia c_i poprzez ustalenie drugiego argumentu c_i; stabilizacja rozróżnia a_i. |S_H|=2, |S_Phi|=2n, eta=n -> infinity. Nie istnieje stała C niezależna od procesu, dla której |S_Phi|<=C|S_H| w tej klasie.
