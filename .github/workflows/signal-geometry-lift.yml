@@ -6,6 +6,11 @@ on:
       - "core/signal_geometry_lift.py"
       - "tests/test_signal_geometry_lift.py"
       - ".github/workflows/signal-geometry-lift.yml"
+  pull_request:
+    paths:
+      - "core/signal_geometry_lift.py"
+      - "tests/test_signal_geometry_lift.py"
+      - ".github/workflows/signal-geometry-lift.yml"
   workflow_dispatch:
 permissions:
   contents: read
