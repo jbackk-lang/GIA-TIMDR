@@ -4,6 +4,8 @@ Stan mapy: 22 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 
 ## Gdzie szukać
 
+| [Dokumentacja](docs/README.md) | Indeks dokumentów tematycznych | Architektura, formalizacja, audyty, teoria, geometria i archiwum |
+
 | Miejsce | Zawartość | Uwaga |
 |---|---|---|
 | [README.md](README.md) | Krótki, aktualny punkt wejścia | Zacznij tutaj |
