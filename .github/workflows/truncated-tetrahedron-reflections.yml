@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "experiments/reflections/**"
       - "experiments/truncated_tetrahedron_reflections.py"
       - ".github/workflows/truncated-tetrahedron-reflections.yml"
   workflow_dispatch:
