@@ -1,81 +1,63 @@
-"""Chronoprocess time-history probe for the whole three-loop state.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-The three phase channels share one ordered carrier T. A temporary
-frequency detuning is integrated over time, then the nominal frequency is
-restored. The experiment measures whether phase relations return merely
-because instantaneous frequency returns. It does not implement a coupled
-repair law and does not claim information recovery.
-"""
-from __future__ import annotations
-
-import json
-import numpy as np
-
-
-def run_probe(fs: float = 1000.0, duration: float = 8.0,
-              f0: float = 4.0, detune_fraction: float = 0.05,
-              start: float = 2.0, end: float = 4.0) -> dict:
-    t = np.arange(int(fs * duration), dtype=float) / fs
-    nominal = np.full((3, t.size), f0, dtype=float)
-    disturbed = nominal.copy()
-    active = (t >= start) & (t < end)
-
-    # Whole-state disturbance cases: one, two, and all three loop clocks.
-    cases = {
-        "one_loop": (0,),
-        "two_loops": (0, 1),
-        "all_three_loops": (0, 1, 2),
-    }
-    results = {}
-    for name, indices in cases.items():
-        frequencies = nominal.copy()
-        frequencies[list(indices), :] += (
-            f0 * detune_fraction * active[np.newaxis, :]
-        )
-        # Integrate frequency over the shared carrier T: phase remembers
-        # the duration of the detuning even after frequency returns.
-        phases = 2.0 * np.pi * np.cumsum(frequencies, axis=1) / fs
-        relative = phases - phases[0:1, :]
-        coherence = np.abs(np.mean(np.exp(1j * relative), axis=0))
-        windows = {
-            "before": (t >= 0.5) & (t < 1.8),
-            "during": (t >= 2.2) & (t < 3.8),
-            "after": (t >= 4.5) & (t < 7.5),
-        }
-        results[name] = {
-            "disturbed_loop_indices_1_based": [i + 1 for i in indices],
-            "phase_relation_rms_rad": {
-                key: float(np.sqrt(np.mean(
-                    np.angle(np.exp(1j * relative[:, mask])) ** 2
-                )))
-                for key, mask in windows.items()
-            },
-            "three_loop_coherence_mean": {
-                key: float(np.mean(coherence[mask]))
-                for key, mask in windows.items()
-            },
-            "final_relative_phase_rad": [
-                float(np.angle(np.exp(1j * relative[i, -1])))
-                for i in range(3)
-            ],
-        }
-
-    return {
-        "status": "chronoprocess_time_history_probe_not_self_repair",
-        "shared_carrier": "T",
-        "loops_as_one_state": "Psi=(psi1,psi2,psi3)",
-        "sample_rate_hz": fs,
-        "nominal_frequency_hz": f0,
-        "detuning_fraction": detune_fraction,
-        "detuning_interval_seconds": [start, end],
-        "cases": results,
-        "interpretation": [
-            "Instantaneous frequency can return to nominal while accumulated phase relations retain a history-dependent offset.",
-            "Chronoprocess currently supplies a shared time carrier and independent projections; it does not provide a coupled phase-recovery dynamic.",
-            "Any recovery claim requires an explicit, preregistered coupling law and controls.",
-        ],
-    }
-
-
-if __name__ == "__main__":
-    print(json.dumps(run_probe(), indent=2, sort_keys=True))
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

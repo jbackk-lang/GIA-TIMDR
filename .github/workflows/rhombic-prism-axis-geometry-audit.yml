@@ -3,6 +3,7 @@ name: Rhombic prism axis geometry audit
 on:
   push:
     paths:
+      - "experiments/rhombic_prism/**"
       - "experiments/rhombic_prism_axis_geometry_limit_audit.py"
       - "experiments/rhombic_prism_axis_limit_study.py"
       - "experiments/rhombic_prism_mobility_screw_coupling.py"

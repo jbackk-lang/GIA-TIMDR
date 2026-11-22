@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "experiments/reflections/**"
       - "experiments/pentachoron_facet_reflections.py"
       - ".github/workflows/pentachoron-reflections.yml"
   workflow_dispatch:

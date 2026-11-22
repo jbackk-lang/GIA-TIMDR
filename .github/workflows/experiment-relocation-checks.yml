@@ -1,0 +1,36 @@
+name: Experiment relocation checks
+
+on:
+  pull_request:
+    paths:
+      - "experiments/**"
+      - "tests/test_chronoprocess_*.py"
+      - "tests/test_phase_recovery_probe.py"
+      - "tests/test_triple_loop_*.py"
+      - ".github/workflows/experiment-relocation-checks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility-and-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test dependencies
+        run: python -m pip install numpy scipy pytest
+      - name: Compile relocated experiments and compatibility entry points
+        run: python -m compileall -q experiments/*.py experiments/chronoprocess experiments/rhombic_prism experiments/reflections
+      - name: Run tests that import legacy experiment paths
+        run: |
+          python -m pytest -q \
+            tests/test_chronoprocess_coupled_phase_recovery.py \
+            tests/test_chronoprocess_triple_loop_duration_sweep.py \
+            tests/test_chronoprocess_triple_loop_time_history.py \
+            tests/test_phase_recovery_probe.py \
+            tests/test_triple_loop_coupled_perturbation.py \
+            tests/test_triple_loop_transition_probe.py

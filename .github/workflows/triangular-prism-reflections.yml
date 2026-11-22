@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "experiments/reflections/**"
       - "experiments/triangular_prism_reflections.py"
       - ".github/workflows/triangular-prism-reflections.yml"
   workflow_dispatch:

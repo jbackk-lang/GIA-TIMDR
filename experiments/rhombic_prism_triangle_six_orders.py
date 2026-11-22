@@ -1,76 +1,63 @@
-"""All six triangle-order anomalies and their D3 action.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-Exact group identities:
- Delta_(k,j,i) = Delta_(i,j,k)^(-1).
- Spatial +120 degree rotation about base centroid conjugates each generator
- to its cyclic successor, provided the shape parameter rotates as well.
-The numerical assertions below are regression tests of those identities.
-"""
-from itertools import permutations
-import numpy as np
-from rhombic_prism_mobility_screw_coupling import build_generators,compose
-
-SQ3=np.sqrt(3.)
-C=np.array([[-.5,-SQ3/2,0],[SQ3/2,-.5,0],[0,0,1.]])
-base_centroid=np.array([.5,SQ3/6,0.])
-K=(C,base_centroid-C@base_centroid)
-PERMS=list(permutations(range(3)))
-
-def inverse(g):
-    R,b=g
-    return R.T,-R.T@b
-
-def delta(rotations,order):
-    a,b,c=[rotations[i] for i in order]
-    P=compose(compose(a,b),c)
-    Q=compose(compose(c,b),a)
-    return compose(P,inverse(Q))
-
-def generators(u,v):
-    original,w,_=build_generators(u,v)
-    return [compose(original[0],original[i]) for i in (2,3,4)]
-
-def center(u,v):
-    return np.array([(.5+u/2),SQ3/6+v/2,np.sqrt(1-u*u-v*v)/2])
-
-def measures(d,O):
-    R,b=d
-    q=R@O+b-O
-    return float(q@q),float(np.sum((R-np.eye(3))**2))
-
-def conjugate(k,g):
-    return compose(compose(k,g),inverse(k))
-
-def close(g,h):
-    return np.allclose(g[0],h[0],atol=2e-11,rtol=0) and np.allclose(g[1],h[1],atol=2e-11,rtol=0)
-
-def main():
-    for u,v in ((0.,0.),(.2,.1),(-.4,-.3),(.31,-.52)):
-        g=generators(u,v)
-        O=center(u,v)
-        uv=C@np.array([u,v,0.])
-        u2,v2=uv[:2]
-        h=generators(u2,v2)
-        O2=center(u2,v2)
-        assert np.allclose(K[0]@O+K[1],O2,atol=2e-12)
-        for order in PERMS:
-            d=delta(g,order)
-            reverse=delta(g,order[::-1])
-            assert close(reverse,inverse(d))
-            ao,ar=measures(d,O)
-            bo,br=measures(reverse,O)
-            assert np.isclose(ao,bo,atol=1e-10)
-            assert np.isclose(ar,br,atol=1e-10)
-            rotated_order=tuple((i+1)%3 for i in order)
-            d2=delta(h,rotated_order)
-            assert close(conjugate(K,d),d2)
-            co,cr=measures(d2,O2)
-            assert np.isclose(ao,co,atol=1e-10)
-            assert np.isclose(ar,cr,atol=1e-10)
-        print(f"PASS shape=({u},{v}) all six orders: reverse and cyclic equivariance")
-    print("Distinct reversal pairs:",[(tuple(i+1 for i in p),tuple(i+1 for i in p[::-1])) for p in PERMS if p<p[::-1]])
-    print("The three cyclic families have congruent zero sets after parameter rotation.")
-    print("This does not imply all three sets coincide at fixed (u,v).")
-
-if __name__=="__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

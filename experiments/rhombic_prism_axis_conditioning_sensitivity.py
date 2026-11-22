@@ -1,65 +1,63 @@
-"""Sensitivity of finite-depth axis clouds to the near-identity angle cutoff."""
-import numpy as np
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-from rhombic_prism_axis_limit_study import enumerate_depths, extract_axis, line_key
-
-
-def analyze(label, u, v):
-    maps, raw, states = enumerate_depths(u, v, 8)[8]
-    print(f"CONFIG,{label},length=8,raw_words={raw},distinct_maps={len(maps)}")
-    angle_values = []
-    for M, b in maps.values():
-        if np.linalg.norm(M - np.eye(3)) > 2e-7 and np.linalg.det(M) > 0:
-            cosine = np.clip((np.trace(M) - 1.0) / 2.0, -1.0, 1.0)
-            skew = np.array([M[2, 1] - M[1, 2], M[0, 2] - M[2, 0], M[1, 0] - M[0, 1]])
-            sine = 0.5 * np.linalg.norm(skew)
-            angle_values.append(float(np.degrees(np.arctan2(sine, cosine))))
-    bins = [0, 5, 30, 60, 90, 120, 180.000001]
-    hist = [int(np.sum((np.asarray(angle_values) >= lo) & (np.asarray(angle_values) < hi)))
-            for lo, hi in zip(bins[:-1], bins[1:])]
-    low_angles = [x for x in angle_values if x < 5.0]
-    high_angles = [x for x in angle_values if x >= 5.0]
-    print(f"ANGLE_HIST,{label},bins_lt5_5to30_30to60_60to90_90to120_ge120={hist},"
-          f"min_nonidentity_deg={min(angle_values):.7g},"
-          f"max_below5={max(low_angles):.7g},min_atleast5={min(high_angles):.7g}")
-    for cutoff in (1.0, 2.0, 5.0, 10.0):
-        axes = {}
-        rotations = screws = near = translations = 0
-        angles = []
-        for M, b in maps.values():
-            kind, result = extract_axis(M, b, min_angle_deg=cutoff)
-            if kind == "ill_conditioned":
-                near += 1
-                continue
-            if kind == "translation":
-                translations += 1
-                continue
-            if kind == "rotation_axis":
-                rotations += 1
-            elif kind == "screw_axis":
-                screws += 1
-            else:
-                continue
-            a, p, pitch, angle, residual, gap = result
-            axes.setdefault(line_key(a, p), (a, p))
-            angles.append(angle)
-        distances = np.asarray([np.linalg.norm(p) for a, p in axes.values()])
-        if len(distances):
-            stats = (np.median(distances), np.quantile(distances, .9),
-                     np.max(distances), min(angles))
-        else:
-            stats = (0, 0, 0, 0)
-        print(f"CUTOFF,{label},{cutoff:g},rotation_axes={rotations},"
-              f"screw_axes={screws},unique_lines={len(axes)},"
-              f"translations={translations},near_identity={near},"
-              f"p_norm_q50_q90_max_minangle={tuple(round(float(x),7) for x in stats)}")
-
-
-def main():
-    analyze("symmetry_branch", 0.01, 0.0)
-    analyze("generic_45", 0.01 / np.sqrt(2), 0.01 / np.sqrt(2))
-    print("LIMIT: cutoff sensitivity only; not a fractal-dimension estimate.")
-
-
-if __name__ == "__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

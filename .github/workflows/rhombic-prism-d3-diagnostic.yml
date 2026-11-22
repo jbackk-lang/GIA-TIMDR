@@ -3,6 +3,7 @@ name: Rhombic prism D3 degeneracy diagnostic
 on:
   push:
     paths:
+      - "experiments/rhombic_prism/**"
       - "experiments/rhombic_prism_d3_degeneracy_diagnostic.py"
       - "experiments/rhombic_prism_mobility_screw_coupling.py"
       - ".github/workflows/rhombic-prism-d3-diagnostic.yml"

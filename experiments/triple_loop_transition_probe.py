@@ -1,70 +1,63 @@
-"""Whole triple-loop transition probe for the proposed three-channel model.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-This tests the algebraic cycle/holonomy in the *proposed* three-loop model.
-It does not assert that the model is an established GIA-TIMDR axiom, and it
-does not call cycle closure "self-repair".
-"""
-from __future__ import annotations
-
-import json
-import numpy as np
-
-P = np.array([[0, 1, 0], [0, 0, 1], [1, 0, 0]], dtype=complex)
-I3 = np.eye(3, dtype=complex)
-MINUS_I3 = -I3
-
-
-def apply_full_loop(state: np.ndarray, holonomy: np.ndarray) -> np.ndarray:
-    state = np.asarray(state, dtype=complex)
-    if state.shape != (3,):
-        raise ValueError("state must contain all three loop amplitudes")
-    return holonomy @ state
-
-
-def run_probe() -> dict:
-    initial = np.array([1.0 + 0j, 0.7 * np.exp(0.4j), 0.45 * np.exp(-0.8j)])
-    # Perturb one loop, but keep the entire three-loop state as the object
-    # being transported and measured.
-    disturbed = initial.copy()
-    disturbed[0] *= 0.25 * np.exp(1.1j)
-
-    scenarios = {}
-    for name, holonomy in (("orientable_control_HI", I3),
-                           ("triple_cycle_HP", P),
-                           ("global_inversion_HminusI", MINUS_I3)):
-        state = disturbed.copy()
-        snapshots = []
-        for count in range(1, 7):
-            state = apply_full_loop(state, holonomy)
-            snapshots.append({
-                "completed_loops": count,
-                "state_distance_from_disturbed": float(np.linalg.norm(state - disturbed)),
-                "state_distance_from_initial": float(np.linalg.norm(state - initial)),
-                "norm": float(np.linalg.norm(state)),
-            })
-        scenarios[name] = snapshots
-
-    # The full three-channel state returns after three P-holonomy traversals.
-    p3_error = float(np.linalg.norm(np.linalg.matrix_power(P, 3) - I3))
-    # The original disturbance is not erased by topological cycle closure.
-    after_three = np.linalg.matrix_power(P, 3) @ disturbed
-    residual_disturbance = float(np.linalg.norm(after_three - initial))
-    return {
-        "status": "algebraic_triple_loop_probe_not_self_repair_validation",
-        "object_under_test": "single coupled three-component state Psi",
-        "initial_state": [[float(z.real), float(z.imag)] for z in initial],
-        "disturbed_state": [[float(z.real), float(z.imag)] for z in disturbed],
-        "P_cubed_identity_error": p3_error,
-        "residual_disturbance_after_three_full_loops": residual_disturbance,
-        "scenarios": scenarios,
-        "interpretation": [
-            "P^3=I establishes algebraic channel-cycle closure for the chosen H=P model.",
-            "The disturbance remains after three loops; cycle closure is not self-repair.",
-            "H=I and H=-I are distinct control hypotheses, not consequences of Mobius topology.",
-            "No information-theoretic recovery is tested by this finite-dimensional state transport.",
-        ],
-    }
-
-
-if __name__ == "__main__":
-    print(json.dumps(run_probe(), indent=2, sort_keys=True))
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

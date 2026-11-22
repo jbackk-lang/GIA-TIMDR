@@ -1,68 +1,63 @@
-"""Exact affine commutator tests for the rhombic triangular prism.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-For g,h in SE(3), K=g h g^-1 h^-1. A nonidentity K fixes the
-centroid O exactly iff (R_K-I)O+b_K=0. Numerical scans are evidence
-about selected parameters, not a proof that no other solutions exist.
-
-Run: python experiments/rhombic_prism_center_commutator.py
-"""
-import numpy as np
-from rhombic_prism_mobility_screw_coupling import build_generators, compose, IDENTITY
-
-def inv(g):
-    R,b=g
-    return R.T,-R.T@b
-
-def act(g,x):
-    return g[0]@x+g[1]
-
-def center(u,v):
-    w=np.sqrt(1-u*u-v*v)
-    return np.array([(1+u)/2,np.sqrt(3)/6+v/2,w/2])
-
-def commutator(g,h):
-    return compose(compose(compose(g,h),inv(g)),inv(h))
-
-def rotations(gens):
-    # bottom reflection combined with each of the three side reflections
-    return [compose(gens[0],gens[i]) for i in (2,3,4)]
-
-def diagnostics(u,v):
-    gens,_,_=build_generators(u,v)
-    O=center(u,v)
-    out=[]
-    r=rotations(gens)
-    for i,j in ((0,1),(0,2),(1,2)):
-        g,h=r[i],r[j]
-        K=commutator(g,h)
-        fixed_residual=np.linalg.norm(act(K,O)-O)
-        nonidentity=np.linalg.norm(K[0]-IDENTITY,ord='fro')
-        order_gap=np.linalg.norm(act(compose(g,h),O)-act(compose(h,g),O))
-        # K fixes O iff g h(O)=h g(O) is NOT generally true; these
-        # are independent tests and must not be conflated.
-        assert np.allclose(K[0].T@K[0],IDENTITY,atol=2e-10)
-        assert abs(np.linalg.det(K[0])-1)<2e-10
-        out.append((i,j,fixed_residual,nonidentity,order_gap))
-    return out
-
-def main():
-    for u,v in ((0.,0.),(.01,0.),(.2,.1),
-                (.4/np.sqrt(2),.4/np.sqrt(2))):
-        for i,j,res,rot,gap in diagnostics(u,v):
-            print(f"u={u:.8g},v={v:.8g},pair={i}{j},"
-                  f"centroid_return_residual={res:.12g},"
-                  f"rotation_nonidentity={rot:.12g},"
-                  f"composition_order_gap={gap:.12g}")
-    # A fixed-center nontrivial rotation is possible in SE(3), even
-    # though it is not guaranteed for the chosen prism generators.
-    O=np.array([.3,.2,.7])
-    angle=np.pi/3
-    R=np.array([[np.cos(angle),-np.sin(angle),0],
-                [np.sin(angle),np.cos(angle),0],[0,0,1]])
-    b=O-R@O
-    assert np.allclose(R@O+b,O)
-    assert np.linalg.norm(R-IDENTITY)>1
-    print("CONTROL: nontrivial fixed-center rotation identity verified")
-
-if __name__=="__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

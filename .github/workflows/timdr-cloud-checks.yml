@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - "experiments/chronoprocess/**"
       - "core/trm_gia_projections.py"
       - "tests/test_trm_gia_projections.py"
       - "scripts/check_paderborn_data.py"

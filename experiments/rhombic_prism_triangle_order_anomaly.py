@@ -1,67 +1,63 @@
-"""Three-rotation order anomaly: centroid displacement vs orientation.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-Compute Delta=(g1 g2 g3)(g3 g2 g1)^-1, with gi=bottom_reflection
-composed with the i-th side reflection. A_O=||Delta(O)-O||^2;
-A_R=||R_Delta-I||_F^2.
-
-Optional SciPy search finds candidate zeros of A_O; always check
-the full three-component centroid displacement residual. These are
-classical SE(3) kinematics, NOT quantum triangle anomalies.
-
-Run: python experiments/rhombic_prism_triangle_order_anomaly.py
-"""
-import numpy as np
-from rhombic_prism_mobility_screw_coupling import build_generators, compose, IDENTITY
-
-def inverse(g):
-    R,b=g
-    return R.T,-R.T@b
-
-def center(u,v):
-    w=np.sqrt(1-u*u-v*v)
-    return np.array([(1+u)/2,np.sqrt(3)/6+v/2,w/2])
-
-def delta(u,v):
-    gens,_,_=build_generators(u,v)
-    r=[compose(gens[0],gens[i]) for i in (2,3,4)]
-    P=compose(compose(r[0],r[1]),r[2])
-    Q=compose(compose(r[2],r[1]),r[0])
-    return compose(P,inverse(Q))
-
-def measures(u,v):
-    R,b=delta(u,v)
-    O=center(u,v)
-    residual=R@O+b-O
-    return float(residual@residual),float(np.sum((R-IDENTITY)**2)),residual
-
-def main():
-    for u,v in ((0.,0.),(.01,0.),(.2,.1),
-                (.4/np.sqrt(2),.4/np.sqrt(2)),(.5,0.),(-.5,0.)):
-        ao,ar,_=measures(u,v)
-        print(f"PARAM u={u:.12g} v={v:.12g} A_O={ao:.12g} A_R={ar:.12g}")
-    R,b=delta(0.,0.)
-    assert np.allclose(R,IDENTITY,atol=1e-12)
-    assert np.isclose(np.linalg.norm(b),3.,atol=1e-12)
-    print(f"SYMMETRIC exact_numerical_check: translation={b.tolist()} length=3")
-    try:
-        from scipy.optimize import least_squares
-    except ImportError:
-        print("SciPy not installed; skipping candidate-zero search")
-        return
-    for guess in ((-.63,-.27),(-.684,-.18),(-.495,-.506)):
-        def f(x):
-            u,v=x
-            if u*u+v*v>=.98**2:
-                return np.full(3,1e3)
-            return measures(u,v)[2]
-        sol=least_squares(f,guess,xtol=1e-13,ftol=1e-13,gtol=1e-13,max_nfev=5000)
-        u,v=sol.x
-        ao,ar,res=measures(u,v)
-        print(f"CANDIDATE_ZERO u={u:.12g} v={v:.12g} "
-              f"residual_norm={np.linalg.norm(res):.5g} A_R={ar:.12g} "
-              f"solver_success={sol.success}")
-        assert np.linalg.norm(res)<1e-7
-        assert ar>1e-4
-
-if __name__=="__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

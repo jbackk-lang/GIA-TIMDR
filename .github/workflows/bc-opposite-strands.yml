@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "experiments/reflections/**"
       - "core/boerdijk_coxeter_tetrahelix.py"
       - "experiments/bc_opposite_direction_pair.py"
       - "experiments/bc_opposite_chirality_pair.py"

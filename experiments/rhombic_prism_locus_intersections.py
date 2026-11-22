@@ -1,138 +1,63 @@
-"""Intersection map of the 12 pairwise Coxeter loci for the rhombic prism.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-Coordinates: U=u, X=sqrt(3)*v. The exact defining polynomials have rational
-coefficients in (U,X). Resultants isolate candidate intersections; numerical
-back-substitution filters real points in the open configuration disk.
-The high-multiplicity center and six triple points are verified exactly.
-"""
-from collections import Counter
-from itertools import combinations
-import sympy as s
-
-from rhombic_prism_mobility_screw_coupling import length_four_spectrum
-
-U, X = s.symbols("U X", real=True)
-
-# Each polynomial is zero exactly when the indicated pair of face planes
-# meets at the Coxeter angle pi/m, m=2 or m=3.
-LOCI = {
-    "T-S1:m2": X,
-    "T-S2:m2": 3*U + X,
-    "T-S3:m2": 3*U - X,
-    "T-S1:m3": 3*U**2 + 4*X**2 - 3,
-    "T-S2:m3": 39*U**2 + 18*U*X + 7*X**2 - 12,
-    "T-S3:m3": 39*U**2 - 18*U*X + 7*X**2 - 12,
-    "S1-S2:m2": U**2 - U*X - 1,
-    "S1-S3:m2": U**2 + U*X - 1,
-    "S2-S3:m2": U**2 - X**2 + 2,
-    "S1-S2:m3": 3*U**4 - 6*U**3*X + 3*U**2*X**2 - 3*U**2 + 6*U*X + X**2,
-    "S1-S3:m3": 3*U**4 + 6*U**3*X + 3*U**2*X**2 - 3*U**2 - 6*U*X + X**2,
-    "S2-S3:m3": 3*U**4 - 6*U**2*X**2 + 24*U**2 + 3*X**4 - 8*X**2,
-}
-POLYS = {name: s.Poly(expr, U, X, domain="QQ") for name, expr in LOCI.items()}
-
-def in_disk(U0, X0):
-    # u^2+v^2<1 and v=X/sqrt(3)
-    return U0*U0 + X0*X0/3 < 1 - 1e-9
-
-def numeric_intersections():
-    """Resultant-based scan; returns isolated real intersections in the open disk."""
-    points = []
-    for (name_a, poly_a), (name_b, poly_b) in combinations(POLYS.items(), 2):
-        resultant = s.resultant(poly_a.as_expr(), poly_b.as_expr(), X)
-        if resultant == 0:
-            continue
-        resultant_poly = s.Poly(resultant, U, domain="QQ")
-        intervals = s.polys.polytools.intervals(
-            resultant_poly, eps=s.Rational(1, 10**10)
-        )
-        for ((lo, hi), _multiplicity) in intervals:
-            u0 = float((lo + hi)/2)
-            try:
-                x_roots = s.nroots(
-                    s.Poly(poly_a.as_expr().subs(U, u0), X),
-                    n=35, maxsteps=150
-                )
-            except (s.PolynomialError, ValueError):
-                continue
-            for root in x_roots:
-                if abs(float(s.im(root))) > 1e-8:
-                    continue
-                x0 = float(s.re(root))
-                if not in_disk(u0, x0):
-                    continue
-                try:
-                    refined = s.nsolve(
-                        [poly_a.as_expr(), poly_b.as_expr()], [U, X],
-                        [u0, x0], tol=1e-24, maxsteps=80, prec=40
-                    )
-                    u1, x1 = float(refined[0]), float(refined[1])
-                except (ValueError, ZeroDivisionError):
-                    continue
-                if not in_disk(u1, x1):
-                    continue
-                if max(abs(float(poly_a.as_expr().subs({U:u1, X:x1}))),
-                       abs(float(poly_b.as_expr().subs({U:u1, X:x1})))) > 1e-6:
-                    continue
-                if not any((u1-a)**2 + (x1-b)**2 < 1e-10 for a,b in points):
-                    points.append((u1, x1))
-    return points
-
-def active_loci(u0, x0, tol=1e-6):
-    return [
-        name for name, poly in POLYS.items()
-        if abs(float(poly.as_expr().subs({U:u0, X:x0}))) < tol
-    ]
-
-def exact_high_order_checks():
-    # Central configuration: all three end/side pairs are m=2 and all
-    # three side/side pairs are m=3.
-    center = [
-        name for name, poly in POLYS.items()
-        if s.simplify(poly.as_expr().subs({U:0, X:0})) == 0
-    ]
-    assert len(center) == 6
-
-    # Six exact triple intersections, all at horizontal radius 2/sqrt(13).
-    triple_points = [
-        ( 2/s.sqrt(13), 0),
-        (-2/s.sqrt(13), 0),
-        ( 1/s.sqrt(13),  3/s.sqrt(13)),
-        ( 1/s.sqrt(13), -3/s.sqrt(13)),
-        (-1/s.sqrt(13),  3/s.sqrt(13)),
-        (-1/s.sqrt(13), -3/s.sqrt(13)),
-    ]
-    for uu, xx in triple_points:
-        active = [
-            name for name, poly in POLYS.items()
-            if s.simplify(poly.as_expr().subs({U:uu, X:xx})) == 0
-        ]
-        assert len(active) == 3, (uu, xx, active)
-
-    # Validate the exact special configurations against the corrected
-    # affine reflection generators, not planes forced through the origin.
-    c0 = length_four_spectrum(0.0, 0.0)
-    assert c0["distinct_maps"] == 65
-    for uu, xx in triple_points:
-        result = length_four_spectrum(float(s.N(uu)), float(s.N(xx/s.sqrt(3))))
-        assert result["distinct_maps"] == 213
-    generic = length_four_spectrum(0.31, 0.17)
-    assert generic["distinct_maps"] == 320
-    return len(center), len(triple_points), c0, generic
-
-def main():
-    center_count, triple_count, center_spectrum, generic_spectrum = exact_high_order_checks()
-    points = numeric_intersections()
-    multiplicities = Counter(len(active_loci(uu, xx)) for uu, xx in points)
-    print("PASS: all 12 Coxeter-locus equations are exact rational polynomials in (u,sqrt(3)*v).")
-    print(f"isolated_real_intersections_in_open_disk={len(points)}")
-    print(f"intersection_multiplicity_counts={dict(sorted(multiplicities.items()))}")
-    print(f"central_configuration_active_loci={center_count}")
-    print(f"triple_intersection_points={triple_count}")
-    print(f"center_length4_spectrum={center_spectrum['distinct_maps']}")
-    print(f"generic_length4_spectrum={generic_spectrum['distinct_maps']}")
-    print("triple_point_exact_coordinates: (u,X)=(±2/sqrt(13),0),(±1/sqrt(13),±3/sqrt(13))")
-    print("NOTE: the total intersection count is a resultant/numerical-isolation scan; exact proof is asserted for the central and six triple points.")
-
-if __name__ == "__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

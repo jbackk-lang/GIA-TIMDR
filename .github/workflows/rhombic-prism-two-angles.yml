@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "experiments/rhombic_prism/**"
       - "experiments/rhombic_triangular_prism_two_angles.py"
       - ".github/workflows/rhombic-prism-two-angles.yml"
   workflow_dispatch:

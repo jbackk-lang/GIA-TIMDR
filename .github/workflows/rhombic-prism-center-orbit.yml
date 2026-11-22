@@ -3,6 +3,7 @@ name: Rhombic prism central orbit geometry
 on:
   push:
     paths:
+      - "experiments/rhombic_prism/**"
       - 'experiments/rhombic_prism_center_orbit_geometry.py'
       - 'experiments/rhombic_prism_helix_commutator_audit.py'
       - 'experiments/rhombic_prism_center_commutator.py'

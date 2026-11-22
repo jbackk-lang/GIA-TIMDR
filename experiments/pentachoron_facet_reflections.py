@@ -1,88 +1,63 @@
-"""Exact facet-reflection experiment for the regular 4-simplex (pentachoron).
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-The five vertices are v_i=e_i-(1/5)(1,1,1,1,1) in the sum-zero
-subspace of Q^5. The five facet reflections are affine isometries of that
-4D subspace, represented exactly in Q^5.
-"""
-from fractions import Fraction as Q
-from itertools import product
-from collections import Counter
-
-N=5
-ONE=tuple(Q(1,5) for _ in range(N))
-V=tuple(tuple(Q(int(i==j))-Q(1,5) for j in range(N)) for i in range(N))
-I=tuple(tuple(Q(int(i==j)) for j in range(N)) for i in range(N))
-Z=tuple(Q(0) for _ in range(N))
-
-def dot(a,b): return sum((x*y for x,y in zip(a,b)),Q(0))
-def mv(A,x): return tuple(sum((A[i][j]*x[j] for j in range(N)),Q(0)) for i in range(N))
-def mm(A,B): return tuple(tuple(sum((A[i][k]*B[k][j] for k in range(N)),Q(0)) for j in range(N)) for i in range(N))
-def add(a,b): return tuple(x+y for x,y in zip(a,b))
-def compose(after,before):
-    A,b=after; C,d=before
-    return mm(A,C), add(mv(A,d),b)
-
-def reflection(i):
-    v=V[i]
-    A=tuple(tuple(I[r][c]-Q(5,2)*v[r]*v[c] for c in range(N)) for r in range(N))
-    b=tuple(-Q(1,2)*x for x in v)
-    return A,b
-
-G=tuple(reflection(i) for i in range(N))
-def trace(A): return sum((A[i][i] for i in range(N)),Q(0))
-
-def main():
-    # Geometry of regular 4-simplex facets.
-    assert all(dot(v,v)==Q(4,5) for v in V)
-    assert all(dot(V[i],V[j])==Q(-1,5) for i in range(N) for j in range(N) if i!=j)
-    for i in range(N):
-        for j in range(N):
-            if i!=j:
-                assert all(compose(G[i],G[i])[0][r][c]==I[r][c] for r in range(N) for c in range(N))
-                # Each reflection fixes the four vertices of its facet.
-                assert all(add(mv(G[i][0],V[k]),G[i][1])==V[k] for k in range(N) if k!=i)
-
-    pair_cosines=[]
-    pair_maps=[]
-    for i in range(N):
-        for j in range(i+1,N):
-            T=compose(G[i],G[j])
-            pair_maps.append(T)
-            # Product is identity on 3D complement of span(v_i,v_j)
-            # within sum-zero R4; its nontrivial plane rotation has cos=-7/8.
-            # Ambient R5 trace = 1 (all-ones direction) + 2 fixed + 2cos(theta).
-            cosine=(trace(T[0])-3)/2
-            pair_cosines.append(cosine)
-    assert set(pair_cosines)=={Q(-7,8)}
-    assert len(set(pair_maps))==10
-
-    # Enumerate reduced words: no adjacent repeated facet reflection.
-    prev=[((),(I,Z))]
-    counts={}
-    for length in range(1,6):
-        cur=[]
-        for word,T in prev:
-            for i in range(N):
-                if word and word[-1]==i: continue
-                cur.append((word+(i,),compose(G[i],T)))
-        maps=[T for _,T in cur]
-        counts[length]=(len(cur),len(set(maps)))
-        assert len(cur)==N*(N-1)**(length-1)
-        assert len(set(maps))==len(maps), (length,"duplicate affine maps")
-        prev=cur
-
-    # Niven theorem: -7/8 is not an allowed rational cosine for rational
-    # multiples of pi, so each two-facet product has infinite order.
-    assert Q(-7,8) not in {Q(0),Q(1,2),Q(-1,2),Q(1),Q(-1)}
-    print("PASS: exact regular 4-simplex facet geometry in Q^5 sum-zero subspace.")
-    print("vertices=5; tetrahedral facets=5; facet-pair products=10.")
-    print("unit-normal inner product = -1/4")
-    print("two-facet product rotation cosine = -7/8")
-    print("all 10 pair products have infinite order (Niven theorem).")
-    for n,(words,maps) in counts.items():
-        print(f"word_length_{n}: reduced_words={words}; distinct_affine_maps={maps}")
-    print("RESULT: pentachoron facet reflections generate non-periodic 4D rotations;")
-    print("         reduced words through length 5 show no affine-map collisions.")
-    print("LIMIT: finite enumeration is not a proof of freeness; no physical force or knot claim.")
-
-if __name__=="__main__": main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})
