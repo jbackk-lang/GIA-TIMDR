@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "experiments/rhombic_prism/**"
       - "experiments/rhombic_prism_mobility_domain.py"
       - ".github/workflows/rhombic-prism-mobility.yml"
   workflow_dispatch:
