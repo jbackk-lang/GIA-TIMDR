@@ -24,7 +24,7 @@ jobs:
       - name: Install test dependencies
         run: python -m pip install numpy pytest
       - name: Compile relocated experiments and compatibility entry points
-        run: python -m compileall -q experiments/chronoprocess experiments/rhombic_prism experiments/reflections experiments
+        run: python -m compileall -q experiments/*.py experiments/chronoprocess experiments/rhombic_prism experiments/reflections
       - name: Run tests that import legacy experiment paths
         run: |
           python -m pytest -q \
