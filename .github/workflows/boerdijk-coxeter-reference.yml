@@ -7,6 +7,12 @@ on:
       - "experiments/helix_characterization/tests/test_boerdijk_coxeter_tetrahelix.py"
       - "docs/geometry/BOERDIJK_COXETER_EXACT_REFERENCE_2026-11-09.md"
       - ".github/workflows/boerdijk-coxeter-reference.yml"
+  pull_request:
+    paths:
+      - "core/boerdijk_coxeter_tetrahelix.py"
+      - "experiments/helix_characterization/tests/test_boerdijk_coxeter_tetrahelix.py"
+      - "docs/geometry/BOERDIJK_COXETER_EXACT_REFERENCE_2026-11-09.md"
+      - ".github/workflows/boerdijk-coxeter-reference.yml"
   workflow_dispatch:
 
 permissions:
