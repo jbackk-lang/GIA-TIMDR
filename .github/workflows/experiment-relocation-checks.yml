@@ -38,6 +38,8 @@ on:
       - "tests/test_modal_speed_tracking.py"
       - "tests/test_real_chrono_membrane_bridge_independent.py"
       - "tests/test_real_chrono_membrane_bridge_v0_2.py"
+      - "tests/test_reflection_transition.py"
+      - "tests/test_signal_geometry_lift.py"
       - "tests/test_sg_background.py"
       - "tests/test_sg_perturbations.py"
       - "tests/test_sg_shooting.py"
@@ -105,6 +107,8 @@ jobs:
             tests/test_modal_speed_tracking.py \
             tests/test_real_chrono_membrane_bridge_independent.py \
             tests/test_real_chrono_membrane_bridge_v0_2.py \
+            tests/test_reflection_transition.py \
+            tests/test_signal_geometry_lift.py \
             tests/test_sg_background.py \
             tests/test_sg_perturbations.py \
             tests/test_sg_shooting.py \
