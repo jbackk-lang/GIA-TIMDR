@@ -1,0 +1,41 @@
+name: Core regression tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "core/modal_self_repair.py"
+      - "core/operators.py"
+      - "core/constants.py"
+      - "core/diagnostics.py"
+      - "tests/test_modal_self_repair.py"
+      - "tests/test_operators_wiring.py"
+      - ".github/workflows/core-regression-tests.yml"
+  pull_request:
+    paths:
+      - "core/modal_self_repair.py"
+      - "core/operators.py"
+      - "core/constants.py"
+      - "core/diagnostics.py"
+      - "tests/test_modal_self_repair.py"
+      - "tests/test_operators_wiring.py"
+      - ".github/workflows/core-regression-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  core-regressions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test dependencies
+        run: python -m pip install numpy pytest
+      - name: Test modal self-repair
+        run: python -m pytest -q tests/test_modal_self_repair.py
+      - name: Test operator wiring
+        run: python -m pytest -q tests/test_operators_wiring.py
