@@ -13,6 +13,7 @@ Stan mapy: 22 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 | [Indeks archiwum](docs/archiwum/README.md) | Datowane podsumowania historyczne i zasady ich zachowania | Do wglądu; aktualny stan w `STAN_PROJEKTU.md` |
 | [docs/theory](docs/theory/) | Aksjomaty, Chronoproces, reguły metodologiczne i szkice | Sprawdzaj status konkretnego dokumentu |
 | [docs/geometry](docs/geometry/) | Prerejestracje, manifesty, wyniki i notatki mostów | Wynik czytaj razem z planem i danymi |
+| [docs/diagrams](docs/diagrams/) | Diagramy i wizualizacje | Ilustracje, nie niezależny dowód |
 | [experiments](experiments/) | Skrypty eksperymentalne pogrupowane według linii badawczych | Indeks serii [54A](experiments/54A/README.md); kod, raporty i wyniki są rozdzielone |
 | [core](core/) i [tests](tests/) | Operatory i ich testy | Test jednostkowy nie zastępuje testu real-data |
 | [TIMDR-Math-Formalism](TIMDR-Math-Formalism/) | Gałąź sygnałowa M/S | Podkatalog włączony przez `git subtree` |
