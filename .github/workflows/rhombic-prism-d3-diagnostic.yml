@@ -1,5 +1,8 @@
 name: Rhombic prism D3 degeneracy diagnostic
 
+permissions:
+  contents: read
+
 on:
   push:
     paths:
