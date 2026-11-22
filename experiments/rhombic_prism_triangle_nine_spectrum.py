@@ -1,68 +1,63 @@
-"""Audit the 3x3 -> 9x9 rotation-conjugation spectrum.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-Requires numpy and scipy. Run from repository root:
-python experiments/rhombic_prism_triangle_nine_spectrum.py
-"""
-import numpy as np
-from scipy.optimize import root
-from rhombic_prism_mobility_screw_coupling import build_generators,compose
-
-I=np.eye(3)
-def inv(g):
-    R,b=g
-    return R.T,-R.T@b
-
-def delta(u,v):
-    gs,w,_=build_generators(u,v)
-    g=[compose(gs[0],gs[i]) for i in (2,3,4)]
-    p=compose(compose(g[0],g[1]),g[2])
-    q=compose(compose(g[2],g[1]),g[0])
-    return compose(p,inv(q)),np.array([.5+u/2,np.sqrt(3)/6+v/2,w/2])
-
-def displacement(x):
-    (R,b),O=delta(*x)
-    return R@O+b-O
-
-def audit(x):
-    (R,b),O=delta(*x)
-    assert np.linalg.norm(R@O+b-O)<1e-8
-    assert np.linalg.norm(R.T@R-I)<1e-10
-    theta=np.arccos(np.clip((np.trace(R)-1)/2,-1,1))
-    T=np.kron(R,R)
-    assert np.linalg.norm(T.T@T-np.eye(9))<1e-10
-    actual=np.linalg.eigvals(T)
-    expected=[1]*3+[np.exp(1j*theta)]*2+[np.exp(-1j*theta)]*2+[np.exp(2j*theta),np.exp(-2j*theta)]
-    for a in expected:
-        assert min(abs(a-b) for b in actual)<1e-9
-    scalar=[I/np.sqrt(3)]
-    skew=[]
-    sym=[np.diag([1,-1,0])/np.sqrt(2),np.diag([1,1,-2])/np.sqrt(6)]
-    for a,b in ((0,1),(0,2),(1,2)):
-        A=np.zeros((3,3));A[a,b]=1/np.sqrt(2);A[b,a]=-1/np.sqrt(2)
-        skew.append(A)
-        B=np.zeros((3,3));B[a,b]=B[b,a]=1/np.sqrt(2)
-        sym.append(B)
-    basis=np.stack([x.ravel() for x in scalar+skew+sym],axis=1)
-    assert np.linalg.norm(basis.T@basis-np.eye(9))<1e-12
-    blocks=basis.T@T@basis
-    for a,b in ((0,1),(1,4),(4,9)):
-        for c,d in ((0,1),(1,4),(4,9)):
-            if (a,b)!=(c,d):
-                assert np.linalg.norm(blocks[a:b,c:d])<1e-10
-    print("root",x,"theta_deg",np.degrees(theta),"A_R",np.sum((R-I)**2),
-          "block_traces",[np.trace(blocks[a:b,a:b]) for a,b in ((0,1),(1,4),(4,9))])
-    return theta
-
-def main():
-    seeds=[(-.49519165,-.50610070),(-.58610596,-.33838843),(-.68589188,-.17579820)]
-    angles=[]
-    for seed in seeds:
-        solution=root(lambda x:displacement(x)[:2],seed,tol=1e-12)
-        assert np.linalg.norm(displacement(solution.x))<1e-8
-        angles.append(audit(solution.x))
-    assert abs(angles[0]-angles[2])<1e-8
-    assert abs(angles[0]-angles[1])>.1
-    print("PASS: 9x9 spectrum and 1+3+5 invariant block decomposition")
-
-if __name__=="__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

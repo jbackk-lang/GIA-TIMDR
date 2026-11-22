@@ -1,51 +1,63 @@
-"""Grid study of the finite-depth rotation-angle spectrum (reduced words <= 8)."""
-import numpy as np
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-from rhombic_prism_axis_limit_study import enumerate_depths
-
-RADII = (0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80)
-DIRECTIONS_DEG = (0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0)
-
-
-def spectrum(r, phi_deg):
-    phi = np.deg2rad(phi_deg)
-    u, v = r * np.cos(phi), r * np.sin(phi)
-    maps, raw, states = enumerate_depths(float(u), float(v), 8)[8]
-    angles = []
-    for M, b in maps.values():
-        if np.linalg.det(M) <= 0 or np.linalg.norm(M - np.eye(3)) <= 2e-7:
-            continue
-        cosine = np.clip((np.trace(M) - 1.0) / 2.0, -1.0, 1.0)
-        skew = np.array([M[2, 1] - M[1, 2],
-                         M[0, 2] - M[2, 0],
-                         M[1, 0] - M[0, 1]])
-        sine = 0.5 * np.linalg.norm(skew)
-        angles.append(float(np.degrees(np.arctan2(sine, cosine))))
-    a = np.sort(np.asarray(angles))
-    # Collapse numerical multiplicities only for the geometric gap diagnostic.
-    unique = np.unique(np.round(a, 7))
-    gaps = np.diff(unique)
-    order = np.argsort(gaps)[::-1][:5]
-    largest = [(float(unique[i]), float(unique[i+1]), float(gaps[i]))
-               for i in order]
-    below5 = a[a < 5.0]
-    above5 = a[a >= 5.0]
-    gap5 = (float(above5.min() - below5.max())
-            if len(below5) and len(above5) else float("nan"))
-    print(f"GRID,r={r:.3f},phi={phi_deg:.1f},u={u:.8g},v={v:.8g},"
-          f"maps={len(maps)},angles={len(a)},unique_angles={len(unique)},"
-          f"count_lt5={len(below5)},count_ge5={len(above5)},"
-          f"max_lt5={below5.max() if len(below5) else float('nan'):.7g},"
-          f"min_ge5={above5.min() if len(above5) else float('nan'):.7g},"
-          f"gap_at5={gap5:.7g},largest_gaps={largest}")
-
-
-def main():
-    for r in RADII:
-        for phi in DIRECTIONS_DEG:
-            spectrum(r, phi)
-    print("LIMIT: finite-depth angle spectrum only; not a theorem about all group elements.")
-
-
-if __name__ == "__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

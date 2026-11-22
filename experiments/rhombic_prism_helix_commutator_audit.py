@@ -1,68 +1,63 @@
-"""Falsifiable tests of helical center motion and rotation noncommutativity.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-Geometry only: no clock, force, magnetic field, or astrophysical model is inferred.
-Run: python experiments/rhombic_prism_helix_commutator_audit.py
-"""
-import numpy as np
-from rhombic_prism_mobility_screw_coupling import build_generators, compose, IDENTITY
-from rhombic_prism_axis_limit_study import extract_axis
-
-def center(u,v):
-    w=np.sqrt(1-u*u-v*v)
-    return np.array([(1+u)/2, np.sqrt(3)/6+v/2, w/2])
-
-def apply(g,x):
-    return g[0]@x+g[1]
-
-def power(g,n):
-    result=(IDENTITY,np.zeros(3))
-    for _ in range(n):
-        result=compose(g,result)
-    return result
-
-def rotation_pair(gens,i,j):
-    return compose(gens[i],gens[j])
-
-def audit(u,v):
-    gens,w,_=build_generators(u,v)
-    O=center(u,v)
-    # Base+side reflection is a proper rotation about a horizontal base edge.
-    # Pair two different side rotations to expose noncommutativity.
-    g=rotation_pair(gens,0,2)
-    h=rotation_pair(gens,0,3)
-    gh=compose(g,h)
-    hg=compose(h,g)
-    commutator_center=float(np.linalg.norm(apply(gh,O)-apply(hg,O)))
-    commutator_linear=float(np.linalg.norm(gh[0]-hg[0],ord='fro'))
-    # g is a pure rotation: its center orbit must be circular, not a helix.
-    kind,params=extract_axis(*g,min_angle_deg=0.1)
-    assert kind=="rotation_axis",(u,v,kind)
-    a,p,pitch,theta,_,_=params
-    rho=np.linalg.norm(np.cross(O-p,a))
-    radius_errors=[]
-    axial_errors=[]
-    step_errors=[]
-    x=O.copy()
-    for n in range(1,25):
-        x=apply(g,x)
-        radial=np.linalg.norm(np.cross(x-p,a))
-        radius_errors.append(abs(radial-rho))
-        axial_errors.append(abs(np.dot(x-O,a)))
-        prediction=2*rho*abs(np.sin(np.deg2rad(n*theta)/2))
-        step_errors.append(abs(np.linalg.norm(x-O)-prediction))
-    assert max(radius_errors)<1e-8
-    assert max(axial_errors)<1e-8
-    assert max(step_errors)<1e-8
-    # Translation followed by g gives a screw only if the translation vector
-    # is parallel to g's rotation axis. For a horizontal axis and vertical
-    # translation, this composition is generally another offset rotation.
-    T=compose(gens[1],gens[0])
-    assert np.allclose(T[1],[0,0,2*w],atol=1e-12)
-    print(f"u={u:.8g} v={v:.8g} center_commutator={commutator_center:.9g} "
-          f"linear_commutator={commutator_linear:.9g} radius={rho:.9g} "
-          f"theta_deg={theta:.9g} circle_max_error={max(radius_errors):.3g} "
-          f"axial_max_error={max(axial_errors):.3g} displacement_max_error={max(step_errors):.3g}")
-
-if __name__=="__main__":
-    for params in ((0.,0.),(.01,0.),(.2,.1),(.4/np.sqrt(2),.4/np.sqrt(2))):
-        audit(*params)
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

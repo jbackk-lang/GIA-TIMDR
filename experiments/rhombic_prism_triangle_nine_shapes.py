@@ -1,40 +1,63 @@
-"""Distinct centroid-return shapes across all six generator orderings.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-Given three high-precision candidate roots for ordering 123, use exact
-D3 covariance and reversal pairing to produce nine candidate shapes.
-Tests separation numerically; exact completeness depends on the prior
-Groebner/real-root certificate.
-"""
-import numpy as np
-
-SQ3=np.sqrt(3.)
-C=np.array([[-.5,-SQ3/2],[SQ3/2,-.5]])
-H=np.array([[.5,SQ3/2],[SQ3/2,-.5]])
-ROOTS=np.array([
-    [-.49519165,-.50610070],
-    [-.58610596,-.33838843],
-    [-.68589188,-.17579820],
-])
-
-def main():
-    assert np.allclose(C@C@C,np.eye(2),atol=1e-14)
-    assert np.allclose(H@H,np.eye(2),atol=1e-14)
-    assert np.allclose(H@C@H,C.T,atol=1e-14)
-    assert np.linalg.norm(H@ROOTS[0]-ROOTS[2])<5e-8
-    assert np.linalg.norm(H@ROOTS[1]-ROOTS[1])<5e-8
-    orbit=np.array([np.linalg.matrix_power(C,k)@p for k in range(3) for p in ROOTS])
-    distances=[np.linalg.norm(orbit[i]-orbit[j]) for i in range(9) for j in range(i+1,9)]
-    minimum=min(distances)
-    print("Nine candidate shapes, in order: (123),(231),(312) ordering families")
-    for i,p in enumerate(orbit):
-        print(f"{i+1:2d}: u={p[0]:+.12f} v={p[1]:+.12f}")
-    print(f"Minimum pairwise distance = {minimum:.12f}")
-    assert minimum>.19
-    axial=np.array([np.linalg.matrix_power(C,k)@ROOTS[1] for k in range(3)])
-    off=np.array([np.linalg.matrix_power(C,k)@ROOTS[j] for k in range(3) for j in (0,2)])
-    assert len(axial)==3 and len(off)==6
-    print("D3 orbit sizes: axial=3; off-axis=6")
-    print("Numerical separation is not an interval-arithmetic certificate.")
-
-if __name__=="__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

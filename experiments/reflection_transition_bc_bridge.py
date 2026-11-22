@@ -1,78 +1,63 @@
-"""Reproducible bridge check: generic surface reflection <-> exact BC recurrence.
-
-Run from the repository root:
-    python experiments/reflection_transition_bc_bridge.py
-
-This checks geometry only. It does not infer a physical probability law.
-"""
-from __future__ import annotations
-
-import sys
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
 from pathlib import Path
+import runpy
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-
-from core.boerdijk_coxeter_tetrahelix import (
-    INITIAL_VERTICES,
-    generate_vertices,
-    squared_distance,
-)
-from core.reflection_transition import (
-    reflect_direction,
-    reflect_tetrahedron_step,
-    tetrahedron_face_reflection_candidates,
-)
-
-
-def main() -> None:
-    exact = generate_vertices(40)
-    floating = tuple(tuple(float(x) for x in p) for p in exact)
-
-    # Compare the new generic operator against the exact Fraction recurrence.
-    max_error = 0.0
-    for i in range(len(floating) - 4):
-        predicted = reflect_tetrahedron_step(floating[i:i + 4])
-        expected = floating[i + 4]
-        max_error = max(
-            max_error,
-            *(abs(predicted[k] - expected[k]) for k in range(3)),
-        )
-    assert max_error < 1e-12, max_error
-
-    # The regular tetrahedron has four geometrically valid face-reflection
-    # candidates. They are distinct but preserve all six edge lengths.
-    initial = tuple(tuple(float(x) for x in p) for p in INITIAL_VERTICES)
-    branches = tetrahedron_face_reflection_candidates(initial)
-    assert len(branches) == 4
-    branch_points = [branches[i][i] for i in range(4)]
-    assert len({tuple(round(x, 12) for x in p) for p in branch_points}) == 4
-    for tetra in branches:
-        edge_squares = {
-            round(sum((tetra[i][k] - tetra[j][k]) ** 2 for k in range(3)), 10)
-            for i in range(4) for j in range(i + 1, 4)
-        }
-        assert edge_squares == {8.0}, edge_squares
-
-    # Check the point-reflection/vector-reflection identity for one BC step.
-    old, a, b, c, nxt = floating[:5]
-    center = tuple((a[k] + b[k] + c[k]) / 3 for k in range(3))
-    incoming = tuple(old[k] - center[k] for k in range(3))
-    outgoing = tuple(nxt[k] - center[k] for k in range(3))
-    normal = (
-        (b[1]-a[1])*(c[2]-a[2]) - (b[2]-a[2])*(c[1]-a[1]),
-        (b[2]-a[2])*(c[0]-a[0]) - (b[0]-a[0])*(c[2]-a[2]),
-        (b[0]-a[0])*(c[1]-a[1]) - (b[1]-a[1])*(c[0]-a[0]),
-    )
-    reflected = reflect_direction(incoming, normal)
-    assert max(abs(reflected[k] - outgoing[k]) for k in range(3)) < 1e-12
-
-    print("PASS: 36/36 BC steps agree with the exact Fraction reference (<1e-12).")
-    print("PASS: four distinct face-reflection candidates preserve all six edges.")
-    print("PASS: point reflection and vector reflection agree for the BC face.")
-    print("NOTE: geometry does not select a probability distribution among branches.")
-    print(f"Exact reference has {len(exact)} vertices; max float adapter error={max_error:.3e}.")
-
-
-if __name__ == "__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

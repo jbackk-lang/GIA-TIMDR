@@ -1,87 +1,63 @@
-"""Exact rational interval proof: three physical roots, nine distinct D3 shapes.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-Uses the independently stored reduced equations and exact Groebner basis.
-All decisions use rational arithmetic, not floating point.
-Run: python experiments/rhombic_prism_triangle_nine_exact_certificate.py
-"""
-import math
-import sympy as sp
-from rhombic_prism_triangle_reduced_equations import u,v,w,s,F
-
-z=sp.Symbol("z")
-rt=sp.sqrt(3)
-constraint=sp.Poly(w*w+u*u+v*v-1,w)
-E=[]
-for i in range(3):
-    rem=sp.rem(sp.Poly(sp.expand(F[i]),w),constraint).as_expr()
-    q=sp.cancel(rem/((u*u+v*v-1)*(w if i==2 else 1)))
-    q=sp.rem(sp.Poly(sp.expand(q),s),sp.Poly(s*s-3,s)).as_expr()
-    E.append(sp.expand(q.subs(s,rt).subs(v,rt*z)))
-G=sp.groebner(E,u,z,order="lex",extension=rt)
-assert len(G.polys)==2
-linear,eliminant=[p.as_expr() for p in G.polys]
-assert sp.degree(linear,u)==1
-assert sp.gcd(eliminant,sp.diff(eliminant,z))==1
-U=sp.cancel(sp.solve(linear,u)[0])
-assert not U.has(rt)
-
-Q=sp.Rational
-scale=10**55
-root3=math.isqrt(3*scale*scale)
-sqrt3=(Q(root3,scale),Q(root3+1,scale))
-assert sqrt3[0]**2<3<sqrt3[1]**2
-
-def add(a,b): return (a[0]+b[0],a[1]+b[1])
-def neg(a): return (-a[1],-a[0])
-def mul(a,b):
-    p=[x*y for x in a for y in b]
-    return min(p),max(p)
-def sq(a):
-    if a[0]<=0<=a[1]: return (Q(0),max(a[0]**2,a[1]**2))
-    return (min(a[0]**2,a[1]**2),max(a[0]**2,a[1]**2))
-def scalar(k,a): return mul((Q(k),Q(k)),a)
-def horner(poly,iv):
-    p=sp.Poly(poly,z)
-    out=(Q(0),Q(0))
-    for c in p.all_coeffs():
-        assert c.is_Rational
-        out=add(mul(out,iv),(c,c))
-    return out
-def ratio(a,b):
-    assert b[0]>0 or b[1]<0
-    return mul(a,(1/b[1],1/b[0]))
-def rotate(point):
-    x,y=point
-    return (add(scalar(Q(-1,2),x),scalar(Q(-1,2),mul(sqrt3,y))),
-            add(scalar(Q(1,2),mul(sqrt3,x)),scalar(Q(-1,2),y)))
-def disjoint(p,q):
-    return any(p[i][1]<q[i][0] or q[i][1]<p[i][0] for i in range(2))
-
-num,den=sp.fraction(U)
-intervals=sp.polys.polytools.intervals(sp.Poly(eliminant,z),eps=Q(1,10**48))
-assert len(intervals)==7
-physical=[]
-for i,((lo,hi),multiplicity) in enumerate(intervals,1):
-    assert multiplicity==1
-    zi=(lo,hi)
-    ui=ratio(horner(num,zi),horner(den,zi))
-    vi=mul(sqrt3,zi)
-    r2=add(sq(ui),sq(vi))
-    assert r2[1]<1 or r2[0]>1,("ambiguous disk membership",i)
-    inside=r2[1]<1
-    print("root",i,"inside",inside,"radius2 bounds approx",
-          tuple(float(x) for x in r2))
-    if inside: physical.append((ui,vi))
-assert len(physical)==3
-points=[]
-for k in range(3):
-    for p in physical:
-        x=p
-        for _ in range(k): x=rotate(x)
-        points.append(x)
-for i in range(9):
-    for j in range(i+1,9):
-        assert disjoint(points[i],points[j]),("overlap",i,j)
-print("CERTIFIED: exactly three roots in physical disk for ordering 123.")
-print("CERTIFIED: nine distinct physical shapes across all six orders.")
-print("CERTIFIED: D3 orbit decomposition 3+6 using established covariance.")
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

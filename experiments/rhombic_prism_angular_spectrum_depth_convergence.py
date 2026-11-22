@@ -1,54 +1,63 @@
-"""Compare finite-depth rotation-angle distributions at word lengths 4, 6 and 8."""
-import numpy as np
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-from rhombic_prism_axis_limit_study import enumerate_depths
-
-
-CONFIGS = (
-    ("center", 0.0, 0.0),
-    ("axis_r03", 0.3, 0.0),
-    ("sector_r03_phi30", 0.3*np.cos(np.pi/6), 0.3*np.sin(np.pi/6)),
-    ("sector_r06_phi30", 0.6*np.cos(np.pi/6), 0.6*np.sin(np.pi/6)),
-    ("sector_r08_phi30", 0.8*np.cos(np.pi/6), 0.8*np.sin(np.pi/6)),
-    ("generic_r04_phi20", 0.4*np.cos(np.deg2rad(20)), 0.4*np.sin(np.deg2rad(20))),
-)
-
-
-def angles_for(maps):
-    values = []
-    for M, b in maps.values():
-        if np.linalg.det(M) <= 0 or np.linalg.norm(M-np.eye(3)) <= 2e-7:
-            continue
-        cosine = np.clip((np.trace(M)-1.0)/2.0, -1.0, 1.0)
-        skew = np.array([M[2,1]-M[1,2], M[0,2]-M[2,0], M[1,0]-M[0,1]])
-        sine = 0.5*np.linalg.norm(skew)
-        values.append(float(np.degrees(np.arctan2(sine, cosine))))
-    return np.sort(np.asarray(values))
-
-
-def wasserstein_1d(a, b):
-    q = np.linspace(0.0, 1.0, 1001)
-    return float(np.mean(np.abs(np.quantile(a, q)-np.quantile(b, q))))
-
-
-def main():
-    for label, u, v in CONFIGS:
-        snapshots = enumerate_depths(float(u), float(v), 8)
-        distributions = {}
-        for depth in (4, 6, 8):
-            maps, raw, states = snapshots[depth]
-            a = angles_for(maps)
-            distributions[depth] = a
-            quantiles = np.quantile(a, [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0])
-            print(f"DEPTH_SPECTRUM,{label},{depth},raw={raw},maps={len(maps)},"
-                  f"angles={len(a)},unique_angles={len(np.unique(np.round(a,7)))},"
-                  f"count_lt1={int(np.sum(a<1))},count_lt5={int(np.sum(a<5))},"
-                  f"count_lt10={int(np.sum(a<10))},"
-                  f"quantiles={np.round(quantiles,7).tolist()}")
-        print(f"DEPTH_DISTANCE,{label},4_to_6={wasserstein_1d(distributions[4], distributions[6]):.9g},"
-              f"6_to_8={wasserstein_1d(distributions[6], distributions[8]):.9g}")
-    print("LIMIT: empirical finite-depth distributions only; Wasserstein convergence is not a proof of group-limit convergence.")
-
-
-if __name__ == "__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

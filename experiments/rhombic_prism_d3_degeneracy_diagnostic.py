@@ -1,103 +1,63 @@
-"""Diagnose the r=0.4 D3 endpoint: generator conjugacy and raw-word maps."""
-import numpy as np
-from rhombic_prism_mobility_screw_coupling import IDENTITY, build_generators, compose
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-
-def reflection_30():
-    d = np.array([np.cos(np.pi/6), np.sin(np.pi/6), 0.0])
-    n = np.array([-d[1], d[0], 0.0])
-    return IDENTITY-2*np.outer(n, n)
-
-
-def generator_permutation(u1, v1, u2, v2):
-    g1, _, _ = build_generators(u1, v1)
-    g2, _, _ = build_generators(u2, v2)
-    S = reflection_30()
-    permutation, residuals = [], []
-    for M, b in g1:
-        Mc, bc = S@M@S.T, S@b
-        candidates = [max(np.linalg.norm(Mc-N), np.linalg.norm(bc-d))
-                      for N, d in g2]
-        j = int(np.argmin(candidates))
-        permutation.append(j)
-        residuals.append(candidates[j])
-    return g1, g2, S, permutation, residuals
-
-
-def all_word_conjugacy(g1, g2, S, permutation, max_length=8):
-    states = [(IDENTITY, np.zeros(3), IDENTITY, np.zeros(3), -1)]
-    max_matrix_error = max_offset_error = 0.0
-    count = 0
-    for depth in range(1, max_length+1):
-        nxt = []
-        for M1, b1, M2, b2, last in states:
-            for i, gen1 in enumerate(g1):
-                if i == last:
-                    continue
-                j = permutation[i]
-                Q1, q1 = compose(gen1, (M1, b1))
-                Q2, q2 = compose(g2[j], (M2, b2))
-                nxt.append((Q1, q1, Q2, q2, i))
-        states = nxt
-    for M1, b1, M2, b2, _ in states:
-        max_matrix_error = max(max_matrix_error, float(np.linalg.norm(S@M1@S.T-M2)))
-        max_offset_error = max(max_offset_error, float(np.linalg.norm(S@b1-b2)))
-        count += 1
-    return count, max_matrix_error, max_offset_error
-
-
-def enum_words(u, v, max_length=8):
-    gens, _, _ = build_generators(u, v)
-    states = [(IDENTITY, np.zeros(3), -1)]
-    for depth in range(1, max_length+1):
-        nxt = []
-        for M, b, last in states:
-            for i, gen in enumerate(gens):
-                if i == last:
-                    continue
-                Q, q = compose(gen, (M, b))
-                nxt.append((Q, q, i))
-        states = nxt
-    return [(M,b) for M,b,_ in states]
-
-
-def quantized_unique(maps, decimals):
-    return {tuple(np.round(np.r_[M.ravel(), b], decimals)) for M,b in maps}
-
-
-def angle_support(maps):
-    vals = []
-    for M,b in maps:
-        if np.linalg.det(M) <= 0 or np.linalg.norm(M-IDENTITY) <= 2e-7:
-            continue
-        c=np.clip((np.trace(M)-1)/2,-1,1)
-        sk=np.array([M[2,1]-M[1,2],M[0,2]-M[2,0],M[1,0]-M[0,1]])
-        s=.5*np.linalg.norm(sk)
-        vals.append(np.degrees(np.arctan2(s,c)))
-    return np.unique(np.round(vals,7))
-
-
-def main():
-    r=.4
-    p0=np.array([r,0.0])
-    p1=np.array([r*np.cos(np.pi/3),r*np.sin(np.pi/3)])
-    g1,g2,S,perm,residuals=generator_permutation(*p0,*p1)
-    print("GENERATOR_PERMUTATION",perm)
-    print("GENERATOR_CONJUGACY_RESIDUALS",residuals)
-    count, em, eb=all_word_conjugacy(g1,g2,S,perm)
-    print(f"WORDWISE_CONJUGACY,length=8,words={count},max_matrix_error={em:.12g},max_offset_error={eb:.12g}")
-    a=enum_words(*p0)
-    b=enum_words(*p1)
-    print(f"RAW_WORD_MAPS,{len(a)},{len(b)}")
-    for d in (12,10,9,8,7,6):
-        print(f"QUANTIZED_UNIQUE,{d},{len(quantized_unique(a,d))},{len(quantized_unique(b,d))}")
-    aa,bb=angle_support(a),angle_support(b)
-    print(f"ANGLE_SUPPORT,{len(aa)},{len(bb)},equal={np.array_equal(aa,bb)}")
-    if len(aa)==len(bb):
-        print(f"ANGLE_SUPPORT_MAX_DELTA,{np.max(np.abs(aa-bb)):.12g}")
-    if max(residuals)>1e-10 or em>1e-10 or eb>1e-10:
-        raise SystemExit(1)
-
-
-if __name__=="__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})

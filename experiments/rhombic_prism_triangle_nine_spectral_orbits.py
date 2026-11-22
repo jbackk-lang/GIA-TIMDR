@@ -1,55 +1,63 @@
-"""Audit the spectral multiset of nine physical centroid-return configurations.
+"""Compatibility entry point; canonical experiment code lives in a topic subdirectory."""
+from pathlib import Path
+import runpy
 
-The 9 shapes come from rotating the 3 physical roots by 0,120,240 degrees.
-For each shape, search all six orders, retaining those for which the
-centroid-return displacement vanishes. Check the two trace classes (3+6).
-"""
-import itertools
-import numpy as np
-from scipy.optimize import root
-from rhombic_prism_triangle_six_orders import generators,delta,center
-
-ROT=np.array([[-.5,-np.sqrt(3)/2],[np.sqrt(3)/2,-.5]])
-SEEDS=[(-.49519165,-.50610070),(-.58610596,-.33838843),(-.68589188,-.17579820)]
-ORDERS=list(itertools.permutations(range(3)))
-
-def residual(x):
-    g=generators(*x)
-    R,b=delta(g,(0,1,2))
-    return R@center(*x)+b-center(*x)
-
-def main():
-    roots=[]
-    for seed in SEEDS:
-        sol=root(lambda x:residual(x)[:2],seed,tol=1e-12)
-        assert np.linalg.norm(residual(sol.x))<1e-8
-        roots.append(sol.x)
-    shapes=[]
-    for x in roots:
-        for k in range(3):
-            y=np.linalg.matrix_power(ROT,k)@x
-            assert all(np.linalg.norm(y-z)>1e-5 for z in shapes)
-            shapes.append(y)
-    assert len(shapes)==9
-    values=[]
-    for i,x in enumerate(shapes):
-        g=generators(*x);O=center(*x)
-        cs=[]
-        for order in ORDERS:
-            R,b=delta(g,order)
-            if np.linalg.norm(R@O+b-O)<1e-8:
-                cs.append((np.trace(R)-1)/2)
-        assert cs,("missing return order",i)
-        assert max(cs)-min(cs)<1e-8,("order-dependent cosine at fixed shape",i,cs)
-        values.append(float(np.mean(cs)))
-    c3=values[3]
-    c6=values[0]
-    assert abs(c3-c6)>0.1
-    assert sum(abs(x-c3)<1e-8 for x in values)==3
-    assert sum(abs(x-c6)<1e-8 for x in values)==6
-    print("3-point orbit cosine",c3)
-    print("6-point orbit cosine",c6)
-    print("PASS: nine distinct configurations, two spectral classes with multiplicities 3+6")
-
-if __name__=="__main__":
-    main()
+_NAME = Path(__file__).name
+_GROUP = {
+    "bc_opposite_chirality_pair.py": "reflections",
+    "bc_opposite_direction_pair.py": "reflections",
+    "chronoprocess_coupled_phase_recovery.py": "chronoprocess",
+    "chronoprocess_triple_loop_duration_sweep.py": "chronoprocess",
+    "chronoprocess_triple_loop_time_history.py": "chronoprocess",
+    "pentachoron_facet_reflections.py": "reflections",
+    "phase_recovery_probe.py": "chronoprocess",
+    "reflection_branch_tree.py": "reflections",
+    "reflection_transition_bc_bridge.py": "reflections",
+    "reflection_word_family.py": "reflections",
+    "rhombic_prism_angle_spectrum_grid.py": "rhombic_prism",
+    "rhombic_prism_angle_spectrum_parameter_sweep.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_depth_convergence.py": "rhombic_prism",
+    "rhombic_prism_angular_spectrum_symmetry_check.py": "rhombic_prism",
+    "rhombic_prism_axis_conditioning_sensitivity.py": "rhombic_prism",
+    "rhombic_prism_axis_geometry_limit_audit.py": "rhombic_prism",
+    "rhombic_prism_axis_limit_study.py": "rhombic_prism",
+    "rhombic_prism_center_commutator.py": "rhombic_prism",
+    "rhombic_prism_center_orbit_geometry.py": "rhombic_prism",
+    "rhombic_prism_central_screw_unfolding.py": "rhombic_prism",
+    "rhombic_prism_d3_degeneracy_diagnostic.py": "rhombic_prism",
+    "rhombic_prism_ellipse_braid_relation.py": "rhombic_prism",
+    "rhombic_prism_exceptional_affine_relations.py": "rhombic_prism",
+    "rhombic_prism_helix_commutator_audit.py": "rhombic_prism",
+    "rhombic_prism_locus_intersections.py": "rhombic_prism",
+    "rhombic_prism_mobility_domain.py": "rhombic_prism",
+    "rhombic_prism_mobility_screw_coupling.py": "rhombic_prism",
+    "rhombic_prism_screw_axis_spatial_organization.py": "rhombic_prism",
+    "rhombic_prism_screw_unfolding_multidegree.py": "rhombic_prism",
+    "rhombic_prism_triangle_certified_disk.py": "rhombic_prism",
+    "rhombic_prism_triangle_d3_equivariance.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_cosine.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_order_trace.py": "rhombic_prism",
+    "rhombic_prism_triangle_exact_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_groebner_roots.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_exact_certificate.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_shapes.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectral_orbits.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_symbolic_spectrum.py": "rhombic_prism",
+    "rhombic_prism_triangle_nine_trace_moments.py": "rhombic_prism",
+    "rhombic_prism_triangle_order_anomaly.py": "rhombic_prism",
+    "rhombic_prism_triangle_polynomial_system.py": "rhombic_prism",
+    "rhombic_prism_triangle_reduced_equations.py": "rhombic_prism",
+    "rhombic_prism_triangle_reflection_symmetry.py": "rhombic_prism",
+    "rhombic_prism_triangle_six_orders.py": "rhombic_prism",
+    "rhombic_prism_triangle_spectral_separation.py": "rhombic_prism",
+    "rhombic_triangular_prism_two_angles.py": "rhombic_prism",
+    "triangular_prism_reflections.py": "reflections",
+    "triple_loop_coupled_perturbation.py": "chronoprocess",
+    "triple_loop_transition_probe.py": "chronoprocess",
+    "truncated_tetrahedron_reflections.py": "reflections",
+}[_NAME]
+_TARGET = Path(__file__).resolve().parent / _GROUP / _NAME
+_NAMESPACE = runpy.run_path(str(_TARGET), run_name="__main__" if __name__ == "__main__" else "_gia_timdr_compat")
+if __name__ != "__main__":
+    globals().update({key: value for key, value in _NAMESPACE.items() if not key.startswith("__")})
