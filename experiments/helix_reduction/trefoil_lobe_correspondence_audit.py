@@ -3,7 +3,8 @@ repository's canonical trefoil. Analytic derivatives avoid finite-difference
 artifacts. This is a correspondence audit, not a signal-to-knot proof.
 """
 import json
-from pathlib import Path\nimport argparse
+from pathlib import Path
+import argparse
 import numpy as np
 
 
