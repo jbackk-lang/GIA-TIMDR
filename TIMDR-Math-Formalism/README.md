@@ -136,7 +136,7 @@ pytest tests/ -v
 ```
 
 **Aktualny wynik CI:** pełny zestaw Math przeszedł w GitHub Actions
-dla commitu `7ee9ebe7`: **284 passed**. Obejmuje testy walidacji
+dla commitu `ec28c9bb`: **343 passed**. Obejmuje testy walidacji
 skończonych danych wejściowych w `chronosignal.py`,
 `envelope_demodulation.py` i `gs_matrix.py`. To potwierdza wykonanie
 testów implementacji w określonym zakresie, a nie dowód skuteczności
