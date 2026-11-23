@@ -52,8 +52,12 @@ N = len(DATES)
 
 
 def anomaly_flags(series: np.ndarray) -> np.ndarray:
-    """Zywe (live) progi 2-sigma liczone z tego samego okna, zgodnie z
-    analyzer/adaptive_thresholds.py."""
+    """Historyczny tryb in-sample: próg 2σ liczony z ocenianego okna.
+
+    Uwaga: dla m<=5 standaryzowane reszty nie mogą przekroczyć 2σ
+    (max|z_i|<=sqrt(m-1)); dla krótkich okien użyj niezależnej referencji
+    przez timdr_formalism.chronosignal.anomalia_flags(..., reference_series=...).
+    """
     m, s = series.mean(), series.std()
     return np.abs(series - m) > 2 * s
 
