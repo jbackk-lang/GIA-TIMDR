@@ -64,13 +64,12 @@ odchylenia rzedu kilkunastu-kilkudziesieciu procent od 1/(4*pi), stad
 szerokie tolerancje w tych testach (ten sam wzorzec co
 tests/test_geometry_weingarten.py).
 
-UWAGA O WYKONANIU: napisane bez dostepu do sandboxa bash w tej sesji,
-odtad faktycznie uruchomione przez uzytkownika
-(`pytest tests/test_fourier_bridge.py -v`) i ZWERYFIKOWANE -- 10/10
-testow przeszlo (jednotonowy dokladny + gaussowski w szerokich
-tolerancjach). Wyprowadzenie w naglowku bylo sprawdzone recznie dwa
-razy przed napisaniem kodu (raz wprost, raz przez konsystencje
-wymiarowa -- niezaleznosc od sigma) -- teraz potwierdzone tez numerycznie.
+UWAGA O WYKONANIU: historycznie uzytkownik uruchomil poprzednia wersje
+`pytest tests/test_fourier_bridge.py -v` i potwierdzil 10/10 testow.
+Po dodaniu regresji wag Parsevala (DC, biny wewnetrzne, Nyquist) aktualny
+plik zawiera 12 testow; tych dwoch nowych testow nie uruchomiono jeszcze
+w tym srodowisku. Nie nalezy przenosic historycznego wyniku 10/10 na
+obecna wersje.
 """
 from __future__ import annotations
 
