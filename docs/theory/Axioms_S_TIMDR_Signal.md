@@ -74,7 +74,7 @@ operator over threshold crossings, not a wave-interference phenomenon.
 przekroczeń progu, nie zjawisko interferencji fal.
 
 \[
-\mathcal{R}_{\text{sig}}(x_1, \dots, x_n)(t) = \mathbb{1}\left[\, \sum_{i=1}^{n} \mathbb{A}_i(x_i)(t) \geq K \,\right]
+\mathcal{R}_{\text{sig}}(x_1, \dots, x_n; r_1,\dots,r_n)(t) = \mathbb{1}\left[\, \sum_{i=1}^{n} \mathbb{A}_i(x_i;r_i)(t) \geq K \,\right]
 \]
 
 To jest operator **inny** niż ℛ w `Axioms_K_TIMDR.md` (Aksjomat 5:
