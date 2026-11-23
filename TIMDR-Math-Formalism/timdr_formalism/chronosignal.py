@@ -67,12 +67,16 @@ def tempo(timestamps: Sequence[float]) -> np.ndarray:
     ts = _finite_series(timestamps, "timestamps")
     if ts.size < 2:
         raise ValueError("tempo() wymaga >= 2 znacznikow czasu")
-    if np.any(np.diff(ts) <= 0):
+    with np.errstate(over="ignore", invalid="ignore"):
+        intervals = np.diff(ts)
+    if not np.all(np.isfinite(intervals)):
+        raise ValueError("odstepy czasu musza byc skonczone i reprezentowalne")
+    if np.any(intervals <= 0):
         raise ValueError(
             "timestamps musza byc scisle rosnace -- posortuj/odduplikuj "
             "wejscie PRZED wywolaniem tempo(), nie w srodku"
         )
-    return np.diff(ts)
+    return intervals
 
 
 def drift(timestamps: Sequence[float], nominal_interval: float) -> np.ndarray:
