@@ -85,7 +85,7 @@ class SignalClassResult:
     Q_crit: float
     beta: float
     S_up_pct: float  # (1-beta)*100 - diagnostyczne, patrz naglowek modulu
-    N: Optional[float]  # S_down*S_up, None jesli nie podano (brak pelnego sladu)
+    N: float  # S_down*S_up; 0.0 gdy kanalow nie podano (brak ingerencji)
     is_past_hard_threshold: bool  # Q > Q_crit (opisowe, NIE bramka klasy)
 
 
