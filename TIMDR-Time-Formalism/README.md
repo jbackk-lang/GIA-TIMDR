@@ -108,15 +108,15 @@ sekcja 🌈 niżej).
 
 ## 🌈 Most Fouriera M/S↔K — `timdr_time.fourier_bridge`
 
-Jedyny w tym repo wyjątek od "zero identyfikacji między gałęziami" —
-i jedyny uzasadniony, bo opiera się na ustalonej, 200-letniej
-matematyce (FFT), nie na nowej hipotezie. Powód: dualizm
-falowo-cząsteczkowy fotonu ma dokładne źródło matematyczne — zasada
-nieoznaczoności Heisenberga ma dokładnie tę samą strukturę co
-klasyczna zasada nieoznaczoności Gabora dla sygnałów. `x(t)` z M/S
-(dokładna lokalizacja w czasie — "cząstka") i modalność `(f,φ,A)` z K
-(dokładna lokalizacja w częstotliwości, zerowa w czasie — "fala") są
-połączone konkretną, znaną transformatą (FFT), nie utożsamione.
+Jedyny w tym repo wyjątek od "zero identyfikacji między gałęziami":
+FFT łączy reprezentację sygnału w dziedzinie czasu `x(t)` z
+reprezentacją częstotliwościową przez modalności `(f,φ,A)`. Dla
+skończonego, równomiernie próbkowanego sygnału rzeczywistego jest to
+dokładna transformata dyskretna, a nie utożsamienie obiektów M/S i K
+ani model fizycznej dualności korpuskularno-falowej fotonu. Nierówność
+czas–częstotliwość Gabora jest matematycznie analogiczna do
+nierówności położenie–pęd Heisenberga ze względu na sprzężenie
+Fourierowskie; nie jest to twierdzenie o fizyce fotonu.
 
 ```python
 from timdr_time import fft_modalities, time_bandwidth_product
