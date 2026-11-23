@@ -151,7 +151,7 @@ def is_resonant(
     phase_i = np.remainder(m_i.phi, 2.0 * np.pi)
     phase_j = np.remainder(m_j.phi, 2.0 * np.pi)
     phase_delta = (phase_i - phase_j + np.pi) % (2.0 * np.pi) - np.pi
-    return abs(m_i.f - m_j.f) < eps_f and abs(phase_delta) < eps_phi
+    return bool(abs(m_i.f - m_j.f) < eps_f and abs(phase_delta) < eps_phi)
 
 
 def local_time_from_global(local: Modality, global_: Modality, tau_global) -> np.ndarray:
