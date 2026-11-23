@@ -194,10 +194,14 @@ negative_generator_b(window_size, seed) ~ D_B     (D_B = D_A z konstrukcji)
 - **Kontrola pozytywna** testuje `H₀: F_pos =_d F_A` (równość
   rozkładów) i chce ją ODRZUCIĆ (`p_pos < α`) — bo `D_pos` z konstrukcji
   ma różnić się od `D_A`.
-- **Kontrola negatywna** testuje `H₀: F_A =_d F_B` i chce ją
-  ZACHOWAĆ (`p_neg ≥ α`) — bo `D_A = D_B` z konstrukcji (ten sam
-  generator, inny seed), więc jedyna różnica, jaką test mógłby złapać,
-  byłaby fałszywym alarmem.
+- **Kontrola negatywna** testuje `H₀: F_A =_d F_B`. Wynik
+  `p_neg ≥ α` oznacza wyłącznie, że test nie odrzucił hipotezy
+  równości rozkładów. Nie jest dowodem, że ją zachował, nie dowodzi
+  równoważności i nie wyznacza odsetka fałszywych alarmów. Wymagałoby
+  to osobnego testu równoważności z wcześniej ustalonym marginesem
+  praktycznej różnicy oraz odpowiedniej mocy. Nawet gdy generatory A/B
+  mają ten sam rozkład z konstrukcji, pojedynczy nieistotny wynik jest
+  tylko brakiem wykrytej różnicy w tej próbie.
 
 **Moc kontroli** (odrębna od mocy testu głównego w §4b): tutaj, w
 przeciwieństwie do danych realnych, `D_pos` i `D_A` są ZNANE z
