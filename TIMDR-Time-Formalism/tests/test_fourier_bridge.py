@@ -81,6 +81,30 @@ class TestSingleToneExact:
             fft_modalities([1.0], dt=1.0)
 
 
+
+class TestParsevalSpectralWeights:
+    def test_dc_interior_and_nyquist_use_correct_energy_multiplicity(self):
+        n = 8
+        t = np.arange(n, dtype=float)
+        x = 2.0 + 3.0 * np.cos(2.0 * np.pi * t / n) + 4.0 * (-1.0) ** t
+        modalities, _ = fft_modalities(x, dt=1.0, include_dc=True)
+        _, delta_f = spectral_spread(modalities, nyquist_frequency=0.5)
+
+        # Parseval weights: DC=2^2, interior tone=3^2/2, Nyquist=4^2.
+        weights = np.array([4.0, 4.5, 16.0])
+        freqs = np.array([0.0, 1.0 / 8.0, 0.5])
+        expected = np.sqrt(np.sum(freqs ** 2 * weights) / np.sum(weights))
+        assert delta_f == pytest.approx(expected, abs=1e-12)
+
+    def test_time_bandwidth_passes_nyquist_endpoint_metadata(self):
+        n = 8
+        t = np.arange(n, dtype=float)
+        x = 1.0 + 2.0 * (-1.0) ** t
+        modalities, _ = fft_modalities(x, dt=1.0, include_dc=True)
+        _, delta_f = spectral_spread(modalities, nyquist_frequency=0.5)
+        assert delta_f == pytest.approx(np.sqrt((0.5 ** 2 * 4.0) / 5.0))
+
+
 # ---------------------------------------------------------------------
 # Impuls gaussowski -- zasada nieoznaczonosci Gabora (Delta_t*Delta_f)
 # ---------------------------------------------------------------------
