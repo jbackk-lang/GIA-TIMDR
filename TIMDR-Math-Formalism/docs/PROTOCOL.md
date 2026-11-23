@@ -57,7 +57,7 @@ Mann-Whitney U, nie porównanie percentylowe "na oko".
 niezależnych prób. Bez dodatkowego założenia o podobnym kształcie
 rozkładów nie należy interpretować go jako ogólnego testu równości
 median. Mediany są raportowane opisowo, a kierunek efektu wskazuje
-korelacja rangowo-dwuseryjna (r). Oba backendy (SciPy i NumPy) używają
+korelacja rangowo-dwuseryjna `r`. Oba backendy (SciPy i NumPy) używają
 tej samej aproksymacji asymptotycznej z korektą na remisy i bez korekty
 ciągłości; backend SciPy nie przełącza się automatycznie na wariant
 dokładny dla małych prób.
