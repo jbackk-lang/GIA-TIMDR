@@ -89,6 +89,11 @@ def main() -> None:
         raise SystemExit(f"{STAN.name}: brak znaczników {START} / {END}")
     a, b = text.index(START), text.index(END) + len(END)
     rs = rows()
+    if not rs:
+        raise SystemExit(
+            f"{README.name}: brak wierszy tabeli wyników z linkami [wynik](...). "
+            f"{STAN.name} pozostaje bez zmian; odtwórz źródłową tabelę przed odświeżeniem."
+        )
     text = text[:a] + render(rs) + text[b:]
     text = re.sub(r"(?m)^_Stan na: .*_$", f"_Stan na: {date.today().isoformat()}_", text)
     STAN.write_text(text, encoding="utf-8")

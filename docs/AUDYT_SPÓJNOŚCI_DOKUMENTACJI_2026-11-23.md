@@ -17,16 +17,20 @@ Nie wykonano jeszcze pełnego audytu treści wszystkich 523 dokumentów, zewnęt
 3. README formalizmów zawierały również nieaktualne prefiksy ścieżek `GIA-TIMDR/docs/...` i `GIA-TIMDR/SKILL...`, odziedziczone po wcześniejszym układzie katalogów. Zastąpiono je ścieżkami względnymi właściwymi dla obecnego położenia modułów.
 4. Mapa repozytorium ma datę 22.11.2026, a główny `README.md` zawiera aktualizacje badawcze z 15.11.2026. Ich kluczowe odnośniki do plików istnieją w drzewie.
 
+## Dodatkowa kontrola generatora statusu
+
+Skrypt `scripts/stan_projektu.py` szuka w głównym README wierszy tabeli zawierających link w formacie `[wynik](...)`. W aktualnym README nie ma ani jednego takiego wiersza. Bez zabezpieczenia uruchomienie generatora zastąpiłoby istniejącą tabelę 31 wyników pustą tabelą i oznaczyło ją bieżącą datą. Dodano więc kontrolę: przy braku wierszy źródłowych skrypt kończy działanie z komunikatem i nie zapisuje zmian.
+
 ## Rozbieżność wymagająca osobnej decyzji
 
-Nagłówek `STAN_PROJEKTU.md` nadal podaje „Stan na: 2026-09-30”, podczas gdy główny README odwołuje się do niego jako do aktualnego stanu i opisuje późniejsze wyniki z listopada. Nie zmieniono daty ani treści tego dokumentu automatycznie: samo przesunięcie daty bez ponownego uzgodnienia wyników, ograniczeń i tabel byłoby nierzetelne. Wymaga to pełnego porównania ręcznej części `STAN_PROJEKTU.md` z aktualnym README, roadmapą i najnowszymi checkpointami.
+`STAN_PROJEKTU.md` zawiera ręczną migawkę z 30.09.2026 i automatyczny bilans z 28.09.2026. Główny README opisuje późniejsze wyniki listopadowe, a mapa repozytorium była aktualizowana 22.11.2026. Nie zmieniono daty ani treści tego dokumentu automatycznie: samo przesunięcie daty bez ponownego uzgodnienia wyników, ograniczeń i tabel byłoby nierzetelne. Wymaga to pełnego porównania ręcznej części `STAN_PROJEKTU.md` z aktualnym README, roadmapą i najnowszymi checkpointami.
 
 ## Ograniczenia i następne kontrole
 
 - Audyt linków dotyczył 16 dokumentów wejściowych, a nie całego korpusu 523 plików.
 - Nie sprawdzono jeszcze wszystkich odwołań zapisanych jako zwykły tekst lub ścieżki w blokach kodu.
 - Nie sprawdzono zewnętrznych URL-i, kotwic, wersji zależności ani tego, czy komendy z instrukcji działają w czystym środowisku.
-- Nie zmieniano kodu, wyników eksperymentów, prerejestracji ani danych.
+- Nie zmieniano wyników eksperymentów, prerejestracji ani danych. Zmieniono jedynie skrypt pomocniczy, aby brak danych wejściowych nie powodował utraty istniejącej tabeli.
 - Żaden plik nie został usunięty.
 
 Następny bezpieczny etap: porównanie statusu projektu i roadmapy z najnowszymi checkpointami, a następnie osobny audyt README każdego obszaru i instrukcji uruchomienia. Każda zmiana treści merytorycznej powinna zachować historyczne wyniki i ich werdykty.

@@ -11,8 +11,8 @@ Stan mapy: 22 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 | [README.md](README.md) | Krótki, aktualny punkt wejścia | Zacznij tutaj |
 | [Konstrukcja TRM/GIA → gałęzie](docs/theory/TIMDR_EventGraph_Branch_Construction.md) | Graf zdarzeń, selekcja GIA, sygnał, geometria, modalność i META | Kod w `core/trm_gia_projections.py`; 17 kontroli syntetycznych w `tests/test_trm_gia_projections.py` |
 | [HISTORIA_README.md](docs/archiwum/HISTORIA_README.md) | Zachowany dawny README | Miesza opisy koncepcyjne i wyniki z różnych dat |
-| [STAN_PROJEKTU.md](STAN_PROJEKTU.md) | Bieżący stan: zasady z testów, najmocniejsze wyniki, zastosowania, bilans wszystkich testów | Po teście: wiersz w README, potem `python scripts/stan_projektu.py` (albo `aktualizuj_stan.bat`) |
-| [Indeks archiwum](docs/archiwum/README.md) | Datowane podsumowania historyczne i zasady ich zachowania | Do wglądu; aktualny stan w `STAN_PROJEKTU.md` |
+| [STAN_PROJEKTU.md](STAN_PROJEKTU.md) | Migawka ręcznej oceny z 30.09.2026 i bilans historyczny z 28.09.2026; nie jest bieżącym statusem całego repozytorium | Późniejsze aktualizacje: główny README i datowane checkpointy; generator bilansu wstrzymuje zapis, jeśli brakuje tabeli źródłowej |
+| [Indeks archiwum](docs/archiwum/README.md) | Datowane podsumowania historyczne i zasady ich zachowania | Do wglądu; bieżące aktualizacje: główny README i datowane checkpointy |
 | [Indeks materiałów binarnych](docs/assets/README.md) | PDF-y, DOCX, obrazy i istniejące diagramy | Dokumenty źródłowe w `docs/assets/source-documents/`, obrazy w `docs/assets/images/` |
 | [docs/theory](docs/theory/) | Aksjomaty, Chronoproces, reguły metodologiczne i szkice | Sprawdzaj status konkretnego dokumentu |
 | [scripts](scripts/README.md) | Skrypty do stanu projektu, walidacji danych i narzędzia GUI | Indeks uruchamiania i przeznaczenia |

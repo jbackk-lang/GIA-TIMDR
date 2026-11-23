@@ -1,6 +1,6 @@
 # Chronoproces — indeks badań nad bezpieczną diagnozą i certyfikacją regulatorów
 
-**Status 2026-11-15:** aktywna linia badawcza 51B.15u–51B.16r. To indeks twierdzeń, prototypów i granic, a nie deklaracja produkcyjnego certyfikatu bezpieczeństwa.
+**Status 2026-11-15:** aktywna linia badawcza 51B.15u–51B.16t. To indeks twierdzeń, prototypów i granic, a nie deklaracja produkcyjnego certyfikatu bezpieczeństwa.
 
 ## Odkrycia matematyczne
 1. **Gra przekonań i warunki bezpiecznej diagnozy (15u–15z, 16a, 16g):** największy punkt stały bezpieczeństwa, osiągalność pewnej diagnozy, rozróżnienie etykiety bieżącej od niezmiennego pochodzenia; pułapka epistemiczna może wykluczyć dowolną pamięć.
@@ -18,10 +18,11 @@
 | [16p](TIMDR_51B16P_CHECKPOINT_2026-11-15.md) | SHA-256 manifest; 2500 mutacji bez nieobsłużonych wyjątków | Mutacyjny smoke-fuzzing nie dowodzi odporności |
 | [16q](TIMDR_51B16Q_CHECKPOINT_2026-11-15.md) | Proces potomny, limity zasobów, 12/12 testów | Izolacja procesu ≠ niezależny checker |
 | [16r](TIMDR_51B16R_CHECKPOINT_2026-11-15.md) | Reprodukowalny harness dla zewnętrznego LRAT, 12/12 testów regresyjnych | **Zewnętrzna walidacja nie została wykonana**; brak narzędzia w środowisku |
+| [16s](TIMDR_51B16S_CHECKPOINT_2026-11-15.md) | Naprawa interpretacji odpowiedzi zewnętrznego checkera; 17/17 testów | Testy stubów; niezależny checker LRAT nadal nieuruchomiony |
+| [16t](TIMDR_51B16T_CHECKPOINT_2026-11-15.md) | Cztery deterministyczne przypadki DIMACS/LRAT; 20/20 testów | Wyniki zewnętrzne `UNVERIFIED`; brak referencyjnej binarki |
 
 ## Krytyczna bramka niezależnej walidacji
 Zainstalować rzeczywiście niezależny [lrat-check](https://github.com/marijnheule/drat-trim) lub formalnie weryfikowany [cake_lpr](https://github.com/tanyongkiam/cake_lpr); uruchomić dokładnie te same DIMACS/LRAT, zapisać wersję i SHA-256 binarki, stdout/stderr, kod wyjścia, limity i różnice. Nie uznawać braku narzędzia, timeoutu ani błędu parsowania za dowód UNSAT.
 
 ## Zasada dokumentacyjna
 Główne [README](../../README.md) prezentuje kluczowe odkrycia i uczciwy status dowodowy. Tutaj pozostają techniczne checkpointy. Raporty łożyskowe i inne domenowe są powiązanymi eksperymentami, nie zastępują rdzenia matematycznego.
-\n## 51B.16s — błąd protokołu odpowiedzi\n[Checkpoint 51B.16s](TIMDR_51B16S_CHECKPOINT_2026-11-15.md): usunięto podatność na fałszywie pozytywne rozpoznanie `NOT VERIFIED`; 17/17 testów, ale niezależny checker nadal nieuruchomiony.\n\n## 51B.16t — odtwarzalny korpus walidacji LRAT\n[Checkpoint 51B.16t](TIMDR_51B16T_CHECKPOINT_2026-11-15.md): cztery deterministyczne przypadki DIMACS/LRAT (k=1,2; poprawny i uszkodzony), 20/20 testów jednostkowych, zewnętrzna walidacja **UNVERIFIED** z powodu braku referencyjnej binarki.\n

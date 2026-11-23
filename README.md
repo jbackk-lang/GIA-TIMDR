@@ -53,7 +53,7 @@ TIMDR to zasada budowania małego rdzenia, z którego można wyprowadzić mechan
 
 Skuteczność oceniamy osobno dla każdej aplikacji i zadania. Wyniki i zakres zastosowania podają repozytoria domenowe.
 
-## Najnowsze odkrycia badawcze — Chronoproces i proof-carrying control (51B.15u–51B.16q)
+## Najnowsze odkrycia badawcze — Chronoproces i proof-carrying control (51B.15u–51B.16t)
 
 **Główny rezultat tej linii badań:** dla skończonych układów częściowo obserwowalnych TIMDR formułuje dokładną grę przekonań, w której regulator wybiera działania wyłącznie na podstawie dostępnej obserwacji i swojej pamięci. Rozdzielono trzy obowiązki: **bezpieczeństwo wszystkich możliwych trajektorii przed diagnozą**, **gwarantowaną diagnozę w skończonym czasie** oraz **weryfikowalny dowód, że dany regulator lub cała klasa regulatorów spełnia albo nie spełnia specyfikacji**. Wyniki mają precyzyjny zakres matematyczny; nie są ogólną walidacją systemów ciągłych ani gotowym certyfikatem bezpieczeństwa przemysłowego.
 
@@ -76,7 +76,7 @@ Skuteczność oceniamy osobno dla każdej aplikacji i zadania. Wyniki i zakres z
 
 **Otwarte zadanie krytyczne:** niezależne sprawdzenie tych samych plików DIMACS/LRAT przez zewnętrzny checker, z dokumentacją wersji, poleceń i analizy rozbieżności. Kandydaci: [lrat-check / drat-trim](https://github.com/marijnheule/drat-trim) oraz [cake_lpr](https://github.com/tanyongkiam/cake_lpr). Samo uruchomienie naszego checkera w osobnym procesie nie jest niezależną walidacją.
 
-**Dokumentacja szczegółowa:** [indeks badań Chronoprocesu](research/chronoproces/README.md) · [ostatni checkpoint 51B.16q](research/chronoproces/TIMDR_51B16Q_CHECKPOINT_2026-11-15.md) · [stan projektu](STAN_PROJEKTU.md). Raporty domenowe, w tym łożyskowe, pozostają w [archiwum eksperymentów](docs/archiwum/WYNIKI_EKSPERYMENTOW_MIGAWKA_README_2026-11-14.md); są jedną z linii badań, nie osią narracji głównego README.
+**Dokumentacja szczegółowa:** [indeks badań Chronoprocesu](research/chronoproces/README.md) · [ostatni checkpoint 51B.16t](research/chronoproces/TIMDR_51B16T_CHECKPOINT_2026-11-15.md) · [stan projektu](STAN_PROJEKTU.md). Raporty domenowe, w tym łożyskowe, pozostają w [archiwum eksperymentów](docs/archiwum/WYNIKI_EKSPERYMENTOW_MIGAWKA_README_2026-11-14.md); są jedną z linii badań, nie osią narracji głównego README.
 
 ## Co już powstało
 
@@ -112,7 +112,7 @@ Wyniki dotyczą podanych zbiorów i wersji. Sejsmika i radar pogodowy pozostają
 - [Drogowskazy TIMDR — jak zbudować program analizujący sygnał](docs/DROGOWSKAZY_TIMDR.md) — kroki pole → rezonans → sito → samokorekta → geometria → test, z przykładem sita rezonansowego dla łożysk.
 - [Indeks archiwum](docs/archiwum/README.md) — historia projektu, datowane podsumowania, audyty i zachowane zestawienia wyników.
 - [Mapa repozytorium](REPOZYTORIUM.md) — gdzie znajduje się kod, dokumentacja, prerejestracje i wyniki.
-- [Stan projektu](STAN_PROJEKTU.md) — czym TIMDR jest dziś, zasady potwierdzone testami, najmocniejsze wyniki, zastosowania i bilans wszystkich testów (odświeżany jednym poleceniem). Poprzednie podsumowania i migawki: [indeks archiwum](docs/archiwum/README.md).
+- [Migawka stanu projektu z 30.09.2026](STAN_PROJEKTU.md) — historyczne podsumowanie i bilans 31 prerejestrowanych testów; późniejsze aktualizacje znajdują się w głównym README i datowanych checkpointach. Poprzednie podsumowania i migawki: [indeks archiwum](docs/archiwum/README.md).
 - [Specyfikacja czterech gałęzi](docs/theory/TIMDR_Branch_Specification.md) i [słownik](docs/GLOSSARY_EN_PL.md) — właściwe definicje oraz granice między obiektami.
 - [Reguła kalibracji, zamrożenia i testu końcowego](docs/theory/TIMDR_CALIBRATION_FREEZE_RULE.md) — rozwój na train/calibration jest dopuszczony, tuning do wyniku holdoutu nie.
 - [Pełny katalog ekosystemu](https://github.com/jbackk-lang/jbackk-lang.github.io/blob/main/KATEGORIE.md) — lista repozytoriów aplikacyjnych i koncepcyjnych; poniżej wymieniono tylko najbliższe temu repo.

@@ -1,8 +1,8 @@
 # Stan projektu TIMDR
 
-_Stan na: 2026-09-30_
+_Stan ręcznej części: 2026-09-30_
 
-Dokument żywy: zamiast kolejnych datowanych podsumowań jest jeden stan bieżący. Część **automatyczna** (bilans i lista testów) odświeża się jednym poleceniem — `python scripts/stan_projektu.py` albo dwuklik na `aktualizuj_stan.bat` — z tabeli wyników w [README](README.md). Część **ręczna** (poniżej, do linii z bilansem) zmienia się tylko wtedy, gdy zmienia się obraz całości. Poprzednie podsumowanie: [archiwum, 23.09.2026](docs/archiwum/PODSUMOWANIE_PROJEKTU_2026-09-23.md).
+To migawka ręcznej oceny projektu z 30.09.2026 r., a nie bieżący status całego repozytorium. Główny [README](README.md) i datowane checkpointy badawcze zawierają późniejsze aktualizacje. Automatyczny bilans poniżej jest historyczną migawką z 28.09.2026 r. Generator `scripts/stan_projektu.py` oczekuje tabeli w README z linkami `[wynik](...)`; takiej tabeli obecnie tam nie ma, więc generator został zabezpieczony przed nadpisaniem tej migawki pustym wynikiem. Poprzednie podsumowanie: [archiwum, 23.09.2026](docs/archiwum/PODSUMOWANIE_PROJEKTU_2026-09-23.md).
 
 ## Aktualizacja: astronomia
 
@@ -53,9 +53,9 @@ Wyniki negatywne są równie ważne: radar Open Radar (widma z za długim oknem)
 
 ## Jak aktualizować
 
-1. Po teście: wiersz w tabeli wyników README (protokół i tak go wymaga).
-2. `python scripts/stan_projektu.py` (albo `aktualizuj_stan.bat`) — odświeża bilans i listę poniżej.
-3. Tylko gdy zmienia się obraz całości — poprawić część ręczną powyżej.
+1. Po teście zachowaj osobne pliki PREREG i RESULT oraz aktualizuj indeks wyników zgodnie z przyjętym protokołem.
+2. Obecny README nie zawiera tabeli z linkami `[wynik](...)`, której oczekuje generator. Nie uruchamiaj generatora, dopóki źródłowa tabela nie zostanie odtworzona; zabezpieczenie przerwie działanie bez zmiany tego pliku.
+3. Część ręczną aktualizuj dopiero po porównaniu najnowszych wyników, ograniczeń i checkpointów. Nie zmieniaj historycznych werdyktów.
 
 <!-- AUTO:START -->
 
