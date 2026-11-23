@@ -149,7 +149,10 @@ def fft_modalities(
     if n < 2:
         raise ValueError("fft_modalities() wymaga >= 2 probek")
 
-    X = np.fft.rfft(x)
+    with np.errstate(over="ignore", invalid="ignore"):
+        X = np.fft.rfft(x)
+    if not np.all(np.isfinite(X)):
+        raise ValueError("widmo FFT przekracza zakres reprezentacji float")
     freqs = np.fft.rfftfreq(n, d=dt)
     dc_offset = float(X[0].real) / n
 
@@ -177,12 +180,19 @@ def temporal_spread(x: Sequence[float], dt: float) -> Tuple[float, float]:
     dt = _positive_dt(dt)
     n = x.size
     t = np.arange(n, dtype=float) * dt
-    weights = x ** 2
-    total = float(weights.sum())
-    if total <= 0.0:
+    if not np.all(np.isfinite(t)):
+        raise ValueError("os czasu przekracza zakres reprezentacji float")
+    scale = float(np.max(np.abs(x)))
+    if scale == 0.0:
         raise ValueError("sygnal zerowy -- rozklad energii w czasie niezdefiniowany")
+    # Skalowanie nie zmienia rozkladu wag x^2, a chroni przed overflow
+    # dla sygnalow o bardzo duzej, ale skonczonej amplitudzie.
+    weights = (x / scale) ** 2
+    total = float(weights.sum())
     t_mean = float(np.sum(t * weights) / total)
     t_var = float(np.sum((t - t_mean) ** 2 * weights) / total)
+    if not np.isfinite(t_mean) or not np.isfinite(t_var):
+        raise ValueError("momenty czasowe przekraczaja zakres reprezentacji float")
     return t_mean, float(np.sqrt(t_var))
 
 
@@ -218,11 +228,24 @@ def spectral_spread(
             raise ValueError("nyquist_frequency musi byc dodatnie i skonczone")
         nyquist = np.isclose(np.abs(f), nyquist_frequency, rtol=1e-12, atol=1e-15)
         weights[nyquist] = amplitudes[nyquist] ** 2
-    total = float(weights.sum())
-    if total <= 0.0:
+    amplitude_scale = float(np.max(np.abs(amplitudes)))
+    if amplitude_scale == 0.0:
         raise ValueError("wszystkie amplitudy zerowe -- rozklad energii w częstotliwości niezdefiniowany")
-    f_var = float(np.sum((f ** 2) * weights) / total)
-    return 0.0, float(np.sqrt(f_var))
+    weights = weights / (amplitude_scale ** 2) if amplitude_scale < 1e154 else (
+        0.5 * (amplitudes / amplitude_scale) ** 2
+    )
+    weights[dc] = (amplitudes[dc] / amplitude_scale) ** 2
+    if nyquist_frequency is not None:
+        weights[nyquist] = (amplitudes[nyquist] / amplitude_scale) ** 2
+    total = float(weights.sum())
+    f_scale = float(np.max(np.abs(f)))
+    if f_scale == 0.0:
+        return 0.0, 0.0
+    f_var_scaled = float(np.sum(((f / f_scale) ** 2) * weights) / total)
+    delta_f = f_scale * np.sqrt(f_var_scaled)
+    if not np.isfinite(delta_f):
+        raise ValueError("szerokosc widma przekracza zakres reprezentacji float")
+    return 0.0, float(delta_f)
 
 def time_bandwidth_product(x: Sequence[float], dt: float, include_dc: bool = False) -> float:
     """Delta_t * Delta_f -- iloczyn czas-pasmo, ilosciowa tresc zasady
