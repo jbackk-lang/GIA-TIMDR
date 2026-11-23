@@ -103,6 +103,10 @@ class Chronoprocess:
             raise ValueError("T musi byc jednowymiarowa tablica")
         if self.T.size < 2:
             raise ValueError("Chronoproces wymaga >= 2 punktow nosnika T")
+        if not np.all(np.isfinite(self.T)):
+            raise ValueError("T musi zawierac wylacznie skonczone znaczniki")
+        if np.any(np.diff(self.T) <= 0):
+            raise ValueError("T musi byc scisle rosnacym nosnikiem czasu")
 
     # ------------------------------------------------------------
     # Rzut M/S -- tempo/drift (TIMDR-Math-Formalism.chronosignal)
