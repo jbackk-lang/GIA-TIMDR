@@ -14,7 +14,7 @@ Dwie kategorie:
 
 UWAGA: aktualny zestaw zawiera 12 testow. Wszystkie przeszly w
 GitHub Actions w kroku `Test Time formalism and Fourier bridge` dla
-commitu `80693941`. Wynik CI potwierdza testy tego zestawu, nie jest
+commitu `9650c9ad`. Wynik CI potwierdza testy tego zestawu, nie jest
 samodzielnym dowodem poprawnosci calej teorii Fouriera w TIMDR.
 """
 import numpy as np
