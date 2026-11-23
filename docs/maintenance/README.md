@@ -10,6 +10,8 @@ Ten katalog zawiera audyty techniczne i porządkowe repozytorium. Nie jest źró
 - [Audyt dokumentacji i instrukcji AI — 23.11.2026](AUDYT_DOKUMENTACJI_I_INSTRUKCJI_AI_2026-11-23.md) — zakresy skillów, brak globalnego punktu wejścia i bezpieczna korekta duplikatu metadanych.
 - [Audyt duplikatów kodu i skryptów — 23.11.2026](AUDYT_DUPLIKATOW_KODU_2026-11-23.md) — 52 adaptery zgodności, dwa puste pliki i brak bezpiecznych usunięć.
 
+- [Audyt podobieństwa implementacji core, filters i applications — 23.11.2026](AUDYT_PODOBIENSTWA_IMPLEMENTACJI_CORE_FILTERS_APPLICATIONS_2026-11-23.md) — rozróżnienie kolejnych wersji eksperymentów, wspólnych helperów i odrębnych aplikacji.
+
 ## Zasady zmian
 
 1. Prace porządkowe wykonuj na osobnej gałęzi i przedstawiaj przez pull request.
