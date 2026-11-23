@@ -489,7 +489,7 @@ od tego czasu z ~13 do ponad 50 repo i zmienił nazwy/wersje wielu z nich.)
 
 ---
 
-## 1. MODEL WYJŚCIOWY: ASYMETRIA TRÓJKĄTA I GENEZA IMPULSU
+### 1. MODEL WYJŚCIOWY: ASYMETRIA TRÓJKĄTA I GENEZA IMPULSU
 
 U podstaw TIMDR leży założenie, że cała dynamika wszechświata bierze się z geometrycznego wymuszenia. Najprostszą możliwą figurą zdolną do wygenerowania trwałej różnicy jest **trójkąt**.
 
@@ -501,18 +501,18 @@ U podstaw TIMDR leży założenie, że cała dynamika wszechświata bierze się 
    (Stan idealny)                       (Pierwszy Impuls / Skręt)
 ```
 
-### 1.1 Trójkąt w kole (Stan Idealny)
+#### 1.1 Trójkąt w kole (Stan Idealny)
 Trójkąt równoboczny wpisany w okrąg reprezentuje stan doskonałej symetrii:
 $$\text{A} = \text{B} = \text{C}$$
 W tym układzie nie istnieje żaden wyróżniony kierunek, brak jest gradientu potencjału, brak różnicy i brak skrętu. To stan czystej statyki.
 
-### 1.2 Przeniesienie na prostą (Złamanie Symetrii)
+#### 1.2 Przeniesienie na prostą (Złamanie Symetrii)
 W momencie rzutowania lub przeniesienia trójkąta z przestrzeni koła na prostą, symetria zostaje bezpowrotnie złamana. Środowisko wymusza zmianę: dwa ramiona układu „opadają” w inny sposób niż ramię trzecie.
 
-### 1.3 Składanie i rozkładanie ramion (Mechanizm Impulsu)
+#### 1.3 Składanie i rozkładanie ramion (Mechanizm Impulsu)
 Trójkąt w nowym układzie nie jest w stanie utrzymać swojej równoboczności. Przechodzi w trójkąt równoramienny lub różnoboczny, generując **pierwszą wymuszoną różnicę**. Zmiana geometrii rodzi napięcie — jest to **czysty impuls**.
 
-### 1.4 Dynamiczny mechanizm przejścia boków
+#### 1.4 Dynamiczny mechanizm przejścia boków
 1. **Symetria pierwotna:** $\text{A} = \text{B} = \text{C}$ (Brak przepływu informacji).
 2. **Zmiana układu odniesienia:** Przejście koło $\rightarrow$ prosta.
 3. **Geometryczne wymuszenie:** Ramiona geometryczne nie mogą zachować identycznych proporcji.
@@ -521,7 +521,7 @@ Trójkąt w nowym układzie nie jest w stanie utrzymać swojej równoboczności.
 
 > **Trójkąt jest pierwszym i ostatecznym silnikiem różnicy we Wszechświecie.**
 
-### 1.5 Przykłady złamania symetrii w matematyce (analogie, nie dowód)
+#### 1.5 Przykłady złamania symetrii w matematyce (analogie, nie dowód)
 
 > **Zastrzeżenie:** poniższe dwanaście przykładów to prawdziwe, ustalone od dawna wyniki matematyczne
 > (teoria mnogości, teoria miary, topologia, analiza funkcjonalna, teoria grafów, logika) — nie są to
@@ -619,7 +619,7 @@ formalny dowód mechanizmu trójkąta.
 
 ---
 
-## 2. OD ANOMALII DO INFORMACJI
+### 2. OD ANOMALII DO INFORMACJI
 
 Gdy impuls wygenerowany przez asymetrię trójkąta napotyka barierę i nie ma drogi powrotu do stanu idealnej symetrii, różnica zostaje utrwalona.
 
@@ -629,7 +629,7 @@ Gdy impuls wygenerowany przez asymetrię trójkąta napotyka barierę i nie ma d
 
 ---
 
-## 3. SKRĘT (TWIST) — JEDNOSTKA INFORMACJI
+### 3. SKRĘT (TWIST) — JEDNOSTKA INFORMACJI
 
 W systemie TIMDR informacja nie jest abstrakcyjnym ciągiem bitów — jest fizycznym **skrętem (Twist M)**, czyli orientacją zmiany geometrycznej, wyprowadzoną z asymetrii trójkąta.
 
@@ -639,7 +639,7 @@ W systemie TIMDR informacja nie jest abstrakcyjnym ciągiem bitów — jest fizy
 * **Pole** = Przestrzeń matematyczna zawierająca potencjalne konfiguracje skrętów.
 * **Próżnia** = Stan tła posiadający minimalny, niezerowy skręt bazowy.
 
-### 3.1 Hierarchia Emergencji Informacji
+#### 3.1 Hierarchia Emergencji Informacji
 $$\text{Twist (M) [Orientacja]} \longrightarrow \text{Relacja } I(t) \text{ [Interakcja]} \longrightarrow \text{Informacja (R/E) [Stabilny wzorzec]}$$
 
 * **Wstęga Möbiusa:** Odpowiada za jednostronność skrętu.
@@ -647,7 +647,7 @@ $$\text{Twist (M) [Orientacja]} \longrightarrow \text{Relacja } I(t) \text{ [Int
 
 ---
 
-## 4. STABILIZACJA: HELISA, OBIEGI I BOUNDARY‑MATTER
+### 4. STABILIZACJA: HELISA, OBIEGI I BOUNDARY‑MATTER
 
 Utrwalony impuls musi zostać zorganizowany, by nie uległ rozproszeniu. Służą do tego struktury wyższego rzędu, będące bezpośrednią konsekwencją ewolucji asymetrycznego trójkąta.
 
@@ -655,41 +655,41 @@ Utrwalony impuls musi zostać zorganizowany, by nie uległ rozproszeniu. Służ�
 Asymetria Trójkąta ──> Utrwalony Skręt (Twist) ──> Helisa (Zapis) ──> Obiegi (Struktura)
 ```
 
-### 4.1 Helisa jako czasowy zapis różnicy
+#### 4.1 Helisa jako czasowy zapis różnicy
 Helisa porządkuje i stabilizuje pierwotny impuls. Zamyka asymetrię w powtarzalny, spiralny obieg, tworząc podstawową komórkę strukturalną przestrzeni.
 
-### 4.2 Obiegi wielokomórkowe
+#### 4.2 Obiegi wielokomórkowe
 Z połączeń poszczególnych helis powstają zorganizowane sieci energetyczno-informacyjne (obiegi):
 * Pojedyncze i wielokomórkowe,
 * Otwarte, zamknięte oraz sprzężone rezonansowo.
 * **Obieg to struktura, która trwale pamięta kierunek nadany przez pierwotną asymetrię.**
 
-### 4.3 Język struktury: Boundary‑Matter
+#### 4.3 Język struktury: Boundary‑Matter
 Boundary-Matter to natywny język pola (zastępujący klasyczny opis chemiczny i cząsteczkowy). Opisuje on zachowanie granic, interakcje między obiegami helis, przejścia fazowe oraz zachowanie defektów wewnątrz geometrii pola.
 
 ---
 
-## 5. APARAT MATEMATYCZNY I OPERATORY POLA
+### 5. APARAT MATEMATYCZNY I OPERATORY POLA
 
 Transformacja impulsu trójkąta w stabilne struktury opisywana jest przez triadę operatorów: **$\Lambda$ – $\tau$ – $\rho$**.
 
-### 5.1 Główne operatory dynamiczne
+#### 5.1 Główne operatory dynamiczne
 * **$\Lambda$ (Struktura):** Bieżąca, statyczna konfiguracja geometryczna układu.
 * **$\tau$ (Transformacja):** Ciągły operator zmiany układu odniesienia. Mierzy globalną gęstość skrętu w polu:
 $$\tau = \nabla^2 S$$
 * **$\rho$ (Defekt / Anomalia):** Operator ujawniający różnicę wyjściową. Wskazuje, gdzie asymetria trójkąta uniemożliwia powrót do stanu $A=B=C$.
 
-### 5.2 Dyskretny operator skrętu ($J$)
+#### 5.2 Dyskretny operator skrętu ($J$)
 Podczas gdy $\tau$ odpowiada za ciągłość pola, operator punktowy $J$ określa precyzyjną lokalizację zmian orientacji:
 $$J = \frac{d\tau}{ds}$$
 
 ---
 
-## 6. GEOMETRIA TOPOLOGICZNA: MOBIOSOTOURYS I TETROIDA
+### 6. GEOMETRIA TOPOLOGICZNA: MOBIOSOTOURYS I TETROIDA
 
 Model asymetrii operuje na dedykowanych powierzchniach, które bezkonfliktowo interpolują stany braku skrętu ze stanami osobliwymi.
 
-### 6.1 Mobiosotourys
+#### 6.1 Mobiosotourys
 Powierzchnia łącząca właściwości torusa (brak skrętu), wstęgi Möbiusa (jednostronność) oraz tetroidy. Opisują ją równania parametryczne:
 $$\begin{aligned}
 x &= (R + r\cos(v + \tfrac{1}{2}u))\cos u \\
@@ -697,20 +697,20 @@ y &= (R + r\cos(v + \tfrac{1}{2}u))\sin u \\
 z &= r\sin(v + \tfrac{1}{2}u)
 \end{aligned}$$
 
-### 6.2 Tetroida — Osobliwość Pola $\tau$
+#### 6.2 Tetroida — Osobliwość Pola $\tau$
 Tetroida to geometryczne domknięcie układu. Jest to trójścienna, całkowicie zamknięta warunkami brzegowymi, jednostronna bryła o maksymalnym nasyceniu operatorem $\tau$. Stanowi ona punkt przejścia dla różnicy potencjałów ($\Delta S$).
 
 ---
 
-## 7. REZONANS, EMERGENCJA I SKALA CZASU globalnego (TRM)
+### 7. REZONANS, EMERGENCJA I SKALA CZASU globalnego (TRM)
 
-### 7.1 Model Emergencji i Rezonansu Warstwowego
+#### 7.1 Model Emergencji i Rezonansu Warstwowego
 Emergencja strukturalna ($E$) jest bezpośrednią funkcją rezonansu ($R$) występującego na określonej topologii ($T$):
 $$E = \mathcal{E}(R, T)$$
 Dla wielowarstwowych układów skrętów $M = \{M_1, M_2, ..., M_k\}$, trwały, stabilny rezonans zachodzi na przecięciu ich zbiorów:
 $$R = \bigcap_{j} R_j$$
 
-### 7.2 Uniwersalne Spektrum Rezonansu (2 $\rightarrow$ 24 $\rightarrow$ 118)
+#### 7.2 Uniwersalne Spektrum Rezonansu (2 $\rightarrow$ 24 $\rightarrow$ 118)
 Model TRM opisuje ewolucję i skalowanie struktur od elementarnej asymetrii do pełnej tablicy materii:
 * **2** — Binarna baza skrętu (asymetria / brak asymetrii).
 * **24** — Zamknięty, czysty cykl harmoniczny geometrii pola.
@@ -720,7 +720,7 @@ Współczynniki redukcyjne determinujące stabilność:
 * $\frac{1}{12}$ — Stabilny, czysty stan informacyjny układu.
 * $\frac{1}{59}$ — Stabilny stan w skali makro/kosmicznej.
 
-### 7.3 Czas lokalny jako projekcja $\tau$ globalnego
+#### 7.3 Czas lokalny jako projekcja $\tau$ globalnego
 Czas mierzony lokalnie w układzie fizycznym ($t_{\text{lokalne}}$) nie jest zmienną niezależną, lecz bezpośrednią projekcją stanu globalnego pola skrętu:
 $$t_{\text{lokalne}} = f(\tau_{\text{globalne}})$$
 Każda pojedyncza cząstka "wie" o wieku i stanie Wszechświata poprzez interakcję z polem $\tau$. Teza ta prowadzi do bezpośrednio falsyfikowalnych przewidywań w obszarach:
@@ -736,7 +736,7 @@ Każda pojedyncza cząstka "wie" o wieku i stanie Wszechświata poprzez interakc
 
 ---
 
-## 8. INTEGRACJA SYSTEMOWA (TIMDER ARCHITECTURE)
+### 8. INTEGRACJA SYSTEMOWA (TIMDER ARCHITECTURE)
 
 W ujęciu technologicznym i algorytmicznym system przetwarza informacje w pętli trzech głównych warstw, zachowując geometryczną kompresję danych:
 
@@ -755,7 +755,7 @@ Dzięki zastosowaniu operatorów $\Lambda$, $\tau$, $\rho$, grafu przejść $G_J
 
 ---
 
-## 9. OBSZARY ZASTOSOWAŃ MODELU
+### 9. OBSZARY ZASTOSOWAŃ MODELU
 
 Jednolita geometria asymetrii trójkąta pozwala na aplikację ram TIMDR/TRM w skrajnie różnych dziedzinach inżynierii i nauki:
 
@@ -767,7 +767,7 @@ Jednolita geometria asymetrii trójkąta pozwala na aplikację ram TIMDR/TRM w s
 
 ---
 
-## 10. JAK KORZYSTAĆ Z REPOZYTORIUM
+### 10. JAK KORZYSTAĆ Z REPOZYTORIUM
 
 1. **Zaimplementuj zasady:** Nakarm lokalne modele AI (LLM/Agent) strukturą TIMDR, ze szczególnym uwzględnieniem modelu asymetrii trójkąta.
 2. **Podstaw dane:** Wprowadź własne macierze danych, sygnały dźwiękowe, fizyczne opisy układów lub serie czasowe.
@@ -776,7 +776,7 @@ Jednolita geometria asymetrii trójkąta pozwala na aplikację ram TIMDR/TRM w s
 
 ---
 
-## 11. REPOZYTORIA POWIĄZANE
+### 11. REPOZYTORIA POWIĄZANE
 
 GIA-TIMDR jest fundamentem teoretycznym (aksjomaty, formalizm) całego
 ekosystemu — sam w sobie należy do kategorii "modele koncepcyjne"
@@ -788,14 +788,14 @@ uniknąć rozjazdu dwóch kopii tej samej listy —
 Tutaj tylko repo bezpośrednio powiązane z tym plikiem, uporządkowane wg
 tych samych trzech kategorii:
 
-### 🧮 Formalizacje TIMDR (bezpośrednie implementacje aksjomatów z tego repo)
+#### 🧮 Formalizacje TIMDR (bezpośrednie implementacje aksjomatów z tego repo)
 
 * `TIMDR-Math-Formalism` — Działający protokół odróżniania realnej struktury matematycznej od numerologii (pre-rejestracja, kontrola pozytywna/negatywna, test Manna-Whitneya, effect size, uczciwy wynik negatywny); następca pierwszej wersji `math-validator` (usuniętej z ekosystemu, patrz Sekcja 10 wyżej). Implementacja gałęzi sygnałowej (M/S), diagram protokołu: `docs/diagram.svg`.
 * `TIMDR-Geometry-Formalism` — Numeryczna implementacja dyskretnego operatora Weingartena dla gałęzi geometrycznej (G): normalne wierzchołkowe, dopasowanie MNK na 1-ringu, krzywizny główne; domyka numerycznie Aksjomaty G8-G9 (`Axioms_G_TIMDR_Geometry.md`). Testy na płaszczyźnie/sferze/walcu — nieuruchomione w sesji, w której powstały. Dwa diagramy: `docs/diagram_pipeline.svg` (algorytm), `docs/diagram_surfaces.svg` (trzy powierzchnie testowe i ich krzywizna). Zawiera też `chronocongruence.py` — kongruencja Γ(t,s) dla Chronoprocesu (`docs/theory/TIMDR_Chronoprocess.md`).
 * `TIMDR-Modal-Formalism` — Pierwsza implementacja gałęzi modalnej (K) jako kodu: modalność `(f,φ,A)` (Aksjomat 3), interferencja (Aksjomat 4), rezonans modalny (Aksjomat 5), oraz mapa synchronizacji faz `f` formalizująca `t_lokalne=f(τ_globalne)` z §7.3 poniżej. Afiniczna (nie Kuramoto-sprzężona) — jawnie oznaczona granica zakresu. Testy potwierdzone przez użytkownika: 17/17.
 * `TIMDR-Time-Formalism` — Pełny moduł Chronoprocesu `Ξ=(T,x,Γ,φ)`: orkiestruje trzy powyższe repo-siostry na wspólnym nośniku T, bez żadnej identyfikacji między nimi. Zawiera też jedyny jawny wyjątek od tej zasady — `fourier_bridge.py`, most Fouriera M/S↔K oparty na zasadzie nieoznaczoności Gabora (analogia do dualizmu falowo-cząsteczkowego fotonu, sprowadzona do sprawdzalnej matematyki). Pełny opis: `docs/theory/TIMDR_Chronoprocess.md`. Testy potwierdzone przez użytkownika: 18/18 (8/8 orkiestracja + 10/10 most Fouriera).
 
-### 🔧 Narzędzia inżynierskie (ten sam rdzeń, realne dane — wybrane przykłady)
+#### 🔧 Narzędzia inżynierskie (ten sam rdzeń, realne dane — wybrane przykłady)
 
 * `math-validator-3.0` — trzecia generacja walidatora (SymPy, algebra liniowa, logika zdaniowa); następca (przez `math-validator-v2.0`) pierwszej, usuniętej wersji.
 * `synoptyk-v2.0` — prognoza pogody, realne dane Open-Meteo, filtr falkowy DWT db4.
@@ -803,7 +803,7 @@ tych samych trzech kategorii:
 * `AstroCycles-TIMDR` / `astro-map` — cykle i mapowanie astronomiczne w języku TIMDR.
 * `EasySound` — filtrowanie i czyszczenie dźwięku (filtr Butterwortha).
 
-### 🌀 Modele koncepcyjne (ten sam framework Λ–τ–ρ, warstwa metaforyczna)
+#### 🌀 Modele koncepcyjne (ten sam framework Λ–τ–ρ, warstwa metaforyczna)
 
 * `topologia-informacji` — centralny framework pojęciowy Λ–τ–ρ, przestrzenie metryczne i przekształcenia Möbiusa.
 * `TRM` / `Topological-Reduction-Model-TRM` / `TRM-Geometry-Core` — rezonans i redukcja topologiczna jako metafora.
@@ -816,7 +816,7 @@ przykładów) — patrz `KATEGORIE.md` linkowane wyżej.
 
 ---
 
-## 12. LICENCJA
+### 12. LICENCJA
 
 Niniejsze repozytorium dystrybuowane jest na licencji **Open Source**. Udostępnione do nieskrępowanych badań naukowych, eksperymentów technologicznych, rozwoju i budowy nowego paradygmatu unifikacji wiedzy.
 
