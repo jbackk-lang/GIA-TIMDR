@@ -125,6 +125,8 @@ def classify_signal_point(
     if (S_down is None) != (S_up is None):
         raise ValueError("S_down i S_up musza byc podane razem albo oba pominiete")
     if S_down is not None:
+        if Q <= Q_crit and S_up != 0.0:
+            raise ValueError("dla Q <= Q_crit operator nie moze miec niezerowego S_up")
         if not np.all(np.isfinite([S_down, S_up])):
             raise ValueError("S_down i S_up musza byc skonczone")
         N = float(S_down * S_up)
@@ -156,7 +158,9 @@ def classify_signal_trace(t, Q, Q_crit, cutoff, S_down_trace, S_up_trace,
     nakladania), zamiast NaN wyciekajacego do wyniku."""
     t = np.asarray(t, dtype=float)
     Q = np.asarray(Q, dtype=float)
-    cutoff = np.asarray(cutoff, dtype=bool)
+    cutoff = np.asarray(cutoff)
+    if cutoff.dtype.kind != "b":
+        raise ValueError("cutoff musi byc wektorem wartosci logicznych")
     S_down_trace = np.asarray(S_down_trace, dtype=float)
     S_up_trace = np.asarray(S_up_trace, dtype=float)
     arrays = (Q, cutoff, S_down_trace, S_up_trace)
