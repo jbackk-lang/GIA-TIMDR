@@ -136,7 +136,7 @@ pytest tests/ -v
 ```
 
 **Aktualny wynik CI:** pełny zestaw Math przeszedł w GitHub Actions
-dla commitu `93445b81`: **370 passed**. Obejmuje walidację danych
+dla commitu `582d7380`: **370 passed**. Obejmuje walidację danych
 wejściowych, niezależne okno referencyjne dla detekcji anomalii,
 ograniczenie progu in-sample 2σ dla m≤5, empiryczny baseline
 Poissona-dwumianowy oraz testy protokołu statystycznego. To potwierdza
