@@ -29,7 +29,7 @@ strukturalna). Oba mieszkają w tym samym repo z powodów praktycznych
 (rozwijane w tej samej sesji), NIE dlatego, że są tym samym
 mechanizmem — werdykt jednego NIE potwierdza ani nie zaprzecza
 drugiemu. Pełne rozróżnienie i tabela porównawcza:
-`GIA-TIMDR/docs/theory/TIMDR_Branch_Specification.md`, sekcja "Warstwa
+`../docs/theory/TIMDR_Branch_Specification.md`, sekcja "Warstwa
 meta". Dokumentacja pipeline'u sygnałowego: [docs/SG_COUPLING_PHASE_DIAGRAM.md](docs/SG_COUPLING_PHASE_DIAGRAM.md)
 (mapa faz `alpha`/`anomaly_bump`) i [docs/theory/Signal_Classes.md](docs/theory/Signal_Classes.md)
 (definicja klas I/II/III + trzy decyzje implementacyjne).
@@ -148,7 +148,7 @@ Instancja generycznego sygnału `x:T→ℝᵈ` gałęzi M/S na konkretny
 przypadek "T = kolejne znaczniki czasu": nie nowa matematyka, tylko
 poprawne wpisanie się w istniejącą definicję sygnału (część
 Chronoprocesu `Ξ=(T,x,Γ,φ)` opisanego w
-`GIA-TIMDR/SKILL_timdr-signal-framework.md`).
+`../SKILL_timdr-signal-framework.md`).
 
 Dwie rozdzielone, osobno zdefiniowane serie:
 
