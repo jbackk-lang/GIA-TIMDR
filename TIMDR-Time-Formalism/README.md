@@ -137,12 +137,13 @@ tej sesji, nie przepisane z pamięci) jest w nagłówku
 Gabora/Heisenberga OSIĄGANA (nie tylko spełniona) przez impuls
 gaussowski.
 
-**Wynik historyczny:** poprzednia wersja testów miała potwierdzone przez
-użytkownika 10/10. Następnie poprawiono wagi energii widma jednostronnego
-(Parseval: `A²/2` dla binów wewnętrznych, `A²` dla DC i Nyquista) i dodano
-dwa testy regresyjne. Aktualny plik ma 12 testów; nowych testów nie
-uruchomiono jeszcze w tym środowisku, więc nie przypisujemy im statusu
-zaliczonych.
+**Status aktualny:** poprzednie 10/10 jest wynikiem historycznym sprzed
+rozszerzenia. Obecny zestaw mostu Fouriera zawiera 12 testów, w tym dwa
+testy regresyjne wag Parsevala. Pełny zestaw `TIMDR-Time-Formalism/tests`
+(8 testów Chronoprocesu i 12 testów mostu Fouriera) przeszedł w GitHub
+Actions dla commitu `6adeb712`, w kroku `Test Time formalism and Fourier
+bridge`. Potwierdza to testy implementacji w zadanym zakresie, nie ogólną
+poprawność wszystkich możliwych zastosowań mostu.
 
 ## ⚠️ Czego to NIE robi
 
