@@ -219,3 +219,14 @@ def test_fourier_operators_reject_invalid_sample_interval(dt):
 def test_spectral_spread_rejects_non_modality_items():
     with pytest.raises(ValueError):
         spectral_spread([object()])
+
+
+def test_temporal_spread_scales_large_finite_amplitudes_without_overflow():
+    mean_t, delta_t = temporal_spread([1e308, 1e308], dt=1.0)
+    assert mean_t == pytest.approx(0.5)
+    assert delta_t == pytest.approx(0.5)
+
+
+def test_fft_modalities_rejects_spectrum_that_overflows_float_range():
+    with pytest.raises(ValueError):
+        fft_modalities([1e308, 1e308], dt=1.0)
