@@ -101,9 +101,15 @@ class TestParsevalSpectralWeights:
         n = 8
         t = np.arange(n, dtype=float)
         x = 1.0 + 2.0 * (-1.0) ** t
-        modalities, _ = fft_modalities(x, dt=1.0, include_dc=True)
-        _, delta_f = spectral_spread(modalities, nyquist_frequency=0.5)
-        assert delta_f == pytest.approx(np.sqrt((0.5 ** 2 * 4.0) / 5.0))
+
+        # Wywołujemy publiczną funkcję time_bandwidth_product(), a nie
+        # spectral_spread() bezpośrednio: regresja ma wykryć, jeśli
+        # time_bandwidth_product przestanie przekazywać częstotliwość
+        # Nyquista i potraktuje ten bin jak zwykły bin wewnętrzny.
+        _, delta_t = temporal_spread(x, dt=1.0)
+        expected_delta_f = np.sqrt((0.5 ** 2 * 4.0) / 5.0)
+        product = time_bandwidth_product(x, dt=1.0, include_dc=True)
+        assert product == pytest.approx(delta_t * expected_delta_f)
 
 
 # ---------------------------------------------------------------------
