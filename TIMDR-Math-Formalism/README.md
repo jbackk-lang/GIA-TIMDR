@@ -72,6 +72,14 @@ else:
     print(format_report(hypothesis, controls, main_result=None))
 ```
 
+**Ważne ograniczenie kontroli:** `controls.passed` oznacza tylko, że
+kontrola pozytywna wykryła różnicę po wstrzyknięciu efektu, a kontrola
+negatywna nie wykryła istotnej różnicy między dwiema próbkami tła.
+Nie dowodzi to równoważności rozkładów ani nie wyznacza odsetka
+fałszywych alarmów. `run_controls` jest bramką przesiewową, nie
+formalnym testem równoważności. Nie blokuje też technicznie
+bezpośredniego wywołania `mann_whitney_test`.
+
 Pełny, uruchamialny przykład (hipoteza "ciąg ma specjalny rezonans z
 liczbami pierwszymi", na prawdziwych liczbach pierwszych z sita
 Eratostenesa):
