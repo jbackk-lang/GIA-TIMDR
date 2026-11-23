@@ -143,6 +143,26 @@ _weather = _load_weather_validation_module()
 P_ANOMALY_2SIGMA_NORMAL: float = float(2.0 * _normal_survival_function(2.0))
 
 
+def poisson_binomial_independence_baseline_rate(
+    p_anomalies: Sequence[float], K: int
+) -> float:
+    """P(sum(Bernoulli(p_i)) >= K) dla niezaleznych parametrow o
+    roznych, jawnie podanych marginalnych prawdopodobienstwach flag.
+    Uzywa dokladnego dynamicznego splotu rozkladow Bernoulliego."""
+    probabilities = np.asarray(p_anomalies, dtype=float)
+    if probabilities.ndim != 1 or probabilities.size == 0:
+        raise ValueError("p_anomalies musi byc niepustym wektorem 1D")
+    if not np.all(np.isfinite(probabilities)) or np.any((probabilities < 0.0) | (probabilities > 1.0)):
+        raise ValueError("kazde p_i musi byc skonczone i nalezec do [0,1]")
+    n = probabilities.size
+    if isinstance(K, bool) or not isinstance(K, (int, np.integer)) or not 1 <= K <= n:
+        raise ValueError("K musi byc liczba calkowita spelniajaca 1 <= K <= n")
+    distribution = np.array([1.0])
+    for p in probabilities:
+        distribution = np.convolve(distribution, np.array([1.0 - p, p]))
+    return float(distribution[K:].sum())
+
+
 def theoretical_independence_baseline_rate(
     n: int, K: int, p_anomaly: float = P_ANOMALY_2SIGMA_NORMAL
 ) -> float:
@@ -522,7 +542,7 @@ def calibrate_resonance_K(
     n_perm: int = 5000,
     alpha: float = 0.05,
     seed: int = 0,
-    p_anomaly: float = P_ANOMALY_2SIGMA_NORMAL,
+    p_anomaly: Optional[float] = None,
 ) -> CalibrationResult:
     """Glowna funkcja modulu: samokalibracja progu K operatora
     rezonansu na REALNYM (lub dowolnym innym) oknie wielu-parametrowych
@@ -538,8 +558,12 @@ def calibrate_resonance_K(
         `_weather.permutation_test`) -- ten sam Davison-Hinkley p =
         (ge_count+1)/(n_perm+1) co w
         examples/real_weather_resonance_validation.py.
-    p_anomaly: prawdopodobienstwo anomalii pod zalozeniem niezaleznosci
-        + normalnosci (domyslnie P(|Z|>2) dokladnie, nie zaokraglone).
+    p_anomaly: opcjonalne, wspolne prawdopodobienstwo anomalii dla
+        modelu dwumianowego. Gdy None (domyslnie), baseline jest liczony
+        jako rozklad Poissona-dwumianowy z empirycznych marginalnych
+        stop flag kazdego parametru. Wartosc P(|Z|>2) nalezy podac
+        jawnie tylko dla niezaleznego baseline populacyjnego/normalnego;
+        nie jest ona automatycznie poprawna dla progow in-sample.
 
     Zwraca `CalibrationResult` -- NIGDY nie zwraca pewnej rekomendacji
     K z niedomocnionego testu (patrz `_decide_calibration`).
@@ -564,7 +588,11 @@ def calibrate_resonance_K(
     )
     real_event_count = int(round(empirical_rate * n_timesteps))
 
-    theoretical_rate = theoretical_independence_baseline_rate(n, K, p_anomaly)
+    if p_anomaly is None:
+        marginal_rates = [float(f.mean()) for f in flags]
+        theoretical_rate = poisson_binomial_independence_baseline_rate(marginal_rates, K)
+    else:
+        theoretical_rate = theoretical_independence_baseline_rate(n, K, p_anomaly)
     deviation = empirical_rate - theoretical_rate
 
     positive_control_pvalue = _positive_control_pvalue(
