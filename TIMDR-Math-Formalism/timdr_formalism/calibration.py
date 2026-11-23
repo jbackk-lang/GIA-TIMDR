@@ -10,8 +10,9 @@ w wywolywalna funkcje, ktora dla DOWOLNEGO okna wielu-parametrowych
 danych (nie tylko pogodowych):
 
     1. liczy empiryczna stope rezonansu dla biezacej konfiguracji K/n,
-    2. porownuje ja z teoretyczna baza niezaleznosci
-       P(Binomial(n, p_anomaly=P(|Z|>2)) >= K) (Resonance_M §2),
+    2. porownuje ja z baza niezaleznosci: domyslnie Poisson-binomial
+       z empirycznych marginalnych stop flag per parametr; wspolny
+       P(|Z|>2) i Binomial(n,p) tylko po jawnym podaniu p_anomaly,
     3. uruchamia DOKLADNIE ta sama metodyke testu permutacyjnego, jakiej
        uzywa examples/real_weather_resonance_validation.py (funkcja
        zaladowana STAD, z tego pliku, nie przepisana -- patrz sekcja
