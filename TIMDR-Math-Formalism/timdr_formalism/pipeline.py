@@ -84,10 +84,13 @@ class Hypothesis:
 
 @dataclass
 class Preregistration:
-    """Zamrożony, podpisany (SHA-256) zapis hipotezy + parametrów testu,
-    zapisany PRZED uruchomieniem czegokolwiek na realnych/losowych
-    danych. Obrona przed data-snooping: zmiana definicji PO zobaczeniu
-    wyniku zmienia fingerprint, więc `verify_unchanged` to złapie.
+    """Zapis hipotezy i parametrów z odciskiem SHA-256.
+
+    Wywołujący powinien utworzyć i zachować zapis przed analizą danych.
+    Fingerprint pozwala później wykryć zmianę treści względem zachowanego
+    odcisku, ale sam moduł nie dowodzi, że zapis powstał przed analizą:
+    timestamp jest lokalnym czasem utworzenia, nie jest podpisem ani
+    zaufanym znacznikiem czasu i nie wchodzi do fingerprintu.
     """
 
     hypothesis: Hypothesis
