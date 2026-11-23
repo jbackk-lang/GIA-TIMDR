@@ -182,9 +182,9 @@ def theoretical_independence_baseline_rate(
     baseline dla z-score liczonych in-sample z tej samej krotkiej serii,
     gdzie standaryzowane reszty sa zalezne i ograniczone.
     """
-    if n < 1:
-        raise ValueError("n musi byc >= 1")
-    if not (1 <= K <= n):
+    if isinstance(n, bool) or not isinstance(n, (int, np.integer)) or n < 1:
+        raise ValueError("n musi byc dodatnia liczba calkowita")
+    if isinstance(K, bool) or not isinstance(K, (int, np.integer)) or not (1 <= K <= n):
         raise ValueError("K musi spelniac 1 <= K <= n")
     if not (0.0 < p_anomaly < 1.0):
         raise ValueError("p_anomaly musi byc w (0, 1)")
@@ -569,18 +569,29 @@ def calibrate_resonance_K(
     Zwraca `CalibrationResult` -- NIGDY nie zwraca pewnej rekomendacji
     K z niedomocnionego testu (patrz `_decide_calibration`).
     """
-    flags = [np.asarray(f, dtype=bool) for f in params_flags]
-    n = len(flags)
+    raw_flags = [np.asarray(f) for f in params_flags]
+    n = len(raw_flags)
     if n < 1:
         raise ValueError("wymagany >=1 parametr")
+    if any(f.ndim != 1 or f.size == 0 or f.dtype.kind != "b" for f in raw_flags):
+        raise ValueError("kazdy zestaw flag musi byc niepustym wektorem bool 1D")
+    flags = [f.astype(bool, copy=False) for f in raw_flags]
     lengths = {f.size for f in flags}
     if len(lengths) != 1:
         raise ValueError("wszystkie serie flag musza miec ta sama dlugosc")
     n_timesteps = flags[0].size
     if n_timesteps < 1:
         raise ValueError("okno danych nie moze byc puste")
-    if not (1 <= K <= n):
-        raise ValueError("K musi spelniac 1 <= K <= n")
+    if isinstance(K, bool) or not isinstance(K, (int, np.integer)) or not (1 <= K <= n):
+        raise ValueError("K musi byc liczba calkowita spelniajaca 1 <= K <= n")
+    if isinstance(n_perm, bool) or not isinstance(n_perm, (int, np.integer)) or n_perm < 1:
+        raise ValueError("n_perm musi byc dodatnia liczba calkowita")
+    if not np.isfinite(alpha) or not 0.0 < alpha < 1.0:
+        raise ValueError("alpha musi byc skonczone i nalezec do (0,1)")
+    if p_anomaly is not None and (
+        not np.isfinite(p_anomaly) or not 0.0 < p_anomaly < 1.0
+    ):
+        raise ValueError("p_anomaly musi byc skonczone i nalezec do (0,1)")
 
     anomaly_counts = [int(f.sum()) for f in flags]
 
