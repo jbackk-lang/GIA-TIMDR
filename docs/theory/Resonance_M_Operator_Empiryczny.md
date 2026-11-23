@@ -200,8 +200,9 @@ wykryte poprawnie.
 
 **Uczciwy werdykt:** to **nie jest** dowód, że rezonans sygnałowy nie
 przekracza przypadku. Ciśnienie w tym oknie nigdy nie przekroczyło progu
-2σ (realna stopa anomalii per parametr: 8.3% / 0% / 4.2%, znacząco
-poniżej teoretycznych ~4.55% z sekcji 2), więc przy obu wartościach K
+2σ (realna stopa flag per parametr: 8.3% / 0% / 4.2%). Nie porównujemy
+tych częstości bezpośrednio z populacyjnym ~4.55% z sekcji 2, ponieważ
+progi były liczone in-sample z tego samego okna. Przy obu wartościach K
 liczba zdarzeń współbieżnych wyniosła zero zarówno w danych realnych,
 jak i w rozkładzie null — test **nie miał mocy statystycznej w żadną
 stronę**. Kontrola pozytywna potwierdza, że mechanika testu jest
@@ -214,13 +215,14 @@ dłuższe okno obejmujące więcej dni ekstremalnej pogody (żeby każdy
 parametr miał realistyczną własną liczbę anomalii) i/lub dane z
 wilgotnością, żeby dojść do udokumentowanych n=5 parametrów.
 
-Ten wynik zastępuje w praktycznym zastosowaniu teoretyczne 0.09% z
-sekcji 2 — nie dlatego, że 0.09% jest błędne jako rachunek, ale dlatego,
-że **żadna z dwóch liczb (0.09% teoretyczne, p=1.0 empiryczne z tego
-okna) nie jest jeszcze ostatecznym stwierdzeniem o tym, czy rezonans
-sygnałowy realnie przekracza przypadek** — pierwsza bo opiera się na
-niesprawdzonych założeniach, druga bo test nie miał mocy w tym
-konkretnym oknie. Uczciwy stan wiedzy: **otwarte pytanie, wymagające
+Wynik p=1.0 nie rozstrzyga, czy rezonans sygnałowy realnie
+przekracza przypadek, ponieważ test nie miał mocy w tym oknie.
+Populacyjne 0.09% z sekcji 2 jest poprawnym rachunkiem tylko dla
+niezależnych kanałów o wspólnym marginalnym p≈4.55%, przy progach
+odniesionych do rozkładu populacyjnego/referencyjnego; nie jest
+baseline'em dla tego in-sample okna. Biblioteczna kalibracja używa
+domyślnie Poissona-dwumianowego baseline'u z empirycznych marginalnych
+częstości flag. Uczciwy stan wiedzy: **otwarte pytanie, wymagające
 dłuższego okna danych**, nie ustalony fakt w żadną stronę.
 
 ---
