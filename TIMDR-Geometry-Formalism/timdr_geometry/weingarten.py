@@ -239,9 +239,20 @@ def discrete_shape_operator(
     sąsiadów są zdegenerowane (rząd <2, MNK niedookreślone) — nigdy nie
     zwraca cichej macierzy zerowej w tych przypadkach.
     """
+    if isinstance(point_idx, bool) or not isinstance(point_idx, (int, np.integer)):
+        raise ValueError("point_idx musi byc indeksem calkowitym")
+    if point_idx < 0 or point_idx >= mesh.n_vertices:
+        raise ValueError(f"point_idx poza zakresem siatki: {point_idx}")
+    normals = np.asarray(normals, dtype=float)
+    if normals.shape != mesh.vertices.shape or not np.all(np.isfinite(normals)):
+        raise ValueError("normals musi byc skonczona tablica o ksztalcie vertices")
     if rings is None:
         rings = one_ring(mesh)
+    if len(rings) != mesh.n_vertices:
+        raise ValueError("rings musi zawierac liste sasiedztw dla kazdego wierzcholka")
     neighbors = sorted(rings[point_idx])
+    if any(not isinstance(q, (int, np.integer)) or q < 0 or q >= mesh.n_vertices for q in neighbors):
+        raise ValueError("rings zawiera indeks sasiada poza zakresem siatki")
     if len(neighbors) < 2:
         raise ValueError(
             f"wierzchołek {point_idx} ma tylko {len(neighbors)} sąsiadów "
@@ -260,8 +271,10 @@ def discrete_shape_operator(
     for q_idx in neighbors:
         q = mesh.vertices[q_idx]
         n_q = normals[q_idx]
-        if np.linalg.norm(n_q) == 0:
+        n_q_norm = np.linalg.norm(n_q)
+        if n_q_norm == 0:
             continue  # sąsiad bez określonej normalnej — pomiń, nie licz
+        n_q = n_q / n_q_norm
         delta_p = q - p
         delta_n = n_q - n_p
         t = project_tangent(delta_p, n_p)
