@@ -1,8 +1,8 @@
-# Inwentaryzacja archiwum — 2026-11-23
+# Inwentaryzacja archiwum — migawka CSV z 2026-11-23
 
 ## Zakres i metoda
 
-Inwentaryzacja obejmuje wszystkie pliki zwrócone przez skrypt PowerShell uruchomiony w lokalnej kopii repozytorium dla katalogu `docs/archiwum/`. Raport CSV został przekazany do analizy 2026-11-23.
+Inwentaryzacja obejmuje wszystkie pliki zwrócone przez skrypt PowerShell w lokalnej kopii repozytorium i zapisane w przekazanym CSV. Jest to migawka wejściowa wykonana przed dodaniem do katalogu dwóch raportów porządkowych: `INWENTARYZACJA_2026-11-23.md` oraz `AUDYT_LINKOW_I_DUPLIKATOW_2026-11-23.md`. Dlatego liczba pięciu plików poniżej opisuje zawartość CSV, a nie bieżącą liczbę plików w katalogu.
 
 Dla każdego pliku zapisano ścieżkę względną, rozmiar, rozszerzenie i SHA-256. Porównanie sum SHA-256 wykazało **0 grup identycznych plików** w zbadanym katalogu.
 
@@ -20,6 +20,10 @@ Dla każdego pliku zapisano ścieżkę względną, rozmiar, rozszerzenie i SHA-2
 | `PODSUMOWANIE_PROJEKTU_2026-09-23.md` | 20 802 | `8E53776409B23D94E70C8ABC48DE12C0E91E0E5F2DDC2B9D5C64D97FDE2399F4` |
 | `README.md` | 2 025 | `D073ED68F2BFC55B65A796217137F1FE59C51E08DE33ACCF34CA36F80B5D3BBC` |
 | `WYNIKI_EKSPERYMENTOW_MIGAWKA_README_2026-11-14.md` | 13 993 | `E4AFA3E1949E74F01B6B9EA5CA5B0B51BCA426D503F600A0590A14A5A3037F30` |
+
+## Interpretacja zakresu czasowego
+
+Pięć pozycji w tabeli to pięć plików źródłowych objętych CSV. Sam raport inwentaryzacji i późniejszy raport linków/duplikatów nie należały do tego wejściowego zestawu. Indeks `README.md` podaje aktualną liczbę pozycji w katalogu i rozdziela dokumenty historyczne od raportów kontrolnych.
 
 ## Wnioski i ograniczenia
 
