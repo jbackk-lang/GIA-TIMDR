@@ -16,7 +16,8 @@ Indeks zawiera **zweryfikowane dokumenty**; nie stanowi jeszcze pełnego spisu w
 
 ## Audyt archiwum
 
-- [Audyt odnośników i plan pełnej inwentaryzacji — 2026-11-14](AUDYT_2026-11-14.md) — potwierdzone pliki, ograniczenia sprawdzenia katalogów i procedura identyfikacji duplikatów.
+- [Audyt odnośników i plan pełnej inwentaryzacji — 2026-11-14](AUDYT_2026-11-14.md) — wcześniejszy audyt i procedura kontroli.
+- [Inwentaryzacja archiwum — 2026-11-23](INWENTARYZACJA_2026-11-23.md) — spis pięciu plików, rozmiary i SHA-256; brak identycznych kopii w katalogu `docs/archiwum/`.
 
 ## Gdzie znaleźć aktualny stan
 
