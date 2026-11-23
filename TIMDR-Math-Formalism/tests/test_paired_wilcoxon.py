@@ -245,3 +245,32 @@ def test_inconclusive_verdict_does_not_claim_no_effect():
     assert "NIEROZSTRZYGNIĘTY" in verdict
     assert "Brak istotnego efektu" not in verdict
     assert "za mało niezerowych par" in verdict
+
+
+def test_paired_wilcoxon_rank_biserial_effect_is_bounded_and_exact_at_extremes():
+    baseline = np.arange(12, dtype=float)
+    positive = paired_wilcoxon_test(baseline + 1.0, baseline)
+    negative = paired_wilcoxon_test(baseline - 1.0, baseline)
+    assert positive.effect_size_r == pytest.approx(1.0)
+    assert negative.effect_size_r == pytest.approx(-1.0)
+    assert -1.0 <= positive.effect_size_r <= 1.0
+    assert -1.0 <= negative.effect_size_r <= 1.0
+
+
+def test_paired_wilcoxon_rank_biserial_effect_uses_signed_rank_sums():
+    baseline = np.zeros(4, dtype=float)
+    differences = np.array([1.0, -2.0, 3.0, -4.0])
+    result = paired_wilcoxon_test(differences, baseline, min_nonzero=1)
+    # W+ = rank(1)+rank(3)=1+3=4; W-=2+4=6; r=(4-6)/(4+6)=-0.2
+    assert result.effect_size_r == pytest.approx(-0.2)
+
+
+@pytest.mark.parametrize("min_nonzero", [0, -1, 1.5, True])
+def test_paired_wilcoxon_rejects_invalid_min_nonzero(min_nonzero):
+    with pytest.raises(ValueError):
+        paired_wilcoxon_test(np.arange(12.0), np.zeros(12), min_nonzero=min_nonzero)
+
+
+def test_paired_wilcoxon_rejects_infinite_values():
+    with pytest.raises(ValueError):
+        paired_wilcoxon_test([1.0, 2.0, np.inf], [0.0, 0.0, 0.0])
