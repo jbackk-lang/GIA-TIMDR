@@ -3,7 +3,7 @@
 Numeryczna implementacja Aksjomatów G8-G9 gałęzi geometrycznej TIMDR:
 dyskretny operator kształtu (Weingarten) na trójkątnej siatce 3D,
 domykający numerycznie związek skrętu powierzchniowego z krzywizną,
-nazwany w [`Axioms_G_TIMDR_Geometry.md`](../GIA-TIMDR/docs/theory/Axioms_G_TIMDR_Geometry.md)
+nazwany w [`Axioms_G_TIMDR_Geometry.md`](../docs/theory/Axioms_G_TIMDR_Geometry.md)
 (Aksjomat G4) i domknięty tam analitycznie (Aksjomaty G8-G9).
 
 Analogiczny cel jak `TIMDR-Math-Formalism` dla gałęzi sygnałowej: teoria
@@ -86,7 +86,7 @@ Odpowiedź na wcześniej otwarty błąd obiektu: pojedyncza trajektoria
 trajektorii `{γ_s}_{s∈I}`, `Γ(t,s)=γ_s(t)`, tak żeby obraz
 `S=Γ(T×I)⊂ℝ³` był prawdziwą powierzchnią 2D — wtedy `n(p)`, `S_p`,
 `T_S(p)` z tego repo działają dosłownie, bez metafory. Patrz
-`GIA-TIMDR/SKILL_timdr-signal-framework.md` za pełne uzasadnienie tej
+`../SKILL_timdr-signal-framework.md` za pełne uzasadnienie tej
 konstrukcji (Chronoproces `Ξ=(T,x,Γ,φ)`).
 
 `make_congruence_mesh(gamma, t_values, s_values, t_periodic, s_periodic)`
@@ -208,4 +208,4 @@ wszystkimi czterema.
 
 ## 📄 Licencja
 
-MIT — patrz [LICENSE](LICENSE).
+MIT — patrz [LICENSE.txt](LICENSE.txt).
