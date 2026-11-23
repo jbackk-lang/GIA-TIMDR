@@ -220,3 +220,15 @@ def test_defekt_and_skret_reject_invalid_threshold(factor):
         defekt_flags([0.0, 1.0, 2.0], factor=factor)
     with pytest.raises(ValueError):
         skret_flags([0.0, 1.0, 2.0], factor=factor)
+
+
+def test_defekt_flags_detects_rare_jump_when_percentile_spread_is_zero():
+    # 20 zera i pojedynczy rzadki skok: p10=p90=0, ale dwa przejscia
+    # do/z odchylenia sa rzeczywistymi defektami. Dla stalej serii diff=0
+    # i scisly prog >0 nadal nie daje falszywych flag.
+    series = [0.0] * 10 + [100.0] + [0.0] * 10
+    flags = defekt_flags(series, factor=0.3)
+    expected = np.zeros(len(series) - 1, dtype=bool)
+    expected[9:11] = True
+    np.testing.assert_array_equal(flags, expected)
+    np.testing.assert_array_equal(defekt_flags([4.0] * 8), np.zeros(7, dtype=bool))
