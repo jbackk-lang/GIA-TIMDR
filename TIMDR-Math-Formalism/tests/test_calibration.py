@@ -45,7 +45,10 @@ from timdr_formalism.calibration import (
     _weather,
 )
 from timdr_formalism.pipeline import calibrate_resonance_threshold
-from timdr_formalism import (\n    calibrate_resonance_K as calibrate_resonance_K_public,\n    poisson_binomial_independence_baseline_rate as poisson_binomial_public,\n)
+from timdr_formalism import (
+    calibrate_resonance_K as calibrate_resonance_K_public,
+    poisson_binomial_independence_baseline_rate as poisson_binomial_public,
+)
 
 
 # ---------------------------------------------------------------------
