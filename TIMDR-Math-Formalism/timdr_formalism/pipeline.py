@@ -415,7 +415,15 @@ def mann_whitney_test(
                 "w tym środowisku (patrz uwaga o Device Guard na górze pliku) — "
                 "użyj backend='numpy' albo backend='auto'."
             )
-        result = _scipy_stats.mannwhitneyu(tv, bv, alternative=alternative)
+        # Ujednolicenie semantyki backendow: numpy implementuje
+        # aproksymacje asymptotyczna z korekta na remisy, bez korekty
+        # ciaglosci. SciPy musi uzyc dokladnie tego samego wariantu,
+        # a nie domyslnego method='auto' (ktory dla malych prob moze
+        # przejsc na test dokladny) i use_continuity=True.
+        result = _scipy_stats.mannwhitneyu(
+            tv, bv, alternative=alternative,
+            method="asymptotic", use_continuity=False,
+        )
         statistic = float(result.statistic)
         pvalue = float(result.pvalue)
     else:
