@@ -220,7 +220,9 @@ def spectral_spread(
         raise ValueError("modalities musi zawierac obiekty Modality")
     f = np.array([m.f for m in modalities], dtype=float)
     amplitudes = np.array([m.A for m in modalities], dtype=float)
-    dc = np.isclose(f, 0.0, rtol=0.0, atol=1e-15)
+    # DC to dokładnie f=0; małe dodatnie częstotliwości nadal są
+    # binami wewnętrznymi i muszą zachować wagę A²/2.
+    dc = f == 0.0
     if nyquist_frequency is not None:
         if not np.isfinite(nyquist_frequency) or nyquist_frequency <= 0.0:
             raise ValueError("nyquist_frequency musi byc dodatnie i skonczone")
