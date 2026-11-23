@@ -5,12 +5,12 @@ Testy dyskretnego operatora Weingartena (Aksjomaty G8-G9) obejmują
 przypadki znane analitycznie (płaszczyzna, sfera, walec), zbieżność
 przy zagęszczaniu siatki, konwencję znaku krzywizny oraz walidację
 siatek i wejść operatora. Pełny zestaw Geometry przeszedł w GitHub
-Actions dla commitu `93445b81` — 123 passed. Jest to weryfikacja na
+Actions dla commitu `582d7380` — 123 passed. Jest to weryfikacja na
 przypadkach syntetycznych o znanej odpowiedzi, nie walidacja
 empiryczna na rzeczywistych danych geometrycznych.
 
 STATUS WYKONANIA: zestaw geometrii (w tym ten moduł) przeszedł
-w GitHub Actions dla commitu `93445b81`, w kroku
+w GitHub Actions dla commitu `582d7380`, w kroku
 `Test Geometry formalism`. Testy sprawdzają implementację na
 syntetycznych siatkach o znanej geometrii; nie są walidacją empiryczną
 na rzeczywistych danych. Tolerancje uwzględniają błąd dyskretyzacji i
