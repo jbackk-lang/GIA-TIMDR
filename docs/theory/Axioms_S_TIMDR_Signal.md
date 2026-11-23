@@ -280,7 +280,7 @@ Uzasadnienie: `docs/PROTOCOL.md` §4c w `TIMDR-Math-Formalism`.
 
 ---
 
-# Aksjomat 12 — Generatory kontroli są próbnikami rozkładów, moc kontroli jest policzalna
+# Aksjomat 12 — Generatory kontroli są próbnikami rozkładów, a moc jest estymowana
 **EN:** `positive_injector`/`negative_generator_*` are samplers of
 distributions `D_pos, D_A, D_B` specified by construction. Because the
 generating mechanism is controlled, operating characteristics of the
@@ -316,11 +316,14 @@ testowym `T` — nie sześcioma niezależnymi technikami.
 \text{Report} = \text{format\_report} \circ \langle \text{Gate}, T \rangle \circ \text{Generate} \circ \text{Preregister}
 \]
 
-gdzie `T: M × 𝒫(𝒳) × 𝒫(𝒳) → 𝕋` (test na danych głównych) jest **funkcją
-częściową**, zdefiniowaną tylko gdy `Gate(...).passed = 1` — bramka
-kontrolna (Aksjomat 7) nie jest krokiem opcjonalnym, jest warunkiem
-istnienia dla `T` na danych głównych w tym złożeniu. Uzasadnienie:
-`docs/PROTOCOL.md` sekcja "Formalna przestrzeń TIMDR-Math".
+gdzie `T: M × 𝒫(𝒳) × 𝒫(𝒳) → 𝕋` (test na danych głównych) jest
+**funkcją częściową w protokole opisanym w dokumencie**: w tym workflow
+wynik główny interpretuje się tylko po przejściu `Gate(...)`. To
+ograniczenie należy do złożenia proceduralnego, a nie do samego API —
+`mann_whitney_test()` można wywołać bez `run_controls()`. Bramka z
+Aksjomatu 7 jest przesiewem, nie dowodem równoważności próbek
+negatywnych. Uzasadnienie: `docs/PROTOCOL.md` sekcja "Formalna
+przestrzeń TIMDR-Math".
 
 ---
 
