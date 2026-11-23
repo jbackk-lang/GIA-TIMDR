@@ -4,7 +4,7 @@ Ten katalog zawiera audyty techniczne i porządkowe repozytorium. Nie jest źró
 
 ## Audyty
 
-- [Audyt porządkowy — 23.11.2026](AUDYT_PORZADKOWY_2026-11-23.md) — zasady bezpiecznego sprzątania, mapa ryzyk i kolejność prac.
+- [Audyt porządkowy — 23.11.2026](AUDYT_PORZADKOWY_2026-11-23.md) — zasady bezpiecznego sprzątania, mapa ryzyk i kolejność prac.\n- [Audyt ekstrakcji fazy modalnej — 23.11.2026](AUDYT_EKSTRAKCJI_FAZY_MODALNEJ_2026-11-23.md) — ograniczenia pojedynczego binu FFT, przenoszenia fazy i porównywania stacji.
 
 ## Zasady zmian
 
