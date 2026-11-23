@@ -509,3 +509,20 @@ def test_mann_whitney_rejects_nonvector_or_nonfinite_samples(bad_values):
 def test_mann_whitney_rejects_invalid_alternative():
     with pytest.raises(ValueError):
         mann_whitney_test([1.0, 2.0], [3.0, 4.0], alternative="invalid")
+
+
+def test_mann_whitney_verdict_does_not_claim_median_shift_when_medians_equal():
+    result = TestResult(
+        statistic=75.0,
+        pvalue=0.01,
+        n_test=10,
+        n_background=10,
+        median_test=5.0,
+        median_background=5.0,
+        alternative="two-sided",
+        effect_size_r=0.5,
+    )
+    verdict = result.verdict()
+    assert "wyższych rang" in verdict
+    assert "Mediany: 5" in verdict
+    assert "wyższe wartości metryki" not in verdict
