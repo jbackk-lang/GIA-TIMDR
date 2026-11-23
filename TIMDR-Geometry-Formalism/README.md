@@ -129,9 +129,7 @@ tamtych trzech wielkości. Domena `I` (co dokładnie parametryzuje
 "sąsiednie" trajektorie) pozostaje decyzją modelową — trzy przykłady
 powyżej to konkretne ilustracje, nie jedyny "poprawny" wybór.
 
-**✅ Zweryfikowane.** `pytest tests/ -v` — 17/17 testów przeszło,
-w tym oba typu testów `test_chronocongruence.py` (równoważność z
-`make_plane/cylinder/sphere_mesh` i bezpośrednia krzywizna).
+**Wynik historyczny:** zapisano wcześniej 17/17 przypadków PASS dla kontroli kongruencji (równoważność z `make_plane/cylinder/sphere_mesh` i bezpośrednia krzywizna w `test_chronocongruence.py`). Nie jest to wynik pełnego, aktualnego katalogu `tests/`; aktualny zakres opisano wyżej i wymaga ponownego uruchomienia przed raportowaniem bieżącego statusu.
 
 ## 📐 Obwiednia zaokrąglona ∂_R(Δ) i parametr (P,Q) — `timdr_geometry.envelope`
 
