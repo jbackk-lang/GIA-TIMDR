@@ -98,6 +98,8 @@ class TriangleGeometry:
         jeśli nie spełniają ściśle nierówności trójkąta (zdegenerowany
         albo niemożliwy trójkąt) — nigdy nie zwraca cichych NaN-ów."""
         a, b, c = float(a), float(b), float(c)
+        if not np.all(np.isfinite([a, b, c])):
+            raise ValueError("dlugosci bokow musza byc skonczone")
         if a <= 0 or b <= 0 or c <= 0:
             raise ValueError(f"długości boków muszą być dodatnie, dostano ({a},{b},{c})")
         if not (a + b > c and b + c > a and c + a > b):
@@ -139,6 +141,14 @@ class TriangleGeometry:
         A = np.asarray(A, dtype=float)
         B = np.asarray(B, dtype=float)
         C = np.asarray(C, dtype=float)
+        if (
+            A.ndim != 1 or B.ndim != 1 or C.ndim != 1
+            or A.shape not in ((2,), (3,))
+            or B.shape != A.shape or C.shape != A.shape
+        ):
+            raise ValueError("A, B i C musza byc wektorami 2D albo 3D o tym samym wymiarze")
+        if not all(np.all(np.isfinite(point)) for point in (A, B, C)):
+            raise ValueError("wspolrzedne punktow A, B i C musza byc skonczone")
         a = float(np.linalg.norm(B - C))  # przeciwlegly A
         b = float(np.linalg.norm(C - A))  # przeciwlegly B
         c = float(np.linalg.norm(A - B))  # przeciwlegly C
@@ -175,8 +185,8 @@ def _cot_half(theta: float) -> float:
 def Lk_of_R(R: float) -> float:
     """Lk(R) = 2*pi*R dokładnie — G10c, z sumy kątów zewnętrznych
     dowolnego wypukłego wielokąta. Niezależne od kształtu Δ."""
-    if R < 0:
-        raise ValueError(f"R musi być >=0, dostano {R}")
+    if not np.isfinite(R) or R < 0:
+        raise ValueError(f"R musi być skończone i >=0, dostano {R}")
     return 2.0 * np.pi * R
 
 
@@ -185,8 +195,8 @@ def L0_of_R(tri: TriangleGeometry, R: float) -> float:
     poza dziedzinę konstrukcji [0, R_max(Δ)) (G10a: obwiednia dobrze
     określona tylko tam — poza nią boki byłyby skrócone do długości
     ujemnej, czyli łuki by się przecinały)."""
-    if R < 0:
-        raise ValueError(f"R musi być >=0, dostano {R}")
+    if not np.isfinite(R) or R < 0:
+        raise ValueError(f"R musi być skończone i >=0, dostano {R}")
     r_max = tri.R_max()
     if R > r_max + 1e-9:
         raise ValueError(
