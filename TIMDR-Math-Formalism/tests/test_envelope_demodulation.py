@@ -197,3 +197,14 @@ def test_envelope_spectrum_peak_rejects_invalid_search_window(window_hz):
 def test_envelope_spectrum_peak_rejects_invalid_target_frequency(target):
     with pytest.raises(ValueError):
         envelope_spectrum_peak(np.ones(128), 100.0, (5.0, 20.0), {"x": target})
+
+
+def test_envelope_spectrum_uses_one_sided_amplitude_scaling():
+    fs = 1000.0
+    n = 4000
+    t = np.arange(n) / fs
+    modulation = 1.0 + 0.5 * np.sin(2.0 * np.pi * 5.0 * t)
+    carrier = modulation * np.sin(2.0 * np.pi * 200.0 * t)
+    freqs, spectrum = envelope_spectrum(carrier, fs, (150.0, 250.0))
+    peak_idx = int(np.argmin(np.abs(freqs - 5.0)))
+    assert spectrum[peak_idx] == pytest.approx(0.5, abs=0.03)
