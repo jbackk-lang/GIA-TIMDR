@@ -71,7 +71,8 @@ Wszystkie trzy zadania workflow Repository regression checks zakończyły się s
 ## Ograniczenia pozostające jawnie otwarte
 
 1. Nie wykonano pełnej walidacji Geometry na niezależnym zbiorze rzeczywistych pomiarów powierzchni.
-2. Testy Modal na realnych danych Ridgecrest pozostają pominięte, dopóki wymagane pliki nie będą dostępne w checkoutcie.
+2. Obecne vertex_normals() i operator Weingartena zakładają spójnie zorientowaną siatkę; powierzchnie nieorientowalne wymagają lokalnych pól normalnych/kart, a nie jednej globalnej tablicy normalnych.
+3. Testy Modal na realnych danych Ridgecrest pozostają pominięte, dopóki wymagane pliki nie będą dostępne w checkoutcie.
 3. skret_flags() liczy nachylenia po indeksie próbki, a nie względem nieregularnych znaczników czasu. Dokumentacja jawnie ogranicza jego zakres; wariant timestamp-aware pozostaje osobnym zadaniem.
 4. Testy syntetyczne nie dowodzą prawdziwości aksjomatów ani skuteczności detektorów w dowolnej domenie.
 5. Most Fouriera opisuje dyskretną transformację sygnału czasu do reprezentacji częstotliwościowej; nie jest modelem ani dowodem fizycznej dualności korpuskularno-falowej fotonu.
