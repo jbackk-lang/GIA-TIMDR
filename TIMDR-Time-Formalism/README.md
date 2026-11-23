@@ -140,8 +140,8 @@ gaussowski.
 **Status aktualny:** poprzednie 10/10 jest wynikiem historycznym sprzed
 rozszerzenia. Obecny zestaw mostu Fouriera zawiera 12 testów, w tym dwa
 testy regresyjne wag Parsevala. Pełny zestaw `TIMDR-Time-Formalism/tests`
-przeszedł w GitHub Actions dla commitu `7ee9ebe7`, w kroku `Test Time
-formalism and Fourier bridge`: **24 passed**. Obejmuje to regresje
+przeszedł w GitHub Actions dla commitu `ec28c9bb`, w kroku `Test Time
+formalism and Fourier bridge`: **38 passed**. Obejmuje to regresje
 walidacji nośnika Chronoprocesu i 12 testów mostu Fouriera. Potwierdza
 to testy implementacji w zadanym zakresie, nie ogólną poprawność
 wszystkich możliwych zastosowań mostu.
