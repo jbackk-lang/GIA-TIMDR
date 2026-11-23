@@ -146,7 +146,7 @@ lokalne poniżej nie są używane jako zamiennik tego przebiegu.
 | M/S: sygnał i protokół | `TIMDR-Math-Formalism` | ✅ **343 passed** (`Test Math formalism`). |
 | G: geometria | `TIMDR-Geometry-Formalism` | ✅ **123 passed** (`Test Geometry formalism`), w tym regresja znaku krzywizny i walidacji siatek. |
 | K: modalność | `TIMDR-Modal-Formalism` | ✅ **42 passed, 5 skipped** (`Test Modal formalism`); pominięte testy nie są zaliczone. |
-| Czas i most Fouriera | `TIMDR-Time-Formalism` | ✅ **38 passed** (`Test Time formalism and Fourier bridge`), w tym testy walidacji nośnika Chronoprocesu i 12 testów mostu Fouriera. |
+| Czas i most Fouriera | `TIMDR-Time-Formalism` | ✅ **38 passed** (`Test Time formalism and Fourier bridge`), w tym testy walidacji nośnika Chronoprocesu i 18 funkcji testowych mostu Fouriera. |
 
 **Granica wniosku:** zielony CI potwierdza, że wskazane testy wykonały się
 pomyślnie na środowisku workflow. Nie dowodzi automatycznie prawdziwości
