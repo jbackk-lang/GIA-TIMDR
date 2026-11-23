@@ -12,6 +12,8 @@ Ten katalog zawiera audyty techniczne i porządkowe repozytorium. Nie jest źró
 
 - [Audyt podobieństwa implementacji core, filters i applications — 23.11.2026](AUDYT_PODOBIENSTWA_IMPLEMENTACJI_CORE_FILTERS_APPLICATIONS_2026-11-23.md) — rozróżnienie kolejnych wersji eksperymentów, wspólnych helperów i odrębnych aplikacji.
 
+- [Audyt odwołań, importów i testów — 23.11.2026](AUDYT_ODWOLAN_IMPORTOW_TESTOW_2026-11-23.md) — mapa wybranych zależności, istniejących testów i luk w testach skryptów real-data.
+
 ## Zasady zmian
 
 1. Prace porządkowe wykonuj na osobnej gałęzi i przedstawiaj przez pull request.
