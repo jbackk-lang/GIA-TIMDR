@@ -99,6 +99,10 @@ class Modality:
     phi: float
     A: float = 1.0
 
+    def __post_init__(self) -> None:
+        if not np.all(np.isfinite([self.f, self.phi, self.A])):
+            raise ValueError("f, phi i A musza byc skonczone")
+
 
 def instantaneous_phase(modality: Modality, t) -> np.ndarray:
     """theta(t) = 2*pi*f*t + phi -- argument sinusa z Aksjomatu 4,
@@ -106,14 +110,24 @@ def instantaneous_phase(modality: Modality, t) -> np.ndarray:
     srodku sumy interferencji; to jest ten sam wzor, wyciagniety jako
     samodzielna funkcja fazy chwilowej, potrzebna do mapy f)."""
     t = np.asarray(t, dtype=float)
-    return 2.0 * np.pi * modality.f * t + modality.phi
+    if not np.all(np.isfinite(t)):
+        raise ValueError("t musi zawierac wylacznie skonczone wartosci")
+    with np.errstate(over="ignore", invalid="ignore"):
+        phase = 2.0 * np.pi * modality.f * t + modality.phi
+    if not np.all(np.isfinite(phase)):
+        raise ValueError("obliczona faza przekracza zakres reprezentacji float")
+    return phase
 
 
 def interference(modalities: Sequence[Modality], t) -> np.ndarray:
     """I(t) = sum_i A_i*sin(2*pi*f_i*t+phi_i) -- Aksjomat 4, doslownie."""
     if len(modalities) == 0:
         raise ValueError("interference() wymaga >=1 modalnosci")
+    if any(not isinstance(m, Modality) for m in modalities):
+        raise ValueError("modalities musi zawierac obiekty Modality")
     t = np.asarray(t, dtype=float)
+    if not np.all(np.isfinite(t)):
+        raise ValueError("t musi zawierac wylacznie skonczone wartosci")
     total = np.zeros_like(t)
     for m in modalities:
         total = total + m.A * np.sin(instantaneous_phase(m, t))
@@ -130,7 +144,13 @@ def is_resonant(
     Nierownosci sa SCISLE (<): rownosc dokladnie na progu nie jest
     rezonansem.
     """
-    phase_delta = (m_i.phi - m_j.phi + np.pi) % (2.0 * np.pi) - np.pi
+    if not isinstance(m_i, Modality) or not isinstance(m_j, Modality):
+        raise ValueError("m_i i m_j musza byc obiektami Modality")
+    if not np.all(np.isfinite([eps_f, eps_phi])) or eps_f < 0 or eps_phi < 0:
+        raise ValueError("eps_f i eps_phi musza byc skonczone i >= 0")
+    phase_i = np.remainder(m_i.phi, 2.0 * np.pi)
+    phase_j = np.remainder(m_j.phi, 2.0 * np.pi)
+    phase_delta = (phase_i - phase_j + np.pi) % (2.0 * np.pi) - np.pi
     return abs(m_i.f - m_j.f) < eps_f and abs(phase_delta) < eps_phi
 
 
@@ -147,6 +167,8 @@ def local_time_from_global(local: Modality, global_: Modality, tau_global) -> np
     odwracalnosci/monotonicznosci, ktory byl flagowany jako wymagany w
     dyskusji przed napisaniem tego kodu).
     """
+    if not isinstance(local, Modality) or not isinstance(global_, Modality):
+        raise ValueError("local i global_ musza byc obiektami Modality")
     if local.f == 0:
         raise ValueError(
             "local.f == 0 -- faza lokalna jest stala, mapa f nie jest "
@@ -154,4 +176,8 @@ def local_time_from_global(local: Modality, global_: Modality, tau_global) -> np
         )
     tau_global = np.asarray(tau_global, dtype=float)
     theta_g = instantaneous_phase(global_, tau_global)
-    return (theta_g - local.phi) / (2.0 * np.pi * local.f)
+    with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+        local_time = (theta_g - local.phi) / (2.0 * np.pi * local.f)
+    if not np.all(np.isfinite(local_time)):
+        raise ValueError("mapowany czas lokalny przekracza zakres reprezentacji float")
+    return local_time
