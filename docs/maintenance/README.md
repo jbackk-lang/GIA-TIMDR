@@ -4,7 +4,10 @@ Ten katalog zawiera audyty techniczne i porządkowe repozytorium. Nie jest źró
 
 ## Audyty
 
-- [Audyt porządkowy — 23.11.2026](AUDYT_PORZADKOWY_2026-11-23.md) — zasady bezpiecznego sprzątania, mapa ryzyk i kolejność prac.\n- [Audyt ekstrakcji fazy modalnej — 23.11.2026](AUDYT_EKSTRAKCJI_FAZY_MODALNEJ_2026-11-23.md) — ograniczenia pojedynczego binu FFT, przenoszenia fazy i porównywania stacji.\n- [Audyt workflow GitHub Actions — 23.11.2026](AUDYT_WORKFLOWS_GITHUB_ACTIONS_2026-11-23.md) — 26 konfiguracji, powielone uruchomienia i propozycje ograniczenia kosztu CI.
+- [Audyt porządkowy — 23.11.2026](AUDYT_PORZADKOWY_2026-11-23.md) — zasady bezpiecznego sprzątania, mapa ryzyk i kolejność prac.
+- [Audyt ekstrakcji fazy modalnej — 23.11.2026](AUDYT_EKSTRAKCJI_FAZY_MODALNEJ_2026-11-23.md) — ograniczenia pojedynczego binu FFT, przenoszenia fazy i porównywania stacji.
+- [Audyt workflow GitHub Actions — 23.11.2026](AUDYT_WORKFLOWS_GITHUB_ACTIONS_2026-11-23.md) — 26 konfiguracji, powielone uruchomienia i propozycje ograniczenia kosztu CI.
+- [Audyt dokumentacji i instrukcji AI — 23.11.2026](AUDYT_DOKUMENTACJI_I_INSTRUKCJI_AI_2026-11-23.md) — zakresy skillów, brak globalnego punktu wejścia i bezpieczna korekta duplikatu metadanych.
 
 ## Zasady zmian
 
