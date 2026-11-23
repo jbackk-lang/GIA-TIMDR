@@ -155,7 +155,11 @@ def theoretical_independence_baseline_rate(
     testuje na REALNYCH marginalnych rozkladach, nie na tym zalozeniu.
 
     Dla n=5, K=3 (udokumentowany system) daje ~0.09%, zgodnie z
-    Resonance_M_Operator_Empiryczny.md sekcja 2.
+    Resonance_M_Operator_Empiryczny.md sekcja 2. To przyblizenie jest
+    odpowiednie dla progow odnoszonych do niezaleznego rozkladu
+    populacyjnego/referencyjnego; NIE jest automatycznie poprawnym
+    baseline dla z-score liczonych in-sample z tej samej krotkiej serii,
+    gdzie standaryzowane reszty sa zalezne i ograniczone.
     """
     if n < 1:
         raise ValueError("n musi byc >= 1")
@@ -171,22 +175,40 @@ def theoretical_independence_baseline_rate(
 # ---------------------------------------------------------------------
 
 def compute_anomaly_flags(
-    parameter_series, k: float = 2.0
+    parameter_series, k: float = 2.0, reference_series=None
 ) -> list[np.ndarray]:
-    """Live progi 2-sigma (|x-mean|>k*std) per parametr -- ta sama
-    definicja, ktorej juz uzywaja chronosignal.anomalia_flags (stad
-    importowana, nie duplikowana) i
-    real_weather_resonance_validation.anomaly_flags. Przyjmuje `dict`
-    {nazwa: seria} albo dowolna sekwencje serii -- generyczny interfejs,
-    nie zahardkodowany do pogody.
+    """Progi anomalii per parametr.
+
+    Bez reference_series zachowuje historyczny tryb in-sample (progi z
+    tej samej serii, z ograniczeniem max |z_i|<=sqrt(n-1)). Zalecany
+    tryb predykcyjny przekazuje oddzielne referencje: dict o tych samych
+    kluczach co parameter_series albo sekwencje w tej samej kolejnosci.
     """
     if isinstance(parameter_series, dict):
-        series_list = list(parameter_series.values())
+        keys = list(parameter_series)
+        series_list = [parameter_series[key] for key in keys]
+        if reference_series is None:
+            references = [None] * len(keys)
+        elif isinstance(reference_series, dict):
+            if set(reference_series) != set(keys):
+                raise ValueError("reference_series musi miec te same klucze co parameter_series")
+            references = [reference_series[key] for key in keys]
+        else:
+            raise ValueError("dla slownika parameter_series referencje musza byc slownikiem")
     else:
         series_list = list(parameter_series)
+        if reference_series is None:
+            references = [None] * len(series_list)
+        else:
+            references = list(reference_series)
+            if len(references) != len(series_list):
+                raise ValueError("liczba serii referencyjnych musi odpowiadac liczbie parametrow")
     if len(series_list) < 1:
         raise ValueError("wymagany >=1 parametr")
-    return [anomalia_flags(s, k=k) for s in series_list]
+    return [
+        anomalia_flags(series, k=k, reference_series=reference)
+        for series, reference in zip(series_list, references)
+    ]
 
 
 # ---------------------------------------------------------------------
