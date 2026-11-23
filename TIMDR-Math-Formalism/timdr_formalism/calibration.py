@@ -395,6 +395,7 @@ class CalibrationResult:
     real_event_count: int
     empirical_rate: float
     theoretical_baseline_rate: float
+    baseline_method: str
     deviation: float
     permutation_pvalue: float
     positive_control_pvalue: float
@@ -418,6 +419,7 @@ class CalibrationResult:
             f"{self.real_event_count}/{self.n_timesteps} "
             f"(stopa={self.empirical_rate:.4g})",
             f"Teoretyczna baza niezaleznosci: {self.theoretical_baseline_rate:.4g}",
+            f"Metoda baseline'u: {self.baseline_method}",
             f"Odchylenie (empiryczna - teoretyczna): {self.deviation:.4g}",
             f"p permutacyjne (realne dane): {self.permutation_pvalue:.4g}",
             f"p kontroli pozytywnej (moc): {self.positive_control_pvalue:.4g}",
@@ -603,8 +605,10 @@ def calibrate_resonance_K(
     if p_anomaly is None:
         marginal_rates = [float(f.mean()) for f in flags]
         theoretical_rate = poisson_binomial_independence_baseline_rate(marginal_rates, K)
+        baseline_method = "Poisson-binomial z empirycznych czestosci marginalnych"
     else:
         theoretical_rate = theoretical_independence_baseline_rate(n, K, p_anomaly)
+        baseline_method = f"Binomial ze wspolnym p_anomaly={p_anomaly:.6g}"
     deviation = empirical_rate - theoretical_rate
 
     positive_control_pvalue = _positive_control_pvalue(
@@ -635,6 +639,7 @@ def calibrate_resonance_K(
         real_event_count=real_event_count,
         empirical_rate=empirical_rate,
         theoretical_baseline_rate=theoretical_rate,
+        baseline_method=baseline_method,
         deviation=deviation,
         permutation_pvalue=permutation_pvalue,
         positive_control_pvalue=positive_control_pvalue,
