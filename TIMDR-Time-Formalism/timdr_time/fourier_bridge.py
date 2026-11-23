@@ -166,23 +166,41 @@ def temporal_spread(x: Sequence[float], dt: float) -> Tuple[float, float]:
     return t_mean, float(np.sqrt(t_var))
 
 
-def spectral_spread(modalities: Sequence[_Modality]) -> Tuple[float, float]:
-    """(0.0, Delta_f) -- odchylenie standardowe rozkladu energii A_k^2
-    WOKOL ZERA (nie wokol jednostronnej sredniej -- patrz uzasadnienie
-    w naglowku modulu: zero jest fizycznie poprawnym srodkiem pelnego,
-    dwustronnego widma kazdego sygnalu rzeczywistego). Pierwszy element
-    krotki jest zawsze 0.0, zwrocony tylko dla symetrii API z
-    temporal_spread()."""
+def spectral_spread(
+    modalities: Sequence[_Modality], nyquist_frequency: float | None = None
+) -> Tuple[float, float]:
+    """(0.0, Delta_f) -- energetyczne odchylenie widma wokol zera.
+
+    Dla amplitud z jednostronnego rFFT wagi energii nie sa po prostu A**2:
+    skladowe wewnetrzne reprezentuja pary +/-f, wiec ich waga jest A**2/2.
+    DC i bin Nyquista (jesli istnieje) nie maja partnera i zachowuja wage
+    A**2. ``nyquist_frequency`` nalezy podac dla widma rFFT z parzysta
+    liczba probek; bez niego wszystkie dodatnie czestotliwosci sa
+    traktowane jako biny wewnetrzne. Dla dowolnej listy modalnosci K
+    przekazanej bez informacji o pochodzeniu z rFFT stosowana jest ta
+    sama jawna konwencja: dodatnie czestotliwosci maja wage A**2/2.
+
+    Wariancja jest liczona wokol zera, zgodnie z symetria pelnego widma
+    rzeczywistego sygnalu. Pierwszy element krotki pozostaje 0.0 dla
+    symetrii API z temporal_spread().
+    """
     if len(modalities) == 0:
         raise ValueError("pusta lista modalnosci")
     f = np.array([m.f for m in modalities], dtype=float)
-    weights = np.array([m.A ** 2 for m in modalities], dtype=float)
+    amplitudes = np.array([m.A for m in modalities], dtype=float)
+    weights = 0.5 * amplitudes ** 2
+    dc = np.isclose(f, 0.0, rtol=0.0, atol=1e-15)
+    weights[dc] = amplitudes[dc] ** 2
+    if nyquist_frequency is not None:
+        if not np.isfinite(nyquist_frequency) or nyquist_frequency <= 0.0:
+            raise ValueError("nyquist_frequency musi byc dodatnie i skonczone")
+        nyquist = np.isclose(np.abs(f), nyquist_frequency, rtol=1e-12, atol=1e-15)
+        weights[nyquist] = amplitudes[nyquist] ** 2
     total = float(weights.sum())
     if total <= 0.0:
         raise ValueError("wszystkie amplitudy zerowe -- rozklad energii w częstotliwości niezdefiniowany")
     f_var = float(np.sum((f ** 2) * weights) / total)
     return 0.0, float(np.sqrt(f_var))
-
 
 def time_bandwidth_product(x: Sequence[float], dt: float, include_dc: bool = False) -> float:
     """Delta_t * Delta_f -- iloczyn czas-pasmo, ilosciowa tresc zasady
@@ -192,5 +210,7 @@ def time_bandwidth_product(x: Sequence[float], dt: float, include_dc: bool = Fal
     tests/test_fourier_bridge.py) -- ta funkcja tylko liczy sam iloczyn."""
     modalities, _ = fft_modalities(x, dt, include_dc=include_dc)
     _, delta_t = temporal_spread(x, dt)
-    _, delta_f = spectral_spread(modalities)
+    n = np.asarray(x).size
+    nyquist = 1.0 / (2.0 * dt) if n % 2 == 0 else None
+    _, delta_f = spectral_spread(modalities, nyquist_frequency=nyquist)
     return delta_t * delta_f
