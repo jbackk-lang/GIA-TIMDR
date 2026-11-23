@@ -96,19 +96,33 @@ def drift(timestamps: Sequence[float], nominal_interval: float) -> np.ndarray:
 # Detektory na dowolnym skalarnym sygnale x:T->R (tu: tempo()/drift())
 # ---------------------------------------------------------------------
 
-def anomalia_flags(series: Sequence[float], k: float = 2.0) -> np.ndarray:
-    """|x - mean| > k*std -- maska tej samej dlugosci co `series`.
-    Ta sama definicja co `anomaly_flags` w
-    examples/real_weather_resonance_validation.py.
+def anomalia_flags(
+    series: Sequence[float],
+    k: float = 2.0,
+    reference_series: Optional[Sequence[float]] = None,
+) -> np.ndarray:
+    """Wykrywa |x - mean(reference)| > k*std(reference).
+
+    Gdy reference_series=None, zachowuje historyczny tryb in-sample:
+    srednia i odchylenie sa liczone z tego samego wektora. Ten tryb ma
+    ograniczenie samowplywu: dla n<=5 i k=2 zaden element nie moze
+    przekroczyc progu (max |z_i| <= sqrt(n-1)). Dla krotkich okien
+    zalecany jest oddzielny reference_series, niezalezny od ocenianych
+    probek. Gdy odchylenie referencji wynosi zero, kazda niezerowa
+    roznica od stalej referencji jest flaga (scisly prog > 0).
     """
     s = _finite_series(series, "series")
-    if s.size < 2:
-        raise ValueError("anomalia_flags() wymaga >= 2 elementow")
+    if s.size < 1:
+        raise ValueError("anomalia_flags() wymaga >= 1 elementu")
     if not np.isfinite(k) or k < 0:
         raise ValueError("k musi byc skonczone i >= 0")
-    m, sd = s.mean(), s.std()
-    if sd == 0.0:
-        return np.zeros(s.shape, dtype=bool)
+    if reference_series is None:
+        reference = s
+    else:
+        reference = _finite_series(reference_series, "reference_series")
+        if reference.size < 2:
+            raise ValueError("reference_series wymaga >= 2 elementow")
+    m, sd = reference.mean(), reference.std()
     return np.abs(s - m) > k * sd
 
 
