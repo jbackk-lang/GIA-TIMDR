@@ -26,7 +26,7 @@ from timdr_time.fourier_bridge import (
     spectral_spread,
     time_bandwidth_product,
 )
-from timdr_modal import interference
+from timdr_modal import Modality, interference
 
 
 # ---------------------------------------------------------------------
@@ -230,3 +230,13 @@ def test_temporal_spread_scales_large_finite_amplitudes_without_overflow():
 def test_fft_modalities_rejects_spectrum_that_overflows_float_range():
     with pytest.raises(ValueError):
         fft_modalities([1e308, 1e308], dt=1.0)
+
+
+def test_spectral_spread_does_not_misclassify_small_positive_frequency_as_dc():
+    modalities = [
+        Modality(f=1e-16, phi=0.0, A=2.0),
+        Modality(f=1.0, phi=0.0, A=1.0),
+    ]
+    _, delta_f = spectral_spread(modalities)
+    expected = np.sqrt(0.5 / 2.5)
+    assert delta_f == pytest.approx(expected, rel=1e-12)
