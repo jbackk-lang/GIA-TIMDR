@@ -1,14 +1,13 @@
 """
 tests/test_geometry_weingarten.py
 
-Testy stabilności dyskretnego operatora Weingartena (Aksjomaty G8-G9,
-`GIA-TIMDR/docs/theory/Axioms_G_TIMDR_Geometry.md`) na trzech
-przypadkach znanych analitycznie (płaszczyzna, sfera, walec) plus test
-zbieżności przy zagęszczaniu siatki. Dokładnie te cztery testy, które
-Aksjomat G7c wymienia jako brakujące (implementacja numeryczna + jej
-weryfikacja) — z zastrzeżeniem, że to weryfikacja NA PRZYPADKACH
-SYNTETYCZNYCH o znanej odpowiedzi, nie na rzeczywistych danych
-geometrycznych (G7c(3) pozostaje otwarte).
+Testy dyskretnego operatora Weingartena (Aksjomaty G8-G9) obejmują
+przypadki znane analitycznie (płaszczyzna, sfera, walec), zbieżność
+przy zagęszczaniu siatki, konwencję znaku krzywizny oraz walidację
+siatek i wejść operatora. Pełny zestaw Geometry przeszedł w GitHub
+Actions dla commitu `93445b81` — 123 passed. Jest to weryfikacja na
+przypadkach syntetycznych o znanej odpowiedzi, nie walidacja
+empiryczna na rzeczywistych danych geometrycznych.
 
 STATUS WYKONANIA: zestaw geometrii (w tym ten moduł) przeszedł
 w GitHub Actions dla commitu `93445b81`, w kroku
