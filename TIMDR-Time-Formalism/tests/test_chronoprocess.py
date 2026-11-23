@@ -126,3 +126,8 @@ def test_phi_interference_matches_interference_directly():
 def test_rejects_nonfinite_or_nonincreasing_carrier(carrier):
     with pytest.raises(ValueError):
         Chronoprocess(T=carrier)
+
+
+def test_rejects_carrier_with_unrepresentable_interval():
+    with pytest.raises(ValueError):
+        Chronoprocess(T=[-1e308, 1e308])
