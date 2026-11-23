@@ -12,9 +12,10 @@ Dwie kategorie:
      okno FFT odchyla wynik od granicy ciaglej), zgodnie z konwencja
      ustalona juz w tests/test_geometry_weingarten.py.
 
-UWAGA: ten plik zostal odtad faktycznie uruchomiony przez uzytkownika
-(`pytest tests/test_fourier_bridge.py -v`) -- ZWERYFIKOWANE, 10/10
-testow przeszlo.
+UWAGA: aktualny zestaw zawiera 12 testow. Wszystkie przeszly w
+GitHub Actions w kroku `Test Time formalism and Fourier bridge` dla
+commitu `6adeb712`. Wynik CI potwierdza testy tego zestawu, nie jest
+samodzielnym dowodem poprawnosci calej teorii Fouriera w TIMDR.
 """
 import numpy as np
 import pytest
