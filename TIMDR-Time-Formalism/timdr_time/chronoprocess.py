@@ -105,8 +105,10 @@ class Chronoprocess:
             raise ValueError("Chronoproces wymaga >= 2 punktow nosnika T")
         if not np.all(np.isfinite(self.T)):
             raise ValueError("T musi zawierac wylacznie skonczone znaczniki")
-        if np.any(np.diff(self.T) <= 0):
-            raise ValueError("T musi byc scisle rosnacym nosnikiem czasu")
+        with np.errstate(over="ignore", invalid="ignore"):
+            intervals = np.diff(self.T)
+        if not np.all(np.isfinite(intervals)) or np.any(intervals <= 0):
+            raise ValueError("T musi miec skonczone, scisle dodatnie odstepy czasu")
 
     # ------------------------------------------------------------
     # Rzut M/S -- tempo/drift (TIMDR-Math-Formalism.chronosignal)
