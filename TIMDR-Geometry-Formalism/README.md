@@ -76,7 +76,7 @@ G7c — na przypadkach znanych analitycznie:
 | `TestCylinder` | walec promienia r | magnituda jednej krzywizny `≈0` (oś), drugiej `≈1/r` (obwód); znak zależy od orientacji normalnej |
 | `TestMeshRefinement` | sfera, rosnąca rozdzielczość | błąd krzywizny i błąd `T_S_predicted` vs `T_S_empirical` maleją przy zagęszczaniu siatki |
 
-**Status aktualny:** historyczne 17/17 nie opisuje pełnego obecnego zestawu. Katalog `tests/` zawiera 7 modułów i 84 funkcji `test_*` (testy parametryzowane mogą dawać większą liczbę przypadków pytest). Pełny zestaw przeszedł w GitHub Actions dla commitu `ec28c9bb`, w kroku `Test Geometry formalism`: **123 passed**. Obejmuje to również regresje walidacji indeksów, skończoności współrzędnych i degeneracji trójkątów. Jest to potwierdzenie testów numerycznych na przypadkach syntetycznych, nie walidacja empiryczna na rzeczywistych danych geometrycznych.
+**Status aktualny:** historyczne 17/17 nie opisuje pełnego obecnego zestawu. Katalog `tests/` zawiera 7 modułów i 80 funkcji `test_*` (testy parametryzowane mogą dawać większą liczbę przypadków pytest). Pełny zestaw przeszedł w GitHub Actions dla commitu `ec28c9bb`, w kroku `Test Geometry formalism`: **123 passed**. Obejmuje to również regresje walidacji indeksów, skończoności współrzędnych i degeneracji trójkątów. Jest to potwierdzenie testów numerycznych na przypadkach syntetycznych, nie walidacja empiryczna na rzeczywistych danych geometrycznych.
 
 ## 🌀 Kongruencja Γ(t,s) dla chronoprocesu — `timdr_geometry.chronocongruence`
 
