@@ -37,7 +37,7 @@ i nie jest objęty tym wynikiem CI.
 """
 from __future__ import annotations
 
-from typing import Sequence
+from typing import Optional, Sequence
 
 import numpy as np
 
