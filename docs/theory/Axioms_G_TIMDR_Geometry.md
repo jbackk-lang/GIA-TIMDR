@@ -74,11 +74,11 @@ T_S(p,\Delta p) = \|n(p+\Delta p) - n(p)\|
 gdzie \(\Delta p\) jest lokalnym przesunięciem wzdłuż powierzchni.
 Wartość zależy zarówno od punktu, jak i od wybranego przesunięcia.
 
-- **(G3a)** Skręt \(T_S(p)\) jest dobrze określony prawie wszędzie na
+- **(G3a)** Skręt \(T_S(p, \Delta p)\) jest dobrze określony prawie wszędzie na
   \(S\).
-- **(G3b)** \(T_S(p) = 0\) oznacza lokalny brak zmiany orientacji
+- **(G3b)** \(T_S(p, \Delta p) = 0\) oznacza lokalny brak zmiany orientacji
   (brak skrętu).
-- **(G3c)** Dodatnie wartości \(T_S(p) > 0\) oznaczają lokalną zmianę
+- **(G3c)** Dodatnie wartości \(T_S(p, \Delta p) > 0\) oznaczają lokalną zmianę
   orientacji powierzchni (skręt).
 - **(G3d)** Skręt powierzchniowy jest własnością pola normalnych, nie
   torsji krzywej — gałąź G nie utożsamia \(T_S\) z \(\tau\) krzywej 1D.
@@ -125,7 +125,7 @@ właściwy operator matematyczny, nie tylko wyrażenie.
 - **(G8b) Przeciwdziedzina jest ograniczona.** Ponieważ
   \(n(p), n(p+\Delta p) \in \mathbb{S}^2\) (wektory jednostkowe), z
   nierówności trójkąta na sferze jednostkowej wynika
-  \(T_S(p) \in [0, 2]\) dla każdego dopuszczalnego \((p,\Delta p)\) —
+  \(T_S(p, \Delta p) \in [0, 2]\) dla każdego dopuszczalnego \((p,\Delta p)\) —
   \(T_S\) nie tylko jest nieujemny (G3c), ale ma jawnie skończony,
   uniwersalny (niezależny od \(S\)) zakres.
 - **(G8c) Ciągłość w granicy \(\Delta p \to 0\).** Jeśli pole
@@ -196,19 +196,24 @@ zastrzeżeniu na końcu.
 - **(G9c) Jawna postać \(F\) domykająca G4b.** Z rozwinięcia Taylora
   pola normalnych do pierwszego rzędu:
   \[
-  T_S(p) = \|n(p+\Delta p) - n(p)\| =
-  \|\Delta p\| \cdot \|S_p(\widehat{\Delta p})\| + O(\|\Delta p\|^2)
+  T_S(p, \Delta p) = \|n(p+\Delta p) - n(p)\| =
+  \|v\| \cdot \|S_p(\hat v)\| + O(\|\Delta p\|^2),
+  \qquad
+  v=\Pi_{T_pS}\Delta p,\quad \hat v=v/\|v\|.
   \]
-  gdzie \(\widehat{\Delta p} = \Delta p / \|\Delta p\|\). To definiuje
+  Wektor \(v\) jest styczną składową przesunięcia; wzór dotyczy
+  \(v\ne0\) i małych przesunięć po regularnej powierzchni. To definiuje
   \(F\) z G4b jawnie:
   \[
-  F(W_S)(p,\Delta p) := \|\Delta p\| \cdot \|S_p(\widehat{\Delta p})\|
+  F(W_S)(p,\Delta p) := \|v\| \cdot \|S_p(\hat v)\|,
+  \qquad v=\Pi_{T_pS}\Delta p.
   \]
-  z \(T_S(p) = F(W_S)(p,\Delta p) + O(\|\Delta p\|^2)\).
+  Ponieważ \(\|v\|\leq\|\Delta p\|\), G9d daje ograniczenie przez
+  \(\kappa_{\max}\|\Delta p\|\) z błędem drugiego rzędu.
 - **(G9d) Ograniczenie przez krzywizny główne.** Ponieważ
   \(\|S_p(v)\| \leq \kappa_{\max}(p)\) dla jednostkowego \(v\) (z
   definicji wartości własnych), zachodzi
-  \(T_S(p) \leq \kappa_{\max}(p)\cdot\|\Delta p\| + O(\|\Delta p\|^2)\)
+  \(T_S(p, \Delta p) \leq \kappa_{\max}(p)\cdot\|\Delta p\| + O(\|\Delta p\|^2)\)
   — dokładnie ograniczenie użyte w G8d.
 
 *(**Zastrzeżenie o zakresie domknięcia.** G9a-G9d mają wyprowadzenie
