@@ -39,19 +39,31 @@ warunkiem technicznym.
 ---
 
 # Aksjomat 2 — Próg definiuje operator anomalii
-**EN:** A threshold, calibrated live from the same window, defines the
-per-parameter anomaly operator.
-**PL:** Próg, kalibrowany na żywo z tego samego okna, definiuje operator
-anomalii dla pojedynczego parametru.
+**EN:** A reference-calibrated threshold defines the per-parameter
+anomaly operator; the reference window is explicit.
+**PL:** Próg anomalii jest kalibrowany względem jawnego okna
+referencyjnego, odrębnego od ocenianych próbek.
 
 \[
-\mathbb{A}_i(x_i)(t) = \mathbb{1}\left[\, |x_i(t) - \mu_i| > 2\sigma_i \,\right],
-\quad \mu_i = \text{mean}(x_i),\ \sigma_i = \text{std}(x_i)
+\mathbb{A}_i(x_i;r_i)(t) =
+\mathbb{1}\left[\, |x_i(t) - \mu(r_i)| > 2\sigma(r_i) \,\right],
+\quad \mu(r_i)=\operatorname{mean}(r_i),\
+\sigma(r_i)=\operatorname{std}(r_i)
 \]
 
-Próg NIE jest stałą uniwersalną — jest liczony z danych, zgodnie z
-zasadą "kalibracja live, stała tylko jako ostateczność" (patrz
-`analyzer/adaptive_thresholds.py` w ekosystemie).
+Okno referencyjne powinno być niezależne od ocenianych próbek, aby
+ograniczyć samowpływ obserwacji na własny próg. Historyczny tryb
+in-sample pozostaje dostępny jako szczególny przypadek \(r_i=x_i\),
+ale ma ścisłe ograniczenie: dla populacyjnego odchylenia standardowego
+(ddof=0) zachodzi
+\[
+\max_j \frac{|x_{i,j}-\bar{x}_i|}{\sigma_i}\leq\sqrt{m-1},
+\]
+gdzie \(m\) jest liczbą próbek. Zatem przy progu 2σ i ścisłej
+nierówności \(>\), dla \(m\leq5\) żaden punkt nie zostanie oznaczony
+jako anomalia. Funkcja \`anomalia_flags\` zachowuje ten historyczny
+tryb, gdy nie podano \`reference_series\`; dla krótkich okien należy
+przekazać niezależną referencję.
 
 ---
 
@@ -102,22 +114,35 @@ sekcja 5.
 ---
 
 # Aksjomat 5 — Operator rezonansu sygnałowego jest ciągły prawie wszędzie
-**EN:** `𝓡_sig` is continuous everywhere except on a measure-zero set of
-threshold-boundary points.
-**PL:** `𝓡_sig` jest ciągły wszędzie poza zbiorem miary zero — punktami
-leżącymi dokładnie na granicy progu.
+**EN:** The in-sample threshold operator is continuous outside its
+threshold-boundary algebraic sets, under a nondegenerate absolutely
+continuous joint input distribution.
+**PL:** Operator progowy in-sample jest ciągły poza algebraicznymi
+zbiorami granicznymi, przy nieosobliwym, absolutnie ciągłym łącznym
+rozkładzie wejściowych wektorów próbek.
 
+Dla parametru \(i\) i okna \(X_i=(x_{i,1},\ldots,x_{i,m})\), w trybie
+in-sample z \(\mu_i=\operatorname{mean}(X_i)\) oraz
+\(\sigma_i=\operatorname{std}(X_i)\), granice nieciągłości są zawarte
+w zbiorze
 \[
-\text{Disc}(\mathcal{R}_{\text{sig}}) \subseteq \bigcup_{i=1}^{n} \{x_i : x_i = \mu_i \pm 2\sigma_i\}, \quad \mu\left(\bigcup_i \{\cdot\}\right) = 0
+B=\bigcup_{i,j}
+\left\{X:\ (x_{i,j}-\mu_i(X_i))^2-4\sigma_i(X_i)^2=0\right\}.
 \]
+Dla \(m\leq5\) wszystkie flagi 2σ są identycznie fałszywe (patrz
+ograniczenie w Aksjomacie 2), więc operator jest stały i ciągły.
+Dla \(m\geq6\) równania graniczne są niezerowymi wielomianami w
+skończonej przestrzeni próbek; ich zbiory zerowe mają miarę Lebesgue'a
+zero. Skończona suma takich zbiorów również ma miarę zero, zatem
+prawdopodobieństwo nieciągłości wynosi zero, jeśli łączny rozkład
+wejścia jest absolutnie ciągły względem miary Lebesgue'a.
 
-Dowód: `𝔸_i` to funkcja wskaźnikowa zbioru domkniętego o brzegu miary
-zero (dla ciągłego rozkładu `x_i`); suma skończenie wielu takich
-operatorów i próg `≥K` mają zbiór nieciągłości będący skończoną sumą
-zbiorów miary zero. Pełny wywód: `Resonance_M_Operator_Empiryczny.md`
-sekcja 1.1. Ten wynik mówi o **stabilności klasyfikacji** wobec
-drobnego szumu pomiarowego — nie mówi nic o tym, czy `𝓡_sig` wykrywa
-cokolwiek ponad przypadek (to Aksjomat 8-9 poniżej, kwestia empiryczna).
+To zastrzeżenie jest istotne: sama ciągłość rozkładów marginalnych
+\(x_{i,j}\) nie wystarcza, jeśli wspólny rozkład próbek jest osobliwy
+lub ma atomy na granicy. Dla dyskretnych danych nie ma ogólnej
+gwarancji prawie-pewnej ciągłości. Twierdzenie mówi o stabilności
+klasyfikacji poza granicami progowymi, nie o skuteczności detekcji
+anomalii ani o zgodności z teoretycznym ogonem \(P(|Z|>2)\).
 
 ---
 
