@@ -26,6 +26,7 @@ Stan mapy: 23 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 | [TIMDR-Geometry-Formalism](TIMDR-Geometry-Formalism/) | Gałąź geometryczna G | Podkatalog włączony przez `git subtree` |
 | [TIMDR-Modal-Formalism](TIMDR-Modal-Formalism/) | Gałąź modalna K | Podkatalog włączony przez `git subtree` |
 | [TIMDR-Time-Formalism](TIMDR-Time-Formalism/) | Chronoproces i most Fouriera | Podkatalog włączony przez `git subtree` |
+| [Archiwum propozycji chirality: PR #1 i PR #2](https://github.com/jbackk-lang/GIA-TIMDR/pulls?q=is%3Apr+is%3Aclosed+1%2C2) | Dawna propozycja operatora spektralnego i protokół pamięci helikalnej | Zamknięte bez scalania 23.11.2026; zachowane jako materiał archiwalny, nie aktywny zakres prac |
 | [MAGE-IN-IMAGE-DECODER](MAGE-IN-IMAGE-DECODER/) | Kopia trzech modułów obrazu/wideo | Nie zawiera pełnych danych ani historii repo źródłowego |
 | [timdr_visualizer](timdr_visualizer/) i [filters](filters/) | Narzędzia pomocnicze | Nie są dodatkowymi gałęziami |
 | [TIMDR-fusion-tools](https://github.com/jbackk-lang/TIMDR-fusion-tools) | Osobne repo aplikacyjne: diagnostyka plazmy TCABR | Nie jest podkatalogiem ani piątą gałęzią formalną; wyniki i dane czytać w jego README |
