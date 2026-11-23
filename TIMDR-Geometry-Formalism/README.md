@@ -72,12 +72,11 @@ G7c — na przypadkach znanych analitycznie:
 | Test | Siatka | Oczekiwany wynik |
 |---|---|---|
 | `TestPlane` | płaszczyzna | `S_p≡0`, `T_S≡0` wszędzie |
-| `TestSphere` | sfera promienia R | obie krzywizny główne `≈1/R`, `K=κ1κ2≈1/R²>0` |
-| `TestCylinder` | walec promienia r | jedna krzywizna `≈0` (oś), druga `≈1/r` (obwód) |
+| `TestSphere` | sfera promienia R | magnitudy obu krzywizn głównych `≈1/R`, `K=κ1κ2≈1/R²>0` (same krzywizny są ujemne przy konwencji `S_p=-D_v n`) |
+| `TestCylinder` | walec promienia r | magnituda jednej krzywizny `≈0` (oś), drugiej `≈1/r` (obwód); znak zależy od orientacji normalnej |
 | `TestMeshRefinement` | sfera, rosnąca rozdzielczość | błąd krzywizny i błąd `T_S_predicted` vs `T_S_empirical` maleją przy zagęszczaniu siatki |
 
-**✅ Zweryfikowane.** `pytest tests/ -v` — 17/17 testów przeszło
-(w tym te cztery testy stabilności Weingartena).
+**Wynik historyczny:** w zapisanym wcześniej przebiegu odnotowano 17/17 testów PASS, w tym testy stabilności Weingartena. Nie traktuj tej liczby jako wyniku pełnego, aktualnego katalogu `tests/`: obecnie zawiera on 7 modułów testowych i 72 funkcje `test_*` (testy parametryzowane mogą być liczone przez pytest jako większa liczba przypadków). Pełny bieżący wynik wymaga ponownego uruchomienia `pytest tests/ -v`; nie deklarujemy go na podstawie historycznego raportu.
 
 ## 🌀 Kongruencja Γ(t,s) dla chronoprocesu — `timdr_geometry.chronocongruence`
 
