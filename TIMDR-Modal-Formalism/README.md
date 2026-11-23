@@ -72,7 +72,7 @@ dowolnej pary modalności i dowolnego `τ_globalne`,
 dokładnie definiująca właściwość mapy `f`, nie tylko przypadek
 brzegowy.
 
-**Wynik historyczny:** zapisano wcześniej 17/17 testów PASS oraz poprawkę testu `test_is_resonant_frequency_at_threshold_is_false` (problem z reprezentacją `1.0+1e-6` w arytmetyce zmiennoprzecinkowej, nie błąd `is_resonant()`). Ten wynik dotyczy wcześniejszego zakresu. Aktualny katalog `tests/` zawiera dwa moduły testowe z łącznie 34 funkcjami `test_*` (17 w `test_phase_sync.py` i 17 w `test_real_data_validation.py`). Nie należy przedstawiać historycznego 17/17 jako wyniku pełnego aktualnego zestawu; wymaga on ponownego uruchomienia `pytest tests/ -v`.
+**Status aktualny:** historyczne 17/17 dotyczyło wcześniejszego zakresu. Obecny katalog `tests/` zawiera dwa moduły z 34 funkcjami `test_*` (17 w `test_phase_sync.py` i 17 w `test_real_data_validation.py`). Pełny zestaw przeszedł w GitHub Actions dla commitu `6adeb712`, w kroku `Test Modal formalism`. Wynik potwierdza testy implementacji i walidacji w zakresie opisanym w tym repo; nie rozszerza automatycznie wniosków empirycznych poza badane dane.
 
 ## 🌍 Walidacja na realnych danych + kalibracja
 
