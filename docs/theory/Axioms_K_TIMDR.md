@@ -151,7 +151,7 @@ Most Fouriera (`Δt·Δf=1/(4π)`,
 między gałęziami TIMDR. Jego zakres jest jawnie ograniczony: równość
 `Δt·Δf=1/(4π)` jest MATEMATYCZNIE dokładna tylko dla pojedynczego,
 idealnego impulsu gaussowskiego. Aktualny zestaw 12 testów mostu
-Fouriera przeszedł w GitHub Actions dla commitu `6adeb712` (krok
+Fouriera przeszedł w GitHub Actions dla commitu `7bcf12ef` (krok
 `Test Time formalism and Fourier bridge`); wynik CI potwierdza
 implementację w zakresie testów, nie dowodzi szerszej hipotezy.
 
