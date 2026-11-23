@@ -282,3 +282,45 @@ def test_mesh_rejects_geometrically_degenerate_triangle():
             vertices=[[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [2.0, 0.0, 0.0]],
             faces=[[0, 1, 2]],
         )
+
+
+def test_shape_operator_rejects_out_of_range_or_noninteger_point_index():
+    mesh = make_plane_mesh(n=5, size=1.0)
+    normals = vertex_normals(mesh)
+    rings = one_ring(mesh)
+    for idx in (-1, mesh.n_vertices, 1.5, True):
+        with pytest.raises(ValueError):
+            discrete_shape_operator(mesh, normals, idx, rings)
+
+
+def test_shape_operator_rejects_malformed_or_nonfinite_normals():
+    mesh = make_plane_mesh(n=5, size=1.0)
+    normals = vertex_normals(mesh)
+    bad_shape = normals[:-1]
+    with pytest.raises(ValueError):
+        discrete_shape_operator(mesh, bad_shape, 12)
+    bad_values = normals.copy()
+    bad_values[0, 0] = np.nan
+    with pytest.raises(ValueError):
+        discrete_shape_operator(mesh, bad_values, 12)
+
+
+def test_shape_operator_normalizes_neighbor_normals_before_fitting():
+    mesh = make_sphere_mesh(n_lat=12, n_lon=16, radius=2.0)
+    normals = vertex_normals(mesh)
+    rings = one_ring(mesh)
+    idx = 5 * 16 + 4
+    baseline = discrete_shape_operator(mesh, normals, idx, rings)
+    scaled = discrete_shape_operator(mesh, normals * 3.0, idx, rings)
+    np.testing.assert_allclose(
+        scaled.principal_curvatures, baseline.principal_curvatures, atol=1e-10
+    )
+
+
+def test_shape_operator_rejects_invalid_neighbor_index():
+    mesh = make_plane_mesh(n=5, size=1.0)
+    normals = vertex_normals(mesh)
+    rings = one_ring(mesh)
+    rings[12].add(mesh.n_vertices + 1)
+    with pytest.raises(ValueError):
+        discrete_shape_operator(mesh, normals, 12, rings)
