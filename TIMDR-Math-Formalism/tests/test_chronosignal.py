@@ -237,3 +237,31 @@ def test_defekt_flags_detects_rare_jump_when_percentile_spread_is_zero():
 def test_tempo_rejects_finite_timestamps_with_unrepresentable_difference():
     with pytest.raises(ValueError):
         tempo([-1e308, 1e308])
+
+
+# ---------------------------------------------------------------------
+# Anomalia: ograniczenie in-sample i niezalezny baseline referencyjny
+# ---------------------------------------------------------------------
+
+def test_two_sigma_in_sample_cannot_flag_any_point_for_five_or_fewer_samples():
+    # Dla z_i=(x_i-mean(x))/std(x) zachodzi max|z_i|<=sqrt(n-1).
+    # Przy n=5 maksimum wynosi dokładnie 2, a operator uzywa scislego >2.
+    for n in range(2, 6):
+        series = [0.0] * (n - 1) + [100.0]
+        assert not anomalia_flags(series, k=2.0).any()
+
+
+def test_reference_baseline_detects_outlier_in_short_evaluation_window():
+    reference = [0.0, 0.0, 0.0, 0.0, 0.0]
+    evaluation = [0.0, 0.0, 100.0]
+    np.testing.assert_array_equal(
+        anomalia_flags(evaluation, k=2.0, reference_series=reference),
+        np.array([False, False, True]),
+    )
+
+
+def test_constant_reference_still_detects_nonzero_deviation():
+    np.testing.assert_array_equal(
+        anomalia_flags([0.0, 0.0, 10.0], reference_series=[0.0, 0.0, 0.0]),
+        np.array([False, False, True]),
+    )
