@@ -27,7 +27,7 @@ Zweryfikowano wszystkie 52 wpisy mapy: wszystkie 52 pliki-adaptery są zarejestr
 ### 2. Dwa pliki puste (0 bajtów)
 
 - `filters/__init__.py` — pusty znacznik pakietu Pythona. Pusty plik może być celowy i wpływa na rozpoznawanie pakietu w starszych środowiskach oraz narzędziach. **Zachować.**
-- `docs/research/info_geometry/selective_clock_distractors.py` — pusty plik o nazwie sugerującej kod eksperymentalny, umieszczony w dokumentacji badań. Nie ma podstaw, by uznać go za martwy bez prześledzenia historii i odwołań w zewnętrznych narzędziach. **Nie usuwać w tym audycie; oznaczyć do osobnej kontroli pochodzenia i użycia.**
+- `docs/research/info_geometry/selective_clock_distractors.py` — pusty plik o nazwie sugerującej kod eksperymentalny. Historia Git wskazuje commit `cf604312` z komunikatem `research: placeholder` z 14.11.2026. To świadomy placeholder, nie przypadkowy duplikat. **Zachować do czasu, gdy badanie zostanie wdrożone albo jawnie zamknięte.**
 
 ### 3. Czy znaleziono bezpieczne usunięcia?
 
@@ -42,4 +42,4 @@ Nie. Jedyna duża grupa identycznych plików to jawne adaptery zgodności; drugi
 
 ## Ograniczenia
 
-GitHub code search nie zwrócił wiarygodnych wyników referencji dla badanych nazw, więc nie potraktowano go jako dowodu braku użycia. Audyt potwierdza istnienie celów adapterów, ale nie jest pełnym przeszukaniem wszystkich repozytoriów zewnętrznych ani lokalnych kopii użytkowników. Nie uruchamiano eksperymentów ani testów numerycznych, ponieważ ten etap dotyczył wyłącznie struktury i identyczności plików.
+GitHub code search nie zwrócił wiarygodnych wyników referencji dla badanych nazw, więc nie potraktowano go jako dowodu braku użycia. Historia `filters/__init__.py` prowadzi do commita z 12.09.2026 związanego z odzyskaniem poprawionego GIAFilter; pusty plik pozostaje poprawnym znacznikiem pakietu. Audyt potwierdza istnienie celów adapterów, ale nie jest pełnym przeszukaniem wszystkich repozytoriów zewnętrznych ani lokalnych kopii użytkowników. Nie uruchamiano eksperymentów ani testów numerycznych, ponieważ ten etap dotyczył wyłącznie struktury i identyczności plików.
