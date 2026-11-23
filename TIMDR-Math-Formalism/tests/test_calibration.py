@@ -94,6 +94,13 @@ def test_compute_anomaly_flags_rejects_empty_input():
         compute_anomaly_flags([])
 
 
+def test_compute_anomaly_flags_supports_independent_reference_dict():
+    evaluation = {"pressure": [0.0, 0.0, 100.0]}
+    reference = {"pressure": [0.0, 0.0, 0.0, 0.0]}
+    flags = compute_anomaly_flags(evaluation, reference_series=reference)
+    np.testing.assert_array_equal(flags[0], np.array([False, False, True]))
+
+
 # ---------------------------------------------------------------------
 # _decide_calibration -- logika czysta, recznie dobrane liczby
 # ---------------------------------------------------------------------
