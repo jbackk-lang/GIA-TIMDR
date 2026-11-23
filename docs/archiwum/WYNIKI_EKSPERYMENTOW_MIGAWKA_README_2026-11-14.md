@@ -1,6 +1,6 @@
 # Szczegółowe zestawienie eksperymentów — migawka README
 
-> Historyczny zapis tabeli i interpretacji wyników przeniesiony z głównego README podczas porządkowania nawigacji (14 listopada 2026). Werdykty i liczby pozostawiono bez zmian. Aktualny stan: [STAN_PROJEKTU.md](../../STAN_PROJEKTU.md). Linki do plików lokalnych przeliczono względem położenia w archiwum.
+> Historyczny zapis tabeli i interpretacji wyników przeniesiony z głównego README podczas porządkowania nawigacji (14 listopada 2026). Werdykty i liczby pozostawiono bez zmian. To migawka historyczna z 14.11.2026; bieżący punkt wejścia: [główny README](../../README.md), a szczegóły: źródłowe dokumenty PREREG/RESULT i datowane checkpointy. [STAN_PROJEKTU.md](../../STAN_PROJEKTU.md) jest migawką z 30.09.2026, nie aktualnym statusem. Linki do plików lokalnych przeliczono względem położenia w archiwum.
 
 ## Czym TIMDR jest, a czym nie jest (stan 2026-09-26)
 
