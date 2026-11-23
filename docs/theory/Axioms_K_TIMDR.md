@@ -150,8 +150,10 @@ Most Fouriera (`Δt·Δf=1/(4π)`,
 `x(t)` przez FFT — to jedyny wyjątek od zasady zerowej identyfikacji
 między gałęziami TIMDR. Jego zakres jest jawnie ograniczony: równość
 `Δt·Δf=1/(4π)` jest MATEMATYCZNIE dokładna tylko dla pojedynczego,
-idealnego impulsu gaussowskiego (potwierdzone 10/10 pytest w
-`tests/test_fourier_bridge.py`).
+idealnego impulsu gaussowskiego. Aktualny zestaw 12 testów mostu
+Fouriera przeszedł w GitHub Actions dla commitu `6adeb712` (krok
+`Test Time formalism and Fourier bridge`); wynik CI potwierdza
+implementację w zakresie testów, nie dowodzi szerszej hipotezy.
 
 To NIE jest globalna reguła dla dowolnego zdarzenia M/S↔K. Pre-
 rejestrowana eksploracja
