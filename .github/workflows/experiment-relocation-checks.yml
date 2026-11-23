@@ -81,6 +81,26 @@ jobs:
             tests/test_triple_loop_coupled_perturbation.py \
             tests/test_triple_loop_transition_probe.py
 
+
+  formalism-regressions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install formalism test dependencies
+        run: python -m pip install --upgrade pip numpy scipy matplotlib pytest
+      - name: Test Math formalism
+        run: python -m pytest -q TIMDR-Math-Formalism/tests
+      - name: Test Geometry formalism
+        run: python -m pytest -q TIMDR-Geometry-Formalism/tests
+      - name: Test Modal formalism
+        run: python -m pytest -q TIMDR-Modal-Formalism/tests
+      - name: Test Time formalism and Fourier bridge
+        run: python -m pytest -q TIMDR-Time-Formalism/tests
+
   uncovered-regressions:
     runs-on: ubuntu-latest
     timeout-minutes: 20
