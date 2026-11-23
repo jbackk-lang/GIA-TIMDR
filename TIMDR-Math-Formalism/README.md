@@ -135,6 +135,13 @@ pip install pytest
 pytest tests/ -v
 ```
 
+**Aktualny wynik CI:** pełny zestaw Math przeszedł w GitHub Actions
+dla commitu `9650c9ad`: **283 passed**. Obejmuje testy walidacji
+skończonych danych wejściowych w `chronosignal.py`,
+`envelope_demodulation.py` i `gs_matrix.py`. To potwierdza wykonanie
+testów implementacji w określonym zakresie, a nie dowód skuteczności
+detektorów na wszystkich rzeczywistych domenach.
+
 Testy używają danych z gwarantowaną separacją (nie losowych progów
 zależnych od konkretnego seeda) albo ręcznie skonstruowanych wyników —
 każda asercja jest zdeterminowana przez konstrukcję testu, nie przez to,
