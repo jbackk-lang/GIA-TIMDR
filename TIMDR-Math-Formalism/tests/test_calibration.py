@@ -424,3 +424,27 @@ def test_calibration_allows_explicit_population_normal_baseline():
 
 def test_poisson_binomial_baseline_exported_from_package_root():
     assert poisson_binomial_public([0.5, 0.5, 0.0], K=2) == pytest.approx(0.25)
+
+
+@pytest.mark.parametrize("bad_flags", [
+    np.array([[True, False], [False, True]], dtype=bool),
+    np.array([1, 0, 1], dtype=int),
+    np.array([True, False, True], dtype=object),
+    np.array([], dtype=bool),
+])
+def test_calibration_rejects_nonboolean_or_nonvector_flags(bad_flags):
+    with pytest.raises(ValueError):
+        calibrate_resonance_K([bad_flags], K=1, n_perm=100)
+
+
+@pytest.mark.parametrize("kwargs", [
+    {"n_perm": 0},
+    {"n_perm": 1.5},
+    {"alpha": 0.0},
+    {"alpha": np.nan},
+    {"p_anomaly": 0.0},
+    {"p_anomaly": np.inf},
+])
+def test_calibration_rejects_invalid_parameters(kwargs):
+    with pytest.raises(ValueError):
+        calibrate_resonance_K([np.array([True, False, True])], K=1, **kwargs)
