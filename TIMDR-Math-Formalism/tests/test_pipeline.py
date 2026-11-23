@@ -452,3 +452,60 @@ def test_format_report_includes_bonferroni_when_multiple_comparisons():
     assert "Bonferroniego" in report
     # p=0.01 * 20 = 0.2 -> po korekcie NIE jest istotne (>= 0.05)
     assert "0.2" in report
+
+
+# ---------------------------------------------------------------------
+# Walidacja dziedziny: prerejestracja, generatory i test statystyczny
+# ---------------------------------------------------------------------
+
+def test_preregistration_rejects_nonfinite_json_parameters():
+    with pytest.raises(ValueError):
+        Preregistration.create(_make_hypothesis(), {"threshold": np.nan})
+
+
+@pytest.mark.parametrize("n", [0, -1, 1.5, True])
+def test_random_background_rejects_invalid_size(n):
+    with pytest.raises(ValueError):
+        random_background(n, 0, 10, seed=0)
+
+
+def test_random_background_rejects_invalid_integer_bounds():
+    with pytest.raises(ValueError):
+        random_background(10, 5, 5, seed=0)
+    with pytest.raises(ValueError):
+        random_background(10, 0.5, 5, seed=0)
+
+
+@pytest.mark.parametrize("n", [0, -1, 1.5, True])
+def test_ar1_noise_rejects_invalid_size(n):
+    with pytest.raises(ValueError):
+        ar1_noise(n, seed=0)
+
+
+@pytest.mark.parametrize("phi,sigma", [
+    (1.0, 1.0),
+    (-1.0, 1.0),
+    (np.nan, 1.0),
+    (0.5, -1.0),
+    (0.5, np.inf),
+])
+def test_ar1_noise_rejects_nonstationary_or_invalid_parameters(phi, sigma):
+    with pytest.raises(ValueError):
+        ar1_noise(20, phi=phi, sigma=sigma, seed=0)
+
+
+@pytest.mark.parametrize("bad_values", [
+    np.array([[1.0, 2.0], [3.0, 4.0]]),
+    np.array([1.0, np.nan, 2.0]),
+    np.array([1.0, np.inf, 2.0]),
+])
+def test_mann_whitney_rejects_nonvector_or_nonfinite_samples(bad_values):
+    with pytest.raises(ValueError):
+        mann_whitney_test(bad_values, [0.0, 1.0, 2.0])
+    with pytest.raises(ValueError):
+        mann_whitney_test([0.0, 1.0, 2.0], bad_values)
+
+
+def test_mann_whitney_rejects_invalid_alternative():
+    with pytest.raises(ValueError):
+        mann_whitney_test([1.0, 2.0], [3.0, 4.0], alternative="invalid")
