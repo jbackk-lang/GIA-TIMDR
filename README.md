@@ -78,6 +78,10 @@ Skuteczność oceniamy osobno dla każdej aplikacji i zadania. Wyniki i zakres z
 
 **Dokumentacja szczegółowa:** [indeks badań Chronoprocesu](research/chronoproces/README.md) · [ostatni checkpoint 51B.16t](research/chronoproces/TIMDR_51B16T_CHECKPOINT_2026-11-15.md) · [stan projektu](STAN_PROJEKTU.md). Raporty domenowe, w tym łożyskowe, pozostają w [archiwum eksperymentów](docs/archiwum/WYNIKI_EKSPERYMENTOW_MIGAWKA_README_2026-11-14.md); są jedną z linii badań, nie osią narracji głównego README.
 
+### Osobna linia eksperymentalna: Chrono-Helix-Fusion (CHF)
+
+CHF bada, czy połączenie reprezentacji Chronoprocesu, helisy i relacji trójwęzłowych wnosi informację ponad klasyczne cechy sygnałowe. To **prototyp badawczo-aplikacyjny, nie piąta gałąź formalna**. Zebrane raporty obejmują kontrole syntetyczne i pilotaż CWRU; dotychczas nie wykazano przewagi CHF ani mostów nad mocnymi metodami bazowymi. [Indeks CHF, protokoły, kod i 35 datowanych raportów](research/chrono_helix_fusion/README.md).
+
 ## Co już powstało
 
 - Cztery gałęzie opisane definicjami i aksjomatami (13 M/S, 10 G, 10 K, 9 META), cztery formalne repozytoria włączone tutaj z zachowaniem historii oraz kod geometrii, sygnału, fazy i dynamiki.
