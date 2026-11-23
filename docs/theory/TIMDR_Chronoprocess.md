@@ -143,7 +143,7 @@ lokalne poniżej nie są używane jako zamiennik tego przebiegu.
 
 | Element | Repo | Aktualny dowód wykonania |
 |---|---|---|
-| M/S: sygnał i protokół | `TIMDR-Math-Formalism` | ✅ **232 passed** (`Test Math formalism`). |
+| M/S: sygnał i protokół | `TIMDR-Math-Formalism` | ✅ **283 passed** (`Test Math formalism`). |
 | G: geometria | `TIMDR-Geometry-Formalism` | ✅ **112 passed** (`Test Geometry formalism`), w tym regresja znaku krzywizny. |
 | K: modalność | `TIMDR-Modal-Formalism` | ✅ **31 passed, 5 skipped** (`Test Modal formalism`); pominięte testy nie są zaliczone. |
 | Czas i most Fouriera | `TIMDR-Time-Formalism` | ✅ **20 passed** (`Test Time formalism and Fourier bridge`), w tym 8 testów Chronoprocesu i 12 testów mostu Fouriera. |
