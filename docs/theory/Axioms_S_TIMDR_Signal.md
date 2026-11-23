@@ -154,13 +154,13 @@ ciągłego warunkowego rozkładu ocenianych próbek.
 
 ---
 
-# Aksjomat 6 — Hipoteza musi być zamrożona przed dotknięciem danych
-**EN:** A hypothesis (structure + measurable effect) must be
-preregistered — fingerprinted — before any data is touched; a change
-after seeing results is data-snooping, detected by fingerprint mismatch.
-**PL:** Hipoteza (struktura + mierzalny efekt) musi być zamrożona —
-z odciskiem palca — przed dotknięciem jakichkolwiek danych; zmiana po
-zobaczeniu wyniku to data-snooping, wykrywany przez niezgodność odcisku.
+# Aksjomat 6 — Odcisk treści prerejestracji wykrywa późniejszą zmianę
+**EN:** A stored SHA-256 fingerprint detects content changes relative
+to a retained preregistration record. The code alone does not prove
+that the record predates data inspection.
+**PL:** Zachowany odcisk SHA-256 wykrywa zmianę treści względem
+przechowanego zapisu prerejestracji. Sam kod nie dowodzi, że zapis
+powstał przed obejrzeniem danych.
 
 \[
 \text{fingerprint} = \text{SHA-256}\big(\text{JSON}(\text{Hypothesis}, \text{params})\big)
