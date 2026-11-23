@@ -138,11 +138,11 @@ reszty są zależne i ograniczone przez `sqrt(m-1)`. Prawdopodobieństwo,
 że **co najmniej K z n** będzie anomalnych jednocześnie **czysto przez
 przypadek**, w modelu jednakowego marginalnego p to ogon rozkładu dwumianowego:
 
-\`\`\`
+```
 P(Binomial(n, 0.0455) ≥ K)
-\`\`\`
+```
 
-Dla udokumentowanego systemu (\`n=5, K=3\`): **≈ 0.09%**. To liczba
+Dla udokumentowanego systemu (`n=5, K=3`): **≈ 0.09%**. To liczba
 **czysto teoretyczna** — zależy od dwóch założeń (niezależność,
 normalność), które w realnych danych pogodowych generalnie **nie
 zachodzą** (parametry pogodowe są ze sobą skorelowane; rozkłady nie są
@@ -150,11 +150,11 @@ idealnie gaussowskie). Traktowanie 0.09% jako gotowego faktu o realnym
 systemie byłoby dokładnie błędem, przed którym ostrzega §13 skilla —
 formuła bez przepuszczenia przez dane.
 
-**Implementacja kalibracji:** \`calibrate_resonance_K()\` używa domyślnie
+**Implementacja kalibracji:** `calibrate_resonance_K()` używa domyślnie
 rozkładu Poissona-dwumianowego z empirycznych częstości flag każdego
 parametru, co nie wymaga wspólnego p dla wszystkich kanałów. Populacyjny
 baseline normalny \(P(|Z|>2)\) jest dostępny jawnie przez parametr
-\`p_anomaly=P_ANOMALY_2SIGMA_NORMAL\`; nie jest automatycznie stosowany
+`p_anomaly=P_ANOMALY_2SIGMA_NORMAL`; nie jest automatycznie stosowany
 do progów in-sample. Test permutacyjny pozostaje głównym sprawdzianem
 współbieżności.
 
