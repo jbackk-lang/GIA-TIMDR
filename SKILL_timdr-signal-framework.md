@@ -142,11 +142,11 @@ mimo współdzielonych nazw.
 
 ## 6. Domknięcie gałęzi geometrycznej (G8-G9)
 
-G8 formalizuje (T_S(p,\Delta p)) jako właściwy operator (dziedzina/ciągłość/Lipschitz). G9 podaje jawny związek z dyskretnym operatorem Weingartena. Dla małego przesunięcia po powierzchni, z (v=\Pi_{T_pS}\Delta p):
-[
+G8 formalizuje \(T_S(p,\Delta p)\) jako właściwy operator (dziedzina/ciągłość/Lipschitz). G9 podaje jawny związek z dyskretnym operatorem Weingartena. Dla małego przesunięcia po powierzchni, z \(v=\Pi_{T_pS}\Delta p\):
+\[
 T_S(p,\Delta p) = \|v\|\,\|S_p(\hat v)\| + O(\|\Delta p\|^2).
-]
-Implementacja: `TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py`. Pełny zestaw geometrii przeszedł w GitHub Actions dla commitu `9650c9ad`: **119 passed**. Testy obejmują znane syntetyczne siatki i walidację poprawności danych siatki; nie stanowią walidacji empirycznej na rzeczywistych pomiarach geometrycznych.
+\]
+Implementacja: \`TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py\`. Pełny zestaw geometrii przeszedł w GitHub Actions dla commitu \`9650c9ad\`: **119 passed**. Testy obejmują znane syntetyczne siatki i walidację poprawności danych siatki; nie stanowią walidacji empirycznej na rzeczywistych pomiarach geometrycznych.
 
 ## 7. Chronoproces Ξ=(T,x,Γ,φ)
 
