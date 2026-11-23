@@ -136,7 +136,7 @@ formalny dopisany w `Axioms_K_TIMDR.md` i `Axioms_S_TIMDR_Signal.md`.
 ## 6. Status uczciwie
 
 **Aktualna weryfikacja CI:** workflow `Repository regression checks` dla commitu
-`7bcf12ef` zakończył się statusem `success`. Wszystkie trzy zadania workflow
+`80693941` zakończył się statusem `success`. Wszystkie trzy zadania workflow
 przeszły, w tym komplet czterech zestawów formalizmów. To jest aktualny
 wynik wykonania automatycznych testów na GitHub Actions; historyczne wyniki
 lokalne poniżej nie są używane jako zamiennik tego przebiegu.
