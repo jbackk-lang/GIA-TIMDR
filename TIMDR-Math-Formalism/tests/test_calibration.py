@@ -45,7 +45,7 @@ from timdr_formalism.calibration import (
     _weather,
 )
 from timdr_formalism.pipeline import calibrate_resonance_threshold
-from timdr_formalism import calibrate_resonance_K as calibrate_resonance_K_public
+from timdr_formalism import (\n    calibrate_resonance_K as calibrate_resonance_K_public,\n    poisson_binomial_independence_baseline_rate as poisson_binomial_public,\n)
 
 
 # ---------------------------------------------------------------------
@@ -420,3 +420,7 @@ def test_calibration_allows_explicit_population_normal_baseline():
     assert result.theoretical_baseline_rate == pytest.approx(
         theoretical_independence_baseline_rate(5, 3, P_ANOMALY_2SIGMA_NORMAL)
     )
+
+
+def test_poisson_binomial_baseline_exported_from_package_root():
+    assert poisson_binomial_public([0.5, 0.5, 0.0], K=2) == pytest.approx(0.25)
