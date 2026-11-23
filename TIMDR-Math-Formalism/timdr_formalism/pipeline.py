@@ -346,14 +346,19 @@ class TestResult:
             )
         label = effect_size_label(self.effect_size_r)
         if self.pvalue < alpha:
-            direction = "niższe" if self.median_test < self.median_background else "wyższe"
+            if self.effect_size_r > 0:
+                direction = "tendencję do wyższych rang w porównaniach parami"
+            elif self.effect_size_r < 0:
+                direction = "tendencję do niższych rang w porównaniach parami"
+            else:
+                direction = "brak kierunku rangowego (r=0)"
             return (
-                f"Efekt istotny statystycznie (p={self.pvalue:.4g} < {alpha}): "
-                f"grupa testowa ma {direction} wartości metryki niż tło "
-                f"(mediana {self.median_test:.4g} vs {self.median_background:.4g}). "
-                f"Rozmiar efektu: r={self.effect_size_r:.3g} ({label}) — "
-                f'"istotny statystycznie" nie znaczy automatycznie "duży", '
-                f"sprawdź r, nie tylko p."
+                f"Różnica rozkładów istotna statystycznie (p={self.pvalue:.4g} < {alpha}): "
+                f"grupa testowa wykazuje {direction} względem tła. "
+                f"Mediany: {self.median_test:.4g} vs {self.median_background:.4g}. "
+                f"Rozmiar/kierunek efektu rangowego: r={self.effect_size_r:.3g} ({label}) — "
+                f"Mann–Whitney nie jest ogólnym testem samych median; "
+                f'"istotny statystycznie" nie znaczy automatycznie "duży".'
             )
         return (
             f"Brak istotnego efektu (p={self.pvalue:.4g} >= {alpha}) — to jest "
