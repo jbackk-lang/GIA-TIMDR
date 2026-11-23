@@ -2,6 +2,28 @@
 
 Ten plik zachowuje dawny, rozbudowany opis repozytorium w stanie sprzed uporządkowania 23 września 2026 r. To zapis drogi, dzięki której z koncepcji GIA/TRM wyrosły cztery formalne gałęzie TIMDR, kod, mosty, eksperymenty i aplikacje. Wartość archiwum polega zarówno na oryginalnych pomysłach, jak i na możliwości prześledzenia ich rozwoju. Poniższy dawny wstęp i późniejsze dopiski mają różne daty i statusy; aktualny punkt wejścia i najnowsze podsumowanie pokazują [README.md](../../README.md), [mapa repozytorium](../../REPOZYTORIUM.md) oraz właściwe dokumenty PREREG/RESULT i datowane checkpointy. [STAN_PROJEKTU.md](../../STAN_PROJEKTU.md) jest migawką historyczną z 30.09.2026, a nie bieżącym statusem.
 
+## Jak czytać ten plik
+
+To **archiwum warstwowe**, a nie jeden spójny opis stanu projektu. Zawiera teksty powstałe w różnych dniach, a część późniejszych dopisków koryguje lub ogranicza wcześniejsze sformułowania. Nie należy łączyć ich w jedną, równoczesną specyfikację.
+
+### Mapa zawartości
+
+1. **Kontekst i mapa czterech gałęzi** — opis formalizacji, rozdzielenie gałęzi M/S, G, K i META-DYNAMICS oraz późniejsze zestawienie mostów.
+2. **Literatura i dokumentacja online** — historyczny przegląd publikacji i odsyłacze.
+3. **Pierwotny model koncepcyjny (sekcje 0–12)** — dawny opis asymetrii trójkąta, impulsu, skrętu, helisy, operatorów, geometrii, rezonansu i proponowanych zastosowań. To zapis koncepcji, nie potwierdzona teoria fizyczna.
+4. **Wcześniejsze szkice operatorów TIMDR i GIA** — koncepcyjne definicje poprzedzające późniejsze rozgraniczenie formalnych gałęzi; nie są równoważne ich aktualnym definicjom.
+5. **Dopiski o strukturze repozytorium i diagramie** — historyczna mapa dokumentacji, nie aktualny spis plików.
+6. **Kronika lokalnego SI (październik 2026)** — późniejsze, datowane uzupełnienia przeniesione z README; wyniki opisowe z ograniczeniami, nie aktualna specyfikacja TIMDR.
+
+### Zasada interpretacji
+
+- Daty przy dopiskach określają, kiedy dany fragment został dodany lub jaki stan opisywał.
+- Gdy fragment historyczny różni się od późniejszej formalizacji, zachowujemy go jako ślad rozwoju; rozstrzygający opis formalny znajduje się w dokumentach wskazanych w [mapie repozytorium](../../REPOZYTORIUM.md) i [głównym README](../../README.md).
+- Liczby, wyniki i werdykty pozostają w kontekście daty oraz zakresu danego eksperymentu. Nie są automatycznie przenoszone na inne domeny ani późniejsze wersje.
+- Nie traktuj metafor ani proponowanych zastosowań jako dowodów empirycznych.
+
+---
+
 **Stan obecny, dopisek redakcyjny (23 września 2026):** projekt ma cztery opisane aksjomatycznie gałęzie M/S, G, K i META-DYNAMICS, wyniki mostów na danych realnych, dwa wyniki SUPPORTED B4-Kitchen w różnych sesjach jednego uczestnika oraz osobne narzędzia dla m.in. plazmy, pogody, łożysk, sejsmiki i sieci energetycznej. W archiwalnym tekście poniżej pozostawiono pierwotną ambitną narrację; nie zastępuje ona szczegółowych raportów z testów. Zachowanie tej różnicy dokumentuje rozwój projektu, a nie umniejsza jego późniejszych osiągnięć.
 
 > **Uwaga: to jest model koncepcyjny / narzędzie do myślenia, nie teoria naukowa ani model empiryczny.**
@@ -448,7 +470,11 @@ odkrywają wzorzec TIMDR, nie nazywając go", tylko używają narzędzi, które 
 Realna wartość tego zestawienia: pokazuje, że styl "połącz kilka niezależnych sygnałów odchylenia w jeden
 werdykt" jest w literaturze uznanym, użytecznym podejściem — nie że TIMDR ma w tym pierwszeństwo.
 
-## 0. Dokumentacja online
+## Pierwotny model koncepcyjny — dawny tekst (sekcje 0–12)
+
+> **Status:** blok zachowany jako historyczny szkic. Zawiera mocne, autorskie twierdzenia o fizyce i kosmologii, ale sam dokument zastrzega, że nie jest to zweryfikowana teoria naukowa. Przykłady matematyczne są opisane jako analogie, nie dowody.
+
+### 0. Dokumentacja online
 Odwiedź pełną dokumentację i interaktywne opisy układu:  
 👉 [https://jbackk-lang.github.io/](https://jbackk-lang.github.io/)
 
@@ -796,7 +822,11 @@ Niniejsze repozytorium dystrybuowane jest na licencji **Open Source**. Udostępn
 
 ---
 
-## 📘 TIMDR — Pełny Model Operatora Topologicznej Zmiany Sygnału
+## Wcześniejsze szkice operatorów — TIMDR i GIA
+
+> **Status:** poniższe definicje są starszym, mniej sformalizowanym szkicem. Nie utożsamiaj ich operatorów T/R ani definicji GIA z formalnymi gałęziami M/S, G lub K. Zachowano je dla historii; rozgraniczenia i aktualne definicje wskazuje słownik oraz specyfikacja gałęzi.
+
+### TIMDR — Pełny Model Operatora Topologicznej Zmiany Sygnału
 
 TIMDR to operator wykrywający lokalne zmiany topologii sygnału. Nie jest pojedynczą metodą — jest strukturą, która łączy trzy niezależne detektory:
 
@@ -925,7 +955,7 @@ TIMDR to: operator topologicznej zmiany sygnału, detektor punktów krytycznych,
 
 ---
 
-## 📘 GIA — Operator Lokalnego Toru Informacji
+### GIA — Operator Lokalnego Toru Informacji
 
 GIA to operator, który wyznacza dominującą trajektorię sygnału w lokalnym otoczeniu. Nie jest to zwykłe PCA — PCA jest tylko narzędziem do wyciągnięcia wektora własnego. GIA jest interpretacją tego wektora jako toru topologicznego.
 
@@ -1023,7 +1053,11 @@ GIA to: operator lokalnego toru informacji, wektor dominującej dynamiki, kompas
 
 ---
 
-## 14. STRUKTURA DOKUMENTACJI
+## Dodatkowe dopiski redakcyjne — struktura i diagram
+
+> **Status:** to migawka organizacji repozytorium i modelu przedstawionego w dawnym README. Nie jest aktualną mapą plików ani kanoniczną specyfikacją. Aktualną nawigację zapewnia [REPOZYTORIUM.md](../../REPOZYTORIUM.md).
+
+### 13. STRUKTURA DOKUMENTACJI
 
 Wszystkie dokumenty koncepcyjne repozytorium są uporządkowane pod `docs/`:
 
@@ -1039,7 +1073,7 @@ Ta struktura zastępuje wcześniejszy stan, w którym ponad 30 plików leżało 
 
 ---
 
-## 15. DIAGRAM TOPOLOGII SYGNAŁU
+### 14. DIAGRAM TOPOLOGII SYGNAŁU
 
 ```
 SYGNAŁ / DANE
@@ -1082,7 +1116,9 @@ Razem tworzą pełny model topologiczny sygnału: **zmiana → spójność → k
 
 ---
 
-## Kronika lokalnego SI (2–7 października 2026)
+## Kronika lokalnego SI — późniejsze dopiski (2–8 października 2026)
+
+> **Status:** poniższe fragmenty pochodzą z późniejszych aktualizacji README, dodanych już po pierwotnym opisie z września. To historyczny zapis eksperymentów lokalnego systemu autora, z ograniczeniami podanymi w samym tekście; nie jest dokumentacją kodu ani aktualnym opisem możliwości repozytorium GIA-TIMDR.
 
 Zapis przeniesiony z README 8 października 2026; aktualny stan podaje [README](../../README.md).
 
@@ -1109,7 +1145,7 @@ Wieczorem: czytnik kontekstu połączony z modelem ról (prawdziwe zadania 944/1
 
 [Opis zasad, wyników i ograniczeń](../../docs/SI_ZASADY_TIMDR_2026-10-07.md). **Bez kodu, wag i pamięci prywatnego SI.**
 
-## Dawne lokalne AI-SI · stan z 8 października 2026
+### Dawne lokalne AI-SI · stan z 8 października 2026
 
 Prywatne SI autora jest małym, lokalnym systemem: 14 własnych sieci (razem **2,81 mln parametrów, 11,20 MB**) oraz dokładne narzędzia. Zasady TIMDR są w nim zasadami działania:
 
@@ -1125,4 +1161,4 @@ Prywatne SI autora jest małym, lokalnym systemem: 14 własnych sieci (razem **2
 
 W rozmowie SI poprawia literówki, mówi, co potrafi i jak używać jej modułów, sama sprawdza swoje moduły („sprawdź się”) oraz opowiada, czego się dowiedziała i co ciekawi ją teraz.
 
-[Opis zasad i wyników — 8 października 2026](../../docs/SI_ZASADY_TIMDR_2026-10-08.md) · [publiczne repozytorium AI-SI](https://github.com/jbackk-lang/AI-SI) · [wcześniejsze etapy](HISTORIA_README.md#kronika-lokalnego-si-27-października-2026). **Bez kodu, wag i pamięci prywatnego SI.**
+[Opis zasad i wyników — 8 października 2026](../../docs/SI_ZASADY_TIMDR_2026-10-08.md) · [publiczne repozytorium AI-SI](https://github.com/jbackk-lang/AI-SI) · [wcześniejsze etapy](#kronika-lokalnego-si-2–8-października-2026). **Bez kodu, wag i pamięci prywatnego SI.**
