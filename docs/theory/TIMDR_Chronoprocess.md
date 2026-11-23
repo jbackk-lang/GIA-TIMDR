@@ -136,17 +136,17 @@ formalny dopisany w `Axioms_K_TIMDR.md` i `Axioms_S_TIMDR_Signal.md`.
 ## 6. Status uczciwie
 
 **Aktualna weryfikacja CI:** workflow `Repository regression checks` dla commitu
-`7ee9ebe7` zakończył się statusem `success`. Wszystkie trzy zadania workflow
+`ec28c9bb` zakończył się statusem `success`. Wszystkie trzy zadania workflow
 przeszły, w tym komplet czterech zestawów formalizmów. To jest aktualny
 wynik wykonania automatycznych testów na GitHub Actions; historyczne wyniki
 lokalne poniżej nie są używane jako zamiennik tego przebiegu.
 
 | Element | Repo | Aktualny dowód wykonania |
 |---|---|---|
-| M/S: sygnał i protokół | `TIMDR-Math-Formalism` | ✅ **284 passed** (`Test Math formalism`). |
-| G: geometria | `TIMDR-Geometry-Formalism` | ✅ **119 passed** (`Test Geometry formalism`), w tym regresja znaku krzywizny i walidacji siatek. |
-| K: modalność | `TIMDR-Modal-Formalism` | ✅ **31 passed, 5 skipped** (`Test Modal formalism`); pominięte testy nie są zaliczone. |
-| Czas i most Fouriera | `TIMDR-Time-Formalism` | ✅ **24 passed** (`Test Time formalism and Fourier bridge`), w tym testy walidacji nośnika Chronoprocesu i 12 testów mostu Fouriera. |
+| M/S: sygnał i protokół | `TIMDR-Math-Formalism` | ✅ **343 passed** (`Test Math formalism`). |
+| G: geometria | `TIMDR-Geometry-Formalism` | ✅ **123 passed** (`Test Geometry formalism`), w tym regresja znaku krzywizny i walidacji siatek. |
+| K: modalność | `TIMDR-Modal-Formalism` | ✅ **42 passed, 5 skipped** (`Test Modal formalism`); pominięte testy nie są zaliczone. |
+| Czas i most Fouriera | `TIMDR-Time-Formalism` | ✅ **38 passed** (`Test Time formalism and Fourier bridge`), w tym testy walidacji nośnika Chronoprocesu i 12 testów mostu Fouriera. |
 
 **Granica wniosku:** zielony CI potwierdza, że wskazane testy wykonały się
 pomyślnie na środowisku workflow. Nie dowodzi automatycznie prawdziwości
