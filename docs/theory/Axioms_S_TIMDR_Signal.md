@@ -169,20 +169,27 @@ w `timdr_formalism/pipeline.py`.
 
 ---
 
-# Aksjomat 7 — Test musi przejść bramkę kontroli pozytywnej i negatywnej
-**EN:** No hypothesis test may run on real/main data unless a positive
-control (known effect, must detect) and a negative control (no effect,
-must not false-alarm) both pass first.
-**PL:** Żaden test na danych realnych/głównych nie może zostać
-uruchomiony, dopóki kontrola pozytywna (znany efekt, musi wykryć) i
-kontrola negatywna (brak efektu, nie może dać fałszywego alarmu) nie
-przejdą obie.
+# Aksjomat 7 — Przesiewowa kontrola pozytywna i negatywna
+**EN:** The prescribed workflow screens a metric with a positive-control
+test and a negative-sample difference test before interpreting a main
+result. This is a protocol rule, not an API-enforced prohibition.
+**PL:** Zalecany protokół przesiewa metrykę kontrolą pozytywną oraz
+testem różnicy między dwiema próbkami tła przed interpretacją wyniku
+głównego. Jest to reguła protokołu, a nie zakaz wymuszany przez API.
 
 \[
-\text{passed} = \mathbb{1}[p_{\text{pos}} < \alpha] \land \mathbb{1}[p_{\text{neg}} \geq \alpha]
+\text{screen\_pass} = \mathbb{1}[p_{\text{pos}} < \alpha] \land \mathbb{1}[p_{\text{neg}} \geq \alpha]
 \]
 
-Implementacja: `run_controls` w `timdr_formalism/pipeline.py`.
+Interpretacja: `p_pos < alpha` oznacza wykrycie różnicy po wstrzyknięciu
+efektu. `p_neg >= alpha` oznacza jedynie brak wykrytej istotnej różnicy
+między próbkami tła. Nie jest dowodem równoważności rozkładów ani
+gwarancją określonego odsetka fałszywych alarmów. Do takiego wniosku
+potrzebny jest osobny test równoważności z wcześniej ustalonym
+marginesem i oceną mocy. Bezpośrednie `mann_whitney_test()` pozostaje
+wywoływalne niezależnie od `run_controls()`.
+
+Implementacja przesiewu: `run_controls` w `timdr_formalism/pipeline.py`.
 
 ---
 
