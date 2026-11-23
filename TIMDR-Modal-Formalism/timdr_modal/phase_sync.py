@@ -63,7 +63,7 @@ kodu (K nie mialo dotad ZADNEJ implementacji w tym ekosystemie).
 
 STATUS WYKONANIA: historyczne 17/17 dotyczyło wcześniejszego zestawu.
 Po dodaniu testów niezmienniczości fazy kołowej pełny zestaw Modal
-przeszedł w GitHub Actions dla commitu `93445b81`: 31 passed, 5 skipped.
+przeszedł w GitHub Actions dla commitu `582d7380`: 31 passed, 5 skipped.
 Pominięte testy nie są zaliczonym wynikiem; patrz warunki skip w testach
 walidacji danych.
 """
