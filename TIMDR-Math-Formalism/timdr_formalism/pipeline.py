@@ -543,6 +543,31 @@ def _wilcoxon_signed_rank_z_p_numpy(d_nonzero: np.ndarray) -> tuple[float, float
     return z, min(1.0, p)
 
 
+def _wilcoxon_rank_biserial_effect(d_nonzero: np.ndarray) -> float:
+    """Sparowana korelacja rangowo-dwuseryjna (W+ - W-)/(W+ + W-)."""
+    d = np.asarray(d_nonzero, dtype=float)
+    if d.ndim != 1 or d.size == 0 or not np.all(np.isfinite(d)) or np.any(d == 0):
+        raise ValueError("d_nonzero musi byc niepustym wektorem skonczonych, niezerowych roznic")
+    abs_d = np.abs(d)
+    order = np.argsort(abs_d, kind="mergesort")
+    sorted_vals = abs_d[order]
+    ranks = np.empty(d.size, dtype=float)
+    i = 0
+    rank_cursor = 1
+    while i < d.size:
+        j = i
+        while j + 1 < d.size and sorted_vals[j + 1] == sorted_vals[i]:
+            j += 1
+        tie_count = j - i + 1
+        average_rank = (rank_cursor + rank_cursor + tie_count - 1) / 2.0
+        ranks[order[i:j + 1]] = average_rank
+        rank_cursor += tie_count
+        i = j + 1
+    w_plus = float(ranks[d > 0].sum())
+    w_minus = float(ranks[d < 0].sum())
+    return (w_plus - w_minus) / (w_plus + w_minus)
+
+
 def paired_wilcoxon_test(
     test_values: Sequence[float],
     background_values: Sequence[float],
@@ -566,10 +591,10 @@ def paired_wilcoxon_test(
 
     Pary z NaN po którejkolwiek stronie są odrzucane (`n_nan_dropped`).
     Pary z różnicą dokładnie zero (remisy test==background) są
-    odrzucane zgodnie z konwencją `zero_method="wilcox"` scipy — liczba
-    pozostałych par to `n_nonzero`, użyta jako dzielnik w rozmiarze
-    efektu `r = z / sqrt(n_nonzero)` (rank-biserial dla par, analogicznie
-    do `rank_biserial_effect_size` dla Manna-Whitneya). Jeśli po tym
+    odrzucane zgodnie z konwencją `zero_method="wilcox"` scipy. Rozmiar
+    efektu to sparowana korelacja rangowo-dwuseryjna
+    `r_rb=(W+ - W-)/(W+ + W-)`, ograniczona do [-1,1]; nie jest to
+    `z/sqrt(n)`, które może przekraczać 1 i nie jest rank-biserial. Jeśli po tym
     filtrowaniu zostanie mniej niż `min_nonzero` par (domyślnie 10 —
     próg zachowany z oryginalnej implementacji PROTECT-90, zbyt mała
     próba dla wiarygodnej aproksymacji normalnej), zwracany jest
@@ -595,6 +620,10 @@ def paired_wilcoxon_test(
         )
     if tv.size == 0:
         raise ValueError("test_values i background_values nie mogą być puste")
+    if np.any(np.isinf(tv)) or np.any(np.isinf(bv)):
+        raise ValueError("paired samples may contain NaN (dropped) but not infinity")
+    if isinstance(min_nonzero, bool) or not isinstance(min_nonzero, (int, np.integer)) or min_nonzero < 1:
+        raise ValueError("min_nonzero musi byc dodatnia liczba calkowita")
 
     valid = ~(np.isnan(tv) | np.isnan(bv))
     test_v = tv[valid]
@@ -637,7 +666,7 @@ def paired_wilcoxon_test(
                 "ufaj wynikowi."
             )
 
-    r = z / math.sqrt(n_nonzero)
+    r = _wilcoxon_rank_biserial_effect(diff[nz_mask])
 
     return TestResult(
         statistic=z,
