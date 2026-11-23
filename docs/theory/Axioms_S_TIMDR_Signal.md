@@ -144,6 +144,12 @@ gwarancji prawie-pewnej ciągłości. Twierdzenie mówi o stabilności
 klasyfikacji poza granicami progowymi, nie o skuteczności detekcji
 anomalii ani o zgodności z teoretycznym ogonem \(P(|Z|>2)\).
 
+W trybie z niezależnym, ustalonym oknem referencyjnym granice są
+prostszymi hiperpłaszczyznami
+\(x_{i,j}=\mu(r_i)\pm2\sigma(r_i)\). Warunkowo względem referencji
+mają miarę Lebesgue'a zero; wniosek prawie-pewnej ciągłości wymaga
+ciągłego warunkowego rozkładu ocenianych próbek.
+
 ---
 
 # Aksjomat 6 — Hipoteza musi być zamrożona przed dotknięciem danych
