@@ -179,3 +179,39 @@ def test_rejects_nonpositive_lambda():
 def test_rejects_nonpositive_S_up_max():
     with pytest.raises(ValueError):
         theta_bifurcation(S=1.0, Q=0.5, Q_crit=0.35, time_since_cutoff_start=0.0, S_up_max=0.0)
+
+
+@pytest.mark.parametrize("Q,Q_crit,anticipation", [
+    (np.nan, 0.35, 0.05),
+    (0.5, np.inf, 0.05),
+    (0.5, 0.35, np.nan),
+    (-0.1, 0.35, 0.05),
+    (1.1, 0.35, 0.05),
+    (0.5, -0.1, 0.05),
+    (0.5, 0.35, -0.01),
+    (0.5, 0.35, 1.01),
+])
+def test_compute_beta_rejects_out_of_domain_parameters(Q, Q_crit, anticipation):
+    with pytest.raises(ValueError):
+        compute_beta(Q, Q_crit, anticipation_fraction=anticipation)
+
+
+@pytest.mark.parametrize("kwargs", [
+    {"S": np.nan},
+    {"Q": np.inf},
+    {"Q_crit": np.nan},
+    {"time_since_cutoff_start": np.inf},
+    {"lambda_down": np.nan},
+    {"lambda_up": np.inf},
+    {"S_up_max": np.nan},
+])
+def test_theta_bifurcation_rejects_nonfinite_parameters(kwargs):
+    params = {
+        "S": 1.0,
+        "Q": 0.5,
+        "Q_crit": 0.35,
+        "time_since_cutoff_start": 1.0,
+    }
+    params.update(kwargs)
+    with pytest.raises(ValueError):
+        theta_bifurcation(**params)
