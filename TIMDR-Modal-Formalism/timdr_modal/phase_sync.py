@@ -21,8 +21,8 @@ Aksjomat 4 definiuje interferencje:
 theta_i(t) = 2*pi*f_i*t + phi_i (argument sinusa), a phi_i samo w
 sobie jest tylko faza POCZATKOWA (stala, wartosc w t=0). Aksjomat 5
 definiuje rezonans jako wyrownanie (f_i,phi_i) MIEDZY DWIEMA
-modalnosciami -- czyli literalnie porownanie faz POCZATKOWYCH, nie
-chwilowych; ten modul implementuje to doslownie, bez interpretacji.
+modalnosciami -- porownanie czestotliwosci oraz KOLOWEGO dystansu faz
+POCZATKOWYCH (fazy sa okreslone modulo 2*pi), nie faz chwilowych.
 
 ## Mapa synchronizacji faz f
 
@@ -125,10 +125,15 @@ def interference(modalities: Sequence[Modality], t) -> np.ndarray:
 def is_resonant(
     m_i: Modality, m_j: Modality, eps_f: float = 1e-6, eps_phi: float = 1e-6
 ) -> bool:
-    """Aksjomat 5, doslownie: |f_i-f_j| < eps_f ORAZ |phi_i-phi_j| < eps_phi.
-    Nierownosci SCISLE (<), zgodnie z zapisem aksjomatu -- rownosc
-    dokladnie na progu NIE liczy sie jako rezonans."""
-    return abs(m_i.f - m_j.f) < eps_f and abs(m_i.phi - m_j.phi) < eps_phi
+    """Aksjomat 5: |f_i-f_j| < eps_f ORAZ kolowy dystans faz < eps_phi.
+
+    Fazy sa katami modulo 2*pi, wiec porownanie jest niezmiennicze
+    wzgledem dodania dowolnej wielokrotnosci 2*pi do phi_i lub phi_j.
+    Nierownosci sa SCISLE (<): rownosc dokladnie na progu nie jest
+    rezonansem.
+    """
+    phase_delta = (m_i.phi - m_j.phi + np.pi) % (2.0 * np.pi) - np.pi
+    return abs(m_i.f - m_j.f) < eps_f and abs(phase_delta) < eps_phi
 
 
 def local_time_from_global(local: Modality, global_: Modality, tau_global) -> np.ndarray:
