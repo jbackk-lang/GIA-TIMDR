@@ -91,11 +91,34 @@ class Mesh:
 
     def __post_init__(self) -> None:
         self.vertices = np.asarray(self.vertices, dtype=float)
-        self.faces = np.asarray(self.faces, dtype=int)
+        raw_faces = np.asarray(self.faces)
         if self.vertices.ndim != 2 or self.vertices.shape[1] != 3:
             raise ValueError("vertices musi mieć kształt (N,3)")
-        if self.faces.ndim != 2 or self.faces.shape[1] != 3:
-            raise ValueError("faces musi mieć kształt (M,3)")
+        if self.vertices.shape[0] < 3 or not np.all(np.isfinite(self.vertices)):
+            raise ValueError("vertices musi zawierać co najmniej 3 skończone punkty 3D")
+        if raw_faces.ndim != 2 or raw_faces.shape[1] != 3 or raw_faces.shape[0] == 0:
+            raise ValueError("faces musi mieć niepusty kształt (M,3)")
+        try:
+            faces_float = np.asarray(raw_faces, dtype=float)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("faces musi zawierać całkowite indeksy wierzchołków") from exc
+        if not np.all(np.isfinite(faces_float)) or not np.all(faces_float == np.floor(faces_float)):
+            raise ValueError("faces musi zawierać skończone indeksy całkowite")
+        if np.any(faces_float < 0) or np.any(faces_float >= self.vertices.shape[0]):
+            raise ValueError("faces zawiera indeks poza zakresem vertices")
+        self.faces = faces_float.astype(int)
+        if np.any(
+            (self.faces[:, 0] == self.faces[:, 1])
+            | (self.faces[:, 1] == self.faces[:, 2])
+            | (self.faces[:, 2] == self.faces[:, 0])
+        ):
+            raise ValueError("każdy trójkąt musi używać trzech różnych wierzchołków")
+        tri = self.vertices[self.faces]
+        twice_areas = np.linalg.norm(
+            np.cross(tri[:, 1] - tri[:, 0], tri[:, 2] - tri[:, 0]), axis=1
+        )
+        if not np.all(np.isfinite(twice_areas)) or np.any(twice_areas == 0.0):
+            raise ValueError("faces zawiera trójkąt z zerowym lub niefinitywnym polem")
 
     @property
     def n_vertices(self) -> int:
