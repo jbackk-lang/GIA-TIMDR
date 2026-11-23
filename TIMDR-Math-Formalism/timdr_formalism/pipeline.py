@@ -733,10 +733,18 @@ def run_controls(
         Ta sama metryka, która będzie użyta w teście głównym.
     positive_injector(window_size, seed) -> dane z wstrzykniętym efektem,
         który metric_fn POWINNA wykryć (kontrola: pipeline działa).
-    negative_generator_a/b(window_size, seed) -> dwie NIEZALEŻNE próbki
-        tła bez wstrzykniętego efektu (kontrola: pipeline nie fałszuje
-        alarmów na czystym szumie). Użyj innego seeda dla B niż dla A.
+    negative_generator_a/b(window_size, seed) -> dwie próbki tła
+        bez wstrzykniętego efektu. Test negatywny sprawdza, czy wykryto
+        różnicę między ich wynikami; p >= alpha oznacza tylko brak
+        wykrytej różnicy, NIE dowód równoważności ani gwarancję niskiego
+        odsetka fałszywych alarmów. Dla B używany jest inny seed.
     """
+    if isinstance(n_windows, bool) or not isinstance(n_windows, (int, np.integer)) or n_windows < 2:
+        raise ValueError("n_windows musi byc liczba calkowita >= 2")
+    if isinstance(window_size, bool) or not isinstance(window_size, (int, np.integer)) or window_size < 1:
+        raise ValueError("window_size musi byc dodatnia liczba calkowita")
+    if not np.isfinite(alpha) or not 0.0 < alpha < 1.0:
+        raise ValueError("alpha musi byc skonczone i nalezec do (0,1)")
     rng = np.random.default_rng(seed)
     seeds = rng.integers(0, 2**31 - 1, size=n_windows)
 
@@ -753,27 +761,29 @@ def run_controls(
 
     if passed:
         reason = (
-            "Kontrola pozytywna wykryła wstrzyknięty efekt, kontrola "
-            "negatywna nie dała fałszywego alarmu — metryka jest sensownie "
-            "skalibrowana."
+            "Kontrola pozytywna wykryła różnicę po wstrzyknięciu efektu; "
+            "kontrola negatywna nie wykryła istotnej różnicy między "
+            "próbkami tła. Bramka przesiewowa przeszła, ale wynik "
+            "negatywny nie dowodzi równoważności rozkładów ani kalibracji "
+            "odsetka fałszywych alarmów."
         )
     elif not pos_ok and not neg_ok:
         reason = (
-            "Kontrola pozytywna NIE wykryła znanego efektu I kontrola "
-            "negatywna dała fałszywy alarm — metryka jest zepsuta, nie "
-            "testuj na niej realnych/głównych danych."
+            "Kontrola pozytywna NIE wykryła różnicy po wstrzyknięciu "
+            "efektu, a kontrola negatywna wykryła różnicę między próbkami "
+            "tła. Bramka przesiewowa nie przeszła."
         )
     elif not pos_ok:
         reason = (
-            "Kontrola pozytywna nie wykryła znanego, wstrzykniętego efektu "
-            "— metryka jest za mało czuła, wynik testu głównego byłby "
-            "niediagnostyczny."
+            "Kontrola pozytywna nie wykryła różnicy po wstrzyknięciu "
+            "znanego efektu — czułość metryki w tym scenariuszu nie została "
+            "potwierdzona; wynik główny byłby niediagnostyczny."
         )
     else:
         reason = (
-            "Kontrola negatywna dała fałszywy alarm na dwóch niezależnych "
-            "próbkach tła bez efektu — metryka ma za dużo fałszywych "
-            "trafień, żeby jej ufać."
+            "Kontrola negatywna wykryła istotną różnicę między próbkami "
+            "tła. To sygnał możliwej niestabilności generatorów lub "
+            "metryki; bramka przesiewowa nie przeszła."
         )
 
     return ControlResult(positive=positive, negative=negative, passed=passed, reason=reason)
@@ -825,7 +835,8 @@ def format_report(
         f"- Pozytywna: p={controls.positive.pvalue:.4g} "
         f"({'wykryta' if controls.positive.pvalue < alpha else 'NIE wykryta'})",
         f"- Negatywna: p={controls.negative.pvalue:.4g} "
-        f"({'brak fałszywego alarmu' if controls.negative.pvalue >= alpha else 'FAŁSZYWY ALARM'})",
+        f"({'nie wykryto istotnej różnicy' if controls.negative.pvalue >= alpha else 'wykryto istotną różnicę'})",
+        "- Uwaga: nieistotny wynik kontroli negatywnej nie dowodzi równoważności rozkładów ani nie wyznacza odsetka fałszywych alarmów.",
         f"- Bramka kontrolna: {'PRZESZŁA' if controls.passed else 'NIE PRZESZŁA'} — {controls.reason}",
         "",
     ]
