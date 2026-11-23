@@ -1,6 +1,6 @@
 # Chronoproces — indeks badań nad bezpieczną diagnozą i certyfikacją regulatorów
 
-**Status 2026-11-15:** aktywna linia badawcza 51B.15u–51B.16t. To indeks twierdzeń, prototypów i granic, a nie deklaracja produkcyjnego certyfikatu bezpieczeństwa.
+**Status na 2026-11-15 (migawka historyczna):** linia badawcza 51B.15u–51B.16t. To indeks twierdzeń, prototypów i granic, a nie deklaracja produkcyjnego certyfikatu bezpieczeństwa. Wymienione ograniczenia i zalecenia zachowują stan wiedzy z tej daty; nie są bieżącym backlogiem ani poleceniem wznowienia prac.
 
 ## Odkrycia matematyczne
 1. **Gra przekonań i warunki bezpiecznej diagnozy (15u–15z, 16a, 16g):** największy punkt stały bezpieczeństwa, osiągalność pewnej diagnozy, rozróżnienie etykiety bieżącej od niezmiennego pochodzenia; pułapka epistemiczna może wykluczyć dowolną pamięć.
