@@ -257,16 +257,27 @@ jako opis kodu.
 
 ### 5. Kontrola pozytywna i negatywna (`run_controls`)
 
-Uruchamiane RAZEM, PRZED testem na danych głównych, jako bramka:
+Uruchamiane razem, przed testem na danych głównych, jako **bramka
+przesiewowa**:
 
 - **Pozytywna** — przypadek ze sztucznie wstrzykniętym efektem, który
-  metryka POWINNA wykryć (p małe). Jeśli nie wykrywa, metryka jest za
-  mało czuła — wynik na danych głównych byłby niediagnostyczny.
-- **Negatywna** — dwie NIEZALEŻNE próbki czystego tła bez efektu (p
-  duże / nieistotne). Jeśli metryka znajduje "efekt" między dwoma
-  próbkami szumu, jest przeczulona — nie da się jej ufać.
+  metryka powinna wykryć (p < α). Brak wykrycia oznacza, że czułość
+  metryki w tym scenariuszu nie została potwierdzona.
+- **Negatywna** — porównanie dwóch próbek tła bez wstrzykniętego efektu.
+  Jeśli p < α, wykryto różnicę i bramka odrzuca konfigurację. Jeśli
+  p ≥ α, nie wykryto istotnej różnicy — to NIE dowodzi równoważności
+  rozkładów ani nie dowodzi niskiego odsetka fałszywych alarmów.
 
-Główny test uruchamiasz TYLKO jeśli obie kontrole przejdą.
+Bramka `run_controls` jest procedurą przesiewową, nie formalnym testem
+równoważności ani kompletną walidacją kalibracji. Dla wniosku o
+równoważności należy z góry ustalić margines praktycznej różnicy i
+zastosować odpowiedni test równoważności z oceną mocy. Funkcja
+`run_controls` nie blokuje technicznie bezpośredniego wywołania
+`mann_whitney_test`; kolejność jest regułą protokołu dla użytkownika,
+nie wymuszeniem API.
+
+Wynik bramki pozytywnej/negatywnej nie zastępuje również prospektywnej
+oceny mocy dla testu głównego opisanej w Aksjomacie 9.
 
 *Odpowiednik skilla:* §9 krok 4 ("Run a synthetic self-test with BOTH a
 positive and a negative control before running on real data, and gate
