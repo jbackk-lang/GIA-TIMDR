@@ -409,7 +409,7 @@ def test_poisson_binomial_baseline_handles_unequal_marginals():
 def test_calibration_defaults_to_empirical_marginal_poisson_binomial():
     flags = _build_synthetic_powered_dataset()
     result = calibrate_resonance_K(flags, K=3, n_perm=1000, seed=4)
-    assert result.theoretical_independence_rate == pytest.approx(0.00856)
+    assert result.theoretical_baseline_rate == pytest.approx(0.00856)
 
 
 def test_calibration_allows_explicit_population_normal_baseline():
@@ -417,6 +417,6 @@ def test_calibration_allows_explicit_population_normal_baseline():
     result = calibrate_resonance_K(
         flags, K=3, n_perm=1000, seed=4, p_anomaly=P_ANOMALY_2SIGMA_NORMAL
     )
-    assert result.theoretical_independence_rate == pytest.approx(
+    assert result.theoretical_baseline_rate == pytest.approx(
         theoretical_independence_baseline_rate(5, 3, P_ANOMALY_2SIGMA_NORMAL)
     )
