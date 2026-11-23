@@ -11,7 +11,7 @@ SYNTETYCZNYCH o znanej odpowiedzi, nie na rzeczywistych danych
 geometrycznych (G7c(3) pozostaje otwarte).
 
 STATUS WYKONANIA: zestaw geometrii (w tym ten moduł) przeszedł
-w GitHub Actions dla commitu `7bcf12ef`, w kroku
+w GitHub Actions dla commitu `80693941`, w kroku
 `Test Geometry formalism`. Testy sprawdzają implementację na
 syntetycznych siatkach o znanej geometrii; nie są walidacją empiryczną
 na rzeczywistych danych. Tolerancje uwzględniają błąd dyskretyzacji i
