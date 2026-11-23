@@ -196,17 +196,25 @@ negative_generator_b(window_size, seed) ~ D_B     (D_B = D_A z konstrukcji)
 `F_pos = metric_fn_*(D_pos)`, `F_A = metric_fn_*(D_A)`,
 `F_B = metric_fn_*(D_B)`.
 
-- **Kontrola pozytywna** testuje `H₀: F_pos =_d F_A` (równość
-  rozkładów) i chce ją ODRZUCIĆ (`p_pos < α`) — bo `D_pos` z konstrukcji
-  ma różnić się od `D_A`.
-- **Kontrola negatywna** testuje `H₀: F_A =_d F_B`. Wynik
-  `p_neg ≥ α` oznacza wyłącznie, że test nie odrzucił hipotezy
-  równości rozkładów. Nie jest dowodem, że ją zachował, nie dowodzi
-  równoważności i nie wyznacza odsetka fałszywych alarmów. Wymagałoby
-  to osobnego testu równoważności z wcześniej ustalonym marginesem
-  praktycznej różnicy oraz odpowiedniej mocy. Nawet gdy generatory A/B
-  mają ten sam rozkład z konstrukcji, pojedynczy nieistotny wynik jest
-  tylko brakiem wykrytej różnicy w tej próbie.
+Ważne: `mann_whitney_test` nie jest omnibusowym testem równości
+dowolnych rozkładów. Jego interpretacja opiera się na statystyce rang,
+a odpowiadający jej parametr probabilistyczny to
+`θ = P(X_pos > X_bg) + 0.5·P(X_pos = X_bg)`; hipoteza zerowa testu
+dwustronnego dotyczy `θ = 0.5`. Identyczność rozkładów jest warunkiem
+wystarczającym dla tej równości, ale nie jest z nią równoważna.
+
+- **Kontrola pozytywna** sprawdza, czy porównanie próbek po wstrzyknięciu
+  efektu daje wykrywalną zmianę rang (`p_pos < α`). To nie jest dowód,
+  że wykryto każdy rodzaj efektu ani że metryka ma odpowiednią moc dla
+  testu głównego.
+- **Kontrola negatywna** sprawdza, czy test rang wykrywa różnicę między
+  dwiema próbkami tła. Wynik `p_neg ≥ α` oznacza wyłącznie, że test nie
+  wykrył zmiany rang w tej próbie. Nie jest dowodem identyczności ani
+  równoważności rozkładów i nie wyznacza odsetka fałszywych alarmów.
+  Wymagałoby to osobnego testu równoważności z wcześniej ustalonym
+  marginesem praktycznej różnicy, odpowiednim testem i oceną mocy.
+  Nawet gdy generatory A/B mają ten sam rozkład z konstrukcji, pojedynczy
+  nieistotny wynik nie stanowi potwierdzenia tej własności.
 
 **Moc kontroli** (odrębna od mocy testu głównego w §4b): tutaj, w
 przeciwieństwie do danych realnych, `D_pos` i `D_A` są ZNANE z
