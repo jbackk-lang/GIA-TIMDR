@@ -112,8 +112,8 @@ def anomalia_flags(
     roznica od stalej referencji jest flaga (scisly prog > 0).
     """
     s = _finite_series(series, "series")
-    if s.size < 1:
-        raise ValueError("anomalia_flags() wymaga >= 1 elementu")
+    if s.size < 2:
+        raise ValueError("anomalia_flags() wymaga >= 2 elementow")
     if not np.isfinite(k) or k < 0:
         raise ValueError("k musi byc skonczone i >= 0")
     if reference_series is None:
