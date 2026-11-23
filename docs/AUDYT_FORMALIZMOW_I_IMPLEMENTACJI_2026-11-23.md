@@ -1,7 +1,7 @@
 # Audyt implementacji formalizmów — 23.11.2026
 
-**Stan kodu objęty audytem:** commit [ec28c9bb](https://github.com/jbackk-lang/GIA-TIMDR/commit/ec28c9bb).  
-**Potwierdzenie wykonania:** [GitHub Actions run #45099524340](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/45099524340).
+**Stan kodu objęty audytem:** commit [93445b81](https://github.com/jbackk-lang/GIA-TIMDR/commit/93445b81).  
+**Potwierdzenie wykonania:** [GitHub Actions run #45100749836](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/45099524340).
 
 Ten dokument zapisuje konkretne kontrole i poprawki wykonane po audycie spójności dokumentacji. Zielone testy potwierdzają zachowanie implementacji w sprawdzonym zakresie; nie są dowodem prawdziwości wszystkich aksjomatów ani walidacją empiryczną.
 
@@ -62,7 +62,7 @@ Przejrzano implementacje i testy czterech obszarów:
 | Geometry / G | 123 passed |
 | Modal / K | 42 passed, 5 skipped |
 | Time | 38 passed |
-| **Razem** | **546 passed, 5 skipped** |
+| **Razem** | **573 passed, 5 skipped** |
 
 Wszystkie trzy zadania workflow Repository regression checks zakończyły się sukcesem: formalism-regressions, compatibility-and-syntax i uncovered-regressions.
 
