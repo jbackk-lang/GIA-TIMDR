@@ -67,8 +67,17 @@ I(t) = \sum A_i \sin(2\pi f_i t + \phi_i)
 
 
 \[
-|f_i - f_j| < \varepsilon_f,\quad |\phi_i - \phi_j| < \varepsilon_\phi
+|f_i - f_j| < \varepsilon_f,\quad
+d_{S^1}(\phi_i,\phi_j) < \varepsilon_\phi,
+\qquad
+d_{S^1}(\phi_i,\phi_j)
+= \min_{k\in\mathbb{Z}}|\phi_i-\phi_j+2\pi k|.
 \]
+
+Faza jest kątem, więc \(\phi\) i \(\phi+2\pi k\) opisują tę samą
+modalność. Rezonans porównuje fazy początkowe przez najkrótszą odległość
+na okręgu \(S^1\), a nie przez odległość liniową zależną od wyboru
+reprezentanta kąta. Obie nierówności pozostają ścisłe.
 
 
 
