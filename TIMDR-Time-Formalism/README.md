@@ -137,9 +137,12 @@ tej sesji, nie przepisane z pamięci) jest w nagłówku
 Gabora/Heisenberga OSIĄGANA (nie tylko spełniona) przez impuls
 gaussowski.
 
-**✅ Zweryfikowane.** `pytest tests/test_fourier_bridge.py -v` — 10/10
-testów przeszło (część jednotonowa dokładna algebrą + część
-gaussowska w szerokich tolerancjach ±30%, oba typy testów zielone).
+**Wynik historyczny:** poprzednia wersja testów miała potwierdzone przez
+użytkownika 10/10. Następnie poprawiono wagi energii widma jednostronnego
+(Parseval: `A²/2` dla binów wewnętrznych, `A²` dla DC i Nyquista) i dodano
+dwa testy regresyjne. Aktualny plik ma 12 testów; nowych testów nie
+uruchomiono jeszcze w tym środowisku, więc nie przypisujemy im statusu
+zaliczonych.
 
 ## ⚠️ Czego to NIE robi
 
