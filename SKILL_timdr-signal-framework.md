@@ -22,9 +22,9 @@ Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologi
 ## 2. Cztery sygnały TIMDR (M/S)
 
 - **anomalia** — wartość poza normą (np. > mean+2σ).
-- **defekt** — skok między kolejnymi próbkami > próg.
+- **defekt** — skok między kolejnymi próbkami: \(|x_{i+1}-x_i| > c\,(P_{90}(x)-P_{10}(x))\). Gdy rozstęp percentylowy wynosi zero, próg też wynosi zero; seria idealnie stała nadal nie daje flag (bo nierówność jest ścisła), ale rzadki niezerowy skok zostaje wykryty.
 - **rezonans M** — ≥3 anomalii w tym samym czasie (koincydencja, NIE fizyczny oscylator).
-- **skręt sygnałowy** — odwrócenie trendu, flip znaku nachylenia > próg.
+- **skręt sygnałowy** — odwrócenie znaku sąsiednich nachyleń i zmiana ich wartości większa niż próg. W implementacji `skret_flags` są to różnice pierwszego rzędu po indeksie próbki; nie jest to regresja ważona rzeczywistymi odstępami czasu. Dla nieregularnego próbkowania potrzebny jest jawny wariant uwzględniający znaczniki czasu.
 
 „Rezonans" i „skręt"/τ mają wiele znaczeń w całym ekosystemie GIA-TIMDR —
 zawsze podawaj który: rezonans ma 4 znaczenia (M sygnałowy, K modalny,
@@ -142,19 +142,15 @@ mimo współdzielonych nazw.
 
 ## 6. Domknięcie gałęzi geometrycznej (G8-G9)
 
-G8 formalizuje T_S jako właściwy operator (dziedzina/ciągłość/Lipschitz).
-G9 podaje jawne F: dyskretny operator Weingartena,
-`T_S(p) ≈ ‖Δp‖·‖S_p(Δ̂p)‖ + O(‖Δp‖²)`. Implementacja:
-`TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py` (4 testy stabilności
-na płaszczyźnie/sferze/walcu/rafinacji siatki) — napisane i sprawdzone
-ręcznie, ale nieuruchomione w sesji, w której powstały (brak sandboxa).
+G8 formalizuje (T_S(p,\Delta p)) jako właściwy operator (dziedzina/ciągłość/Lipschitz). G9 podaje jawny związek z dyskretnym operatorem Weingartena. Dla małego przesunięcia po powierzchni, z (v=\Pi_{T_pS}\Delta p):
+[
+T_S(p,\Delta p) = \|v\|\,\|S_p(\hat v)\| + O(\|\Delta p\|^2).
+]
+Implementacja: `TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py`. Pełny zestaw geometrii przeszedł w GitHub Actions dla commitu `9650c9ad`: **119 passed**. Testy obejmują znane syntetyczne siatki i walidację poprawności danych siatki; nie stanowią walidacji empirycznej na rzeczywistych pomiarach geometrycznych.
 
 ## 7. Chronoproces Ξ=(T,x,Γ,φ)
 
-Most między trzema gałęziami BEZ ich mieszania — jeden nośnik `T`, trzy
-niezależne rzuty: M/S czyta `x:T→ℝᵈ` (tempo/drift), G czyta
-`Γ:T×I→ℝ³` (rodzina trajektorii → powierzchnia), K czyta `φ:T→(f,φ,A)`
-(synchronizacja faz, afiniczna nie Kuramoto). Most Fouriera M/S↔K
+Chronoproces jest orkiestracją trzech gałęzi BEZ ich mieszania — jeden nośnik `T`, trzy niezależne rzuty: M/S czyta `x:T→ℝᵈ` (tempo/drift), G czyta `Γ:T×I→ℝ³` (rodzina trajektorii → powierzchnia), K czyta `φ:T→(f,φ,A)` (faza i interferencja). W implementacji nośnik `T` musi być jednowymiarowy, skończony i ściśle rosnący; gwarantuje to spójność z definicją tempa jako różnicy kolejnych znaczników. Most Fouriera M/S↔K
 (`Δt·Δf=1/(4π)` dla impulsu gaussowskiego) to JEDYNY dopuszczony
 wyjątek od zasady zero-identyfikacji między gałęziami — bo ma za sobą
 konkretną, znaną transformatę matematyczną (FFT), nie nową hipotezę.
