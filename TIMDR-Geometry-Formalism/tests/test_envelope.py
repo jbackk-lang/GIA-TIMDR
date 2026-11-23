@@ -82,6 +82,31 @@ class TestTriangleGeometry345:
 
 
 class TestTriangleGeometryValidation:
+    @pytest.mark.parametrize("sides", [
+        (np.inf, 1.0, 1.0),
+        (1.0, np.nan, 1.0),
+        (1.0, 1.0, -np.inf),
+    ])
+    def test_rejects_nonfinite_side(self, sides):
+        with pytest.raises(ValueError):
+            TriangleGeometry.from_sides(*sides)
+
+    @pytest.mark.parametrize("points", [
+        ([0.0, 0.0], [1.0, 0.0], [np.nan, 1.0]),
+        ([0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0]),
+        ([0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0]),
+    ])
+    def test_rejects_nonfinite_or_inconsistent_points(self, points):
+        with pytest.raises(ValueError):
+            TriangleGeometry.from_points(*points)
+
+    def test_rejects_nonfinite_radius(self):
+        with pytest.raises(ValueError):
+            Lk_of_R(np.nan)
+        tri = TriangleGeometry.from_sides(3.0, 4.0, 5.0)
+        with pytest.raises(ValueError):
+            L0_of_R(tri, np.inf)
+
     def test_rejects_non_positive_side(self):
         with pytest.raises(ValueError):
             TriangleGeometry.from_sides(0.0, 1.0, 1.0)
