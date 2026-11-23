@@ -61,8 +61,8 @@ ale ma ścisłe ograniczenie: dla populacyjnego odchylenia standardowego
 \]
 gdzie \(m\) jest liczbą próbek. Zatem przy progu 2σ i ścisłej
 nierówności \(>\), dla \(m\leq5\) żaden punkt nie zostanie oznaczony
-jako anomalia. Funkcja \`anomalia_flags\` zachowuje ten historyczny
-tryb, gdy nie podano \`reference_series\`; dla krótkich okien należy
+jako anomalia. Funkcja `anomalia_flags` zachowuje ten historyczny
+tryb, gdy nie podano `reference_series`; dla krótkich okien należy
 przekazać niezależną referencję.
 
 ---
@@ -102,13 +102,13 @@ d_i d_{i+1}<0
 \right].
 \]
 
-W aktualnej implementacji \`timdr_formalism.chronosignal.skret_flags\`
+W aktualnej implementacji `timdr_formalism.chronosignal.skret_flags`
 lokalne nachylenia są różnicami sąsiednich próbek po indeksie; jest to
 równoważne dwupunktowemu nachyleniu przy jednostkowym, równomiernym
 kroku indeksu. Operator wymaga obu nachyleń niezerowych. Nie uwzględnia
 rzeczywistych odstępów między znacznikami czasu — dla nieregularnego
 próbkowania potrzebna jest odrębna wersja timestamp-aware. Uzasadnienie
-krytyki "skręt = bifurkacja": \`Resonance_M_Operator_Empiryczny.md\`
+krytyki "skręt = bifurkacja": `Resonance_M_Operator_Empiryczny.md`
 sekcja 5.
 
 ---
