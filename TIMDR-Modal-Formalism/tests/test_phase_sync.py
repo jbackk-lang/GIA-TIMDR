@@ -7,7 +7,7 @@ przypadki, komentarze z obliczeniami, zero polegania na "typowym"
 zachowaniu losowego seeda.
 
 STATUS: historyczne 17/17 dotyczy wcześniejszej wersji. Obecny zestaw
-Modal przeszedł w GitHub Actions dla commitu `93445b81` — 42 passed,
+Modal przeszedł w GitHub Actions dla commitu `582d7380` — 42 passed,
 5 skipped. Ten plik zawiera regresje fazy kołowej oraz walidację skończonych parametrów i osi czasu.
 """
 import numpy as np
