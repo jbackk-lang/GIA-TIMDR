@@ -138,8 +138,8 @@ Gabora/Heisenberga OSIĄGANA (nie tylko spełniona) przez impuls
 gaussowski.
 
 **Status aktualny:** poprzednie 10/10 jest wynikiem historycznym sprzed
-rozszerzenia. Obecny zestaw mostu Fouriera zawiera 12 testów, w tym dwa
-testy regresyjne wag Parsevala. Pełny zestaw `TIMDR-Time-Formalism/tests`
+rozszerzenia. Obecny zestaw mostu Fouriera zawiera 18 funkcji testowych, w tym
+testy regresyjne wag Parsevala, normalizacji widma i walidacji wejścia. Pełny zestaw `TIMDR-Time-Formalism/tests`
 przeszedł w GitHub Actions dla commitu `ec28c9bb`, w kroku `Test Time
 formalism and Fourier bridge`: **38 passed**. Obejmuje to regresje
 walidacji nośnika Chronoprocesu i 12 testów mostu Fouriera. Potwierdza
