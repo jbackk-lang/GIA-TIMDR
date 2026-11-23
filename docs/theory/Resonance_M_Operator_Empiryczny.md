@@ -122,8 +122,8 @@ To twierdzenie opisuje wyłącznie położenie zbioru nieciągłości. Nie
 dowodzi skuteczności detektora ani zgodności częstości flag z
 \(P(|Z|>2)\). W szczególności dla krótkich okien tryb in-sample może
 być całkowicie ślepy. Oddzielne okno referencyjne ogranicza samowpływ
-i jest dostępne przez parametr \`reference_series\` funkcji
-\`anomalia_flags()\`.
+i jest dostępne przez parametr `reference_series` funkcji
+`anomalia_flags()`.
 
 ---
 
