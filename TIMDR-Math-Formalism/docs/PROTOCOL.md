@@ -109,6 +109,16 @@ pozytywna (sztucznie wymuszona współbieżność) wykazała, że sama
 metodyka działa (p≈0.0002), więc zerowy wynik główny to ograniczenie
 danych, nie mechaniki testu.
 
+**Uwaga o bazie niezależności dla flag 2σ:** gdy próg i odchylenie są
+liczone in-sample z tej samej serii, marginalne flagi nie mają
+automatycznie prawdopodobieństwa 4.55% — standaryzowane reszty są
+zależne i dla m≤5 nie mogą przekroczyć 2σ. Dlatego
+`calibrate_resonance_K()` domyślnie buduje bazę Poissona-dwumianową z
+empirycznych częstości flag każdego parametru. Wspólny normalny
+baseline P(|Z|>2) można wymusić jawnie tylko wtedy, gdy próg odnosi się
+do niezależnej referencji/populacji. Test permutacyjny pozostaje
+głównym sprawdzianem synchronizacji między parametrami.
+
 **Jak sprawdzić moc, zamiast zgadywać:**
 
 - **NIE licz "mocy obserwowanej" (post-hoc/retrospective power) z
