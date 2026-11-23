@@ -4,6 +4,7 @@ Dokumentacja jest uporządkowana tematycznie. Przenosiny nie zmieniają statusu 
 
 - [Audyt spójności dokumentacji — 23.11.2026](AUDYT_SPÓJNOŚCI_DOKUMENTACJI_2026-11-23.md) — zakres kontroli, wykryte rozbieżności i nierozstrzygnięte punkty.
 - [Audyt implementacji formalizmów — 23.11.2026](AUDYT_FORMALIZMOW_I_IMPLEMENTACJI_2026-11-23.md) — poprawki w Math, Geometry, Modal i Time oraz wyniki pełnego CI.
+- [Utrzymanie repozytorium](maintenance/README.md) — audyty techniczne, zasady porządkowania i decyzje utrzymaniowe.
 
 ## Działy
 
