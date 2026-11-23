@@ -154,7 +154,10 @@ def test_gi_does_not_cleanly_separate_periodic_from_white_noise_synthetic():
     )
     # Uczciwie zaraportowany wynik negatywny -- NIE assert result.passed.
     assert result.passed is False
-    assert "za mało czuła" in result.reason or "fałszywy alarm" in result.reason
+    assert (
+        "czułość metryki" in result.reason
+        or "wykryła istotną różnicę" in result.reason
+    )
 
 
 def test_gi_bounded_in_unit_interval():
