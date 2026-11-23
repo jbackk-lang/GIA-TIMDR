@@ -72,11 +72,7 @@ dowolnej pary modalności i dowolnego `τ_globalne`,
 dokładnie definiująca właściwość mapy `f`, nie tylko przypadek
 brzegowy.
 
-**✅ Zweryfikowane.** `pytest tests/ -v` — 17/17 testów przeszło.
-Jeden test (`test_is_resonant_frequency_at_threshold_is_false`) padł
-przy pierwszym uruchomieniu z powodu błędu w samym teście (float
-`1.0+1e-6` nie daje dokładnie różnicy `1e-6`), nie w `is_resonant()` —
-naprawiony w `tests/test_phase_sync.py`.
+**Wynik historyczny:** zapisano wcześniej 17/17 testów PASS oraz poprawkę testu `test_is_resonant_frequency_at_threshold_is_false` (problem z reprezentacją `1.0+1e-6` w arytmetyce zmiennoprzecinkowej, nie błąd `is_resonant()`). Ten wynik dotyczy wcześniejszego zakresu. Aktualny katalog `tests/` zawiera dwa moduły testowe z łącznie 34 funkcjami `test_*` (17 w `test_phase_sync.py` i 17 w `test_real_data_validation.py`). Nie należy przedstawiać historycznego 17/17 jako wyniku pełnego aktualnego zestawu; wymaga on ponownego uruchomienia `pytest tests/ -v`.
 
 ## 🌍 Walidacja na realnych danych + kalibracja
 
