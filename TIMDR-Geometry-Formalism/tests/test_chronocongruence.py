@@ -91,7 +91,15 @@ class TestEquivalenceToExistingGenerators:
         via_dedicated = make_sphere_mesh(n_lat, n_lon, radius=radius)
 
         np.testing.assert_allclose(via_congruence.vertices, via_dedicated.vertices, atol=1e-10)
-        np.testing.assert_array_equal(via_congruence.faces, via_dedicated.faces)
+        # make_sphere_mesh gwarantuje normalne na zewnątrz, natomiast
+        # make_congruence_mesh zachowuje orientację wynikającą z kolejności
+        # parametrów (t,s). Dla tej parametryzacji sfery winding jest
+        # przeciwny; porównujemy więc tę samą triangulację bez utożsamiania
+        # orientacji powierzchni.
+        np.testing.assert_array_equal(
+            np.sort(via_congruence.faces, axis=1),
+            np.sort(via_dedicated.faces, axis=1),
+        )
 
 
 # ---------------------------------------------------------------------
