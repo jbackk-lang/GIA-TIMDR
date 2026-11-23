@@ -14,7 +14,7 @@ Dwie kategorie:
 
 STATUS: ten moduł zawiera 18 funkcji testowych. Pełny zestaw Time
 (Chronoproces + most Fouriera) przeszedł w GitHub Actions dla commitu
-`93445b81` — **38 passed**. Wynik CI potwierdza testy implementacji w
+`582d7380` — **38 passed**. Wynik CI potwierdza testy implementacji w
 sprawdzonym zakresie, nie jest samodzielnym dowodem poprawności całej
 teorii Fouriera w TIMDR.
 """
