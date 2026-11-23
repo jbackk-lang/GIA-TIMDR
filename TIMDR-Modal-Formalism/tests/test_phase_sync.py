@@ -6,11 +6,9 @@ Testy timdr_modal.phase_sync. Zasada projektowa jak w siostrzanych repo
 przypadki, komentarze z obliczeniami, zero polegania na "typowym"
 zachowaniu losowego seeda.
 
-UWAGA: ten plik zostal odtad faktycznie uruchomiony przez uzytkownika
-(`pytest tests/ -v`) -- ZWERYFIKOWANE, 17/17 przeszlo. Jeden test
-najpierw padl z powodu bledu float w samym tescie (nie w kodzie), patrz
-komentarz przy `test_is_resonant_frequency_at_threshold_is_false`
-ponizej.
+STATUS: historyczne 17/17 dotyczy wcześniejszej wersji. Obecny zestaw
+Modal przeszedł w GitHub Actions dla commitu `80693941` — 31 passed,
+5 skipped. Ten plik zawiera teraz także regresje fazy kołowej.
 """
 import numpy as np
 import pytest
