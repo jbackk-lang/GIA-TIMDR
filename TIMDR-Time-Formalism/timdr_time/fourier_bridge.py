@@ -100,6 +100,22 @@ __all__ = [
 ]
 
 
+def _finite_signal(values: Sequence[float], name: str = "x") -> np.ndarray:
+    arr = np.asarray(values, dtype=float)
+    if arr.ndim != 1 or arr.size == 0:
+        raise ValueError(f"{name} musi byc niepustym wektorem 1D")
+    if not np.all(np.isfinite(arr)):
+        raise ValueError(f"{name} musi zawierac wylacznie skonczone wartosci")
+    return arr
+
+
+def _positive_dt(dt: float) -> float:
+    dt = float(dt)
+    if not np.isfinite(dt) or dt <= 0.0:
+        raise ValueError("dt musi byc skonczone i > 0")
+    return dt
+
+
 def fft_modalities(
     x: Sequence[float], dt: float, include_dc: bool = False
 ) -> Tuple[List[_Modality], float]:
@@ -127,7 +143,8 @@ def fft_modalities(
 
     Rzuca ValueError dla sygnalow < 2 probek.
     """
-    x = np.asarray(x, dtype=float)
+    x = _finite_signal(x)
+    dt = _positive_dt(dt)
     n = x.size
     if n < 2:
         raise ValueError("fft_modalities() wymaga >= 2 probek")
@@ -156,7 +173,8 @@ def temporal_spread(x: Sequence[float], dt: float) -> Tuple[float, float]:
     rozkladu ENERGII |x(t)|^2 w dziedzinie czasu (wazona wariancja
     wokol wlasnej sredniej -- poprawne dla dowolnego sygnalu, niezaleznie
     od tego, gdzie lezy jego "srodek")."""
-    x = np.asarray(x, dtype=float)
+    x = _finite_signal(x)
+    dt = _positive_dt(dt)
     n = x.size
     t = np.arange(n, dtype=float) * dt
     weights = x ** 2
@@ -188,6 +206,8 @@ def spectral_spread(
     """
     if len(modalities) == 0:
         raise ValueError("pusta lista modalnosci")
+    if any(not isinstance(m, _Modality) for m in modalities):
+        raise ValueError("modalities musi zawierac obiekty Modality")
     f = np.array([m.f for m in modalities], dtype=float)
     amplitudes = np.array([m.A for m in modalities], dtype=float)
     weights = 0.5 * amplitudes ** 2
@@ -210,6 +230,8 @@ def time_bandwidth_product(x: Sequence[float], dt: float, include_dc: bool = Fal
     dolnej granicy w kodzie (patrz naglowek modulu za wyprowadzenie
     1/(4*pi) dla impulsu gaussowskiego, testowane osobno w
     tests/test_fourier_bridge.py) -- ta funkcja tylko liczy sam iloczyn."""
+    x = _finite_signal(x)
+    dt = _positive_dt(dt)
     modalities, _ = fft_modalities(x, dt, include_dc=include_dc)
     _, delta_t = temporal_spread(x, dt)
     n = np.asarray(x).size
