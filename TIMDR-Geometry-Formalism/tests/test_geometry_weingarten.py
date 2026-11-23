@@ -10,16 +10,12 @@ weryfikacja) — z zastrzeżeniem, że to weryfikacja NA PRZYPADKACH
 SYNTETYCZNYCH o znanej odpowiedzi, nie na rzeczywistych danych
 geometrycznych (G7c(3) pozostaje otwarte).
 
-UWAGA UCZCIWOŚCIOWA: ten plik został odtąd faktycznie uruchomiony
-(`pytest tests/ -v`) i ZWERYFIKOWANY — wszystkie cztery testy przeszły.
-Matematyka dopasowania (rzut styczny, MNK, symetryzacja,
-eigendekompozycja) została prześledzona ręcznie krok po kroku i wygląda
-poprawnie, a tolerancje liczbowe poniżej są celowo szerokie, żeby nie
-polegać na precyzyjnym zgadywaniu błędu dyskretyzacji bez wykonania
-kodu — ale to NIE zastępuje faktycznego uruchomienia `pytest tests/ -v`.
-Zrób to przed zaufaniem tym liczbom, dokładnie jak
-`examples/real_weather_resonance_validation.py` w TIMDR-Math-Formalism
-było oznaczone tym samym zastrzeżeniem z tego samego powodu.
+STATUS WYKONANIA: zestaw geometrii (w tym ten moduł) przeszedł
+w GitHub Actions dla commitu `6adeb712`, w kroku
+`Test Geometry formalism`. Testy sprawdzają implementację na
+syntetycznych siatkach o znanej geometrii; nie są walidacją empiryczną
+na rzeczywistych danych. Tolerancje uwzględniają błąd dyskretyzacji i
+nie należy ich interpretować jako dowodu dokładności dla dowolnej siatki.
 """
 import numpy as np
 import pytest
@@ -101,12 +97,23 @@ class TestSphere:
             errors.append(np.max(np.abs(kappas - expected)))
         errors = np.array(errors)
 
-        # Tolerancja szeroka celowo (kod nie był uruchomiony, patrz
-        # zastrzeżenie na górze pliku) — sprawdza rząd wielkości błędu
+        # Tolerancja szeroka celowo: sprawdza rząd wielkości błędu
         # dyskretyzacyjnego dla siatki 24x24 na promieniu 2, nie
         # precyzyjną wartość.
         assert np.median(errors) < 0.15
         assert np.max(errors) < 0.4
+
+    def test_outward_sphere_has_negative_principal_curvatures(self):
+        mesh = make_sphere_mesh(self.N_LAT, self.N_LON, radius=self.RADIUS)
+        normals = vertex_normals(mesh)
+        rings = one_ring(mesh)
+        interior = _interior_rows(self.N_LAT, self.N_LON, margin=self.MARGIN)
+
+        for idx in interior:
+            op = discrete_shape_operator(mesh, normals, idx, rings)
+            # G9a: S_p = -D_v n. Przy normalnych skierowanych na zewnątrz
+            # obie krzywizny główne sfery muszą być ujemne.
+            assert np.all(op.principal_curvatures < 0.0)
 
     def test_gaussian_curvature_positive_and_matches_1_over_R2(self):
         mesh = make_sphere_mesh(self.N_LAT, self.N_LON, radius=self.RADIUS)
