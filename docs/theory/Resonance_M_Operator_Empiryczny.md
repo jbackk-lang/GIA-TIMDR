@@ -95,30 +95,48 @@ tego samego okna** (nie z ustalonej stałej — zgodnie z
 
 (dokumentowany system engineering używa `n=5`, `K=3`).
 
-### 1.1 Ciągłość operatora rezonansu (p.w.)
+### 1.1 Ciągłość operatora rezonansu (p.w.) — warunki i ograniczenie in-sample
 
-`𝔸_i` jest funkcją wskaźnikową zbioru `{x_i : |x_i − μ_i| > 2σ_i}` — jej
-jedyne punkty nieciągłości leżą na brzegu tego zbioru,
-`{x_i = μ_i ± 2σ_i}`, który ma miarę Lebesgue'a zero dla dowolnego
-ciągłego rozkładu `x_i`. Złożenie skończenie wielu takich operatorów
-(sumowanie i próg `≥K`) ma zbiór nieciągłości będący skończoną sumą
-zbiorów miary zero — więc `ℛ_sig` jest **ciągły prawie wszędzie**
-(wszędzie poza mierzalnym zbiorem miary zero threshold-boundary).
+W trybie in-sample średnia \(\mu_i\) i populacyjne odchylenie standardowe
+\(\sigma_i\) są funkcjami całego wektora próbek
+\(X_i=(x_{i,1},\ldots,x_{i,m})\), a nie stałymi progami. Zbiór graniczny
+dla wszystkich flag w skończonym oknie jest więc sumą algebraicznych
+zbiorów
+\[
+B=\bigcup_{i,j}\{X:(x_{i,j}-\mu_i(X_i))^2-4\sigma_i(X_i)^2=0\}.
+\]
+Dla \(m\leq5\) zachodzi \(\max_j|x_{i,j}-\mu_i|/\sigma_i\leq\sqrt{m-1}\leq2\);
+przy ścisłym progu \(>2\sigma_i\) żadna próbka nie jest flagowana.
+Operator jest wtedy stały (wszystkie flagi fałszywe), a więc ciągły.
+Dla \(m\geq6\) równania graniczne są niezerowymi wielomianami w
+skończonej przestrzeni próbek; ich zbiory zerowe mają miarę Lebesgue'a
+zero. Skończona suma takich zbiorów również ma miarę zero.
 
-To słaby, ale prawdziwy wynik: mówi, że drobne zaburzenie danych
-(szum pomiarowy) niemal nigdy nie zmieni klasyfikacji rezonans/nie-rezonans
-— poza rzadkimi przypadkami "na granicy progu". Nie mówi nic o tym, czy
-rezonans **cokolwiek wykrywa** ponad przypadek — to pytanie empiryczne,
-sekcja 3-4.
+Wniosek o ciągłości prawie wszędzie wymaga, by **łączny rozkład wejściowych
+wektorów próbek** był absolutnie ciągły względem miary Lebesgue'a.
+Sama ciągłość rozkładów marginalnych nie wystarcza, jeśli wspólny
+rozkład jest osobliwy lub ma atomy na granicy. Dla dyskretnych danych
+nie ma ogólnej gwarancji prawie-pewnej ciągłości.
+
+To twierdzenie opisuje wyłącznie położenie zbioru nieciągłości. Nie
+dowodzi skuteczności detektora ani zgodności częstości flag z
+\(P(|Z|>2)\). W szczególności dla krótkich okien tryb in-sample może
+być całkowicie ślepy. Oddzielne okno referencyjne ogranicza samowpływ
+i jest dostępne przez parametr \`reference_series\` funkcji
+\`anomalia_flags()\`.
 
 ---
 
 ## 2. Baza niezależności — oszacowanie teoretyczne
 
-Jeśli `n` parametrów jest **niezależnych** i każdy ma rozkład w
-przybliżeniu normalny, to `P(𝔸_i=1) ≈ P(|Z|>2) ≈ 0.0455` dla standardowego
-`Z`. Prawdopodobieństwo, że **co najmniej K z n** będzie anomalnych
-jednocześnie **czysto przez przypadek**, to ogon rozkładu dwumianowego:
+Jeśli `n` parametrów jest **niezależnych**, a próg 2σ odnosi się
+do niezależnego rozkładu populacyjnego/referencyjnego o rozkładzie
+przybliżenie normalnym, to `P(𝔸_i=1) ≈ P(|Z|>2) ≈ 0.0455` dla
+standardowego `Z`. To przybliżenie **nie jest automatycznie poprawne**
+dla progów in-sample liczonych z tej samej krótkiej serii: standaryzowane
+reszty są zależne i ograniczone przez `sqrt(m-1)`. Prawdopodobieństwo,
+że **co najmniej K z n** będzie anomalnych jednocześnie **czysto przez
+przypadek**, w modelu jednakowego marginalnego p to ogon rozkładu dwumianowego:
 
 ```
 P(Binomial(n, 0.0455) ≥ K)
