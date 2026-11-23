@@ -58,7 +58,7 @@ Przejrzano implementacje i testy czterech obszarów:
 
 | Zestaw | Wynik |
 |---|---:|
-| Math / M–S | 343 passed |
+| Math / M–S | 370 passed |
 | Geometry / G | 123 passed |
 | Modal / K | 42 passed, 5 skipped |
 | Time | 38 passed |
