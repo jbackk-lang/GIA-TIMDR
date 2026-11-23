@@ -64,12 +64,12 @@ odchylenia rzedu kilkunastu-kilkudziesieciu procent od 1/(4*pi), stad
 szerokie tolerancje w tych testach (ten sam wzorzec co
 tests/test_geometry_weingarten.py).
 
-UWAGA O WYKONANIU: historycznie uzytkownik uruchomil poprzednia wersje
-`pytest tests/test_fourier_bridge.py -v` i potwierdzil 10/10 testow.
-Po dodaniu regresji wag Parsevala (DC, biny wewnetrzne, Nyquist) aktualny
-plik zawiera 12 testow; tych dwoch nowych testow nie uruchomiono jeszcze
-w tym srodowisku. Nie nalezy przenosic historycznego wyniku 10/10 na
-obecna wersje.
+UWAGA O WYKONANIU: po dodaniu regresji wag Parsevala aktualny
+`tests/test_fourier_bridge.py` zawiera 12 testow. Wszystkie przeszly
+w GitHub Actions w przebiegu workflow `Repository regression checks`
+dla commitu `6adeb712` (krok `Test Time formalism and Fourier bridge`).
+To potwierdza wykonanie testow regresyjnych w CI, nie dowodzi samo w
+sobie ogolnej poprawnosci matematycznej mostu poza zakresem testow.
 """
 from __future__ import annotations
 
