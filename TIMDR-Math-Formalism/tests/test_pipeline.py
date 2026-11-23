@@ -362,11 +362,15 @@ def test_run_controls_passes_when_metric_is_well_calibrated():
     assert controls.positive.pvalue < 0.01
     assert controls.negative.pvalue >= 0.05
     assert controls.passed is True
+    assert "nie dowodzi równoważności" in controls.reason
+    assert "nie wykryto istotnej różnicy" in format_report(
+        _make_hypothesis(), controls, main_result=None
+    )
 
 
 def test_run_controls_fails_when_negative_control_biased():
-    # Kontrola negatywna B ma inny rozkład niż A -> bramka MUSI odrzucić,
-    # nawet jeśli kontrola pozytywna wygląda dobrze.
+    # Kontrola negatywna B ma wyraźnie inny rozkład niż A -> bramka
+    # przesiewowa odrzuca. To wykrycie różnicy, nie estymacja FPR.
     def positive_injector(window_size, seed):
         rng = np.random.default_rng(seed)
         return rng.normal(loc=10.0, scale=0.5, size=window_size)
@@ -390,7 +394,57 @@ def test_run_controls_fails_when_negative_control_biased():
     )
     assert controls.negative.pvalue < 0.05
     assert controls.passed is False
-    assert "fałszywy alarm" in controls.reason.lower()
+    assert "wykryła istotną różnicę" in controls.reason.lower()
+
+
+@pytest.mark.parametrize("kwargs", [
+    {"n_windows": 0},
+    {"n_windows": 1},
+    {"n_windows": True},
+    {"window_size": 0},
+    {"window_size": -1},
+    {"window_size": 1.5},
+    {"window_size": True},
+    {"alpha": 0.0},
+    {"alpha": 1.0},
+    {"alpha": np.nan},
+    {"alpha": np.inf},
+])
+def test_run_controls_rejects_invalid_gate_parameters(kwargs):
+    def generator(window_size, seed):
+        return np.zeros(window_size, dtype=float)
+
+    args = dict(
+        metric_fn=_mean_metric,
+        positive_injector=generator,
+        negative_generator_a=generator,
+        negative_generator_b=generator,
+    )
+    args.update(kwargs)
+    with pytest.raises(ValueError):
+        run_controls(**args)
+
+
+def test_run_controls_passed_reason_does_not_claim_negative_equivalence():
+    def positive_injector(window_size, seed):
+        return np.ones(window_size, dtype=float) * 10.0
+
+    def background(window_size, seed):
+        rng = np.random.default_rng(seed)
+        return rng.normal(0.0, 0.1, size=window_size)
+
+    result = run_controls(
+        metric_fn=_mean_metric,
+        positive_injector=positive_injector,
+        negative_generator_a=background,
+        negative_generator_b=background,
+        n_windows=25,
+        window_size=20,
+        seed=7,
+    )
+    assert result.passed is True
+    assert "nie dowodzi równoważności" in result.reason
+    assert "gwarancję niskiego" not in result.reason
 
 
 def test_run_controls_fails_when_metric_insensitive():
