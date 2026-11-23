@@ -146,7 +146,7 @@ G8 formalizuje \(T_S(p,\Delta p)\) jako właściwy operator (dziedzina/ciągło�
 \[
 T_S(p,\Delta p) = \|v\|\,\|S_p(\hat v)\| + O(\|\Delta p\|^2).
 \]
-Implementacja: \`TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py\`. Pełny zestaw geometrii przeszedł w GitHub Actions dla commitu \`7ee9ebe7\`: **119 passed**. Testy obejmują znane syntetyczne siatki i walidację poprawności danych siatki; nie stanowią walidacji empirycznej na rzeczywistych pomiarach geometrycznych.
+Implementacja: \`TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py\`. Pełny zestaw geometrii przeszedł w GitHub Actions dla commitu \`ec28c9bb\`: **123 passed**. Testy obejmują znane syntetyczne siatki i walidację poprawności danych siatki; nie stanowią walidacji empirycznej na rzeczywistych pomiarach geometrycznych.
 
 ## 7. Chronoproces Ξ=(T,x,Γ,φ)
 
