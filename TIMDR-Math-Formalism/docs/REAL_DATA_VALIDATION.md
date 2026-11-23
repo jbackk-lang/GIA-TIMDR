@@ -39,6 +39,15 @@ zawężonego, 3-parametrowego analogu, nie pełnego systemu.
    `adaptive_thresholds.py`): `anomalia(t) = |x(t) - mean| > 2*std`.
 2. `rezonans(t) = 1[liczba anomalnych parametrów w dniu t >= K]`, dla
    K=2 i K=3 (K=3 przy n=3 oznacza: wszystkie trzy naraz).
+
+**Ważne ograniczenie progu in-sample:** średnia i odchylenie są liczone
+z tego samego 24-dniowego okna, które jest oceniane. W takim trybie
+standaryzowane reszty są zależne i ograniczone przez
+`max |z_i| <= sqrt(m-1)`; częstość `P(|Z|>2)≈4.55%` dla normalnego
+rozkładu populacyjnego nie jest właściwym, bezpośrednim baseline dla
+tych flag. Wnioskowanie o współbieżności w tym eksperymencie opiera się
+na permutacji niezależnie tasującej całe wektory flag, która zachowuje
+empiryczne częstości i strukturę każdej serii.
 3. Model null: permutacja — każdy parametr tasowany **niezależnie**
    (własne realne wartości i własny realny rozkład anomalii w czasie,
    tylko zerwane wyrównanie dat między parametrami), 5000 powtórzeń,
@@ -76,12 +85,13 @@ stopa 3/24 = 0.125, p ≈ 0.0002 — **wykryte poprawnie**.
 
 To **nie jest** dowód, że rezonans nie przekracza przypadku — to jest
 **brak wystarczających danych, żeby to w ogóle przetestować** w tym
-oknie. Realna stopa anomalii per parametr (temp 8.3%, wiatr 4.2%,
-ciśnienie 0%) jest w tym 24-dniowym oknie znacznie niższa niż zakładane
-teoretycznie ~4.55% przy normalności — więc przy K≥2 zdarzeń
-współbieżnych jest zero w obu grupach (realnej i null), test nie ma
-mocy statystycznej w żadną stronę (p=1 dla obu K nie znaczy "brak
-efektu", znaczy "nie było czego mierzyć").
+oknie. Realna stopa flag per parametr wyniosła temp 8.3%, wiatr 4.2%,
+ciśnienie 0%. Nie porównujemy tych częstości bezpośrednio z 4.55%,
+ponieważ 4.55% dotyczy populacyjnego z-score, a tu próg był liczony
+in-sample. Niezależnie od tego, ciśnienie nie miało żadnej flagi, więc
+przy K≥2 zdarzeń współbieżnych było zero w danych realnych i w rozkładzie
+null; test nie miał mocy statystycznej w żadną stronę (p=1 dla obu K
+nie znaczy "brak efektu", znaczy "nie było czego mierzyć").
 
 Kontrola pozytywna potwierdza, że sama metodyka (progi + permutacja)
 **działa poprawnie** i wykrywa realną współbieżność, gdy ta faktycznie
