@@ -19,10 +19,15 @@ identyczny.
 
 ### 1. Pre-rejestracja (`Hypothesis` + `Preregistration`)
 
-Zapisz definicję struktury/wzoru PRZED dotknięciem jakichkolwiek danych.
-Żadnego dostrajania po fakcie — to jest odpowiednik data-snooping.
-`Preregistration.create()` liczy odcisk SHA-256 hipotezy + parametrów;
-`verify_unchanged()` łapie każdą zmianę definicji po zobaczeniu wyniku.
+Zapisz definicję struktury/wzoru przed dotknięciem danych i zachowaj
+ten zapis w niezmiennym, zewnętrznym miejscu (np. publiczny commit lub
+rejestr z wiarygodnym znacznikiem czasu). `Preregistration.create()`
+liczy SHA-256 hipotezy + parametrów, a `verify_unchanged()` wykrywa
+zmianę treści względem zachowanego fingerprintu. Sam moduł nie dowodzi,
+że zapis powstał przed analizą: pole `timestamp` jest lokalnym czasem
+utworzenia, nie jest podpisem ani zaufanym znacznikiem czasu i nie
+wchodzi do fingerprintu. Hash bez zewnętrznego, datowanego śladu nie
+wyklucza prerejestracji wykonanej już po obejrzeniu danych.
 
 *Odpowiednik skilla:* §9 krok 1 ("Pre-register the feature definition
 before touching real data"), §13 krok 1 ("Define the exact objects and
