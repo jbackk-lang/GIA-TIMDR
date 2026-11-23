@@ -70,7 +70,7 @@ tests/test_geometry_weingarten.py).
 UWAGA O WYKONANIU: po dodaniu regresji wag Parsevala aktualny
 `tests/test_fourier_bridge.py` zawiera 12 testow. Wszystkie przeszly
 w GitHub Actions w przebiegu workflow `Repository regression checks`
-dla commitu `6adeb712` (krok `Test Time formalism and Fourier bridge`).
+dla commitu `7bcf12ef` (krok `Test Time formalism and Fourier bridge`).
 To potwierdza wykonanie testow regresyjnych w CI, nie dowodzi samo w
 sobie ogolnej poprawnosci matematycznej mostu poza zakresem testow.
 """
