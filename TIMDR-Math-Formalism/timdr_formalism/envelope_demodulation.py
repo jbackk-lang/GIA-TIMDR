@@ -29,6 +29,28 @@ from typing import Dict, Sequence, Tuple
 
 import numpy as np
 
+
+def _finite_1d(values: np.ndarray, name: str) -> np.ndarray:
+    """Convert to a finite, non-empty one-dimensional float array."""
+    arr = np.asarray(values, dtype=float)
+    if arr.ndim != 1 or arr.size == 0:
+        raise ValueError(f"{name} musi byc niepustym wektorem 1D")
+    if not np.all(np.isfinite(arr)):
+        raise ValueError(f"{name} musi zawierac wylacznie skonczone wartosci")
+    return arr
+
+
+def _validate_band(fs: float, f_lo: float, f_hi: float) -> tuple[float, float, float]:
+    fs, f_lo, f_hi = float(fs), float(f_lo), float(f_hi)
+    if not np.all(np.isfinite([fs, f_lo, f_hi])):
+        raise ValueError("fs i granice pasma musza byc skonczone")
+    if fs <= 0:
+        raise ValueError("fs musi byc > 0")
+    if f_lo < 0 or f_hi <= f_lo or f_hi > fs / 2:
+        raise ValueError("wymagane 0 <= f_lo < f_hi <= czestotliwosc Nyquista")
+    return fs, f_lo, f_hi
+
+
 # ---------------------------------------------------------------------
 # Filtr pasmowy FFT-domenowy + obwiednia Hilberta
 # ---------------------------------------------------------------------
@@ -37,8 +59,10 @@ import numpy as np
 def bandpass_fft(signal: np.ndarray, fs: float, f_lo: float, f_hi: float) -> np.ndarray:
     """Maskowanie w dziedzinie czestotliwosci (zera poza pasmem),
     odwrotna FFT -- unika wyboru rzedu filtru IIR/FIR."""
-    n = len(signal)
-    spectrum = np.fft.rfft(signal)
+    x = _finite_1d(signal, "signal")
+    fs, f_lo, f_hi = _validate_band(fs, f_lo, f_hi)
+    n = len(x)
+    spectrum = np.fft.rfft(x)
     freqs = np.fft.rfftfreq(n, d=1.0 / fs)
     mask = (freqs >= f_lo) & (freqs <= f_hi)
     spectrum_masked = spectrum * mask
@@ -48,8 +72,9 @@ def bandpass_fft(signal: np.ndarray, fs: float, f_lo: float, f_hi: float) -> np.
 def hilbert_envelope(signal: np.ndarray) -> np.ndarray:
     """|sygnal analityczny| przez FFT (rownowazne scipy.signal.hilbert,
     bez zaleznosci od scipy.signal dla tej jednej operacji)."""
-    n = len(signal)
-    spectrum = np.fft.fft(signal)
+    x = _finite_1d(signal, "signal")
+    n = len(x)
+    spectrum = np.fft.fft(x)
     h = np.zeros(n)
     if n % 2 == 0:
         h[0] = h[n // 2] = 1
@@ -65,8 +90,13 @@ def decimate_simple(signal: np.ndarray, factor: int) -> np.ndarray:
     """Decymacja z filtrem antyaliasingowym (usrednianie w oknie
     `factor`, potem co-`factor`-ta probka) -- wystarczajace gdy sygnal
     wejsciowy jest juz gladki (np. obwiednia)."""
-    n_out = len(signal) // factor
-    trimmed = signal[: n_out * factor]
+    x = _finite_1d(signal, "signal")
+    if isinstance(factor, bool) or not isinstance(factor, (int, np.integer)) or factor < 1:
+        raise ValueError("factor musi byc dodatnia liczba calkowita")
+    if factor > x.size:
+        raise ValueError("factor nie moze przekraczac dlugosci sygnalu")
+    n_out = len(x) // factor
+    trimmed = x[: n_out * factor]
     return trimmed.reshape(n_out, factor).mean(axis=1)
 
 
@@ -78,7 +108,8 @@ def decimate_simple(signal: np.ndarray, factor: int) -> np.ndarray:
 def kurtosis_excess(signal: np.ndarray) -> float:
     """Kurtoza nadmiarowa (Fisher, 0=Gauss) bez zaleznosci od
     scipy.stats.kurtosis -- prosta implementacja numpy."""
-    x = signal - np.mean(signal)
+    values = _finite_1d(signal, "signal")
+    x = values - np.mean(values)
     m2 = np.mean(x ** 2)
     if m2 < 1e-18:
         return 0.0
@@ -95,6 +126,9 @@ def select_resonance_band(
     jest wlasciwoscia czujnika/obudowy, nie samego uszkodzenia, wiec
     wybor z sygnalu referencyjnego nie jest podgladaniem roznicy
     miedzy grupami. Zwraca (pasmo, kurtoza_nadmiarowa_najlepszego)."""
+    _finite_1d(reference_signal, "reference_signal")
+    if not candidate_bands:
+        raise ValueError("candidate_bands nie moze byc puste")
     best_band = None
     best_kurt = -np.inf
     for f_lo, f_hi in candidate_bands:
@@ -114,8 +148,9 @@ def select_resonance_band(
 def envelope_spectrum(signal: np.ndarray, fs: float, resonance_band: Tuple[float, float]) -> Tuple[np.ndarray, np.ndarray]:
     """Filtr wokol pasma rezonansu -> obwiednia -> widmo amplitudowe
     obwiedni (po usunieciu skladowej DC). Zwraca (freqs, spectrum)."""
+    x = _finite_1d(signal, "signal")
     f_lo, f_hi = resonance_band
-    x_res = bandpass_fft(signal, fs, f_lo, f_hi)
+    x_res = bandpass_fft(x, fs, f_lo, f_hi)
     envelope = hilbert_envelope(x_res)
     envelope_centered = envelope - np.mean(envelope)
     n = len(envelope_centered)
@@ -135,6 +170,11 @@ def envelope_spectrum_peak(
     `target_freqs`. `window_hz` domyslnie 2.0 Hz -- rozsadne dla okien
     rzedu 1s (rozdzielczosc FFT=1Hz) i czestotliwosci diagnostycznych
     niecalkowitych; dostosuj dla innych dlugosci okna/zastosowan."""
+    if not np.isfinite(window_hz) or window_hz < 0:
+        raise ValueError("window_hz musi byc skonczone i >= 0")
+    for name, target in target_freqs.items():
+        if not np.isfinite(target) or target < 0:
+            raise ValueError(f"target_freqs[{name!r}] musi byc skonczona i >= 0")
     freqs, spectrum = envelope_spectrum(signal, fs, resonance_band)
     out = {}
     for name, target in target_freqs.items():
