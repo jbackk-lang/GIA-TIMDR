@@ -78,6 +78,12 @@ G7c — na przypadkach znanych analitycznie:
 
 **Status aktualny:** historyczne 17/17 nie opisuje pełnego obecnego zestawu. Katalog `tests/` zawiera 7 modułów i 80 funkcji `test_*` (testy parametryzowane mogą dawać większą liczbę przypadków pytest). Pełny zestaw przeszedł w GitHub Actions dla commitu `93445b81`, w kroku `Test Geometry formalism`: **123 passed**. Obejmuje to również regresje walidacji indeksów, skończoności współrzędnych i degeneracji trójkątów. Jest to potwierdzenie testów numerycznych na przypadkach syntetycznych, nie walidacja empiryczna na rzeczywistych danych geometrycznych.
 
+**Zakres orientacji:** obecne `vertex_normals()` i dyskretny operator
+Weingartena zakładają spójnie zorientowaną siatkę w analizowanym
+obszarze. Dla powierzchni nieorientowalnych (np. wstęgi Möbiusa)
+potrzebne są lokalne pola normalnych/karty; pojedyncza globalna tablica
+normalnych wierzchołkowych nie jest wystarczającym modelem.
+
 ## 🌀 Kongruencja Γ(t,s) dla chronoprocesu — `timdr_geometry.chronocongruence`
 
 Odpowiedź na wcześniej otwarty błąd obiektu: pojedyncza trajektoria
