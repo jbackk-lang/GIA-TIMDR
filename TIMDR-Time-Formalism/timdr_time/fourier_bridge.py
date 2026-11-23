@@ -220,23 +220,19 @@ def spectral_spread(
         raise ValueError("modalities musi zawierac obiekty Modality")
     f = np.array([m.f for m in modalities], dtype=float)
     amplitudes = np.array([m.A for m in modalities], dtype=float)
-    weights = 0.5 * amplitudes ** 2
     dc = np.isclose(f, 0.0, rtol=0.0, atol=1e-15)
-    weights[dc] = amplitudes[dc] ** 2
     if nyquist_frequency is not None:
         if not np.isfinite(nyquist_frequency) or nyquist_frequency <= 0.0:
             raise ValueError("nyquist_frequency musi byc dodatnie i skonczone")
         nyquist = np.isclose(np.abs(f), nyquist_frequency, rtol=1e-12, atol=1e-15)
-        weights[nyquist] = amplitudes[nyquist] ** 2
+    else:
+        nyquist = np.zeros(f.shape, dtype=bool)
     amplitude_scale = float(np.max(np.abs(amplitudes)))
     if amplitude_scale == 0.0:
         raise ValueError("wszystkie amplitudy zerowe -- rozklad energii w częstotliwości niezdefiniowany")
-    weights = weights / (amplitude_scale ** 2) if amplitude_scale < 1e154 else (
-        0.5 * (amplitudes / amplitude_scale) ** 2
-    )
-    weights[dc] = (amplitudes[dc] / amplitude_scale) ** 2
-    if nyquist_frequency is not None:
-        weights[nyquist] = (amplitudes[nyquist] / amplitude_scale) ** 2
+    scaled_amplitudes = amplitudes / amplitude_scale
+    weights = 0.5 * scaled_amplitudes ** 2
+    weights[dc | nyquist] = scaled_amplitudes[dc | nyquist] ** 2
     total = float(weights.sum())
     f_scale = float(np.max(np.abs(f)))
     if f_scale == 0.0:
