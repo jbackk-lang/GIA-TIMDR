@@ -218,7 +218,7 @@ def test_extract_modalities_empty_when_shorter_than_one_window(tmp_path):
 def test_load_station_csv_rejects_nonfinite_or_invalid_timebase(tmp_path, bad_times, bad_signal):
     path = tmp_path / "CLC_HHZ.csv"
     path.write_text(
-        "".join(f"{ti},{si}\\n" for ti, si in zip(bad_times, bad_signal)),
+        "".join(f"{ti},{si}\n" for ti, si in zip(bad_times, bad_signal)),
         encoding="utf-8",
     )
     with pytest.raises(ValueError):
@@ -227,7 +227,7 @@ def test_load_station_csv_rejects_nonfinite_or_invalid_timebase(tmp_path, bad_ti
 
 def test_load_station_csv_accepts_uniform_expected_sampling(tmp_path):
     path = tmp_path / "CLC_HHZ.csv"
-    path.write_text("".join(f"{i / RIDGECREST_FS_HZ},{float(i)}\\n" for i in range(4)), encoding="utf-8")
+    path.write_text("".join(f"{i / RIDGECREST_FS_HZ},{float(i)}\n" for i in range(4)), encoding="utf-8")
     t, s = load_station_csv("CLC", data_dir=str(tmp_path))
     assert t.shape == s.shape == (4,)
     assert np.diff(t) == pytest.approx([0.01, 0.01, 0.01])
