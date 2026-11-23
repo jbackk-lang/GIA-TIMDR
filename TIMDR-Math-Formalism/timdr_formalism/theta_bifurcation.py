@@ -226,6 +226,15 @@ def compute_beta(
     klasyfikacji sygnalu - patrz timdr_formalism/signal_class.py, Klasa II).
     `anticipation_fraction=0.0` odtwarza STARY, czysto skokowy wzor
     (beta=1.0 dokladnie dla Q<=Q_crit)."""
+    if not np.all(np.isfinite([Q, Q_crit, anticipation_fraction])):
+        raise ValueError("Q, Q_crit i anticipation_fraction musza byc skonczone")
+    if not 0.0 <= Q <= 1.0:
+        raise ValueError("Q musi nalezec do [0,1]")
+    if Q_crit < 0.0:
+        raise ValueError("Q_crit musi byc >= 0")
+    if not 0.0 <= anticipation_fraction <= 1.0:
+        raise ValueError("anticipation_fraction musi nalezec do [0,1]")
+
     max_slack = 1.0 - Q_crit
     if max_slack <= 0:
         # Q_crit>=1: prog matematycznie nieosiagalny (strefa martwa,
@@ -266,6 +275,10 @@ def theta_bifurcation(
       (patrz run_sg_coupling_simulation_v2 w tests/test_theta_bifurcation.py
       dla przykladu integracji).
     """
+    if not np.all(np.isfinite([S, Q, Q_crit, time_since_cutoff_start, lambda_down, lambda_up, S_up_max])):
+        raise ValueError("S, Q, Q_crit, czas, lambda i S_up_max musza byc skonczone")
+    if not 0.0 <= Q <= 1.0 or Q_crit < 0.0:
+        raise ValueError("Q musi nalezec do [0,1], a Q_crit musi byc >= 0")
     if time_since_cutoff_start < 0:
         raise ValueError(f"time_since_cutoff_start musi byc >= 0, dostano {time_since_cutoff_start}")
     if lambda_down <= 0 or lambda_up <= 0:
