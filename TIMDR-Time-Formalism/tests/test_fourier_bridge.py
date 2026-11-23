@@ -190,3 +190,32 @@ class TestGaborUncertainty:
     def test_rejects_zero_signal(self):
         with pytest.raises(ValueError):
             temporal_spread(np.zeros(10), dt=1.0)
+
+
+# ---------------------------------------------------------------------
+# Walidacja dziedziny: wektor sygnalu i dodatni, skonczony krok probkowania
+# ---------------------------------------------------------------------
+
+@pytest.mark.parametrize("bad_x", [
+    [1.0, np.nan, 2.0],
+    [1.0, np.inf, 2.0],
+    [[1.0, 2.0], [3.0, 4.0]],
+    [],
+])
+def test_fourier_operators_reject_nonfinite_or_nonvector_signal(bad_x):
+    for fn in (fft_modalities, temporal_spread, time_bandwidth_product):
+        with pytest.raises(ValueError):
+            fn(bad_x, dt=0.1)
+
+
+@pytest.mark.parametrize("dt", [0.0, -0.1, np.nan, np.inf, -np.inf])
+def test_fourier_operators_reject_invalid_sample_interval(dt):
+    x = np.array([0.0, 1.0, 0.0, -1.0])
+    for fn in (fft_modalities, temporal_spread, time_bandwidth_product):
+        with pytest.raises(ValueError):
+            fn(x, dt=dt)
+
+
+def test_spectral_spread_rejects_non_modality_items():
+    with pytest.raises(ValueError):
+        spectral_spread([object()])
