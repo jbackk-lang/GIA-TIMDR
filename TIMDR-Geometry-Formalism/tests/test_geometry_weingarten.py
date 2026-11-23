@@ -247,3 +247,38 @@ class TestEdgeCases:
         assert op.n_neighbors == 2
         # jeden trójkąt -> normalne stałe wszędzie -> S_p dokładnie 0
         assert np.allclose(op.matrix_2d, 0.0, atol=1e-10)
+
+
+# ---------------------------------------------------------------------
+# Walidacja siatki: indeksy i geometria musza definiowac prawdziwe trojkaty
+# ---------------------------------------------------------------------
+
+def test_mesh_rejects_nonfinite_vertices():
+    with pytest.raises(ValueError):
+        Mesh(
+            vertices=[[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, np.nan, 0.0]],
+            faces=[[0, 1, 2]],
+        )
+
+
+@pytest.mark.parametrize("faces", [
+    [[0, 1, 3]],
+    [[0, 1, 1]],
+    [[0.0, 1.5, 2.0]],
+    [[0, -1, 2]],
+    [],
+])
+def test_mesh_rejects_invalid_face_indices_or_connectivity(faces):
+    with pytest.raises(ValueError):
+        Mesh(
+            vertices=[[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]],
+            faces=faces,
+        )
+
+
+def test_mesh_rejects_geometrically_degenerate_triangle():
+    with pytest.raises(ValueError):
+        Mesh(
+            vertices=[[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [2.0, 0.0, 0.0]],
+            faces=[[0, 1, 2]],
+        )
