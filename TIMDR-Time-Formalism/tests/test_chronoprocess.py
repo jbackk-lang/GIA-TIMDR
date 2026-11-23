@@ -115,3 +115,14 @@ def test_phi_interference_matches_interference_directly():
     m2 = Modality(f=1.0, phi=np.pi / 2, A=3.0)
     result = cp.phi_interference([m1, m2])
     np.testing.assert_allclose(result, np.array([3.0, 2.0]), atol=1e-9)
+
+
+@pytest.mark.parametrize("carrier", [
+    [0.0, np.nan, 2.0],
+    [0.0, np.inf, 2.0],
+    [0.0, 2.0, 1.0],
+    [0.0, 1.0, 1.0],
+])
+def test_rejects_nonfinite_or_nonincreasing_carrier(carrier):
+    with pytest.raises(ValueError):
+        Chronoprocess(T=carrier)
