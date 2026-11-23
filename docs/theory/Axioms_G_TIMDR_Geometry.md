@@ -12,26 +12,23 @@ powierzchni i skrętu powierzchniowego. Nie dotyczy sygnałów czasowych
 "rezonans") oznaczają różne obiekty w trzech gałęziach, nie różne
 poziomy jednej teorii.
 
-Status: koncepcyjna (patrz Aksjomat G7). G1-G3 mają jasno określone
-obiekty i wzory już używane gdzie indziej w repo (skręt powierzchniowy:
-`Resonance_M_Operator_Empiryczny.md` §6). G4 wyznacza kierunek
-(związek skrętu z krzywizną przez operator Weingartena); G8-G9 (dodane
-później) domykają ten kierunek analitycznie — formalny operator \(T_S\)
-z domeną/przeciwdziedziną/ciągłością (G8) i jawna postać \(F\) przez
-dyskretny/różniczkowy operator Weingartena (G9) — ale wyłącznie jako
-wyprowadzenie matematyczne (tożsamość różniczkowo-geometryczna w
-granicy \(\Delta p \to 0\)), nie jako przetestowaną implementację na
-siatce 3D ani walidację empiryczną: patrz zastrzeżenia pod G9 i status
-w G7. G10 (dodany później, ta sama sesja co niniejsza aktualizacja)
-formalizuje INNY obiekt — krzywiznę krzywej (obwiedni trójkąta), nie
-powierzchni — jako parametr redukcji/rozwinięcia \((P,Q)\); status
-identyczny jak G8-G9 (wyprowadzenie ręczne, niezaimplementowane), patrz
-zastrzeżenie pod G10. **G5 (zaktualizowany później, kolejna sesja)**
-przestał być pustym stwierdzeniem braku — jest teraz operatorem
-G-Rezonans, skonstruowanym i przetestowanym NUMERYCZNIE (silniejszy
-status niż G8-G10, które są wyprowadzeniem ręcznym bez implementacji)
-dla \(N=3\) na geometrii trójwęzła, wciąż bez walidacji empirycznej na
-realnej krzywej — patrz zastrzeżenie o zakresie pod G5.
+Status całej gałęzi pozostaje **koncepcyjny** (G7): nie oznacza to braku
+implementacji poszczególnych operatorów. G1-G3 definiują obiekty i
+podstawowe wielkości; G8-G9 formalizują analitycznie operator skrętu
+powierzchniowego i jego związek z operatorem Weingartena, a
+`TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py` implementuje
+dyskretny operator kształtu i porównanie \(T_S\) empirycznego z
+przewidywanym na syntetycznych siatkach płaszczyzny, sfery i walca.
+G10 formalizuje parametr obwiedni \((P,Q)\), a
+`TIMDR-Geometry-Formalism/timdr_geometry/envelope.py` implementuje
+konstrukcję i numeryczne kontrole na jawnie zadanych trójkątach
+syntetycznych. Oba zestawy testów geometrii przeszły w GitHub Actions
+w kroku `Test Geometry formalism` dla commitu `6adeb712`.
+To potwierdza testy implementacji w ich zadanym zakresie, nie walidację
+empiryczną na rzeczywistych pomiarach ani pełne domknięcie teorii.
+Operator G-Rezonans z G5 jest odrębną implementacją dotyczącą
+sprzężonej krzywej węzłowej; jego ograniczony zakres walidacji opisuje
+G5f.
 
 ---
 
@@ -100,13 +97,12 @@ dla powierzchni \(S\), taki że:
   względem skrętu — skręt jest pochodną miarą zmiany orientacji, nie
   niezależnym obiektem.
 
-*(Ten aksjomat wyznacza kierunek: implementacja \(W_S\) i \(F\) jest
-otwarta, ale musi być zgodna z tym związkiem. To jest dokładnie luka,
-którą `Axioms_S_TIMDR_Signal.md` — sekcja "Pozostałe braki formalne" —
-zostawiła jako niesformalizowaną; G4 nie ją domyka, tylko nazywa i
-zobowiązuje przyszłą implementację do zgodności z nią. **Aktualizacja:**
-Aksjomaty G8-G9 poniżej podają jawną, analitycznie wyprowadzoną postać
-\(F\) — patrz zastrzeżenia tam co do zakresu tego domknięcia.)*
+*(G4 wyznacza kierunek, a nie kompletną implementację. G8-G9 podają
+analityczną postać \(F\); jej numeryczna realizacja znajduje się w
+`TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py` i jest
+sprawdzana na syntetycznych siatkach o znanej geometrii. Otwarte
+pozostają formalny zakres klasy dopuszczalnych powierzchni oraz
+walidacja empiryczna i niezależna — patrz G7.)*
 
 ---
 
@@ -171,14 +167,24 @@ zastrzeżeniu na końcu.
   \(p\) wzdłuż krawędzi \(\Delta p\) jest aproksymowany różnicą
   skończoną, rzutowaną na płaszczyznę styczną:
   \[
-  S_p^{\text{dysk}}(\Delta p) \approx
-  \Pi_{T_pS}\!\left[\frac{n(p+\Delta p) - n(p)}{\|\Delta p\|}\right]
+  S_p^{\text{dysk}}(\Pi_{T_pS}\Delta p) \approx
+  -\Pi_{T_pS}\!\left[n(p+\Delta p) - n(p)\right].
   \]
-  gdzie \(\Pi_{T_pS}\) jest rzutem ortogonalnym na płaszczyznę styczną
-  w \(p\). To jest standardowa konstrukcja różnic skończonych dla
-  operatora Weingartena na siatkach (por. dyskretne operatory geometrii
-  różniczkowej), nie coś specyficznego dla TIMDR — TIMDR jedynie
-  wskazuje, że to jest wymagana definicja \(W_S\) z G4a.
+  Równoważnie, dla jednostkowego kierunku stycznego
+  \(\hat v=\Pi_{T_pS}\Delta p/\|\Pi_{T_pS}\Delta p\|\):
+  \[
+  S_p^{\text{dysk}}(\hat v) \approx
+  -\frac{\Pi_{T_pS}[n(p+\Delta p)-n(p)]}
+  {\|\Pi_{T_pS}\Delta p\|}.
+  \]
+  Znak minus wynika z konwencji G9a, \(S_p=-D_v n\); w pierwszej
+  postaci operator działa na wektor przesunięcia, więc po prawej
+  stronie nie dzielimy przez jego długość. To odpowiada implementacji
+  MNK w `timdr_geometry/weingarten.py`, która dopasowuje różnice
+  normalnych do rzutów stycznych przesunięć, a następnie neguje
+  dopasowaną macierz. Jest to standardowa konstrukcja różnic
+  skończonych dla operatora Weingartena na siatkach, nie coś
+  specyficznego dla TIMDR.
 - **(G9c) Jawna postać \(F\) domykająca G4b.** Z rozwinięcia Taylora
   pola normalnych do pierwszego rzędu:
   \[
@@ -197,16 +203,15 @@ zastrzeżeniu na końcu.
   \(T_S(p) \leq \kappa_{\max}(p)\cdot\|\Delta p\| + O(\|\Delta p\|^2)\)
   — dokładnie ograniczenie użyte w G8d.
 
-*(**Zastrzeżenie o zakresie domknięcia.** G9a-G9d są wyprowadzeniem
-analitycznym (tożsamość różniczkowo-geometryczna, prawdziwa w granicy
-\(\Delta p \to 0\), oraz jej standardowa dyskretna aproksymacja różnicą
-skończoną) — NIE są zaimplementowanym, przetestowanym kodem na
-rzeczywistej siatce 3D, ani nie są zwalidowane empirycznie na
-rzeczywistych danych geometrycznych. To domyka G4b **analitycznie**
-(jawna postać \(F\) istnieje i jest standardowym obiektem geometrii
-różniczkowej), ale G7's status "koncepcyjna" oraz wymagania G7c
-(2)-(4) — formalna przestrzeń powierzchni, testy empiryczne, niezależna
-walidacja — pozostają otwarte: patrz zaktualizowany Aksjomat G7.)*
+*(**Zastrzeżenie o zakresie domknięcia.** G9a-G9d mają wyprowadzenie
+analityczne, a dyskretny operator został zaimplementowany w
+`TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py`. Testy
+numeryczne obejmują syntetyczne siatki płaszczyzny, sfery i walca oraz
+zbieżność przy zagęszczaniu siatki; zestaw geometrii przeszedł w CI
+(`Test Geometry formalism`, commit `6adeb712`). Nie jest to jeszcze
+walidacja empiryczna na niezależnych, rzeczywistych danych geometrycznych.
+Formalna przestrzeń powierzchni, walidacja empiryczna i niezależna
+pozostają otwarte zgodnie z G7.)*
 
 ---
 
@@ -331,11 +336,14 @@ krzywizną krzywej 1D, nie wartością własną \(W_S\).
   znalezionych błędów zamiast ich cichego poprawiania.)*
 
 *(**Zastrzeżenie o statusie i o analogii z topologią.** (1) G10c-G10e
-są rachunkiem wykonanym ręcznie w tej sesji (sumy kątów zewnętrznych,
-wzór na długość odcinka stycznego, nierówność Jensena, zbieżność
-środków łuków w incenterze) — sprawdzonym krok po kroku, ale NIE
-zaimplementowanym ani przetestowanym numerycznie (ten sam status co
-G8-G9, patrz zastrzeżenie tam i G7). (2) \(P,Q\) są parametrem
+mają wyprowadzenie analityczne i są zaimplementowane numerycznie w
+`TIMDR-Geometry-Formalism/timdr_geometry/envelope.py`; testy
+`tests/test_envelope.py` sprawdzają wzory, monotoniczność,
+odwracalność i numeryczną długość skonstruowanej obwiedni na pięciu
+syntetycznych trójkątach. Zestaw geometrii przeszedł w CI
+(`Test Geometry formalism`, commit `6adeb712`). To nie jest
+walidacja empiryczna na zmierzonych danych geometrycznych. (2)
+\(P,Q\) są parametrem
 CIĄGŁYM (modułem geometrycznym, \(P\in[0,1]\)) — to inny TYP obiektu
 niż rodzaj/genus (odróżniający torus od wstęgi Möbiusa) czy wymiar
 sympleksu (odróżniający trójkąt-jako-2-sympleks od czworościanu-jako-
