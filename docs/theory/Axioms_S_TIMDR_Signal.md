@@ -81,11 +81,23 @@ sparametryzowanego układu dynamicznego, dopóki nie wskazano jawnego
 `f(x;λ)` i nie pokazano zmiany jakościowej.
 
 \[
-\text{skręt}_{\text{sig}}(x)(t) = \mathbb{1}\left[\, \text{sign}(\hat{\beta}(t^-)) \neq \text{sign}(\hat{\beta}(t^+)) \ \land\ |\hat{\beta}(t^+) - \hat{\beta}(t^-)| > 1.5\sigma_\beta \,\right]
+d_i=x_{i+1}-x_i,\qquad
+\text{skręt}_{\text{sig}}(x)_i =
+\mathbb{1}\left[
+d_i d_{i+1}<0
+\ \land\
+|d_{i+1}-d_i|>1.5\,\operatorname{std}(d)
+\right].
 \]
 
-gdzie `β̂` to lokalne nachylenie regresji. Uzasadnienie krytyki "skręt =
-bifurkacja": `Resonance_M_Operator_Empiryczny.md` sekcja 5.
+W aktualnej implementacji \`timdr_formalism.chronosignal.skret_flags\`
+lokalne nachylenia są różnicami sąsiednich próbek po indeksie; jest to
+równoważne dwupunktowemu nachyleniu przy jednostkowym, równomiernym
+kroku indeksu. Operator wymaga obu nachyleń niezerowych. Nie uwzględnia
+rzeczywistych odstępów między znacznikami czasu — dla nieregularnego
+próbkowania potrzebna jest odrębna wersja timestamp-aware. Uzasadnienie
+krytyki "skręt = bifurkacja": \`Resonance_M_Operator_Empiryczny.md\`
+sekcja 5.
 
 ---
 
