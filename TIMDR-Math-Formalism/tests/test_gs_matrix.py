@@ -120,3 +120,49 @@ def test_simulate_rejects_dimension_mismatch():
 def test_simulate_rejects_nonpositive_dt():
     with pytest.raises(ValueError):
         simulate_linear_system(np.eye(2), np.array([1.0, 0.0]), dt=0.0, n_steps=10)
+
+
+# ---------------------------------------------------------------------
+# Walidacja dziedziny: macierze/wektory 2D/1D i skonczone parametry
+# ---------------------------------------------------------------------
+
+@pytest.mark.parametrize("K", [
+    np.array([1.0, 2.0]),
+    np.ones((2, 2, 2)),
+    np.empty((0, 0)),
+    np.array([[1.0, np.nan], [0.0, 1.0]]),
+])
+def test_matrix_operators_reject_invalid_K(K):
+    with pytest.raises(ValueError):
+        decompose_K(K)
+    with pytest.raises(ValueError):
+        is_conservative(K)
+
+
+def test_is_conservative_rejects_invalid_tolerance():
+    with pytest.raises(ValueError):
+        is_conservative(np.zeros((2, 2)), tol=np.nan)
+    with pytest.raises(ValueError):
+        is_conservative(np.zeros((2, 2)), tol=-1.0)
+
+
+@pytest.mark.parametrize("V0", [
+    np.array([[1.0], [0.0]]),
+    np.array([1.0, np.inf]),
+    np.array([1.0, 2.0, 3.0]),
+])
+def test_simulate_linear_system_rejects_invalid_initial_state(V0):
+    with pytest.raises(ValueError):
+        simulate_linear_system(np.eye(2), V0, dt=0.01, n_steps=10)
+
+
+@pytest.mark.parametrize("dt", [np.nan, np.inf, -np.inf])
+def test_simulate_linear_system_rejects_nonfinite_dt(dt):
+    with pytest.raises(ValueError):
+        simulate_linear_system(np.eye(2), np.array([1.0, 0.0]), dt=dt, n_steps=10)
+
+
+@pytest.mark.parametrize("n_steps", [-1, 1.5, True])
+def test_simulate_linear_system_rejects_invalid_step_count(n_steps):
+    with pytest.raises(ValueError):
+        simulate_linear_system(np.eye(2), np.array([1.0, 0.0]), dt=0.01, n_steps=n_steps)
