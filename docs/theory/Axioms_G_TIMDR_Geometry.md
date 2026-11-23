@@ -64,14 +64,15 @@ Istnieje wyróżniony obiekt \( \Delta = (A,B,C) \), trójkąt w
 ## Aksjomat G3 — Skręt powierzchniowy jako lokalna zmiana orientacji
 
 Dla powierzchni \(S\) z polem normalnych \(n(p)\) definiujemy
-**lokalny skręt powierzchniowy** w punkcie \(p\) jako:
+**lokalny skręt powierzchniowy** w punkcie \(p\), dla dopuszczalnego
+przesunięcia \(\Delta p\), jako:
 
 \[
-T_S(p) = \|n(p+\Delta p) - n(p)\|
+T_S(p,\Delta p) = \|n(p+\Delta p) - n(p)\|
 \]
 
-gdzie \(\Delta p\) jest dopuszczalnym, lokalnym przesunięciem wzdłuż
-powierzchni.
+gdzie \(\Delta p\) jest lokalnym przesunięciem wzdłuż powierzchni.
+Wartość zależy zarówno od punktu, jak i od wybranego przesunięcia.
 
 - **(G3a)** Skręt \(T_S(p)\) jest dobrze określony prawie wszędzie na
   \(S\).
@@ -89,10 +90,15 @@ powierzchni.
 Istnieje dyskretny odpowiednik operatora kształtu (Weingarten) \(W_S\)
 dla powierzchni \(S\), taki że:
 
-- **(G4a)** \(W_S\) działa na polu normalnych \(n(p)\) i opisuje
-  lokalną krzywiznę powierzchni.
-- **(G4b)** Skręt powierzchniowy \(T_S(p)\) jest funkcją lokalnej
-  krzywizny: istnieje funkcja \(F\) taka, że \(T_S(p) = F(W_S(p))\).
+- **(G4a)** \(W_S\) jest operatorem kształtu wyznaczanym przez
+  różniczkowanie pola normalnych \(n(p)\); w punkcie \(p\) działa
+  na wektorach stycznych \(v\in T_pS\) i opisuje lokalną krzywiznę
+  powierzchni.
+- **(G4b)** Skręt powierzchniowy \(T_S(p,\Delta p)\) jest
+  asymptotycznie wyznaczany przez lokalny operator kształtu: istnieje
+  funkcja \(F\) taka, że
+  \(T_S(p,\Delta p)=F(W_S(p),\Delta p)+O(\|\Delta p\|^2)\)
+  w zakresie regularności i małych przesunięć określonym w G9.
 - **(G4c)** W gałęzi G krzywizna (poprzez \(W_S\)) jest pierwotna
   względem skrętu — skręt jest pochodną miarą zmiany orientacji, nie
   niezależnym obiektem.
@@ -108,7 +114,7 @@ walidacja empiryczna i niezależna — patrz G7.)*
 
 ## Aksjomat G8 — \(T_S\) jako formalny operator: domena, przeciwdziedzina, ciągłość, stabilność
 
-Aksjomat G3 podaje wzór na \(T_S(p)\); ten aksjomat formalizuje go jako
+Aksjomat G3 podaje wzór na \(T_S(p,\Delta p)\); ten aksjomat formalizuje go jako
 właściwy operator matematyczny, nie tylko wyrażenie.
 
 - **(G8a) Domena.** \(T_S\) jest funkcją częściową
@@ -122,12 +128,14 @@ właściwy operator matematyczny, nie tylko wyrażenie.
   \(T_S(p) \in [0, 2]\) dla każdego dopuszczalnego \((p,\Delta p)\) —
   \(T_S\) nie tylko jest nieujemny (G3c), ale ma jawnie skończony,
   uniwersalny (niezależny od \(S\)) zakres.
-- **(G8c) Ciągłość w granicy \(\Delta p \to 0\).** Jeśli \(n\) jest
-  różniczkowalne w \(p\) (co zachodzi prawie wszędzie, G1b), to
-  \(\lim_{\Delta p \to 0} T_S(p, \Delta p) = 0\) — zgodnie z G3b (brak
-  przesunięcia = brak skrętu). Mocniej: dla małych \(\Delta p\),
-  \(T_S\) jest różniczkowalny w \(\Delta p\) i jego rozwinięcie do
-  pierwszego rzędu jest dane przez Aksjomat G9 poniżej.
+- **(G8c) Ciągłość w granicy \(\Delta p \to 0\).** Jeśli pole
+  normalnych \(n\) jest różniczkowalne w \(p\), to
+  \(\lim_{\Delta p \to 0} T_S(p,\Delta p)=0\). Jest to dodatkowe
+  założenie regularności: samo G1b (istnienie normalnej prawie wszędzie)
+  nie gwarantuje różniczkowalności pola normalnych. G9 podaje
+  asymptotyczny wyraz pierwszego rzędu. Ponieważ \(T_S\) zawiera normę,
+  na ogół nie jest różniczkowalny w \(\Delta p=0\); twierdzimy tu
+  ciągłość i rozwinięcie asymptotyczne, nie różniczkowalność w zerze.
 - **(G8d) Stabilność (ograniczenie Lipschitza).** W punktach, gdzie
   krzywizna główna powierzchni jest ograniczona przez
   \(\kappa_{\max}(p) = \max(|\kappa_1(p)|, |\kappa_2(p)|)\) (G9),
