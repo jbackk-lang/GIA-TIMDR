@@ -26,15 +26,14 @@ jako skala dla defektu) sa dokladnie tymi samymi, ktorych uzywa
 examples/real_weather_resonance_validation.py (anomaly_flags) i skill
 paragraf 1 -- nie nowy wybor progu.
 
-UWAGA O WYKONANIU: ten modul zostal napisany w sesji, w ktorej sandbox
-bash byl niedostepny (RPC pipe closed) -- matematyka progow zostala
-reczne przesledzona przed napisaniem testow. Wszystkie 16 testow w
-tests/test_chronosignal.py zostalo odtad faktycznie uruchomionych przez
-uzytkownika (`pytest tests/test_chronosignal.py -v`) i PRZESZLO (62/63
-w calym repo -- jedyny blad to niezwiazany z tym modulem PermissionError
-na lokalnym katalogu tymczasowym Windows w istniejacym wczesniej tescie
-test_preregistration_save_and_load_roundtrip). examples/chronosignal_demo.py
-(interaktywny skrypt, nie plik testowy) nie zostal jeszcze uruchomiony.
+Walidacja wejścia jest częścią kontraktu modułu: znaczniki i serie muszą
+być jednowymiarowe i skończone, a progi oraz nominalny odstęp muszą mieć
+dopuszczalne wartości. Aktualny zestaw formalizmów M/S przeszedł w
+GitHub Actions dla commitu `9650c9ad`; testy automatyczne potwierdzają
+zachowanie kodu w sprawdzonym zakresie, nie empiryczną skuteczność
+detektorów na dowolnej domenie danych. Przykład
+`examples/chronosignal_demo.py` pozostaje osobnym skryptem demonstracyjnym
+i nie jest objęty tym wynikiem CI.
 """
 from __future__ import annotations
 
