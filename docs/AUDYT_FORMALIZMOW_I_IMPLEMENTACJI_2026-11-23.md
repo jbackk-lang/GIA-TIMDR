@@ -1,7 +1,7 @@
 # Audyt implementacji formalizmów — 23.11.2026
 
-**Stan kodu objęty audytem:** commit [93445b81](https://github.com/jbackk-lang/GIA-TIMDR/commit/93445b81).  
-**Potwierdzenie wykonania:** [GitHub Actions run #45100749836](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/45100749836).
+**Stan kodu objęty audytem:** commit [582d7380](https://github.com/jbackk-lang/GIA-TIMDR/commit/582d7380).  
+**Potwierdzenie wykonania:** [GitHub Actions run #45101278792](https://github.com/jbackk-lang/GIA-TIMDR/actions/runs/45100749836).
 
 Ten dokument zapisuje konkretne kontrole i poprawki wykonane po audycie spójności dokumentacji. Zielone testy potwierdzają zachowanie implementacji w sprawdzonym zakresie; nie są dowodem prawdziwości wszystkich aksjomatów ani walidacją empiryczną.
 
