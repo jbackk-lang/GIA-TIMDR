@@ -22,7 +22,7 @@ opartych na "typowym" zachowaniu losowego seeda. Trzy warstwy testow:
    docstring), wiec wynik jest rowniez zdeterminowany, nie losowy.
 
 STATUS WYKONANIA: pełny zestaw Math przeszedł w GitHub Actions dla
-commitu `9fac6882` — **382 passed**. Testy obejmują także regresje
+commitu `3f000c45` — **382 passed**. Testy obejmują także regresje
 niezależnego okna referencyjnego, empirycznego baseline'u
 Poissona-dwumianowego i bramki kontroli.
 """
