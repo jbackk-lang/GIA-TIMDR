@@ -227,3 +227,18 @@ def test_classify_signal_trace_requires_finite_channels_when_cutoff_active():
             t=[0.0, 1.0], Q=[0.5, 0.6], Q_crit=0.35, cutoff=[False, True],
             S_down_trace=[np.nan, np.nan], S_up_trace=[np.nan, 1.0],
         )
+
+
+def test_classify_signal_point_rejects_nonzero_S_up_below_hard_threshold():
+    import pytest
+    with pytest.raises(ValueError):
+        classify_signal_point(Q=0.2, Q_crit=0.35, S_down=1.0, S_up=0.1)
+
+
+def test_classify_signal_trace_requires_boolean_cutoff_mask():
+    import pytest
+    with pytest.raises(ValueError):
+        classify_signal_trace(
+            t=[0.0, 1.0], Q=[0.1, 0.2], Q_crit=0.35, cutoff=[0, 1],
+            S_down_trace=[np.nan, np.nan], S_up_trace=[np.nan, np.nan],
+        )
