@@ -97,15 +97,20 @@ class Preregistration:
 
     @staticmethod
     def create(hypothesis: Hypothesis, params: dict) -> "Preregistration":
+        # Zapis JSON tworzy odizolowana migawke parametrow: pozniejsza
+        # mutacja slownika wywolujacego nie moze zmienic tresci
+        # prerejestracji przy zachowaniu starego fingerprintu.
+        params_json = json.dumps(params, sort_keys=True, allow_nan=False)
+        params_snapshot = json.loads(params_json)
         payload = json.dumps(
-            {"hypothesis": asdict(hypothesis), "params": params},
+            {"hypothesis": asdict(hypothesis), "params": params_snapshot},
             sort_keys=True,
             allow_nan=False,
         ).encode("utf-8")
         fingerprint = hashlib.sha256(payload).hexdigest()
         return Preregistration(
             hypothesis=hypothesis,
-            params=params,
+            params=params_snapshot,
             timestamp=time.time(),
             fingerprint=fingerprint,
         )
@@ -127,9 +132,19 @@ class Preregistration:
     @staticmethod
     def load(path: str | Path) -> "Preregistration":
         data = json.loads(Path(path).read_text(encoding="utf-8"))
+        hypothesis = Hypothesis(**data["hypothesis"])
+        params = data["params"]
+        payload = json.dumps(
+            {"hypothesis": asdict(hypothesis), "params": params},
+            sort_keys=True,
+            allow_nan=False,
+        ).encode("utf-8")
+        expected = hashlib.sha256(payload).hexdigest()
+        if data.get("fingerprint") != expected:
+            raise ValueError("fingerprint prerejestracji nie zgadza sie z zapisanymi danymi")
         return Preregistration(
-            hypothesis=Hypothesis(**data["hypothesis"]),
-            params=data["params"],
+            hypothesis=hypothesis,
+            params=params,
             timestamp=data["timestamp"],
             fingerprint=data["fingerprint"],
         )
