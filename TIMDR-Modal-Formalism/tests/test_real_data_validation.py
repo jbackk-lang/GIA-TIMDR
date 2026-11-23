@@ -209,6 +209,44 @@ def test_extract_modalities_empty_when_shorter_than_one_window(tmp_path):
     assert mods == []
 
 
+@pytest.mark.parametrize("bad_times,bad_signal", [
+    ([0.0, 0.01, 0.02], [1.0, np.nan, 2.0]),
+    ([0.0, np.inf, 0.02], [1.0, 2.0, 3.0]),
+    ([0.0, 0.01, 0.01], [1.0, 2.0, 3.0]),
+    ([0.0, 0.02, 0.04], [1.0, 2.0, 3.0]),
+])
+def test_load_station_csv_rejects_nonfinite_or_invalid_timebase(tmp_path, bad_times, bad_signal):
+    path = tmp_path / "CLC_HHZ.csv"
+    path.write_text(
+        "".join(f"{ti},{si}\\n" for ti, si in zip(bad_times, bad_signal)),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError):
+        load_station_csv("CLC", data_dir=str(tmp_path))
+
+
+def test_load_station_csv_accepts_uniform_expected_sampling(tmp_path):
+    path = tmp_path / "CLC_HHZ.csv"
+    path.write_text("".join(f"{i / RIDGECREST_FS_HZ},{float(i)}\\n" for i in range(4)), encoding="utf-8")
+    t, s = load_station_csv("CLC", data_dir=str(tmp_path))
+    assert t.shape == s.shape == (4,)
+    assert np.diff(t) == pytest.approx([0.01, 0.01, 0.01])
+
+
+def test_fft_peak_rejects_invalid_sampling_rate_and_nonfinite_signal():
+    with pytest.raises(ValueError):
+        _fft_peak_f_phi_A(np.ones(8), fs=0.0)
+    with pytest.raises(ValueError):
+        _fft_peak_f_phi_A(np.array([0.0, 1.0, np.nan, 0.0]), fs=100.0)
+
+
+@pytest.mark.parametrize("window_sec", [0.0, -1.0, np.nan, np.inf])
+def test_extract_modalities_rejects_invalid_window_duration(tmp_path, window_sec):
+    _write_synthetic_station_csv(tmp_path, "CLC_HHZ.csv", 2.0, 0.3, 1.0, 1000, RIDGECREST_FS_HZ)
+    with pytest.raises(ValueError):
+        extract_modalities("CLC", window_sec=window_sec, data_dir=str(tmp_path))
+
+
 def test_load_station_csv_rejects_unknown_station(tmp_path):
     with pytest.raises(ValueError):
         load_station_csv("NOT_A_STATION", data_dir=str(tmp_path))
