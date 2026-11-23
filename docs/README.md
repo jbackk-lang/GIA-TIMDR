@@ -2,6 +2,8 @@
 
 Dokumentacja jest uporządkowana tematycznie. Przenosiny nie zmieniają statusu naukowego opisywanych hipotez.
 
+- [Audyt spójności dokumentacji — 23.11.2026](AUDYT_SPÓJNOŚCI_DOKUMENTACJI_2026-11-23.md) — zakres kontroli, wykryte rozbieżności i nierozstrzygnięte punkty.
+
 ## Działy
 
 - [Architektura](architecture/) — opis warstw i konstrukcji systemu.

@@ -1,7 +1,7 @@
 # TIMDR-Modal-Formalism
 
 Pierwsza implementacja gałęzi K (modalnej) TIMDR jako kodu — dotąd
-istniały tylko aksjomaty (`GIA-TIMDR/docs/theory/Axioms_K_TIMDR.md`),
+istniały tylko aksjomaty (`../docs/theory/Axioms_K_TIMDR.md`),
 bez żadnej realizacji numerycznej, w odróżnieniu od gałęzi M/S
 (`TIMDR-Math-Formalism`) i G (`TIMDR-Geometry-Formalism`).
 
@@ -11,7 +11,7 @@ Modalność `(f,φ,A)` — Aksjomat 3, dosłownie. Interferencja
 funkcja, `local_time_from_global`: formalizacja postulatu z §7.3
 głównego README GIA-TIMDR, "`t_lokalne=f(τ_globalne)`", jako część
 Chronoprocesu `Ξ=(T,x,Γ,φ)` — pełny opis:
-`GIA-TIMDR/docs/theory/TIMDR_Chronoprocess.md` (§4).
+`../docs/theory/TIMDR_Chronoprocess.md` (§4).
 
 ## 🔀 Mapa synchronizacji faz `f`
 
