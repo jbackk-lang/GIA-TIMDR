@@ -3,11 +3,6 @@ name: "timdr-signal-framework"
 description: "Use for TIMDR-style signal/anomaly detectors (weather, market, radar, grid, seismic, GPS, security, aviation/industrial/battery/EV predictive maintenance); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math; auditing duplicated code; symbolic-to-neural TIMDR transplants; cross-domain detector transfer with baseline comparison. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, EMA vs windowed recovery, KHIPU-NEURAL, DDoS validation, tension_zscore, Short-Term Aftershock Incompleteness, NASA C-MAPSS transfer, calibration_convergence() false-convergence bug, calibrate()/fuse_calibrated() vs self-referential fuse() on baseline-free degradation, checker_online/data_live liveness split, rhythm-vs-anomaly tuning tradeoff, weakest-link multi-subsystem aggregation, OBD-II vs CAN+DBC scoping. No general software engineering, GUI, or infra debugging."
 ---
 
----
-name: "timdr-signal-framework"
-description: "Use for TIMDR-style signal/anomaly detectors (weather, market, radar, grid, seismic, GPS, security, aviation/industrial/battery/EV predictive maintenance); evaluating whether a numeric/geometric pattern (phi, pi, primes, Riemann zeros, resonance, category theory) is real math; auditing duplicated code; symbolic-to-neural TIMDR transplants; cross-domain detector transfer with baseline comparison. Covers: anomalia/defekt/rezonans/skret, adaptive thresholds, ringdown_resonance(), duplication-drift, numerology pre-registration, EMA vs windowed recovery, KHIPU-NEURAL, DDoS validation, tension_zscore, Short-Term Aftershock Incompleteness, NASA C-MAPSS transfer, calibration_convergence() false-convergence bug, calibrate()/fuse_calibrated() vs self-referential fuse() on baseline-free degradation, checker_online/data_live liveness split, rhythm-vs-anomaly tuning tradeoff, weakest-link multi-subsystem aggregation, OBD-II vs CAN+DBC scoping. No general software engineering, GUI, or infra debugging."
----
-
 # TIMDR signal framework — reusable patterns, known pitfalls, and a numerology/formalism-testing protocol
 
 Distilled from building/debugging the Synoptyk-v2.0 weather system and the wider
