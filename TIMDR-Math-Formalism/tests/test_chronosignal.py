@@ -175,3 +175,51 @@ def test_integration_tempo_then_defekt_matches_direct_series():
     )
     expected = np.array([False, False, False, True, True, False, False])
     np.testing.assert_array_equal(defekt_flags(computed_tempo, factor=0.3), expected)
+
+
+# ---------------------------------------------------------------------
+# Walidacja dziedziny: dane i progi musza byc skonczone
+# ---------------------------------------------------------------------
+
+@pytest.mark.parametrize("timestamps", [
+    [0.0, np.nan, 2.0],
+    [0.0, np.inf, 2.0],
+    [[0.0, 1.0], [2.0, 3.0]],
+])
+def test_tempo_rejects_nonfinite_or_nonvector_timestamps(timestamps):
+    with pytest.raises(ValueError):
+        tempo(timestamps)
+
+
+@pytest.mark.parametrize("nominal", [np.nan, np.inf, -np.inf])
+def test_drift_rejects_nonfinite_nominal_interval(nominal):
+    with pytest.raises(ValueError):
+        drift([0.0, 1.0, 2.0], nominal_interval=nominal)
+
+
+@pytest.mark.parametrize("series", [
+    [0.0, np.nan, 2.0],
+    [0.0, np.inf, 2.0],
+    [[0.0, 1.0], [2.0, 3.0]],
+])
+def test_detectors_reject_nonfinite_or_nonvector_series(series):
+    with pytest.raises(ValueError):
+        anomalia_flags(series)
+    with pytest.raises(ValueError):
+        defekt_flags(series)
+    with pytest.raises(ValueError):
+        skret_flags(series)
+
+
+@pytest.mark.parametrize("k", [-1.0, np.nan, np.inf])
+def test_anomalia_flags_rejects_invalid_threshold(k):
+    with pytest.raises(ValueError):
+        anomalia_flags([0.0, 1.0, 2.0], k=k)
+
+
+@pytest.mark.parametrize("factor", [-1.0, np.nan, np.inf])
+def test_defekt_and_skret_reject_invalid_threshold(factor):
+    with pytest.raises(ValueError):
+        defekt_flags([0.0, 1.0, 2.0], factor=factor)
+    with pytest.raises(ValueError):
+        skret_flags([0.0, 1.0, 2.0], factor=factor)
