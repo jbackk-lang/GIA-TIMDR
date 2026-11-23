@@ -357,7 +357,7 @@ class TestResult:
                 f"grupa testowa wykazuje {direction} względem tła. "
                 f"Mediany: {self.median_test:.4g} vs {self.median_background:.4g}. "
                 f"Rozmiar/kierunek efektu rangowego: r={self.effect_size_r:.3g} ({label}) — "
-                f"Mann–Whitney nie jest ogólnym testem samych median; "
+                f"Test rangowy nie jest ogólnym testem samych median; "
                 f'"istotny statystycznie" nie znaczy automatycznie "duży".'
             )
         return (
