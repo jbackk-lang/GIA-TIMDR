@@ -43,6 +43,15 @@ from typing import Sequence
 import numpy as np
 
 
+def _finite_series(values: Sequence[float], name: str) -> np.ndarray:
+    arr = np.asarray(values, dtype=float)
+    if arr.ndim != 1 or arr.size == 0:
+        raise ValueError(f"{name} musi byc niepusta seria 1D")
+    if not np.all(np.isfinite(arr)):
+        raise ValueError(f"{name} musi zawierac wylacznie skonczone wartosci")
+    return arr
+
+
 # ---------------------------------------------------------------------
 # Instancja sygnalu: tempo i drift
 # ---------------------------------------------------------------------
@@ -56,7 +65,7 @@ def tempo(timestamps: Sequence[float]) -> np.ndarray:
     kolejnosci chronologicznej, albo zdublowany znacznik) nie zostal po
     cichu zamaskowany posortowaniem w srodku funkcji.
     """
-    ts = np.asarray(timestamps, dtype=float)
+    ts = _finite_series(timestamps, "timestamps")
     if ts.size < 2:
         raise ValueError("tempo() wymaga >= 2 znacznikow czasu")
     if np.any(np.diff(ts) <= 0):
@@ -75,8 +84,8 @@ def drift(timestamps: Sequence[float], nominal_interval: float) -> np.ndarray:
     niezdefiniowany (patrz dyskusja "naprawa M/S": tempo i drift to dwie
     OSOBNE wielkosci, tempo nie wymaga referencji, drift wymaga).
     """
-    if nominal_interval <= 0:
-        raise ValueError("nominal_interval musi byc > 0")
+    if not np.isfinite(nominal_interval) or nominal_interval <= 0:
+        raise ValueError("nominal_interval musi byc skonczone i > 0")
     return tempo(timestamps) - nominal_interval
 
 
@@ -89,9 +98,11 @@ def anomalia_flags(series: Sequence[float], k: float = 2.0) -> np.ndarray:
     Ta sama definicja co `anomaly_flags` w
     examples/real_weather_resonance_validation.py.
     """
-    s = np.asarray(series, dtype=float)
+    s = _finite_series(series, "series")
     if s.size < 2:
         raise ValueError("anomalia_flags() wymaga >= 2 elementow")
+    if not np.isfinite(k) or k < 0:
+        raise ValueError("k musi byc skonczone i >= 0")
     m, sd = s.mean(), s.std()
     if sd == 0.0:
         return np.zeros(s.shape, dtype=bool)
@@ -102,9 +113,11 @@ def defekt_flags(series: Sequence[float], factor: float = 0.3) -> np.ndarray:
     """Skok |diff(series)_i| > factor*(p90-p10) -- maska dlugosci
     len(series)-1; flags[i] mowi o skoku miedzy series[i] i series[i+1].
     """
-    s = np.asarray(series, dtype=float)
+    s = _finite_series(series, "series")
     if s.size < 2:
         raise ValueError("defekt_flags() wymaga >= 2 elementow")
+    if not np.isfinite(factor) or factor < 0:
+        raise ValueError("factor musi byc skonczone i >= 0")
     p10, p90 = np.percentile(s, [10, 90])
     spread = p90 - p10
     if spread == 0.0:
@@ -123,9 +136,11 @@ def skret_flags(series: Sequence[float], factor: float = 1.5) -> np.ndarray:
     "zwrot" -- to nie jest w oryginalnej definicji z sekcji 1 skilla,
     ale jest jawnym, udokumentowanym wyborem tej implementacji.
     """
-    s = np.asarray(series, dtype=float)
+    s = _finite_series(series, "series")
     if s.size < 3:
         raise ValueError("skret_flags() wymaga >= 3 elementow")
+    if not np.isfinite(factor) or factor < 0:
+        raise ValueError("factor musi byc skonczone i >= 0")
     d = np.diff(s)
     sign_d = np.sign(d)
     sign_flip = (sign_d[:-1] != sign_d[1:]) & (sign_d[:-1] != 0) & (sign_d[1:] != 0)
