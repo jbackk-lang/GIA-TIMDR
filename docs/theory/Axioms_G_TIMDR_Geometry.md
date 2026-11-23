@@ -23,7 +23,7 @@ G10 formalizuje parametr obwiedni \((P,Q)\), a
 `TIMDR-Geometry-Formalism/timdr_geometry/envelope.py` implementuje
 konstrukcję i numeryczne kontrole na jawnie zadanych trójkątach
 syntetycznych. Oba zestawy testów geometrii przeszły w GitHub Actions
-w kroku `Test Geometry formalism` dla commitu `6adeb712`.
+w kroku `Test Geometry formalism` dla commitu `7bcf12ef`.
 To potwierdza testy implementacji w ich zadanym zakresie, nie walidację
 empiryczną na rzeczywistych pomiarach ani pełne domknięcie teorii.
 Operator G-Rezonans z G5 jest odrębną implementacją dotyczącą
@@ -208,7 +208,7 @@ analityczne, a dyskretny operator został zaimplementowany w
 `TIMDR-Geometry-Formalism/timdr_geometry/weingarten.py`. Testy
 numeryczne obejmują syntetyczne siatki płaszczyzny, sfery i walca oraz
 zbieżność przy zagęszczaniu siatki; zestaw geometrii przeszedł w CI
-(`Test Geometry formalism`, commit `6adeb712`). Nie jest to jeszcze
+(`Test Geometry formalism`, commit `7bcf12ef`). Nie jest to jeszcze
 walidacja empiryczna na niezależnych, rzeczywistych danych geometrycznych.
 Formalna przestrzeń powierzchni, walidacja empiryczna i niezależna
 pozostają otwarte zgodnie z G7.)*
@@ -341,7 +341,7 @@ mają wyprowadzenie analityczne i są zaimplementowane numerycznie w
 `tests/test_envelope.py` sprawdzają wzory, monotoniczność,
 odwracalność i numeryczną długość skonstruowanej obwiedni na pięciu
 syntetycznych trójkątach. Zestaw geometrii przeszedł w CI
-(`Test Geometry formalism`, commit `6adeb712`). To nie jest
+(`Test Geometry formalism`, commit `7bcf12ef`). To nie jest
 walidacja empiryczna na zmierzonych danych geometrycznych. (2)
 \(P,Q\) są parametrem
 CIĄGŁYM (modułem geometrycznym, \(P\in[0,1]\)) — to inny TYP obiektu
