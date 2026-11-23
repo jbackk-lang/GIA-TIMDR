@@ -232,3 +232,8 @@ def test_defekt_flags_detects_rare_jump_when_percentile_spread_is_zero():
     expected[9:11] = True
     np.testing.assert_array_equal(flags, expected)
     np.testing.assert_array_equal(defekt_flags([4.0] * 8), np.zeros(7, dtype=bool))
+
+
+def test_tempo_rejects_finite_timestamps_with_unrepresentable_difference():
+    with pytest.raises(ValueError):
+        tempo([-1e308, 1e308])
