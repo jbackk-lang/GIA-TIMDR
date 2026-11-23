@@ -12,14 +12,16 @@ obiekty matematyczne** — patrz
 sekcja 0 i [`../GLOSSARY_EN_PL.md`](../GLOSSARY_EN_PL.md) po pełne
 rozgraniczenie.
 
-Status: aksjomaty 1, 2, 3, 5 poniżej mają formalny dowód (ciągłość p.w.)
-i/lub realną walidację empiryczną, spisane w Resonance_M. Aksjomaty
-6-13 opisują protokół testowy `TIMDR-Math-Formalism` — działający kod,
-nie propozycja (`timdr_formalism/pipeline.py`, `docs/PROTOCOL.md`).
-Aksjomaty 11-13 formalizują to, co wcześniej było tylko opisane
-nieformalnie w PROTOCOL.md (efekt jako operator, moc kontroli, protokół
-jako złożenie) — patrz też sekcja "Pozostałe braki formalne" niżej dla
-tego, co świadomie NIE zostało jeszcze sformalizowane.
+Status: aksjomaty 1-5 opisują sygnałowe operatory i ich założenia;
+dowody oraz walidacje mają zakres jawnie opisany przy poszczególnych
+twierdzeniach. Aksjomaty 6-13 opisują protokół testowy
+`TIMDR-Math-Formalism`; część ma bezpośrednią implementację, a część
+określa reguły postępowania wywołującego. W szczególności Aksjomat 7
+jest regułą workflow i przesiewem, nie wymuszeniem kolejności przez API;
+nieistotny wynik kontroli negatywnej nie dowodzi równoważności.
+Aksjomaty 11-13 formalizują efekt jako operator, estymację mocy kontroli
+i protokół jako złożenie — patrz też sekcja "Pozostałe braki formalne"
+niżej.
 
 ---
 
@@ -280,15 +282,15 @@ Uzasadnienie: `docs/PROTOCOL.md` §4c w `TIMDR-Math-Formalism`.
 
 # Aksjomat 12 — Generatory kontroli są próbnikami rozkładów, moc kontroli jest policzalna
 **EN:** `positive_injector`/`negative_generator_*` are samplers of
-distributions `D_pos, D_A, D_B` known by construction — unlike real-data
-power (Aksjomat 9), control power is exactly computable by Monte Carlo,
-because the ground truth is defined by the caller, not estimated from
-data.
-**PL:** Generatory kontroli to próbniki rozkładów `D_pos, D_A, D_B`
-znanych z konstrukcji — w odróżnieniu od mocy na danych realnych
-(Aksjomat 9), moc kontroli jest dokładnie policzalna metodą Monte
-Carlo, bo prawda gruntowa jest zdefiniowana przez wywołującego, nie
-szacowana z danych.
+distributions `D_pos, D_A, D_B` specified by construction. Because the
+generating mechanism is controlled, operating characteristics of the
+control procedure can be estimated by repeated Monte Carlo simulation;
+a finite simulation is an estimate, not an exact value.
+**PL:** Generatory kontroli są próbnikami rozkładów `D_pos, D_A, D_B`
+określonych konstrukcyjnie. Ponieważ mechanizm generowania jest
+kontrolowany, charakterystyki działania procedury można estymować
+przez powtarzaną symulację Monte Carlo; skończona symulacja daje
+estymatę, a nie wartość dokładną.
 
 \[
 \text{power}_{\text{pos}}(n_{\text{windows}}) \approx \frac{1}{R}\sum_{i=1}^{R} \mathbb{1}\!\left[p_{\text{pos}}^{(i)} < \alpha\right]
