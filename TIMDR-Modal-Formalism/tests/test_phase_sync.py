@@ -191,3 +191,50 @@ def test_local_time_from_global_roundtrip_matches_global_phase():
         assert instantaneous_phase(local, t_local) == pytest.approx(
             instantaneous_phase(global_, tau)
         )
+
+
+# ---------------------------------------------------------------------
+# Walidacja dziedziny: parametry modalnosci i os czasu musza byc skonczone
+# ---------------------------------------------------------------------
+
+@pytest.mark.parametrize("kwargs", [
+    {"f": np.nan, "phi": 0.0, "A": 1.0},
+    {"f": 1.0, "phi": np.inf, "A": 1.0},
+    {"f": 1.0, "phi": 0.0, "A": -np.inf},
+])
+def test_modality_rejects_nonfinite_parameters(kwargs):
+    with pytest.raises(ValueError):
+        Modality(**kwargs)
+
+
+@pytest.mark.parametrize("times", [
+    [0.0, np.nan, 1.0],
+    [0.0, np.inf, 1.0],
+])
+def test_instantaneous_phase_rejects_nonfinite_time(times):
+    with pytest.raises(ValueError):
+        instantaneous_phase(Modality(f=1.0, phi=0.0), times)
+
+
+@pytest.mark.parametrize("eps_f,eps_phi", [
+    (-1.0, 0.1),
+    (0.1, -1.0),
+    (np.nan, 0.1),
+    (0.1, np.inf),
+])
+def test_is_resonant_rejects_invalid_tolerances(eps_f, eps_phi):
+    m = Modality(f=1.0, phi=0.0)
+    with pytest.raises(ValueError):
+        is_resonant(m, m, eps_f=eps_f, eps_phi=eps_phi)
+
+
+def test_interference_rejects_nonfinite_time():
+    with pytest.raises(ValueError):
+        interference([Modality(f=1.0, phi=0.0)], [0.0, np.nan])
+
+
+def test_local_time_from_global_rejects_nonfinite_tau():
+    local = Modality(f=1.0, phi=0.0)
+    global_ = Modality(f=2.0, phi=0.0)
+    with pytest.raises(ValueError):
+        local_time_from_global(local, global_, [0.0, np.inf])
