@@ -76,7 +76,7 @@ G7c — na przypadkach znanych analitycznie:
 | `TestCylinder` | walec promienia r | magnituda jednej krzywizny `≈0` (oś), drugiej `≈1/r` (obwód); znak zależy od orientacji normalnej |
 | `TestMeshRefinement` | sfera, rosnąca rozdzielczość | błąd krzywizny i błąd `T_S_predicted` vs `T_S_empirical` maleją przy zagęszczaniu siatki |
 
-**Wynik historyczny:** w zapisanym wcześniej przebiegu odnotowano 17/17 testów PASS, w tym testy stabilności Weingartena. Nie traktuj tej liczby jako wyniku pełnego, aktualnego katalogu `tests/`: obecnie zawiera on 7 modułów testowych i 72 funkcje `test_*` (testy parametryzowane mogą być liczone przez pytest jako większa liczba przypadków). Pełny bieżący wynik wymaga ponownego uruchomienia `pytest tests/ -v`; nie deklarujemy go na podstawie historycznego raportu.
+**Status aktualny:** historyczne 17/17 nie opisuje pełnego obecnego zestawu. Katalog `tests/` zawiera 7 modułów i 72 funkcje `test_*` (testy parametryzowane mogą dawać większą liczbę przypadków pytest). Pełny zestaw przeszedł w GitHub Actions dla commitu `6adeb712`, w kroku `Test Geometry formalism`. Jest to potwierdzenie testów numerycznych na przypadkach syntetycznych, nie walidacja empiryczna na rzeczywistych danych geometrycznych.
 
 ## 🌀 Kongruencja Γ(t,s) dla chronoprocesu — `timdr_geometry.chronocongruence`
 
