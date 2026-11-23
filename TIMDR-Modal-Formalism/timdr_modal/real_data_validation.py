@@ -212,12 +212,36 @@ def load_station_csv(station: str, data_dir: Optional[str] = None) -> Tuple[np.n
         )
     t, s = [], []
     with open(path, "r", newline="") as f:
-        for row in csv.reader(f):
+        for line_number, row in enumerate(csv.reader(f), start=1):
             if len(row) < 2:
-                continue
-            t.append(float(row[0]))
-            s.append(float(row[1]))
-    return np.asarray(t, dtype=float), np.asarray(s, dtype=float)
+                raise ValueError(
+                    f"Nieprawidlowy CSV {path!r}, wiersz {line_number}: "
+                    "oczekiwano co najmniej dwoch kolumn (t,s)"
+                )
+            try:
+                t.append(float(row[0]))
+                s.append(float(row[1]))
+            except (TypeError, ValueError) as exc:
+                raise ValueError(
+                    f"Nieprawidlowe wartosci liczbowe w {path!r}, wiersz {line_number}"
+                ) from exc
+
+    t = np.asarray(t, dtype=float)
+    s = np.asarray(s, dtype=float)
+    if t.ndim != 1 or s.ndim != 1 or t.size != s.size or t.size < 2:
+        raise ValueError("slad musi zawierac co najmniej dwie sparowane probki (t,s)")
+    if not np.all(np.isfinite(t)) or not np.all(np.isfinite(s)):
+        raise ValueError("slad zawiera NaN lub nieskonczone wartosci czasu/sygnalu")
+    dt = np.diff(t)
+    if np.any(dt <= 0):
+        raise ValueError("znaczniki czasu musza byc scisle rosnace")
+    expected_dt = 1.0 / RIDGECREST_FS_HZ
+    if not np.allclose(dt, expected_dt, rtol=1e-5, atol=1e-8):
+        raise ValueError(
+            f"niejednorodne lub niezgodne probkowanie: oczekiwano dt={expected_dt:g}s "
+            f"(fs={RIDGECREST_FS_HZ:g}Hz)"
+        )
+    return t, s
 
 
 # ---------------------------------------------------------------------
@@ -256,6 +280,12 @@ def _fft_peak_f_phi_A(s_window: np.ndarray, fs: float) -> Tuple[float, float, fl
     w naglowku modulu). phi jest faza w PROBCE 0 OKNA (nie jeszcze
     przeliczona na wspolny t=0 sladu -- tym zajmuje sie
     `extract_modalities()`)."""
+    s_window = np.asarray(s_window, dtype=float)
+    fs = float(fs)
+    if not np.isfinite(fs) or fs <= 0:
+        raise ValueError("fs musi byc skonczona i dodatnia")
+    if s_window.ndim != 1 or not np.all(np.isfinite(s_window)):
+        raise ValueError("s_window musi byc jednowymiarowym, skonczonym sygnalem")
     n = len(s_window)
     if n < 4:
         raise ValueError("okno za krotkie do FFT (n<4)")
@@ -295,6 +325,9 @@ def extract_modalities(
     stacji Ridgecrest -- patrz naglowek modulu), zeby okna o tym samym
     `window_index` z roznych stacji byly bezposrednio porownywalne
     przez `is_resonant()`."""
+    window_sec = float(window_sec)
+    if not np.isfinite(window_sec) or window_sec <= 0:
+        raise ValueError("window_sec musi byc skonczone i dodatnie")
     t, s = load_station_csv(station, data_dir=data_dir)
     fs = RIDGECREST_FS_HZ
     n_per_window = int(round(window_sec * fs))
