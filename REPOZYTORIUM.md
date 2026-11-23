@@ -1,6 +1,6 @@
 # Mapa repozytorium GIA-TIMDR
 
-Stan mapy: 22 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego statusu hipotezom.
+Stan mapy: 23 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego statusu hipotezom.
 
 ## Gdzie szukać
 
@@ -12,6 +12,7 @@ Stan mapy: 22 listopada 2026 r. Ten plik służy do nawigacji, nie nadaje nowego
 | [Konstrukcja TRM/GIA → gałęzie](docs/theory/TIMDR_EventGraph_Branch_Construction.md) | Graf zdarzeń, selekcja GIA, sygnał, geometria, modalność i META | Kod w `core/trm_gia_projections.py`; 17 kontroli syntetycznych w `tests/test_trm_gia_projections.py` |
 | [HISTORIA_README.md](docs/archiwum/HISTORIA_README.md) | Zachowany dawny README | Miesza opisy koncepcyjne i wyniki z różnych dat |
 | [STAN_PROJEKTU.md](STAN_PROJEKTU.md) | Migawka ręcznej oceny z 30.09.2026 i bilans historyczny z 28.09.2026; nie jest bieżącym statusem całego repozytorium | Późniejsze aktualizacje: główny README i datowane checkpointy; generator bilansu wstrzymuje zapis, jeśli brakuje tabeli źródłowej |
+| [Roadmapa GIA-TIMDR](research/ROADMAP_GIA_TIMDR_2026-11-17.md) i [indeks Chronoprocesu](research/chronoproces/README.md) | Późniejszy plan badawczy i techniczne checkpointy linii 51B | Plan z 17.11.2026; indeks/checkpointy z 15.11.2026; nie zastępują źródłowych PREREG/RESULT ani niezależnej walidacji |
 | [Indeks archiwum](docs/archiwum/README.md) | Datowane podsumowania historyczne i zasady ich zachowania | Do wglądu; bieżące aktualizacje: główny README i datowane checkpointy |
 | [Indeks materiałów binarnych](docs/assets/README.md) | PDF-y, DOCX, obrazy i istniejące diagramy | Dokumenty źródłowe w `docs/assets/source-documents/`, obrazy w `docs/assets/images/` |
 | [docs/theory](docs/theory/) | Aksjomaty, Chronoproces, reguły metodologiczne i szkice | Sprawdzaj status konkretnego dokumentu |
