@@ -336,6 +336,8 @@ class TestResult:
     reason: str = ""
 
     def verdict(self, alpha: float = 0.05) -> str:
+        if not np.isfinite(alpha) or not 0.0 < alpha < 1.0:
+            raise ValueError("alpha musi byc skonczone i nalezec do (0,1)")
         if self.inconclusive:
             return (
                 f"WYNIK NIEROZSTRZYGNIĘTY (inconclusive): "
@@ -773,8 +775,10 @@ def bonferroni_correct(pvalue: float, n_comparisons: int) -> float:
     Wymagana zawsze, gdy hipoteza powstała z przeszukania wielu
     kandydatów (pozycji, progów, wariantów) zamiast z jednej,
     z góry ustalonej definicji."""
-    if n_comparisons < 1:
-        raise ValueError("n_comparisons musi być >= 1")
+    if isinstance(n_comparisons, bool) or not isinstance(n_comparisons, (int, np.integer)) or n_comparisons < 1:
+        raise ValueError("n_comparisons musi być dodatnią liczbą całkowitą")
+    if not np.isfinite(pvalue) or not 0.0 <= pvalue <= 1.0:
+        raise ValueError("pvalue musi być skończone i należeć do [0,1]")
     return float(min(1.0, pvalue * n_comparisons))
 
 
@@ -792,6 +796,10 @@ def format_report(
     """Składa wynik kontroli + testu głównego w czytelny raport tekstowy
     (krok 6: akceptuj wynik negatywny jako pełną odpowiedź, nie
     "prawie działa")."""
+    if not np.isfinite(alpha) or not 0.0 < alpha < 1.0:
+        raise ValueError("alpha musi byc skonczone i nalezec do (0,1)")
+    if isinstance(n_comparisons, bool) or not isinstance(n_comparisons, (int, np.integer)) or n_comparisons < 1:
+        raise ValueError("n_comparisons musi być dodatnią liczbą całkowitą")
     lines = [
         f"# Raport TIMDR-Formalism: {hypothesis.name}",
         "",
