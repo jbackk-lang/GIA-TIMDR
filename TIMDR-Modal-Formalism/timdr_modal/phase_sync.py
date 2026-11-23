@@ -61,13 +61,11 @@ formalizacja postulatu "t_lokalne=f(tau_globalne)" DANE aksjomaty
 dokladnie takie, jakie sa dzisiaj -- pierwsza instancja galezi K jako
 kodu (K nie mialo dotad ZADNEJ implementacji w tym ekosystemie).
 
-UWAGA O WYKONANIU: napisane w sesji bez dostepu do sandboxa bash,
-odtad faktycznie uruchomione przez uzytkownika (`pytest tests/ -v`) i
-ZWERYFIKOWANE -- 17/17 testow przeszlo. Jeden test
-(`test_is_resonant_frequency_at_threshold_is_false`) najpierw padl --
-byl to blad TESTU (zalozenie dokladnej arytmetyki float dla
-`1.0+1e-6`), nie bledu w `is_resonant()`; naprawiony, patrz komentarz
-w tests/test_phase_sync.py.
+STATUS WYKONANIA: historyczne 17/17 dotyczyło wcześniejszego zestawu.
+Po dodaniu testów niezmienniczości fazy kołowej pełny zestaw Modal
+przeszedł w GitHub Actions dla commitu `80693941`: 31 passed, 5 skipped.
+Pominięte testy nie są zaliczonym wynikiem; patrz warunki skip w testach
+walidacji danych.
 """
 from __future__ import annotations
 
