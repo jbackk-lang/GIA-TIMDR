@@ -36,6 +36,7 @@ from timdr_formalism.calibration import (
     CalibrationResult,
     calibrate_resonance_K,
     theoretical_independence_baseline_rate,
+    poisson_binomial_independence_baseline_rate,
     compute_anomaly_flags,
     load_parameter_windows_from_csv,
     load_krakow_weather_window,
@@ -391,3 +392,31 @@ def test_load_krakow_weather_window_wrapper_uses_documented_filters(tmp_path):
     dates, columns = load_krakow_weather_window(csv_path)
     assert dates == ["2026-08-09", "2026-08-10"]
     assert set(columns.keys()) == {"max_temp_c", "pressure_hpa", "wind_kmh"}
+
+
+def test_poisson_binomial_baseline_matches_binomial_for_equal_marginals():
+    p = 0.1
+    assert poisson_binomial_independence_baseline_rate([p] * 5, K=3) == pytest.approx(
+        theoretical_independence_baseline_rate(5, 3, p_anomaly=p)
+    )
+
+
+def test_poisson_binomial_baseline_handles_unequal_marginals():
+    # Dwa niezalezne kanaly o p=0.5 i jeden o p=0: P(co najmniej 2)=0.25.
+    assert poisson_binomial_independence_baseline_rate([0.5, 0.5, 0.0], K=2) == pytest.approx(0.25)
+
+
+def test_calibration_defaults_to_empirical_marginal_poisson_binomial():
+    flags = _build_synthetic_powered_dataset()
+    result = calibrate_resonance_K(flags, K=3, n_perm=1000, seed=4)
+    assert result.theoretical_independence_rate == pytest.approx(0.00856)
+
+
+def test_calibration_allows_explicit_population_normal_baseline():
+    flags = _build_synthetic_powered_dataset()
+    result = calibrate_resonance_K(
+        flags, K=3, n_perm=1000, seed=4, p_anomaly=P_ANOMALY_2SIGMA_NORMAL
+    )
+    assert result.theoretical_independence_rate == pytest.approx(
+        theoretical_independence_baseline_rate(5, 3, P_ANOMALY_2SIGMA_NORMAL)
+    )
