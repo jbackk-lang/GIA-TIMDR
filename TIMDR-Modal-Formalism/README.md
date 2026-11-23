@@ -72,7 +72,7 @@ dowolnej pary modalności i dowolnego `τ_globalne`,
 dokładnie definiująca właściwość mapy `f`, nie tylko przypadek
 brzegowy.
 
-**Status aktualny:** historyczne 17/17 dotyczyło wcześniejszego zakresu. Obecny katalog `tests/` zawiera dwa moduły z 34 funkcjami `test_*` (17 w `test_phase_sync.py` i 17 w `test_real_data_validation.py`). Pełny zestaw przeszedł w GitHub Actions dla commitu `7bcf12ef`, w kroku `Test Modal formalism`. Wynik potwierdza testy implementacji i walidacji w zakresie opisanym w tym repo; nie rozszerza automatycznie wniosków empirycznych poza badane dane.
+**Status aktualny:** historyczne 17/17 dotyczyło wcześniejszego zakresu. Obecny katalog `tests/` zawiera dwa moduły z 36 funkcjami `test_*` (19 w `test_phase_sync.py` i 17 w `test_real_data_validation.py`). Pełny zestaw przeszedł w GitHub Actions dla commitu `80693941`, w kroku `Test Modal formalism`: **31 passed, 5 skipped**. Pominięte testy nie są wynikiem pozytywnym. Wynik potwierdza testy implementacji i walidacji w zakresie opisanym w tym repo; nie rozszerza automatycznie wniosków empirycznych poza badane dane.
 
 ## 🌍 Walidacja na realnych danych + kalibracja
 
