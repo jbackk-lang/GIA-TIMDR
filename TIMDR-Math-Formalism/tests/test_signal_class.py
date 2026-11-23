@@ -173,3 +173,57 @@ def test_N_is_finite_and_defined_whenever_cutoff_triggered():
     for i, r in enumerate(results):
         if cutoff[i]:
             assert np.isfinite(r.N)
+
+
+# ---------------------------------------------------------------------
+# Walidacja dziedziny: beta, kanaly i slady musza byc spojne
+# ---------------------------------------------------------------------
+
+def test_classify_by_beta_rejects_nonfinite_or_out_of_range_values():
+    import pytest
+    for beta in (np.nan, np.inf, -0.1, 1.1):
+        with pytest.raises(ValueError):
+            classify_by_beta(beta)
+
+
+def test_classify_signal_point_requires_both_channels_together():
+    import pytest
+    with pytest.raises(ValueError):
+        classify_signal_point(Q=0.5, Q_crit=0.35, S_down=1.0)
+    with pytest.raises(ValueError):
+        classify_signal_point(Q=0.5, Q_crit=0.35, S_up=-1.0)
+
+
+def test_classify_signal_point_rejects_nonfinite_channel_values():
+    import pytest
+    with pytest.raises(ValueError):
+        classify_signal_point(Q=0.5, Q_crit=0.35, S_down=np.nan, S_up=1.0)
+    with pytest.raises(ValueError):
+        classify_signal_point(Q=0.5, Q_crit=0.35, S_down=1e308, S_up=1e308)
+
+
+def test_classify_signal_trace_rejects_mismatched_lengths():
+    import pytest
+    with pytest.raises(ValueError):
+        classify_signal_trace(
+            t=[0.0, 1.0], Q=[0.1], Q_crit=0.35, cutoff=[False, False],
+            S_down_trace=[np.nan, np.nan], S_up_trace=[np.nan, np.nan],
+        )
+
+
+def test_classify_signal_trace_rejects_nonincreasing_time():
+    import pytest
+    with pytest.raises(ValueError):
+        classify_signal_trace(
+            t=[0.0, 0.0], Q=[0.1, 0.1], Q_crit=0.35, cutoff=[False, False],
+            S_down_trace=[np.nan, np.nan], S_up_trace=[np.nan, np.nan],
+        )
+
+
+def test_classify_signal_trace_requires_finite_channels_when_cutoff_active():
+    import pytest
+    with pytest.raises(ValueError):
+        classify_signal_trace(
+            t=[0.0, 1.0], Q=[0.5, 0.6], Q_crit=0.35, cutoff=[False, True],
+            S_down_trace=[np.nan, np.nan], S_up_trace=[np.nan, 1.0],
+        )
