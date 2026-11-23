@@ -1,23 +1,26 @@
 """
 timdr_time/fourier_bridge.py
 
-Most Fouriera M/S<->K: pierwszy w tym projekcie faktycznie sprawdzalny
-MOST miedzy dwiema galeziami TIMDR (nie identyfikacja -- patrz uwaga
-nizej). Zrodlo: dualizm falowo-czasteczkowy fotonu ma DOKLADNE zrodlo
-matematyczne -- zasada nieoznaczonosci Heisenberga (Delta_x*Delta_p
->= hbar/2) ma dokladnie ta sama strukture co klasyczna zasada
-nieoznaczonosci Gabora/Fouriera dla sygnalow (Delta_t*Delta_f >= const,
-z rownoscia dla impulsu gaussowskiego) -- to jest ta sama matematyka
-(sprzezone zmienne Fouriera), nie luzna analogia.
+Most Fouriera M/S<->K: standardowa transformata między reprezentacją
+sygnału w dziedzinie czasu a jego reprezentacją częstotliwościową.
+Dla równomiernie próbkowanego sygnału rzeczywistego `fft_modalities()`
+wykorzystuje jednostronne FFT i tworzy modalności z jej współczynników.
+To jest dokładna transformata dyskretna dla skończonego wektora próbek;
+nie oznacza identyczności obiektów M/S i K ani nie stanowi modelu
+fizycznej dualności korpuskularno-falowej fotonu.
 
-W TIMDR: x(t) z galezi M/S (`timdr_formalism.chronosignal`) jest
-opisem "czastkowym" -- dokladna lokalizacja w czasie. Modalnosc
-(f,phi,A) z galezi K (`timdr_modal`) jest opisem "falowym" -- dokladna
-lokalizacja w czestotliwosci, zerowa w czasie. FFT jest DOKLADNA,
-znana od 200 lat mapa miedzy tymi dwoma opisami. `fft_modalities()`
-ponizej realizuje ta mape: x(t) -> lista obiektow Modality, gotowych
-do uzycia w juz istniejacych funkcjach K (`interference`,
-`is_resonant`).
+Związek z zasadą nieoznaczoności jest węższy i matematyczny: nierówność
+czas–częstotliwość Gabora dla pary zmiennych sprzężonych Fouriera ma
+analogiczną postać do nierówności położenie–pęd Heisenberga, po
+uwzględnieniu konwencji jednostek. Dla przyjętych tu odchyleń
+standardowych w czasie i częstotliwości (Hz) impuls gaussowski osiąga
+granicę `Delta_t*Delta_f = 1/(4*pi)`. Nie jest to wyjaśnienie ani
+dowód fizycznej dualności fotonu.
+
+W TIMDR: `x(t)` z gałęzi M/S (`timdr_formalism.chronosignal`) jest
+reprezentacją w dziedzinie czasu, a modalności `(f,phi,A)` z gałęzi K
+(`timdr_modal`) są reprezentacją przez składowe sinusoidalne. FFT
+daje konkretną mapę między tymi reprezentacjami, bez utożsamiania ich.
 
 ## Dlaczego to NIE lamie nieredukowalnosci galezi
 
