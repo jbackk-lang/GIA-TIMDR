@@ -256,4 +256,7 @@ def time_bandwidth_product(x: Sequence[float], dt: float, include_dc: bool = Fal
     n = np.asarray(x).size
     nyquist = 1.0 / (2.0 * dt) if n % 2 == 0 else None
     _, delta_f = spectral_spread(modalities, nyquist_frequency=nyquist)
-    return delta_t * delta_f
+    product = delta_t * delta_f
+    if not np.isfinite(product):
+        raise ValueError("iloczyn czas-pasmo przekracza zakres reprezentacji float")
+    return float(product)
