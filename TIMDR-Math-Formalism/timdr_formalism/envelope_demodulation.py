@@ -155,6 +155,13 @@ def envelope_spectrum(signal: np.ndarray, fs: float, resonance_band: Tuple[float
     envelope_centered = envelope - np.mean(envelope)
     n = len(envelope_centered)
     spectrum = np.abs(np.fft.rfft(envelope_centered)) / n
+    # Jednostronne widmo amplitudowe: biny wewnetrzne reprezentuja
+    # pary +/-f i wymagaja podwojenia; DC oraz Nyquist (dla parzystego n)
+    # nie maja partnera i pozostaja bez skalowania.
+    if n % 2 == 0:
+        spectrum[1:-1] *= 2.0
+    else:
+        spectrum[1:] *= 2.0
     freqs = np.fft.rfftfreq(n, d=1.0 / fs)
     return freqs, spectrum
 
