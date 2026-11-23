@@ -79,7 +79,7 @@ def test_interference_array_input():
 
 
 # ---------------------------------------------------------------------
-# is_resonant() -- Aksjomat 5, doslownie (obie nierownosci SCISLE)
+# is_resonant() -- Aksjomat 5 (obie nierownosci SCISLE, faza modulo 2*pi)
 # ---------------------------------------------------------------------
 
 def test_is_resonant_identical_modalities():
@@ -120,6 +120,20 @@ def test_is_resonant_within_tolerance_bands():
     m_i = Modality(f=1.0, phi=0.0, A=1.0)
     m_j = Modality(f=1.02, phi=0.03, A=1.0)
     assert is_resonant(m_i, m_j, eps_f=0.05, eps_phi=0.05) is True
+
+
+def test_is_resonant_phase_wraparound_is_close_on_circle():
+    # 0.01 rad i 2*pi-0.01 rad oznaczaja prawie ta sama faze.
+    m_i = Modality(f=1.0, phi=0.01, A=1.0)
+    m_j = Modality(f=1.0, phi=2.0 * np.pi - 0.01, A=1.0)
+    assert is_resonant(m_i, m_j, eps_f=1e-6, eps_phi=0.03) is True
+
+
+def test_is_resonant_is_invariant_to_full_turn_phase_shift():
+    # Dodanie 2*pi*k nie zmienia modalnosci, bo sin(theta+2*pi*k)=sin(theta).
+    m_i = Modality(f=2.0, phi=0.25, A=1.0)
+    m_j = Modality(f=2.0, phi=0.25 + 4.0 * np.pi, A=1.0)
+    assert is_resonant(m_i, m_j, eps_f=1e-6, eps_phi=1e-6) is True
 
 
 # ---------------------------------------------------------------------
