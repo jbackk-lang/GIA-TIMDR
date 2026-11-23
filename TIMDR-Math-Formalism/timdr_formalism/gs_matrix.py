@@ -68,8 +68,10 @@ def decompose_K(K: np.ndarray) -> KDecomposition:
     K_sym (symetryczna, generuje wzrost/zanik wzdluz wlasnych kierunkow
     -- czesc tlumiaca/wzmacniajaca, NIE zachowawcza)."""
     K = np.asarray(K, dtype=float)
-    if K.shape[0] != K.shape[1]:
-        raise ValueError(f"K musi byc kwadratowa, dostano ksztalt {K.shape}")
+    if K.ndim != 2 or K.shape[0] != K.shape[1] or K.shape[0] == 0:
+        raise ValueError(f"K musi byc niepusta macierza kwadratowa 2D, dostano ksztalt {K.shape}")
+    if not np.all(np.isfinite(K)):
+        raise ValueError("K musi zawierac wylacznie skonczone wartosci")
     K_anti = (K - K.T) / 2.0
     K_sym = (K + K.T) / 2.0
     return KDecomposition(K_anti=K_anti, K_sym=K_sym)
@@ -81,7 +83,11 @@ def is_conservative(K: np.ndarray, tol: float = 1e-9) -> bool:
     patrz naglowek modulu dla pelnego uzasadnienia bledu w oryginalnej
     propozycji."""
     K = np.asarray(K, dtype=float)
-    return bool(np.allclose(K.T, -K, atol=tol))
+    if K.ndim != 2 or K.shape[0] != K.shape[1] or K.shape[0] == 0:
+        raise ValueError(f"K musi byc niepusta macierza kwadratowa 2D, dostano ksztalt {K.shape}")
+    if not np.all(np.isfinite(K)) or not np.isfinite(tol) or tol < 0:
+        raise ValueError("K i tol musza byc skonczone, a tol >= 0")
+    return bool(np.allclose(K.T, -K, atol=tol, rtol=0.0))
 
 
 def simulate_linear_system(
@@ -99,14 +105,16 @@ def simulate_linear_system(
     """
     K = np.asarray(K, dtype=float)
     V = np.asarray(V0, dtype=float).copy()
-    if K.shape[0] != K.shape[1] or K.shape[0] != V.shape[0]:
-        raise ValueError(
-            f"niezgodne wymiary: K {K.shape}, V0 {V.shape}"
-        )
-    if dt <= 0:
-        raise ValueError(f"dt musi byc > 0, dostano {dt}")
-    if n_steps < 0:
-        raise ValueError(f"n_steps musi byc >= 0, dostano {n_steps}")
+    if K.ndim != 2 or K.shape[0] != K.shape[1] or K.shape[0] == 0:
+        raise ValueError(f"K musi byc niepusta macierza kwadratowa 2D, dostano {K.shape}")
+    if V.ndim != 1 or K.shape[0] != V.shape[0]:
+        raise ValueError(f"V0 musi byc wektorem 1D zgodnym z K: K {K.shape}, V0 {V.shape}")
+    if not np.all(np.isfinite(K)) or not np.all(np.isfinite(V)):
+        raise ValueError("K i V0 musza zawierac wylacznie skonczone wartosci")
+    if not np.isfinite(dt) or dt <= 0:
+        raise ValueError(f"dt musi byc skonczone i > 0, dostano {dt}")
+    if isinstance(n_steps, bool) or not isinstance(n_steps, (int, np.integer)) or n_steps < 0:
+        raise ValueError("n_steps musi byc nieujemna liczba calkowita")
 
     trajectory = np.zeros((n_steps + 1, len(V)))
     trajectory[0] = V
