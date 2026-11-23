@@ -33,7 +33,7 @@ Obejmuje:
 - kompilację przeniesionych eksperymentów;
 - testy punktów zgodności starszych ścieżek;
 - testy chronoprocesu i pętli;
-- 23 testy regresji syntetycznej/jednostkowej, w tym mosty chronogeometryczne, perturbacje, rezonans i walidację filtrów.
+- 25 testów regresji syntetycznej/jednostkowej, w tym mosty chronogeometryczne, perturbacje, rezonans i walidację filtrów.
 
 Wymagania: NumPy, SciPy i pytest. Pełne polecenia znajdują się bezpośrednio w workflow, aby lista testów była jednoznaczna i audytowalna.
 
