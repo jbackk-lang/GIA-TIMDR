@@ -12,10 +12,11 @@ Dwie kategorie:
      okno FFT odchyla wynik od granicy ciaglej), zgodnie z konwencja
      ustalona juz w tests/test_geometry_weingarten.py.
 
-UWAGA: aktualny zestaw zawiera 12 testow. Wszystkie przeszly w
-GitHub Actions w kroku `Test Time formalism and Fourier bridge` dla
-commitu `93445b81`. Wynik CI potwierdza testy tego zestawu, nie jest
-samodzielnym dowodem poprawnosci calej teorii Fouriera w TIMDR.
+STATUS: ten moduł zawiera 18 funkcji testowych. Pełny zestaw Time
+(Chronoproces + most Fouriera) przeszedł w GitHub Actions dla commitu
+`93445b81` — **38 passed**. Wynik CI potwierdza testy implementacji w
+sprawdzonym zakresie, nie jest samodzielnym dowodem poprawności całej
+teorii Fouriera w TIMDR.
 """
 import numpy as np
 import pytest
