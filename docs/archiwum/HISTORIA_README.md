@@ -1161,4 +1161,4 @@ Prywatne SI autora jest małym, lokalnym systemem: 14 własnych sieci (razem **2
 
 W rozmowie SI poprawia literówki, mówi, co potrafi i jak używać jej modułów, sama sprawdza swoje moduły („sprawdź się”) oraz opowiada, czego się dowiedziała i co ciekawi ją teraz.
 
-[Opis zasad i wyników — 8 października 2026](../../docs/SI_ZASADY_TIMDR_2026-10-08.md) · [publiczne repozytorium AI-SI](https://github.com/jbackk-lang/AI-SI) · [wcześniejsze etapy](#kronika-lokalnego-si-2–8-października-2026). **Bez kodu, wag i pamięci prywatnego SI.**
+[Opis zasad i wyników — 8 października 2026](../../docs/SI_ZASADY_TIMDR_2026-10-08.md) · [publiczne repozytorium AI-SI](https://github.com/jbackk-lang/AI-SI) · [wcześniejsze etapy](#kronika-lokalnego-si-późniejsze-dopiski-2–8-października-2026). **Bez kodu, wag i pamięci prywatnego SI.**
