@@ -19,6 +19,8 @@ Przejrzano implementacje i testy czterech obszarów:
 ### Math / M–S
 
 - Funkcje sygnałowe odrzucają puste, wielowymiarowe i niefinitywne wejścia oraz niepoprawne parametry próbkowania/pasm.
+- Detektor anomalii obsługuje jawne, niezależne okno referencyjne. Ujawniono i udokumentowano ograniczenie historycznego trybu in-sample: przy n≤5 i progu 2σ żaden punkt nie może zostać oznaczony. Dla krótkich okien zalecana jest referencja niezależna od ocenianych próbek.
+- Kalibracja rezonansu używa domyślnie rozkładu Poissona-dwumianowego z empirycznych marginalnych częstości flag. Normalny baseline P(|Z|>2) jest dostępny jawnie tylko dla niezależnego baseline populacyjnego/referencyjnego.
 - defekt_flags() nie wyłącza już detekcji, gdy percentylowy rozstęp P90–P10 jest zerowy. Seria stała nadal daje brak flag, ale rzadki niezerowy skok jest wykrywany.
 - Widmo amplitudowe obwiedni stosuje poprawne skalowanie jednostronne: biny wewnętrzne są podwajane, DC i Nyquist nie.
 - GS-Matrix waliduje wymiary i skończoność macierzy, stanu początkowego oraz parametrów integracji.
@@ -26,7 +28,9 @@ Przejrzano implementacje i testy czterech obszarów:
 - Generator AR(1) wymaga stacjonarnego zakresu |phi| < 1; test Manna–Whitneya waliduje próby i używa zgodnej aproksymacji asymptotycznej w backendach SciPy/NumPy.
 - Werdykt testu rangowego nie przedstawia Manna–Whitneya jako ogólnego testu median. Sparowany test Wilcoxona raportuje ograniczoną do [-1,1] korelację rangowo-dwuseryjną.
 - Korekta Bonferroniego i poziom alfa odrzucają niepoprawne wartości wejściowe.
-- Operator Theta_bif waliduje dziedzinę parametrów Q, progu, czasu i stałych modelu.
+- Interpretacja testów rangowych rozróżnia mediany opisowe od kierunku efektu rangowego; sparowany Wilcoxon używa ograniczonej do [-1,1] korelacji rangowo-dwuseryjnej.
+- Operator Theta_bif i klasyfikator sygnału walidują dziedzinę parametrów, progi, maski cutoff i spójność kanałów.
+- Aksjomat S5 został poprawiony: miara zero dotyczy algebraicznych granic w przestrzeni całych wektorów próbek i wymaga absolutnej ciągłości łącznego rozkładu wejścia.
 
 ### Geometry / G
 
