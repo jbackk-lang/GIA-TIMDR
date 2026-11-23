@@ -526,3 +526,25 @@ def test_mann_whitney_verdict_does_not_claim_median_shift_when_medians_equal():
     assert "wyższych rang" in verdict
     assert "Mediany: 5" in verdict
     assert "wyższe wartości metryki" not in verdict
+
+
+@pytest.mark.parametrize("pvalue", [np.nan, np.inf, -0.1, 1.1])
+def test_bonferroni_rejects_invalid_pvalue(pvalue):
+    with pytest.raises(ValueError):
+        bonferroni_correct(pvalue, n_comparisons=3)
+
+
+@pytest.mark.parametrize("n_comparisons", [0, -1, 1.5, True])
+def test_bonferroni_rejects_invalid_comparison_count(n_comparisons):
+    with pytest.raises(ValueError):
+        bonferroni_correct(0.01, n_comparisons=n_comparisons)
+
+
+@pytest.mark.parametrize("alpha", [0.0, 1.0, -0.1, np.nan, np.inf])
+def test_testresult_verdict_rejects_invalid_alpha(alpha):
+    result = TestResult(
+        statistic=1.0, pvalue=0.5, n_test=5, n_background=5,
+        median_test=1.0, median_background=1.0, alternative="two-sided",
+    )
+    with pytest.raises(ValueError):
+        result.verdict(alpha=alpha)
