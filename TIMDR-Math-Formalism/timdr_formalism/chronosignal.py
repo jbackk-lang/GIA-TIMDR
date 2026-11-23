@@ -119,8 +119,10 @@ def defekt_flags(series: Sequence[float], factor: float = 0.3) -> np.ndarray:
         raise ValueError("factor musi byc skonczone i >= 0")
     p10, p90 = np.percentile(s, [10, 90])
     spread = p90 - p10
-    if spread == 0.0:
-        return np.zeros(s.size - 1, dtype=bool)
+    # Nie zwracamy automatycznie samych False przy spread==0:
+    # dla serii prawie stalej z rzadkim skokiem p10==p90, a literalny
+    # prog wynosi zero i kazdy niezerowy skok powinien zostac wykryty.
+    # Dla serii idealnie stalej diff==0, wiec scisle >0 nadal daje False.
     return np.abs(np.diff(s)) > factor * spread
 
 
