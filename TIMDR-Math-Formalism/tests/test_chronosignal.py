@@ -8,7 +8,7 @@ komentarzach obliczenia progow/statystyk na papierze), albo sprawdza
 przypadki brzegowe wprost.
 
 STATUS: testy tego modułu są częścią pełnego zestawu Math, który
-przeszedł w GitHub Actions dla commitu `9fac6882` (382 passed).
+przeszedł w GitHub Actions dla commitu `3f000c45` (382 passed).
 """
 import numpy as np
 import pytest
