@@ -100,6 +100,7 @@ class Preregistration:
         payload = json.dumps(
             {"hypothesis": asdict(hypothesis), "params": params},
             sort_keys=True,
+            allow_nan=False,
         ).encode("utf-8")
         fingerprint = hashlib.sha256(payload).hexdigest()
         return Preregistration(
@@ -151,6 +152,8 @@ def sieve_of_eratosthenes(n: int) -> np.ndarray:
     prawdziwymi wartościami tylko do ~15-17 miejsca, dokładnie tam,
     gdzie kończy się precyzja float — tu tego ryzyka nie ma, bo liczby
     całkowite nie mają błędu zaokrąglenia)."""
+    if isinstance(n, bool) or not isinstance(n, (int, np.integer)):
+        raise ValueError("n musi byc liczba calkowita")
     if n < 2:
         return np.array([], dtype=np.int64)
     is_prime = np.ones(n + 1, dtype=bool)
@@ -166,6 +169,12 @@ def random_background(
 ) -> np.ndarray:
     """Losowe całkowite tło o zadanym zakresie — podstawowy model null
     (krok 5, kontrola negatywna A/B)."""
+    if isinstance(n, bool) or not isinstance(n, (int, np.integer)) or n < 1:
+        raise ValueError("n musi byc dodatnia liczba calkowita")
+    if isinstance(low, bool) or not isinstance(low, (int, np.integer)):
+        raise ValueError("low musi byc liczba calkowita")
+    if isinstance(high, bool) or not isinstance(high, (int, np.integer)) or high <= low:
+        raise ValueError("high musi byc liczba calkowita wieksza od low")
     rng = np.random.default_rng(seed)
     return rng.integers(low, high, size=n)
 
@@ -178,6 +187,12 @@ def ar1_noise(
     w ogóle wyzwolić testowaną metrykę/detektor, co robi z porównania
     biały-vs-biały zdegenerowaną (0 vs 0) "kontrolę negatywną", która
     niczego realnie nie sprawdza."""
+    if isinstance(n, bool) or not isinstance(n, (int, np.integer)) or n < 1:
+        raise ValueError("n musi byc dodatnia liczba calkowita")
+    if not np.isfinite(phi) or abs(phi) >= 1.0:
+        raise ValueError("phi musi byc skonczone i spelnic |phi| < 1 dla stacjonarnego AR(1)")
+    if not np.isfinite(sigma) or sigma < 0.0:
+        raise ValueError("sigma musi byc skonczone i >= 0")
     rng = np.random.default_rng(seed)
     x = np.zeros(n)
     eps = rng.normal(0.0, sigma, size=n)
@@ -381,8 +396,12 @@ def mann_whitney_test(
     """
     tv = np.asarray(test_values, dtype=float)
     bv = np.asarray(background_values, dtype=float)
-    if tv.size == 0 or bv.size == 0:
-        raise ValueError("test_values i background_values nie mogą być puste")
+    if tv.ndim != 1 or bv.ndim != 1 or tv.size == 0 or bv.size == 0:
+        raise ValueError("test_values i background_values musza byc niepustymi wektorami 1D")
+    if not np.all(np.isfinite(tv)) or not np.all(np.isfinite(bv)):
+        raise ValueError("test_values i background_values musza byc skonczone")
+    if alternative not in ("two-sided", "less", "greater"):
+        raise ValueError("alternative musi byc 'two-sided', 'less' albo 'greater'")
 
     if backend not in ("auto", "scipy", "numpy"):
         raise ValueError(f"backend musi być 'auto'/'scipy'/'numpy', dostano {backend!r}")
