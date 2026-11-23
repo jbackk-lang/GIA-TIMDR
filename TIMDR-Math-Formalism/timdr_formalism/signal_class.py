@@ -68,6 +68,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
+import numpy as np
+
 from timdr_formalism.theta_bifurcation import (
     compute_beta,
     BETA_ANTICIPATION_FRACTION_DEFAULT,
@@ -91,6 +93,8 @@ def classify_by_beta(beta: float) -> str:
     """Jedyny, autorytatywny dyskryminator granic klas - patrz naglowek
     modulu dla uzasadnienia, dlaczego to jest beta, nie Q vs Q_crit ani
     S_up% osobno."""
+    if not np.isfinite(beta) or not 0.0 <= beta <= 1.0:
+        raise ValueError("beta musi byc skonczone i nalezec do [0,1]")
     if beta >= 1.0:
         return "I"
     if beta >= BETA_CLASS_III_THRESHOLD:
@@ -118,8 +122,14 @@ def classify_signal_point(
     signal_class = classify_by_beta(beta)
     S_up_pct = (1.0 - beta) * 100.0
 
-    if S_down is not None and S_up is not None:
-        N = S_down * S_up
+    if (S_down is None) != (S_up is None):
+        raise ValueError("S_down i S_up musza byc podane razem albo oba pominiete")
+    if S_down is not None:
+        if not np.all(np.isfinite([S_down, S_up])):
+            raise ValueError("S_down i S_up musza byc skonczone")
+        N = float(S_down * S_up)
+        if not np.isfinite(N):
+            raise ValueError("N=S_down*S_up przekracza zakres reprezentacji float")
     else:
         N = 0.0
 
@@ -144,14 +154,29 @@ def classify_signal_trace(t, Q, Q_crit, cutoff, S_down_trace, S_up_trace,
     S_up_trace sa NaN w surowym sladzie (operator nie zostal wywolany)
     - tu jawnie podstawiane N=0.0 (konwencja: brak ingerencji = brak
     nakladania), zamiast NaN wyciekajacego do wyniku."""
+    t = np.asarray(t, dtype=float)
+    Q = np.asarray(Q, dtype=float)
+    cutoff = np.asarray(cutoff, dtype=bool)
+    S_down_trace = np.asarray(S_down_trace, dtype=float)
+    S_up_trace = np.asarray(S_up_trace, dtype=float)
+    arrays = (Q, cutoff, S_down_trace, S_up_trace)
+    if t.ndim != 1 or t.size == 0 or any(a.ndim != 1 or a.size != t.size for a in arrays):
+        raise ValueError("t, Q, cutoff, S_down_trace i S_up_trace musza byc wektorami 1D tej samej niezerowej dlugosci")
+    if not np.all(np.isfinite(t)) or not np.all(np.isfinite(Q)):
+        raise ValueError("t i Q musza zawierac wylacznie skonczone wartosci")
+    if np.any(np.diff(t) <= 0):
+        raise ValueError("t musi byc scisle rosnacym nosnikiem czasu")
+    if np.any(np.isinf(S_down_trace)) or np.any(np.isinf(S_up_trace)):
+        raise ValueError("slady kanalow nie moga zawierac nieskonczonosci")
+    if np.any(cutoff & (~np.isfinite(S_down_trace) | ~np.isfinite(S_up_trace))):
+        raise ValueError("aktywne kroki cutoff musza miec skonczone S_down i S_up")
+
     results = []
-    for i in range(len(t)):
+    for i in range(t.size):
         if cutoff[i]:
-            S_down_i = float(S_down_trace[i])
-            S_up_i = float(S_up_trace[i])
             result = classify_signal_point(
                 Q[i], Q_crit, anticipation_fraction=anticipation_fraction,
-                S_down=S_down_i, S_up=S_up_i,
+                S_down=float(S_down_trace[i]), S_up=float(S_up_trace[i]),
             )
         else:
             result = classify_signal_point(
