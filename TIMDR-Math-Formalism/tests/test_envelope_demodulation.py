@@ -98,7 +98,9 @@ def test_select_resonance_band_picks_band_containing_impulsive_content():
     for k in range(0, n, 500):
         envelope_mod[k : k + 20] = 5.0
     impulsive = carrier * (1 + envelope_mod) + rng.normal(0, 0.3, n)
-    candidates = [(500, 1000), (1000, 1500), (1500, 2000), (2000, 2500), (2500, 3000)]
+    # fs=5000 Hz daje Nyquista 2500 Hz; kandydaci nie moga
+    # zawierac pasma powyzej tej granicy.
+    candidates = [(500, 1000), (1000, 1500), (1500, 2000), (2000, 2500)]
     band, kurt = select_resonance_band(impulsive, fs, candidates)
     assert band == (2000, 2500)
 
