@@ -21,7 +21,7 @@ Rdzeń formalizmu TIMDR: cztery sygnały, protokół testowania (anty-numerologi
 
 ## 2. Cztery sygnały TIMDR (M/S)
 
-- **anomalia** — wartość poza normą (np. > mean+2σ).
+- **anomalia** — `|x-mean(reference)| > 2σ(reference)`. Preferuj niezależne okno referencyjne. Tryb historyczny in-sample (brak referencji) liczy średnią i odchylenie z ocenianej serii; przy populacyjnym std i ścisłym progu 2σ nie może oznaczyć żadnego punktu dla m≤5, bo `max|z_i|≤sqrt(m-1)`. Dla krótkich okien przekaż osobne `reference_series`.
 - **defekt** — skok między kolejnymi próbkami: \(|x_{i+1}-x_i| > c\,(P_{90}(x)-P_{10}(x))\). Gdy rozstęp percentylowy wynosi zero, próg też wynosi zero; seria idealnie stała nadal nie daje flag (bo nierówność jest ścisła), ale rzadki niezerowy skok zostaje wykryty.
 - **rezonans M** — ≥3 anomalii w tym samym czasie (koincydencja, NIE fizyczny oscylator).
 - **skręt sygnałowy** — odwrócenie znaku sąsiednich nachyleń i zmiana ich wartości większa niż próg. W implementacji `skret_flags` są to różnice pierwszego rzędu po indeksie próbki; nie jest to regresja ważona rzeczywistymi odstępami czasu. Dla nieregularnego próbkowania potrzebny jest jawny wariant uwzględniający znaczniki czasu.
