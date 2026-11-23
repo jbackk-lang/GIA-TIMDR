@@ -434,8 +434,11 @@ def make_sphere_mesh(n_lat: int = 20, n_lon: int = 20, radius: float = 1.0) -> M
             b = j * n_lon + (i + 1) % n_lon
             c = (j + 1) * n_lon + i
             d = (j + 1) * n_lon + (i + 1) % n_lon
-            faces.append([a, b, d])
-            faces.append([a, d, c])
+            # Kolejność odwrócona względem parametryzacji (lat, lon):
+            # normalne są skierowane NA ZEWNĄTRZ, zgodnie z konwencją
+            # S_p = -D_v n i oczekiwanymi ujemnymi krzywiznami sfery.
+            faces.append([a, d, b])
+            faces.append([a, c, d])
     return Mesh(verts, np.array(faces))
 
 
