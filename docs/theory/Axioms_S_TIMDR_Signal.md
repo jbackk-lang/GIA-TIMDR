@@ -183,11 +183,14 @@ głównego. Jest to reguła protokołu, a nie zakaz wymuszany przez API.
 \text{screen\_pass} = \mathbb{1}[p_{\text{pos}} < \alpha] \land \mathbb{1}[p_{\text{neg}} \geq \alpha]
 \]
 
-Interpretacja: `p_pos < alpha` oznacza wykrycie różnicy po wstrzyknięciu
-efektu. `p_neg >= alpha` oznacza jedynie brak wykrytej istotnej różnicy
-między próbkami tła. Nie jest dowodem równoważności rozkładów ani
-gwarancją określonego odsetka fałszywych alarmów. Do takiego wniosku
-potrzebny jest osobny test równoważności z wcześniej ustalonym
+Interpretacja: `p_pos < alpha` oznacza wykrycie różnicy rang po
+wstrzyknięciu efektu. `p_neg >= alpha` oznacza jedynie brak wykrytej
+istotnej różnicy rang między próbkami tła. Użyty test Manna-Whitneya
+nie jest omnibusowym testem równości dowolnych rozkładów: jego
+parametrem jest `theta = P(X>Y) + 0.5 P(X=Y)`, a hipoteza zerowa
+dotyczy `theta = 0.5`. Nie jest to dowód równoważności rozkładów ani
+gwarancja określonego odsetka fałszywych alarmów. Do wniosku o
+równoważności potrzebny jest osobny test z wcześniej ustalonym
 marginesem i oceną mocy. Bezpośrednie `mann_whitney_test()` pozostaje
 wywoływalne niezależnie od `run_controls()`.
 
