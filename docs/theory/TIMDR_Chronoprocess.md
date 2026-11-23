@@ -105,13 +105,16 @@ to jest pierwsza.
 
 ## 5. Most Fouriera M/S↔K — jedyny wyjątek od nieredukowalności
 
-Dualizm falowo-cząsteczkowy fotonu ma dokładne źródło matematyczne:
-zasada nieoznaczoności Heisenberga ma tę samą strukturę co klasyczna
-zasada nieoznaczoności Gabora dla sygnałów. `x(t)` z M/S ("cząstka" —
-dokładna lokalizacja w czasie) i modalność `(f,φ,A)` z K ("fala" —
-dokładna lokalizacja w częstotliwości) są połączone KONKRETNĄ, znaną
-transformatą (FFT), nie utożsamione — to jedyny, jawnie oznaczony
-wyjątek od zasady "zero mostów" z §1.
+Most Fouriera łączy reprezentację sygnału w dziedzinie czasu
+`x(t)` z reprezentacją częstotliwościową przez modalności `(f,φ,A)`.
+Dla skończonego, równomiernie próbkowanego sygnału rzeczywistego FFT
+jest dokładną transformatą dyskretną; nie utożsamia obiektów M/S i K
+ani nie jest modelem fizycznej dualności korpuskularno-falowej fotonu.
+Nierówność czas–częstotliwość Gabora ma matematyczną analogię do
+nierówności położenie–pęd Heisenberga, ponieważ obie dotyczą par
+zmiennych sprzężonych transformacją Fouriera. To jest uzasadnienie
+matematyczne zakresu mostu, nie twierdzenie o fizyce fotonu. Jest to
+jedyny, jawnie oznaczony wyjątek od zasady "zero mostów" z §1.
 
 Wyprowadzono ręcznie w tej sesji (nie przepisane z pamięci): dla
 impulsu gaussowskiego `Δt·Δf=1/(4π)` dokładnie, niezależnie od
