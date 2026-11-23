@@ -132,16 +132,23 @@ formalny dopisany w `Axioms_K_TIMDR.md` i `Axioms_S_TIMDR_Signal.md`.
 
 ## 6. Status uczciwie
 
-| Element | Repo | Wykonanie |
-|---|---|---|
-| M/S: tempo/drift | `TIMDR-Math-Formalism` | ✅ **62/63 pytest, potwierdzone przez użytkownika** (1 błąd niezwiązany: lokalny `PermissionError` katalogu tymczasowego Windows, nie kod tego projektu) |
-| G: kongruencja Γ(t,s) | `TIMDR-Geometry-Formalism` | ✅ **17/17 pytest, potwierdzone przez użytkownika** (w tym istniejące wcześniej testy Weingartena) |
-| K: mapa synchronizacji f | `TIMDR-Modal-Formalism` | ✅ **17/17 pytest, potwierdzone przez użytkownika** (1 test najpierw padł z powodu błędu float w samym teście, nie w kodzie — naprawiony, patrz `tests/test_phase_sync.py`) |
-| Ξ: orkiestracja | `TIMDR-Time-Formalism/chronoprocess.py` | ✅ **8/8 pytest, potwierdzone przez użytkownika** (import między trzema repo-siostrami + wszystkie trzy delegacje) |
-| Most Fouriera | `TIMDR-Time-Formalism/fourier_bridge.py` | ✅ **10/10 pytest, potwierdzone przez użytkownika** (część jednotonowa dokładna algebrą + część gaussowska w szerokich tolerancjach ±30%) |
+**Aktualna weryfikacja CI:** workflow `Repository regression checks` dla commitu
+`6adeb712` zakończył się statusem `success`. Wszystkie trzy zadania workflow
+przeszły, w tym komplet czterech zestawów formalizmów. To jest aktualny
+wynik wykonania automatycznych testów na GitHub Actions; historyczne wyniki
+lokalne poniżej nie są używane jako zamiennik tego przebiegu.
 
-Wszystkie cztery repo-siostry mają teraz potwierdzone przez użytkownika
-przejście testów — łącznie 62/63 + 17/17 + 17/17 + 18/18.
+| Element | Repo | Aktualny dowód wykonania |
+|---|---|---|
+| M/S: sygnał i protokół | `TIMDR-Math-Formalism` | ✅ Zestaw `TIMDR-Math-Formalism/tests` przeszedł w CI (`Test Math formalism`). |
+| G: geometria | `TIMDR-Geometry-Formalism` | ✅ Zestaw `TIMDR-Geometry-Formalism/tests` przeszedł w CI (`Test Geometry formalism`). |
+| K: modalność | `TIMDR-Modal-Formalism` | ✅ Zestaw `TIMDR-Modal-Formalism/tests` przeszedł w CI (`Test Modal formalism`). |
+| Czas i most Fouriera | `TIMDR-Time-Formalism` | ✅ Zestaw `TIMDR-Time-Formalism/tests`, w tym testy Chronoprocesu i 12 testów mostu Fouriera, przeszedł w CI (`Test Time formalism and Fourier bridge`). |
+
+**Granica wniosku:** zielony CI potwierdza, że wskazane testy wykonały się
+pomyślnie na środowisku workflow. Nie dowodzi automatycznie prawdziwości
+wszystkich aksjomatów, poprawności wszystkich możliwych danych wejściowych
+ani empirycznej skuteczności formalizmów poza zakresem testów.
 
 ## Powiązane
 
