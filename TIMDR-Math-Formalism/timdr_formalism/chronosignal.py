@@ -29,8 +29,9 @@ paragraf 1 -- nie nowy wybor progu.
 Walidacja wejścia jest częścią kontraktu modułu: znaczniki i serie muszą
 być jednowymiarowe i skończone, a progi oraz nominalny odstęp muszą mieć
 dopuszczalne wartości. Aktualny zestaw formalizmów M/S przeszedł w
-GitHub Actions dla commitu `582d7380`; testy automatyczne potwierdzają
-zachowanie kodu w sprawdzonym zakresie, nie empiryczną skuteczność
+GitHub Actions dla commitu `9fac6882` (382 testy Math zaliczone);
+testy automatyczne potwierdzają zachowanie kodu w sprawdzonym zakresie,
+nie empiryczną skuteczność
 detektorów na dowolnej domenie danych. Przykład
 `examples/chronosignal_demo.py` pozostaje osobnym skryptem demonstracyjnym
 i nie jest objęty tym wynikiem CI.
