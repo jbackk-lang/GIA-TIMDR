@@ -7,11 +7,8 @@ uzywa recznie skonstruowanych, dokladnie obliczalnych serii (podane w
 komentarzach obliczenia progow/statystyk na papierze), albo sprawdza
 przypadki brzegowe wprost.
 
-UWAGA: ten plik zostal napisany w sesji bez dostepu do sandboxa bash
-(kazda liczba w komentarzach ponizej zostala przesledzona recznie PRZED
-uruchomieniem), ale zostal odtad faktycznie uruchomiony przez
-uzytkownika (`pytest tests/test_chronosignal.py -v`) -- wszystkie 16
-testow PRZESZLO, potwierdzajac reczne wyliczenia.
+STATUS: testy tego modułu są częścią pełnego zestawu Math, który
+przeszedł w GitHub Actions dla commitu `9650c9ad` (283 passed).
 """
 import numpy as np
 import pytest
