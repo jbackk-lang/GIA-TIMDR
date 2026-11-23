@@ -548,3 +548,21 @@ def test_testresult_verdict_rejects_invalid_alpha(alpha):
     )
     with pytest.raises(ValueError):
         result.verdict(alpha=alpha)
+
+
+def test_preregistration_snapshots_mutable_parameter_dict():
+    params = {"nested": {"threshold": 0.25}}
+    prereg = Preregistration.create(_make_hypothesis(), params)
+    params["nested"]["threshold"] = 0.75
+    assert prereg.params["nested"]["threshold"] == 0.25
+
+
+def test_preregistration_load_rejects_modified_payload(tmp_path):
+    prereg = Preregistration.create(_make_hypothesis(), {"n": 100, "seed": 7})
+    path = tmp_path / "tampered_prereg.json"
+    prereg.save(path)
+    data = __import__("json").loads(path.read_text(encoding="utf-8"))
+    data["params"]["n"] = 101
+    path.write_text(__import__("json").dumps(data), encoding="utf-8")
+    with pytest.raises(ValueError, match="fingerprint"):
+        Preregistration.load(path)
