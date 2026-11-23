@@ -2,7 +2,7 @@
 
 ## Zakres
 
-Kontrola została wykonana na drzewie gałęzi `main` repozytorium GIA-TIMDR z 2026-11-23. Objęła wszystkie pliki Markdown w `docs/archiwum/` (6 plików) oraz wszystkie obiekty typu blob widoczne w rekurencyjnym drzewie repozytorium (1 120 plików).
+Kontrola została wykonana na drzewie gałęzi `main` repozytorium GIA-TIMDR z 2026-11-23, przed dodaniem tego raportu do katalogu. Objęła sześć istniejących wówczas plików Markdown w `docs/archiwum/` (indeks, pięć plików z wejściowego CSV oraz raport inwentaryzacji) oraz wszystkie obiekty typu blob widoczne w rekurencyjnym drzewie repozytorium (1 120 plików). Po zapisaniu niniejszego raportu katalog zawiera siedem plików. Liczby 6 i 94 opisują więc zakres historycznego przebiegu kontroli, a nie liczbę dokumentów po utworzeniu raportu.
 
 ## Odnośniki w archiwum
 
