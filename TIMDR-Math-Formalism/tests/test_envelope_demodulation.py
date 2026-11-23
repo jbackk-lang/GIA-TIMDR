@@ -135,3 +135,63 @@ def test_envelope_spectrum_peak_nan_when_no_bins_in_window():
     signal = np.random.default_rng(0).normal(0, 1, n)
     peaks = envelope_spectrum_peak(signal, fs, (10, 20), {"way_too_high": 1e6}, window_hz=0.001)
     assert np.isnan(peaks["way_too_high"])
+
+
+# ---------------------------------------------------------------------
+# Walidacja dziedziny: brak cichej akceptacji NaN/Inf i zlych parametrow
+# ---------------------------------------------------------------------
+
+@pytest.mark.parametrize("bad_signal", [
+    np.array([1.0, np.nan, 2.0]),
+    np.array([1.0, np.inf, 2.0]),
+    np.array([[1.0, 2.0], [3.0, 4.0]]),
+    np.array([], dtype=float),
+])
+def test_signal_operators_reject_nonfinite_or_nonvector_input(bad_signal):
+    with pytest.raises(ValueError):
+        hilbert_envelope(bad_signal)
+    with pytest.raises(ValueError):
+        kurtosis_excess(bad_signal)
+    with pytest.raises(ValueError):
+        bandpass_fft(bad_signal, 100.0, 1.0, 20.0)
+
+
+@pytest.mark.parametrize("fs,lo,hi", [
+    (0.0, 1.0, 20.0),
+    (-100.0, 1.0, 20.0),
+    (100.0, -1.0, 20.0),
+    (100.0, 20.0, 20.0),
+    (100.0, 20.0, 51.0),
+    (np.nan, 1.0, 20.0),
+])
+def test_bandpass_fft_rejects_invalid_sampling_or_band(fs, lo, hi):
+    with pytest.raises(ValueError):
+        bandpass_fft(np.ones(32), fs, lo, hi)
+
+
+@pytest.mark.parametrize("factor", [0, -1, 1.5, True])
+def test_decimate_simple_rejects_invalid_factor(factor):
+    with pytest.raises(ValueError):
+        decimate_simple(np.arange(20.0), factor)
+
+
+def test_decimate_simple_rejects_factor_larger_than_signal():
+    with pytest.raises(ValueError):
+        decimate_simple(np.arange(4.0), 5)
+
+
+def test_select_resonance_band_rejects_empty_candidate_list():
+    with pytest.raises(ValueError):
+        select_resonance_band(np.arange(32.0), 100.0, [])
+
+
+@pytest.mark.parametrize("window_hz", [-1.0, np.nan, np.inf])
+def test_envelope_spectrum_peak_rejects_invalid_search_window(window_hz):
+    with pytest.raises(ValueError):
+        envelope_spectrum_peak(np.ones(128), 100.0, (5.0, 20.0), {"x": 10.0}, window_hz)
+
+
+@pytest.mark.parametrize("target", [-1.0, np.nan, np.inf])
+def test_envelope_spectrum_peak_rejects_invalid_target_frequency(target):
+    with pytest.raises(ValueError):
+        envelope_spectrum_peak(np.ones(128), 100.0, (5.0, 20.0), {"x": target})
