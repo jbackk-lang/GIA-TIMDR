@@ -15,7 +15,7 @@ trzy oddzielne metody dostępowe, zero prób "spięcia" ich w jeden
 obiekt.
 
 **Dlaczego zero identyfikacji jest warunkiem, nie ograniczeniem:**
-`GIA-TIMDR/docs/theory/TIMDR_Branch_Specification.md` ustala, że M/S,
+`../docs/theory/TIMDR_Branch_Specification.md` ustala, że M/S,
 G i K są formalnie odrębnymi, nieredukowalnymi obiektami. Chronoproces
 NIE twierdzi, że "czas" jest tym samym obiektem matematycznym w
 trzech gałęziach — to byłby dokładnie ten błąd, przed którym
@@ -27,7 +27,7 @@ pochodzi z `T`), K w ogóle nie definiuje modalności z `T` — `T` służy
 tam tylko jako punkty, w których *oceniamy* fazę/interferencję już
 zadanej modalności. Pełny opis całej konstrukcji, z genezą i statusem
 wykonania wszystkich czterech repo naraz:
-`GIA-TIMDR/docs/theory/TIMDR_Chronoprocess.md`.
+`../docs/theory/TIMDR_Chronoprocess.md`.
 
 ## 🧩 Zależności między-repo
 
