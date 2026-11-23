@@ -1,5 +1,7 @@
 # Audyt spójności dokumentacji poza archiwum — 23.11.2026
 
+**Status: dokument archiwalny.** Opisuje zakres kontroli i ograniczenia z 23.11.2026. Wymienione niżej braki i proponowane kontrole są zapisem tamtego audytu, a nie bieżącym backlogiem. Nie należy na ich podstawie zakładać, że projekt jest obecnie zablokowany.
+
 ## Zakres i metoda
 
 Audyt wykonano na drzewie gałęzi `main` z 23 listopada 2026 r. Drzewo zawiera 1 121 plików binarnych i tekstowych oraz 523 pliki z rozszerzeniami Markdown/RST/TXT. Liczby opisują inwentaryzację drzewa, nie liczbę dokumentów przeczytanych w całości.
